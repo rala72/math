@@ -8,8 +8,10 @@ import java.util.Objects;
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Vector implements Comparable<Vector> {
     // region attributes
+
     private double x;
     private double y;
+
     // endregion
 
     // region constructors
@@ -47,6 +49,7 @@ public class Vector implements Comparable<Vector> {
         setX(x);
         setY(y);
     }
+
     // endregion
 
     // region getter and setter
@@ -86,6 +89,7 @@ public class Vector implements Comparable<Vector> {
         setX(xy);
         setY(xy);
     }
+
     // endregion
 
     // region length, add, subtract and multiply
@@ -174,6 +178,7 @@ public class Vector implements Comparable<Vector> {
     public Vector multiply(double i) {
         return new Vector(getX() * i, getY() * i);
     }
+
     // endregion
 
     // region inverse
@@ -204,6 +209,7 @@ public class Vector implements Comparable<Vector> {
     public Vector inverseY() {
         return new Vector(getX(), -getY());
     }
+
     // endregion
 
     // region rotate, normalized and scalarProduct
@@ -232,6 +238,7 @@ public class Vector implements Comparable<Vector> {
     public double scalarProduct(Vector vector) {
         return getX() * vector.getX() + getY() * vector.getY();
     }
+
     // endregion
 
     // region round
@@ -281,6 +288,7 @@ public class Vector implements Comparable<Vector> {
     public Vector truncate() {
         return new Vector((long) getX(), (long) getY());
     }
+
     // endregion
 
     // region isZeroVector and copy
@@ -298,6 +306,7 @@ public class Vector implements Comparable<Vector> {
     public Vector copy() {
         return new Vector(getX(), getY());
     }
+
     // endregion
 
     // region override
@@ -326,5 +335,6 @@ public class Vector implements Comparable<Vector> {
         if (diffX != 0) return diffX;
         return (int) Math.ceil(getY() - v.getY());
     }
+
     // endregion
 }

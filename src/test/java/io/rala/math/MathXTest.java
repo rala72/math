@@ -32,6 +32,8 @@ class MathXTest {
         );
     }
 
+    // region argument streams
+
     private static Stream<Arguments> getGcdArguments() {
         return ArgumentStreamFactory.getMathXGcdArguments();
     }
@@ -43,4 +45,6 @@ class MathXTest {
     private static Stream<Arguments> getLcmArguments() {
         return ArgumentStreamFactory.getMathXLcmArguments();
     }
+
+    // endregion
 }

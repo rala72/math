@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class VectorTest {
+    // region constructors, getter and setter
+
     @Test
     void testConstructors() {
         assertVector(new Vector());
@@ -23,6 +25,10 @@ class VectorTest {
         vector.setXY(3);
         assertVector(vector, 3);
     }
+
+    // endregion
+
+    // region length, add, subtract and multiply
 
     @Test
     void testLength() {
@@ -55,12 +61,20 @@ class VectorTest {
         Assertions.assertEquals(new Vector(-2, -1), new Vector(2, 1).multiply(-1));
     }
 
+    // endregion
+
+    // region inverse
+
     @Test
     void testInverse() {
         Assertions.assertEquals(new Vector(-1, 2), new Vector(1, 2).inverseX());
         Assertions.assertEquals(new Vector(1, -2), new Vector(1, 2).inverseY());
         Assertions.assertEquals(new Vector(-1, -2), new Vector(1, 2).inverse());
     }
+
+    // endregion
+
+    // region region rotate, normalized and scalarProduct
 
     @Test
     void testRotate() {
@@ -92,6 +106,10 @@ class VectorTest {
         Assertions.assertEquals(2, new Vector(1).scalarProduct(new Vector(1)));
         Assertions.assertEquals(6, new Vector(2).scalarProduct(new Vector(1, 2)));
     }
+
+    // endregion
+
+    // region round
 
     @Test
     void testAbsolute() {
@@ -137,6 +155,10 @@ class VectorTest {
         Assertions.assertEquals(new Vector(1, -2), new Vector(1.7, -2.7).truncate());
     }
 
+    // endregion
+
+    // region isZeroVector and copy
+
     @Test
     void testIsZeroVector() {
         Assertions.assertTrue(new Vector().isZeroVector());
@@ -148,6 +170,10 @@ class VectorTest {
         Vector vector = new Vector(2, 3);
         Assertions.assertEquals(vector, vector.copy());
     }
+
+    // endregion
+
+    // region override
 
     @Test
     void testToString() {
@@ -192,6 +218,11 @@ class VectorTest {
         );
     }
 
+    // endregion
+
+
+    // region assert
+
     private static void assertVector(Vector vector) {
         assertVector(vector, 0);
     }
@@ -204,4 +235,6 @@ class VectorTest {
         Assertions.assertEquals(x, vector.getX());
         Assertions.assertEquals(y, vector.getY());
     }
+
+    // endregion
 }

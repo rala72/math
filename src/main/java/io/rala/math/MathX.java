@@ -72,6 +72,7 @@ public class MathX {
     }
 
     // endregion
+
     // region factors
 
     /**
@@ -101,6 +102,7 @@ public class MathX {
     }
 
     // endregion
+
     // region lcm
 
     /**
