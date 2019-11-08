@@ -11,12 +11,32 @@ import java.util.stream.Stream;
 
 class MathXTest {
     @ParameterizedTest
+    @MethodSource("getGcdArguments")
+    void testGcd(int a, int b, int expected) {
+        Assertions.assertEquals(expected, MathX.gcd(a, b));
+    }
+
+    @ParameterizedTest
     @MethodSource("getFactorsArguments")
     void testFactors(int number, List<Integer> expected) {
         Assertions.assertEquals(expected, MathX.factors(number));
     }
 
+    @ParameterizedTest
+    @MethodSource("getLcmArguments")
+    void testLcm(int a, int b, int expected) {
+        Assertions.assertEquals(expected, MathX.lcm(a, b));
+    }
+
+    private static Stream<Arguments> getGcdArguments() {
+        return ArgumentStreamFactory.getMathXGcdArguments();
+    }
+
     private static Stream<Arguments> getFactorsArguments() {
         return ArgumentStreamFactory.getMathXFactorsArguments();
+    }
+
+    private static Stream<Arguments> getLcmArguments() {
+        return ArgumentStreamFactory.getMathXLcmArguments();
     }
 }

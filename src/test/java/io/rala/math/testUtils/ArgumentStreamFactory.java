@@ -11,6 +11,15 @@ public class ArgumentStreamFactory {
     private ArgumentStreamFactory() {
     }
 
+    public static Stream<Arguments> getMathXGcdArguments() {
+        return Stream.of(
+            Arguments.of(12, 18, 6),
+            Arguments.of(24, 32, 8),
+            Arguments.of(54, 24, 6),
+            Arguments.of(105, 25, 5)
+        );
+    }
+
     public static Stream<Arguments> getMathXFactorsArguments() {
         return Stream.of(
             Arguments.of(0, Collections.emptyList()),
@@ -34,6 +43,15 @@ public class ArgumentStreamFactory {
             Arguments.of(200, List.of(2, 2, 2, 5, 5)),
             Arguments.of(1000, List.of(2, 2, 2, 5, 5, 5)),
             Arguments.of(10000, List.of(2, 2, 2, 2, 5, 5, 5, 5))
+        );
+    }
+
+    public static Stream<Arguments> getMathXLcmArguments() {
+        return Stream.of(
+            Arguments.of(3, 8, 24),
+            Arguments.of(4, 6, 12),
+            Arguments.of(5, 25, 25),
+            Arguments.of(12, 18, 36)
         );
     }
 }
