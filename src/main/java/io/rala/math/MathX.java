@@ -15,18 +15,18 @@ public class MathX {
     }
 
     /**
-     * @param number number to get factors of
+     * @param a number to get factors of
      * @return list of factors
      */
-    public static List<Integer> factors(long number) {
+    public static List<Integer> factors(long a) {
         // https://stackoverflow.com/a/6233030/2715720
         List<Integer> factors = new ArrayList<>();
         // factors.add(1);
-        for (int a = 2; 1 < number; )
-            if (number % a == 0) {
-                factors.add(a);
-                number /= a;
-            } else a++;
+        for (int x = 2; 1 < a; )
+            if (a % x == 0) {
+                factors.add(x);
+                a /= x;
+            } else x++;
         return Collections.unmodifiableList(factors);
     }
 }
