@@ -16,6 +16,8 @@ public class MathX {
     private MathX() {
     }
 
+    // region gcd
+
     /**
      * greatest common divisor using Euclid's algorithm
      *
@@ -69,6 +71,9 @@ public class MathX {
         return gcd(b, a % b);
     }
 
+    // endregion
+    // region factors
+
     /**
      * @param a number to get factors of
      * @return list of factors
@@ -94,6 +99,9 @@ public class MathX {
             } else x++;
         return Collections.unmodifiableList(factors);
     }
+
+    // endregion
+    // region lcm
 
     /**
      * least common multiple using {@link #gcd(long, long)}
@@ -143,4 +151,6 @@ public class MathX {
     public static long lcm(long a, long b) {
         return Math.abs(a * b) / gcd(a, b);
     }
+
+    // endregion
 }
