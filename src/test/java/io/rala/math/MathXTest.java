@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 class MathXTest {
     @ParameterizedTest
     @MethodSource("getFactorsArguments")
-    void testFactorsOf(int number, List<Integer> expected) {
+    void testFactors(int number, List<Integer> expected) {
         Assertions.assertEquals(expected, MathX.factors(number));
     }
 
