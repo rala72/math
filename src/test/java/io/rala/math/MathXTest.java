@@ -12,8 +12,10 @@ import java.util.stream.Stream;
 class MathXTest {
     @ParameterizedTest
     @MethodSource("getGcdArguments")
-    void testGcd(int a, int b, int expected) {
-        Assertions.assertEquals(expected, MathX.gcd(a, b));
+    void testGcd(int expected, int... a) {
+        Assertions.assertEquals(expected, a.length == 2 ?
+            MathX.gcd(a[0], a[1]) : MathX.gcd(a)
+        );
     }
 
     @ParameterizedTest
@@ -24,8 +26,10 @@ class MathXTest {
 
     @ParameterizedTest
     @MethodSource("getLcmArguments")
-    void testLcm(int a, int b, int expected) {
-        Assertions.assertEquals(expected, MathX.lcm(a, b));
+    void testLcm(int expected, int... a) {
+        Assertions.assertEquals(expected, a.length == 2 ?
+            MathX.lcm(a[0], a[1]) : MathX.lcm(a)
+        );
     }
 
     private static Stream<Arguments> getGcdArguments() {

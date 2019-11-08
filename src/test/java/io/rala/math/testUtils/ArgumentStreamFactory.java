@@ -4,6 +4,7 @@ import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 @SuppressWarnings("unused")
@@ -13,10 +14,15 @@ public class ArgumentStreamFactory {
 
     public static Stream<Arguments> getMathXGcdArguments() {
         return Stream.of(
-            Arguments.of(12, 18, 6),
-            Arguments.of(24, 32, 8),
-            Arguments.of(54, 24, 6),
-            Arguments.of(105, 25, 5)
+            Arguments.of(0, IntStream.of().toArray()),
+            Arguments.of(10, IntStream.of(10).toArray()),
+            Arguments.of(6, IntStream.of(12, 18).toArray()),
+            Arguments.of(8, IntStream.of(24, 32).toArray()),
+            Arguments.of(6, IntStream.of(54, 24).toArray()),
+            Arguments.of(5, IntStream.of(105, 25).toArray()),
+            Arguments.of(3, IntStream.of(123, 456, 789).toArray()),
+            Arguments.of(13, IntStream.of(13, 169, 2197).toArray()),
+            Arguments.of(2, IntStream.of(984, 1002, 382).toArray())
         );
     }
 
@@ -48,10 +54,15 @@ public class ArgumentStreamFactory {
 
     public static Stream<Arguments> getMathXLcmArguments() {
         return Stream.of(
-            Arguments.of(3, 8, 24),
-            Arguments.of(4, 6, 12),
-            Arguments.of(5, 25, 25),
-            Arguments.of(12, 18, 36)
+            Arguments.of(0, IntStream.of().toArray()),
+            Arguments.of(10, IntStream.of(10).toArray()),
+            Arguments.of(24, IntStream.of(3, 8).toArray()),
+            Arguments.of(12, IntStream.of(4, 6).toArray()),
+            Arguments.of(25, IntStream.of(5, 25).toArray()),
+            Arguments.of(36, IntStream.of(12, 18).toArray()),
+            Arguments.of(3630, IntStream.of(15, 22, 121).toArray()),
+            Arguments.of(7801080, IntStream.of(444, 753, 280).toArray()),
+            Arguments.of(672, IntStream.of(21, 32, 16, 4, 7).toArray())
         );
     }
 }

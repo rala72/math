@@ -1,6 +1,7 @@
 package io.rala.math;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,9 +19,37 @@ public class MathX {
     /**
      * greatest common divisor using Euclid's algorithm
      *
+     * @param a numbers of gcd
+     * @return greatest common divisor
+     * @see #gcd(int, int)
+     */
+    public static int gcd(int... a) {
+        return (int) gcd(Arrays.stream(a).mapToLong(value -> value).toArray());
+    }
+
+    /**
+     * greatest common divisor using Euclid's algorithm
+     *
+     * @param a numbers of gcd
+     * @return greatest common divisor
+     * @see #gcd(long, long)
+     */
+    public static long gcd(long... a) {
+        if (a.length == 0) return 0;
+        if (a.length == 1) return a[0];
+        long current = a[0];
+        for (int i = 1; i < a.length; i++)
+            current = gcd(current, a[i]);
+        return current;
+    }
+
+    /**
+     * greatest common divisor using Euclid's algorithm
+     *
      * @param a number1 of gcd
      * @param b number2 of gcd
      * @return greatest common divisor
+     * @see #gcd(int...)
      */
     public static int gcd(int a, int b) {
         return (int) gcd((long) a, b);
@@ -32,6 +61,7 @@ public class MathX {
      * @param a number1 of gcd
      * @param b number2 of gcd
      * @return greatest common divisor
+     * @see #gcd(long...)
      */
     public static long gcd(long a, long b) {
         if (a == 0) return b;
@@ -63,6 +93,33 @@ public class MathX {
                 a /= x;
             } else x++;
         return Collections.unmodifiableList(factors);
+    }
+
+    /**
+     * least common multiple using {@link #gcd(long, long)}
+     *
+     * @param a numbers of lcm
+     * @return least common multiple
+     * @see #lcm(int, int)
+     */
+    public static int lcm(int... a) {
+        return (int) lcm(Arrays.stream(a).mapToLong(value -> value).toArray());
+    }
+
+    /**
+     * least common multiple using {@link #gcd(long, long)}
+     *
+     * @param a numbers of lcm
+     * @return least common multiple
+     * @see #lcm(long, long)
+     */
+    public static long lcm(long... a) {
+        if (a.length == 0) return 0;
+        if (a.length == 1) return a[0];
+        long current = a[0];
+        for (int i = 1; i < a.length; i++)
+            current = lcm(current, a[i]);
+        return current;
     }
 
     /**
