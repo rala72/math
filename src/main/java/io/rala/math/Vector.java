@@ -1,5 +1,7 @@
 package io.rala.math;
 
+import java.util.Objects;
+
 /**
  * class which holds a vector with x &amp; y
  */
@@ -311,6 +313,11 @@ public class Vector implements Comparable<Vector> {
         if (!(obj instanceof Vector)) return false;
         Vector vector = (Vector) obj;
         return getX() == vector.getX() && getY() == vector.getY();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getX(), getY());
     }
 
     @Override

@@ -169,6 +169,14 @@ class VectorTest {
     }
 
     @Test
+    void testHashCode() {
+        Assertions.assertEquals(
+            525249,
+            new Vector(2, 3).hashCode()
+        );
+    }
+
+    @Test
     void testCompareTo() {
         Vector vector = new Vector(2, 3);
         Assertions.assertEquals(
