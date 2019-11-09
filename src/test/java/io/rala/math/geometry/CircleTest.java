@@ -3,6 +3,7 @@ package io.rala.math.geometry;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings("SameParameterValue")
 class CircleTest {
     // region constructors, getter and setter
 
@@ -10,7 +11,7 @@ class CircleTest {
     void testConstructors() {
         assertCircle(new Circle());
         assertCircle(new Circle(new Point(1)), new Point(1));
-        assertCircle(new Circle(new Point(2), 2), new Point(2), 2);
+        assertCircle(new Circle(2), 2);
         assertCircle(new Circle(new Point(2), 3), new Point(2), 3);
     }
 
@@ -86,6 +87,10 @@ class CircleTest {
 
     private static void assertCircle(Circle circle, Point center) {
         assertCircle(circle, center, 1);
+    }
+
+    private static void assertCircle(Circle circle, double radius) {
+        assertCircle(circle, new Point(), radius);
     }
 
     private static void assertCircle(Circle circle, Point center, double radius) {

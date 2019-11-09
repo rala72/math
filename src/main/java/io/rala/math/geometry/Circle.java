@@ -33,6 +33,15 @@ public class Circle {
     }
 
     /**
+     * calls {@link #Circle(Point, double)} with {@link Point#Point()}
+     *
+     * @param radius radius of circle
+     */
+    public Circle(double radius) {
+        this(new Point(), radius);
+    }
+
+    /**
      * creates a new circle with given center and radius
      *
      * @param center center point of circle
