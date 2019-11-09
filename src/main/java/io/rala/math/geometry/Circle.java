@@ -75,6 +75,23 @@ public class Circle {
         this.radius = radius;
     }
 
+    /**
+     * @return {@link #getRadius()}*2
+     */
+    public double getDiameter() {
+        return getRadius() * 2;
+    }
+
+    /**
+     * calls {@link #setRadius(double)} with <code>diameter/2</code>
+     *
+     * @param diameter new diameter of circle
+     * @see #setRadius(double)
+     */
+    public void setDiameter(double diameter) {
+        setRadius(diameter / 2);
+    }
+
     // endregion
 
     // region copy

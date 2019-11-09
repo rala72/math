@@ -24,6 +24,16 @@ class CircleTest {
         assertCircle(circle, new Point(1), 2);
     }
 
+    @Test
+    void testDiameter() {
+        Circle circle = new Circle();
+        Assertions.assertEquals(2, circle.getDiameter());
+        circle.setRadius(2);
+        Assertions.assertEquals(4, circle.getDiameter());
+        circle.setDiameter(2);
+        Assertions.assertEquals(2, circle.getDiameter());
+    }
+
     // endregion
 
     // region copy
