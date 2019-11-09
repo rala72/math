@@ -1,6 +1,6 @@
 package io.rala.math;
 
-import io.rala.math.testUtils.ArgumentStreamFactory;
+import io.rala.math.testUtils.MathXArgumentsStreamFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -35,15 +35,15 @@ class MathXTest {
     // region argument streams
 
     private static Stream<Arguments> getGcdArguments() {
-        return ArgumentStreamFactory.getMathXGcdArguments();
+        return MathXArgumentsStreamFactory.gcd();
     }
 
     private static Stream<Arguments> getFactorsArguments() {
-        return ArgumentStreamFactory.getMathXFactorsArguments();
+        return MathXArgumentsStreamFactory.factors();
     }
 
     private static Stream<Arguments> getLcmArguments() {
-        return ArgumentStreamFactory.getMathXLcmArguments();
+        return MathXArgumentsStreamFactory.lcm();
     }
 
     // endregion

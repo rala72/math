@@ -8,11 +8,11 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 @SuppressWarnings("unused")
-public class ArgumentStreamFactory {
-    private ArgumentStreamFactory() {
+public class MathXArgumentsStreamFactory {
+    private MathXArgumentsStreamFactory() {
     }
 
-    public static Stream<Arguments> getMathXGcdArguments() {
+    public static Stream<Arguments> gcd() {
         return Stream.of(
             Arguments.of(0, IntStream.of().toArray()),
             Arguments.of(10, IntStream.of(10).toArray()),
@@ -26,7 +26,7 @@ public class ArgumentStreamFactory {
         );
     }
 
-    public static Stream<Arguments> getMathXFactorsArguments() {
+    public static Stream<Arguments> factors() {
         return Stream.of(
             Arguments.of(0, Collections.emptyList()),
             Arguments.of(1, Collections.emptyList()),
@@ -52,7 +52,7 @@ public class ArgumentStreamFactory {
         );
     }
 
-    public static Stream<Arguments> getMathXLcmArguments() {
+    public static Stream<Arguments> lcm() {
         return Stream.of(
             Arguments.of(0, IntStream.of().toArray()),
             Arguments.of(10, IntStream.of(10).toArray()),
