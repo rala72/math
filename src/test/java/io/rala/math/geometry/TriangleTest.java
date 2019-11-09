@@ -18,11 +18,11 @@ class TriangleTest {
     void testGetterAndSetter() {
         Triangle triangle = new Triangle(new Point(), new Point(), new Point());
         assertTriangle(triangle, new Point(), new Point(), new Point());
-        triangle.setP1(new Point(1));
+        triangle.setA(new Point(1));
         assertTriangle(triangle, new Point(1), new Point(), new Point());
-        triangle.setP2(new Point(2));
+        triangle.setB(new Point(2));
         assertTriangle(triangle, new Point(1), new Point(2), new Point());
-        triangle.setP3(new Point(3));
+        triangle.setC(new Point(3));
         assertTriangle(triangle, new Point(1), new Point(2), new Point(3));
     }
 
@@ -34,16 +34,16 @@ class TriangleTest {
     void testEdges() {
         Triangle triangle = new Triangle(new Point(), new Point(1), new Point(2));
         Assertions.assertEquals(
-            new LineSegment(new Point(), new Point(1)),
-            triangle.getLineSegmentOfP1P2()
+            new LineSegment(new Point(1), new Point(2)),
+            triangle.getLineSegmentA()
         );
         Assertions.assertEquals(
             new LineSegment(new Point(), new Point(2)),
-            triangle.getLineSegmentOfP1P3()
+            triangle.getLineSegmentB()
         );
         Assertions.assertEquals(
-            new LineSegment(new Point(1), new Point(2)),
-            triangle.getLineSegmentOfP2P3()
+            new LineSegment(new Point(), new Point(1)),
+            triangle.getLineSegmentC()
         );
     }
 
@@ -121,10 +121,10 @@ class TriangleTest {
 
     // region assert
 
-    private static void assertTriangle(Triangle triangle, Point p1, Point p2, Point p3) {
-        Assertions.assertEquals(p1, triangle.getP1());
-        Assertions.assertEquals(p2, triangle.getP2());
-        Assertions.assertEquals(p3, triangle.getP3());
+    private static void assertTriangle(Triangle triangle, Point a, Point b, Point c) {
+        Assertions.assertEquals(a, triangle.getA());
+        Assertions.assertEquals(b, triangle.getB());
+        Assertions.assertEquals(c, triangle.getC());
     }
 
     // endregion

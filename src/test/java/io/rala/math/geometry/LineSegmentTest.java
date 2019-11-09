@@ -23,11 +23,11 @@ class LineSegmentTest {
     void testGetterAndSetter() {
         LineSegment lineSegment = new LineSegment();
         assertLineSegment(lineSegment);
-        lineSegment.setP1(new Point(1));
+        lineSegment.setA(new Point(1));
         assertLineSegment(lineSegment, new Point(1), new Point());
-        lineSegment.setP2(new Point(2));
+        lineSegment.setB(new Point(2));
         assertLineSegment(lineSegment, new Point(1), new Point(2));
-        lineSegment.setP12(new Point(3));
+        lineSegment.setAB(new Point(3));
         assertLineSegment(lineSegment, new Point(3));
     }
 
@@ -104,13 +104,13 @@ class LineSegmentTest {
         assertLineSegment(lineSegment, new Point());
     }
 
-    private static void assertLineSegment(LineSegment lineSegment, Point p12) {
-        assertLineSegment(lineSegment, p12, p12);
+    private static void assertLineSegment(LineSegment lineSegment, Point ab) {
+        assertLineSegment(lineSegment, ab, ab);
     }
 
-    private static void assertLineSegment(LineSegment lineSegment, Point p1, Point p2) {
-        Assertions.assertEquals(p1, lineSegment.getP1());
-        Assertions.assertEquals(p2, lineSegment.getP2());
+    private static void assertLineSegment(LineSegment lineSegment, Point a, Point b) {
+        Assertions.assertEquals(a, lineSegment.getA());
+        Assertions.assertEquals(b, lineSegment.getB());
     }
 
     // endregion
