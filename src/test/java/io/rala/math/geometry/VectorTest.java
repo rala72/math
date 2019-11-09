@@ -74,7 +74,7 @@ class VectorTest {
 
     // endregion
 
-    // region region rotate, normalized and scalarProduct
+    // region rotate, normal, normalized and scalarProduct
 
     @Test
     void testRotate() {
@@ -83,6 +83,13 @@ class VectorTest {
         assertVector(vector.rotate(Math.PI), -1.0000000000000002, -1.9999999999999998);
         assertVector(vector.rotate(Math.PI * 3 / 2), 1.9999999999999998, -1.0000000000000004);
         assertVector(vector.rotate(Math.PI * 2), 1.0000000000000004, 1.9999999999999998);
+    }
+
+    @Test
+    void testNormal() {
+        Vector vector = new Vector(1, 2);
+        Assertions.assertEquals(new Vector(-2, 1), vector.normalLeft());
+        Assertions.assertEquals(new Vector(2, -1), vector.normalRight());
     }
 
     @Test

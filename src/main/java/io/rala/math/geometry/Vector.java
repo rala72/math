@@ -212,7 +212,7 @@ public class Vector implements Comparable<Vector> {
 
     // endregion
 
-    // region rotate, normalized and scalarProduct
+    // region rotate, normal, normalized and scalarProduct
 
     /**
      * @param phi angle in radiant
@@ -222,6 +222,20 @@ public class Vector implements Comparable<Vector> {
         double newX = Math.cos(phi) * getX() - Math.sin(phi) * getY();
         double newY = Math.sin(phi) * getX() + Math.cos(phi) * getY();
         return new Vector(newX, newY);
+    }
+
+    /**
+     * @return new normal vector rotated left
+     */
+    public Vector normalLeft() {
+        return new Vector(-getY(), getX());
+    }
+
+    /**
+     * @return new normal vector rotated right
+     */
+    public Vector normalRight() {
+        return new Vector(getY(), -getX());
     }
 
     /**
