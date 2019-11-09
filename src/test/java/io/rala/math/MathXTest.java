@@ -25,6 +25,12 @@ class MathXTest {
     }
 
     @ParameterizedTest
+    @MethodSource("getFactorialArguments")
+    void testFactorial(int number, long expected) {
+        Assertions.assertEquals(expected, MathX.factorial(number));
+    }
+
+    @ParameterizedTest
     @MethodSource("getLcmArguments")
     void testLcm(int expected, int... a) {
         Assertions.assertEquals(expected, a.length == 2 ?
@@ -40,6 +46,10 @@ class MathXTest {
 
     private static Stream<Arguments> getFactorsArguments() {
         return MathXArgumentsStreamFactory.factors();
+    }
+
+    private static Stream<Arguments> getFactorialArguments() {
+        return MathXArgumentsStreamFactory.factorial();
     }
 
     private static Stream<Arguments> getLcmArguments() {

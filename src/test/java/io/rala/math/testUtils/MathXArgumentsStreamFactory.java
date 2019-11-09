@@ -52,6 +52,27 @@ public class MathXArgumentsStreamFactory {
         );
     }
 
+    public static Stream<Arguments> factorial() {
+        return Stream.of(
+            Arguments.of(-1, 0),
+            Arguments.of(0, 1),
+            Arguments.of(1, 1),
+            Arguments.of(2, 2),
+            Arguments.of(3, 6),
+            Arguments.of(4, 24),
+            Arguments.of(5, 120),
+            Arguments.of(6, 720),
+            Arguments.of(7, 5040),
+            Arguments.of(8, 40_320),
+            Arguments.of(9, 362_880),
+            Arguments.of(10, 3_628_800),
+            Arguments.of(11, 39_916_800),
+            Arguments.of(12, 479_001_600),
+            Arguments.of(13, 6_227_020_800L),
+            Arguments.of(14, 87_178_291_200L)
+        );
+    }
+
     public static Stream<Arguments> lcm() {
         return Stream.of(
             Arguments.of(0, IntStream.of().toArray()),
