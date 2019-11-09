@@ -1,7 +1,13 @@
 package io.rala.math.geometry;
 
+import io.rala.math.testUtils.LineArgumentsStreamFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 class LineTest {
     // region constructors, getter and setter
@@ -25,18 +31,16 @@ class LineTest {
 
     // region calculateX and calculateY
 
-    @Test
-    void testCalculateX() {
-        Line line = new Line(2, 3);
-        for (int i = -2; i <= 2; i++)
-            Assertions.assertEquals((i - 3d) / 2, line.calculateX(i));
+    @ParameterizedTest
+    @MethodSource("getCalculateXArguments")
+    void testCalculateX(double m, double b, double y, double expected) {
+        Assertions.assertEquals(expected, new Line(m, b).calculateX(y));
     }
 
-    @Test
-    void testCalculateY() {
-        Line line = new Line(2, 3);
-        for (int i = -2; i <= 2; i++)
-            Assertions.assertEquals(i * 2 + 3, line.calculateY(i));
+    @ParameterizedTest
+    @MethodSource("getCalculateYArguments")
+    void testCalculateY(double m, double b, double x, double expected) {
+        Assertions.assertEquals(expected, new Line(m, b).calculateY(x));
     }
 
     // endregion
@@ -88,6 +92,18 @@ class LineTest {
     private static void assertLine(Line line, double m, double b) {
         Assertions.assertEquals(m, line.getM());
         Assertions.assertEquals(b, line.getB());
+    }
+
+    // endregion
+
+    // region argument streams
+
+    private static Stream<Arguments> getCalculateXArguments() {
+        return LineArgumentsStreamFactory.calculateX();
+    }
+
+    private static Stream<Arguments> getCalculateYArguments() {
+        return LineArgumentsStreamFactory.calculateY();
     }
 
     // endregion
