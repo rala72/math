@@ -176,12 +176,6 @@ class VectorTest {
     // region override
 
     @Test
-    void testToString() {
-        Vector vector = new Vector(2, 3);
-        Assertions.assertEquals("2.0:3.0", vector.toString());
-    }
-
-    @Test
     void testEquals() {
         Vector vector = new Vector(2, 3);
         Assertions.assertEquals(
@@ -200,6 +194,12 @@ class VectorTest {
             525249,
             new Vector(2, 3).hashCode()
         );
+    }
+
+    @Test
+    void testToString() {
+        Vector vector = new Vector(2, 3);
+        Assertions.assertEquals("2.0:3.0", vector.toString());
     }
 
     @Test

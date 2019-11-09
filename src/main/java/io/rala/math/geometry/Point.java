@@ -101,13 +101,6 @@ public class Point implements Comparable<Point> {
     }
 
     @Override
-    public int compareTo(Point o) {
-        int compare = Double.compare(getX(), o.getX());
-        if (compare != 0) return compare;
-        return Double.compare(getY(), o.getY());
-    }
-
-    @Override
     public int hashCode() {
         return Objects.hash(getX(), getY());
     }
@@ -115,6 +108,13 @@ public class Point implements Comparable<Point> {
     @Override
     public String toString() {
         return getX() + ":" + getY();
+    }
+
+    @Override
+    public int compareTo(Point o) {
+        int compare = Double.compare(getX(), o.getX());
+        if (compare != 0) return compare;
+        return Double.compare(getY(), o.getY());
     }
 
     // endregion

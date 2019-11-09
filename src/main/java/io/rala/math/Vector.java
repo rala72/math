@@ -312,11 +312,6 @@ public class Vector implements Comparable<Vector> {
     // region override
 
     @Override
-    public String toString() {
-        return getX() + ":" + getY();
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (!(obj instanceof Vector)) return false;
@@ -327,6 +322,11 @@ public class Vector implements Comparable<Vector> {
     @Override
     public int hashCode() {
         return Objects.hash(getX(), getY());
+    }
+
+    @Override
+    public String toString() {
+        return getX() + ":" + getY();
     }
 
     @Override

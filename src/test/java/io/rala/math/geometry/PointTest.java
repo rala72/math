@@ -31,12 +31,6 @@ class PointTest {
     // region override
 
     @Test
-    void testToString() {
-        Point point = new Point(2, 3);
-        Assertions.assertEquals("2.0:3.0", point.toString());
-    }
-
-    @Test
     void testEquals() {
         Point point = new Point(2, 3);
         Assertions.assertEquals(
@@ -55,6 +49,12 @@ class PointTest {
             525249,
             new Point(2, 3).hashCode()
         );
+    }
+
+    @Test
+    void testToString() {
+        Point point = new Point(2, 3);
+        Assertions.assertEquals("2.0:3.0", point.toString());
     }
 
     @Test
