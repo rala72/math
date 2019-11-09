@@ -135,6 +135,12 @@ public class MathX {
         return factorial((long) a);
     }
 
+    /**
+     * factorial of a number using recursion
+     *
+     * @param a number
+     * @return factorial
+     */
     public static long factorial(long a) {
         return factorial(BigInteger.valueOf(a)).longValueExact();
     }
