@@ -32,6 +32,7 @@ public class MathX {
     /**
      * @param a numbers of gcd
      * @return greatest common divisor
+     * @throws ArithmeticException may be thrown for example by {@link BigInteger#longValueExact()}
      * @see #gcd(long, long)
      * @see BigInteger#gcd(BigInteger)
      */
@@ -73,6 +74,7 @@ public class MathX {
      * @param a number1 of gcd
      * @param b number2 of gcd
      * @return greatest common divisor
+     * @throws ArithmeticException may be thrown for example by {@link BigInteger#longValueExact()}
      * @see #gcd(long...)
      * @see BigInteger#gcd(BigInteger)
      */
@@ -140,6 +142,7 @@ public class MathX {
      *
      * @param a number
      * @return factorial
+     * @throws ArithmeticException may be thrown for example by {@link BigInteger#longValueExact()}
      */
     public static long factorial(long a) {
         return factorial(BigInteger.valueOf(a)).longValueExact();
@@ -177,6 +180,7 @@ public class MathX {
      *
      * @param a numbers of lcm
      * @return least common multiple
+     * @throws ArithmeticException may be thrown for example by {@link BigInteger#longValueExact()}
      * @see #lcm(long, long)
      */
     public static long lcm(long... a) {
@@ -221,6 +225,7 @@ public class MathX {
      * @param a number1 of lcm
      * @param b number2 of lcm
      * @return least common multiple
+     * @throws ArithmeticException may be thrown for example by {@link BigInteger#longValueExact()}
      * @see #lcm(long...)
      */
     public static long lcm(long a, long b) {
