@@ -22,6 +22,7 @@ public class MathX {
     /**
      * @param a numbers of gcd
      * @return greatest common divisor
+     * @throws ArithmeticException may be thrown for example by {@link Math#toIntExact(long)}
      * @see #gcd(int, int)
      * @see BigInteger#gcd(BigInteger)
      */
@@ -63,6 +64,7 @@ public class MathX {
      * @param a number1 of gcd
      * @param b number2 of gcd
      * @return greatest common divisor
+     * @throws ArithmeticException may be thrown for example by {@link Math#toIntExact(long)}
      * @see #gcd(int...)
      * @see BigInteger#gcd(BigInteger)
      */
@@ -169,6 +171,7 @@ public class MathX {
      *
      * @param a numbers of lcm
      * @return least common multiple
+     * @throws ArithmeticException may be thrown for example by {@link Math#toIntExact(long)}
      * @see #lcm(int, int)
      */
     public static int lcm(int... a) {
@@ -213,6 +216,7 @@ public class MathX {
      * @param a number1 of lcm
      * @param b number2 of lcm
      * @return least common multiple
+     * @throws ArithmeticException may be thrown for example by {@link Math#toIntExact(long)}
      * @see #lcm(int...)
      */
     public static int lcm(int a, int b) {
