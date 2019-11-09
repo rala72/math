@@ -21,9 +21,9 @@ public class EnumerativeCombinatoricsArgumentsStreamFactory {
             Arguments.of(6, 3, IntStream.of(1).toArray()),
             Arguments.of(6, 3, IntStream.of(1, 1).toArray()),
             Arguments.of(3, 3, IntStream.of(1, 2).toArray()),
-            Arguments.of(3, 3, IntStream.of(2).toArray())
-            // Arguments.of(360_360, 14, IntStream.of(4, 7, 1, 2).toArray()),
-            // Arguments.of(1960, 11, IntStream.of(1, 7, 1, 2).toArray())
+            Arguments.of(3, 3, IntStream.of(2).toArray()),
+            Arguments.of(360_360, 14, IntStream.of(4, 7, 1, 2).toArray()),
+            Arguments.of(3960, 11, IntStream.of(1, 7, 1, 2).toArray())
         );
     }
 
@@ -44,8 +44,8 @@ public class EnumerativeCombinatoricsArgumentsStreamFactory {
         return Stream.of(
             Arguments.of(5, 3, 10),
             Arguments.of(10, 6, 210),
-            Arguments.of(8, 2, 28)
-            // Arguments.of(23, 5, 33_649)
+            Arguments.of(8, 2, 28),
+            Arguments.of(23, 5, 33_649)
         );
     }
 
