@@ -1,4 +1,4 @@
-package io.rala.math;
+package io.rala.math.geometry;
 
 import java.util.Objects;
 
