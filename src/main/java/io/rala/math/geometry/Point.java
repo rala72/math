@@ -38,10 +38,10 @@ public class Point implements Comparable<Point> {
     }
 
     /**
-     * creates a vector with given x and y values
+     * creates a point with given x and y values
      *
-     * @param x x value of vector
-     * @param y y value of vector
+     * @param x x value of point
+     * @param y y value of point
      * @see #Point()
      * @see #Point(double)
      */
@@ -55,35 +55,35 @@ public class Point implements Comparable<Point> {
     // region getter and setter
 
     /**
-     * @return x value of vector
+     * @return x value of point
      */
     public double getX() {
         return x;
     }
 
     /**
-     * @param x new x value of vector
+     * @param x new x value of point
      */
     public void setX(double x) {
         this.x = !Double.isFinite(x) ? 0 : x;
     }
 
     /**
-     * @return y value of vector
+     * @return y value of point
      */
     public double getY() {
         return y;
     }
 
     /**
-     * @param y new y value of vector
+     * @param y new y value of point
      */
     public void setY(double y) {
         this.y = !Double.isFinite(y) ? 0 : y;
     }
 
     /**
-     * @param xy new x and y value of vector
+     * @param xy new x and y value of point
      */
     public void setXY(double xy) {
         setX(xy);
