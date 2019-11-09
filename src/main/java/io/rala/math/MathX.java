@@ -1,5 +1,6 @@
 package io.rala.math;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,56 +20,75 @@ public class MathX {
     // region gcd
 
     /**
-     * greatest common divisor using Euclid's algorithm
-     *
      * @param a numbers of gcd
      * @return greatest common divisor
      * @see #gcd(int, int)
+     * @see BigInteger#gcd(BigInteger)
      */
     public static int gcd(int... a) {
-        return (int) gcd(Arrays.stream(a).mapToLong(value -> value).toArray());
+        return Math.toIntExact(gcd(Arrays.stream(a).mapToLong(value -> value).toArray()));
     }
 
     /**
-     * greatest common divisor using Euclid's algorithm
-     *
      * @param a numbers of gcd
      * @return greatest common divisor
      * @see #gcd(long, long)
+     * @see BigInteger#gcd(BigInteger)
      */
     public static long gcd(long... a) {
-        if (a.length == 0) return 0;
+        return gcd(
+            Arrays.stream(a)
+                .mapToObj(BigInteger::valueOf)
+                .toArray(BigInteger[]::new)
+        ).longValueExact();
+    }
+
+    /**
+     * @param a numbers of gcd
+     * @return greatest common divisor
+     * @see #gcd(BigInteger, BigInteger)
+     * @see BigInteger#gcd(BigInteger)
+     */
+    public static BigInteger gcd(BigInteger... a) {
+        if (a.length == 0) return BigInteger.ZERO;
         if (a.length == 1) return a[0];
-        long current = a[0];
+        BigInteger current = a[0];
         for (int i = 1; i < a.length; i++)
             current = gcd(current, a[i]);
         return current;
     }
 
     /**
-     * greatest common divisor using Euclid's algorithm
-     *
      * @param a number1 of gcd
      * @param b number2 of gcd
      * @return greatest common divisor
      * @see #gcd(int...)
+     * @see BigInteger#gcd(BigInteger)
      */
     public static int gcd(int a, int b) {
-        return (int) gcd((long) a, b);
+        return Math.toIntExact(gcd((long) a, b));
     }
 
     /**
-     * greatest common divisor using Euclid's algorithm
-     *
      * @param a number1 of gcd
      * @param b number2 of gcd
      * @return greatest common divisor
      * @see #gcd(long...)
+     * @see BigInteger#gcd(BigInteger)
      */
     public static long gcd(long a, long b) {
-        if (a == 0) return b;
-        if (b == 0) return a;
-        return gcd(b, a % b);
+        return gcd(BigInteger.valueOf(a), BigInteger.valueOf(b)).longValueExact();
+    }
+
+    /**
+     * @param a number1 of gcd
+     * @param b number2 of gcd
+     * @return greatest common divisor
+     * @see #gcd(BigInteger...)
+     * @see BigInteger#gcd(BigInteger)
+     */
+    public static BigInteger gcd(BigInteger a, BigInteger b) {
+        return a.gcd(b);
     }
 
     // endregion
@@ -115,14 +135,20 @@ public class MathX {
         return factorial((long) a);
     }
 
+    public static long factorial(long a) {
+        return factorial(BigInteger.valueOf(a)).longValueExact();
+    }
+
     /**
      * factorial of a number using recursion
      *
      * @param a number
      * @return factorial
      */
-    public static long factorial(long a) {
-        return a < 0 ? 0 : a == 0 ? 1 : a * factorial(a - 1);
+    public static BigInteger factorial(BigInteger a) {
+        return a.compareTo(BigInteger.ZERO) < 0 ? BigInteger.ZERO :
+            a.equals(BigInteger.ZERO) ? BigInteger.ONE :
+                a.multiply(factorial(a.subtract(BigInteger.ONE)));
     }
 
     // endregion
@@ -130,14 +156,14 @@ public class MathX {
     // region lcm
 
     /**
-     * least common multiple using {@link #gcd(long, long)}
+     * least common multiple using {@link #gcd(int, int)}
      *
      * @param a numbers of lcm
      * @return least common multiple
      * @see #lcm(int, int)
      */
     public static int lcm(int... a) {
-        return (int) lcm(Arrays.stream(a).mapToLong(value -> value).toArray());
+        return Math.toIntExact(lcm(Arrays.stream(a).mapToLong(value -> value).toArray()));
     }
 
     /**
@@ -148,23 +174,39 @@ public class MathX {
      * @see #lcm(long, long)
      */
     public static long lcm(long... a) {
-        if (a.length == 0) return 0;
+        return lcm(
+            Arrays.stream(a)
+                .mapToObj(BigInteger::valueOf)
+                .toArray(BigInteger[]::new)
+        ).longValueExact();
+    }
+
+    /**
+     * least common multiple using {@link #gcd(BigInteger, BigInteger)}
+     *
+     * @param a numbers of lcm
+     * @return least common multiple
+     * @see #lcm(BigInteger, BigInteger)
+     */
+    public static BigInteger lcm(BigInteger... a) {
+        if (a.length == 0) return BigInteger.ZERO;
         if (a.length == 1) return a[0];
-        long current = a[0];
+        BigInteger current = a[0];
         for (int i = 1; i < a.length; i++)
             current = lcm(current, a[i]);
         return current;
     }
 
     /**
-     * least common multiple using {@link #gcd(long, long)}
+     * least common multiple using {@link #gcd(int, int)}
      *
      * @param a number1 of lcm
      * @param b number2 of lcm
      * @return least common multiple
+     * @see #lcm(int...)
      */
     public static int lcm(int a, int b) {
-        return (int) lcm((long) a, b);
+        return Math.toIntExact(lcm((long) a, b));
     }
 
     /**
@@ -173,9 +215,22 @@ public class MathX {
      * @param a number1 of lcm
      * @param b number2 of lcm
      * @return least common multiple
+     * @see #lcm(long...)
      */
     public static long lcm(long a, long b) {
-        return Math.abs(a * b) / gcd(a, b);
+        return lcm(BigInteger.valueOf(a), BigInteger.valueOf(b)).longValueExact();
+    }
+
+    /**
+     * least common multiple using {@link #gcd(long, long)}
+     *
+     * @param a number1 of lcm
+     * @param b number2 of lcm
+     * @return least common multiple
+     * @see #lcm(BigInteger...)
+     */
+    public static BigInteger lcm(BigInteger a, BigInteger b) {
+        return a.multiply(b).abs().divide(gcd(a, b));
     }
 
     // endregion
