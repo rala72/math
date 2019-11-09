@@ -2,6 +2,9 @@ package io.rala.math.geometry;
 
 import java.util.Objects;
 
+/**
+ * point in a 2d area
+ */
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Point implements Comparable<Point> {
     // region attributes
