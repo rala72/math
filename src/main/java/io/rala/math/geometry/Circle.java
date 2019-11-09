@@ -103,6 +103,24 @@ public class Circle {
 
     // endregion
 
+    // region area and circumference
+
+    /**
+     * @return <code>&pi;*r^2</code>
+     */
+    public double getArea() {
+        return Math.PI * Math.pow(getRadius(), 2);
+    }
+
+    /**
+     * @return <code>2*&pi;*r</code>
+     */
+    public double getCircumference() {
+        return 2 * Math.PI * getRadius();
+    }
+
+    // endregion
+
     // region copy
 
     /**
