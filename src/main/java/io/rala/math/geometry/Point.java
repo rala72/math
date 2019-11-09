@@ -92,6 +92,17 @@ public class Point implements Comparable<Point> {
 
     // endregion
 
+    // region copy
+
+    /**
+     * @return new point with same values
+     */
+    public Point copy() {
+        return new Point(getX(), getY());
+    }
+
+    // endregion
+
     // region override
 
     @Override

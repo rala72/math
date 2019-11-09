@@ -28,6 +28,16 @@ class PointTest {
 
     // endregion
 
+    // region copy
+
+    @Test
+    void testCopy() {
+        Point point = new Point(2, 3);
+        Assertions.assertEquals(point, point.copy());
+    }
+
+    // endregion
+
     // region override
 
     @Test

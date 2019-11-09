@@ -33,13 +33,19 @@ class LineSegmentTest {
 
     // endregion
 
-    // region length
+    // region length and copy
 
     @Test
     void testLength() {
         Assertions.assertEquals(0, new LineSegment(new Point(1, 2)).length());
         Assertions.assertEquals(1.4142135623730951, new LineSegment(new Point(1, 2), new Point(2, 1)).length());
         Assertions.assertEquals(2.8284271247461903, new LineSegment(new Point(3, 4), new Point(1, 2)).length());
+    }
+
+    @Test
+    void testCopy() {
+        LineSegment lineSegment = new LineSegment(new Point(1, 2), new Point(3, 4));
+        Assertions.assertEquals(lineSegment, lineSegment.copy());
     }
 
     // endregion

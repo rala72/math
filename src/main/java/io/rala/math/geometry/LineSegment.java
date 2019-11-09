@@ -93,7 +93,7 @@ public class LineSegment implements Comparable<LineSegment> {
 
     // endregion
 
-    // region length
+    // region length and copy
 
     /**
      * @return length of vector based on pythagoras
@@ -103,6 +103,13 @@ public class LineSegment implements Comparable<LineSegment> {
             Math.pow(getP1().getX() - getP2().getX(), 2) +
                 Math.pow(getP1().getY() - getP2().getY(), 2)
         );
+    }
+
+    /**
+     * @return new line segment with same values
+     */
+    public LineSegment copy() {
+        return new LineSegment(getP1().copy(), getP2().copy());
     }
 
     // endregion
