@@ -103,6 +103,8 @@ public class MathX {
 
     // endregion
 
+    // region factorial
+
     /**
      * factorial of a number using recursion
      *
@@ -122,6 +124,8 @@ public class MathX {
     public static long factorial(long a) {
         return a < 0 ? 0 : a == 0 ? 1 : a * factorial(a - 1);
     }
+
+    // endregion
 
     // region lcm
 
