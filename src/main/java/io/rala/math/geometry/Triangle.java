@@ -78,6 +78,73 @@ public class Triangle {
 
     // endregion
 
+    // region edges
+    // line segments
+
+    /**
+     * @return line segment from p1 to p2
+     */
+    public LineSegment getLineSegmentOfP1P2() {
+        return new LineSegment(getP1(), getP2());
+    }
+
+    /**
+     * @return line segment from p1 to p3
+     */
+    public LineSegment getLineSegmentOfP1P3() {
+        return new LineSegment(getP1(), getP3());
+    }
+
+    /**
+     * @return line segment from p2 to p3
+     */
+    public LineSegment getLineSegmentOfP2P3() {
+        return new LineSegment(getP2(), getP3());
+    }
+
+    // endregion
+
+    // region area, circumference, circumRadius and inRadius
+
+    /**
+     * @return <code>sqrt(s*(s-a)*(s-b)*(s-c))</code>
+     */
+    public double getArea() {
+        final double s = getCircumference() / 2;
+        return Math.sqrt(s *
+            (s - getLineSegmentOfP1P2().length()) *
+            (s - getLineSegmentOfP1P3().length()) *
+            (s - getLineSegmentOfP2P3().length())
+        );
+    }
+
+    /**
+     * @return <code>a+b+c</code>
+     */
+    public double getCircumference() {
+        return getLineSegmentOfP1P2().length() +
+            getLineSegmentOfP1P3().length() +
+            getLineSegmentOfP2P3().length();
+    }
+
+    /**
+     * @return <code>(a*b*c)/A</code>
+     */
+    public double getCircumRadius() {
+        return (getLineSegmentOfP1P2().length() *
+            getLineSegmentOfP1P3().length() *
+            getLineSegmentOfP2P3().length()) / (4 * getArea());
+    }
+
+    /**
+     * @return <code>A/(r/2)</code>
+     */
+    public double getInRadius() {
+        return getArea() / (getCircumference() / 2);
+    }
+
+    // endregion
+
     // region copy
 
     /**
