@@ -131,6 +131,18 @@ public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>,
 
     // endregion
 
+    // region toLine
+
+    /**
+     * @return new line instance
+     */
+    public Line toLine() {
+        double m = Math.sqrt(Math.pow(getA().getX(), 2) + Math.pow(getB().getX(), 2));
+        return new Line(m, getA().getY() - (m * getA().getX()));
+    }
+
+    // endregion
+
     // region move and copy
 
     @Override

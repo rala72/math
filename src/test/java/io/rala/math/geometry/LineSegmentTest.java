@@ -104,6 +104,24 @@ class LineSegmentTest {
 
     // endregion
 
+    // region toLine
+
+    @Test
+    void toLineOfLineSegmentWithAXY0AndBXY1() {
+        Assertions.assertEquals(new Line(1, 0),
+            new LineSegment(new Point(0), new Point(1)).toLine()
+        );
+    }
+
+    @Test
+    void toLineOfLineSegmentWithAXY1AndBX2Y3() {
+        Assertions.assertEquals(new Line(2.23606797749979, -1.2360679774997898),
+            new LineSegment(new Point(1), new Point(2, 3)).toLine()
+        );
+    }
+
+    // endregion
+
     // region move and copy
 
     @Test
