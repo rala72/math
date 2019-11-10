@@ -353,28 +353,28 @@ class VectorTest {
     // region rotate and copy
 
     @Test
-    void rotateWithPiHalf() {
+    void rotateOfVectorWithX1Y2WithPiHalf() {
         assertVector(new Vector(1, 2).rotate(Math.PI / 2),
             -2, 1.0000000000000002
         );
     }
 
     @Test
-    void rotateWithPi() {
+    void rotateOfVectorWithX1Y2WithPi() {
         assertVector(new Vector(1, 2).rotate(Math.PI),
             -1.0000000000000002, -1.9999999999999998
         );
     }
 
     @Test
-    void rotateWithPiThreeHalf() {
+    void rotateOfVectorWithX1Y2WithPiThreeHalf() {
         assertVector(new Vector(1, 2).rotate(Math.PI * 3 / 2),
             1.9999999999999998, -1.0000000000000004
         );
     }
 
     @Test
-    void rotateWithTwoPi() {
+    void rotateOfVectorWithX1Y2WithTwoPi() {
         assertVector(new Vector(1, 2).rotate(Math.PI * 2),
             1.0000000000000004, 1.9999999999999998
         );
