@@ -102,6 +102,71 @@ public class Triangle {
         return new LineSegment(getA(), getB());
     }
 
+    public LineSegment getHeightA() {
+        double aL = edgeA().length();
+        double a_ = Math.sqrt(
+            Math.pow(edgeC().length(), 2) -
+                Math.pow(getHeightALength(), 2)
+        );
+        double c_ = Math.sqrt(
+            Math.pow(aL, 2) - Math.pow(getHeightCLength(), 2)
+        );
+        double lengthRatio = a_ < aL ? a_ / aL : aL / a_;
+        double requestedX = getHeightCLength() * lengthRatio;
+        double requestedY = c_ / lengthRatio;
+        return new LineSegment(getA(),
+            new Point(getA().getX() + requestedX, getA().getY() + requestedY)
+        );
+    }
+
+    public LineSegment getHeightB() {
+        double bL = edgeB().length();
+        double b_ = Math.sqrt(
+            Math.pow(edgeC().length(), 2) -
+                Math.pow(getHeightBLength(), 2)
+        );
+        double c_ = Math.sqrt(
+            Math.pow(bL, 2) -
+                Math.pow(getHeightCLength(), 2)
+        );
+        double lengthRatio = b_ < bL ? b_ / bL : bL / b_;
+        double requestedX = c_ * lengthRatio;
+        double requestedY = getHeightCLength() * lengthRatio;
+        return new LineSegment(getB(),
+            new Point(getB().getX() + requestedX, getB().getY() - requestedY)
+        );
+    }
+
+    public LineSegment getHeightC() {
+        double bC = edgeC().length();
+        double c_ = Math.sqrt(
+            Math.pow(edgeA().length(), 2) -
+                Math.pow(getHeightCLength(), 2)
+        );
+        double a_ = Math.sqrt(
+            Math.pow(bC, 2) -
+                Math.pow(getHeightALength(), 2)
+        );
+        double lengthRatio = c_ < bC ? c_ / bC : bC / c_;
+        double requestedX = a_ / lengthRatio;
+        double requestedY = getHeightALength() * lengthRatio;
+        return new LineSegment(getC(),
+            new Point(getC().getX() - requestedX, getC().getY() + requestedY)
+        );
+    }
+
+    protected double getHeightALength() {
+        return 2 * area() / edgeA().length();
+    }
+
+    protected double getHeightBLength() {
+        return 2 * area() / edgeB().length();
+    }
+
+    protected double getHeightCLength() {
+        return 2 * area() / edgeC().length();
+    }
+
     // endregion
 
     // region area, circumference, circumRadius and inRadius

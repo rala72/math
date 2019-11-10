@@ -47,6 +47,23 @@ class TriangleTest {
         );
     }
 
+    @Test
+    void testHeight() {
+        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
+        LineSegment heightA = triangle.getHeightA();
+        Assertions.assertEquals(1.0000000000000002, heightA.length());
+        Assertions.assertEquals(triangle.getA(), heightA.getA());
+        Assertions.assertEquals(new Point(2.5809568279517837e-8, 1), heightA.getB()); // point b
+        LineSegment heightB = triangle.getHeightB();
+        Assertions.assertEquals(0.7071067811865478, heightB.length());
+        Assertions.assertEquals(triangle.getB(), heightB.getA());
+        Assertions.assertEquals(new Point(0.5000000000000003, 0.5), heightB.getB());
+        LineSegment heightC = triangle.getHeightC();
+        Assertions.assertEquals(1.0000000000000002, heightC.length());
+        Assertions.assertEquals(triangle.getC(), heightC.getA());
+        Assertions.assertEquals(new Point(0, 1.0000000258095683), heightC.getB()); // pointb
+    }
+
     // endregion
 
     // region area, circumference, circumRadius, inRadius
