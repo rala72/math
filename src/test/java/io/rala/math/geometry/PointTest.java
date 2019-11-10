@@ -74,12 +74,10 @@ class PointTest {
             0, point.compareTo(new Point(2, 3))
         );
         Assertions.assertEquals(
-            -1,
-            0, point.compareTo(new Point(2, 1))
+            -1, point.compareTo(new Point(3, 1))
         );
         Assertions.assertEquals(
-            1,
-            0, point.compareTo(new Point(1, 0))
+            1, point.compareTo(new Point(1, 0))
         );
     }
 

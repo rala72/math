@@ -230,12 +230,10 @@ class VectorTest {
             0, vector.compareTo(new Vector(2, 3))
         );
         Assertions.assertEquals(
-            -1,
-            0, vector.compareTo(new Vector(2, 1))
+            -1, vector.compareTo(new Vector(3, 1))
         );
         Assertions.assertEquals(
-            1,
-            0, vector.compareTo(new Vector(1, 0))
+            1, vector.compareTo(new Vector(1, 0))
         );
     }
 

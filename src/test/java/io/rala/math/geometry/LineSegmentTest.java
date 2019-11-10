@@ -86,12 +86,10 @@ class LineSegmentTest {
             0, lineSegment.compareTo(new LineSegment(new Point(2), new Point(3)))
         );
         Assertions.assertEquals(
-            -1,
-            0, lineSegment.compareTo(new LineSegment(new Point(2), new Point(1)))
+            -1, lineSegment.compareTo(new LineSegment(new Point(3), new Point(4)))
         );
         Assertions.assertEquals(
-            1,
-            0, lineSegment.compareTo(new LineSegment(new Point(1), new Point(0)))
+            1, lineSegment.compareTo(new LineSegment(new Point(1), new Point(0)))
         );
     }
 
