@@ -137,7 +137,7 @@ public class Point implements Copyable<Point>, Movable<Point>, Rotatable<Point>,
 
     @Override
     public String toString() {
-        return getX() + ":" + getY();
+        return getX() + "|" + getY();
     }
 
     @Override

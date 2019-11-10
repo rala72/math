@@ -189,7 +189,7 @@ class CircleTest {
     @Test
     void toStringOfCircleWithPointAndRadius() {
         Circle circle = new Circle(new Point(2), 3);
-        Assertions.assertEquals("2.0:2.0 3.0", circle.toString());
+        Assertions.assertEquals("2.0|2.0 3.0", circle.toString());
     }
 
     @Test

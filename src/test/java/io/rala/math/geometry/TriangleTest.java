@@ -185,7 +185,7 @@ class TriangleTest {
     @Test
     void toStringOfTriangleWithA2B3C4() {
         Triangle triangle = new Triangle(new Point(2), new Point(3), new Point(4));
-        Assertions.assertEquals("2.0:2.0 3.0:3.0 4.0:4.0", triangle.toString());
+        Assertions.assertEquals("2.0|2.0 3.0|3.0 4.0|4.0", triangle.toString());
     }
 
     @Test

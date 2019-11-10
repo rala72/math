@@ -252,7 +252,7 @@ class RectTest {
     @Test
     void toStringOfRectWithPointHeightAndWidth() {
         Rect rect = new Rect(new Point(2), new Point(3), 4);
-        Assertions.assertEquals("2.0:2.0 3.0:3.0 4.0", rect.toString());
+        Assertions.assertEquals("2.0|2.0 3.0|3.0 4.0", rect.toString());
     }
 
     @Test

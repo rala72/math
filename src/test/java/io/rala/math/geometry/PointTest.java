@@ -159,7 +159,7 @@ class PointTest {
     @Test
     void toStringOfPointWithXY() {
         Point point = new Point(2, 3);
-        Assertions.assertEquals("2.0:3.0", point.toString());
+        Assertions.assertEquals("2.0|3.0", point.toString());
     }
 
     @Test

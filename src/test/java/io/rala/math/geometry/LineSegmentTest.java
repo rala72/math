@@ -216,7 +216,7 @@ class LineSegmentTest {
     @Test
     void toStringOfLineSegmentWithTwoPoints() {
         LineSegment lineSegment = new LineSegment(new Point(2), new Point(3));
-        Assertions.assertEquals("2.0:2.0 3.0:3.0", lineSegment.toString());
+        Assertions.assertEquals("2.0|2.0 3.0|3.0", lineSegment.toString());
     }
 
     @Test
