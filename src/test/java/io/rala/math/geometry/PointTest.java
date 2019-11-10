@@ -7,23 +7,47 @@ class PointTest {
     // region constructors, getter and setter
 
     @Test
-    void testConstructors() {
+    void constructorWithoutParameter() {
         assertPoint(new Point());
+    }
+
+    @Test
+    void constructorWithXYParameter() {
         assertPoint(new Point(1), 1);
+    }
+
+    @Test
+    void constructorWithEqualXYParameter() {
         assertPoint(new Point(2, 2), 2);
+    }
+
+    @Test
+    void constructorWithDifferentXYParameter() {
         assertPoint(new Point(2, 3), 2, 3);
     }
 
     @Test
-    void testGetterAndSetter() {
+    void createAndSetX() {
         Point point = new Point();
         assertPoint(point);
         point.setX(1);
         assertPoint(point, 1, 0);
+    }
+
+    @Test
+    void createAndSetY() {
+        Point point = new Point();
+        assertPoint(point);
         point.setY(2);
-        assertPoint(point, 1, 2);
+        assertPoint(point, 0, 2);
+    }
+
+    @Test
+    void createAndSetXY() {
+        Point point = new Point();
+        assertPoint(point);
         point.setXY(3);
-        assertPoint(point, 3);
+        assertPoint(point, 3, 3);
     }
 
     // endregion
@@ -31,7 +55,7 @@ class PointTest {
     // region copy
 
     @Test
-    void testCopy() {
+    void copyOfPointWithXY() {
         Point point = new Point(2, 3);
         Assertions.assertEquals(point, point.copy());
     }
@@ -41,7 +65,7 @@ class PointTest {
     // region override
 
     @Test
-    void testEquals() {
+    void equalsOfPointWithXY() {
         Point point = new Point(2, 3);
         Assertions.assertEquals(
             point,
@@ -54,7 +78,7 @@ class PointTest {
     }
 
     @Test
-    void testHashCode() {
+    void hashCodeOfPointWithXY() {
         Assertions.assertEquals(
             525249,
             new Point(2, 3).hashCode()
@@ -62,13 +86,13 @@ class PointTest {
     }
 
     @Test
-    void testToString() {
+    void toStringOfPointWithXY() {
         Point point = new Point(2, 3);
         Assertions.assertEquals("2.0:3.0", point.toString());
     }
 
     @Test
-    void testCompareTo() {
+    void compareToOfPointWithXY() {
         Point point = new Point(2, 3);
         Assertions.assertEquals(
             0, point.compareTo(new Point(2, 3))
@@ -77,7 +101,7 @@ class PointTest {
             -1, point.compareTo(new Point(3, 1))
         );
         Assertions.assertEquals(
-            1, point.compareTo(new Point(1, 0))
+            1, point.compareTo(new Point(2, 1))
         );
     }
 

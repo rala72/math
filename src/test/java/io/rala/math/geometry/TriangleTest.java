@@ -7,7 +7,7 @@ class TriangleTest {
     // region constructors, getter and setter
 
     @Test
-    void testConstructors() {
+    void constructorWithA2B3C4() {
         assertTriangle(
             new Triangle(new Point(2), new Point(3), new Point(4)),
             new Point(2), new Point(3), new Point(4)
@@ -15,15 +15,27 @@ class TriangleTest {
     }
 
     @Test
-    void testGetterAndSetter() {
+    void createAndSetA() {
         Triangle triangle = new Triangle(new Point(), new Point(), new Point());
         assertTriangle(triangle, new Point(), new Point(), new Point());
         triangle.setA(new Point(1));
         assertTriangle(triangle, new Point(1), new Point(), new Point());
+    }
+
+    @Test
+    void createAndSetB() {
+        Triangle triangle = new Triangle(new Point(), new Point(), new Point());
+        assertTriangle(triangle, new Point(), new Point(), new Point());
         triangle.setB(new Point(2));
-        assertTriangle(triangle, new Point(1), new Point(2), new Point());
+        assertTriangle(triangle, new Point(), new Point(2), new Point());
+    }
+
+    @Test
+    void createAndSetC() {
+        Triangle triangle = new Triangle(new Point(), new Point(), new Point());
+        assertTriangle(triangle, new Point(), new Point(), new Point());
         triangle.setC(new Point(3));
-        assertTriangle(triangle, new Point(1), new Point(2), new Point(3));
+        assertTriangle(triangle, new Point(), new Point(), new Point(3));
     }
 
     // endregion
@@ -31,7 +43,7 @@ class TriangleTest {
     // region edges
 
     @Test
-    void testEdge() {
+    void edgesOfTriangleWithA00B01C11() {
         Triangle triangle = new Triangle(new Point(), new Point(1), new Point(2));
         Assertions.assertEquals(
             new LineSegment(new Point(1), new Point(2)),
@@ -52,25 +64,25 @@ class TriangleTest {
     // region area, circumference, circumRadius, inRadius
 
     @Test
-    void testArea() {
+    void areaOfTriangleWithA00B01C11() {
         Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
         Assertions.assertEquals(0.49999999999999983, triangle.area());
     }
 
     @Test
-    void testCircumference() {
+    void circumferenceOfTriangleWithA00B01C11() {
         Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
         Assertions.assertEquals(3.414213562373095, triangle.circumference());
     }
 
     @Test
-    void testCircumRadius() {
+    void circumRadiusOfTriangleWithA00B01C11() {
         Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
         Assertions.assertEquals(0.7071067811865478, triangle.circumRadius());
     }
 
     @Test
-    void testInRadius() {
+    void inRadiusOfTriangleWithA00B01C11() {
         Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
         Assertions.assertEquals(0.29289321881345237, triangle.inRadius());
     }
@@ -80,7 +92,7 @@ class TriangleTest {
     // region copy
 
     @Test
-    void testCopy() {
+    void copyOfTriangleWithA2B3C4() {
         Triangle triangle = new Triangle(new Point(1, 2), new Point(3, 4), new Point(5, 6));
         Assertions.assertEquals(triangle, triangle.copy());
     }
@@ -90,7 +102,7 @@ class TriangleTest {
     // region override
 
     @Test
-    void testEquals() {
+    void equalsOfTriangleWithA2B3C4() {
         Triangle triangle = new Triangle(new Point(2), new Point(3), new Point(4));
         Assertions.assertEquals(
             triangle,
@@ -103,7 +115,7 @@ class TriangleTest {
     }
 
     @Test
-    void testHashCode() {
+    void hashCodeOfTriangleWithA2B3C4() {
         Assertions.assertEquals(
             554632192,
             new Triangle(new Point(2), new Point(3), new Point(4)).hashCode()
@@ -111,7 +123,7 @@ class TriangleTest {
     }
 
     @Test
-    void testToString() {
+    void toStringOfTriangleWithA2B3C4() {
         Triangle triangle = new Triangle(new Point(2), new Point(3), new Point(4));
         Assertions.assertEquals("2.0:2.0 3.0:3.0 4.0:4.0", triangle.toString());
     }

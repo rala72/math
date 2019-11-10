@@ -13,18 +13,22 @@ class LineTest {
     // region constructors, getter and setter
 
     @Test
-    void testConstructors() {
-        assertLine(new Line(2, 2), 2, 2);
+    void constructorWithMB() {
         assertLine(new Line(2, 3), 2, 3);
     }
 
     @Test
-    void testGetterAndSetter() {
+    void createAndSetM() {
         Line line = new Line(0, 0);
         line.setM(1);
         assertLine(line, 1, 0);
+    }
+
+    @Test
+    void createAndSetB() {
+        Line line = new Line(0, 0);
         line.setB(2);
-        assertLine(line, 1, 2);
+        assertLine(line, 0, 2);
     }
 
     // endregion
@@ -33,13 +37,13 @@ class LineTest {
 
     @ParameterizedTest
     @MethodSource("getCalculateXArguments")
-    void testCalculateX(double m, double b, double y, double expected) {
+    void calculateX(double m, double b, double y, double expected) {
         Assertions.assertEquals(expected, new Line(m, b).calculateX(y));
     }
 
     @ParameterizedTest
     @MethodSource("getCalculateYArguments")
-    void testCalculateY(double m, double b, double x, double expected) {
+    void calculateY(double m, double b, double x, double expected) {
         Assertions.assertEquals(expected, new Line(m, b).calculateY(x));
     }
 
@@ -48,7 +52,7 @@ class LineTest {
     // region copy
 
     @Test
-    void testCopy() {
+    void copyOfLieWithMB() {
         Line line = new Line(2, 3);
         Assertions.assertEquals(line, line.copy());
     }
@@ -58,7 +62,7 @@ class LineTest {
     // region override
 
     @Test
-    void testEquals() {
+    void equalsOfLineWithMB() {
         Line line = new Line(2, 3);
         Assertions.assertEquals(
             line,
@@ -71,7 +75,7 @@ class LineTest {
     }
 
     @Test
-    void testHashCode() {
+    void hashCodeOfLineWithMB() {
         Assertions.assertEquals(
             525249,
             new Line(2, 3).hashCode()
@@ -79,7 +83,7 @@ class LineTest {
     }
 
     @Test
-    void testToString() {
+    void toStringOfLineWithMB() {
         Line line = new Line(2, 3);
         Assertions.assertEquals("y=2.0*x+3.0", line.toString());
     }

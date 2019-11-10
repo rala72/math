@@ -8,21 +8,37 @@ class RectTest {
     // region constructors, getter and setter
 
     @Test
-    void testConstructors() {
+    void constructorWithHeightAndWidthButWithoutPoint() {
         assertRect(new Rect(1, 2), 1, 2);
+    }
+
+    @Test
+    void constructorWithPointAndHeightAndWidth() {
         assertRect(new Rect(new Point(1), 1, 2), new Point(1), 1, 2);
     }
 
     @Test
-    void testGetterAndSetter() {
+    void createAndSetPoint() {
         Rect rect = new Rect(0, 0);
         assertRect(rect, 0, 0);
         rect.setPoint(new Point(1));
         assertRect(rect, new Point(1), 0, 0);
+    }
+
+    @Test
+    void createAndSetHeight() {
+        Rect rect = new Rect(0, 0);
+        assertRect(rect, 0, 0);
         rect.setHeight(2);
-        assertRect(rect, new Point(1), 2, 0);
+        assertRect(rect, 2, 0);
+    }
+
+    @Test
+    void createAndSetWidth() {
+        Rect rect = new Rect(0, 0);
+        assertRect(rect, 0, 0);
         rect.setWidth(3);
-        assertRect(rect, new Point(1), 2, 3);
+        assertRect(rect, 0, 3);
     }
 
     // endregion
@@ -30,23 +46,48 @@ class RectTest {
     // region area, circumference and diagonale
 
     @Test
-    void testArea() {
+    void areaOfRectWithHeightAndWidth1() {
         Assertions.assertEquals(1, new Rect(1, 1).area());
-        Assertions.assertEquals(2, new Rect(1, 2).area());
-        Assertions.assertEquals(6, new Rect(2, 3).area());
     }
 
     @Test
-    void testCircumference() {
+    void areaOfRectWithHeight1AndWidth2() {
+        Assertions.assertEquals(2, new Rect(1, 2).area());
+    }
+
+    @Test
+    void areaOfRectWithHeight2AndWidth3() {
+        Assertions.assertEquals(6, new Rect(2, 3).area());
+    }
+
+
+    @Test
+    void circumferenceOfRectWithHeightAndWidth1() {
         Assertions.assertEquals(4, new Rect(1, 1).circumference());
+    }
+
+    @Test
+    void circumferenceOfRectWithHeight1AndWidth2() {
         Assertions.assertEquals(6, new Rect(1, 2).circumference());
+    }
+
+    @Test
+    void circumferenceOfRectWithHeight2AndWidth3() {
         Assertions.assertEquals(10, new Rect(2, 3).circumference());
     }
 
     @Test
-    void testDiagonale() {
+    void diagonaleOfRectWithHeightAndWidth1() {
         Assertions.assertEquals(1.4142135623730951, new Rect(1, 1).diagonale());
+    }
+
+    @Test
+    void diagonaleOfRectWithHeight1AndWidth2() {
         Assertions.assertEquals(2.23606797749979, new Rect(1, 2).diagonale());
+    }
+
+    @Test
+    void diagonaleOfRectWithHeight2AndWidth3() {
         Assertions.assertEquals(3.605551275463989, new Rect(2, 3).diagonale());
     }
 
@@ -55,7 +96,7 @@ class RectTest {
     // region copy
 
     @Test
-    void testCopy() {
+    void copyOfRectWithPointHeightAndWidth() {
         Rect rect = new Rect(new Point(2), 3, 4);
         Assertions.assertEquals(rect, rect.copy());
     }
@@ -65,7 +106,7 @@ class RectTest {
     // region override
 
     @Test
-    void testEquals() {
+    void equalsOfRectWithPointHeightAndWidth() {
         Rect rect = new Rect(new Point(2), 3, 4);
         Assertions.assertEquals(
             rect,
@@ -78,7 +119,7 @@ class RectTest {
     }
 
     @Test
-    void testHashCode() {
+    void hashCodeOfRectWithPointHeightAndWidth() {
         Assertions.assertEquals(
             18254816,
             new Rect(new Point(2), 3, 4).hashCode()
@@ -86,7 +127,7 @@ class RectTest {
     }
 
     @Test
-    void testToString() {
+    void toStringOfRectWithPointHeightAndWidth() {
         Rect rect = new Rect(new Point(2), 3, 4);
         Assertions.assertEquals("2.0:2.0 3.0x4.0", rect.toString());
     }
