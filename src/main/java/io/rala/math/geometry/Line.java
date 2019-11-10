@@ -157,7 +157,7 @@ public class Line implements Copyable<Line>, Comparable<Line> {
 
     @Override
     public String toString() {
-        return "y=" + getM() + "*x+" + getB();
+        return "y=" + getM() + "*x" + (0 <= getB() ? "+" : "") + getB();
     }
 
     @Override
