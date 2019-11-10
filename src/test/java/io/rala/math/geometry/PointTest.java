@@ -134,8 +134,8 @@ class PointTest {
     }
 
     private static void assertPoint(Point point, double x, double y) {
-        Assertions.assertEquals(x, point.getX());
-        Assertions.assertEquals(y, point.getY());
+        Assertions.assertEquals(x, point.getX(), "x is invalid");
+        Assertions.assertEquals(y, point.getY(), "y is invalid");
     }
 
     // endregion

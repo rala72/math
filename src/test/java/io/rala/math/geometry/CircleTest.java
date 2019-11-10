@@ -208,8 +208,8 @@ class CircleTest {
     }
 
     private static void assertCircle(Circle circle, Point center, double radius) {
-        Assertions.assertEquals(center, circle.getCenter());
-        Assertions.assertEquals(radius, circle.getRadius());
+        Assertions.assertEquals(center, circle.getCenter(), "center is invalid");
+        Assertions.assertEquals(radius, circle.getRadius(), "radius is invalid");
     }
 
     // endregion

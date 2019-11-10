@@ -192,9 +192,9 @@ class TriangleTest {
     // region assert
 
     private static void assertTriangle(Triangle triangle, Point a, Point b, Point c) {
-        Assertions.assertEquals(a, triangle.getA());
-        Assertions.assertEquals(b, triangle.getB());
-        Assertions.assertEquals(c, triangle.getC());
+        Assertions.assertEquals(a, triangle.getA(), "a is invalid");
+        Assertions.assertEquals(b, triangle.getB(), "b is invalid");
+        Assertions.assertEquals(c, triangle.getC(), "c is invalid");
     }
 
     // endregion

@@ -170,8 +170,8 @@ class LineTest {
     // region assert
 
     private static void assertLine(Line line, double m, double b) {
-        Assertions.assertEquals(m, line.getM());
-        Assertions.assertEquals(b, line.getB());
+        Assertions.assertEquals(m, line.getM(), "m is invalid");
+        Assertions.assertEquals(b, line.getB(), "b is invalid");
     }
 
     // endregion

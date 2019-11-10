@@ -261,9 +261,9 @@ class RectTest {
     }
 
     private static void assertRect(Rect rect, Point a, Point b, double size) {
-        Assertions.assertEquals(a, rect.getA());
-        Assertions.assertEquals(b, rect.getB());
-        Assertions.assertEquals(size, rect.getSize());
+        Assertions.assertEquals(a, rect.getA(), "a is invalid");
+        Assertions.assertEquals(b, rect.getB(), "b is invalid");
+        Assertions.assertEquals(size, rect.getSize(), "size is invalid");
     }
 
     // endregion

@@ -445,8 +445,8 @@ class VectorTest {
     }
 
     private static void assertVector(Vector vector, double x, double y) {
-        Assertions.assertEquals(x, vector.getX());
-        Assertions.assertEquals(y, vector.getY());
+        Assertions.assertEquals(x, vector.getX(), "x is invalid");
+        Assertions.assertEquals(y, vector.getY(), "y is invalid");
     }
 
     // endregion

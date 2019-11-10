@@ -227,8 +227,8 @@ class LineSegmentTest {
     }
 
     private static void assertLineSegment(LineSegment lineSegment, Point a, Point b) {
-        Assertions.assertEquals(a, lineSegment.getA());
-        Assertions.assertEquals(b, lineSegment.getB());
+        Assertions.assertEquals(a, lineSegment.getA(), "a is invalid");
+        Assertions.assertEquals(b, lineSegment.getB(), "b is invalid");
     }
 
     // endregion
