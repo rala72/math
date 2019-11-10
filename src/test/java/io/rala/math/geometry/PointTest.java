@@ -52,7 +52,12 @@ class PointTest {
 
     // endregion
 
-    // region copy
+    // region move and copy
+
+    @Test
+    void moveOfPointWithXY() {
+        Assertions.assertEquals(new Point(1, 1), new Point().move(new Vector(1)));
+    }
 
     @Test
     void copyOfPointWithXY() {

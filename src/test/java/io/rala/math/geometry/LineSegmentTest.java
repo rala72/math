@@ -57,7 +57,7 @@ class LineSegmentTest {
 
     // endregion
 
-    // region length and copy
+    // region length
 
     @Test
     void lengthOfLineSegmentWithTwoEqualPoints() {
@@ -72,6 +72,18 @@ class LineSegmentTest {
     @Test
     void lengthOfLineSegmentWithTwoDifferenceEach() {
         Assertions.assertEquals(2.8284271247461903, new LineSegment(new Point(3, 4), new Point(1, 2)).length());
+    }
+
+    // endregion
+
+    // region move and copy
+
+    @Test
+    void moveOfLineSegmentWithAndB() {
+        Assertions.assertEquals(
+            new LineSegment(new Point(1), new Point(2)),
+            new LineSegment(new Point(), new Point(1)).move(new Vector(1))
+        );
     }
 
     @Test

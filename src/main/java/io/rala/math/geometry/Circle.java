@@ -132,7 +132,15 @@ public class Circle {
 
     // endregion
 
-    // region copy
+    // region move and copy
+
+    /**
+     * @param vector vector to use for movement
+     * @return new circle moved by given vector
+     */
+    public Circle move(Vector vector) {
+        return new Circle(getCenter().move(vector), getRadius());
+    }
 
     /**
      * @return new circle with same values

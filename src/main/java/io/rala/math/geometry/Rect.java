@@ -177,7 +177,15 @@ public class Rect {
 
     // endregion
 
-    // region copy
+    // region move and copy
+
+    /**
+     * @param vector vector to use for movement
+     * @return new rect moved by given vector
+     */
+    public Rect move(Vector vector) {
+        return new Rect(getA().move(vector), getB().move(vector), getSize());
+    }
 
     /**
      * @return new rect with same values

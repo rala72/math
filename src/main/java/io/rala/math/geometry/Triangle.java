@@ -145,7 +145,15 @@ public class Triangle {
 
     // endregion
 
-    // region copy
+    // region move and copy
+
+    /**
+     * @param vector vector to use for movement
+     * @return new triangle moved by given vector
+     */
+    public Triangle move(Vector vector) {
+        return new Triangle(getA().move(vector), getB().move(vector), getC().move(vector));
+    }
 
     /**
      * @return new triangle with same values

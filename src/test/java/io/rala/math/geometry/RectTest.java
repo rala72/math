@@ -174,7 +174,15 @@ class RectTest {
 
     // endregion
 
-    // region copy
+    // region move and copy
+
+    @Test
+    void moveOfRectWithXY() {
+        Assertions.assertEquals(
+            new Rect(new Point(1), new Point(3, 1), 1),
+            new Rect(1, 2).move(new Vector(1))
+        );
+    }
 
     @Test
     void copyOfRectWithPointHeightAndWidth() {

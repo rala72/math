@@ -89,7 +89,16 @@ class TriangleTest {
 
     // endregion
 
-    // region copy
+    // region move and copy
+
+    @Test
+    void moveOfTriangleWithXY() {
+        Assertions.assertEquals(
+            new Triangle(new Point(1), new Point(2, 1), new Point(2)),
+            new Triangle(new Point(0), new Point(1, 0), new Point(1))
+                .move(new Vector(1))
+        );
+    }
 
     @Test
     void copyOfTriangleWithA2B3C4() {

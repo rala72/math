@@ -92,7 +92,15 @@ public class Point implements Comparable<Point> {
 
     // endregion
 
-    // region copy
+    // region move and copy
+
+    /**
+     * @param vector vector to use for movement
+     * @return new point moved by given vector
+     */
+    public Point move(Vector vector) {
+        return new Point(getX() + vector.getX(), getY() + vector.getY());
+    }
 
     /**
      * @return new point with same values
