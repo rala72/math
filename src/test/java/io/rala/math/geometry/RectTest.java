@@ -49,8 +49,17 @@ class RectTest {
     // region height, width and diagonale
 
     @Test
-    void heightOfRectWithPointsAndSize() {
-        Assertions.assertEquals(1, new Rect(new Point(), new Point(1), 1).height());
+    void heightOfRectWithPointsAndPositiveSize() {
+        Assertions.assertEquals(1,
+            new Rect(new Point(), new Point(1), 1).height()
+        );
+    }
+
+    @Test
+    void heightOfRectWithPointsAndNegativeSize() {
+        Assertions.assertEquals(1,
+            new Rect(new Point(), new Point(1), -1).height()
+        );
     }
 
     @Test
@@ -59,8 +68,17 @@ class RectTest {
     }
 
     @Test
-    void widthOfRectWithPointsAndSize() {
-        Assertions.assertEquals(1.4142135623730951, new Rect(new Point(), new Point(1), 1).width());
+    void widthOfRectWithPointsAndPositiveSize() {
+        Assertions.assertEquals(1.4142135623730951,
+            new Rect(new Point(), new Point(1), 1).width()
+        );
+    }
+
+    @Test
+    void widthOfRectWithPointsAndNegativeSize() {
+        Assertions.assertEquals(1.4142135623730951,
+            new Rect(new Point(), new Point(1), -1).width()
+        );
     }
 
     @Test
