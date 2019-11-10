@@ -3,7 +3,7 @@ package io.rala.math.geometry;
 import java.util.Objects;
 
 /**
- * rect in 2d area
+ * class which holds a rect in 2d area with point, height &amp; width
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Rect {

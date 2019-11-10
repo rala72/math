@@ -3,7 +3,7 @@ package io.rala.math.geometry;
 import java.util.Objects;
 
 /**
- * class which holds a vector with x &amp; y
+ * class which holds a vector in a 2d area with x &amp; y
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Vector implements Comparable<Vector> {

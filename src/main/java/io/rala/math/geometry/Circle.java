@@ -3,7 +3,7 @@ package io.rala.math.geometry;
 import java.util.Objects;
 
 /**
- * circle in 2d area
+ * class which holds a circle a in 2d area with center &amp; radius
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Circle {

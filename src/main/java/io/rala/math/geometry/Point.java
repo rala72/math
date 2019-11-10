@@ -3,7 +3,7 @@ package io.rala.math.geometry;
 import java.util.Objects;
 
 /**
- * point in a 2d area
+ * class which holds a point in a 2d area with x &amp; y
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Point implements Comparable<Point> {

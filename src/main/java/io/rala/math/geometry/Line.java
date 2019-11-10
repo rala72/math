@@ -3,7 +3,8 @@ package io.rala.math.geometry;
 import java.util.Objects;
 
 /**
- * line in 2d area
+ * class which holds a line in a 2d area with m &amp; b<br>
+ * <code>y=m*x+b</code>
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Line {

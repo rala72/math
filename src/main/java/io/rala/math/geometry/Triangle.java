@@ -3,7 +3,7 @@ package io.rala.math.geometry;
 import java.util.Objects;
 
 /**
- * triangle in 2d area
+ * class which holds a triangle in a 2d area with points a, b &amp; c
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Triangle {

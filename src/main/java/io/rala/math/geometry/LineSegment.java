@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * line segment in a 2d area
+ * class which holds a line segment in a 2d area with points a &amp; b
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class LineSegment implements Comparable<LineSegment> {
