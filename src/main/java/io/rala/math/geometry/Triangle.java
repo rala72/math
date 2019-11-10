@@ -83,7 +83,7 @@ public class Triangle implements Copyable<Triangle>, Movable<Triangle>, Comparab
 
     // endregion
 
-    // region edges
+    // region edges and heights
     // line segments
 
     /**
@@ -107,68 +107,86 @@ public class Triangle implements Copyable<Triangle>, Movable<Triangle>, Comparab
         return new LineSegment(getA(), getB());
     }
 
-    public LineSegment getHeightA() {
+    /**
+     * @return line segment of height <code>a</code> starting at {@link #getA()}
+     */
+    public LineSegment heightA() {
         double aL = edgeA().length();
         double a_ = Math.sqrt(
             Math.pow(edgeC().length(), 2) -
-                Math.pow(getHeightALength(), 2)
+                Math.pow(heightALength(), 2)
         );
         double c_ = Math.sqrt(
-            Math.pow(aL, 2) - Math.pow(getHeightCLength(), 2)
+            Math.pow(aL, 2) - Math.pow(heightCLength(), 2)
         );
         double lengthRatio = a_ < aL ? a_ / aL : aL / a_;
-        double requestedX = getHeightCLength() * lengthRatio;
+        double requestedX = heightCLength() * lengthRatio;
         double requestedY = c_ / lengthRatio;
         return new LineSegment(getA(),
             new Point(getA().getX() + requestedX, getA().getY() + requestedY)
         );
     }
 
-    public LineSegment getHeightB() {
+    /**
+     * @return line segment of height <code>b</code> starting at {@link #getB()}
+     */
+    public LineSegment heightB() {
         double bL = edgeB().length();
         double b_ = Math.sqrt(
             Math.pow(edgeC().length(), 2) -
-                Math.pow(getHeightBLength(), 2)
+                Math.pow(heightBLength(), 2)
         );
         double c_ = Math.sqrt(
             Math.pow(bL, 2) -
-                Math.pow(getHeightCLength(), 2)
+                Math.pow(heightCLength(), 2)
         );
         double lengthRatio = b_ < bL ? b_ / bL : bL / b_;
         double requestedX = c_ * lengthRatio;
-        double requestedY = getHeightCLength() * lengthRatio;
+        double requestedY = heightCLength() * lengthRatio;
         return new LineSegment(getB(),
             new Point(getB().getX() + requestedX, getB().getY() - requestedY)
         );
     }
 
-    public LineSegment getHeightC() {
+    /**
+     * @return line segment of height <code>c</code> starting at {@link #getC()}
+     */
+    public LineSegment heightC() {
         double bC = edgeC().length();
         double c_ = Math.sqrt(
             Math.pow(edgeA().length(), 2) -
-                Math.pow(getHeightCLength(), 2)
+                Math.pow(heightCLength(), 2)
         );
         double a_ = Math.sqrt(
             Math.pow(bC, 2) -
-                Math.pow(getHeightALength(), 2)
+                Math.pow(heightALength(), 2)
         );
         double lengthRatio = c_ < bC ? c_ / bC : bC / c_;
         double requestedX = a_ / lengthRatio;
-        double requestedY = getHeightALength() * lengthRatio;
+        double requestedY = heightALength() * lengthRatio;
         return new LineSegment(getC(),
             new Point(getC().getX() - requestedX, getC().getY() + requestedY)
         );
     }
 
-    protected double getHeightALength() {
+    /**
+     * @return <code>2*A/a</code>
+     */
+    protected double heightALength() {
         return 2 * area() / edgeA().length();
     }
 
-    protected double getHeightBLength() {
+    /**
+     * @return <code>2*A/b</code>
+     */
+    protected double heightBLength() {
         return 2 * area() / edgeB().length();
     }
 
-    protected double getHeightCLength() {
+    /**
+     * @return <code>2*A/c</code>
+     */
+    protected double heightCLength() {
         return 2 * area() / edgeC().length();
     }
 
