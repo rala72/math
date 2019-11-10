@@ -2,6 +2,7 @@ package io.rala.math.geometry;
 
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
+import io.rala.math.utils.Rotatable;
 
 import java.util.Objects;
 
@@ -9,7 +10,7 @@ import java.util.Objects;
  * class which holds a circle a in 2d area with center &amp; radius
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Circle implements Copyable<Circle>, Movable<Circle>, Comparable<Circle> {
+public class Circle implements Copyable<Circle>, Movable<Circle>, Rotatable<Circle>, Comparable<Circle> {
     // region attributes
 
     private Point center;
@@ -135,11 +136,16 @@ public class Circle implements Copyable<Circle>, Movable<Circle>, Comparable<Cir
 
     // endregion
 
-    // region move and copy
+    // region move, rotate and copy
 
     @Override
     public Circle move(Vector vector) {
         return new Circle(getCenter().move(vector), getRadius());
+    }
+
+    @Override
+    public Circle rotate(Point center, double phi) {
+        return new Circle(getCenter().rotate(center, phi), getRadius());
     }
 
     @Override

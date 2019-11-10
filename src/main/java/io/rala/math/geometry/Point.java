@@ -99,17 +99,17 @@ public class Point implements Copyable<Point>, Movable<Point>, Rotatable<Point>,
     // region move, rotate and copy
 
     @Override
+    public Point move(Vector vector) {
+        return new Point(getX() + vector.getX(), getY() + vector.getY());
+    }
+
+    @Override
     public Point rotate(Point center, double phi) {
         Vector vector = new Vector(center.getX(), center.getY());
         Point moved = move(vector.inverse());
         double newX = Math.cos(phi) * moved.getX() - Math.sin(phi) * moved.getY();
         double newY = Math.sin(phi) * moved.getX() + Math.cos(phi) * moved.getY();
         return new Point(newX, newY).move(vector);
-    }
-
-    @Override
-    public Point move(Vector vector) {
-        return new Point(getX() + vector.getX(), getY() + vector.getY());
     }
 
     @Override

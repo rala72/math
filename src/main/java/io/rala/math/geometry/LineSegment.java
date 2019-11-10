@@ -2,6 +2,7 @@ package io.rala.math.geometry;
 
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
+import io.rala.math.utils.Rotatable;
 
 import java.util.List;
 import java.util.Objects;
@@ -10,7 +11,7 @@ import java.util.Objects;
  * class which holds a line segment in a 2d area with points a &amp; b
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>, Comparable<LineSegment> {
+public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>, Rotatable<LineSegment>, Comparable<LineSegment> {
     // region attributes
 
     private Point a;
@@ -148,11 +149,19 @@ public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>,
 
     // endregion
 
-    // region move and copy
+    // region move, rotate and copy
 
     @Override
     public LineSegment move(Vector vector) {
         return new LineSegment(getA().move(vector), getB().move(vector));
+    }
+
+    @Override
+    public LineSegment rotate(Point center, double phi) {
+        return new LineSegment(
+            getA().rotate(center, phi),
+            getB().rotate(center, phi)
+        );
     }
 
     @Override
