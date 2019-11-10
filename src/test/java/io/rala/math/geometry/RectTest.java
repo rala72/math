@@ -27,7 +27,7 @@ class RectTest {
 
     // endregion
 
-    // region area and circumference
+    // region area, circumference and diagonale
 
     @Test
     void testArea() {
@@ -41,6 +41,13 @@ class RectTest {
         Assertions.assertEquals(4, new Rect(1, 1).getCircumference());
         Assertions.assertEquals(6, new Rect(1, 2).getCircumference());
         Assertions.assertEquals(10, new Rect(2, 3).getCircumference());
+    }
+
+    @Test
+    void testDiagonale() {
+        Assertions.assertEquals(1.4142135623730951, new Rect(1, 1).getDiagonale());
+        Assertions.assertEquals(2.23606797749979, new Rect(1, 2).getDiagonale());
+        Assertions.assertEquals(3.605551275463989, new Rect(2, 3).getDiagonale());
     }
 
     // endregion

@@ -88,7 +88,7 @@ public class Rect {
 
     // endregion
 
-    // region area and circumference
+    // region area, circumference and diagonale
 
     /**
      * @return <code>h*w</code>
@@ -102,6 +102,13 @@ public class Rect {
      */
     public double getCircumference() {
         return 2 * (getHeight() + getWidth());
+    }
+
+    /**
+     * @return <code>sqrt(w^2+h^2)</code>
+     */
+    public double getDiagonale() {
+        return Math.sqrt(Math.pow(getHeight(), 2) + Math.pow(getWidth(), 2));
     }
 
     // endregion
