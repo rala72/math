@@ -8,42 +8,84 @@ class RectTest {
     // region constructors, getter and setter
 
     @Test
-    void constructorWithHeightAndWidthButWithoutPoint() {
+    void constructorWithHeightAndWidthButWithoutPoints() {
         assertRect(new Rect(1, 2), 1, 2);
     }
 
+
     @Test
-    void constructorWithPointAndHeightAndWidth() {
-        assertRect(new Rect(new Point(1), 1, 2), new Point(1), 1, 2);
+    void constructorWithPoint1AndSize() {
+        assertRect(new Rect(new Point(0), new Point(1), 2),
+            new Point(), new Point(1), 2
+        );
     }
 
     @Test
-    void createAndSetPoint() {
+    void createAndSetA() {
         Rect rect = new Rect(0, 0);
         assertRect(rect, 0, 0);
-        rect.setPoint(new Point(1));
-        assertRect(rect, new Point(1), 0, 0);
+        rect.setA(new Point(1));
+        assertRect(rect, new Point(1), new Point(0), 0);
     }
 
     @Test
-    void createAndSetHeight() {
+    void createAndSetB() {
         Rect rect = new Rect(0, 0);
         assertRect(rect, 0, 0);
-        rect.setHeight(2);
+        rect.setB(new Point(2));
+        assertRect(rect, new Point(0), new Point(2), 0);
+    }
+
+    @Test
+    void createAndSetSize() {
+        Rect rect = new Rect(0, 0);
+        assertRect(rect, 0, 0);
+        rect.setSize(2);
         assertRect(rect, 2, 0);
-    }
-
-    @Test
-    void createAndSetWidth() {
-        Rect rect = new Rect(0, 0);
-        assertRect(rect, 0, 0);
-        rect.setWidth(3);
-        assertRect(rect, 0, 3);
     }
 
     // endregion
 
-    // region area, circumference and diagonale
+    // region height, width and diagonale
+
+    @Test
+    void heightOfRectWithPointsAndSize() {
+        Assertions.assertEquals(1, new Rect(new Point(), new Point(1), 1).height());
+    }
+
+    @Test
+    void heightOfRectWithHeight1AndWidth0() {
+        Assertions.assertEquals(0, new Rect(1, 0).height());
+    }
+
+    @Test
+    void widthOfRectWithPointsAndSize() {
+        Assertions.assertEquals(1.4142135623730951, new Rect(new Point(), new Point(1), 1).width());
+    }
+
+    @Test
+    void widthOfRectWithHeight1AndWidth0() {
+        Assertions.assertEquals(1, new Rect(1, 0).width());
+    }
+
+    @Test
+    void diagonaleOfRectWithHeightAndWidth1() {
+        Assertions.assertEquals(1.4142135623730951, new Rect(1, 1).diagonale());
+    }
+
+    @Test
+    void diagonaleOfRectWithHeight1AndWidth2() {
+        Assertions.assertEquals(2.23606797749979, new Rect(1, 2).diagonale());
+    }
+
+    @Test
+    void diagonaleOfRectWithHeight2AndWidth3() {
+        Assertions.assertEquals(3.605551275463989, new Rect(2, 3).diagonale());
+    }
+
+    // endregion
+
+    // region area and  circumference
 
     @Test
     void areaOfRectWithHeightAndWidth1() {
@@ -76,28 +118,13 @@ class RectTest {
         Assertions.assertEquals(10, new Rect(2, 3).circumference());
     }
 
-    @Test
-    void diagonaleOfRectWithHeightAndWidth1() {
-        Assertions.assertEquals(1.4142135623730951, new Rect(1, 1).diagonale());
-    }
-
-    @Test
-    void diagonaleOfRectWithHeight1AndWidth2() {
-        Assertions.assertEquals(2.23606797749979, new Rect(1, 2).diagonale());
-    }
-
-    @Test
-    void diagonaleOfRectWithHeight2AndWidth3() {
-        Assertions.assertEquals(3.605551275463989, new Rect(2, 3).diagonale());
-    }
-
     // endregion
 
     // region copy
 
     @Test
     void copyOfRectWithPointHeightAndWidth() {
-        Rect rect = new Rect(new Point(2), 3, 4);
+        Rect rect = new Rect(new Point(2), new Point(3), 4);
         Assertions.assertEquals(rect, rect.copy());
     }
 
@@ -107,29 +134,29 @@ class RectTest {
 
     @Test
     void equalsOfRectWithPointHeightAndWidth() {
-        Rect rect = new Rect(new Point(2), 3, 4);
+        Rect rect = new Rect(new Point(2), new Point(3), 4);
         Assertions.assertEquals(
             rect,
-            new Rect(new Point(2), 3, 4)
+            new Rect(new Point(2), new Point(3), 4)
         );
         Assertions.assertNotEquals(
             rect,
-            new Rect(new Point(2), 4, 3)
+            new Rect(new Point(2), new Point(4), 3)
         );
     }
 
     @Test
     void hashCodeOfRectWithPointHeightAndWidth() {
         Assertions.assertEquals(
-            18254816,
-            new Rect(new Point(2), 3, 4).hashCode()
+            1595867199,
+            new Rect(new Point(2), new Point(3), 4).hashCode()
         );
     }
 
     @Test
     void toStringOfRectWithPointHeightAndWidth() {
-        Rect rect = new Rect(new Point(2), 3, 4);
-        Assertions.assertEquals("2.0:2.0 3.0x4.0", rect.toString());
+        Rect rect = new Rect(new Point(2), new Point(3), 4);
+        Assertions.assertEquals("2.0:2.0 3.0:3.0 4.0", rect.toString());
     }
 
     // endregion
@@ -138,13 +165,13 @@ class RectTest {
     // region assert
 
     private static void assertRect(Rect rect, double height, double width) {
-        assertRect(rect, new Point(), height, width);
+        assertRect(rect, new Point(), new Point(width, 0), height);
     }
 
-    private static void assertRect(Rect rect, Point point, double height, double width) {
-        Assertions.assertEquals(point, rect.getPoint());
-        Assertions.assertEquals(height, rect.getHeight());
-        Assertions.assertEquals(width, rect.getWidth());
+    private static void assertRect(Rect rect, Point a, Point b, double size) {
+        Assertions.assertEquals(a, rect.getA());
+        Assertions.assertEquals(b, rect.getB());
+        Assertions.assertEquals(size, rect.getSize());
     }
 
     // endregion
