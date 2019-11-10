@@ -57,8 +57,20 @@ class LineTest {
     }
 
     @Test
-    void hasIntersectionWithUnequalM() {
+    void hasIntersectionWithLineM1B2AndM2B1() {
         Assertions.assertTrue(new Line(1, 2).hasIntersection(new Line(2, 1)));
+    }
+
+    @Test
+    void intersectionWithEqualM() {
+        Assertions.assertNull(new Line(1, 2).intersection(new Line(1, 0)));
+    }
+
+    @Test
+    void intersectionWithLineM1B2AndM2B1() {
+        Assertions.assertEquals(new Point(1, 3),
+            new Line(1, 2).intersection(new Line(2, 1))
+        );
     }
 
     // endregion

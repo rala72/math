@@ -98,6 +98,17 @@ public class Line implements Copyable<Line>, Comparable<Line> {
         return getM() != line.getM();
     }
 
+    /**
+     * @param line line to intersect
+     * @return intersection or <code>null</code>
+     * if {@link #hasIntersection(Line)} is <code>false</code>
+     */
+    public Point intersection(Line line) {
+        if (!hasIntersection(line)) return null;
+        double x = -(getB() - line.getB()) / (getM() - line.getM());
+        return new Point(x, calculateY(x));
+    }
+
     // endregion
 
     // region toLineSegment
