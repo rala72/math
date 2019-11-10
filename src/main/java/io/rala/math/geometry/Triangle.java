@@ -2,6 +2,7 @@ package io.rala.math.geometry;
 
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
+import io.rala.math.utils.Rotatable;
 
 import java.util.List;
 import java.util.Objects;
@@ -11,7 +12,7 @@ import java.util.stream.Collectors;
  * class which holds a triangle in a 2d area with points a, b &amp; c
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Triangle implements Copyable<Triangle>, Movable<Triangle>, Comparable<Triangle> {
+public class Triangle implements Copyable<Triangle>, Movable<Triangle>, Rotatable<Triangle>, Comparable<Triangle> {
     // region attributes
 
     private Point a;
@@ -79,6 +80,20 @@ public class Triangle implements Copyable<Triangle>, Movable<Triangle>, Comparab
      */
     public void setC(Point c) {
         this.c = c;
+    }
+
+    // endregion
+
+    // region vertexes
+
+    /**
+     * @return <code>(A+B+C)/3</code>
+     */
+    public Point centerOfGravity() {
+        return new Point(
+            (getA().getX() + getB().getX() + getC().getX()) / 3,
+            (getA().getY() + getB().getY() + getC().getY()) / 3
+        );
     }
 
     // endregion
@@ -238,6 +253,15 @@ public class Triangle implements Copyable<Triangle>, Movable<Triangle>, Comparab
     @Override
     public Triangle move(Vector vector) {
         return new Triangle(getA().move(vector), getB().move(vector), getC().move(vector));
+    }
+
+    @Override
+    public Triangle rotate(Point center, double phi) {
+        return new Triangle(
+            getA().rotate(center, phi),
+            getB().rotate(center, phi),
+            getC().rotate(center, phi)
+        );
     }
 
     @Override

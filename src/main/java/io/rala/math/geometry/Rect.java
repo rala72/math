@@ -2,6 +2,7 @@ package io.rala.math.geometry;
 
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
+import io.rala.math.utils.Rotatable;
 
 import java.util.List;
 import java.util.Objects;
@@ -10,7 +11,7 @@ import java.util.Objects;
  * class which holds a rect in 2d area with point a, b &amp; size
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Rect implements Copyable<Rect>, Movable<Rect>, Comparable<Rect> {
+public class Rect implements Copyable<Rect>, Movable<Rect>, Rotatable<Rect>, Comparable<Rect> {
     // region attributes
 
     private Point a;
@@ -181,11 +182,20 @@ public class Rect implements Copyable<Rect>, Movable<Rect>, Comparable<Rect> {
 
     // endregion
 
-    // region move and copy
+    // region move, rotate and copy
 
     @Override
     public Rect move(Vector vector) {
         return new Rect(getA().move(vector), getB().move(vector), getSize());
+    }
+
+    @Override
+    public Rect rotate(Point center, double phi) {
+        return new Rect(
+            getA().rotate(center, phi),
+            getB().rotate(center, phi),
+            getSize()
+        );
     }
 
     @Override

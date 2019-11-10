@@ -52,7 +52,7 @@ class PointTest {
 
     // endregion
 
-    // region move and copy
+    // region move, rotate and copy
 
     @Test
     void moveOfPointWithXYWithXY() {
@@ -67,6 +67,62 @@ class PointTest {
     @Test
     void moveOfPointWithXYWithVector() {
         Assertions.assertEquals(new Point(1, 1), new Point().move(new Vector(1)));
+    }
+
+    @Test
+    void rotateOfPointWithX1Y2WithoutCenterWithPiHalf() {
+        assertPoint(new Point(1, 2).rotate(Math.PI / 2),
+            -2, 1.0000000000000002
+        );
+    }
+
+    @Test
+    void rotateOfPointWithX1Y2WithoutCenterWithPi() {
+        assertPoint(new Point(1, 2).rotate(Math.PI),
+            -1.0000000000000002, -1.9999999999999998
+        );
+    }
+
+    @Test
+    void rotateOfPointWithX1Y2WithoutCenterWithPiThreeHalf() {
+        assertPoint(new Point(1, 2).rotate(Math.PI * 3 / 2),
+            1.9999999999999998, -1.0000000000000004
+        );
+    }
+
+    @Test
+    void rotateOfPointWithX1Y2WithoutCenterWithTwoPi() {
+        assertPoint(new Point(1, 2).rotate(Math.PI * 2),
+            1.0000000000000004, 1.9999999999999998
+        );
+    }
+
+    @Test
+    void rotateOfPointWithX1Y2WithCenterXY1WithPiHalf() {
+        assertPoint(new Point(1, 2).rotate(new Point(1), Math.PI / 2),
+            0, 1
+        );
+    }
+
+    @Test
+    void rotateOfPointWithX1Y2WithCenterXY1WithPi() {
+        assertPoint(new Point(1, 2).rotate(new Point(1), Math.PI),
+            0.9999999999999999, 0
+        );
+    }
+
+    @Test
+    void rotateOfPointWithX1Y2WithCenterXY1WithPiThreeHalf() {
+        assertPoint(new Point(1, 2).rotate(new Point(1), Math.PI * 3 / 2),
+            2, 0.9999999999999998
+        );
+    }
+
+    @Test
+    void rotateOfPointWithX1Y2WithCenterXY1WithTwoPi() {
+        assertPoint(new Point(1, 2).rotate(new Point(1), Math.PI * 2),
+            1.0000000000000002, 2
+        );
     }
 
     @Test
@@ -103,7 +159,7 @@ class PointTest {
     @Test
     void toStringOfPointWithXY() {
         Point point = new Point(2, 3);
-        Assertions.assertEquals("2.0:3.0", point.toString());
+        Assertions.assertEquals("2.0|3.0", point.toString());
     }
 
     @Test
@@ -134,8 +190,8 @@ class PointTest {
     }
 
     private static void assertPoint(Point point, double x, double y) {
-        Assertions.assertEquals(x, point.getX());
-        Assertions.assertEquals(y, point.getY());
+        Assertions.assertEquals(x, point.getX(), "x is invalid");
+        Assertions.assertEquals(y, point.getY(), "y is invalid");
     }
 
     // endregion

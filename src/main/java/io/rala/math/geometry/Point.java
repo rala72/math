@@ -2,6 +2,7 @@ package io.rala.math.geometry;
 
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
+import io.rala.math.utils.Rotatable;
 
 import java.util.Objects;
 
@@ -9,7 +10,7 @@ import java.util.Objects;
  * class which holds a point in a 2d area with x &amp; y
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Point implements Copyable<Point>, Movable<Point>, Comparable<Point> {
+public class Point implements Copyable<Point>, Movable<Point>, Rotatable<Point>, Comparable<Point> {
     // region attributes
 
     private double x;
@@ -95,11 +96,20 @@ public class Point implements Copyable<Point>, Movable<Point>, Comparable<Point>
 
     // endregion
 
-    // region move and copy
+    // region move, rotate and copy
 
     @Override
     public Point move(Vector vector) {
         return new Point(getX() + vector.getX(), getY() + vector.getY());
+    }
+
+    @Override
+    public Point rotate(Point center, double phi) {
+        Vector vector = new Vector(center.getX(), center.getY());
+        Point moved = move(vector.inverse());
+        double newX = Math.cos(phi) * moved.getX() - Math.sin(phi) * moved.getY();
+        double newY = Math.sin(phi) * moved.getX() + Math.cos(phi) * moved.getY();
+        return new Point(newX, newY).move(vector);
     }
 
     @Override
@@ -127,7 +137,7 @@ public class Point implements Copyable<Point>, Movable<Point>, Comparable<Point>
 
     @Override
     public String toString() {
-        return getX() + ":" + getY();
+        return getX() + "|" + getY();
     }
 
     @Override

@@ -190,6 +190,7 @@ public class EnumerativeCombinatoric {
      * @see MathX#factorial(BigInteger)
      */
     public static BigInteger combinationsWithoutRepetition(BigInteger n, BigInteger k) {
+        if (k.equals(BigInteger.ZERO) || n.equals(k)) return BigInteger.ONE;
         return MathX.factorial(n).divide(MathX.factorial(n.subtract(k)).multiply(MathX.factorial(k)));
     }
 

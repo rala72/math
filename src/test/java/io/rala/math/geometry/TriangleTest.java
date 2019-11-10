@@ -40,6 +40,17 @@ class TriangleTest {
 
     // endregion
 
+    // region vertexes
+
+    @Test
+    void centerOfGravityOfTriangleWithA00B01C11() {
+        Assertions.assertEquals(new Point(0.3333333333333333, 0.6666666666666666),
+            new Triangle(new Point(), new Point(0, 1), new Point(1, 1)).centerOfGravity()
+        );
+    }
+
+    // endregion
+
     // region edges
 
     @Test
@@ -129,7 +140,7 @@ class TriangleTest {
 
     // endregion
 
-    // region move and copy
+    // region move, rotate and copy
 
     @Test
     void moveOfTriangleWithXYWithXY() {
@@ -155,6 +166,28 @@ class TriangleTest {
             new Triangle(new Point(1), new Point(2, 1), new Point(2)),
             new Triangle(new Point(0), new Point(1, 0), new Point(1))
                 .move(new Vector(1))
+        );
+    }
+
+    @Test
+    void rotateOfTriangleWithA00B01C11WithoutCenterWithPiHalf() {
+        assertTriangle(
+            new Triangle(new Point(0, 0), new Point(0, 1), new Point(1, 1))
+                .rotate(Math.PI / 2),
+            new Point(),
+            new Point(-1, 6.123233995736766E-17),
+            new Point(-0.9999999999999999, 1.0)
+        );
+    }
+
+    @Test
+    void rotateOfTriangleWithA00B01C11WithCenterXY1WithPiHalf() {
+        assertTriangle(
+            new Triangle(new Point(0, 0), new Point(0, 1), new Point(1, 1))
+                .rotate(new Point(1), Math.PI / 2),
+            new Point(2, 0),
+            new Point(0.9999999999999999, 0),
+            new Point(1, 1)
         );
     }
 
@@ -192,7 +225,7 @@ class TriangleTest {
     @Test
     void toStringOfTriangleWithA2B3C4() {
         Triangle triangle = new Triangle(new Point(2), new Point(3), new Point(4));
-        Assertions.assertEquals("2.0:2.0 3.0:3.0 4.0:4.0", triangle.toString());
+        Assertions.assertEquals("2.0|2.0 3.0|3.0 4.0|4.0", triangle.toString());
     }
 
     @Test
@@ -221,9 +254,9 @@ class TriangleTest {
     // region assert
 
     private static void assertTriangle(Triangle triangle, Point a, Point b, Point c) {
-        Assertions.assertEquals(a, triangle.getA());
-        Assertions.assertEquals(b, triangle.getB());
-        Assertions.assertEquals(c, triangle.getC());
+        Assertions.assertEquals(a, triangle.getA(), "a is invalid");
+        Assertions.assertEquals(b, triangle.getB(), "b is invalid");
+        Assertions.assertEquals(c, triangle.getC(), "c is invalid");
     }
 
     // endregion

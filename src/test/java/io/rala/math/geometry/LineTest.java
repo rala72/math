@@ -49,6 +49,68 @@ class LineTest {
 
     // endregion
 
+    // region intersection
+
+    @Test
+    void hasIntersectionWithEqualM() {
+        Assertions.assertFalse(new Line(1, 2).hasIntersection(new Line(1, 0)));
+    }
+
+    @Test
+    void hasIntersectionWithLineM1B2AndM2B1() {
+        Assertions.assertTrue(new Line(1, 2).hasIntersection(new Line(2, 1)));
+    }
+
+    @Test
+    void intersectionWithEqualM() {
+        Assertions.assertNull(new Line(1, 2).intersection(new Line(1, 0)));
+    }
+
+    @Test
+    void intersectionWithLineM1B2AndM2B1() {
+        Assertions.assertEquals(new Point(1, 3),
+            new Line(1, 2).intersection(new Line(2, 1))
+        );
+    }
+
+    // endregion
+
+    // region toLineSegment
+
+    @Test
+    void toLineSegmentUsingXOfLineWithM0B1() {
+        Assertions.assertEquals(
+            new LineSegment(new Point(0, 1), new Point(1, 1)),
+            new Line(0, 1).toLineSegmentUsingX(0, 1)
+        );
+    }
+
+    @Test
+    void toLineSegmentUsingXOfLineWithM1B1() {
+        Assertions.assertEquals(
+            new LineSegment(new Point(0, 1), new Point(1, 2)),
+            new Line(1, 1).toLineSegmentUsingX(0, 1)
+        );
+    }
+
+    @Test
+    void toLineSegmentUsingYOfLineWithM1B0() {
+        Assertions.assertEquals(
+            new LineSegment(new Point(0, 0), new Point(1, 1)),
+            new Line(1, 0).toLineSegmentUsingY(0, 1)
+        );
+    }
+
+    @Test
+    void toLineSegmentUsingYOfLineWithM1B1() {
+        Assertions.assertEquals(
+            new LineSegment(new Point(-1, 0), new Point(0, 1)),
+            new Line(1, 1).toLineSegmentUsingY(0, 1)
+        );
+    }
+
+    // endregion
+
     // region copy
 
     @Test
@@ -108,8 +170,8 @@ class LineTest {
     // region assert
 
     private static void assertLine(Line line, double m, double b) {
-        Assertions.assertEquals(m, line.getM());
-        Assertions.assertEquals(b, line.getB());
+        Assertions.assertEquals(m, line.getM(), "m is invalid");
+        Assertions.assertEquals(b, line.getB(), "b is invalid");
     }
 
     // endregion

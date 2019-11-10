@@ -1,6 +1,7 @@
 package io.rala.math.geometry;
 
 import io.rala.math.utils.Copyable;
+import io.rala.math.utils.Rotatable;
 
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import java.util.Objects;
  * class which holds a vector in a 2d area with x &amp; y
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Vector implements Copyable<Vector>, Comparable<Vector> {
+public class Vector implements Rotatable<Vector>, Copyable<Vector>, Comparable<Vector> {
     // region attributes
 
     private double x;
@@ -214,17 +215,7 @@ public class Vector implements Copyable<Vector>, Comparable<Vector> {
 
     // endregion
 
-    // region rotate, normal and normalized
-
-    /**
-     * @param phi angle in radiant
-     * @return new vector rotated by given angle
-     */
-    public Vector rotate(double phi) {
-        double newX = Math.cos(phi) * getX() - Math.sin(phi) * getY();
-        double newY = Math.sin(phi) * getX() + Math.cos(phi) * getY();
-        return new Vector(newX, newY);
-    }
+    // region normal and normalized
 
     /**
      * @return new normal vector rotated left
@@ -329,7 +320,14 @@ public class Vector implements Copyable<Vector>, Comparable<Vector> {
 
     // endregion
 
-    // region copy
+    // region rotate and copy
+
+    @Override
+    public Vector rotate(Point center, double phi) {
+        double newX = Math.cos(phi) * getX() - Math.sin(phi) * getY();
+        double newY = Math.sin(phi) * getX() + Math.cos(phi) * getY();
+        return new Vector(newX, newY);
+    }
 
     @Override
     public Vector copy() {

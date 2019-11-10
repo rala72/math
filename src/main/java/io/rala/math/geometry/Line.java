@@ -88,6 +88,59 @@ public class Line implements Copyable<Line>, Comparable<Line> {
 
     // endregion
 
+    // region intersection
+
+    /**
+     * @param line line to check if intersection exists
+     * @return <code>true</code> if <code>m</code> is not equal
+     */
+    public boolean hasIntersection(Line line) {
+        return getM() != line.getM();
+    }
+
+    /**
+     * @param line line to intersect
+     * @return intersection or <code>null</code>
+     * if {@link #hasIntersection(Line)} is <code>false</code>
+     */
+    public Point intersection(Line line) {
+        if (!hasIntersection(line)) return null;
+        double x = -(getB() - line.getB()) / (getM() - line.getM());
+        return new Point(x, calculateY(x));
+    }
+
+    // endregion
+
+    // region toLineSegment
+
+    /**
+     * @param fromX starting index of line segment
+     * @param toX   end index of line segment
+     * @return new line segment instance in given boundaries
+     * @see #calculateY(double)
+     */
+    public LineSegment toLineSegmentUsingX(double fromX, double toX) {
+        return new LineSegment(
+            new Point(fromX, calculateY(fromX)),
+            new Point(toX, calculateY(toX))
+        );
+    }
+
+    /**
+     * @param fromY starting index of line segment
+     * @param toY   end index of line segment
+     * @return new line segment instance in given boundaries
+     * @see #calculateX(double)
+     */
+    public LineSegment toLineSegmentUsingY(double fromY, double toY) {
+        return new LineSegment(
+            new Point(calculateX(fromY), fromY),
+            new Point(calculateX(toY), toY)
+        );
+    }
+
+    // endregion
+
     // region copy
 
     @Override
@@ -115,7 +168,7 @@ public class Line implements Copyable<Line>, Comparable<Line> {
 
     @Override
     public String toString() {
-        return "y=" + getM() + "*x+" + getB();
+        return "y=" + getM() + "*x" + (0 <= getB() ? "+" : "") + getB();
     }
 
     @Override

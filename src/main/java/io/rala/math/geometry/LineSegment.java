@@ -2,6 +2,7 @@ package io.rala.math.geometry;
 
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
+import io.rala.math.utils.Rotatable;
 
 import java.util.List;
 import java.util.Objects;
@@ -10,7 +11,7 @@ import java.util.Objects;
  * class which holds a line segment in a 2d area with points a &amp; b
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>, Comparable<LineSegment> {
+public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>, Rotatable<LineSegment>, Comparable<LineSegment> {
     // region attributes
 
     private Point a;
@@ -96,7 +97,7 @@ public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>,
 
     // endregion
 
-    // region length
+    // region length, halvingPoint and distributionPoint
 
     /**
      * @return length of vector based on pythagoras
@@ -108,13 +109,59 @@ public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>,
         );
     }
 
+    /**
+     * @return <code>(A+B)/2</code>
+     */
+    public Point halvingPoint() {
+        return new Point(
+            (getA().getX() + getB().getX()) / 2,
+            (getA().getY() + getB().getY()) / 2
+        );
+    }
+
+    /**
+     * @param d proportion of distribution
+     * @return <code>(1-d)*A+d*B</code>
+     */
+    public Point distributionPoint(double d) {
+        return new Point(
+            (1d - d) * getA().getX() + d * getB().getX(),
+            (1d - d) * getA().getY() + d * getB().getY()
+        );
+    }
+
     // endregion
 
-    // region move and copy
+    // region toLine
+
+    /**
+     * may return a new Line with {@link Double#NaN}
+     * as <code>m</code> if the line is vertical -
+     * <code>b</code> is corresponding <code>x</code>
+     *
+     * @return new line instance
+     */
+    public Line toLine() {
+        if (getA().getX() == getB().getX()) return new Line(Double.NaN, getA().getX());
+        double m = Math.sqrt(Math.pow(getA().getX(), 2) + Math.pow(getB().getX(), 2));
+        return new Line(m, getA().getY() - (m * getA().getX()));
+    }
+
+    // endregion
+
+    // region move, rotate and copy
 
     @Override
     public LineSegment move(Vector vector) {
         return new LineSegment(getA().move(vector), getB().move(vector));
+    }
+
+    @Override
+    public LineSegment rotate(Point center, double phi) {
+        return new LineSegment(
+            getA().rotate(center, phi),
+            getB().rotate(center, phi)
+        );
     }
 
     @Override

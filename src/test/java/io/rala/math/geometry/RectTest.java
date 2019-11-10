@@ -174,7 +174,7 @@ class RectTest {
 
     // endregion
 
-    // region move and copy
+    // region move, rotate and copy
 
     @Test
     void moveOfRectWithXYWithXY() {
@@ -197,6 +197,24 @@ class RectTest {
         Assertions.assertEquals(
             new Rect(new Point(1), new Point(3, 1), 1),
             new Rect(1, 2).move(new Vector(1))
+        );
+    }
+
+    @Test
+    void rotateOfRectWidthHeight1AndWidth2WithoutCenterWithPiHalf() {
+        assertRect(
+            new Rect(new Point(), new Point(0, 1), 2)
+                .rotate(Math.PI / 2),
+            new Point(), new Point(-1.0, 6.123233995736766E-17), 2
+        );
+    }
+
+    @Test
+    void rotateOfRectWithHeight1AndWidth2WithCenterXY1WithPiHalf() {
+        assertRect(
+            new Rect(new Point(), new Point(0, 1), 2)
+                .rotate(new Point(1), Math.PI / 2),
+            new Point(2, 0), new Point(0.9999999999999999, 0), 2
         );
     }
 
@@ -234,7 +252,7 @@ class RectTest {
     @Test
     void toStringOfRectWithPointHeightAndWidth() {
         Rect rect = new Rect(new Point(2), new Point(3), 4);
-        Assertions.assertEquals("2.0:2.0 3.0:3.0 4.0", rect.toString());
+        Assertions.assertEquals("2.0|2.0 3.0|3.0 4.0", rect.toString());
     }
 
     @Test
@@ -261,9 +279,9 @@ class RectTest {
     }
 
     private static void assertRect(Rect rect, Point a, Point b, double size) {
-        Assertions.assertEquals(a, rect.getA());
-        Assertions.assertEquals(b, rect.getB());
-        Assertions.assertEquals(size, rect.getSize());
+        Assertions.assertEquals(a, rect.getA(), "a is invalid");
+        Assertions.assertEquals(b, rect.getB(), "b is invalid");
+        Assertions.assertEquals(size, rect.getSize(), "size is invalid");
     }
 
     // endregion
