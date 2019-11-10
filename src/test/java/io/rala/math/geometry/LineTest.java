@@ -49,6 +49,20 @@ class LineTest {
 
     // endregion
 
+    // region intersection
+
+    @Test
+    void hasIntersectionWithEqualM() {
+        Assertions.assertFalse(new Line(1, 2).hasIntersection(new Line(1, 0)));
+    }
+
+    @Test
+    void hasIntersectionWithUnequalM() {
+        Assertions.assertTrue(new Line(1, 2).hasIntersection(new Line(2, 1)));
+    }
+
+    // endregion
+
     // region copy
 
     @Test

@@ -88,6 +88,18 @@ public class Line implements Copyable<Line>, Comparable<Line> {
 
     // endregion
 
+    // region intersection
+
+    /**
+     * @param line line to check if intersection exists
+     * @return <code>true</code> if <code>m</code> is not equal
+     */
+    public boolean hasIntersection(Line line) {
+        return getM() != line.getM();
+    }
+
+    // endregion
+
     // region copy
 
     @Override
