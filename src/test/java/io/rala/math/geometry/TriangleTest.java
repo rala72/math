@@ -40,6 +40,17 @@ class TriangleTest {
 
     // endregion
 
+    // region vertexes
+
+    @Test
+    void centerOfGravityOfTriangleWithA00B01C11() {
+        Assertions.assertEquals(new Point(0.3333333333333333, 0.6666666666666666),
+            new Triangle(new Point(), new Point(0, 1), new Point(1, 1)).centerOfGravity()
+        );
+    }
+
+    // endregion
+
     // region edges
 
     @Test

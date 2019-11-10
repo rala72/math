@@ -83,6 +83,20 @@ public class Triangle implements Copyable<Triangle>, Movable<Triangle>, Comparab
 
     // endregion
 
+    // region vertexes
+
+    /**
+     * @return <code>(A+B+C)/3</code>
+     */
+    public Point centerOfGravity() {
+        return new Point(
+            (getA().getX() + getB().getX() + getC().getX()) / 3,
+            (getA().getY() + getB().getY() + getC().getY()) / 3
+        );
+    }
+
+    // endregion
+
     // region edges
     // line segments
 
