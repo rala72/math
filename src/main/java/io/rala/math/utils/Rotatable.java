@@ -12,12 +12,13 @@ public interface Rotatable<T> {
      * @param phi angle in radiant
      * @return a new instance with rotated properties
      */
+    // calls {@link #rotate(Point, double)} with {@link Point#Point()}
     default T rotate(double phi) {
         return rotate(new Point(), phi);
     }
 
     /**
-     * @param center rotation center
+     * @param center rotation center to rotate - class without position ignore this value
      * @param phi    angle in radiant
      * @return a new instance with rotated properties
      */
