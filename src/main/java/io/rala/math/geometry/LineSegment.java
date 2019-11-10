@@ -134,9 +134,14 @@ public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>,
     // region toLine
 
     /**
+     * may return a new Line with {@link Double#NaN}
+     * as <code>m</code> if the line is vertical -
+     * <code>b</code> is corresponding <code>x</code>
+     *
      * @return new line instance
      */
     public Line toLine() {
+        if (getA().getX() == getB().getX()) return new Line(Double.NaN, getA().getX());
         double m = Math.sqrt(Math.pow(getA().getX(), 2) + Math.pow(getB().getX(), 2));
         return new Line(m, getA().getY() - (m * getA().getX()));
     }
