@@ -100,6 +100,36 @@ public class Line implements Copyable<Line>, Comparable<Line> {
 
     // endregion
 
+    // region toLineSegment
+
+    /**
+     * @param fromX starting index of line segment
+     * @param toX   end index of line segment
+     * @return new line segment instance in given boundaries
+     * @see #calculateY(double)
+     */
+    public LineSegment toLineSegmentUsingX(double fromX, double toX) {
+        return new LineSegment(
+            new Point(fromX, calculateY(fromX)),
+            new Point(toX, calculateY(toX))
+        );
+    }
+
+    /**
+     * @param fromY starting index of line segment
+     * @param toY   end index of line segment
+     * @return new line segment instance in given boundaries
+     * @see #calculateX(double)
+     */
+    public LineSegment toLineSegmentUsingY(double fromY, double toY) {
+        return new LineSegment(
+            new Point(calculateX(fromY), fromY),
+            new Point(calculateX(toY), toY)
+        );
+    }
+
+    // endregion
+
     // region copy
 
     @Override

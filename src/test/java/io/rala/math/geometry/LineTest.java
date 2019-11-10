@@ -63,6 +63,42 @@ class LineTest {
 
     // endregion
 
+    // region toLineSegment
+
+    @Test
+    void toLineSegmentUsingXOfLineWithM0B1() {
+        Assertions.assertEquals(
+            new LineSegment(new Point(0, 1), new Point(1, 1)),
+            new Line(0, 1).toLineSegmentUsingX(0, 1)
+        );
+    }
+
+    @Test
+    void toLineSegmentUsingXOfLineWithM1B1() {
+        Assertions.assertEquals(
+            new LineSegment(new Point(0, 1), new Point(1, 2)),
+            new Line(1, 1).toLineSegmentUsingX(0, 1)
+        );
+    }
+
+    @Test
+    void toLineSegmentUsingYOfLineWithM1B0() {
+        Assertions.assertEquals(
+            new LineSegment(new Point(0, 0), new Point(1, 1)),
+            new Line(1, 0).toLineSegmentUsingY(0, 1)
+        );
+    }
+
+    @Test
+    void toLineSegmentUsingYOfLineWithM1B1() {
+        Assertions.assertEquals(
+            new LineSegment(new Point(-1, 0), new Point(0, 1)),
+            new Line(1, 1).toLineSegmentUsingY(0, 1)
+        );
+    }
+
+    // endregion
+
     // region copy
 
     @Test
