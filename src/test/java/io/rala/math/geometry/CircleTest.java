@@ -122,7 +122,7 @@ class CircleTest {
 
     // endregion
 
-    // region move and copy
+    // region move, rotate and copy
 
     @Test
     void moveOfCircleWithoutParameterWithXY() {
@@ -137,6 +137,22 @@ class CircleTest {
     @Test
     void moveOfCircleWithoutParameterWithVector() {
         Assertions.assertEquals(new Circle(new Point(1)), new Circle().move(new Vector(1)));
+    }
+
+    @Test
+    void rotateOfCircleWithX1Y2WithoutCenterWithPiHalf() {
+        assertCircle(new Circle(new Point(1, 2))
+                .rotate(Math.PI / 2),
+            new Point(-2, 1.0000000000000002)
+        );
+    }
+
+    @Test
+    void rotateOfCircleWithX1Y2WithCenterXY1WithPiHalf() {
+        assertCircle(new Circle(new Point(1, 2))
+                .rotate(new Point(1), Math.PI / 2),
+            new Point(0, 1)
+        );
     }
 
     @Test

@@ -136,7 +136,7 @@ class LineSegmentTest {
 
     // endregion
 
-    // region move and copy
+    // region move, rotate and copy
 
     @Test
     void moveOfLineSegmentWithAndBWithXY() {
@@ -159,6 +159,26 @@ class LineSegmentTest {
         Assertions.assertEquals(
             new LineSegment(new Point(1), new Point(2)),
             new LineSegment(new Point(), new Point(1)).move(new Vector(1))
+        );
+    }
+
+    @Test
+    void rotateOfLineSegmentWithAXY0AndBX1Y2WithoutCenterWithPiHalf() {
+        assertLineSegment(
+            new LineSegment(new Point(0, 0), new Point(1, 2))
+                .rotate(Math.PI / 2),
+            new Point(),
+            new Point(-2, 1.0000000000000002)
+        );
+    }
+
+    @Test
+    void rotateOfLineSegmentWithAXY0AndBX1Y2WithCenterXY1WithPiHalf() {
+        assertLineSegment(
+            new LineSegment(new Point(0, 0), new Point(1, 2))
+                .rotate(new Point(1), Math.PI / 2),
+            new Point(2, 0),
+            new Point(0, 1)
         );
     }
 

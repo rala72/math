@@ -100,7 +100,7 @@ class TriangleTest {
 
     // endregion
 
-    // region move and copy
+    // region move, rotate and copy
 
     @Test
     void moveOfTriangleWithXYWithXY() {
@@ -126,6 +126,28 @@ class TriangleTest {
             new Triangle(new Point(1), new Point(2, 1), new Point(2)),
             new Triangle(new Point(0), new Point(1, 0), new Point(1))
                 .move(new Vector(1))
+        );
+    }
+
+    @Test
+    void rotateOfTriangleWithA00B01C11WithoutCenterWithPiHalf() {
+        assertTriangle(
+            new Triangle(new Point(0, 0), new Point(0, 1), new Point(1, 1))
+                .rotate(Math.PI / 2),
+            new Point(),
+            new Point(-1, 6.123233995736766E-17),
+            new Point(-0.9999999999999999, 1.0)
+        );
+    }
+
+    @Test
+    void rotateOfTriangleWithA00B01C11WithCenterXY1WithPiHalf() {
+        assertTriangle(
+            new Triangle(new Point(0, 0), new Point(0, 1), new Point(1, 1))
+                .rotate(new Point(1), Math.PI / 2),
+            new Point(2, 0),
+            new Point(0.9999999999999999, 0),
+            new Point(1, 1)
         );
     }
 
