@@ -323,7 +323,7 @@ public class Vector implements Rotatable<Vector>, Copyable<Vector>, Comparable<V
     // region rotate and copy
 
     @Override
-    public Vector rotate(double phi) {
+    public Vector rotate(Point center, double phi) {
         double newX = Math.cos(phi) * getX() - Math.sin(phi) * getY();
         double newY = Math.sin(phi) * getX() + Math.cos(phi) * getY();
         return new Vector(newX, newY);
