@@ -304,7 +304,6 @@ public class Vector implements Comparable<Vector> {
         return new Vector(Math.ceil(getX()), Math.ceil(getY()));
     }
 
-
     /**
      * @return new vector with truncated-values
      * @see #round()

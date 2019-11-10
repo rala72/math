@@ -66,7 +66,6 @@ class RectTest {
         Assertions.assertEquals(new Point(1, 3), rect.vertexD());
     }
 
-
     // endregion
 
     // region height, width and diagonale
