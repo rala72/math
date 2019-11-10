@@ -27,6 +27,24 @@ class RectTest {
 
     // endregion
 
+    // region area and circumference
+
+    @Test
+    void testArea() {
+        Assertions.assertEquals(1, new Rect(1, 1).getArea());
+        Assertions.assertEquals(2, new Rect(1, 2).getArea());
+        Assertions.assertEquals(6, new Rect(2, 3).getArea());
+    }
+
+    @Test
+    void testCircumference() {
+        Assertions.assertEquals(4, new Rect(1, 1).getCircumference());
+        Assertions.assertEquals(6, new Rect(1, 2).getCircumference());
+        Assertions.assertEquals(10, new Rect(2, 3).getCircumference());
+    }
+
+    // endregion
+
     // region copy
 
     @Test

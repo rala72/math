@@ -88,6 +88,24 @@ public class Rect {
 
     // endregion
 
+    // region area and circumference
+
+    /**
+     * @return <code>h*w</code>
+     */
+    public double getArea() {
+        return getHeight() * getWidth();
+    }
+
+    /**
+     * @return <code>2*(h+w)</code>
+     */
+    public double getCircumference() {
+        return 2 * (getHeight() + getWidth());
+    }
+
+    // endregion
+
     // region copy
 
     /**
