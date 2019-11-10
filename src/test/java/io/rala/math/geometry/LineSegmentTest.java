@@ -57,7 +57,7 @@ class LineSegmentTest {
 
     // endregion
 
-    // region length
+    // region length, halvingPoint and distributionPoint
 
     @Test
     void lengthOfLineSegmentWithTwoEqualPoints() {
@@ -72,6 +72,34 @@ class LineSegmentTest {
     @Test
     void lengthOfLineSegmentWithTwoDifferenceEach() {
         Assertions.assertEquals(2.8284271247461903, new LineSegment(new Point(3, 4), new Point(1, 2)).length());
+    }
+
+    @Test
+    void halvingPointOfLineSegmentWithPXY0AndPXY1() {
+        Assertions.assertEquals(new Point(0.5, 0.5),
+            new LineSegment(new Point(), new Point(1)).halvingPoint()
+        );
+    }
+
+    @Test
+    void distributionPointComma25OfLineSegmentWithPXY0AndPXY1() {
+        Assertions.assertEquals(new Point(0.25, 0.25),
+            new LineSegment(new Point(), new Point(1)).distributionPoint(0.25)
+        );
+    }
+
+    @Test
+    void distributionPointComma5OfLineSegmentWithPXY0AndPXY1() {
+        Assertions.assertEquals(new Point(0.5, 0.5),
+            new LineSegment(new Point(), new Point(1)).distributionPoint(0.5)
+        );
+    }
+
+    @Test
+    void distributionPointComma75OfLineSegmentWithPXY0AndPXY1() {
+        Assertions.assertEquals(new Point(0.75, 0.75),
+            new LineSegment(new Point(), new Point(1)).distributionPoint(0.75)
+        );
     }
 
     // endregion

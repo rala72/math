@@ -96,7 +96,7 @@ public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>,
 
     // endregion
 
-    // region length
+    // region length, halvingPoint and distributionPoint
 
     /**
      * @return length of vector based on pythagoras
@@ -105,6 +105,27 @@ public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>,
         return Math.sqrt(
             Math.pow(getA().getX() - getB().getX(), 2) +
                 Math.pow(getA().getY() - getB().getY(), 2)
+        );
+    }
+
+    /**
+     * @return <code>(A+B)/2</code>
+     */
+    public Point halvingPoint() {
+        return new Point(
+            (getA().getX() + getB().getX()) / 2,
+            (getA().getY() + getB().getY()) / 2
+        );
+    }
+
+    /**
+     * @param d proportion of distribution
+     * @return <code>(1-d)*A+d*B</code>
+     */
+    public Point distributionPoint(double d) {
+        return new Point(
+            (1d - d) * getA().getX() + d * getB().getX(),
+            (1d - d) * getA().getY() + d * getB().getY()
         );
     }
 
