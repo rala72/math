@@ -121,6 +121,17 @@ public class Circle {
 
     // endregion
 
+    // region isUnitCircle
+
+    /**
+     * @return <code>true</code> if {@link #getRadius()} is 1
+     */
+    public boolean isUnitCircle() {
+        return getRadius() == 1;
+    }
+
+    // endregion
+
     // region copy
 
     /**

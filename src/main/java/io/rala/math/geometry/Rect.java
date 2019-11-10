@@ -166,6 +166,17 @@ public class Rect {
 
     // endregion
 
+    // region isSquare
+
+    /**
+     * @return <code>true</code> if {@link #height()} and {@link #width()} are equal
+     */
+    public boolean isSquare() {
+        return height() == width();
+    }
+
+    // endregion
+
     // region copy
 
     /**

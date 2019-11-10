@@ -125,7 +125,7 @@ class RectTest {
 
     // endregion
 
-    // region area and  circumference
+    // region area and circumference
 
     @Test
     void areaOfRectWithHeightAndWidth1() {
@@ -156,6 +156,20 @@ class RectTest {
     @Test
     void circumferenceOfRectWithHeight2AndWidth3() {
         Assertions.assertEquals(10, new Rect(2, 3).circumference());
+    }
+
+    // endregion
+
+    // region isSquare
+
+    @Test
+    void isSquareWithEqualHeightAndWidth() {
+        Assertions.assertTrue(new Rect(1, 1).isSquare());
+    }
+
+    @Test
+    void isSquareWithUnequalHeightAndWidth() {
+        Assertions.assertFalse(new Rect(1, 2).isSquare());
     }
 
     // endregion

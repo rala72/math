@@ -103,6 +103,25 @@ class CircleTest {
 
     // endregion
 
+    // region isUnitCircle
+
+    @Test
+    void isUnitCircleWithRadius0() {
+        Assertions.assertFalse(new Circle(0).isUnitCircle());
+    }
+
+    @Test
+    void isUnitCircleWithRadius1() {
+        Assertions.assertTrue(new Circle(1).isUnitCircle());
+    }
+
+    @Test
+    void isUnitCircleWithRadius2() {
+        Assertions.assertFalse(new Circle(2).isUnitCircle());
+    }
+
+    // endregion
+
     // region copy
 
     @Test
