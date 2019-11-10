@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 class MathXTest {
     @ParameterizedTest
     @MethodSource("getGcdArguments")
-    void testGcd(int expected, int... a) {
+    void gcd(int expected, int... a) {
         Assertions.assertEquals(expected, a.length == 2 ?
             MathX.gcd(a[0], a[1]) : MathX.gcd(a)
         );
@@ -20,19 +20,19 @@ class MathXTest {
 
     @ParameterizedTest
     @MethodSource("getFactorsArguments")
-    void testFactors(int number, List<Integer> expected) {
+    void factors(int number, List<Integer> expected) {
         Assertions.assertEquals(expected, MathX.factors(number));
     }
 
     @ParameterizedTest
     @MethodSource("getFactorialArguments")
-    void testFactorial(int number, long expected) {
+    void factorial(int number, long expected) {
         Assertions.assertEquals(expected, MathX.factorial(number));
     }
 
     @ParameterizedTest
     @MethodSource("getLcmArguments")
-    void testLcm(int expected, int... a) {
+    void lcm(int expected, int... a) {
         Assertions.assertEquals(expected, a.length == 2 ?
             MathX.lcm(a[0], a[1]) : MathX.lcm(a)
         );
