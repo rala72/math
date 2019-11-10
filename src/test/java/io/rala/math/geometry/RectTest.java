@@ -46,6 +46,29 @@ class RectTest {
 
     // endregion
 
+    // region vertexes
+
+    @Test
+    void vertexesOfRectWithHeight1AndWidth2() {
+        Rect rect = new Rect(1, 2);
+        Assertions.assertEquals(new Point(0, 0), rect.vertexA());
+        Assertions.assertEquals(new Point(2, 0), rect.vertexB());
+        Assertions.assertEquals(new Point(2, 1), rect.vertexC());
+        Assertions.assertEquals(new Point(0, 1), rect.vertexD());
+    }
+
+    @Test
+    void vertexesOfRectWithPointsAndSize() {
+        Rect rect = new Rect(new Point(1, 1), new Point(0, 1), 2);
+        Assertions.assertEquals(new Point(1, 1), rect.vertexA());
+        Assertions.assertEquals(new Point(0, 1), rect.vertexB());
+        Assertions.assertEquals(new Point(0, 3), rect.vertexC());
+        Assertions.assertEquals(new Point(1, 3), rect.vertexD());
+    }
+
+
+    // endregion
+
     // region height, width and diagonale
 
     @Test

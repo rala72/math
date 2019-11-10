@@ -91,6 +91,38 @@ public class Rect {
 
     // endregion
 
+    // region vertexes
+
+    /**
+     * @return {@link #getA()}
+     */
+    public Point vertexA() {
+        return getA();
+    }
+
+    /**
+     * @return {@link #getB()}
+     */
+    public Point vertexB() {
+        return getB();
+    }
+
+    /**
+     * @return {@link #vertexB()}<code>+size</code>
+     */
+    public Point vertexC() {
+        return new Point(vertexB().getX(), vertexB().getY() + getSize());
+    }
+
+    /**
+     * @return {@link #vertexA()}<code>+size</code>
+     */
+    public Point vertexD() {
+        return new Point(vertexA().getX(), vertexA().getY() + getSize());
+    }
+
+    // endregion
+
     // region height, width and diagonale
 
     /**
