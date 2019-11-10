@@ -7,10 +7,22 @@ class LineSegmentTest {
     // region constructors, getter and setter
 
     @Test
-    void testConstructors() {
+    void constructorWithoutParameter() {
         assertLineSegment(new LineSegment());
+    }
+
+    @Test
+    void constructorWithABParameter() {
         assertLineSegment(new LineSegment(new Point(1)), new Point(1));
+    }
+
+    @Test
+    void constructorWithEqualABParameter() {
         assertLineSegment(new LineSegment(new Point(2), new Point(2)), new Point(2));
+    }
+
+    @Test
+    void constructorWithDifferentABParameter() {
         assertLineSegment(
             new LineSegment(
                 new Point(2, 2), new Point(3, 3)
@@ -20,30 +32,78 @@ class LineSegmentTest {
     }
 
     @Test
-    void testGetterAndSetter() {
+    void createAndSetA() {
         LineSegment lineSegment = new LineSegment();
         assertLineSegment(lineSegment);
         lineSegment.setA(new Point(1));
         assertLineSegment(lineSegment, new Point(1), new Point());
+    }
+
+    @Test
+    void createAndSetB() {
+        LineSegment lineSegment = new LineSegment();
+        assertLineSegment(lineSegment);
         lineSegment.setB(new Point(2));
-        assertLineSegment(lineSegment, new Point(1), new Point(2));
+        assertLineSegment(lineSegment, new Point(), new Point(2));
+    }
+
+    @Test
+    void createAndSetAB() {
+        LineSegment lineSegment = new LineSegment();
+        assertLineSegment(lineSegment);
         lineSegment.setAB(new Point(3));
         assertLineSegment(lineSegment, new Point(3));
     }
 
     // endregion
 
-    // region length and copy
+    // region length
 
     @Test
-    void testLength() {
+    void lengthOfLineSegmentWithTwoEqualPoints() {
         Assertions.assertEquals(0, new LineSegment(new Point(1, 2)).length());
-        Assertions.assertEquals(1.4142135623730951, new LineSegment(new Point(1, 2), new Point(2, 1)).length());
-        Assertions.assertEquals(2.8284271247461903, new LineSegment(new Point(3, 4), new Point(1, 2)).length());
     }
 
     @Test
-    void testCopy() {
+    void lengthOfLineSegmentWithInverseParameters() {
+        Assertions.assertEquals(1.4142135623730951, new LineSegment(new Point(1, 2), new Point(2, 1)).length());
+    }
+
+    @Test
+    void lengthOfLineSegmentWithTwoDifferenceEach() {
+        Assertions.assertEquals(2.8284271247461903, new LineSegment(new Point(3, 4), new Point(1, 2)).length());
+    }
+
+    // endregion
+
+    // region move and copy
+
+    @Test
+    void moveOfLineSegmentWithAndBWithXY() {
+        Assertions.assertEquals(
+            new LineSegment(new Point(1), new Point(2)),
+            new LineSegment(new Point(), new Point(1)).move(1)
+        );
+    }
+
+    @Test
+    void moveOfLineSegmentWithAndBWithXAndY() {
+        Assertions.assertEquals(
+            new LineSegment(new Point(1), new Point(2)),
+            new LineSegment(new Point(), new Point(1)).move(1, 1)
+        );
+    }
+
+    @Test
+    void moveOfLineSegmentWithAndBWithVector() {
+        Assertions.assertEquals(
+            new LineSegment(new Point(1), new Point(2)),
+            new LineSegment(new Point(), new Point(1)).move(new Vector(1))
+        );
+    }
+
+    @Test
+    void copyOfLineSegmentWithTwoPoints() {
         LineSegment lineSegment = new LineSegment(new Point(1, 2), new Point(3, 4));
         Assertions.assertEquals(lineSegment, lineSegment.copy());
     }
@@ -53,7 +113,7 @@ class LineSegmentTest {
     // region override
 
     @Test
-    void testEquals() {
+    void equalsOfLineSegmentWithTwoPoints() {
         LineSegment lineSegment = new LineSegment(new Point(2), new Point(3));
         Assertions.assertEquals(
             lineSegment,
@@ -66,7 +126,7 @@ class LineSegmentTest {
     }
 
     @Test
-    void testHashCode() {
+    void hashCodeOfLineSegmentWithTwoPoints() {
         Assertions.assertEquals(
             16808929,
             new LineSegment(new Point(2), new Point(3)).hashCode()
@@ -74,24 +134,22 @@ class LineSegmentTest {
     }
 
     @Test
-    void testToString() {
+    void toStringOfLineSegmentWithTwoPoints() {
         LineSegment lineSegment = new LineSegment(new Point(2), new Point(3));
         Assertions.assertEquals("2.0:2.0 3.0:3.0", lineSegment.toString());
     }
 
     @Test
-    void testCompareTo() {
+    void compareToOfLineSegmentWithTwoPoints() {
         LineSegment lineSegment = new LineSegment(new Point(2), new Point(3));
         Assertions.assertEquals(
             0, lineSegment.compareTo(new LineSegment(new Point(2), new Point(3)))
         );
         Assertions.assertEquals(
-            -1,
-            0, lineSegment.compareTo(new LineSegment(new Point(2), new Point(1)))
+            -1, lineSegment.compareTo(new LineSegment(new Point(3), new Point(4)))
         );
         Assertions.assertEquals(
-            1,
-            0, lineSegment.compareTo(new LineSegment(new Point(1), new Point(0)))
+            1, lineSegment.compareTo(new LineSegment(new Point(1), new Point(0)))
         );
     }
 

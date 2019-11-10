@@ -1,44 +1,50 @@
 package io.rala.math.geometry;
 
+import io.rala.math.utils.Copyable;
+import io.rala.math.utils.Movable;
+
+import java.util.List;
 import java.util.Objects;
 
 /**
- * rect in 2d area
+ * class which holds a rect in 2d area with point a, b &amp; size
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Rect {
+public class Rect implements Copyable<Rect>, Movable<Rect>, Comparable<Rect> {
     // region attributes
 
-    private Point point;
-    private double height;
-    private double width;
-    // TODO: rotated rects
+    private Point a;
+    private Point b;
+    private double size;
 
     // endregion
 
     // region constructors
 
     /**
-     * calls {@link #Rect(Point, double, double)} with {@link Point#Point()}
+     * calls {@link #Rect(Point, Point, double)}
+     * with {@link Point#Point()}
+     * and {@link Point#Point(double, double)}
+     * where <code>x=width</code> and <code>y=0</code>
      *
      * @param height height of rect
      * @param width  width of rect
      */
     public Rect(double height, double width) {
-        this(new Point(), height, width);
+        this(new Point(), new Point(width, 0), height);
     }
 
     /**
-     * creates rect with point, height and width
+     * creates rect with point a, b and size
      *
-     * @param point  point of rect
-     * @param height height of rect
-     * @param width  width of rect
+     * @param a    a of rect
+     * @param b    b of rect
+     * @param size height of rect
      */
-    public Rect(Point point, double height, double width) {
-        this.point = point;
-        this.height = height;
-        this.width = width;
+    public Rect(Point a, Point b, double size) {
+        this.a = a;
+        this.b = b;
+        this.size = size;
     }
 
     // endregion
@@ -48,79 +54,143 @@ public class Rect {
     /**
      * @return point of rect
      */
-    public Point getPoint() {
-        return point;
+    public Point getA() {
+        return a;
     }
 
     /**
-     * @param point new point of rect
+     * @param a new point of rect
      */
-    public void setPoint(Point point) {
-        this.point = point;
+    public void setA(Point a) {
+        this.a = a;
+    }
+
+    /**
+     * @return b of rect
+     */
+    public Point getB() {
+        return b;
+    }
+
+    /**
+     * @param b new b of rect
+     */
+    public void setB(Point b) {
+        this.b = b;
     }
 
     /**
      * @return height of rect
      */
-    public double getHeight() {
-        return height;
+    public double getSize() {
+        return size;
     }
 
     /**
-     * @param height new height of rect
+     * @param size new height of rect
      */
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    /**
-     * @return width of rect
-     */
-    public double getWidth() {
-        return width;
-    }
-
-    /**
-     * @param width new width of rect
-     */
-    public void setWidth(double width) {
-        this.width = width;
+    public void setSize(double size) {
+        this.size = size;
     }
 
     // endregion
 
-    // region area, circumference and diagonale
+    // region vertexes
 
     /**
-     * @return <code>h*w</code>
+     * @return {@link #getA()}
      */
-    public double area() {
-        return getHeight() * getWidth();
+    public Point vertexA() {
+        return getA();
     }
 
     /**
-     * @return <code>2*(h+w)</code>
+     * @return {@link #getB()}
      */
-    public double circumference() {
-        return 2 * (getHeight() + getWidth());
+    public Point vertexB() {
+        return getB();
+    }
+
+    /**
+     * @return {@link #vertexB()}<code>+size</code>
+     */
+    public Point vertexC() {
+        return new Point(vertexB().getX(), vertexB().getY() + getSize());
+    }
+
+    /**
+     * @return {@link #vertexA()}<code>+size</code>
+     */
+    public Point vertexD() {
+        return new Point(vertexA().getX(), vertexA().getY() + getSize());
+    }
+
+    // endregion
+
+    // region height, width and diagonale
+
+    /**
+     * @return lower length of the rect
+     */
+    public double height() {
+        return Math.min(Math.abs(getSize()), new LineSegment(getA(), getB()).length());
+    }
+
+    /**
+     * @return larger length of the rect
+     */
+    public double width() {
+        return Math.max(Math.abs(getSize()), new LineSegment(getA(), getB()).length());
     }
 
     /**
      * @return <code>sqrt(w^2+h^2)</code>
      */
     public double diagonale() {
-        return Math.sqrt(Math.pow(getHeight(), 2) + Math.pow(getWidth(), 2));
+        return Math.sqrt(Math.pow(height(), 2) + Math.pow(width(), 2));
     }
 
     // endregion
 
-    // region copy
+    // region area and circumference
 
     /**
-     * @return new rect with same values
+     * @return <code>h*w</code>
      */
+    public double area() {
+        return height() * width();
+    }
+
+    /**
+     * @return <code>2*(h+w)</code>
+     */
+    public double circumference() {
+        return 2 * (height() + width());
+    }
+
+    // endregion
+
+    // region isSquare
+
+    /**
+     * @return <code>true</code> if {@link #height()} and {@link #width()} are equal
+     */
+    public boolean isSquare() {
+        return height() == width();
+    }
+
+    // endregion
+
+    // region move and copy
+
+    @Override
+    public Rect move(Vector vector) {
+        return new Rect(getA().move(vector), getB().move(vector), getSize());
+    }
+
+    @Override
     public Rect copy() {
-        return new Rect(getPoint().copy(), getHeight(), getWidth());
+        return new Rect(getA().copy(), getB().copy(), getSize());
     }
 
     // endregion
@@ -132,19 +202,32 @@ public class Rect {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Rect rect = (Rect) o;
-        return Double.compare(rect.getHeight(), getHeight()) == 0 &&
-            Double.compare(rect.getWidth(), getWidth()) == 0 &&
-            Objects.equals(getPoint(), rect.getPoint());
+        return Objects.equals(getA(), rect.getA()) &&
+            Objects.equals(getB(), rect.getB()) &&
+            Double.compare(rect.getSize(), getSize()) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPoint(), getHeight(), getWidth());
+        return Objects.hash(getA(), getB(), getSize());
     }
 
     @Override
     public String toString() {
-        return getPoint() + " " + getHeight() + "x" + getWidth();
+        return getA() + " " + getB() + " " + getSize();
+    }
+
+    @Override
+    public int compareTo(Rect o) {
+        int compare = Double.compare(getSize(), o.getSize());
+        if (compare != 0) return compare;
+        Point min = List.of(getA(), getB()).stream().min(Point::compareTo).orElse(getA());
+        Point minO = List.of(o.getA(), o.getB()).stream().min(Point::compareTo).orElse(o.getA());
+        int a = min.compareTo(minO);
+        if (a != 0) return a;
+        Point max = List.of(getA(), getB()).stream().max(Point::compareTo).orElse(getB());
+        Point maxO = List.of(o.getA(), o.getB()).stream().max(Point::compareTo).orElse(o.getB());
+        return max.compareTo(maxO);
     }
 
     // endregion

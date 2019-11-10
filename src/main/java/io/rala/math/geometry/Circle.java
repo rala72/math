@@ -1,12 +1,15 @@
 package io.rala.math.geometry;
 
+import io.rala.math.utils.Copyable;
+import io.rala.math.utils.Movable;
+
 import java.util.Objects;
 
 /**
- * circle in 2d area
+ * class which holds a circle a in 2d area with center &amp; radius
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Circle {
+public class Circle implements Copyable<Circle>, Movable<Circle>, Comparable<Circle> {
     // region attributes
 
     private Point center;
@@ -121,11 +124,25 @@ public class Circle {
 
     // endregion
 
-    // region copy
+    // region isUnitCircle
 
     /**
-     * @return new circle with same values
+     * @return <code>true</code> if {@link #getRadius()} is 1
      */
+    public boolean isUnitCircle() {
+        return getRadius() == 1;
+    }
+
+    // endregion
+
+    // region move and copy
+
+    @Override
+    public Circle move(Vector vector) {
+        return new Circle(getCenter().move(vector), getRadius());
+    }
+
+    @Override
     public Circle copy() {
         return new Circle(getCenter().copy(), getRadius());
     }
@@ -151,6 +168,13 @@ public class Circle {
     @Override
     public String toString() {
         return getCenter() + " " + getRadius();
+    }
+
+    @Override
+    public int compareTo(Circle o) {
+        int compare = Double.compare(getRadius(), o.getRadius());
+        if (compare != 0) return compare;
+        return getCenter().compareTo(o.getCenter());
     }
 
     // endregion

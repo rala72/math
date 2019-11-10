@@ -1,12 +1,15 @@
 package io.rala.math.geometry;
 
+import io.rala.math.utils.Copyable;
+
 import java.util.Objects;
 
 /**
- * line in 2d area
+ * class which holds a line in a 2d area with m &amp; b<br>
+ * <code>y=m*x+b</code>
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Line {
+public class Line implements Copyable<Line>, Comparable<Line> {
     // region attributes
 
     private double m;
@@ -87,9 +90,7 @@ public class Line {
 
     // region copy
 
-    /**
-     * @return new line with same values
-     */
+    @Override
     public Line copy() {
         return new Line(getM(), getB());
     }
@@ -115,6 +116,13 @@ public class Line {
     @Override
     public String toString() {
         return "y=" + getM() + "*x+" + getB();
+    }
+
+    @Override
+    public int compareTo(Line o) {
+        int compare = Double.compare(getM(), o.getM());
+        if (compare != 0) return compare;
+        return Double.compare(getB(), o.getB());
     }
 
     // endregion

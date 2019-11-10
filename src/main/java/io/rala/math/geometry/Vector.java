@@ -1,12 +1,14 @@
 package io.rala.math.geometry;
 
+import io.rala.math.utils.Copyable;
+
 import java.util.Objects;
 
 /**
- * class which holds a vector with x &amp; y
+ * class which holds a vector in a 2d area with x &amp; y
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Vector implements Comparable<Vector> {
+public class Vector implements Copyable<Vector>, Comparable<Vector> {
     // region attributes
 
     private double x;
@@ -304,7 +306,6 @@ public class Vector implements Comparable<Vector> {
         return new Vector(Math.ceil(getX()), Math.ceil(getY()));
     }
 
-
     /**
      * @return new vector with truncated-values
      * @see #round()
@@ -317,7 +318,7 @@ public class Vector implements Comparable<Vector> {
 
     // endregion
 
-    // region isZeroVector and copy
+    // region isZeroVector
 
     /**
      * @return <code>true</code> if both params casted to <code>int</code> are zero
@@ -326,9 +327,11 @@ public class Vector implements Comparable<Vector> {
         return (int) getX() == 0 && (int) getY() == 0;
     }
 
-    /**
-     * @return new vector with same values
-     */
+    // endregion
+
+    // region copy
+
+    @Override
     public Vector copy() {
         return new Vector(getX(), getY());
     }

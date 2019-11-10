@@ -1,12 +1,17 @@
 package io.rala.math.geometry;
 
+import io.rala.math.utils.Copyable;
+import io.rala.math.utils.Movable;
+
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
- * triangle in 2d area
+ * class which holds a triangle in a 2d area with points a, b &amp; c
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Triangle {
+public class Triangle implements Copyable<Triangle>, Movable<Triangle>, Comparable<Triangle> {
     // region attributes
 
     private Point a;
@@ -210,11 +215,14 @@ public class Triangle {
 
     // endregion
 
-    // region copy
+    // region move and copy
 
-    /**
-     * @return new triangle with same values
-     */
+    @Override
+    public Triangle move(Vector vector) {
+        return new Triangle(getA().move(vector), getB().move(vector), getC().move(vector));
+    }
+
+    @Override
     public Triangle copy() {
         return new Triangle(getA().copy(), getB().copy(), getC().copy());
     }
@@ -241,6 +249,23 @@ public class Triangle {
     @Override
     public String toString() {
         return getA() + " " + getB() + " " + getC();
+    }
+
+    @Override
+    public int compareTo(Triangle o) {
+        int compare = Double.compare(area(), o.area());
+        if (compare != 0) return compare;
+        List<Point> s = List.of(getA(), getB(), getC())
+            .stream().sorted().collect(Collectors.toList());
+        List<Point> sO = List.of(o.getA(), o.getB(), o.getC())
+            .stream().sorted().collect(Collectors.toList());
+        for (int i = 0; i < s.size(); i++) {
+            Point p = s.get(i);
+            Point pO = sO.get(i);
+            int c = p.compareTo(pO);
+            if (c != 0) return c;
+        }
+        return 0;
     }
 
     // endregion
