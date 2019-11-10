@@ -41,16 +41,16 @@ class CircleTest {
 
     @Test
     void testArea() {
-        Assertions.assertEquals(3.141592653589793, new Circle().getArea());
-        Assertions.assertEquals(12.566370614359172, new Circle(2).getArea());
-        Assertions.assertEquals(28.274333882308138, new Circle(3).getArea());
+        Assertions.assertEquals(3.141592653589793, new Circle().area());
+        Assertions.assertEquals(12.566370614359172, new Circle(2).area());
+        Assertions.assertEquals(28.274333882308138, new Circle(3).area());
     }
 
     @Test
     void testCircumference() {
-        Assertions.assertEquals(6.283185307179586, new Circle().getCircumference());
-        Assertions.assertEquals(12.566370614359172, new Circle(2).getCircumference());
-        Assertions.assertEquals(18.84955592153876, new Circle(3).getCircumference());
+        Assertions.assertEquals(6.283185307179586, new Circle().circumference());
+        Assertions.assertEquals(12.566370614359172, new Circle(2).circumference());
+        Assertions.assertEquals(18.84955592153876, new Circle(3).circumference());
     }
 
     // endregion

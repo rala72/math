@@ -31,19 +31,19 @@ class TriangleTest {
     // region edges
 
     @Test
-    void testEdges() {
+    void testEdge() {
         Triangle triangle = new Triangle(new Point(), new Point(1), new Point(2));
         Assertions.assertEquals(
             new LineSegment(new Point(1), new Point(2)),
-            triangle.getLineSegmentA()
+            triangle.edgeA()
         );
         Assertions.assertEquals(
             new LineSegment(new Point(), new Point(2)),
-            triangle.getLineSegmentB()
+            triangle.edgeB()
         );
         Assertions.assertEquals(
             new LineSegment(new Point(), new Point(1)),
-            triangle.getLineSegmentC()
+            triangle.edgeC()
         );
     }
 
@@ -52,27 +52,27 @@ class TriangleTest {
     // region area, circumference, circumRadius, inRadius
 
     @Test
-    void testGetArea() {
+    void testArea() {
         Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
-        Assertions.assertEquals(0.49999999999999983, triangle.getArea());
+        Assertions.assertEquals(0.49999999999999983, triangle.area());
     }
 
     @Test
-    void testGetCircumference() {
+    void testCircumference() {
         Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
-        Assertions.assertEquals(3.414213562373095, triangle.getCircumference());
+        Assertions.assertEquals(3.414213562373095, triangle.circumference());
     }
 
     @Test
-    void testGetCircumRadius() {
+    void testCircumRadius() {
         Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
-        Assertions.assertEquals(0.7071067811865478, triangle.getCircumRadius());
+        Assertions.assertEquals(0.7071067811865478, triangle.circumRadius());
     }
 
     @Test
-    void testGetInRadius() {
+    void testInRadius() {
         Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
-        Assertions.assertEquals(0.29289321881345237, triangle.getInRadius());
+        Assertions.assertEquals(0.29289321881345237, triangle.inRadius());
     }
 
     // endregion

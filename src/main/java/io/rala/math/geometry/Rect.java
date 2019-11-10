@@ -94,21 +94,21 @@ public class Rect {
     /**
      * @return <code>h*w</code>
      */
-    public double getArea() {
+    public double area() {
         return getHeight() * getWidth();
     }
 
     /**
      * @return <code>2*(h+w)</code>
      */
-    public double getCircumference() {
+    public double circumference() {
         return 2 * (getHeight() + getWidth());
     }
 
     /**
      * @return <code>sqrt(w^2+h^2)</code>
      */
-    public double getDiagonale() {
+    public double diagonale() {
         return Math.sqrt(Math.pow(getHeight(), 2) + Math.pow(getWidth(), 2));
     }
 

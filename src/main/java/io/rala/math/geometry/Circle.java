@@ -108,14 +108,14 @@ public class Circle {
     /**
      * @return <code>&pi;*r^2</code>
      */
-    public double getArea() {
+    public double area() {
         return Math.PI * Math.pow(getRadius(), 2);
     }
 
     /**
      * @return <code>2*&pi;*r</code>
      */
-    public double getCircumference() {
+    public double circumference() {
         return 2 * Math.PI * getRadius();
     }
 

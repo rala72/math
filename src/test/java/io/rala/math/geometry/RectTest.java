@@ -31,23 +31,23 @@ class RectTest {
 
     @Test
     void testArea() {
-        Assertions.assertEquals(1, new Rect(1, 1).getArea());
-        Assertions.assertEquals(2, new Rect(1, 2).getArea());
-        Assertions.assertEquals(6, new Rect(2, 3).getArea());
+        Assertions.assertEquals(1, new Rect(1, 1).area());
+        Assertions.assertEquals(2, new Rect(1, 2).area());
+        Assertions.assertEquals(6, new Rect(2, 3).area());
     }
 
     @Test
     void testCircumference() {
-        Assertions.assertEquals(4, new Rect(1, 1).getCircumference());
-        Assertions.assertEquals(6, new Rect(1, 2).getCircumference());
-        Assertions.assertEquals(10, new Rect(2, 3).getCircumference());
+        Assertions.assertEquals(4, new Rect(1, 1).circumference());
+        Assertions.assertEquals(6, new Rect(1, 2).circumference());
+        Assertions.assertEquals(10, new Rect(2, 3).circumference());
     }
 
     @Test
     void testDiagonale() {
-        Assertions.assertEquals(1.4142135623730951, new Rect(1, 1).getDiagonale());
-        Assertions.assertEquals(2.23606797749979, new Rect(1, 2).getDiagonale());
-        Assertions.assertEquals(3.605551275463989, new Rect(2, 3).getDiagonale());
+        Assertions.assertEquals(1.4142135623730951, new Rect(1, 1).diagonale());
+        Assertions.assertEquals(2.23606797749979, new Rect(1, 2).diagonale());
+        Assertions.assertEquals(3.605551275463989, new Rect(2, 3).diagonale());
     }
 
     // endregion

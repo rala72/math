@@ -84,21 +84,21 @@ public class Triangle {
     /**
      * @return line segment from b to c
      */
-    public LineSegment getLineSegmentA() {
+    public LineSegment edgeA() {
         return new LineSegment(getB(), getC());
     }
 
     /**
      * @return line segment from a to c
      */
-    public LineSegment getLineSegmentB() {
+    public LineSegment edgeB() {
         return new LineSegment(getA(), getC());
     }
 
     /**
      * @return line segment from a to b
      */
-    public LineSegment getLineSegmentC() {
+    public LineSegment edgeC() {
         return new LineSegment(getA(), getB());
     }
 
@@ -109,38 +109,38 @@ public class Triangle {
     /**
      * @return <code>sqrt(s*(s-a)*(s-b)*(s-c))</code>
      */
-    public double getArea() {
-        final double s = getCircumference() / 2;
+    public double area() {
+        final double s = circumference() / 2;
         return Math.sqrt(s *
-            (s - getLineSegmentA().length()) *
-            (s - getLineSegmentB().length()) *
-            (s - getLineSegmentC().length())
+            (s - edgeA().length()) *
+            (s - edgeB().length()) *
+            (s - edgeC().length())
         );
     }
 
     /**
      * @return <code>a+b+c</code>
      */
-    public double getCircumference() {
-        return getLineSegmentA().length() +
-            getLineSegmentB().length() +
-            getLineSegmentC().length();
+    public double circumference() {
+        return edgeA().length() +
+            edgeB().length() +
+            edgeC().length();
     }
 
     /**
      * @return <code>(a*b*c)/A</code>
      */
-    public double getCircumRadius() {
-        return (getLineSegmentA().length() *
-            getLineSegmentB().length() *
-            getLineSegmentC().length()) / (4 * getArea());
+    public double circumRadius() {
+        return (edgeA().length() *
+            edgeB().length() *
+            edgeC().length()) / (4 * area());
     }
 
     /**
      * @return <code>A/(r/2)</code>
      */
-    public double getInRadius() {
-        return getArea() / (getCircumference() / 2);
+    public double inRadius() {
+        return area() / (circumference() / 2);
     }
 
     // endregion
