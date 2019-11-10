@@ -79,7 +79,23 @@ class LineSegmentTest {
     // region move and copy
 
     @Test
-    void moveOfLineSegmentWithAndB() {
+    void moveOfLineSegmentWithAndBWithXY() {
+        Assertions.assertEquals(
+            new LineSegment(new Point(1), new Point(2)),
+            new LineSegment(new Point(), new Point(1)).move(1)
+        );
+    }
+
+    @Test
+    void moveOfLineSegmentWithAndBWithXAndY() {
+        Assertions.assertEquals(
+            new LineSegment(new Point(1), new Point(2)),
+            new LineSegment(new Point(), new Point(1)).move(1, 1)
+        );
+    }
+
+    @Test
+    void moveOfLineSegmentWithAndBWithVector() {
         Assertions.assertEquals(
             new LineSegment(new Point(1), new Point(2)),
             new LineSegment(new Point(), new Point(1)).move(new Vector(1))

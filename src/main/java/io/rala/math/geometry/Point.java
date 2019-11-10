@@ -1,6 +1,7 @@
 package io.rala.math.geometry;
 
 import io.rala.math.utils.Copyable;
+import io.rala.math.utils.Movable;
 
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import java.util.Objects;
  * class which holds a point in a 2d area with x &amp; y
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Point implements Copyable<Point>, Comparable<Point> {
+public class Point implements Copyable<Point>, Movable<Point>, Comparable<Point> {
     // region attributes
 
     private double x;
@@ -96,10 +97,7 @@ public class Point implements Copyable<Point>, Comparable<Point> {
 
     // region move and copy
 
-    /**
-     * @param vector vector to use for movement
-     * @return new point moved by given vector
-     */
+    @Override
     public Point move(Vector vector) {
         return new Point(getX() + vector.getX(), getY() + vector.getY());
     }

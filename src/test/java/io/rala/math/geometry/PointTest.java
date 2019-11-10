@@ -55,7 +55,17 @@ class PointTest {
     // region move and copy
 
     @Test
-    void moveOfPointWithXY() {
+    void moveOfPointWithXYWithXY() {
+        Assertions.assertEquals(new Point(1, 1), new Point().move(1));
+    }
+
+    @Test
+    void moveOfPointWithXYWithXAndY() {
+        Assertions.assertEquals(new Point(1, 1), new Point().move(1, 1));
+    }
+
+    @Test
+    void moveOfPointWithXYWithVector() {
         Assertions.assertEquals(new Point(1, 1), new Point().move(new Vector(1)));
     }
 

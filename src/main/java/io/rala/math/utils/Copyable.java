@@ -1,7 +1,7 @@
 package io.rala.math.utils;
 
 /**
- * This interfaces allow to generate copy instances of it.
+ * This interface allows to generate copy instances.
  *
  * @param <T> class to copy
  */

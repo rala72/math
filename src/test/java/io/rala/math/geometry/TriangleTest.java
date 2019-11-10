@@ -92,7 +92,25 @@ class TriangleTest {
     // region move and copy
 
     @Test
-    void moveOfTriangleWithXY() {
+    void moveOfTriangleWithXYWithXY() {
+        Assertions.assertEquals(
+            new Triangle(new Point(1), new Point(2, 1), new Point(2)),
+            new Triangle(new Point(0), new Point(1, 0), new Point(1))
+                .move(1)
+        );
+    }
+
+    @Test
+    void moveOfTriangleWithXYWithXAndY() {
+        Assertions.assertEquals(
+            new Triangle(new Point(1), new Point(2, 1), new Point(2)),
+            new Triangle(new Point(0), new Point(1, 0), new Point(1))
+                .move(1, 1)
+        );
+    }
+
+    @Test
+    void moveOfTriangleWithXYWithVector() {
         Assertions.assertEquals(
             new Triangle(new Point(1), new Point(2, 1), new Point(2)),
             new Triangle(new Point(0), new Point(1, 0), new Point(1))

@@ -1,6 +1,7 @@
 package io.rala.math.geometry;
 
 import io.rala.math.utils.Copyable;
+import io.rala.math.utils.Movable;
 
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import java.util.Objects;
  * class which holds a triangle in a 2d area with points a, b &amp; c
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Triangle implements Copyable<Triangle> {
+public class Triangle implements Copyable<Triangle>, Movable<Triangle> {
     // region attributes
 
     private Point a;
@@ -149,10 +150,7 @@ public class Triangle implements Copyable<Triangle> {
 
     // region move and copy
 
-    /**
-     * @param vector vector to use for movement
-     * @return new triangle moved by given vector
-     */
+    @Override
     public Triangle move(Vector vector) {
         return new Triangle(getA().move(vector), getB().move(vector), getC().move(vector));
     }

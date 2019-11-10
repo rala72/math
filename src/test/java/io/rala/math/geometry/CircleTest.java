@@ -125,7 +125,17 @@ class CircleTest {
     // region move and copy
 
     @Test
-    void moveOfCircleWithoutParameter() {
+    void moveOfCircleWithoutParameterWithXY() {
+        Assertions.assertEquals(new Circle(new Point(1)), new Circle().move(1));
+    }
+
+    @Test
+    void moveOfCircleWithoutParameterWithXAndY() {
+        Assertions.assertEquals(new Circle(new Point(1)), new Circle().move(1, 1));
+    }
+
+    @Test
+    void moveOfCircleWithoutParameterWithVector() {
         Assertions.assertEquals(new Circle(new Point(1)), new Circle().move(new Vector(1)));
     }
 
