@@ -364,7 +364,7 @@ class VectorTest {
 
     // endregion
 
-    // region isZeroVector and copy
+    // region isZeroVector
 
     @Test
     void isZeroVectorWithVectorWithoutParameter() {
@@ -375,6 +375,10 @@ class VectorTest {
     void isZeroVectorWithVectorWithXY1() {
         Assertions.assertFalse(new Vector(1).isZeroVector());
     }
+
+    // endregion
+
+    // region copy
 
     @Test
     void copyOfVectorWithX2Y3() {

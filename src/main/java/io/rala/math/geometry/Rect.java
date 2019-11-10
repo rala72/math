@@ -1,12 +1,14 @@
 package io.rala.math.geometry;
 
+import io.rala.math.utils.Copyable;
+
 import java.util.Objects;
 
 /**
  * class which holds a rect in 2d area with point a, b &amp; size
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Rect {
+public class Rect implements Copyable<Rect> {
     // region attributes
 
     private Point a;
@@ -187,9 +189,7 @@ public class Rect {
         return new Rect(getA().move(vector), getB().move(vector), getSize());
     }
 
-    /**
-     * @return new rect with same values
-     */
+    @Override
     public Rect copy() {
         return new Rect(getA().copy(), getB().copy(), getSize());
     }

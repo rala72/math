@@ -1,12 +1,14 @@
 package io.rala.math.geometry;
 
+import io.rala.math.utils.Copyable;
+
 import java.util.Objects;
 
 /**
  * class which holds a point in a 2d area with x &amp; y
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Point implements Comparable<Point> {
+public class Point implements Copyable<Point>, Comparable<Point> {
     // region attributes
 
     private double x;
@@ -102,9 +104,7 @@ public class Point implements Comparable<Point> {
         return new Point(getX() + vector.getX(), getY() + vector.getY());
     }
 
-    /**
-     * @return new point with same values
-     */
+    @Override
     public Point copy() {
         return new Point(getX(), getY());
     }

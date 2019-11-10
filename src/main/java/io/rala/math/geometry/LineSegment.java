@@ -1,5 +1,7 @@
 package io.rala.math.geometry;
 
+import io.rala.math.utils.Copyable;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -7,7 +9,7 @@ import java.util.Objects;
  * class which holds a line segment in a 2d area with points a &amp; b
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class LineSegment implements Comparable<LineSegment> {
+public class LineSegment implements Copyable<LineSegment>, Comparable<LineSegment> {
     // region attributes
 
     private Point a;
@@ -117,9 +119,7 @@ public class LineSegment implements Comparable<LineSegment> {
         return new LineSegment(getA().move(vector), getB().move(vector));
     }
 
-    /**
-     * @return new line segment with same values
-     */
+    @Override
     public LineSegment copy() {
         return new LineSegment(getA().copy(), getB().copy());
     }

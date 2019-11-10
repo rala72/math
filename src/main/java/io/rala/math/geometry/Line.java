@@ -1,5 +1,7 @@
 package io.rala.math.geometry;
 
+import io.rala.math.utils.Copyable;
+
 import java.util.Objects;
 
 /**
@@ -7,7 +9,7 @@ import java.util.Objects;
  * <code>y=m*x+b</code>
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Line {
+public class Line implements Copyable<Line> {
     // region attributes
 
     private double m;
@@ -88,9 +90,7 @@ public class Line {
 
     // region copy
 
-    /**
-     * @return new line with same values
-     */
+    @Override
     public Line copy() {
         return new Line(getM(), getB());
     }

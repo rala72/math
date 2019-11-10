@@ -1,12 +1,14 @@
 package io.rala.math.geometry;
 
+import io.rala.math.utils.Copyable;
+
 import java.util.Objects;
 
 /**
  * class which holds a triangle in a 2d area with points a, b &amp; c
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Triangle {
+public class Triangle implements Copyable<Triangle> {
     // region attributes
 
     private Point a;
@@ -155,9 +157,7 @@ public class Triangle {
         return new Triangle(getA().move(vector), getB().move(vector), getC().move(vector));
     }
 
-    /**
-     * @return new triangle with same values
-     */
+    @Override
     public Triangle copy() {
         return new Triangle(getA().copy(), getB().copy(), getC().copy());
     }
