@@ -3,13 +3,14 @@ package io.rala.math.geometry;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
  * class which holds a rect in 2d area with point a, b &amp; size
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Rect implements Copyable<Rect>, Movable<Rect> {
+public class Rect implements Copyable<Rect>, Movable<Rect>, Comparable<Rect> {
     // region attributes
 
     private Point a;
@@ -214,6 +215,19 @@ public class Rect implements Copyable<Rect>, Movable<Rect> {
     @Override
     public String toString() {
         return getA() + " " + getB() + " " + getSize();
+    }
+
+    @Override
+    public int compareTo(Rect o) {
+        int compare = Double.compare(getSize(), o.getSize());
+        if (compare != 0) return compare;
+        Point min = List.of(getA(), getB()).stream().min(Point::compareTo).orElse(getA());
+        Point minO = List.of(o.getA(), o.getB()).stream().min(Point::compareTo).orElse(o.getA());
+        int a = min.compareTo(minO);
+        if (a != 0) return a;
+        Point max = List.of(getA(), getB()).stream().max(Point::compareTo).orElse(getB());
+        Point maxO = List.of(o.getA(), o.getB()).stream().max(Point::compareTo).orElse(o.getB());
+        return max.compareTo(maxO);
     }
 
     // endregion

@@ -9,7 +9,7 @@ import java.util.Objects;
  * class which holds a circle a in 2d area with center &amp; radius
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Circle implements Copyable<Circle>, Movable<Circle> {
+public class Circle implements Copyable<Circle>, Movable<Circle>, Comparable<Circle> {
     // region attributes
 
     private Point center;
@@ -168,6 +168,13 @@ public class Circle implements Copyable<Circle>, Movable<Circle> {
     @Override
     public String toString() {
         return getCenter() + " " + getRadius();
+    }
+
+    @Override
+    public int compareTo(Circle o) {
+        int compare = Double.compare(getRadius(), o.getRadius());
+        if (compare != 0) return compare;
+        return getCenter().compareTo(o.getCenter());
     }
 
     // endregion

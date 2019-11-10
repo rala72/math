@@ -237,6 +237,20 @@ class RectTest {
         Assertions.assertEquals("2.0:2.0 3.0:3.0 4.0", rect.toString());
     }
 
+    @Test
+    void compareToOfRectWithPointHeightAndWidth() {
+        Rect rect = new Rect(1, 2);
+        Assertions.assertEquals(
+            0, rect.compareTo(new Rect(1, 2))
+        );
+        Assertions.assertEquals(
+            -1, rect.compareTo(new Rect(2, 3))
+        );
+        Assertions.assertEquals(
+            1, rect.compareTo(new Rect(1, 1))
+        );
+    }
+
     // endregion
 
 

@@ -9,7 +9,7 @@ import java.util.Objects;
  * <code>y=m*x+b</code>
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Line implements Copyable<Line> {
+public class Line implements Copyable<Line>, Comparable<Line> {
     // region attributes
 
     private double m;
@@ -116,6 +116,13 @@ public class Line implements Copyable<Line> {
     @Override
     public String toString() {
         return "y=" + getM() + "*x+" + getB();
+    }
+
+    @Override
+    public int compareTo(Line o) {
+        int compare = Double.compare(getM(), o.getM());
+        if (compare != 0) return compare;
+        return Double.compare(getB(), o.getB());
     }
 
     // endregion

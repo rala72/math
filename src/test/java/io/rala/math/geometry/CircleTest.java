@@ -176,6 +176,20 @@ class CircleTest {
         Assertions.assertEquals("2.0:2.0 3.0", circle.toString());
     }
 
+    @Test
+    void compareToOfCircleWithCenterAndRadius() {
+        Circle circle = new Circle(new Point(2), 3);
+        Assertions.assertEquals(
+            0, circle.compareTo(new Circle(new Point(2), 3))
+        );
+        Assertions.assertEquals(
+            -1, circle.compareTo(new Circle(new Point(4), 3))
+        );
+        Assertions.assertEquals(
+            1, circle.compareTo(new Circle(new Point(2), 1))
+        );
+    }
+
     // endregion
 
 

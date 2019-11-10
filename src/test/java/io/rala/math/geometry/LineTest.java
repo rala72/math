@@ -88,6 +88,20 @@ class LineTest {
         Assertions.assertEquals("y=2.0*x+3.0", line.toString());
     }
 
+    @Test
+    void compareToOfLineWithMB() {
+        Line line = new Line(2, 3);
+        Assertions.assertEquals(
+            0, line.compareTo(new Line(2, 3))
+        );
+        Assertions.assertEquals(
+            -1, line.compareTo(new Line(3, 1))
+        );
+        Assertions.assertEquals(
+            1, line.compareTo(new Line(2, 1))
+        );
+    }
+
     // endregion
 
 

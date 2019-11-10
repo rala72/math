@@ -155,6 +155,26 @@ class TriangleTest {
         Assertions.assertEquals("2.0:2.0 3.0:3.0 4.0:4.0", triangle.toString());
     }
 
+    @Test
+    void compareToOfTriangleWithA2B3C4() {
+        Triangle triangle = new Triangle(new Point(0), new Point(1, 0), new Point(1));
+        Assertions.assertEquals(
+            0, triangle.compareTo(new Triangle(
+                new Point(0), new Point(1, 0), new Point(1)
+            ))
+        );
+        Assertions.assertEquals(
+            -1, triangle.compareTo(new Triangle(
+                new Point(-1), new Point(1, 0), new Point(1)
+            ))
+        );
+        Assertions.assertEquals(
+            1, triangle.compareTo(new Triangle(
+                new Point(0.5, 1), new Point(1, 0.5), new Point(1)
+            ))
+        );
+    }
+
     // endregion
 
 
