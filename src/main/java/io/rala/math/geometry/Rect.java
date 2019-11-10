@@ -12,6 +12,7 @@ public class Rect {
     private Point point;
     private double height;
     private double width;
+    // TODO: rotated rects
 
     // endregion
 
