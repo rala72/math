@@ -249,7 +249,7 @@ public class Complex implements Copyable<Complex>, Comparable<Complex> {
 
     @Override
     public String toString() {
-        return getRe() + (0 < getIm() ? "+" : "") + getIm() + "*i";
+        return getRe() + (0 <= getIm() ? "+" : "") + getIm() + "*i";
     }
 
     @Override
