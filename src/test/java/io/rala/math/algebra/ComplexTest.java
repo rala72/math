@@ -35,7 +35,7 @@ class ComplexTest {
 
     // endregion
 
-    // region absoluteValue, conjugation and reciprocal
+    // region absoluteValue, argument, conjugation and reciprocal
 
     @Test
     void absoluteValueOfComplexWithoutParameter() {
@@ -52,6 +52,23 @@ class ComplexTest {
     @Test
     void absoluteValueOfComplexX1Y0() {
         Assertions.assertEquals(1, new Complex(1, 0).absoluteValue());
+    }
+
+    @Test
+    void argumentOfComplexWithoutParameter() {
+        Assertions.assertEquals(Double.NaN, new Complex().argument());
+    }
+
+    @Test
+    void argumentOfComplexX1Y1() {
+        Assertions.assertEquals(0.7853981633974484, // Math.PI / 4
+            new Complex(1, 1).argument()
+        );
+    }
+
+    @Test
+    void argumentOfComplexX1Y0() {
+        Assertions.assertEquals(0, new Complex(1, 0).argument());
     }
 
     @Test
