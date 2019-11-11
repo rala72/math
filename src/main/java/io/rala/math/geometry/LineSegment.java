@@ -132,7 +132,14 @@ public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>,
 
     // endregion
 
-    // region toLine
+    // region flip, toLine
+
+    /**
+     * @return a new line segment with flipped points
+     */
+    public LineSegment flip() {
+        return new LineSegment(getB(), getA());
+    }
 
     /**
      * may return a new Line with {@link Double#NaN}

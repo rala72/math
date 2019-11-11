@@ -104,7 +104,15 @@ class LineSegmentTest {
 
     // endregion
 
-    // region toLine
+    // region flip, toLine
+
+    @Test
+    void flipWithAXY0AndBXY1() {
+        assertLineSegment(
+            new LineSegment(new Point(0), new Point(1)).flip(),
+            new Point(1), new Point(0)
+        );
+    }
 
     @Test
     void toLineOfLineSegmentWithAXY0AndBXY1() {
