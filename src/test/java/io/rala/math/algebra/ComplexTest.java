@@ -35,7 +35,7 @@ class ComplexTest {
 
     // endregion
 
-    // region absoluteValue, add, subtract, multiply and divide
+    // region absoluteValue, add and subtract
 
     @Test
     void absoluteValueOfComplexWithoutParameter() {
@@ -87,6 +87,10 @@ class ComplexTest {
             new Complex(2, 2).subtract(new Complex(1, 2))
         );
     }
+
+    // endregion
+
+    // region multiply and divide
 
     @Test
     void multiplyZeroComplexWith1() {

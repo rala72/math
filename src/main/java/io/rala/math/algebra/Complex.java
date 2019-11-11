@@ -71,7 +71,7 @@ public class Complex implements Copyable<Complex>, Comparable<Complex> {
 
     // endregion
 
-    // region absoluteValue, add, subtract, multiply and divide
+    // region absoluteValue, add and subtract
 
     /**
      * @return absolute value of complex based on pythagoras
@@ -121,6 +121,10 @@ public class Complex implements Copyable<Complex>, Comparable<Complex> {
     public Complex subtract(Complex complex) {
         return add(complex.inverse());
     }
+
+    // endregion
+
+    // region multiply and divide
 
     /**
      * @param i value to multiply with re &amp; im
