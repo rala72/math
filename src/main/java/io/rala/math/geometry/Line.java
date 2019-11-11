@@ -147,7 +147,7 @@ public class Line implements Copyable<Line>, Comparable<Line> {
 
     /**
      * @param line line to intersect
-     * @return intersection angle or {@link Double#NaN}
+     * @return intersection angle in <code>rad</code> or {@link Double#NaN}
      * if there is no intersection
      */
     public double intersectionAngle(Line line) {

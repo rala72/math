@@ -252,7 +252,7 @@ public class Vector implements Rotatable<Vector>, Copyable<Vector>, Comparable<V
 
     /**
      * @param vector vector to calc angle between
-     * @return angle between vectors
+     * @return angle in <code>rad</code> between vectors
      */
     public double angle(Vector vector) {
         return Math.acos(scalarProduct(vector) / (length() * vector.length()));
