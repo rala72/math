@@ -13,6 +13,11 @@ class LineTest {
     // region constructors, getter and setter
 
     @Test
+    void constructorWithX() {
+        assertLine(new Line(1), Double.NaN, 1);
+    }
+
+    @Test
     void constructorWithMB() {
         assertLine(new Line(2, 3), 2, 3);
     }

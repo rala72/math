@@ -20,6 +20,17 @@ public class Line implements Copyable<Line>, Comparable<Line> {
     // region constructor
 
     /**
+     * creates a vertical line storing
+     * <code>m</code> as {@link Double#NaN} and
+     * <code>b</code> as <code>x</code>
+     *
+     * @param x x value of line
+     */
+    public Line(double x) {
+        this(Double.NaN, x);
+    }
+
+    /**
      * creates a line with given slope/gradient and y-intercept
      *
      * @param m slope/gradient of line
