@@ -33,6 +33,40 @@ class LineTest {
 
     // endregion
 
+    // region isHorizontal and isVertical
+
+    @Test
+    void isHorizontalOfHorizontalLine() {
+        Assertions.assertTrue(new Line(0, 1).isHorizontal());
+    }
+
+    @Test
+    void isHorizontalOfVerticalLine() {
+        Assertions.assertFalse(new Line(Double.NaN, 1).isHorizontal());
+    }
+
+    @Test
+    void isHorizontalOfM1B1Line() {
+        Assertions.assertFalse(new Line(1, 1).isHorizontal());
+    }
+
+    @Test
+    void isVerticalOfHorizontalLine() {
+        Assertions.assertFalse(new Line(0, 1).isVertical());
+    }
+
+    @Test
+    void isVerticalOfVerticalLine() {
+        Assertions.assertTrue(new Line(Double.NaN, 1).isVertical());
+    }
+
+    @Test
+    void isVerticalOfM1B1Line() {
+        Assertions.assertFalse(new Line(1, 1).isVertical());
+    }
+
+    // endregion
+
     // region calculateX and calculateY
 
     @ParameterizedTest

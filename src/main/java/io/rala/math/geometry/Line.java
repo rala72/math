@@ -64,6 +64,25 @@ public class Line implements Copyable<Line>, Comparable<Line> {
 
     // endregion
 
+    // region isHorizontal and isVertical
+
+    /**
+     * @return <code>true</code> if {@link #getM()} returns <code>0</code>
+     */
+    public boolean isHorizontal() {
+        return getM() == 0;
+    }
+
+    /**
+     * @return <code>true</code> if {@link #getM()} returns {@link Double#NaN}
+     */
+    public boolean isVertical() {
+        return Double.isNaN(getM());
+    }
+
+
+    // endregion
+
     // region calculateX and calculateY
 
     /**
