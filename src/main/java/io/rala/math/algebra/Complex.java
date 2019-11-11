@@ -1,5 +1,6 @@
 package io.rala.math.algebra;
 
+import io.rala.math.geometry.Vector;
 import io.rala.math.utils.Copyable;
 
 import java.util.Objects;
@@ -66,6 +67,29 @@ public class Complex implements Copyable<Complex>, Comparable<Complex> {
      */
     public void setIm(double im) {
         this.im = im;
+    }
+
+    // endregion
+
+    // region asVector, static ofVector
+
+    /**
+     * @return new vector representing
+     * {@link #getRe()} as <code>x</code> and
+     * {@link #getIm()} as <code>y</code>
+     */
+    public Vector asVector() {
+        return new Vector(getRe(), getIm());
+    }
+
+    /**
+     * @param vector vector to convert to {@link Complex}
+     * @return new complex using
+     * {@link Vector#getX()} as <code>re</code> and
+     * {@link Vector#getY()} as <code>im</code>
+     */
+    public static Complex ofVector(Vector vector) {
+        return new Complex(vector.getX(), vector.getY());
     }
 
     // endregion

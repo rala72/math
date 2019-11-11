@@ -1,5 +1,6 @@
 package io.rala.math.algebra;
 
+import io.rala.math.geometry.Vector;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -30,6 +31,31 @@ class ComplexTest {
         assertComplex(complex);
         complex.setIm(2);
         assertComplex(complex, 0, 2);
+    }
+
+    // endregion
+
+    // region asVector, static ofVector
+
+    @Test
+    void asVectorOfComplexWithRe1Im2() {
+        Assertions.assertEquals(new Vector(1, 2),
+            new Complex(1, 2).asVector()
+        );
+    }
+
+    @Test
+    void ofVectorOfVectorWithX1Y2() {
+        Assertions.assertEquals(new Complex(1, 2),
+            Complex.ofVector(new Vector(1, 2))
+        );
+    }
+
+    @Test
+    void asAndOfVectorWithoutChangeAreSuperfluous() {
+        // better word than of superfluous?
+        Complex complex = new Complex(1, 2);
+        Assertions.assertEquals(complex, Complex.ofVector(complex.asVector()));
     }
 
     // endregion
