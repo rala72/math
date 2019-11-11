@@ -190,6 +190,12 @@ class LineTest {
     }
 
     @Test
+    void toStringOfVerticalLine() {
+        Line line = new Line(1);
+        Assertions.assertEquals("y=1.0", line.toString());
+    }
+
+    @Test
     void compareToOfLineWithMB() {
         Line line = new Line(2, 3);
         Assertions.assertEquals(
