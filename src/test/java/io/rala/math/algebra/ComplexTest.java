@@ -35,6 +35,139 @@ class ComplexTest {
 
     // endregion
 
+    // region absoluteValue, add, subtract, multiply and divide
+
+    @Test
+    void absoluteValueOfComplexWithoutParameter() {
+        Assertions.assertEquals(0, new Complex().absoluteValue());
+    }
+
+    @Test
+    void absoluteValueOfComplexX1Y1() {
+        Assertions.assertEquals(1.4142135623730951,
+            new Complex(1, 1).absoluteValue()
+        );
+    }
+
+    @Test
+    void absoluteValueOfComplexX1Y0() {
+        Assertions.assertEquals(1, new Complex(1, 0).absoluteValue());
+    }
+
+    @Test
+    void addWithXY() {
+        Assertions.assertEquals(new Complex(2, 2), new Complex().add(2, 2));
+    }
+
+    @Test
+    void addWithXAndY() {
+        Assertions.assertEquals(new Complex(2, 2), new Complex(1, 1).add(1, 1));
+    }
+
+    @Test
+    void addWithComplex() {
+        Assertions.assertEquals(new Complex(2, 2),
+            new Complex(1, 0).add(new Complex(1, 2))
+        );
+    }
+
+    @Test
+    void subtractWithXY() {
+        Assertions.assertEquals(new Complex(), new Complex(2, 2).subtract(2, 2));
+    }
+
+    @Test
+    void subtractWithXAndY() {
+        Assertions.assertEquals(new Complex(1, 1), new Complex(2, 2).subtract(1, 1));
+    }
+
+    @Test
+    void subtractWithComplex() {
+        Assertions.assertEquals(new Complex(1, 0),
+            new Complex(2, 2).subtract(new Complex(1, 2))
+        );
+    }
+
+    @Test
+    void multiplyZeroComplexWith1() {
+        Assertions.assertEquals(new Complex(), new Complex().multiply(1));
+    }
+
+    @Test
+    void multiplyComplexWith0() {
+        Assertions.assertEquals(new Complex(), new Complex(1, 1).multiply(0));
+    }
+
+    @Test
+    void multiplyComplexWith1() {
+        Assertions.assertEquals(new Complex(1, 1), new Complex(1, 1).multiply(1));
+    }
+
+    @Test
+    void multiplyComplexWithMinus1() {
+        Assertions.assertEquals(new Complex(-2, -1), new Complex(2, 1).multiply(-1));
+    }
+
+    @Test
+    void multiplyComplexWithComplex() {
+        Assertions.assertEquals(
+            new Complex(0, 5),
+            new Complex(1, 2).multiply(new Complex(2, 1))
+        );
+    }
+
+    @Test
+    void divideZeroComplexWith1() {
+        Assertions.assertEquals(new Complex(), new Complex().divide(1));
+    }
+
+    @Test
+    void divideComplexWith0() {
+        Assertions.assertEquals(
+            new Complex(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY),
+            new Complex(1, 1).divide(0)
+        );
+    }
+
+    @Test
+    void divideComplexWith1() {
+        Assertions.assertEquals(new Complex(1, 1), new Complex(1, 1).divide(1));
+    }
+
+    @Test
+    void divideComplexWithMinus1() {
+        Assertions.assertEquals(new Complex(-2, -1), new Complex(2, 1).divide(-1));
+    }
+
+    @Test
+    void divideComplexWithComplex() {
+        Assertions.assertEquals(
+            new Complex(0.8, 0.6),
+            new Complex(1, 2).divide(new Complex(2, 1))
+        );
+    }
+
+    // endregion
+
+    // region inverse
+
+    @Test
+    void inverseReOfComplexWithRe1Im2() {
+        Assertions.assertEquals(new Complex(-1, 2), new Complex(1, 2).inverseRe());
+    }
+
+    @Test
+    void inverseImOfComplexWithRe1Im2() {
+        Assertions.assertEquals(new Complex(1, -2), new Complex(1, 2).inverseIm());
+    }
+
+    @Test
+    void inverseReImOfComplexWithRe1Im2() {
+        Assertions.assertEquals(new Complex(-1, -2), new Complex(1, 2).inverse());
+    }
+
+    // endregion
+
     // region asVector, static ofVector
 
     @Test
