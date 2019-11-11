@@ -1,4 +1,4 @@
-package io.rala.math;
+package io.rala.math.utils;
 
 /**
  * collection of unit conversion functions

@@ -1,4 +1,4 @@
-package io.rala.math;
+package io.rala.math.utils;
 
 import io.rala.math.testUtils.UnitsArgumentsStreamFactory;
 import org.junit.jupiter.api.Assertions;
