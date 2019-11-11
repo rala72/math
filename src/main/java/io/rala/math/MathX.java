@@ -237,7 +237,7 @@ public class MathX {
     }
 
     /**
-     * least common multiple using {@link #gcd(long, long)}
+     * least common multiple using {@link #gcd(BigInteger, BigInteger)}
      *
      * @param a number1 of lcm
      * @param b number2 of lcm
