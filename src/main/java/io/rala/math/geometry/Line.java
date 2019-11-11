@@ -6,7 +6,9 @@ import java.util.Objects;
 
 /**
  * class which holds a line in a 2d area with m &amp; b<br>
- * <code>y=m*x+b</code>
+ * <code>y=m*x+b</code><br>
+ * if line is vertical m is considered to be {@link Double#NaN}<br>
+ * <code>y=b</code>
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Line implements Copyable<Line>, Comparable<Line> {
