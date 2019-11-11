@@ -139,10 +139,26 @@ public class Line implements Copyable<Line>, Comparable<Line> {
         if (!hasIntersection(line)) return null;
         if (isVertical())
             return new Point(getB(), line.calculateY(getB()));
-        else if (line.isVertical())
+        if (line.isVertical())
             return new Point(line.getB(), calculateY(line.getB()));
         double x = -(getB() - line.getB()) / (getM() - line.getM());
         return new Point(x, calculateY(x));
+    }
+
+    /**
+     * @param line line to intersect
+     * @return intersection angle or {@link Double#NaN}
+     * if there is no intersection
+     */
+    public double intersectionAngle(Line line) {
+        if (!hasIntersection(line)) return Double.NaN;
+        if (isVertical() || line.isVertical()) {
+            // calculated like y-axis
+            double m = isVertical() ? line.getM() : getM();
+            return Math.PI / 2 - Math.atan(Math.abs(m));
+        }
+        double tan = (getM() - line.getM()) / (1 + getM() * line.getM());
+        return Math.atan(Math.abs(tan));
     }
 
     // endregion

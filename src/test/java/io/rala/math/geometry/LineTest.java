@@ -141,6 +141,32 @@ class LineTest {
         );
     }
 
+    @Test
+    void intersectionAngleWithLineM1B2AndM2B1() {
+        Assertions.assertEquals(0.3217505543966422,
+            new Line(1, 2).intersectionAngle(new Line(2, 1))
+        );
+    }
+
+    @Test
+    void intersectionAngleWithLineX1AndX2() {
+        Assertions.assertTrue(Double.isNaN(new Line(1).intersectionAngle(new Line(2))));
+    }
+
+    @Test
+    void intersectionAngleWithLineM1B2AndX1() {
+        Assertions.assertEquals(0.7853981633974483,
+            new Line(1, 2).intersectionAngle(new Line(1))
+        );
+    }
+
+    @Test
+    void intersectionAngleWithLineX1AndM1B2() {
+        Assertions.assertEquals(0.7853981633974483,
+            new Line(1).intersectionAngle(new Line(1, 2))
+        );
+    }
+
     // endregion
 
     // region toLineSegment
