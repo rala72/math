@@ -101,6 +101,16 @@ class LineTest {
     }
 
     @Test
+    void hasIntersectionWithLineX1AndX2() {
+        Assertions.assertFalse(new Line(1).hasIntersection(new Line(2)));
+    }
+
+    @Test
+    void hasIntersectionWithLineM1B2AndX1() {
+        Assertions.assertTrue(new Line(1, 2).hasIntersection(new Line(1)));
+    }
+
+    @Test
     void intersectionWithEqualM() {
         Assertions.assertNull(new Line(1, 2).intersection(new Line(1, 0)));
     }
@@ -109,6 +119,25 @@ class LineTest {
     void intersectionWithLineM1B2AndM2B1() {
         Assertions.assertEquals(new Point(1, 3),
             new Line(1, 2).intersection(new Line(2, 1))
+        );
+    }
+
+    @Test
+    void intersectionWithLineX1AndX2() {
+        Assertions.assertNull(new Line(1).intersection(new Line(2)));
+    }
+
+    @Test
+    void intersectionWithLineM1B2AndX1() {
+        Assertions.assertEquals(new Point(1, 3),
+            new Line(1, 2).intersection(new Line(1))
+        );
+    }
+
+    @Test
+    void intersectionWithLineX1AndM1B2() {
+        Assertions.assertEquals(new Point(1, 3),
+            new Line(1).intersection(new Line(1, 2))
         );
     }
 

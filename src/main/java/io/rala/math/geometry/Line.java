@@ -127,7 +127,7 @@ public class Line implements Copyable<Line>, Comparable<Line> {
      * @return <code>true</code> if <code>m</code> is not equal
      */
     public boolean hasIntersection(Line line) {
-        return getM() != line.getM();
+        return (!isVertical() || !line.isVertical()) && getM() != line.getM();
     }
 
     /**
@@ -137,6 +137,10 @@ public class Line implements Copyable<Line>, Comparable<Line> {
      */
     public Point intersection(Line line) {
         if (!hasIntersection(line)) return null;
+        if (isVertical())
+            return new Point(getB(), line.calculateY(getB()));
+        else if (line.isVertical())
+            return new Point(line.getB(), calculateY(line.getB()));
         double x = -(getB() - line.getB()) / (getM() - line.getM());
         return new Point(x, calculateY(x));
     }
