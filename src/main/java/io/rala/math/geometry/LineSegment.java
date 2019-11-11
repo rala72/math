@@ -181,17 +181,6 @@ public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>,
     // region override
 
     @Override
-    public int compareTo(LineSegment o) {
-        Point min = List.of(a, b).stream().min(Point::compareTo).get();
-        Point minO = List.of(o.a, o.b).stream().min(Point::compareTo).get();
-        int i = min.compareTo(minO);
-        if (i != 0) return i;
-        Point max = List.of(a, b).stream().max(Point::compareTo).get();
-        Point maxO = List.of(o.a, o.b).stream().max(Point::compareTo).get();
-        return max.compareTo(maxO);
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -208,6 +197,17 @@ public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>,
     @Override
     public String toString() {
         return a + " " + b;
+    }
+
+    @Override
+    public int compareTo(LineSegment o) {
+        Point min = List.of(a, b).stream().min(Point::compareTo).get();
+        Point minO = List.of(o.a, o.b).stream().min(Point::compareTo).get();
+        int i = min.compareTo(minO);
+        if (i != 0) return i;
+        Point max = List.of(a, b).stream().max(Point::compareTo).get();
+        Point maxO = List.of(o.a, o.b).stream().max(Point::compareTo).get();
+        return max.compareTo(maxO);
     }
 
     // endregion
