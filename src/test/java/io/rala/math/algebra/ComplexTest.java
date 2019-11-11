@@ -35,7 +35,7 @@ class ComplexTest {
 
     // endregion
 
-    // region absoluteValue and reciprocal
+    // region absoluteValue, conjugation and reciprocal
 
     @Test
     void absoluteValueOfComplexWithoutParameter() {
@@ -52,6 +52,14 @@ class ComplexTest {
     @Test
     void absoluteValueOfComplexX1Y0() {
         Assertions.assertEquals(1, new Complex(1, 0).absoluteValue());
+    }
+
+    @Test
+    void conjugationOfComplexWithRe1Im2() {
+        Assertions.assertEquals(
+            new Complex(1, -2),
+            new Complex(1, 2).conjugation()
+        );
     }
 
     @Test

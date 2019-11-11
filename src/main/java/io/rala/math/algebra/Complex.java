@@ -71,13 +71,20 @@ public class Complex implements Copyable<Complex>, Comparable<Complex> {
 
     // endregion
 
-    // region absoluteValue and reciprocal
+    // region absoluteValue, conjugation and reciprocal
 
     /**
      * @return absolute value of complex based on pythagoras
      */
     public double absoluteValue() {
         return Math.sqrt(Math.pow(getRe(), 2) + Math.pow(getIm(), 2));
+    }
+
+    /**
+     * @return {@link #inverseIm()}
+     */
+    public Complex conjugation() {
+        return inverseIm();
     }
 
     /**
