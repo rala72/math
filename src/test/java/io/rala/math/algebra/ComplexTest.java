@@ -35,7 +35,7 @@ class ComplexTest {
 
     // endregion
 
-    // region absoluteValue, add and subtract
+    // region absoluteValue and reciprocal
 
     @Test
     void absoluteValueOfComplexWithoutParameter() {
@@ -53,6 +53,32 @@ class ComplexTest {
     void absoluteValueOfComplexX1Y0() {
         Assertions.assertEquals(1, new Complex(1, 0).absoluteValue());
     }
+
+    @Test
+    void reciprocalOfComplexWithoutParameter() {
+        Assertions.assertEquals(
+            new Complex(Double.NaN, Double.NaN),
+            new Complex().reciprocal()
+        );
+    }
+
+    @Test
+    void reciprocalOfComplexX1Y1() {
+        Assertions.assertEquals(new Complex(0.5, -0.5),
+            new Complex(1, 1).reciprocal()
+        );
+    }
+
+    @Test
+    void reciprocalOfComplexX1Y0() {
+        Assertions.assertEquals(new Complex(1, -0d),
+            new Complex(1, 0).reciprocal()
+        );
+    }
+
+    // endregion
+
+    // region add and subtract
 
     @Test
     void addWithXY() {
