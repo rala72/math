@@ -223,7 +223,23 @@ class ComplexTest {
 
     // endregion
 
-    // region asVector, static ofVector
+    // region static of, asVector, static ofVector
+
+    @Test
+    void ofOfAb3AndAr50() {
+        assertComplex(
+            Complex.of(3, 50),
+            2.89489808547634,
+            -0.7871245611117863
+        );
+    }
+
+    @Test
+    void ofWithSelfValidation() {
+        Complex complex = Complex.of(1, 2);
+        Assertions.assertEquals(1, complex.absoluteValue());
+        Assertions.assertEquals(2, complex.argument());
+    }
 
     @Test
     void asVectorOfComplexWithRe1Im2() {

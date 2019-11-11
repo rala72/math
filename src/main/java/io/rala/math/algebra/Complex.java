@@ -225,7 +225,19 @@ public class Complex implements Copyable<Complex>, Comparable<Complex> {
 
     // endregion
 
-    // region asVector, static ofVector
+    // region static of, asVector, static ofVector
+
+    /**
+     * @param absoluteValue absolute value of complex
+     * @param argument      argument of vector
+     * @return new complex based on absoluteValue and argument
+     */
+    public static Complex of(double absoluteValue, double argument) {
+        return new Complex(
+            absoluteValue * Math.cos(argument),
+            absoluteValue * Math.sin(argument)
+        );
+    }
 
     /**
      * @return new vector representing
