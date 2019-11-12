@@ -246,11 +246,11 @@ class DoubleMatrixTest {
     @Test
     void addOfMatrixWithSize2ToItself() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        for (int i = 0; i < matrix.size(); i++)
-            matrix.setValue(i, i + 1d);
         DoubleMatrix result = new DoubleMatrix(2);
-        for (int i = 0; i < result.size(); i++)
+        for (int i = 0; i < matrix.size(); i++) {
+            matrix.setValue(i, i + 1d);
             result.setValue(i, 2 * (i + 1d));
+        }
         Assertions.assertEquals(result, matrix.add(matrix));
     }
 
