@@ -1,8 +1,11 @@
 package io.rala.math.algebra;
 
+import io.rala.math.MathX;
 import io.rala.math.geometry.Vector;
 import io.rala.math.utils.Copyable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -190,6 +193,37 @@ public class Complex implements Copyable<Complex>, Comparable<Complex> {
             (complex.getRe() * getIm() - getRe() * complex.getIm()) /
                 (Math.pow(complex.getRe(), 2) + Math.pow(complex.getIm(), 2))
         );
+    }
+
+    // endregion
+
+    // region pow and root
+
+    /**
+     * @param n number of power
+     * @return new complex with powered re &amp; im values
+     */
+    public Complex pow(int n) {
+        return Complex.of(
+            Math.pow(absoluteValue(), n),
+            argument() * n
+        );
+    }
+
+    /**
+     * @param n number of root
+     * @return new complex with rooted re &amp; im values
+     * @see MathX#root(double, int)
+     */
+    public List<Complex> root(int n) {
+        List<Complex> list = new ArrayList<>(n - 1);
+        double r = MathX.root(absoluteValue(), n);
+        for (int i = 0; i < n; i++)
+            list.add(Complex.of(
+                r,
+                (argument() + 2 * Math.PI * i) / n
+            ));
+        return list;
     }
 
     // endregion

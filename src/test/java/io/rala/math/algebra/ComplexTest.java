@@ -4,6 +4,8 @@ import io.rala.math.geometry.Vector;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 class ComplexTest {
     // region constructors, getter and setter
 
@@ -199,6 +201,62 @@ class ComplexTest {
         Assertions.assertEquals(
             new Complex(0.8, 0.6),
             new Complex(1, 2).divide(new Complex(2, 1))
+        );
+    }
+
+    // endregion
+
+    // region pow and root
+
+    @Test
+    void pow8OfComplexWithRe1Im1() {
+        Assertions.assertEquals(
+            new Complex(16.000000000000007, 1.0291984957930479E-14),
+            new Complex(1, 1).pow(8)
+        );
+    }
+
+    @Test
+    void pow5OfComplexWithRe3Im4() {
+        Assertions.assertEquals(
+            new Complex(-236.99999999999898, -3116),
+            new Complex(3, 4).pow(5)
+        );
+    }
+
+    @Test
+    void root3OfComplexWithRe1Im0() {
+        Assertions.assertEquals(
+            List.of(
+                new Complex(1, 0),
+                new Complex(-0.4999999999999998, 0.8660254037844387),
+                new Complex(-0.5000000000000004, -0.8660254037844384)
+            ),
+            new Complex(1, 0).root(3)
+        );
+    }
+
+    @Test
+    void root4OfComplexWithRe1Im0() {
+        Assertions.assertEquals(
+            List.of(
+                new Complex(1, 0),
+                new Complex(6.123233995736766E-17, 1),
+                new Complex(-1, 1.2246467991473532E-16),
+                new Complex(-1.8369701987210297E-16, -1)
+            ),
+            new Complex(1, 0).root(4)
+        );
+    }
+
+    @Test
+    void root2OfComplexWithReMinus1ImSqrt3() {
+        Assertions.assertEquals(
+            List.of(
+                new Complex(0.7071067811865474, 1.224744871391589),
+                new Complex(-0.7071067811865469, -1.2247448713915892)
+            ),
+            new Complex(-1, Math.sqrt(3)).root(2)
         );
     }
 
