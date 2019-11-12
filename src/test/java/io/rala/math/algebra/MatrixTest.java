@@ -202,6 +202,35 @@ class MatrixTest {
 
     // endregion
 
+    // region isDiagonal
+
+    @Test
+    void isDiagonalOfMatrixWithRow1Col2() {
+        Assertions.assertFalse(new TestMatrix(1, 2).isDiagonal());
+    }
+
+    @Test
+    void isDiagonalOfMatrixOfValidValues() {
+        TestMatrix matrix = new TestMatrix(2);
+        matrix.setValue(0, 1);
+        matrix.setValue(1, 0);
+        matrix.setValue(2, 0);
+        matrix.setValue(3, 4);
+        Assertions.assertTrue(matrix.isDiagonal());
+    }
+
+    @Test
+    void isDiagonalOfMatrixOfInvalidValues() {
+        TestMatrix matrix = new TestMatrix(2);
+        matrix.setValue(0, 1);
+        matrix.setValue(1, 2);
+        matrix.setValue(2, 3);
+        matrix.setValue(3, 4);
+        Assertions.assertFalse(matrix.isDiagonal());
+    }
+
+    // endregion
+
     // region abstract
 
     @Test

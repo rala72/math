@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
+import java.util.stream.StreamSupport;
 
 /**
  * class which holds a matrix with <code>rows</code> and <code>cols</code>
@@ -198,6 +199,22 @@ public abstract class Matrix<T extends Number> implements Iterable<Matrix<T>.Fie
         if (index < 0 || size() <= index)
             throw new IndexOutOfBoundsException(INDEX_OUT_OF_BOUNDS__SIZE_PREFIX + size());
         return getMatrix().remove(index);
+    }
+
+    // endregion
+
+    // region isDiagonal
+
+    /**
+     * @return <code>true</code> if only the diagonal has values
+     */
+    public boolean isDiagonal() {
+        return getRows() == getCols() &&
+            StreamSupport.stream(spliterator(), true)
+                .allMatch(field -> field.getRow() == field.getCol() ||
+                    field.getValue() == null ||
+                    field.getValue().doubleValue() == 0d
+                );
     }
 
     // endregion

@@ -187,6 +187,34 @@ class DoubleMatrixTest {
 
     // endregion
 
+    // region isDiagonal
+
+    @Test
+    void isDiagonalOfMatrixWithRow1Col2() {
+        Assertions.assertFalse(new DoubleMatrix(1, 2).isDiagonal());
+    }
+
+    @Test
+    void isDiagonalOfMatrixOfValidValues() {
+        Assertions.assertTrue(
+            DoubleMatrix.ofValuesByRows(2, 1, 0, 0, 4).isDiagonal()
+        );
+    }
+
+    @Test
+    void isDiagonalOfMatrixOfInvalidValues() {
+        Assertions.assertFalse(
+            DoubleMatrix.ofValuesByRows(2, 1, 2, 3, 4).isDiagonal()
+        );
+    }
+
+    @Test
+    void isDiagonalOfDiagonalMatrix() {
+        Assertions.assertTrue(DoubleMatrix.diagonal(1, 2, 3).isDiagonal());
+    }
+
+    // endregion
+
     // region abstract
 
     @Test
