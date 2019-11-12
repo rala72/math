@@ -130,7 +130,7 @@ public abstract class Matrix<T extends Number> implements Iterable<Matrix<T>.Fie
      * @param row   row where value should be stored
      * @param col   col where value should be stored
      * @param value new value to store
-     * @return old value if existed
+     * @return old value if existed - may return <code>null</code> if it was empty
      * @throws IndexOutOfBoundsException if index is invalid
      * @see #setValue(int, Number)
      * @see Map#put(Object, Object)
@@ -142,7 +142,7 @@ public abstract class Matrix<T extends Number> implements Iterable<Matrix<T>.Fie
     /**
      * @param index index where value should be stored
      * @param value new value to store
-     * @return old value if existed
+     * @return old value if existed - may return <code>null</code> if it was empty
      * @throws IndexOutOfBoundsException if index is invalid
      * @see Map#put(Object, Object)
      */
@@ -179,7 +179,7 @@ public abstract class Matrix<T extends Number> implements Iterable<Matrix<T>.Fie
     /**
      * @param row row of value to remove
      * @param col col of value to remove
-     * @return old value
+     * @return old value - may return <code>null</code> if it was empty
      * @throws IndexOutOfBoundsException if index is invalid
      * @see #removeValue(int)
      * @see Map#remove(Object)
@@ -190,7 +190,7 @@ public abstract class Matrix<T extends Number> implements Iterable<Matrix<T>.Fie
 
     /**
      * @param index index of value to remove
-     * @return old value
+     * @return old value - may return <code>null</code> if it was empty
      * @throws IndexOutOfBoundsException if index is invalid
      * @see Map#remove(Object)
      */
