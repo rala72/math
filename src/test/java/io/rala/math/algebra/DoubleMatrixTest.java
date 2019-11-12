@@ -283,7 +283,43 @@ class DoubleMatrixTest {
 
     // endregion
 
-    // region static of
+    // region static: identity and diagonal
+
+    @Test
+    void identityOfSize1() {
+        DoubleMatrix matrix = DoubleMatrix.identity(1);
+        Assertions.assertEquals(1, matrix.size());
+        for (int i = 0; i < Math.sqrt(matrix.size()); i++)
+            Assertions.assertEquals(1, matrix.getValue(i, i));
+    }
+
+    @Test
+    void identityOfSize2() {
+        DoubleMatrix matrix = DoubleMatrix.identity(2);
+        Assertions.assertEquals(2 * 2, matrix.size());
+        for (int i = 0; i < Math.sqrt(matrix.size()); i++)
+            Assertions.assertEquals(1, matrix.getValue(i, i));
+    }
+
+    @Test
+    void diagonalOfSize1() {
+        DoubleMatrix matrix = DoubleMatrix.diagonal(1);
+        Assertions.assertEquals(1, matrix.size());
+        for (int i = 0; i < Math.sqrt(matrix.size()); i++)
+            Assertions.assertEquals(1, matrix.getValue(i, i));
+    }
+
+    @Test
+    void diagonalOfSize2() {
+        DoubleMatrix matrix = DoubleMatrix.diagonal(2, 2);
+        Assertions.assertEquals(2 * 2, matrix.size());
+        for (int i = 0; i < Math.sqrt(matrix.size()); i++)
+            Assertions.assertEquals(2, matrix.getValue(i, i));
+    }
+
+    // endregion
+
+    // region static: of
 
     @Test
     void ofValuesByRows2WithInvalidParamCount() {

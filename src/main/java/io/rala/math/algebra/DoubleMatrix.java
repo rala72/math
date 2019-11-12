@@ -82,7 +82,33 @@ public class DoubleMatrix extends Matrix<Double> {
 
     // endregion
 
-    // region static of
+    // region static: identity and diagonal
+
+    /**
+     * @param size size of matrix
+     * @return new created matrix
+     */
+    public static DoubleMatrix identity(int size) {
+        DoubleMatrix matrix = new DoubleMatrix(size);
+        for (int i = 0; i < size; i++)
+            matrix.setValue(i, i, 1d);
+        return matrix;
+    }
+
+    /**
+     * @param values diagonal values of matrix
+     * @return new created matrix
+     */
+    public static DoubleMatrix diagonal(double... values) {
+        DoubleMatrix matrix = new DoubleMatrix(values.length);
+        for (int i = 0; i < values.length; i++)
+            matrix.setValue(i, i, values[i]);
+        return matrix;
+    }
+
+    // endregion
+
+    // region static: of
 
     /**
      * creates a new matrix containing all provided values
