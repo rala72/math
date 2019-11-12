@@ -12,6 +12,8 @@ import java.util.TreeMap;
  */
 @SuppressWarnings({"unused", "WeakerAccess", "UnusedReturnValue"})
 public abstract class Matrix<T extends Number> implements Iterable<T> {
+    protected static final String INDEX_OUT_OF_BOUNDS__SIZE_PREFIX = "size: ";
+
     // region attributes
 
     private final Map<Integer, T> matrix = new TreeMap<>();
@@ -134,7 +136,7 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
      */
     public T setValue(int index, T value) {
         if (index < 0 || size() <= index)
-            throw new IndexOutOfBoundsException("size: " + size());
+            throw new IndexOutOfBoundsException(INDEX_OUT_OF_BOUNDS__SIZE_PREFIX + size());
         return matrix.put(index, value);
     }
 
@@ -158,7 +160,7 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
      */
     public T getValue(int index) {
         if (index < 0 || size() <= index)
-            throw new IndexOutOfBoundsException("size: " + size());
+            throw new IndexOutOfBoundsException(INDEX_OUT_OF_BOUNDS__SIZE_PREFIX + size());
         return matrix.getOrDefault(index, getDefaultValue());
     }
 
@@ -182,7 +184,7 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
      */
     public T removeValue(int index) {
         if (index < 0 || size() <= index)
-            throw new IndexOutOfBoundsException("size: " + size());
+            throw new IndexOutOfBoundsException(INDEX_OUT_OF_BOUNDS__SIZE_PREFIX + size());
         return getMatrix().remove(index);
     }
 
