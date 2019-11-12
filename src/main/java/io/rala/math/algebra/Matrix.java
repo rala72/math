@@ -222,6 +222,7 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
      *
      * @param matrix matrix to multiply
      * @return new matrix with calculated values
+     * @throws IllegalArgumentException if no cols and rows match
      * @see #multiply(Matrix)
      */
     public Matrix<T> multiplyTolerant(Matrix<T> matrix) {
