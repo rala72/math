@@ -116,6 +116,7 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
      * @param col   col where value should be stored
      * @param value new value to store
      * @return old value if existed
+     * @throws IndexOutOfBoundsException if index is invalid
      * @see #setValue(int, Number)
      * @see Map#put(Object, Object)
      */
@@ -127,6 +128,7 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
      * @param index index where value should be stored
      * @param value new value to store
      * @return old value if existed
+     * @throws IndexOutOfBoundsException if index is invalid
      * @see Map#put(Object, Object)
      */
     public T setValue(int index, T value) {
@@ -139,6 +141,7 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
      * @param row row of requested value
      * @param col col of requested value
      * @return current value on given position
+     * @throws IndexOutOfBoundsException if index is invalid
      * @see #getValue(int)
      * @see Map#getOrDefault(Object, Object)
      */
@@ -149,6 +152,7 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
     /**
      * @param index index of requested value
      * @return current value on given position
+     * @throws IndexOutOfBoundsException if index is invalid
      * @see Map#getOrDefault(Object, Object)
      */
     public T getValue(int index) {
@@ -161,6 +165,7 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
      * @param row row of value to remove
      * @param col col of value to remove
      * @return old value
+     * @throws IndexOutOfBoundsException if index is invalid
      * @see #removeValue(int)
      * @see Map#remove(Object)
      */
@@ -171,6 +176,7 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
     /**
      * @param index index of value to remove
      * @return old value
+     * @throws IndexOutOfBoundsException if index is invalid
      * @see Map#remove(Object)
      */
     public T removeValue(int index) {
