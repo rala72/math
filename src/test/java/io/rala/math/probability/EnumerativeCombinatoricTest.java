@@ -1,6 +1,6 @@
 package io.rala.math.probability;
 
-import io.rala.math.testUtils.EnumerativeCombinatoricsArgumentsStreamFactory;
+import io.rala.math.testUtils.arguments.EnumerativeCombinatoricsArgumentsStreamFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
