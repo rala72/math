@@ -294,7 +294,7 @@ class MatrixTest {
     @Test
     void toStringOfTestMatrixWithReIm() {
         TestMatrix matrix = new TestMatrix(2, 3);
-        Assertions.assertEquals("2 3", matrix.toString());
+        Assertions.assertEquals("2 3: []", matrix.toString());
     }
 
 

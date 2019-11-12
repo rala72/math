@@ -266,7 +266,7 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
 
     @Override
     public String toString() {
-        return getRows() + " " + getCols();
+        return getRows() + " " + getCols() + ": " + getMatrix().entrySet().toString();
     }
 
     // endregion
