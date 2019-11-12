@@ -81,8 +81,9 @@ public class DoubleMatrix extends Matrix<Double> {
     @Override
     public Matrix<Double> transpose() {
         DoubleMatrix result = new DoubleMatrix(getCols(), getRows());
-        for (int i = size() - 1; 0 <= i; i--)
-            result.setValue(size() - 1 - i, getValue(i));
+        for (int r = 0; r < getRows(); r++)
+            for (int c = 0; c < getCols(); c++)
+                result.setValue(c, r, getValue(getIndexOfRowAndCol(r, c)));
         return result;
     }
 

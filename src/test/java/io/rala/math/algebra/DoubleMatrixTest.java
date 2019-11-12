@@ -471,7 +471,7 @@ class DoubleMatrixTest {
         DoubleMatrix matrix = DoubleMatrix.ofValuesByCols(2, 1, 2);
         for (int i = 0; i < matrix.size(); i++)
             Assertions.assertEquals(
-                matrix.size() - i,
+                i + 1d,
                 matrix.getValue(i),
                 "index: " + i
             );
