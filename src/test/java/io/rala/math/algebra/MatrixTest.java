@@ -45,6 +45,11 @@ class MatrixTest {
     }
 
     @Test
+    void constructorWithMatrix() {
+        assertMatrix(new TestMatrix(new TestMatrix(1, 2)), 1, 2);
+    }
+
+    @Test
     void createWithSize1AndAssertSizeEquals1() {
         Assertions.assertEquals(1, new TestMatrix(1).size());
     }

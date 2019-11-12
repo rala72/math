@@ -20,6 +20,10 @@ public class TestMatrix extends Matrix<Number> {
         super(rows, cols, defaultValue);
     }
 
+    public TestMatrix(Matrix<Number> matrix) {
+        super(matrix);
+    }
+
     @Override
     public Matrix<Number> add(Matrix<Number> matrix) {
         return matrix;

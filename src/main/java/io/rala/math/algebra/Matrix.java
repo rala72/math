@@ -71,6 +71,18 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
         this.defaultValue = defaultValue;
     }
 
+    /**
+     * creates a new matrix based on given one
+     *
+     * @param matrix matrix to copy
+     */
+    protected Matrix(Matrix<T> matrix) {
+        this.rows = matrix.rows;
+        this.cols = matrix.cols;
+        this.defaultValue = matrix.getDefaultValue();
+        getMatrix().putAll(matrix.getMatrix());
+    }
+
     // endregion
 
     // region getter and size
