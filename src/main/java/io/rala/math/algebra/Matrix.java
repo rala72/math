@@ -116,6 +116,7 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
      * @param col   col where value should be stored
      * @param value new value to store
      * @return old value if existed
+     * @see #setValue(int, Number)
      * @see Map#put(Object, Object)
      */
     public T setValue(int row, int col, T value) {
@@ -138,6 +139,8 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
      * @param row row of requested value
      * @param col col of requested value
      * @return current value on given position
+     * @see #getValue(int)
+     * @see Map#getOrDefault(Object, Object)
      */
     public T getValue(int row, int col) {
         return getValue(getIndexOfRowAndCol(row, col));
@@ -146,6 +149,7 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
     /**
      * @param index index of requested value
      * @return current value on given position
+     * @see Map#getOrDefault(Object, Object)
      */
     public T getValue(int index) {
         if (index < 0 || size() <= index)
