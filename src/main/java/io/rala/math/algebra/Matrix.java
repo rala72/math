@@ -157,6 +157,28 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
         return matrix.getOrDefault(index, getDefaultValue());
     }
 
+    /**
+     * @param row row of value to remove
+     * @param col col of value to remove
+     * @return old value
+     * @see #removeValue(int)
+     * @see Map#remove(Object)
+     */
+    public T removeValue(int row, int col) {
+        return removeValue(getIndexOfRowAndCol(row, col));
+    }
+
+    /**
+     * @param index index of value to remove
+     * @return old value
+     * @see Map#remove(Object)
+     */
+    public T removeValue(int index) {
+        if (index < 0 || size() <= index)
+            throw new IndexOutOfBoundsException("size: " + size());
+        return getMatrix().remove(index);
+    }
+
     // endregion
 
     // region abstract
