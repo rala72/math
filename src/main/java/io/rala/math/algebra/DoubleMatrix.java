@@ -81,4 +81,44 @@ public class DoubleMatrix extends Matrix<Double> {
     }
 
     // endregion
+
+    // region static of
+
+    /**
+     * creates a new matrix containing all provided values
+     *
+     * @param rows   rows of matrix
+     * @param values row based values of matrix
+     * @return new created matrix
+     * @throws IllegalArgumentException if rows modulo <code>values.length</code>
+     *                                  is not congruent 0
+     */
+    public static DoubleMatrix ofValuesByRows(int rows, double... values) {
+        if (values.length % rows != 0)
+            throw new IllegalArgumentException("rows modulo values.length is not congruent 0");
+        DoubleMatrix matrix = new DoubleMatrix(rows, values.length / rows);
+        for (int i = 0; i < values.length; i++)
+            matrix.setValue(i, values[i]);
+        return matrix;
+    }
+
+    /**
+     * creates a new matrix containing all provided values
+     *
+     * @param cols   cols of matrix
+     * @param values column based values of matrix
+     * @return new created matrix
+     * @throws IllegalArgumentException if cols modulo <code>values.length</code>
+     *                                  is not congruent 0
+     */
+    public static DoubleMatrix ofValuesByCols(int cols, double... values) {
+        if (values.length % cols != 0)
+            throw new IllegalArgumentException("cols modulo values.length is not congruent 0");
+        return new DoubleMatrix(
+            ofValuesByRows(values.length / cols, values)
+                .transpose()
+        );
+    }
+
+    // endregion
 }

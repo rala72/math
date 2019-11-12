@@ -283,6 +283,46 @@ class DoubleMatrixTest {
 
     // endregion
 
+    // region static of
+
+    @Test
+    void ofValuesByRows2WithInvalidParamCount() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> DoubleMatrix.ofValuesByRows(2, 1)
+        );
+    }
+
+    @Test
+    void ofValuesByRows2WithValidParamCount() {
+        DoubleMatrix matrix = DoubleMatrix.ofValuesByRows(2, 1, 2);
+        for (int i = 0; i < matrix.size(); i++)
+            Assertions.assertEquals(
+                i + 1,
+                matrix.getValue(i),
+                "index: " + i
+            );
+    }
+
+    @Test
+    void ofValuesByCols2WithInvalidParamCount() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> DoubleMatrix.ofValuesByCols(2, 1)
+        );
+    }
+
+    @Test
+    void ofValuesByCols2WithValidParamCount() {
+        DoubleMatrix matrix = DoubleMatrix.ofValuesByCols(2, 1, 2);
+        for (int i = 0; i < matrix.size(); i++)
+            Assertions.assertEquals(
+                matrix.size() - i,
+                matrix.getValue(i),
+                "index: " + i
+            );
+    }
+
+    // endregion
+
     // region override
 
     @Test
