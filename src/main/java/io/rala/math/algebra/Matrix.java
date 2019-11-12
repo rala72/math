@@ -2,6 +2,7 @@ package io.rala.math.algebra;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 
 /**
@@ -227,6 +228,22 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
     // endregion
 
     // region override
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Matrix<?> matrix1 = (Matrix<?>) o;
+        return getRows() == matrix1.getRows() &&
+            getCols() == matrix1.getCols() &&
+            Objects.equals(getMatrix(), matrix1.getMatrix()) &&
+            Objects.equals(getDefaultValue(), matrix1.getDefaultValue());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getMatrix(), getRows(), getCols(), getDefaultValue());
+    }
 
     @Override
     public String toString() {
