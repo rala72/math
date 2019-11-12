@@ -199,7 +199,7 @@ class CircleTest {
             0, circle.compareTo(new Circle(new Point(2), 3))
         );
         Assertions.assertEquals(
-            -1, circle.compareTo(new Circle(new Point(4), 3))
+            -1, circle.compareTo(new Circle(new Point(3), 3))
         );
         Assertions.assertEquals(
             1, circle.compareTo(new Circle(new Point(2), 1))

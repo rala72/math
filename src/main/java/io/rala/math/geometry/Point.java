@@ -142,9 +142,9 @@ public class Point implements Copyable<Point>, Movable<Point>, Rotatable<Point>,
 
     @Override
     public int compareTo(Point o) {
-        int compare = Double.compare(getX(), o.getX());
-        if (compare != 0) return compare;
-        return Double.compare(getY(), o.getY());
+        int diffX = (int) Math.ceil(getX() - o.getX());
+        if (diffX != 0) return diffX;
+        return (int) Math.ceil(getY() - o.getY());
     }
 
     // endregion

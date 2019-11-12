@@ -172,7 +172,7 @@ class PointTest {
             -1, point.compareTo(new Point(3, 1))
         );
         Assertions.assertEquals(
-            1, point.compareTo(new Point(2, 1))
+            1, point.compareTo(new Point(2, 2))
         );
     }
 
