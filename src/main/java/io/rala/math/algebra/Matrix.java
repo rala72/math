@@ -230,6 +230,23 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
     // region override
 
     @Override
+    public Iterator<T> iterator() {
+        return new Iterator<>() {
+            private int index = 0;
+
+            @Override
+            public boolean hasNext() {
+                return index < size();
+            }
+
+            @Override
+            public T next() {
+                return getValue(index++);
+            }
+        };
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -248,23 +265,6 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
     @Override
     public String toString() {
         return getRows() + " " + getCols();
-    }
-
-    @Override
-    public Iterator<T> iterator() {
-        return new Iterator<>() {
-            private int index = 0;
-
-            @Override
-            public boolean hasNext() {
-                return index < size();
-            }
-
-            @Override
-            public T next() {
-                return getValue(index++);
-            }
-        };
     }
 
     // endregion
