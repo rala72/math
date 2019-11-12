@@ -357,10 +357,10 @@ public class Vector implements Rotatable<Vector>, Copyable<Vector>, Comparable<V
     }
 
     @Override
-    public int compareTo(Vector v) {
-        int diffX = (int) Math.ceil(getX() - v.getX());
+    public int compareTo(Vector o) {
+        int diffX = (int) Math.ceil(getX() - o.getX());
         if (diffX != 0) return diffX;
-        return (int) Math.ceil(getY() - v.getY());
+        return (int) Math.ceil(getY() - o.getY());
     }
 
     // endregion
