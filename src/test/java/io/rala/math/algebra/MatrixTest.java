@@ -305,6 +305,41 @@ class MatrixTest {
 
     // endregion
 
+    // region field
+
+    @Test
+    void fieldGetter() {
+        TestMatrix matrix = new TestMatrix(2);
+        int index = 0;
+        for (Matrix<Number>.Field field : matrix) {
+            Assertions.assertEquals(index, field.getIndex());
+            Assertions.assertEquals(index / matrix.getCols(), field.getRow());
+            Assertions.assertEquals(index % matrix.getCols(), field.getCol());
+            index++;
+        }
+    }
+
+    @Test
+    void fieldOverride() {
+        TestMatrix matrix = new TestMatrix(2);
+        Matrix<Number>.Field previous = null;
+        for (Matrix<Number>.Field field : matrix) {
+            if (previous != null) Assertions.assertNotEquals(previous, field);
+            else Assertions.assertEquals(
+                matrix.new Field(field.getIndex(), field.getValue()),
+                field
+            );
+            Assertions.assertTrue(0 < field.hashCode());
+            Assertions.assertEquals(
+                field.getIndex() + ": " + field.getValue(),
+                field.toString()
+            );
+            previous = field;
+        }
+    }
+
+    // endregion
+
 
     // region assertions
 
