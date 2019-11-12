@@ -225,11 +225,11 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
      * @see #multiply(Matrix)
      */
     public Matrix<T> multiplyTolerant(Matrix<T> matrix) {
-        if (getRows() == matrix.getCols())
+        if (getCols() == matrix.getRows())
             return this.multiply(matrix);
-        else if (getCols() == matrix.getRows())
+        else if (getRows() == matrix.getCols())
             return matrix.multiplyTolerant(this);
-        throw new IllegalArgumentException("any rows have to be equal to the other cols");
+        throw new IllegalArgumentException("any cols have to be equal to the other matrix rows");
     }
 
     // public abstract Matrix<T> inverse();

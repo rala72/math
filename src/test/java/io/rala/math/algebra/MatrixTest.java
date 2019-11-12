@@ -236,14 +236,14 @@ class MatrixTest {
     void multiplyTolerantOfMatrixWithRow1Col2AndMatrixWithRow2Col3() {
         TestMatrix matrix1 = new TestMatrix(1, 2);
         TestMatrix matrix2 = new TestMatrix(2, 3);
-        Assertions.assertEquals(matrix1, matrix1.multiplyTolerant(matrix2));
+        Assertions.assertEquals(matrix2, matrix1.multiplyTolerant(matrix2));
     }
 
     @Test
     void multiplyTolerantOfMatrixWithRow2Col3AndMatrixWithRow1Col2() {
         TestMatrix matrix1 = new TestMatrix(2, 3);
         TestMatrix matrix2 = new TestMatrix(1, 2);
-        Assertions.assertEquals(matrix2, matrix1.multiplyTolerant(matrix2));
+        Assertions.assertEquals(matrix1, matrix1.multiplyTolerant(matrix2));
     }
 
     @Test
