@@ -288,10 +288,10 @@ class DoubleMatrixTest {
     @Test
     void iteratorOfEmptyMatrix() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        List<Number> values = new ArrayList<>();
-        for (Number d : matrix) {
+        List<DoubleMatrix.Field> values = new ArrayList<>();
+        for (DoubleMatrix.Field d : matrix) {
             values.add(d);
-            Assertions.assertEquals(0d, d);
+            Assertions.assertEquals(0d, d.getValue());
         }
         Assertions.assertEquals(matrix.size(), values.size());
     }

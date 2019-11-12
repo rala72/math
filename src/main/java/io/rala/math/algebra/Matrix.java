@@ -11,7 +11,7 @@ import java.util.TreeMap;
  * @param <T> number class
  */
 @SuppressWarnings({"unused", "WeakerAccess", "UnusedReturnValue"})
-public abstract class Matrix<T extends Number> implements Iterable<T> {
+public abstract class Matrix<T extends Number> implements Iterable<Matrix<T>.Field> {
     protected static final String INDEX_OUT_OF_BOUNDS__SIZE_PREFIX = "size: ";
 
     // region attributes
@@ -245,7 +245,7 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
     // region override
 
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<Field> iterator() {
         return new Iterator<>() {
             private int index = 0;
 
@@ -255,8 +255,9 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
             }
 
             @Override
-            public T next() {
-                return getValue(index++);
+            public Field next() {
+                T value = getValue(index);
+                return new Field(index++, value);
             }
         };
     }
@@ -296,4 +297,68 @@ public abstract class Matrix<T extends Number> implements Iterable<T> {
     }
 
     // endregion
+
+    /**
+     * class which holds a field of a matrix
+     */
+    public class Field {
+        private final int index;
+        private final T value;
+
+        /**
+         * @param index index of field
+         * @param value value of field
+         */
+        protected Field(int index, T value) {
+            this.index = index;
+            this.value = value;
+        }
+
+        /**
+         * @return row of field
+         */
+        public final int getRow() {
+            return getIndex() / getCols();
+        }
+
+        /**
+         * @return col of field
+         */
+        public final int getCol() {
+            return getIndex() % getCols();
+        }
+
+        /**
+         * @return index of field
+         */
+        public final int getIndex() {
+            return index;
+        }
+
+        /**
+         * @return value of field
+         */
+        public T getValue() {
+            return value;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Matrix.Field field = (Matrix.Field) o;
+            return getIndex() == field.getIndex() &&
+                Objects.equals(getValue(), field.getValue());
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(getIndex(), getValue());
+        }
+
+        @Override
+        public String toString() {
+            return getIndex() + ": " + getValue();
+        }
+    }
 }

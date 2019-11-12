@@ -267,10 +267,10 @@ class MatrixTest {
     @Test
     void iteratorOfEmptyMatrix() {
         TestMatrix matrix = new TestMatrix(2);
-        List<Number> values = new ArrayList<>();
-        for (Number d : matrix) {
+        List<TestMatrix.Field> values = new ArrayList<>();
+        for (TestMatrix.Field d : matrix) {
             values.add(d);
-            Assertions.assertNull(d);
+            Assertions.assertNull(d.getValue());
         }
         Assertions.assertEquals(matrix.size(), values.size());
     }
