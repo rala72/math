@@ -244,6 +244,17 @@ class DoubleMatrixTest {
     }
 
     @Test
+    void addOfMatrixWithSize2ToItself() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, i + 1d);
+        DoubleMatrix result = new DoubleMatrix(2);
+        for (int i = 0; i < result.size(); i++)
+            result.setValue(i, 2 * (i + 1d));
+        Assertions.assertEquals(result, matrix.add(matrix));
+    }
+
+    @Test
     void multiplyOfEmptyMatrixWithSize2AndEmptyMatrixWithSize2() {
         DoubleMatrix matrix1 = new DoubleMatrix(2);
         DoubleMatrix matrix2 = new DoubleMatrix(2);
@@ -273,6 +284,16 @@ class DoubleMatrixTest {
     }
 
     @Test
+    void multiplyOfMatrixWithSize2ToItself() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, i + 1d);
+        Assertions.assertEquals(DoubleMatrix.ofValuesByRows(2,
+            7, 10, 15, 22
+        ), matrix.multiply(matrix));
+    }
+
+    @Test
     void multiplyTolerantOfEmptyMatrixWithRow1Col2AndEmptyMatrixWithRow2Col3() {
         DoubleMatrix matrix1 = new DoubleMatrix(1, 2);
         DoubleMatrix matrix2 = new DoubleMatrix(2, 3);
@@ -298,6 +319,19 @@ class DoubleMatrixTest {
         DoubleMatrix matrix2 = new DoubleMatrix(3, 4);
         Assertions.assertThrows(IllegalArgumentException.class,
             () -> matrix1.multiplyTolerant(matrix2)
+        );
+    }
+
+    @Test
+    void multiplyTolerantOfMatrixWithSize2ToItself() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, i + 1d);
+        Assertions.assertEquals(
+            DoubleMatrix.ofValuesByRows(2,
+                7, 10, 15, 22
+            ),
+            matrix.multiplyTolerant(matrix)
         );
     }
 
