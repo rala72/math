@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 public class MathX {
     private static final MathContext MATH_CONTEXT =
         new MathContext(10, RoundingMode.HALF_EVEN);
+    private static final String ILLEGAL_ARGUMENT__NUMBER_HAS_TO_BE_POSITIVE =
+        "number has to be positive";
 
     private MathX() {
     }
@@ -269,7 +271,7 @@ public class MathX {
      */
     public static double root(double a, int n) {
         if (a < 0)
-            throw new IllegalArgumentException("number has to be positive");
+            throw new IllegalArgumentException(ILLEGAL_ARGUMENT__NUMBER_HAS_TO_BE_POSITIVE);
         return Math.pow(a, 1.0 / n);
     }
 
@@ -285,7 +287,7 @@ public class MathX {
     public static BigDecimal root(BigDecimal a, int n) {
         // https://stackoverflow.com/a/34074999/2715720
         if (a.compareTo(BigDecimal.ZERO) < 0)
-            throw new IllegalArgumentException("number has to be positive");
+            throw new IllegalArgumentException(ILLEGAL_ARGUMENT__NUMBER_HAS_TO_BE_POSITIVE);
         if (a.equals(BigDecimal.ZERO)) return BigDecimal.ZERO;
         BigDecimal current = a.divide(BigDecimal.valueOf(n), MATH_CONTEXT);
         BigDecimal precision = BigDecimal.valueOf(.1)

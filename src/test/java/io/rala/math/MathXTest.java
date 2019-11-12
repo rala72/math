@@ -42,21 +42,31 @@ class MathXTest {
     @ParameterizedTest
     @MethodSource("getRootUsingDoubleArguments")
     void rootUsingDouble(double a, int n, Double expected) {
-        if (expected == null)
-            Assertions.assertThrows(IllegalArgumentException.class,
-                () -> MathX.root(a, n)
-            ); // assert message
-        else Assertions.assertEquals(expected, Math.round(MathX.root(a, n)));
+        if (expected == null) {
+            try {
+                MathX.root(a, n);
+            } catch (IllegalArgumentException e) {
+                Assertions.assertEquals("number has to be positive", e.getMessage());
+                return;
+            }
+            Assertions.fail();
+        }
+        Assertions.assertEquals(expected, Math.round(MathX.root(a, n)));
     }
 
     @ParameterizedTest
     @MethodSource("getRootUsingBigDecimalArguments")
     void rootUsingBigDecimal(BigDecimal a, int n, BigDecimal expected) {
-        if (expected == null)
-            Assertions.assertThrows(IllegalArgumentException.class,
-                () -> MathX.root(a, n)
-            ); // assert message
-        else Assertions.assertEquals(expected, MathX.root(a, n).stripTrailingZeros());
+        if (expected == null) {
+            try {
+                MathX.root(a, n);
+            } catch (IllegalArgumentException e) {
+                Assertions.assertEquals("number has to be positive", e.getMessage());
+                return;
+            }
+            Assertions.fail();
+        }
+        Assertions.assertEquals(expected, MathX.root(a, n).stripTrailingZeros());
     }
 
     // region argument streams
