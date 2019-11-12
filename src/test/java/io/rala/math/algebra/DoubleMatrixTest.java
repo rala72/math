@@ -309,6 +309,64 @@ class DoubleMatrixTest {
         Assertions.assertEquals(result, new DoubleMatrix(2).transpose());
     }
 
+    @Test
+    void determinanteOfEmptyMatrixWithSize2() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        Assertions.assertEquals(0, matrix.determinante());
+    }
+
+    @Test
+    void determinanteOfMatrixWithSize2AndValues1234() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, i + 1d);
+        Assertions.assertEquals(-2, matrix.determinante());
+    }
+
+    @Test
+    void determinanteOfMatrixWithSize3AndValues123456789() {
+        DoubleMatrix matrix = new DoubleMatrix(3);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, i + 1d);
+        Assertions.assertEquals(0, matrix.determinante());
+    }
+
+    @Test
+    void determinanteOfMatrixWithSize3AndValues1And2OnDiagonale() {
+        DoubleMatrix matrix = new DoubleMatrix(3);
+        for (int r = 0; r < matrix.getRows(); r++)
+            for (int c = 0; c < matrix.getCols(); c++)
+                matrix.setValue(r, c, r == c ? 2d : 1d);
+        Assertions.assertEquals(4, matrix.determinante());
+    }
+
+    @Test
+    void determinanteOfMatrixWithSize4AndValues1And2OnDiagonale() {
+        DoubleMatrix matrix = new DoubleMatrix(4);
+        for (int r = 0; r < matrix.getRows(); r++)
+            for (int c = 0; c < matrix.getCols(); c++)
+                matrix.setValue(r, c, r == c ? 2d : 1d);
+        Assertions.assertEquals(5, matrix.determinante());
+    }
+
+    @Test
+    void determinanteOfMatrixWithSize4AndValues1AndMore0InRow() {
+        DoubleMatrix matrix = new DoubleMatrix(4);
+        for (int r = 0; r < matrix.getRows(); r++)
+            for (int c = 0; c < matrix.getCols(); c++)
+                matrix.setValue(r, c, c != 0 && (r == c || r == 0) ? 0d : 1d);
+        Assertions.assertEquals(2, matrix.determinante());
+    }
+
+    @Test
+    void determinanteOfMatrixWithSize4AndValues1AndMore0InCol() {
+        DoubleMatrix matrix = new DoubleMatrix(4);
+        for (int r = 0; r < matrix.getRows(); r++)
+            for (int c = 0; c < matrix.getCols(); c++)
+                matrix.setValue(r, c, r != 0 && (r == c || c == 0) ? 0d : 1d);
+        Assertions.assertEquals(2, matrix.determinante());
+    }
+
     // endregion
 
     // region static: identity and diagonal

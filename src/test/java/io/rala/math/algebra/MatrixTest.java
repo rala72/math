@@ -289,6 +289,11 @@ class MatrixTest {
         Assertions.assertNull(new TestMatrix(2).transpose());
     }
 
+    @Test
+    void determinanteOfMatrixWithSize2() {
+        Assertions.assertEquals(0, new TestMatrix(2).determinante());
+    }
+
     // endregion
 
     // region override

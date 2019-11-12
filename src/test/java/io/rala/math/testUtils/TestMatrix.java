@@ -38,4 +38,9 @@ public class TestMatrix extends Matrix<Number> {
     public Matrix<Number> transpose() {
         return null;
     }
+
+    @Override
+    public double determinante() {
+        return 0;
+    }
 }

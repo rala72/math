@@ -257,6 +257,11 @@ public abstract class Matrix<T extends Number> implements Iterable<Matrix<T>.Fie
      */
     public abstract Matrix<T> transpose();
 
+    /**
+     * @return determinante of matrix
+     */
+    public abstract double determinante();
+
     // endregion
 
     // region override

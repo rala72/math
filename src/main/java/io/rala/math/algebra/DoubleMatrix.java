@@ -1,5 +1,11 @@
 package io.rala.math.algebra;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 /**
  * class which holds a matrix with <code>rows</code> and <code>cols</code>
  * storing {@link Double}
@@ -80,6 +86,58 @@ public class DoubleMatrix extends Matrix<Double> {
         return result;
     }
 
+    @Override
+    public double determinante() {
+        if (size() == 0 || getRows() != getCols()) return 0;
+        if (getRows() == 1) return getValue(0);
+        if (getRows() == 2) {
+            return getValue(0, 0) * getValue(1, 1) -
+                getValue(0, 1) * getValue(1, 0);
+        }
+        if (getRows() == 3) {
+            return getValue(0, 0) * getValue(1, 1) * getValue(2, 2) +
+                getValue(0, 1) * getValue(1, 2) * getValue(2, 0) +
+                getValue(0, 2) * getValue(1, 0) * getValue(2, 1) -
+                getValue(2, 0) * getValue(1, 1) * getValue(0, 2) -
+                getValue(2, 1) * getValue(1, 2) * getValue(0, 0) -
+                getValue(2, 2) * getValue(1, 0) * getValue(0, 1);
+        }
+        double d = 0;
+        boolean isRowMode = true;
+        int index = 0;
+        List<Field> zeros = StreamSupport.stream(spliterator(), true)
+            .filter(field -> field.getValue().equals(0d))
+            .collect(Collectors.toList());
+        if (!zeros.isEmpty()) {
+            Map.Entry<Integer, List<Field>> bestRow = getBestEntry(zeros, true);
+            Map.Entry<Integer, List<Field>> bestCol = getBestEntry(zeros, false);
+            if (bestRow.getValue().size() < bestCol.getValue().size()) {
+                if (getCols() == bestCol.getValue().size()) return 0;
+                isRowMode = false;
+                index = bestCol.getKey();
+            } else {
+                if (getRows() == bestRow.getValue().size()) return 0;
+                index = bestRow.getKey();
+            }
+        }
+        for (int i = 0; i < (isRowMode ? getCols() : getRows()); i++) {
+            int row = isRowMode ? index : i;
+            int col = isRowMode ? i : index;
+            double indexValue = isRowMode ? getValue(index, i) : getValue(i, index);
+            double signum = (index + i) % 2 == 0 ? 1 : -1;
+            DoubleMatrix sub = new DoubleMatrix(getRows() - 1, getCols() - 1);
+            for (int r = 0; r < sub.getRows(); r++) {
+                int ar = r < row ? r : r + 1;
+                for (int c = 0; c < sub.getCols(); c++) {
+                    int ac = c < col ? c : c + 1;
+                    sub.setValue(r, c, getValue(ar, ac));
+                }
+            }
+            d += indexValue * signum * sub.determinante();
+        }
+        return d;
+    }
+
     // endregion
 
     // region static: identity and diagonal
@@ -144,6 +202,22 @@ public class DoubleMatrix extends Matrix<Double> {
             ofValuesByRows(values.length / cols, values)
                 .transpose()
         );
+    }
+
+    // endregion
+
+    // region private
+
+    private static Map.Entry<Integer, List<Field>> getBestEntry(
+        List<Field> zeros, boolean isRowMode
+    ) {
+        return zeros.stream()
+            .collect(Collectors.groupingBy(field ->
+                isRowMode ? field.getRow() : field.getCol()
+            ))
+            .entrySet().stream()
+            .max(Comparator.comparingInt(o -> o.getValue().size()))
+            .orElse(Map.entry(0, List.of()));
     }
 
     // endregion
