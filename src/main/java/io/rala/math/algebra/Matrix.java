@@ -447,7 +447,7 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
     /**
      * @param row1 row1 to flip with row2
      * @param row2 row2 to flip with row1
-     * @return matrix with flipped values
+     * @return new matrix with flipped values
      * @throws IndexOutOfBoundsException if row1 or row2 is invalid
      */
     protected final Matrix<T> flipRows(int row1, int row2) {
@@ -467,7 +467,7 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
     /**
      * @param col1 col1 to flip with col2
      * @param col2 col2 to flip with col1
-     * @return matrix with flipped values
+     * @return new matrix with flipped values
      * @throws IndexOutOfBoundsException if col1 or col2 is invalid
      */
     protected final Matrix<T> flipCols(int col1, int col2) {
@@ -481,6 +481,38 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
             copy.setValue(r, col1, getValue(r, col2));
             copy.setValue(r, col2, getValue(r, col1));
         }
+        return copy;
+    }
+
+    /**
+     * @param row row to multiply
+     * @param n   factor to use
+     * @return new matrix with multiplied row
+     */
+    protected final Matrix<T> multiplyRow(int row, int n) {
+        if (!isRowValid(row))
+            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
+        if (n == 0) return newInstance(getRows(), getCols());
+        Matrix<T> copy = copy();
+        if (n == 1) return copy;
+        for (int c = 0; c < getCols(); c++)
+            copy.setValue(row, c, product(getValue(row, c), fromInt(n)));
+        return copy;
+    }
+
+    /**
+     * @param col col to multiply
+     * @param n   factor to use
+     * @return new matrix with multiplied col
+     */
+    protected final Matrix<T> multiplyCol(int col, int n) {
+        if (!isColValid(col))
+            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
+        if (n == 0) return newInstance(getRows(), getCols());
+        Matrix<T> copy = copy();
+        if (n == 1) return copy;
+        for (int r = 0; r < getRows(); r++)
+            copy.setValue(r, col, product(getValue(r, col), fromInt(n)));
         return copy;
     }
 

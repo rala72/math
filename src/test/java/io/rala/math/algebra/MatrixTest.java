@@ -551,6 +551,44 @@ class MatrixTest {
         Assertions.assertEquals(result, matrix.flipCols(0, 1));
     }
 
+    @Test
+    void multiplyRowOfMatrixWithSize2UsingInvalidRow() {
+        TestMatrix matrix = new TestMatrix(2);
+        Assertions.assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.multiplyRow(-1, 0)
+        ); // assert message
+    }
+
+    @Test
+    void multiplyRowOfMatrixWithSize2With2() {
+        TestMatrix matrix = new TestMatrix(2);
+        TestMatrix result = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++) {
+            matrix.setValue(i, i + 1d);
+            result.setValue(i, (i + 1d) * (i / result.getCols() == 0 ? 2 : 1));
+        }
+        Assertions.assertEquals(result, matrix.multiplyRow(0, 2));
+    }
+
+    @Test
+    void multiplyColOfMatrixWithSize2UsingInvalidCol() {
+        TestMatrix matrix = new TestMatrix(2);
+        Assertions.assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.multiplyCol(-1, 0)
+        ); // assert message
+    }
+
+    @Test
+    void multiplyColOfMatrixWithSize2() {
+        TestMatrix matrix = new TestMatrix(2);
+        TestMatrix result = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++) {
+            matrix.setValue(i, i + 1d);
+            result.setValue(i, (i + 1d) * (i % result.getCols() == 0 ? 2 : 1));
+        }
+        Assertions.assertEquals(result, matrix.multiplyCol(0, 2));
+    }
+
     // endregion
 
     // region protected: getIndexOfRowAndCol and isValid
