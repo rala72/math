@@ -539,11 +539,10 @@ class DoubleMatrixTest {
         Assertions.assertEquals("2 3: []", matrix.toString());
     }
 
-
     // endregion
 
 
-    // region assertions
+    // region assert
 
     private static <T extends Number> void assertMatrix(Matrix<T> matrix, int size) {
         assertMatrix(matrix, size, size);
