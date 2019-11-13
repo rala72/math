@@ -516,6 +516,48 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
         return copy;
     }
 
+    /**
+     * @param row1 row to multiply with other multiple times
+     * @param row2 row to multiply multiple times with other
+     * @param n    factor to use
+     * @return new matrix with multiplied rows
+     */
+    protected final Matrix<T> addRowMultipleTimes(int row1, int row2, int n) {
+        if (!isRowValid(row1))
+            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row1);
+        if (!isRowValid(row2))
+            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row2);
+        if (n == 0) return copy();
+        if (row1 == row2) return multiplyRow(row1, n);
+        Matrix<T> copy = copy();
+        for (int c = 0; c < getCols(); c++)
+            copy.setValue(row1, c, sum(getValue(row1, c),
+                product(getValue(row2, c), fromInt(n))
+            ));
+        return copy;
+    }
+
+    /**
+     * @param col1 col to multiply with other multiple times
+     * @param col2 col to multiply multiple times with other
+     * @param n    factor to use
+     * @return new matrix with multiplied cols
+     */
+    protected final Matrix<T> addColMultipleTimes(int col1, int col2, int n) {
+        if (!isColValid(col1))
+            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col1);
+        if (!isColValid(col2))
+            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col2);
+        if (n == 0) return copy();
+        if (col1 == col2) return multiplyCol(col1, n);
+        Matrix<T> copy = copy();
+        for (int r = 0; r < getRows(); r++)
+            copy.setValue(r, col1, sum(getValue(r, col1),
+                product(getValue(r, col2), fromInt(n))
+            ));
+        return copy;
+    }
+
     // endregion
 
     // region protected: getIndexOfRowAndCol and isValid

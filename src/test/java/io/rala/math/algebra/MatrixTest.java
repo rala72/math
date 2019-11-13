@@ -589,6 +589,132 @@ class MatrixTest {
         Assertions.assertEquals(result, matrix.multiplyCol(0, 2));
     }
 
+    @Test
+    void addRowMultipleTimesOfMatrixWithSize2UsingInvalidRow1() {
+        TestMatrix matrix = new TestMatrix(2);
+        Assertions.assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.addRowMultipleTimes(-1, 0, 0)
+        ); // assert message
+    }
+
+    @Test
+    void addRowMultipleTimesOfMatrixWithSize2UsingInvalidRow2() {
+        TestMatrix matrix = new TestMatrix(2);
+        Assertions.assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.addRowMultipleTimes(0, -1, 0)
+        ); // assert message
+    }
+
+    @Test
+    void addRowMultipleTimesOfMatrixWithSize2ToSameRow() {
+        TestMatrix matrix = new TestMatrix(2);
+        TestMatrix result = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++) {
+            matrix.setValue(i, i + 1);
+            result.setValue(i, (i + 1) * (i / result.getCols() == 0 ? 2 : 1));
+        }
+        Assertions.assertEquals(result, matrix.addRowMultipleTimes(0, 0, 2));
+    }
+
+    @Test
+    void addRowMultipleTimesOfMatrixWithSize2Using0() {
+        TestMatrix matrix = new TestMatrix(2);
+        TestMatrix result = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++) {
+            int value = i / result.getCols() + 1;
+            matrix.setValue(i, value);
+            result.setValue(i, value);
+        }
+        Assertions.assertEquals(result, matrix.addRowMultipleTimes(0, 1, 0));
+    }
+
+    @Test
+    void addRowMultipleTimesOfMatrixWithSize2Using1() {
+        TestMatrix matrix = new TestMatrix(2);
+        TestMatrix result = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++) {
+            int value = i / result.getCols() + 1;
+            matrix.setValue(i, value);
+            result.setValue(i, value + (i / result.getCols() == 0 ? 2 : 0));
+        }
+        Assertions.assertEquals(result, matrix.addRowMultipleTimes(0, 1, 1));
+    }
+
+    @Test
+    void addRowMultipleTimesOfMatrixWithSize2Using2() {
+        TestMatrix matrix = new TestMatrix(2);
+        TestMatrix result = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++) {
+            int value = i / result.getCols() + 1;
+            matrix.setValue(i, value);
+            result.setValue(i, value + (i / result.getCols() == 0 ? 4 : 0));
+        }
+        Assertions.assertEquals(result, matrix.addRowMultipleTimes(0, 1, 2));
+    }
+
+    @Test
+    void addColMultipleTimesOfMatrixWithSize2UsingInvalidCol1() {
+        TestMatrix matrix = new TestMatrix(2);
+        Assertions.assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.addColMultipleTimes(-1, 0, 1)
+        ); // assert message
+    }
+
+    @Test
+    void addColMultipleTimesOfMatrixWithSize2UsingInvalidCol2() {
+        TestMatrix matrix = new TestMatrix(2);
+        Assertions.assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.addColMultipleTimes(0, -1, 0)
+        ); // assert message
+    }
+
+    @Test
+    void addColMultipleTimesOfMatrixWithSize2ToSameRow() {
+        TestMatrix matrix = new TestMatrix(2);
+        TestMatrix result = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++) {
+            matrix.setValue(i, i + 1);
+            result.setValue(i, (i + 1) * (i % result.getCols() == 0 ? 2 : 1));
+        }
+        Assertions.assertEquals(result, matrix.addColMultipleTimes(0, 0, 2));
+    }
+
+    @Test
+    void addColMultipleTimesOfMatrixWithSize2Using0() {
+        TestMatrix matrix = new TestMatrix(2);
+        TestMatrix result = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++) {
+            int value = i / result.getCols() + 1;
+            matrix.setValue(i, value);
+            result.setValue(i, value);
+        }
+        Assertions.assertEquals(result, matrix.addColMultipleTimes(0, 1, 0));
+    }
+
+    @Test
+    void addColMultipleTimesOfMatrixWithSize2Using1() {
+        TestMatrix matrix = new TestMatrix(2);
+        TestMatrix result = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++) {
+            int value = i / result.getCols() + 1;
+            matrix.setValue(i, value);
+            result.setValue(i, value + (i % result.getCols() == 0 ? value : 0));
+        }
+        Assertions.assertEquals(result, matrix.addColMultipleTimes(0, 1, 1));
+    }
+
+    @Test
+    void addColMultipleTimesOfMatrixWithSize2Using2() {
+        TestMatrix matrix = new TestMatrix(2);
+        TestMatrix result = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++) {
+            int value = i / result.getCols() + 1;
+            matrix.setValue(i, value);
+            result.setValue(i, value + (i % result.getCols() == 0 ? 2 * value : 0));
+        }
+        Assertions.assertEquals(result, matrix.addColMultipleTimes(0, 1, 2));
+    }
+
     // endregion
 
     // region protected: getIndexOfRowAndCol and isValid
