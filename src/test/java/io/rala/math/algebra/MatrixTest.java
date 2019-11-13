@@ -560,7 +560,7 @@ class MatrixTest {
     }
 
     @Test
-    void multiplyRowOfMatrixWithSize2With2() {
+    void multiplyRowOfMatrixWithSize2Using2() {
         TestMatrix matrix = new TestMatrix(2);
         TestMatrix result = new TestMatrix(2);
         for (int i = 0; i < matrix.size(); i++) {
@@ -579,7 +579,7 @@ class MatrixTest {
     }
 
     @Test
-    void multiplyColOfMatrixWithSize2() {
+    void multiplyColOfMatrixWithSize2Using2() {
         TestMatrix matrix = new TestMatrix(2);
         TestMatrix result = new TestMatrix(2);
         for (int i = 0; i < matrix.size(); i++) {
