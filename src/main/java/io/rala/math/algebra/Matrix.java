@@ -78,9 +78,7 @@ public abstract class Matrix<T extends Number> implements Iterable<Matrix<T>.Fie
      * @param matrix matrix to copy
      */
     protected Matrix(Matrix<T> matrix) {
-        this.rows = matrix.rows;
-        this.cols = matrix.cols;
-        this.defaultValue = matrix.getDefaultValue();
+        this(matrix.getRows(), matrix.getCols(), matrix.getDefaultValue());
         getMatrix().putAll(matrix.getMatrix());
     }
 
