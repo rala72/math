@@ -507,7 +507,7 @@ class DoubleMatrixTest {
     }
 
     @Test
-    void equalsOfDoubleMatrixWithReIm() {
+    void equalsOfDoubleMatrixWithRow2Col3() {
         DoubleMatrix matrix = new DoubleMatrix(2, 3);
         Assertions.assertEquals(
             matrix,
@@ -520,7 +520,7 @@ class DoubleMatrixTest {
     }
 
     @Test
-    void hashCodeOfDoubleMatrixWithReIm() {
+    void hashCodeOfDoubleMatrixWithRow2Col3() {
         Assertions.assertEquals(
             925536,
             new DoubleMatrix(2, 3).hashCode()
@@ -528,7 +528,7 @@ class DoubleMatrixTest {
     }
 
     @Test
-    void toStringOfDoubleMatrixWithReIm() {
+    void toStringOfDoubleMatrixWithRow2Col3() {
         DoubleMatrix matrix = new DoubleMatrix(2, 3);
         Assertions.assertEquals("2 3: []", matrix.toString());
     }
