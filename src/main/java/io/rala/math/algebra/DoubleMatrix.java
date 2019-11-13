@@ -59,7 +59,7 @@ public class DoubleMatrix extends Matrix<Double> {
         DoubleMatrix result = new DoubleMatrix(getRows(), getCols());
         result.getMatrix().putAll(getMatrix());
         for (int i = 0; i < size(); i++)
-            result.getMatrix().merge(i, result.getValue(i), Double::sum);
+            result.getMatrix().merge(i, matrix.getValue(i), Double::sum);
         return result;
     }
 
