@@ -43,4 +43,9 @@ public class TestMatrix extends Matrix<Number> {
     public double determinante() {
         return 0;
     }
+
+    @Override
+    public Matrix<Number> copy() {
+        return new TestMatrix(this);
+    }
 }

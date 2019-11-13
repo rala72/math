@@ -299,6 +299,12 @@ class MatrixTest {
     // region override
 
     @Test
+    void copyOfMatrixWithSize2() {
+        TestMatrix matrix = new TestMatrix(2);
+        Assertions.assertEquals(matrix, matrix.copy());
+    }
+
+    @Test
     void iteratorOfEmptyMatrix() {
         TestMatrix matrix = new TestMatrix(2);
         List<TestMatrix.Field> values = new ArrayList<>();

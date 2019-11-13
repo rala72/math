@@ -1,5 +1,7 @@
 package io.rala.math.algebra;
 
+import io.rala.math.utils.Copyable;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
@@ -12,7 +14,7 @@ import java.util.stream.StreamSupport;
  * @param <T> number class
  */
 @SuppressWarnings({"unused", "WeakerAccess", "UnusedReturnValue"})
-public abstract class Matrix<T extends Number> implements Iterable<Matrix<T>.Field> {
+public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, Iterable<Matrix<T>.Field> {
     protected static final String INDEX_OUT_OF_BOUNDS__SIZE_PREFIX = "size: ";
 
     // region attributes

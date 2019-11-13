@@ -496,6 +496,12 @@ class DoubleMatrixTest {
     // region override
 
     @Test
+    void copyOfMatrixWithSize2() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        Assertions.assertEquals(matrix, matrix.copy());
+    }
+
+    @Test
     void iteratorOfEmptyMatrix() {
         DoubleMatrix matrix = new DoubleMatrix(2);
         List<DoubleMatrix.Field> values = new ArrayList<>();

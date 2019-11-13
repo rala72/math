@@ -142,6 +142,16 @@ public class DoubleMatrix extends Matrix<Double> {
 
     // endregion
 
+    // region override
+
+    @Override
+    public Matrix<Double> copy() {
+        return new DoubleMatrix(this);
+    }
+
+
+    // endregion
+
     // region static: identity and diagonal
 
     /**
