@@ -45,17 +45,17 @@ public class TestMatrix extends Matrix<Number> {
 
     @Override
     protected Number sum(Number a, Number b) {
-        return a.doubleValue() + b.doubleValue();
+        return a.intValue() + b.intValue();
     }
 
     @Override
     protected Number difference(Number a, Number b) {
-        return a.doubleValue() - b.doubleValue();
+        return a.intValue() - b.intValue();
     }
 
     @Override
     protected Number product(Number a, Number b) {
-        return a.doubleValue() * b.doubleValue();
+        return a.intValue() * b.intValue();
     }
 
     // endregion

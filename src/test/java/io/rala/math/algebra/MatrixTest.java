@@ -564,8 +564,8 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(2);
         TestMatrix result = new TestMatrix(2);
         for (int i = 0; i < matrix.size(); i++) {
-            matrix.setValue(i, i + 1d);
-            result.setValue(i, (i + 1d) * (i / result.getCols() == 0 ? 2 : 1));
+            matrix.setValue(i, i + 1);
+            result.setValue(i, (i + 1) * (i / result.getCols() == 0 ? 2 : 1));
         }
         Assertions.assertEquals(result, matrix.multiplyRow(0, 2));
     }
@@ -583,8 +583,8 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(2);
         TestMatrix result = new TestMatrix(2);
         for (int i = 0; i < matrix.size(); i++) {
-            matrix.setValue(i, i + 1d);
-            result.setValue(i, (i + 1d) * (i % result.getCols() == 0 ? 2 : 1));
+            matrix.setValue(i, i + 1);
+            result.setValue(i, (i + 1) * (i % result.getCols() == 0 ? 2 : 1));
         }
         Assertions.assertEquals(result, matrix.multiplyCol(0, 2));
     }
