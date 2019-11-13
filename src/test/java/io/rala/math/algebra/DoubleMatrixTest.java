@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class DoubleMatrixTest {
-    // region constructors, getter and size
+    // region constructors and newInstance
 
     @Test
     void constructorWithSize0() {
@@ -33,6 +33,20 @@ class DoubleMatrixTest {
     void constructorWithMatrix() {
         assertMatrix(new DoubleMatrix(new DoubleMatrix(1, 2)), 1, 2);
     }
+
+    @Test
+    void newInstanceOfMatrixWithSize3() {
+        assertMatrix(new DoubleMatrix(1).newInstance(3), 3);
+    }
+
+    @Test
+    void newInstanceOfMatrixWithRows1Cols2() {
+        assertMatrix(new DoubleMatrix(2).newInstance(1, 2), 1, 2);
+    }
+
+    // endregion
+
+    // region getter and size
 
     @Test
     void createWithSize1AndAssertSizeEquals1() {
@@ -215,7 +229,7 @@ class DoubleMatrixTest {
 
     // endregion
 
-    // region abstract
+    // region matrix arithmetic
 
     @Test
     void addOfEmptyMatrixWithSize1AndEmptyMatrixWithRows2Cols1() {

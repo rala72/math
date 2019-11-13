@@ -2,10 +2,8 @@ package io.rala.math.algebra;
 
 import io.rala.math.utils.Copyable;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Objects;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 /**
@@ -28,28 +26,7 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
 
     // endregion
 
-    // region constructor
-
-    /**
-     * calls {@link #Matrix(int, Number)} with given size and
-     * default value <code>null</code>
-     *
-     * @param size size of square matrix
-     */
-    public Matrix(int size) {
-        this(size, null);
-    }
-
-    /**
-     * calls {@link #Matrix(int, int, Number)} with given values and
-     * default value <code>null</code>
-     *
-     * @param rows rows of matrix
-     * @param cols cols of matrix
-     */
-    public Matrix(int rows, int cols) {
-        this(rows, cols, null);
-    }
+    // region constructor and newInstance
 
     /**
      * calls {@link #Matrix(int, int, Number)} with size as rows and cols and
@@ -85,6 +62,26 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
         this(matrix.getRows(), matrix.getCols(), matrix.getDefaultValue());
         getMatrix().putAll(matrix.getMatrix());
     }
+
+    /**
+     * calls {@link #newInstance(int, int)} with size as rows and cols
+     *
+     * @param size size of new matrix
+     * @return new matrix instance
+     * @see #newInstance(int, int)
+     */
+    protected final Matrix<T> newInstance(int size) {
+        return newInstance(size, size);
+    }
+
+    /**
+     * creates a new instance of a matrix of current type
+     *
+     * @param rows rows of new matrix
+     * @param cols cols of new matrix
+     * @return new matrix instance
+     */
+    protected abstract Matrix<T> newInstance(int rows, int cols);
 
     // endregion
 
@@ -221,19 +218,92 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
 
     // endregion
 
-    // region abstract
+    // region abstract: generic number arithmetic
+
+    /**
+     * @param a value from integer
+     * @return number as <code>T</code>
+     */
+    protected abstract T fromInt(int a);
+
+    /**
+     * @param a first value of sum
+     * @param b second value of sum
+     * @return <code>a+b</code>
+     */
+    protected abstract T sum(T a, T b);
+
+    /**
+     * @param a first value of sum
+     * @param b second value of sum
+     * @param c third value of sum
+     * @return <code>a+b+c</code>
+     */
+    protected T sum(T a, T b, T c) {
+        return sum(sum(a, b), c);
+    }
+
+    /**
+     * @param a first value of difference
+     * @param b second value of difference
+     * @return <code>a-b</code>
+     */
+    protected abstract T difference(T a, T b);
+
+    /**
+     * @param a first value of product
+     * @param b second value of product
+     * @return <code>a*b</code>
+     */
+    protected abstract T product(T a, T b);
+
+    /**
+     * @param a first value of product
+     * @param b second value of product
+     * @param c third value of product
+     * @return <code>a*b*c</code>
+     */
+    protected T product(T a, T b, T c) {
+        return product(product(a, b), c);
+    }
+
+    // endregion
+
+    // region matrix arithmetic
 
     /**
      * @param matrix matrix to add
      * @return new matrix with calculated values
      */
-    public abstract Matrix<T> add(Matrix<T> matrix);
+    public Matrix<T> add(Matrix<T> matrix) {
+        // move assertions to matrix?
+        if (getRows() != matrix.getRows())
+            throw new IllegalArgumentException("rows have to be equal");
+        if (getCols() != matrix.getCols())
+            throw new IllegalArgumentException("cols have to be equal");
+        Matrix<T> result = copy();
+        for (int i = 0; i < size(); i++)
+            result.getMatrix().merge(i, matrix.getValue(i), this::sum);
+        return result;
+    }
 
     /**
      * @param matrix matrix to multiply
      * @return new matrix with calculated values
      */
-    public abstract Matrix<T> multiply(Matrix<T> matrix);
+    public Matrix<T> multiply(Matrix<T> matrix) {
+        if (getCols() != matrix.getRows())
+            throw new IllegalArgumentException("cols have to be equal to parameter rows");
+        Matrix<T> result = newInstance(getRows(), matrix.getCols());
+        for (int r = 0; r < result.getRows(); r++)
+            for (int c = 0; c < result.getCols(); c++) {
+                T d = getDefaultValue();
+                for (int i = 0; i < getRows(); i++)
+                    d = sum(d, product(getValue(r, i), matrix.getValue(i, c)));
+                result.setValue(r, c, d);
+            }
+        return result;
+    }
 
     /**
      * calls {@link #multiply(Matrix)} but flips matrizen
@@ -252,17 +322,81 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
         throw new IllegalArgumentException("any cols have to be equal to the other matrix rows");
     }
 
-    // public abstract Matrix<T> inverse();
+    // public Matrix<T> inverse();
 
     /**
      * @return new transposed matrix
      */
-    public abstract Matrix<T> transpose();
+    public Matrix<T> transpose() {
+        Matrix<T> result = newInstance(getCols(), getRows());
+        for (int r = 0; r < getRows(); r++)
+            for (int c = 0; c < getCols(); c++)
+                result.setValue(c, r, getValue(getIndexOfRowAndCol(r, c)));
+        return result;
+    }
 
     /**
      * @return determinante of matrix
      */
-    public abstract double determinante();
+    public T determinante() {
+        if (size() == 0 || getRows() != getCols()) return getDefaultValue();
+        if (getRows() == 1) return getValue(0);
+        if (getRows() == 2) {
+            return difference(
+                product(getValue(0, 0), getValue(1, 1)),
+                product(getValue(0, 1), getValue(1, 0))
+            );
+        }
+        if (getRows() == 3) {
+            return difference(
+                sum(
+                    product(getValue(0, 0), getValue(1, 1), getValue(2, 2)),
+                    product(getValue(0, 1), getValue(1, 2), getValue(2, 0)),
+                    product(getValue(0, 2), getValue(1, 0), getValue(2, 1))
+                ),
+                sum(
+                    product(getValue(2, 0), getValue(1, 1), getValue(0, 2)),
+                    product(getValue(2, 1), getValue(1, 2), getValue(0, 0)),
+                    product(getValue(2, 2), getValue(1, 0), getValue(0, 1))
+                )
+            );
+        }
+        T t = getDefaultValue();
+        boolean isRowMode = true;
+        int index = 0;
+        List<Field> zeros = StreamSupport.stream(spliterator(), true)
+            .filter(field -> field.getValue().equals(0d))
+            .collect(Collectors.toList());
+        if (!zeros.isEmpty()) {
+            Map.Entry<Integer, List<Field>> bestRow = getBestEntry(zeros, true);
+            Map.Entry<Integer, List<Field>> bestCol = getBestEntry(zeros, false);
+            if (bestRow.getValue().size() < bestCol.getValue().size()) {
+                if (getCols() == bestCol.getValue().size()) return getDefaultValue();
+                isRowMode = false;
+                index = bestCol.getKey();
+            } else {
+                if (getRows() == bestRow.getValue().size()) return getDefaultValue();
+                index = bestRow.getKey();
+            }
+        }
+        for (int i = 0; i < (isRowMode ? getCols() : getRows()); i++) {
+            int row = isRowMode ? index : i;
+            int col = isRowMode ? i : index;
+            T indexValue = isRowMode ? getValue(index, i) : getValue(i, index);
+            if (indexValue.equals(getDefaultValue())) continue;
+            T signum = fromInt(index + i % 2 == 0 ? 1 : -1);
+            Matrix<T> sub = newInstance(getRows() - 1, getCols() - 1);
+            for (int r = 0; r < sub.getRows(); r++) {
+                int ar = r < row ? r : r + 1;
+                for (int c = 0; c < sub.getCols(); c++) {
+                    int ac = c < col ? c : c + 1;
+                    sub.setValue(r, c, getValue(ar, ac));
+                }
+            }
+            t = sum(t, product(product(indexValue, signum), sub.determinante()));
+        }
+        return t;
+    }
 
     // endregion
 
@@ -386,6 +520,22 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
      */
     protected final boolean isColValid(int col) {
         return 0 <= col && col < getCols();
+    }
+
+    // endregion
+
+    // region private
+
+    private static <T extends Number> Map.Entry<Integer, List<Matrix<T>.Field>> getBestEntry(
+        List<Matrix<T>.Field> zeros, boolean isRowMode
+    ) {
+        return zeros.stream()
+            .collect(Collectors.groupingBy(field ->
+                isRowMode ? field.getRow() : field.getCol()
+            ))
+            .entrySet().stream()
+            .max(Comparator.comparingInt(o -> o.getValue().size()))
+            .orElse(Map.entry(0, List.of()));
     }
 
     // endregion

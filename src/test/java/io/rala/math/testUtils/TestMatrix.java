@@ -4,12 +4,14 @@ import io.rala.math.algebra.Matrix;
 
 @SuppressWarnings("unused")
 public class TestMatrix extends Matrix<Number> {
+    // region constructors
+
     public TestMatrix(int size) {
-        super(size);
+        super(size, 0);
     }
 
     public TestMatrix(int rows, int cols) {
-        super(rows, cols);
+        super(rows, cols, 0);
     }
 
     public TestMatrix(int size, Number defaultValue) {
@@ -24,24 +26,34 @@ public class TestMatrix extends Matrix<Number> {
         super(matrix);
     }
 
+    // endregion
+
+    /**
+     * <b>only public for testing purpose - in general <code>protected</code></b>
+     */
     @Override
-    public Matrix<Number> add(Matrix<Number> matrix) {
-        return matrix;
+    public Matrix<Number> newInstance(int rows, int cols) {
+        return new TestMatrix(rows, cols);
     }
 
     @Override
-    public Matrix<Number> multiply(Matrix<Number> matrix) {
-        return matrix;
+    protected Number fromInt(int a) {
+        return a;
     }
 
     @Override
-    public Matrix<Number> transpose() {
-        return null;
+    protected Number sum(Number a, Number b) {
+        return a.doubleValue() + b.doubleValue();
     }
 
     @Override
-    public double determinante() {
-        return 0;
+    protected Number difference(Number a, Number b) {
+        return a.doubleValue() - b.doubleValue();
+    }
+
+    @Override
+    protected Number product(Number a, Number b) {
+        return a.doubleValue() * b.doubleValue();
     }
 
     @Override

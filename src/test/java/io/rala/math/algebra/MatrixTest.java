@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class MatrixTest {
-    // region constructors, getter and size
+    // region constructors and newInstance
 
     @Test
     void constructorWithSize0() {
@@ -48,6 +48,20 @@ class MatrixTest {
     void constructorWithMatrix() {
         assertMatrix(new TestMatrix(new TestMatrix(1, 2)), 1, 2);
     }
+
+    @Test
+    void newInstanceOfMatrixWithSize2() {
+        assertMatrix(new TestMatrix(1).newInstance(2), 2);
+    }
+
+    @Test
+    void newInstanceOfMatrixWithRows1Cols2() {
+        assertMatrix(new TestMatrix(2).newInstance(1, 2), 1, 2);
+    }
+
+    // endregion
+
+    // region getter and size
 
     @Test
     void createWithSize1AndAssertSizeEquals1() {
@@ -231,67 +245,204 @@ class MatrixTest {
 
     // endregion
 
-    // region abstract
+    // region matrix arithmetic
 
     @Test
-    void addOfMatrixWithSize2AndMatrixWithSize2() {
-        TestMatrix matrix1 = new TestMatrix(2);
-        TestMatrix matrix2 = new TestMatrix(2);
-        Assertions.assertEquals(matrix2, matrix1.add(matrix2));
+    void addOfEmptyMatrixWithSize1AndEmptyMatrixWithRows2Cols1() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> new DoubleMatrix(1)
+                .add(new DoubleMatrix(2, 1))
+        ); // assert message
     }
 
     @Test
-    void multiplyOfMatrixWithSize2AndMatrixWithSize2() {
-        TestMatrix matrix1 = new TestMatrix(2);
-        TestMatrix matrix2 = new TestMatrix(2);
-        Assertions.assertEquals(matrix2, matrix1.multiply(matrix2));
+    void addOfEmptyMatrixWithSize1AndEmptyMatrixWithRows1Cols2() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> new DoubleMatrix(1)
+                .add(new DoubleMatrix(1, 2))
+        ); // assert message
     }
 
     @Test
-    void multiplyOfMatrixWithRow1Col2AndMatrixWithRow2Col3() {
-        TestMatrix matrix1 = new TestMatrix(1, 2);
-        TestMatrix matrix2 = new TestMatrix(2, 3);
-        Assertions.assertEquals(matrix2, matrix1.multiply(matrix2));
+    void addOfEmptyMatrixWithSize2AndEmptyMatrixWithSize2() {
+        DoubleMatrix matrix1 = new DoubleMatrix(2);
+        DoubleMatrix matrix2 = new DoubleMatrix(2);
+        DoubleMatrix result = new DoubleMatrix(2);
+        for (int i = 0; i < result.size(); i++)
+            result.setValue(i, 0d);
+        Assertions.assertEquals(result, matrix1.add(matrix2));
     }
 
     @Test
-    void multiplyOfMatrixWithRow2Col3AndMatrixWithRow1Col2() {
-        TestMatrix matrix1 = new TestMatrix(2, 3);
-        TestMatrix matrix2 = new TestMatrix(1, 2);
-        Assertions.assertEquals(matrix2, matrix1.multiply(matrix2));
+    void addOfMatrixWithSize2ToItself() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        DoubleMatrix result = new DoubleMatrix(2);
+        for (int i = 0; i < matrix.size(); i++) {
+            matrix.setValue(i, i + 1d);
+            result.setValue(i, 2 * (i + 1d));
+        }
+        Assertions.assertEquals(result, matrix.add(matrix));
     }
 
     @Test
-    void multiplyTolerantOfMatrixWithRow1Col2AndMatrixWithRow2Col3() {
-        TestMatrix matrix1 = new TestMatrix(1, 2);
-        TestMatrix matrix2 = new TestMatrix(2, 3);
-        Assertions.assertEquals(matrix2, matrix1.multiplyTolerant(matrix2));
+    void multiplyOfEmptyMatrixWithSize2AndEmptyMatrixWithSize2() {
+        DoubleMatrix matrix1 = new DoubleMatrix(2);
+        DoubleMatrix matrix2 = new DoubleMatrix(2);
+        DoubleMatrix result = new DoubleMatrix(2);
+        for (int i = 0; i < result.size(); i++)
+            result.setValue(i, 0d);
+        Assertions.assertEquals(result, matrix1.multiply(matrix2));
     }
 
     @Test
-    void multiplyTolerantOfMatrixWithRow2Col3AndMatrixWithRow1Col2() {
-        TestMatrix matrix1 = new TestMatrix(2, 3);
-        TestMatrix matrix2 = new TestMatrix(1, 2);
-        Assertions.assertEquals(matrix1, matrix1.multiplyTolerant(matrix2));
+    void multiplyOfEmptyMatrixWithRow1Col2AndEmptyMatrixWithRow2Col3() {
+        DoubleMatrix matrix1 = new DoubleMatrix(1, 2);
+        DoubleMatrix matrix2 = new DoubleMatrix(2, 3);
+        DoubleMatrix result = new DoubleMatrix(1, 3);
+        for (int i = 0; i < result.size(); i++)
+            result.setValue(i, 0d);
+        Assertions.assertEquals(result, matrix1.multiply(matrix2));
     }
 
     @Test
-    void multiplyTolerantOfMatrixWithRow1Col2AndMatrixWithRow3Col4() {
-        TestMatrix matrix1 = new TestMatrix(1, 2);
-        TestMatrix matrix2 = new TestMatrix(3, 4);
+    void multiplyOfEmptyMatrixWithRow2Col3AndEmptyMatrixWithRow1Col2() {
+        DoubleMatrix matrix1 = new DoubleMatrix(2, 3);
+        DoubleMatrix matrix2 = new DoubleMatrix(1, 2);
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> matrix1.multiply(matrix2)
+        ); // assert message
+    }
+
+    @Test
+    void multiplyOfMatrixWithSize2ToItself() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, i + 1d);
+        Assertions.assertEquals(DoubleMatrix.ofValuesByRows(2,
+            7, 10, 15, 22
+        ), matrix.multiply(matrix));
+    }
+
+    @Test
+    void multiplyTolerantOfEmptyMatrixWithRow1Col2AndEmptyMatrixWithRow2Col3() {
+        DoubleMatrix matrix1 = new DoubleMatrix(1, 2);
+        DoubleMatrix matrix2 = new DoubleMatrix(2, 3);
+        DoubleMatrix result = new DoubleMatrix(1, 3);
+        for (int i = 0; i < result.size(); i++)
+            result.setValue(i, 0d);
+        Assertions.assertEquals(result, matrix1.multiplyTolerant(matrix2));
+    }
+
+    @Test
+    void multiplyTolerantOfEmptyMatrixWithRow2Col3AndEmptyMatrixWithRow1Col2() {
+        DoubleMatrix matrix1 = new DoubleMatrix(2, 3);
+        DoubleMatrix matrix2 = new DoubleMatrix(1, 2);
+        DoubleMatrix result = new DoubleMatrix(1, 3);
+        for (int i = 0; i < result.size(); i++)
+            result.setValue(i, 0d);
+        Assertions.assertEquals(result, matrix1.multiplyTolerant(matrix2));
+    }
+
+    @Test
+    void multiplyTolerantOfEmptyMatrixWithRow1Col2AndEmptyMatrixWithRow3Col4() {
+        DoubleMatrix matrix1 = new DoubleMatrix(1, 2);
+        DoubleMatrix matrix2 = new DoubleMatrix(3, 4);
         Assertions.assertThrows(IllegalArgumentException.class,
             () -> matrix1.multiplyTolerant(matrix2)
         );
     }
 
     @Test
-    void transposeOfMatrixWithSize2() {
-        Assertions.assertNull(new TestMatrix(2).transpose());
+    void multiplyTolerantOfMatrixWithSize2ToItself() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, i + 1d);
+        Assertions.assertEquals(
+            DoubleMatrix.ofValuesByRows(2,
+                7, 10, 15, 22
+            ),
+            matrix.multiplyTolerant(matrix)
+        );
     }
 
     @Test
-    void determinanteOfMatrixWithSize2() {
-        Assertions.assertEquals(0, new TestMatrix(2).determinante());
+    void transposeOfEmptyMatrixWithSize2() {
+        DoubleMatrix result = new DoubleMatrix(2);
+        for (int i = 0; i < result.size(); i++)
+            result.setValue(i, 0d);
+        Assertions.assertEquals(result, new DoubleMatrix(2).transpose());
+    }
+
+    @Test
+    void transposeOfMatrixWithSize2() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        DoubleMatrix result = new DoubleMatrix(2);
+        for (int r = 0; r < matrix.getRows(); r++) {
+            for (int c = 0; c < matrix.getCols(); c++) {
+                int i = matrix.getIndexOfRowAndCol(r, c);
+                matrix.setValue(i, i + 1d);
+                result.setValue(result.getIndexOfRowAndCol(c, r), i + 1d);
+            }
+        }
+        Assertions.assertEquals(result, matrix.transpose());
+    }
+
+    @Test
+    void determinanteOfEmptyMatrixWithSize2() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        Assertions.assertEquals(0, matrix.determinante());
+    }
+
+    @Test
+    void determinanteOfMatrixWithSize2AndValues1234() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, i + 1d);
+        Assertions.assertEquals(-2, matrix.determinante());
+    }
+
+    @Test
+    void determinanteOfMatrixWithSize3AndValues123456789() {
+        DoubleMatrix matrix = new DoubleMatrix(3);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, i + 1d);
+        Assertions.assertEquals(0, matrix.determinante());
+    }
+
+    @Test
+    void determinanteOfMatrixWithSize3AndValues1And2OnDiagonale() {
+        DoubleMatrix matrix = new DoubleMatrix(3);
+        for (int r = 0; r < matrix.getRows(); r++)
+            for (int c = 0; c < matrix.getCols(); c++)
+                matrix.setValue(r, c, r == c ? 2d : 1d);
+        Assertions.assertEquals(4, matrix.determinante());
+    }
+
+    @Test
+    void determinanteOfMatrixWithSize4AndValues1And2OnDiagonale() {
+        DoubleMatrix matrix = new DoubleMatrix(4);
+        for (int r = 0; r < matrix.getRows(); r++)
+            for (int c = 0; c < matrix.getCols(); c++)
+                matrix.setValue(r, c, r == c ? 2d : 1d);
+        Assertions.assertEquals(5, matrix.determinante());
+    }
+
+    @Test
+    void determinanteOfMatrixWithSize4AndValues1AndMore0InRow() {
+        DoubleMatrix matrix = new DoubleMatrix(4);
+        for (int r = 0; r < matrix.getRows(); r++)
+            for (int c = 0; c < matrix.getCols(); c++)
+                matrix.setValue(r, c, c != 0 && (r == c || r == 0) ? 0d : 1d);
+        Assertions.assertEquals(2, matrix.determinante());
+    }
+
+    @Test
+    void determinanteOfMatrixWithSize4AndValues1AndMore0InCol() {
+        DoubleMatrix matrix = new DoubleMatrix(4);
+        for (int r = 0; r < matrix.getRows(); r++)
+            for (int c = 0; c < matrix.getCols(); c++)
+                matrix.setValue(r, c, r != 0 && (r == c || c == 0) ? 0d : 1d);
+        Assertions.assertEquals(2, matrix.determinante());
     }
 
     // endregion
@@ -310,7 +461,7 @@ class MatrixTest {
         List<TestMatrix.Field> values = new ArrayList<>();
         for (TestMatrix.Field d : matrix) {
             values.add(d);
-            Assertions.assertNull(d.getValue());
+            Assertions.assertEquals(0, d.getValue());
         }
         Assertions.assertEquals(matrix.size(), values.size());
     }
