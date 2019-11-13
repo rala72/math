@@ -16,6 +16,8 @@ import java.util.stream.StreamSupport;
 @SuppressWarnings({"unused", "WeakerAccess", "UnusedReturnValue"})
 public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, Iterable<Matrix<T>.Field> {
     protected static final String INDEX_OUT_OF_BOUNDS__SIZE_PREFIX = "size: ";
+    protected static final String INDEX_OUT_OF_BOUNDS__ROW_PREFIX = "row: ";
+    protected static final String INDEX_OUT_OF_BOUNDS__COL_PREFIX = "col: ";
 
     // region attributes
 
@@ -307,7 +309,51 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
 
     // endregion
 
-    // region protected
+    // region protected: modify
+
+    /**
+     * @param row1 row1 to flip with row2
+     * @param row2 row2 to flip with row1
+     * @return matrix with flipped values
+     * @throws IndexOutOfBoundsException if row1 or row2 is invalid
+     */
+    protected final Matrix<T> flipRows(int row1, int row2) {
+        if (!isRowValid(row1))
+            throw new IndexOutOfBoundsException(INDEX_OUT_OF_BOUNDS__ROW_PREFIX + row1);
+        if (!isRowValid(row2))
+            throw new IndexOutOfBoundsException(INDEX_OUT_OF_BOUNDS__ROW_PREFIX + row2);
+        Matrix<T> copy = copy();
+        if (row1 == row2) return copy;
+        for (int c = 0; c < getCols(); c++) {
+            copy.setValue(row1, c, getValue(row2, c));
+            copy.setValue(row2, c, getValue(row1, c));
+        }
+        return copy;
+    }
+
+    /**
+     * @param col1 col1 to flip with col2
+     * @param col2 col2 to flip with col1
+     * @return matrix with flipped values
+     * @throws IndexOutOfBoundsException if col1 or col2 is invalid
+     */
+    protected final Matrix<T> flipCols(int col1, int col2) {
+        if (!isColValid(col1))
+            throw new IndexOutOfBoundsException(INDEX_OUT_OF_BOUNDS__ROW_PREFIX + col1);
+        if (!isColValid(col2))
+            throw new IndexOutOfBoundsException(INDEX_OUT_OF_BOUNDS__ROW_PREFIX + col2);
+        Matrix<T> copy = copy();
+        if (col1 == col2) return copy;
+        for (int r = 0; r < getRows(); r++) {
+            copy.setValue(r, col1, getValue(r, col2));
+            copy.setValue(r, col2, getValue(r, col1));
+        }
+        return copy;
+    }
+
+    // endregion
+
+    // region protected: getIndexOfRowAndCol and isValid
 
     /**
      * @param row row of requested index
