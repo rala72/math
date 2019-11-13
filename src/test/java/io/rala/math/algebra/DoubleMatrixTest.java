@@ -555,6 +555,102 @@ class DoubleMatrixTest {
 
     // endregion
 
+    // region protected: modify
+
+    @Test
+    void flipRowsOfMatrixWithSize2UsingInvalidRow1() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        Assertions.assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.flipRows(-1, 0)
+        ); // assert message
+    }
+
+    @Test
+    void flipRowsOfMatrixWithSize2UsingInvalidRow2() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        Assertions.assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.flipRows(0, -1)
+        ); // assert message
+    }
+
+    @Test
+    void flipRowsOfMatrixWithSize2() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        DoubleMatrix result = new DoubleMatrix(2);
+        for (int i = 0; i < matrix.size(); i++) {
+            matrix.setValue(i, i + 1d);
+            result.setValue((i + result.getCols()) % result.size(), i + 1d);
+        }
+        Assertions.assertEquals(result, matrix.flipRows(0, 1));
+    }
+
+    @Test
+    void flipColsOfMatrixWithSize2UsingInvalidCol1() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        Assertions.assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.flipCols(-1, 0)
+        ); // assert message
+    }
+
+    @Test
+    void flipColsOfMatrixWithSize2UsingInvalidCol2() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        Assertions.assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.flipCols(0, -1)
+        ); // assert message
+    }
+
+    @Test
+    void flipColsOfMatrixWithSize2() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        DoubleMatrix result = new DoubleMatrix(2);
+        for (int i = 0; i < matrix.size(); i++) {
+            matrix.setValue(i, i + 1d);
+            result.setValue(i + (i % result.getCols() == 0 ? 1 : -1), i + 1d);
+        }
+        Assertions.assertEquals(result, matrix.flipCols(0, 1));
+    }
+
+    @Test
+    void multiplyRowOfMatrixWithSize2UsingInvalidRow() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        Assertions.assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.multiplyRow(-1, 0)
+        ); // assert message
+    }
+
+    @Test
+    void multiplyRowOfMatrixWithSize2With2() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        DoubleMatrix result = new DoubleMatrix(2);
+        for (int i = 0; i < matrix.size(); i++) {
+            matrix.setValue(i, i + 1d);
+            result.setValue(i, (i + 1d) * (i / result.getCols() == 0 ? 2 : 1));
+        }
+        Assertions.assertEquals(result, matrix.multiplyRow(0, 2));
+    }
+
+    @Test
+    void multiplyColOfMatrixWithSize2UsingInvalidCol() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        Assertions.assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.multiplyCol(-1, 0)
+        ); // assert message
+    }
+
+    @Test
+    void multiplyColOfMatrixWithSize2() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        DoubleMatrix result = new DoubleMatrix(2);
+        for (int i = 0; i < matrix.size(); i++) {
+            matrix.setValue(i, i + 1d);
+            result.setValue(i, (i + 1d) * (i % result.getCols() == 0 ? 2 : 1));
+        }
+        Assertions.assertEquals(result, matrix.multiplyCol(0, 2));
+    }
+
+    // endregion
+
 
     // region assert
 
