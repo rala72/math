@@ -146,7 +146,7 @@ public abstract class Matrix<T extends Number> implements Iterable<Matrix<T>.Fie
      * @see Map#put(Object, Object)
      */
     public T setValue(int index, T value) {
-        if (index < 0 || size() <= index)
+        if (!isIndexValid(index))
             throw new IndexOutOfBoundsException(INDEX_OUT_OF_BOUNDS__SIZE_PREFIX + size());
         return matrix.put(index, value);
     }
@@ -170,7 +170,7 @@ public abstract class Matrix<T extends Number> implements Iterable<Matrix<T>.Fie
      * @see Map#getOrDefault(Object, Object)
      */
     public T getValue(int index) {
-        if (index < 0 || size() <= index)
+        if (!isIndexValid(index))
             throw new IndexOutOfBoundsException(INDEX_OUT_OF_BOUNDS__SIZE_PREFIX + size());
         return matrix.getOrDefault(index, getDefaultValue());
     }
@@ -194,7 +194,7 @@ public abstract class Matrix<T extends Number> implements Iterable<Matrix<T>.Fie
      * @see Map#remove(Object)
      */
     public T removeValue(int index) {
-        if (index < 0 || size() <= index)
+        if (!isIndexValid(index))
             throw new IndexOutOfBoundsException(INDEX_OUT_OF_BOUNDS__SIZE_PREFIX + size());
         return getMatrix().remove(index);
     }
@@ -314,6 +314,30 @@ public abstract class Matrix<T extends Number> implements Iterable<Matrix<T>.Fie
      */
     protected final int getIndexOfRowAndCol(int row, int col) {
         return row * getCols() + col;
+    }
+
+    /**
+     * @param index index to check
+     * @return <code>true</code> if value is valid
+     */
+    protected final boolean isIndexValid(int index) {
+        return 0 <= index && index < size();
+    }
+
+    /**
+     * @param row row to check
+     * @return <code>true</code> if value is valid
+     */
+    protected final boolean isRowValid(int row) {
+        return 0 <= row && row < getRows();
+    }
+
+    /**
+     * @param col col to check
+     * @return <code>true</code> if col is valid
+     */
+    protected final boolean isColValid(int col) {
+        return 0 <= col && col < getCols();
     }
 
     // endregion

@@ -339,6 +339,37 @@ class MatrixTest {
 
     // endregion
 
+    // region protected
+
+    @Test
+    void isIndexValidOfMatrixWithSize2() {
+        TestMatrix matrix = new TestMatrix(2);
+        Assertions.assertFalse(matrix.isIndexValid(-1));
+        for (int i = 0; i < matrix.size(); i++)
+            Assertions.assertTrue(matrix.isIndexValid(i));
+        Assertions.assertFalse(matrix.isIndexValid(matrix.size()));
+    }
+
+    @Test
+    void isRowValidOfMatrixWithSize2() {
+        TestMatrix matrix = new TestMatrix(2);
+        Assertions.assertFalse(matrix.isRowValid(-1));
+        for (int i = 0; i < matrix.getRows(); i++)
+            Assertions.assertTrue(matrix.isRowValid(i));
+        Assertions.assertFalse(matrix.isRowValid(matrix.getRows()));
+    }
+
+    @Test
+    void isColValidOfMatrixWithSize2() {
+        TestMatrix matrix = new TestMatrix(2);
+        Assertions.assertFalse(matrix.isColValid(-1));
+        for (int i = 0; i < matrix.getCols(); i++)
+            Assertions.assertTrue(matrix.isColValid(i));
+        Assertions.assertFalse(matrix.isColValid(matrix.getCols()));
+    }
+
+    // endregion
+
     // region field
 
     @Test
