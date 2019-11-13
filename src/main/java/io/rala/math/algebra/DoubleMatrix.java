@@ -125,6 +125,7 @@ public class DoubleMatrix extends Matrix<Double> {
             int row = isRowMode ? index : i;
             int col = isRowMode ? i : index;
             double indexValue = isRowMode ? getValue(index, i) : getValue(i, index);
+            if (indexValue == 0) continue;
             double signum = (index + i) % 2 == 0 ? 1 : -1;
             DoubleMatrix sub = new DoubleMatrix(getRows() - 1, getCols() - 1);
             for (int r = 0; r < sub.getRows(); r++) {
