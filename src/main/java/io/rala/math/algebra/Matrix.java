@@ -339,9 +339,9 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
      */
     protected final Matrix<T> flipCols(int col1, int col2) {
         if (!isColValid(col1))
-            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + col1);
+            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col1);
         if (!isColValid(col2))
-            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + col2);
+            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col2);
         Matrix<T> copy = copy();
         if (col1 == col2) return copy;
         for (int r = 0; r < getRows(); r++) {
