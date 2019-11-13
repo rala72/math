@@ -15,9 +15,9 @@ import java.util.stream.StreamSupport;
  */
 @SuppressWarnings({"unused", "WeakerAccess", "UnusedReturnValue"})
 public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, Iterable<Matrix<T>.Field> {
-    protected static final String INDEX_OUT_OF_BOUNDS__SIZE_PREFIX = "size: ";
-    protected static final String INDEX_OUT_OF_BOUNDS__ROW_PREFIX = "row: ";
-    protected static final String INDEX_OUT_OF_BOUNDS__COL_PREFIX = "col: ";
+    protected static final String EXCEPTION_SIZE_PREFIX = "size: ";
+    protected static final String EXCEPTION_ROW_PREFIX = "row: ";
+    protected static final String EXCEPTION_COL_PREFIX = "col: ";
 
     // region attributes
 
@@ -151,7 +151,7 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
      */
     public T setValue(int index, T value) {
         if (!isIndexValid(index))
-            throw new IndexOutOfBoundsException(INDEX_OUT_OF_BOUNDS__SIZE_PREFIX + size());
+            throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
         return matrix.put(index, value);
     }
 
@@ -175,7 +175,7 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
      */
     public T getValue(int index) {
         if (!isIndexValid(index))
-            throw new IndexOutOfBoundsException(INDEX_OUT_OF_BOUNDS__SIZE_PREFIX + size());
+            throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
         return matrix.getOrDefault(index, getDefaultValue());
     }
 
@@ -199,7 +199,7 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
      */
     public T removeValue(int index) {
         if (!isIndexValid(index))
-            throw new IndexOutOfBoundsException(INDEX_OUT_OF_BOUNDS__SIZE_PREFIX + size());
+            throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
         return getMatrix().remove(index);
     }
 
@@ -319,9 +319,9 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
      */
     protected final Matrix<T> flipRows(int row1, int row2) {
         if (!isRowValid(row1))
-            throw new IndexOutOfBoundsException(INDEX_OUT_OF_BOUNDS__ROW_PREFIX + row1);
+            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row1);
         if (!isRowValid(row2))
-            throw new IndexOutOfBoundsException(INDEX_OUT_OF_BOUNDS__ROW_PREFIX + row2);
+            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row2);
         Matrix<T> copy = copy();
         if (row1 == row2) return copy;
         for (int c = 0; c < getCols(); c++) {
@@ -339,9 +339,9 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
      */
     protected final Matrix<T> flipCols(int col1, int col2) {
         if (!isColValid(col1))
-            throw new IndexOutOfBoundsException(INDEX_OUT_OF_BOUNDS__ROW_PREFIX + col1);
+            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + col1);
         if (!isColValid(col2))
-            throw new IndexOutOfBoundsException(INDEX_OUT_OF_BOUNDS__ROW_PREFIX + col2);
+            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + col2);
         Matrix<T> copy = copy();
         if (col1 == col2) return copy;
         for (int r = 0; r < getRows(); r++) {
