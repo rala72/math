@@ -205,15 +205,21 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
     // region isDiagonal
 
     /**
+     * @return <code>true</code> if amount of rows and cols is equal
+     */
+    public final boolean isSquare() {
+        return getRows() == getCols();
+    }
+
+    /**
      * @return <code>true</code> if only the diagonal has values
      */
-    public boolean isDiagonal() {
-        return getRows() == getCols() &&
-            StreamSupport.stream(spliterator(), true)
-                .allMatch(field -> field.getRow() == field.getCol() ||
-                    field.getValue() == null ||
-                    field.getValue().doubleValue() == 0d
-                );
+    public final boolean isDiagonal() {
+        return isSquare() && StreamSupport.stream(spliterator(), true)
+            .allMatch(field -> field.getRow() == field.getCol() ||
+                field.getValue() == null ||
+                field.getValue().doubleValue() == 0d
+            );
     }
 
     // endregion
@@ -338,7 +344,7 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
      * @return determinante of matrix
      */
     public T determinante() {
-        if (size() == 0 || getRows() != getCols()) return getDefaultValue();
+        if (size() == 0 || !isSquare()) return getDefaultValue();
         if (getRows() == 1) return getValue(0);
         if (getRows() == 2) {
             return difference(

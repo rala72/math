@@ -201,8 +201,18 @@ class DoubleMatrixTest {
 
     // endregion
 
-    // region isDiagonal
+    // region isSquare and isDiagonal
 
+    @Test
+    void isSquareOfMatrixWithRow1Col2() {
+        Assertions.assertFalse(new DoubleMatrix(1, 2).isDiagonal());
+    }
+
+    @Test
+    void isSquareOfMatrixWithSize2() {
+        Assertions.assertTrue(new DoubleMatrix(2).isDiagonal());
+    }
+    
     @Test
     void isDiagonalOfMatrixWithRow1Col2() {
         Assertions.assertFalse(new DoubleMatrix(1, 2).isDiagonal());
