@@ -347,6 +347,15 @@ class MatrixTest {
     // region protected
 
     @Test
+    void getIndexOfRowAndColOfMatrixWithSize2() {
+        TestMatrix matrix = new TestMatrix(2);
+        int index = 0;
+        for (int r = 0; r < matrix.getRows(); r++)
+            for (int c = 0; c < matrix.getCols(); c++)
+                Assertions.assertEquals(index++, matrix.getIndexOfRowAndCol(r, c));
+    }
+
+    @Test
     void isIndexValidOfMatrixWithSize2() {
         TestMatrix matrix = new TestMatrix(2);
         Assertions.assertFalse(matrix.isIndexValid(-1));
