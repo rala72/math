@@ -276,7 +276,6 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
      * @return new matrix with calculated values
      */
     public Matrix<T> add(Matrix<T> matrix) {
-        // move assertions to matrix?
         if (getRows() != matrix.getRows())
             throw new IllegalArgumentException("rows have to be equal");
         if (getCols() != matrix.getCols())
