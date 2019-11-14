@@ -5,6 +5,7 @@ package io.rala.math.utils;
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Units {
+    // TO DO: move to root package?
     private Units() {
     }
 
