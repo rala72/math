@@ -100,6 +100,17 @@ class TriangleTest {
         Assertions.assertEquals(Math.PI / 4, triangle.angleGamma(), DELTA);
     }
 
+    @Test
+    void angleSum() {
+        Triangle triangle = new Triangle(
+            new Point(0, 0), new Point(0, 1), new Point(1, 1)
+        );
+        Assertions.assertEquals(
+            Math.PI,
+            triangle.angleAlpha() + triangle.angleBeta() + triangle.angleGamma()
+        );
+    }
+
     // endregion
 
     // region area, circumference, circumRadius, inRadius
