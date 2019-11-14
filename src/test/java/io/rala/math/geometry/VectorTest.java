@@ -159,8 +159,8 @@ class VectorTest {
     @Test
     void normalizedOfVectorWithoutParameter() {
         Vector vector = new Vector().normalized();
-        assertVector(vector);
-        Assertions.assertEquals(0, vector.length());
+        assertVector(vector, Double.NaN, Double.NaN);
+        Assertions.assertEquals(Double.NaN, vector.length());
     }
 
     @Test

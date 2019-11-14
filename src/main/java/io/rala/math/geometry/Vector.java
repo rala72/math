@@ -49,8 +49,8 @@ public class Vector implements Rotatable<Vector>, Copyable<Vector>, Comparable<V
      * @see #Vector(double)
      */
     public Vector(double x, double y) {
-        setX(x);
-        setY(y);
+        this.x = x;
+        this.y = y;
     }
 
     // endregion
@@ -68,7 +68,7 @@ public class Vector implements Rotatable<Vector>, Copyable<Vector>, Comparable<V
      * @param x new x value of vector
      */
     public void setX(double x) {
-        this.x = !Double.isFinite(x) ? 0 : x;
+        this.x = x;
     }
 
     /**
@@ -82,7 +82,7 @@ public class Vector implements Rotatable<Vector>, Copyable<Vector>, Comparable<V
      * @param y new y value of vector
      */
     public void setY(double y) {
-        this.y = !Double.isFinite(y) ? 0 : y;
+        this.y = y;
     }
 
     /**
