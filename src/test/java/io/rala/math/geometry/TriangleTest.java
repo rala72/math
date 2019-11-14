@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class TriangleTest {
+    private static final double DELTA = 0.00001;
+
     // region constructors, getter and setter
 
     @Test
@@ -44,7 +46,7 @@ class TriangleTest {
 
     @Test
     void centerOfGravityOfTriangleWithA00B01C11() {
-        Assertions.assertEquals(new Point(0.3333333333333333, 0.6666666666666666),
+        Assertions.assertEquals(new Point(1d / 3, 2d / 3),
             new Triangle(new Point(), new Point(0, 1), new Point(1, 1)).centerOfGravity()
         );
     }
@@ -87,7 +89,7 @@ class TriangleTest {
         Triangle triangle = new Triangle(
             new Point(0, 0), new Point(0, 1), new Point(1, 1)
         );
-        Assertions.assertEquals(Math.PI / 2, triangle.angleBeta(), 0.00001);
+        Assertions.assertEquals(Math.PI / 2, triangle.angleBeta(), DELTA);
     }
 
     @Test
@@ -95,7 +97,7 @@ class TriangleTest {
         Triangle triangle = new Triangle(
             new Point(0, 0), new Point(0, 1), new Point(1, 1)
         );
-        Assertions.assertEquals(Math.PI / 4, triangle.angleGamma(), 0.00001);
+        Assertions.assertEquals(Math.PI / 4, triangle.angleGamma(), DELTA);
     }
 
     // endregion
@@ -105,19 +107,19 @@ class TriangleTest {
     @Test
     void areaOfTriangleWithA00B01C11() {
         Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
-        Assertions.assertEquals(0.49999999999999983, triangle.area());
+        Assertions.assertEquals(0.5, triangle.area(), DELTA);
     }
 
     @Test
     void circumferenceOfTriangleWithA00B01C11() {
         Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
-        Assertions.assertEquals(3.414213562373095, triangle.circumference());
+        Assertions.assertEquals(2 + Math.sqrt(2), triangle.circumference());
     }
 
     @Test
     void circumRadiusOfTriangleWithA00B01C11() {
         Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
-        Assertions.assertEquals(0.7071067811865478, triangle.circumRadius());
+        Assertions.assertEquals(Math.sqrt(2) / 2, triangle.circumRadius(), DELTA);
     }
 
     @Test

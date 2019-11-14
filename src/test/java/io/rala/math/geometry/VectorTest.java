@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class VectorTest {
+    private static final double DELTA = 0.00001;
+
     // region constructors, getter and setter
 
     @Test
@@ -61,7 +63,7 @@ class VectorTest {
 
     @Test
     void lengthOfVectorXY1() {
-        Assertions.assertEquals(1.4142135623730951, new Vector(1).length());
+        Assertions.assertEquals(Math.sqrt(2), new Vector(1).length());
     }
 
     @Test
@@ -205,8 +207,9 @@ class VectorTest {
 
     @Test
     void angleBetweenX0Y1AndXY1() {
-        Assertions.assertEquals(0.7853981633974484, // Math.PI / 4
-            new Vector(0, 1).angle(new Vector(1, 1))
+        Assertions.assertEquals(Math.PI / 4,
+            new Vector(0, 1).angle(new Vector(1, 1)),
+            DELTA
         );
     }
 
@@ -367,30 +370,22 @@ class VectorTest {
 
     @Test
     void rotateOfVectorWithX1Y2WithPiHalf() {
-        assertVector(new Vector(1, 2).rotate(Math.PI / 2),
-            -2, 1.0000000000000002
-        );
+        assertVector(new Vector(1, 2).rotate(Math.PI / 2), -2, 1);
     }
 
     @Test
     void rotateOfVectorWithX1Y2WithPi() {
-        assertVector(new Vector(1, 2).rotate(Math.PI),
-            -1.0000000000000002, -1.9999999999999998
-        );
+        assertVector(new Vector(1, 2).rotate(Math.PI), -1, -2);
     }
 
     @Test
     void rotateOfVectorWithX1Y2WithPiThreeHalf() {
-        assertVector(new Vector(1, 2).rotate(Math.PI * 3 / 2),
-            1.9999999999999998, -1.0000000000000004
-        );
+        assertVector(new Vector(1, 2).rotate(Math.PI * 3 / 2), 2, -1);
     }
 
     @Test
     void rotateOfVectorWithX1Y2WithTwoPi() {
-        assertVector(new Vector(1, 2).rotate(Math.PI * 2),
-            1.0000000000000004, 1.9999999999999998
-        );
+        assertVector(new Vector(1, 2).rotate(Math.PI * 2), 1, 2);
     }
 
     @Test
@@ -458,8 +453,8 @@ class VectorTest {
     }
 
     private static void assertVector(Vector vector, double x, double y) {
-        Assertions.assertEquals(x, vector.getX(), "x is invalid");
-        Assertions.assertEquals(y, vector.getY(), "y is invalid");
+        Assertions.assertEquals(x, vector.getX(), DELTA, "x is invalid");
+        Assertions.assertEquals(y, vector.getY(), DELTA, "y is invalid");
     }
 
     // endregion

@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("SameParameterValue")
 class CircleTest {
+    private static final double DELTA = 0.00001;
+
     // region constructors, getter and setter
 
     @Test
@@ -73,7 +75,7 @@ class CircleTest {
 
     @Test
     void areaOfCircleWithoutParameter() {
-        Assertions.assertEquals(3.141592653589793, new Circle().area());
+        Assertions.assertEquals(Math.PI, new Circle().area(), DELTA);
     }
 
     @Test

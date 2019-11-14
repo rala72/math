@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 class ComplexTest {
+    private static final double DELTA = 0.00001;
+
     // region constructors, getter and setter
 
     @Test
@@ -46,7 +48,7 @@ class ComplexTest {
 
     @Test
     void absoluteValueOfComplexX1Y1() {
-        Assertions.assertEquals(1.4142135623730951,
+        Assertions.assertEquals(Math.sqrt(2d),
             new Complex(1, 1).absoluteValue()
         );
     }
@@ -63,8 +65,9 @@ class ComplexTest {
 
     @Test
     void argumentOfComplexX1Y1() {
-        Assertions.assertEquals(0.7853981633974484, // Math.PI / 4
-            new Complex(1, 1).argument()
+        Assertions.assertEquals(Math.PI / 4,
+            new Complex(1, 1).argument(),
+            DELTA
         );
     }
 

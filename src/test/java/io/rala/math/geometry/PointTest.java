@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class PointTest {
+    private static final double DELTA = 0.00001;
+
     // region constructors, getter and setter
 
     @Test
@@ -84,30 +86,22 @@ class PointTest {
 
     @Test
     void rotateOfPointWithX1Y2WithoutCenterWithPiHalf() {
-        assertPoint(new Point(1, 2).rotate(Math.PI / 2),
-            -2, 1.0000000000000002
-        );
+        assertPoint(new Point(1, 2).rotate(Math.PI / 2), -2, 1);
     }
 
     @Test
     void rotateOfPointWithX1Y2WithoutCenterWithPi() {
-        assertPoint(new Point(1, 2).rotate(Math.PI),
-            -1.0000000000000002, -1.9999999999999998
-        );
+        assertPoint(new Point(1, 2).rotate(Math.PI), -1, -2);
     }
 
     @Test
     void rotateOfPointWithX1Y2WithoutCenterWithPiThreeHalf() {
-        assertPoint(new Point(1, 2).rotate(Math.PI * 3 / 2),
-            1.9999999999999998, -1.0000000000000004
-        );
+        assertPoint(new Point(1, 2).rotate(Math.PI * 3 / 2), 2, -1);
     }
 
     @Test
     void rotateOfPointWithX1Y2WithoutCenterWithTwoPi() {
-        assertPoint(new Point(1, 2).rotate(Math.PI * 2),
-            1.0000000000000004, 1.9999999999999998
-        );
+        assertPoint(new Point(1, 2).rotate(Math.PI * 2), 1, 2);
     }
 
     @Test
@@ -119,23 +113,17 @@ class PointTest {
 
     @Test
     void rotateOfPointWithX1Y2WithCenterXY1WithPi() {
-        assertPoint(new Point(1, 2).rotate(new Point(1), Math.PI),
-            0.9999999999999999, 0
-        );
+        assertPoint(new Point(1, 2).rotate(new Point(1), Math.PI), 1, 0);
     }
 
     @Test
     void rotateOfPointWithX1Y2WithCenterXY1WithPiThreeHalf() {
-        assertPoint(new Point(1, 2).rotate(new Point(1), Math.PI * 3 / 2),
-            2, 0.9999999999999998
-        );
+        assertPoint(new Point(1, 2).rotate(new Point(1), Math.PI * 3 / 2), 2, 1);
     }
 
     @Test
     void rotateOfPointWithX1Y2WithCenterXY1WithTwoPi() {
-        assertPoint(new Point(1, 2).rotate(new Point(1), Math.PI * 2),
-            1.0000000000000002, 2
-        );
+        assertPoint(new Point(1, 2).rotate(new Point(1), Math.PI * 2), 1, 2);
     }
 
     @Test
@@ -203,8 +191,8 @@ class PointTest {
     }
 
     private static void assertPoint(Point point, double x, double y) {
-        Assertions.assertEquals(x, point.getX(), "x is invalid");
-        Assertions.assertEquals(y, point.getY(), "y is invalid");
+        Assertions.assertEquals(x, point.getX(), DELTA, "x is invalid");
+        Assertions.assertEquals(y, point.getY(), DELTA, "y is invalid");
     }
 
     // endregion
