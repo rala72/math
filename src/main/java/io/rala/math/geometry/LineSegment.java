@@ -24,24 +24,14 @@ public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable
     // region constructors
 
     /**
-     * calls {@link #LineSegment(Point)} with {@link Point#Point()}
+     * calls {@link #LineSegment(Point, Point)} with
+     * {@link Point#Point()} and the value at b
      *
-     * @see #LineSegment(Point)
+     * @param b b value to be used in {@link #LineSegment(Point, Point)} at b
      * @see #LineSegment(Point, Point)
      */
-    public LineSegment() {
-        this(new Point());
-    }
-
-    /**
-     * calls {@link #LineSegment(Point, Point)} with the value at a and b
-     *
-     * @param ab ab value to be used in {@link #LineSegment(Point, Point)} at a and b
-     * @see #LineSegment()
-     * @see #LineSegment(Point, Point)
-     */
-    public LineSegment(Point ab) {
-        this(ab, ab);
+    public LineSegment(Point b) {
+        this(new Point(), b);
     }
 
     /**
@@ -49,7 +39,6 @@ public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable
      *
      * @param a a value of line segment
      * @param b b value of line segment
-     * @see #LineSegment()
      * @see #LineSegment(Point)
      */
     public LineSegment(Point a, Point b) {
@@ -87,14 +76,6 @@ public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable
      */
     public void setB(Point b) {
         this.b = b;
-    }
-
-    /**
-     * @param ab new a and b value of line segment
-     */
-    public void setAB(Point ab) {
-        setA(ab);
-        setB(ab);
     }
 
     // endregion
