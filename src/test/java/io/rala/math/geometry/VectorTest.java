@@ -350,7 +350,20 @@ class VectorTest {
 
     // endregion
 
-    // region rotate and copy
+    // region isValid rotate and copy
+
+    @Test
+    void isValidWithZeroValues() {
+        Assertions.assertTrue(new Vector().isValid());
+    }
+
+    @Test
+    void isValidWithInfValues() {
+        Assertions.assertFalse(
+            new Vector(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
+                .isValid()
+        );
+    }
 
     @Test
     void rotateOfVectorWithX1Y2WithPiHalf() {

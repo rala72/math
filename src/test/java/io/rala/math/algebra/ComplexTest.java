@@ -322,7 +322,20 @@ class ComplexTest {
 
     // endregion
 
-    // region copy
+    // region isValid and copy
+
+    @Test
+    void isValidWithZero() {
+        Assertions.assertTrue(new Complex().isValid());
+    }
+
+    @Test
+    void isValidWithInfValues() {
+        Assertions.assertFalse(
+            new Complex(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
+                .isValid()
+        );
+    }
 
     @Test
     void copyOfComplexWithReIm() {

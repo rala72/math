@@ -3,6 +3,7 @@ package io.rala.math.algebra;
 import io.rala.math.MathX;
 import io.rala.math.geometry.Vector;
 import io.rala.math.utils.Copyable;
+import io.rala.math.utils.Validatable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.Objects;
  * class which holds a real and a imaginary part of a complex number
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Complex implements Copyable<Complex>, Comparable<Complex> {
+public class Complex implements Validatable, Copyable<Complex>, Comparable<Complex> {
     // region attributes
 
     private double re;
@@ -294,7 +295,12 @@ public class Complex implements Copyable<Complex>, Comparable<Complex> {
 
     // endregion
 
-    // region copy
+    // region isValid and copy
+
+    @Override
+    public boolean isValid() {
+        return Double.isFinite(getRe()) && Double.isFinite(getIm());
+    }
 
     @Override
     public Complex copy() {

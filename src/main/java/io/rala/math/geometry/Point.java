@@ -3,6 +3,7 @@ package io.rala.math.geometry;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
+import io.rala.math.utils.Validatable;
 
 import java.util.Objects;
 
@@ -10,7 +11,8 @@ import java.util.Objects;
  * class which holds a point in a 2d area with x &amp; y
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Point implements Copyable<Point>, Movable<Point>, Rotatable<Point>, Comparable<Point> {
+public class Point implements Validatable, Movable<Point>, Rotatable<Point>,
+    Copyable<Point>, Comparable<Point> {
     // region attributes
 
     private double x;
@@ -96,7 +98,12 @@ public class Point implements Copyable<Point>, Movable<Point>, Rotatable<Point>,
 
     // endregion
 
-    // region move, rotate and copy
+    // region isValid, move, rotate and copy
+
+    @Override
+    public boolean isValid() {
+        return Double.isFinite(getX()) && Double.isFinite(getY());
+    }
 
     @Override
     public Point move(Vector vector) {

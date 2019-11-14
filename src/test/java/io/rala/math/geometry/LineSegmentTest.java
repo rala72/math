@@ -144,7 +144,22 @@ class LineSegmentTest {
 
     // endregion
 
-    // region move, rotate and copy
+    // region isValid, move, rotate and copy
+
+    @Test
+    void isValidWithZeroValues() {
+        Assertions.assertTrue(new LineSegment().isValid());
+    }
+
+    @Test
+    void isValidWithInfValues() {
+        Assertions.assertFalse(
+            new LineSegment(
+                new Point(Double.POSITIVE_INFINITY),
+                new Point(Double.POSITIVE_INFINITY)
+            ).isValid()
+        );
+    }
 
     @Test
     void moveOfLineSegmentWithAndBWithXY() {

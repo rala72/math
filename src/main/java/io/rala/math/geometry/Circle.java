@@ -3,6 +3,7 @@ package io.rala.math.geometry;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
+import io.rala.math.utils.Validatable;
 
 import java.util.Objects;
 
@@ -10,7 +11,8 @@ import java.util.Objects;
  * class which holds a circle a in 2d area with center &amp; radius
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Circle implements Copyable<Circle>, Movable<Circle>, Rotatable<Circle>, Comparable<Circle> {
+public class Circle implements Validatable, Movable<Circle>, Rotatable<Circle>,
+    Copyable<Circle>, Comparable<Circle> {
     // region attributes
 
     private Point center;
@@ -136,7 +138,13 @@ public class Circle implements Copyable<Circle>, Movable<Circle>, Rotatable<Circ
 
     // endregion
 
-    // region move, rotate and copy
+    // region isValid, move, rotate and copy
+
+    @Override
+    public boolean isValid() {
+        return getCenter().isValid() && Double.isFinite(getRadius()) &&
+            0 <= getRadius();
+    }
 
     @Override
     public Circle move(Vector vector) {

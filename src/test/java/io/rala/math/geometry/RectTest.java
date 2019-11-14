@@ -174,7 +174,40 @@ class RectTest {
 
     // endregion
 
-    // region move, rotate and copy
+    // region isValid, move, rotate and copy
+
+    @Test
+    void isValidWithPositiveValues() {
+        Assertions.assertTrue(new Rect(1, 1).isValid());
+    }
+
+    @Test
+    void isValidWithZeroValues() {
+        Assertions.assertFalse(new Rect(0, 0).isValid());
+    }
+
+    @Test
+    void isValidWithZeroHeight() {
+        Assertions.assertFalse(new Rect(0, 1).isValid());
+    }
+
+    @Test
+    void isValidWithZeroWidth() {
+        Assertions.assertFalse(new Rect(1, 0).isValid());
+    }
+
+    @Test
+    void isValidWithNegativeValues() {
+        Assertions.assertTrue(new Rect(-1, -1).isValid());
+    }
+
+    @Test
+    void isValidWithInfValues() {
+        Assertions.assertFalse(
+            new Rect(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
+                .isValid()
+        );
+    }
 
     @Test
     void moveOfRectWithXYWithXY() {

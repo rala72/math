@@ -205,7 +205,20 @@ class LineTest {
 
     // endregion
 
-    // region copy
+    // region isValid, copy
+
+    @Test
+    void isValidWithZeroValues() {
+        Assertions.assertTrue(new Line(0, 0).isValid());
+    }
+
+    @Test
+    void isValidWithInfValues() {
+        Assertions.assertFalse(
+            new Line(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
+                .isValid()
+        );
+    }
 
     @Test
     void copyOfLieWithMB() {

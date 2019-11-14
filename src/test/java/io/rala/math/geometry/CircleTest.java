@@ -122,7 +122,25 @@ class CircleTest {
 
     // endregion
 
-    // region move, rotate and copy
+    // region isValid, move, rotate and copy
+
+    @Test
+    void isValidWithZeroValues() {
+        Assertions.assertTrue(new Circle().isValid());
+    }
+
+    @Test
+    void isValidWithNegativeRadius() {
+        Assertions.assertFalse(new Circle(-1).isValid());
+    }
+
+    @Test
+    void isValidWithInfValues() {
+        Assertions.assertFalse(
+            new Circle(new Point(Double.POSITIVE_INFINITY), Double.POSITIVE_INFINITY)
+                .isValid()
+        );
+    }
 
     @Test
     void moveOfCircleWithoutParameterWithXY() {

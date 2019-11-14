@@ -3,6 +3,7 @@ package io.rala.math.geometry;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
+import io.rala.math.utils.Validatable;
 
 import java.util.List;
 import java.util.Objects;
@@ -12,7 +13,8 @@ import java.util.stream.Collectors;
  * class which holds a triangle in a 2d area with points a, b &amp; c
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Triangle implements Copyable<Triangle>, Movable<Triangle>, Rotatable<Triangle>, Comparable<Triangle> {
+public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Triangle>,
+    Copyable<Triangle>, Comparable<Triangle> {
     // region attributes
 
     private Point a;
@@ -165,7 +167,15 @@ public class Triangle implements Copyable<Triangle>, Movable<Triangle>, Rotatabl
 
     // endregion
 
-    // region move and copy
+    // region isValid, move, rotate and copy
+
+    @Override
+    public boolean isValid() {
+        return getA().isValid() && getB().isValid() && getC().isValid() &&
+            edgeA().length() < edgeB().length() + edgeC().length() &&
+            edgeB().length() < edgeA().length() + edgeC().length() &&
+            edgeC().length() < edgeA().length() + edgeB().length();
+    }
 
     @Override
     public Triangle move(Vector vector) {

@@ -2,6 +2,7 @@ package io.rala.math.geometry;
 
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Rotatable;
+import io.rala.math.utils.Validatable;
 
 import java.util.Objects;
 
@@ -9,7 +10,8 @@ import java.util.Objects;
  * class which holds a vector in a 2d area with x &amp; y
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Vector implements Rotatable<Vector>, Copyable<Vector>, Comparable<Vector> {
+public class Vector implements Validatable, Rotatable<Vector>,
+    Copyable<Vector>, Comparable<Vector> {
     // region attributes
 
     private double x;
@@ -320,7 +322,12 @@ public class Vector implements Rotatable<Vector>, Copyable<Vector>, Comparable<V
 
     // endregion
 
-    // region rotate and copy
+    // region isValid, rotate and copy
+
+    @Override
+    public boolean isValid() {
+        return Double.isFinite(getX()) && Double.isFinite(getY());
+    }
 
     @Override
     public Vector rotate(Point center, double phi) {

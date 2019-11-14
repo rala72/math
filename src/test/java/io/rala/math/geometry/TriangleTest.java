@@ -100,7 +100,45 @@ class TriangleTest {
 
     // endregion
 
-    // region move, rotate and copy
+    // region isValid, move, rotate and copy
+
+    @Test
+    void isValidWithPositiveValues() {
+        Assertions.assertTrue(
+            new Triangle(
+                new Point(1), new Point(1, 2), new Point(2)
+            ).isValid()
+        );
+    }
+
+    @Test
+    void isValidWithLineValues() {
+        Assertions.assertFalse(
+            new Triangle(
+                new Point(0), new Point(1), new Point(2)
+            ).isValid()
+        );
+    }
+
+    @Test
+    void isValidWithZeroValues() {
+        Assertions.assertFalse(
+            new Triangle(
+                new Point(0), new Point(0), new Point(0)
+            ).isValid()
+        );
+    }
+
+    @Test
+    void isValidWithInfValues() {
+        Assertions.assertFalse(
+            new Triangle(
+                new Point(Double.POSITIVE_INFINITY),
+                new Point(Double.POSITIVE_INFINITY),
+                new Point(Double.POSITIVE_INFINITY)
+            ).isValid()
+        );
+    }
 
     @Test
     void moveOfTriangleWithXYWithXY() {
