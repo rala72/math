@@ -72,6 +72,34 @@ class TriangleTest {
 
     // endregion
 
+    // region angles
+
+    @Test
+    void angleAlpha() {
+        Triangle triangle = new Triangle(
+            new Point(0, 0), new Point(0, 1), new Point(1, 1)
+        );
+        Assertions.assertEquals(Math.PI / 4, triangle.angleAlpha(), 0.00001);
+    }
+
+    @Test
+    void angleBeta() {
+        Triangle triangle = new Triangle(
+            new Point(0, 0), new Point(0, 1), new Point(1, 1)
+        );
+        Assertions.assertEquals(Math.PI / 2, triangle.angleBeta(), 0.00001);
+    }
+
+    @Test
+    void angleGamma() {
+        Triangle triangle = new Triangle(
+            new Point(0, 0), new Point(0, 1), new Point(1, 1)
+        );
+        Assertions.assertEquals(Math.PI / 4, triangle.angleGamma(), 0.00001);
+    }
+
+    // endregion
+
     // region area, circumference, circumRadius, inRadius
 
     @Test

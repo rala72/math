@@ -126,6 +126,49 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
 
     // endregion
 
+    // region angles
+
+    /**
+     * calculates angle using law of cosines
+     *
+     * @return angle in <code>rad</code> at point <code>A</code>
+     */
+    public double angleAlpha() {
+        double dividend = Math.pow(edgeA().length(), 2) -
+            Math.pow(edgeB().length(), 2) -
+            Math.pow(edgeC().length(), 2);
+        double divisor = -2 * edgeB().length() * edgeC().length();
+        return Math.acos(dividend / divisor);
+    }
+
+    /**
+     * calculates angle using law of cosines
+     *
+     * @return angle in <code>rad</code> at point <code>B</code>
+     */
+    public double angleBeta() {
+        double dividend = Math.pow(edgeB().length(), 2) -
+            Math.pow(edgeA().length(), 2) -
+            Math.pow(edgeC().length(), 2);
+        double divisor = -2 * edgeA().length() * edgeC().length();
+        return Math.acos(dividend / divisor);
+    }
+
+    /**
+     * calculates angle using law of cosines
+     *
+     * @return angle in <code>rad</code> at point <code>C</code>
+     */
+    public double angleGamma() {
+        double dividend = Math.pow(edgeC().length(), 2) -
+            Math.pow(edgeA().length(), 2) -
+            Math.pow(edgeB().length(), 2);
+        double divisor = -2 * edgeA().length() * edgeB().length();
+        return Math.acos(dividend / divisor);
+    }
+
+    // endregion
+
     // region area, circumference, circumRadius and inRadius
 
     /**
