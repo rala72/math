@@ -667,7 +667,7 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-            Matrix.Field field = (Matrix.Field) o;
+            Matrix<?>.Field field = (Matrix<?>.Field) o;
             return getIndex() == field.getIndex() &&
                 Objects.equals(getValue(), field.getValue());
         }
