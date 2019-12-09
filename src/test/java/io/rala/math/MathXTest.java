@@ -6,6 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -38,6 +39,36 @@ class MathXTest {
         );
     }
 
+    @ParameterizedTest
+    @MethodSource("getRootUsingDoubleArguments")
+    void rootUsingDouble(double a, int n, Double expected) {
+        if (expected == null) {
+            try {
+                MathX.root(a, n);
+            } catch (IllegalArgumentException e) {
+                Assertions.assertEquals("number has to be positive", e.getMessage());
+                return;
+            }
+            Assertions.fail();
+        }
+        Assertions.assertEquals(expected, Math.round(MathX.root(a, n)));
+    }
+
+    @ParameterizedTest
+    @MethodSource("getRootUsingBigDecimalArguments")
+    void rootUsingBigDecimal(BigDecimal a, int n, BigDecimal expected) {
+        if (expected == null) {
+            try {
+                MathX.root(a, n);
+            } catch (IllegalArgumentException e) {
+                Assertions.assertEquals("number has to be positive", e.getMessage());
+                return;
+            }
+            Assertions.fail();
+        }
+        Assertions.assertEquals(expected, MathX.root(a, n).stripTrailingZeros());
+    }
+
     // region argument streams
 
     private static Stream<Arguments> getGcdArguments() {
@@ -54,6 +85,14 @@ class MathXTest {
 
     private static Stream<Arguments> getLcmArguments() {
         return MathXArgumentsStreamFactory.lcm();
+    }
+
+    private static Stream<Arguments> getRootUsingDoubleArguments() {
+        return MathXArgumentsStreamFactory.rootUsingDouble();
+    }
+
+    private static Stream<Arguments> getRootUsingBigDecimalArguments() {
+        return MathXArgumentsStreamFactory.rootUsingBigDecimal();
     }
 
     // endregion

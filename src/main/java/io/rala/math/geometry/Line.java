@@ -1,6 +1,7 @@
 package io.rala.math.geometry;
 
 import io.rala.math.utils.Copyable;
+import io.rala.math.utils.Validatable;
 
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
  * <code>y=b</code>
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Line implements Copyable<Line>, Comparable<Line> {
+public class Line implements Validatable, Copyable<Line>, Comparable<Line> {
     // region attributes
 
     private double m;
@@ -193,7 +194,12 @@ public class Line implements Copyable<Line>, Comparable<Line> {
 
     // endregion
 
-    // region copy
+    // region isValid, copy
+
+    @Override
+    public boolean isValid() {
+        return !Double.isInfinite(getM()) && Double.isFinite(getB());
+    }
 
     @Override
     public Line copy() {

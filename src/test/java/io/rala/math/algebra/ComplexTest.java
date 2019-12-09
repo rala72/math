@@ -4,7 +4,11 @@ import io.rala.math.geometry.Vector;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 class ComplexTest {
+    private static final double DELTA = 0.00001;
+
     // region constructors, getter and setter
 
     @Test
@@ -35,6 +39,30 @@ class ComplexTest {
 
     // endregion
 
+    // region value
+
+    @Test
+    void intValueOfComplexWithX1_1Y2_2() {
+        Assertions.assertEquals(1, new Complex(1.1, 2.2).intValue());
+    }
+
+    @Test
+    void longValueOfComplexWithX1_1Y2_2() {
+        Assertions.assertEquals(1, new Complex(1.1, 2.2).longValue());
+    }
+
+    @Test
+    void floatValueOfComplexWithX1_1Y2_2() {
+        Assertions.assertEquals((float) 1.1d, new Complex(1.1, 2.2).floatValue());
+    }
+
+    @Test
+    void doubleValueOfComplexWithX1_1Y2_2() {
+        Assertions.assertEquals(1.1d, new Complex(1.1, 2.2).doubleValue());
+    }
+
+    // endregion
+
     // region absoluteValue, argument, conjugation and reciprocal
 
     @Test
@@ -44,7 +72,7 @@ class ComplexTest {
 
     @Test
     void absoluteValueOfComplexX1Y1() {
-        Assertions.assertEquals(1.4142135623730951,
+        Assertions.assertEquals(Math.sqrt(2d),
             new Complex(1, 1).absoluteValue()
         );
     }
@@ -61,8 +89,9 @@ class ComplexTest {
 
     @Test
     void argumentOfComplexX1Y1() {
-        Assertions.assertEquals(0.7853981633974484, // Math.PI / 4
-            new Complex(1, 1).argument()
+        Assertions.assertEquals(Math.PI / 4,
+            new Complex(1, 1).argument(),
+            DELTA
         );
     }
 
@@ -204,6 +233,62 @@ class ComplexTest {
 
     // endregion
 
+    // region pow and root
+
+    @Test
+    void pow8OfComplexWithRe1Im1() {
+        Assertions.assertEquals(
+            new Complex(16.000000000000007, 1.0291984957930479E-14),
+            new Complex(1, 1).pow(8)
+        );
+    }
+
+    @Test
+    void pow5OfComplexWithRe3Im4() {
+        Assertions.assertEquals(
+            new Complex(-236.99999999999898, -3116),
+            new Complex(3, 4).pow(5)
+        );
+    }
+
+    @Test
+    void root3OfComplexWithRe1Im0() {
+        Assertions.assertEquals(
+            List.of(
+                new Complex(1, 0),
+                new Complex(-0.4999999999999998, 0.8660254037844387),
+                new Complex(-0.5000000000000004, -0.8660254037844384)
+            ),
+            new Complex(1, 0).root(3)
+        );
+    }
+
+    @Test
+    void root4OfComplexWithRe1Im0() {
+        Assertions.assertEquals(
+            List.of(
+                new Complex(1, 0),
+                new Complex(6.123233995736766E-17, 1),
+                new Complex(-1, 1.2246467991473532E-16),
+                new Complex(-1.8369701987210297E-16, -1)
+            ),
+            new Complex(1, 0).root(4)
+        );
+    }
+
+    @Test
+    void root2OfComplexWithReMinus1ImSqrt3() {
+        Assertions.assertEquals(
+            List.of(
+                new Complex(0.7071067811865474, 1.224744871391589),
+                new Complex(-0.7071067811865469, -1.2247448713915892)
+            ),
+            new Complex(-1, Math.sqrt(3)).root(2)
+        );
+    }
+
+    // endregion
+
     // region inverse
 
     @Test
@@ -264,7 +349,20 @@ class ComplexTest {
 
     // endregion
 
-    // region copy
+    // region isValid and copy
+
+    @Test
+    void isValidWithZero() {
+        Assertions.assertTrue(new Complex().isValid());
+    }
+
+    @Test
+    void isValidWithInfValues() {
+        Assertions.assertFalse(
+            new Complex(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
+                .isValid()
+        );
+    }
 
     @Test
     void copyOfComplexWithReIm() {

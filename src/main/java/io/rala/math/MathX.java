@@ -1,6 +1,9 @@
 package io.rala.math;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,6 +17,11 @@ import java.util.stream.Collectors;
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class MathX {
+    private static final MathContext MATH_CONTEXT =
+        new MathContext(10, RoundingMode.HALF_EVEN);
+    private static final String ILLEGAL_ARGUMENT__NUMBER_HAS_TO_BE_POSITIVE =
+        "number has to be positive";
+
     private MathX() {
     }
 
@@ -246,6 +254,53 @@ public class MathX {
      */
     public static BigInteger lcm(BigInteger a, BigInteger b) {
         return a.multiply(b).abs().divide(gcd(a, b));
+    }
+
+    // endregion
+
+    // region root
+
+    /**
+     * calculates nth-root using {@link Math#pow(double, double)}
+     * with <code>1.0/n</code>
+     *
+     * @param a number to calc root
+     * @param n number of root
+     * @return calculated root
+     * @see Math#pow(double, double)
+     */
+    public static double root(double a, int n) {
+        if (a < 0)
+            throw new IllegalArgumentException(ILLEGAL_ARGUMENT__NUMBER_HAS_TO_BE_POSITIVE);
+        return Math.pow(a, 1.0 / n);
+    }
+
+    /**
+     * calculates nth-root using a {@link MathContext} with
+     * precision <code>10</code> and
+     * rounding mode {@link RoundingMode#HALF_EVEN}
+     *
+     * @param a number to calc root
+     * @param n number of root
+     * @return calculated root
+     */
+    public static BigDecimal root(BigDecimal a, int n) {
+        // https://stackoverflow.com/a/34074999/2715720
+        if (a.compareTo(BigDecimal.ZERO) < 0)
+            throw new IllegalArgumentException(ILLEGAL_ARGUMENT__NUMBER_HAS_TO_BE_POSITIVE);
+        if (a.equals(BigDecimal.ZERO)) return BigDecimal.ZERO;
+        BigDecimal current = a.divide(BigDecimal.valueOf(n), MATH_CONTEXT);
+        BigDecimal precision = BigDecimal.valueOf(.1)
+            .movePointLeft(MATH_CONTEXT.getPrecision());
+        BigDecimal prev = a;
+        while (current.subtract(prev).abs().compareTo(precision) > 0) {
+            prev = current;
+            current = BigDecimal.valueOf(n - 1)
+                .multiply(current)
+                .add(a.divide(current.pow(n - 1), MATH_CONTEXT))
+                .divide(BigDecimal.valueOf(n), MATH_CONTEXT);
+        }
+        return current;
     }
 
     // endregion

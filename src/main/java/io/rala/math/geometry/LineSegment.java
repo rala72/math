@@ -3,6 +3,7 @@ package io.rala.math.geometry;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
+import io.rala.math.utils.Validatable;
 
 import java.util.List;
 import java.util.Objects;
@@ -11,7 +12,8 @@ import java.util.Objects;
  * class which holds a line segment in a 2d area with points a &amp; b
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>, Rotatable<LineSegment>, Comparable<LineSegment> {
+public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable<LineSegment>,
+    Copyable<LineSegment>, Comparable<LineSegment> {
     // region attributes
 
     private Point a;
@@ -22,24 +24,14 @@ public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>,
     // region constructors
 
     /**
-     * calls {@link #LineSegment(Point)} with {@link Point#Point()}
+     * calls {@link #LineSegment(Point, Point)} with
+     * {@link Point#Point()} and the value at b
      *
-     * @see #LineSegment(Point)
+     * @param b b value to be used in {@link #LineSegment(Point, Point)} at b
      * @see #LineSegment(Point, Point)
      */
-    public LineSegment() {
-        this(new Point());
-    }
-
-    /**
-     * calls {@link #LineSegment(Point, Point)} with the value at a and b
-     *
-     * @param ab ab value to be used in {@link #LineSegment(Point, Point)} at a and b
-     * @see #LineSegment()
-     * @see #LineSegment(Point, Point)
-     */
-    public LineSegment(Point ab) {
-        this(ab, ab);
+    public LineSegment(Point b) {
+        this(new Point(), b);
     }
 
     /**
@@ -47,7 +39,6 @@ public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>,
      *
      * @param a a value of line segment
      * @param b b value of line segment
-     * @see #LineSegment()
      * @see #LineSegment(Point)
      */
     public LineSegment(Point a, Point b) {
@@ -85,14 +76,6 @@ public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>,
      */
     public void setB(Point b) {
         this.b = b;
-    }
-
-    /**
-     * @param ab new a and b value of line segment
-     */
-    public void setAB(Point ab) {
-        setA(ab);
-        setB(ab);
     }
 
     // endregion
@@ -156,7 +139,12 @@ public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>,
 
     // endregion
 
-    // region move, rotate and copy
+    // region isValid, move, rotate and copy
+
+    @Override
+    public boolean isValid() {
+        return getA().isValid() && getB().isValid();
+    }
 
     @Override
     public LineSegment move(Vector vector) {

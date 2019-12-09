@@ -91,14 +91,14 @@ class RectTest {
 
     @Test
     void widthOfRectWithPointsAndPositiveSize() {
-        Assertions.assertEquals(1.4142135623730951,
+        Assertions.assertEquals(Math.sqrt(2),
             new Rect(new Point(), new Point(1), 1).width()
         );
     }
 
     @Test
     void widthOfRectWithPointsAndNegativeSize() {
-        Assertions.assertEquals(1.4142135623730951,
+        Assertions.assertEquals(Math.sqrt(2),
             new Rect(new Point(), new Point(1), -1).width()
         );
     }
@@ -110,17 +110,17 @@ class RectTest {
 
     @Test
     void diagonaleOfRectWithHeightAndWidth1() {
-        Assertions.assertEquals(1.4142135623730951, new Rect(1, 1).diagonale());
+        Assertions.assertEquals(Math.sqrt(2), new Rect(1, 1).diagonale());
     }
 
     @Test
     void diagonaleOfRectWithHeight1AndWidth2() {
-        Assertions.assertEquals(2.23606797749979, new Rect(1, 2).diagonale());
+        Assertions.assertEquals(Math.sqrt(5), new Rect(1, 2).diagonale());
     }
 
     @Test
     void diagonaleOfRectWithHeight2AndWidth3() {
-        Assertions.assertEquals(3.605551275463989, new Rect(2, 3).diagonale());
+        Assertions.assertEquals(Math.sqrt(13), new Rect(2, 3).diagonale());
     }
 
     // endregion
@@ -174,7 +174,40 @@ class RectTest {
 
     // endregion
 
-    // region move, rotate and copy
+    // region isValid, move, rotate and copy
+
+    @Test
+    void isValidWithPositiveValues() {
+        Assertions.assertTrue(new Rect(1, 1).isValid());
+    }
+
+    @Test
+    void isValidWithZeroValues() {
+        Assertions.assertFalse(new Rect(0, 0).isValid());
+    }
+
+    @Test
+    void isValidWithZeroHeight() {
+        Assertions.assertFalse(new Rect(0, 1).isValid());
+    }
+
+    @Test
+    void isValidWithZeroWidth() {
+        Assertions.assertFalse(new Rect(1, 0).isValid());
+    }
+
+    @Test
+    void isValidWithNegativeValues() {
+        Assertions.assertTrue(new Rect(-1, -1).isValid());
+    }
+
+    @Test
+    void isValidWithInfValues() {
+        Assertions.assertFalse(
+            new Rect(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
+                .isValid()
+        );
+    }
 
     @Test
     void moveOfRectWithXYWithXY() {

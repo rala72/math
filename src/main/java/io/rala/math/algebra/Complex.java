@@ -1,15 +1,20 @@
 package io.rala.math.algebra;
 
+import io.rala.math.MathX;
 import io.rala.math.geometry.Vector;
 import io.rala.math.utils.Copyable;
+import io.rala.math.utils.Validatable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * class which holds a real and a imaginary part of a complex number
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Complex implements Copyable<Complex>, Comparable<Complex> {
+public class Complex extends Number implements Validatable,
+    Copyable<Complex>, Comparable<Complex> {
     // region attributes
 
     private double re;
@@ -67,6 +72,30 @@ public class Complex implements Copyable<Complex>, Comparable<Complex> {
      */
     public void setIm(double im) {
         this.im = im;
+    }
+
+    // endregion
+
+    // region value
+
+    @Override
+    public int intValue() {
+        return (int) getRe();
+    }
+
+    @Override
+    public long longValue() {
+        return (long) getRe();
+    }
+
+    @Override
+    public float floatValue() {
+        return (float) getRe();
+    }
+
+    @Override
+    public double doubleValue() {
+        return getRe();
     }
 
     // endregion
@@ -194,6 +223,37 @@ public class Complex implements Copyable<Complex>, Comparable<Complex> {
 
     // endregion
 
+    // region pow and root
+
+    /**
+     * @param n number of power
+     * @return new complex with powered re &amp; im values
+     */
+    public Complex pow(int n) {
+        return Complex.of(
+            Math.pow(absoluteValue(), n),
+            argument() * n
+        );
+    }
+
+    /**
+     * @param n number of root
+     * @return new complex with rooted re &amp; im values
+     * @see MathX#root(double, int)
+     */
+    public List<Complex> root(int n) {
+        List<Complex> list = new ArrayList<>(n - 1);
+        double r = MathX.root(absoluteValue(), n);
+        for (int i = 0; i < n; i++)
+            list.add(Complex.of(
+                r,
+                (argument() + 2 * Math.PI * i) / n
+            ));
+        return list;
+    }
+
+    // endregion
+
     // region inverse
 
     /**
@@ -260,7 +320,12 @@ public class Complex implements Copyable<Complex>, Comparable<Complex> {
 
     // endregion
 
-    // region copy
+    // region isValid and copy
+
+    @Override
+    public boolean isValid() {
+        return Double.isFinite(getRe()) && Double.isFinite(getIm());
+    }
 
     @Override
     public Complex copy() {
