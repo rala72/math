@@ -149,7 +149,8 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
     public T setValue(int index, T value) {
         if (!isIndexValid(index))
             throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
-        return Objects.equals(value, defaultValue) ?
+        return value == null && getDefaultValue() == null ||
+            value != null && value.equals(getDefaultValue()) ?
             removeValue(index) : matrix.put(index, value);
     }
 
