@@ -35,7 +35,7 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
 
     @Override
     public BigDecimal fromInt(int a) {
-        return BigDecimal.valueOf(a).stripTrailingZeros();
+        return BigDecimal.valueOf(a);
     }
 
     @Override
@@ -45,27 +45,27 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
 
     @Override
     public BigDecimal sum(BigDecimal a, BigDecimal b) {
-        return a.add(b).stripTrailingZeros();
+        return a.add(b, getMathContext());
     }
 
     @Override
     public BigDecimal difference(BigDecimal a, BigDecimal b) {
-        return a.subtract(b).stripTrailingZeros();
+        return a.subtract(b, getMathContext());
     }
 
     @Override
     public BigDecimal product(BigDecimal a, BigDecimal b) {
-        return a.multiply(b).stripTrailingZeros();
+        return a.multiply(b, getMathContext());
     }
 
     @Override
     public BigDecimal quotient(BigDecimal a, BigDecimal b) {
-        return a.divide(b, getMathContext()).stripTrailingZeros();
+        return a.divide(b, getMathContext());
     }
 
     @Override
     public BigDecimal exponent(BigDecimal a, int b) {
-        return a.pow(b);
+        return a.pow(b, getMathContext());
     }
 
     @Override
