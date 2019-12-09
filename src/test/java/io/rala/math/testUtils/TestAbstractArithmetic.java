@@ -9,7 +9,7 @@ public class TestAbstractArithmetic extends AbstractArithmetic<Number> {
 
     @Override
     public Number fromInt(int a) {
-        return (double) a;
+        return a;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class TestAbstractArithmetic extends AbstractArithmetic<Number> {
 
     @Override
     public Number quotient(Number a, Number b) {
-        throw new NotImplementedException();
+        return a.doubleValue() / b.doubleValue();
     }
 
     // endregion

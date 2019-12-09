@@ -17,7 +17,7 @@ class AbstractArithmeticTest {
 
     @Test
     void fromInt0() {
-        Assertions.assertEquals(0d, arithmetic.fromInt(0));
+        Assertions.assertEquals(0, arithmetic.fromInt(0));
     }
 
     @Test
@@ -79,9 +79,7 @@ class AbstractArithmeticTest {
 
     @Test
     void quotient12() {
-        Assertions.assertThrows(AbstractArithmetic.NotImplementedException.class,
-            () -> arithmetic.quotient(1, 2)
-        );
+        Assertions.assertEquals(0.5, arithmetic.quotient(1, 2));
     }
 
     // endregion
@@ -173,4 +171,11 @@ class AbstractArithmeticTest {
     }
 
     // endregion
+
+    @Test
+    void notImplementedException() {
+        Assertions.assertThrows(AbstractArithmetic.NotImplementedException.class, () -> {
+            throw new AbstractArithmetic.NotImplementedException();
+        });
+    }
 }

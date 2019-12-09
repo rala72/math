@@ -4,6 +4,8 @@ import io.rala.math.MathX;
 import io.rala.math.geometry.Vector;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Validatable;
+import io.rala.math.utils.arithmetic.AbstractArithmetic;
+import io.rala.math.utils.arithmetic.DoubleArithmetic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,31 +15,36 @@ import java.util.Objects;
  * class which holds a real and a imaginary part of a complex number
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Complex extends Number implements Validatable,
-    Copyable<Complex>, Comparable<Complex> {
+public class Complex<T extends Number> extends Number implements Validatable,
+    Copyable<Complex<T>>, Comparable<Complex<T>> {
     // region attributes
 
-    private double re;
-    private double im;
+    private final AbstractArithmetic<T> arithmetic;
+    private T re;
+    private T im;
 
     // endregion
 
     // region constructors
 
     /**
-     * calls {@link #Complex(double, double)} with <code>0</code>
+     * calls {@link #Complex(AbstractArithmetic, Number, Number)} with <code>0</code>
      */
-    public Complex() {
-        this(0, 0);
+    public Complex(AbstractArithmetic<T> arithmetic) {
+        this(arithmetic,
+            arithmetic.fromInt(0), arithmetic.fromInt(0)
+        );
     }
 
     /**
      * creates a complex number with real and imaginary part
      *
-     * @param re real part
-     * @param im imaginary part
+     * @param arithmetic arithmetic to use
+     * @param re         real part
+     * @param im         imaginary part
      */
-    public Complex(double re, double im) {
+    public Complex(AbstractArithmetic<T> arithmetic, T re, T im) {
+        this.arithmetic = arithmetic;
         this.re = re;
         this.im = im;
     }
@@ -49,29 +56,36 @@ public class Complex extends Number implements Validatable,
     /**
      * @return real part of complex number
      */
-    public double getRe() {
+    public T getRe() {
         return re;
     }
 
     /**
      * @param re new real part of complex number
      */
-    public void setRe(double re) {
+    public void setRe(T re) {
         this.re = re;
     }
 
     /**
      * @return imaginary part of complex number
      */
-    public double getIm() {
+    public T getIm() {
         return im;
     }
 
     /**
      * @param im new imaginary part of complex number
      */
-    public void setIm(double im) {
+    public void setIm(T im) {
         this.im = im;
+    }
+
+    /**
+     * @return current {@link AbstractArithmetic}
+     */
+    protected AbstractArithmetic<T> getArithmetic() {
+        return arithmetic;
     }
 
     // endregion
@@ -80,22 +94,22 @@ public class Complex extends Number implements Validatable,
 
     @Override
     public int intValue() {
-        return (int) getRe();
+        return getRe().intValue();
     }
 
     @Override
     public long longValue() {
-        return (long) getRe();
+        return getRe().longValue();
     }
 
     @Override
     public float floatValue() {
-        return (float) getRe();
+        return getRe().floatValue();
     }
 
     @Override
     public double doubleValue() {
-        return getRe();
+        return getRe().doubleValue();
     }
 
     // endregion
@@ -105,30 +119,42 @@ public class Complex extends Number implements Validatable,
     /**
      * @return absolute <i>(modulus)</i> value of complex based on pythagoras
      */
-    public double absoluteValue() {
-        return Math.sqrt(Math.pow(getRe(), 2) + Math.pow(getIm(), 2));
+    public T absoluteValue() {
+        return getArithmetic().root2(getArithmetic().sum(
+            getArithmetic().exponent(getRe(), 2),
+            getArithmetic().exponent(getIm(), 2)
+        ));
     }
 
     /**
      * @return argument value of complex
      */
-    public double argument() {
-        return Math.signum(getIm()) * Math.acos(getRe() / absoluteValue());
+    public T argument() {
+        return getArithmetic().product(
+            getArithmetic().fromDouble(getArithmetic().signum(getIm())),
+            getArithmetic().acos(getArithmetic().quotient(getRe(), absoluteValue()))
+        );
     }
 
     /**
      * @return {@link #inverseIm()}
      */
-    public Complex conjugation() {
+    public Complex<T> conjugation() {
         return inverseIm();
     }
 
     /**
      * @return new reciprocal of complex
      */
-    public Complex reciprocal() {
-        double d = Math.pow(getRe(), 2) + Math.pow(getIm(), 2);
-        return new Complex(getRe() / d, -getIm() / d);
+    public Complex<T> reciprocal() {
+        T d = getArithmetic().sum(
+            getArithmetic().exponent(getRe(), 2),
+            getArithmetic().exponent(getIm(), 2)
+        );
+        return new Complex<>(getArithmetic(),
+            getArithmetic().quotient(getRe(), d),
+            getArithmetic().quotient(getArithmetic().negate(getIm()), d)
+        );
     }
 
     // endregion
@@ -143,17 +169,20 @@ public class Complex extends Number implements Validatable,
      * @return new complex with sum of current and given parameters
      * @see #add(Complex)
      */
-    public Complex add(double re, double im) {
-        return add(new Complex(re, im));
+    public Complex<T> add(T re, T im) {
+        return add(new Complex<>(getArithmetic(), re, im));
     }
 
     /**
      * @param complex complex value to add
      * @return new complex with sum of current and given complex
-     * @see #add(double, double)
+     * @see #add(T, T)
      */
-    public Complex add(Complex complex) {
-        return new Complex(getRe() + complex.getRe(), getIm() + complex.getIm());
+    public Complex<T> add(Complex<T> complex) {
+        return new Complex<>(getArithmetic(),
+            getArithmetic().sum(getRe(), complex.getRe()),
+            getArithmetic().sum(getIm(), complex.getIm())
+        );
     }
 
     /**
@@ -164,16 +193,16 @@ public class Complex extends Number implements Validatable,
      * @return new complex with difference of current and given parameters
      * @see #subtract(Complex)
      */
-    public Complex subtract(double re, double im) {
-        return subtract(new Complex(re, im));
+    public Complex<T> subtract(T re, T im) {
+        return subtract(new Complex<>(getArithmetic(), re, im));
     }
 
     /**
      * @param complex complex value to subtract
      * @return new complex with difference of current and given complex
-     * @see #subtract(double, double)
+     * @see #subtract(T, T)
      */
-    public Complex subtract(Complex complex) {
+    public Complex<T> subtract(Complex<T> complex) {
         return add(complex.inverse());
     }
 
@@ -185,18 +214,27 @@ public class Complex extends Number implements Validatable,
      * @param i value to multiply with re &amp; im
      * @return new complex with multiplied re &amp; im values
      */
-    public Complex multiply(double i) {
-        return new Complex(getRe() * i, getIm() * i);
+    public Complex<T> multiply(T i) {
+        return new Complex<>(getArithmetic(),
+            getArithmetic().product(getRe(), i),
+            getArithmetic().product(getIm(), i)
+        );
     }
 
     /**
      * @param complex complex value to multiply
      * @return new complex with multiplied re &amp; im values
      */
-    public Complex multiply(Complex complex) {
-        return new Complex(
-            getRe() * complex.getRe() - getIm() * complex.getIm(),
-            getRe() * complex.getIm() + getIm() * complex.getRe()
+    public Complex<T> multiply(Complex<T> complex) {
+        return new Complex<>(getArithmetic(),
+            getArithmetic().difference(
+                getArithmetic().product(getRe(), complex.getRe()),
+                getArithmetic().product(getIm(), complex.getIm())
+            ),
+            getArithmetic().sum(
+                getArithmetic().product(getRe(), complex.getIm()),
+                getArithmetic().product(getIm(), complex.getRe())
+            )
         );
     }
 
@@ -204,20 +242,39 @@ public class Complex extends Number implements Validatable,
      * @param i value to divide re &amp; im through
      * @return new complex with divided re &amp; im values
      */
-    public Complex divide(double i) {
-        return new Complex(getRe() / i, getIm() / i);
+    public Complex<T> divide(T i) {
+        return new Complex<>(getArithmetic(),
+            getArithmetic().quotient(getRe(), i),
+            getArithmetic().quotient(getIm(), i)
+        );
     }
 
     /**
      * @param complex complex value to divide through
      * @return new complex which is quotient of the division
      */
-    public Complex divide(Complex complex) {
-        return new Complex(
-            (getRe() * complex.getRe() + getIm() * complex.getIm()) /
-                (Math.pow(complex.getRe(), 2) + Math.pow(complex.getIm(), 2)),
-            (complex.getRe() * getIm() - getRe() * complex.getIm()) /
-                (Math.pow(complex.getRe(), 2) + Math.pow(complex.getIm(), 2))
+    public Complex<T> divide(Complex<T> complex) {
+        return new Complex<>(getArithmetic(),
+            getArithmetic().quotient(
+                getArithmetic().sum(
+                    getArithmetic().product(getRe(), complex.getRe()),
+                    getArithmetic().product(getIm(), complex.getIm())
+                ),
+                getArithmetic().sum(
+                    getArithmetic().exponent(complex.getRe(), 2),
+                    getArithmetic().exponent(complex.getIm(), 2)
+                )
+            ),
+            getArithmetic().quotient(
+                getArithmetic().difference(
+                    getArithmetic().product(complex.getRe(), getIm()),
+                    getArithmetic().product(getRe(), complex.getIm())
+                ),
+                getArithmetic().sum(
+                    getArithmetic().exponent(complex.getRe(), 2),
+                    getArithmetic().exponent(complex.getIm(), 2)
+                )
+            )
         );
     }
 
@@ -229,10 +286,10 @@ public class Complex extends Number implements Validatable,
      * @param n number of power
      * @return new complex with powered re &amp; im values
      */
-    public Complex pow(int n) {
-        return Complex.of(
-            Math.pow(absoluteValue(), n),
-            argument() * n
+    public Complex<T> pow(int n) {
+        return Complex.of(getArithmetic(),
+            getArithmetic().exponent(absoluteValue(), n),
+            getArithmetic().product(argument(), getArithmetic().fromInt(n))
         );
     }
 
@@ -241,13 +298,21 @@ public class Complex extends Number implements Validatable,
      * @return new complex with rooted re &amp; im values
      * @see MathX#root(double, int)
      */
-    public List<Complex> root(int n) {
-        List<Complex> list = new ArrayList<>(n - 1);
-        double r = MathX.root(absoluteValue(), n);
+    public List<Complex<T>> root(int n) {
+        List<Complex<T>> list = new ArrayList<>(n - 1);
+        T r = getArithmetic().root(absoluteValue(), n);
         for (int i = 0; i < n; i++)
-            list.add(Complex.of(
+            list.add(Complex.of(getArithmetic(),
                 r,
-                (argument() + 2 * Math.PI * i) / n
+                getArithmetic().quotient(
+                    getArithmetic().sum(argument(),
+                        getArithmetic().product(
+                            getArithmetic().fromInt(2),
+                            getArithmetic().fromDouble(Math.PI),
+                            getArithmetic().fromInt(i)
+                        )
+                    ), getArithmetic().fromInt(n)
+                )
             ));
         return list;
     }
@@ -261,7 +326,7 @@ public class Complex extends Number implements Validatable,
      * @see #inverseRe()
      * @see #inverseIm()
      */
-    public Complex inverse() {
+    public Complex<T> inverse() {
         return inverseRe().inverseIm();
     }
 
@@ -270,8 +335,8 @@ public class Complex extends Number implements Validatable,
      * @see #inverse()
      * @see #inverseIm()
      */
-    public Complex inverseRe() {
-        return new Complex(-getRe(), getIm());
+    public Complex<T> inverseRe() {
+        return new Complex<>(getArithmetic(), getArithmetic().negate(getRe()), getIm());
     }
 
     /**
@@ -279,8 +344,8 @@ public class Complex extends Number implements Validatable,
      * @see #inverse()
      * @see #inverseRe()
      */
-    public Complex inverseIm() {
-        return new Complex(getRe(), -getIm());
+    public Complex<T> inverseIm() {
+        return new Complex<>(getArithmetic(), getRe(), getArithmetic().negate(getIm()));
     }
 
     // endregion
@@ -292,10 +357,18 @@ public class Complex extends Number implements Validatable,
      * @param argument      argument of vector
      * @return new complex based on absoluteValue and argument
      */
-    public static Complex of(double absoluteValue, double argument) {
-        return new Complex(
-            absoluteValue * Math.cos(argument),
-            absoluteValue * Math.sin(argument)
+    public static <T extends Number> Complex<T> of(
+        AbstractArithmetic<T> arithmetic, T absoluteValue, T argument
+    ) {
+        return new Complex<>(arithmetic,
+            arithmetic.product(
+                absoluteValue,
+                arithmetic.cos(argument)
+            ),
+            arithmetic.product(
+                absoluteValue,
+                arithmetic.sin(argument)
+            )
         );
     }
 
@@ -305,7 +378,7 @@ public class Complex extends Number implements Validatable,
      * {@link #getIm()} as <code>y</code>
      */
     public Vector asVector() {
-        return new Vector(getRe(), getIm());
+        return new Vector(getRe().doubleValue(), getIm().doubleValue());
     }
 
     /**
@@ -314,8 +387,8 @@ public class Complex extends Number implements Validatable,
      * {@link Vector#getX()} as <code>re</code> and
      * {@link Vector#getY()} as <code>im</code>
      */
-    public static Complex ofVector(Vector vector) {
-        return new Complex(vector.getX(), vector.getY());
+    public static Complex<Double> ofVector(Vector vector) {
+        return new Complex<>(new DoubleArithmetic(), vector.getX(), vector.getY());
     }
 
     // endregion
@@ -324,12 +397,12 @@ public class Complex extends Number implements Validatable,
 
     @Override
     public boolean isValid() {
-        return Double.isFinite(getRe()) && Double.isFinite(getIm());
+        return getArithmetic().isFinite(getRe()) && getArithmetic().isFinite(getIm());
     }
 
     @Override
-    public Complex copy() {
-        return new Complex(getRe(), getIm());
+    public Complex<T> copy() {
+        return new Complex<>(getArithmetic(), getRe(), getIm());
     }
 
     // endregion
@@ -339,10 +412,10 @@ public class Complex extends Number implements Validatable,
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Complex complex = (Complex) o;
-        return Double.compare(complex.getRe(), getRe()) == 0 &&
-            Double.compare(complex.getIm(), getIm()) == 0;
+        if (!(o instanceof Complex<?>)) return false;
+        Complex<?> complex = (Complex<?>) o;
+        return getRe().equals(complex.getRe()) &&
+            getIm().equals(complex.getIm());
     }
 
     @Override
@@ -352,14 +425,17 @@ public class Complex extends Number implements Validatable,
 
     @Override
     public String toString() {
-        return getRe() + (0 <= getIm() ? "+" : "") + getIm() + "*i";
+        boolean hasSign = getArithmetic().compare(
+            getArithmetic().fromInt(0), getIm()
+        ) <= 0;
+        return getRe() + (hasSign ? "+" : "") + getIm() + "*i";
     }
 
     @Override
-    public int compareTo(Complex o) {
-        int compare = Double.compare(getRe(), o.getRe());
+    public int compareTo(Complex<T> o) {
+        int compare = getArithmetic().compare(getRe(), o.getRe());
         if (compare != 0) return compare;
-        return Double.compare(getIm(), o.getIm());
+        return getArithmetic().compare(getIm(), o.getIm());
     }
 
     // endregion
