@@ -13,7 +13,7 @@ import java.util.stream.StreamSupport;
  * @param <T> number class
  */
 @SuppressWarnings({"unused", "WeakerAccess", "UnusedReturnValue"})
-public abstract class Matrix<T extends Number>
+public class Matrix<T extends Number>
     implements Copyable<Matrix<T>>, Iterable<Matrix<T>.Field> {
     protected static final String EXCEPTION_SIZE_PREFIX = "size: ";
     protected static final String EXCEPTION_ROW_PREFIX = "row: ";
@@ -100,7 +100,9 @@ public abstract class Matrix<T extends Number>
      * @param cols cols of new matrix
      * @return new matrix instance
      */
-    protected abstract Matrix<T> newInstance(int rows, int cols);
+    protected final Matrix<T> newInstance(int rows, int cols) {
+        return new Matrix<>(getArithmetic(), rows, cols, getDefaultValue());
+    }
 
     // endregion
 
@@ -398,6 +400,15 @@ public abstract class Matrix<T extends Number>
             );
         }
         return t;
+    }
+
+    // endregion
+
+    // region copy
+
+    @Override
+    public Matrix<T> copy() {
+        return new Matrix<>(this);
     }
 
     // endregion

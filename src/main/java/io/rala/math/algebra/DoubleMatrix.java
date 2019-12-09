@@ -11,7 +11,7 @@ import io.rala.math.utils.arithmetic.DoubleArithmetic;
 public class DoubleMatrix extends Matrix<Double> {
     public static final Double DEFAULT_VALUE = 0d;
 
-    // region constructor & newInstance
+    // region constructor
 
     /**
      * default value is <code>0</code>
@@ -42,20 +42,6 @@ public class DoubleMatrix extends Matrix<Double> {
      */
     public DoubleMatrix(Matrix<Double> matrix) {
         super(matrix);
-    }
-
-    @Override
-    protected Matrix<Double> newInstance(int rows, int cols) {
-        return new DoubleMatrix(rows, cols);
-    }
-
-    // endregion
-
-    // region override
-
-    @Override
-    public Matrix<Double> copy() {
-        return new DoubleMatrix(this);
     }
 
     // endregion

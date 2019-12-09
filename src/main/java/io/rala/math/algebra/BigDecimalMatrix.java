@@ -14,7 +14,7 @@ import java.math.MathContext;
 public class BigDecimalMatrix extends Matrix<BigDecimal> {
     public static final BigDecimal DEFAULT_VALUE = BigDecimal.ZERO;
 
-    // region constructor & newInstance
+    // region constructor
 
     /**
      * default value is <code>0</code>
@@ -68,20 +68,6 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      */
     public BigDecimalMatrix(Matrix<BigDecimal> matrix) {
         super(matrix);
-    }
-
-    @Override
-    protected Matrix<BigDecimal> newInstance(int rows, int cols) {
-        return new BigDecimalMatrix(rows, cols);
-    }
-
-    // endregion
-
-    // region override
-
-    @Override
-    public Matrix<BigDecimal> copy() {
-        return new BigDecimalMatrix(this);
     }
 
     // endregion

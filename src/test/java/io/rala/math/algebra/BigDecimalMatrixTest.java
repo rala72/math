@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class BigDecimalMatrixTest {
-    // region constructors and newInstance
+    // region constructors
 
     @Test
     void constructorWithSize0() {

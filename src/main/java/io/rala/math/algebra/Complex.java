@@ -411,7 +411,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
 
     @Override
     public Complex<T> copy() {
-        return new Complex<>(getArithmetic(), getRe(), getIm());
+        return new Complex<>(this);
     }
 
     // endregion

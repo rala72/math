@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class DoubleMatrixTest {
-    // region constructors and newInstance
+    // region constructors
 
     @Test
     void constructorWithSize0() {
@@ -212,7 +212,7 @@ class DoubleMatrixTest {
     void isSquareOfMatrixWithSize2() {
         Assertions.assertTrue(new DoubleMatrix(2).isDiagonal());
     }
-    
+
     @Test
     void isDiagonalOfMatrixWithRow1Col2() {
         Assertions.assertFalse(new DoubleMatrix(1, 2).isDiagonal());
