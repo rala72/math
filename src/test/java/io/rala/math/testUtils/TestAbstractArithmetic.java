@@ -4,6 +4,8 @@ import io.rala.math.utils.arithmetic.AbstractArithmetic;
 
 @SuppressWarnings("unused")
 public class TestAbstractArithmetic extends AbstractArithmetic<Number> {
+    // region fromInt, signum
+
     @Override
     public Number fromInt(int a) {
         return (double) a;
@@ -13,6 +15,10 @@ public class TestAbstractArithmetic extends AbstractArithmetic<Number> {
     public double signum(Number a) {
         return Math.signum(a.intValue());
     }
+
+    // endregion
+
+    // region sum, difference, product and quotient
 
     @Override
     public Number sum(Number a, Number b) {
@@ -34,6 +40,10 @@ public class TestAbstractArithmetic extends AbstractArithmetic<Number> {
         throw new NotImplementedException();
     }
 
+    // endregion
+
+    // region exponent and root
+
     @Override
     public Number exponent(Number a, int b) {
         return Math.toIntExact((long) Math.pow(a.doubleValue(), b));
@@ -43,4 +53,6 @@ public class TestAbstractArithmetic extends AbstractArithmetic<Number> {
     public Number root2(Number a) {
         return Math.sqrt(a.doubleValue());
     }
+
+    // endregion
 }
