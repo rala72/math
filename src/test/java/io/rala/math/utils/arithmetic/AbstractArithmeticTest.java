@@ -16,27 +16,27 @@ class AbstractArithmeticTest {
     // region fromInt, fromDouble signum, negate and compare
 
     @Test
-    void implementedIntegerFromInt0() {
+    void fromInt0() {
         Assertions.assertEquals(0d, arithmetic.fromInt(0));
     }
 
     @Test
-    void implementedIntegerFromDouble0() {
+    void fromDouble0() {
         Assertions.assertEquals(0d, arithmetic.fromDouble(0));
     }
 
     @Test
-    void implementedIntegerSignum1() {
+    void signum1() {
         Assertions.assertEquals(1, arithmetic.signum(1));
     }
 
     @Test
-    void implementedIntegerNegate1() {
+    void negate1() {
         Assertions.assertEquals(-1, arithmetic.negate(1));
     }
 
     @Test
-    void implementedIntegerCompare() {
+    void compare() {
         Assertions.assertEquals(
             0, arithmetic.compare(1, 1)
         );
@@ -53,32 +53,32 @@ class AbstractArithmeticTest {
     // region sum, difference, product and quotient
 
     @Test
-    void implementedIntegerSum12() {
+    void sum12() {
         Assertions.assertEquals(3, arithmetic.sum(1, 2));
     }
 
     @Test
-    void implementedIntegerSum123() {
+    void sum123() {
         Assertions.assertEquals(6, arithmetic.sum(1, 2, 3));
     }
 
     @Test
-    void implementedIntegerDifference12() {
+    void difference12() {
         Assertions.assertEquals(-1, arithmetic.difference(1, 2));
     }
 
     @Test
-    void implementedIntegerProduct12() {
+    void product12() {
         Assertions.assertEquals(2, arithmetic.product(1, 2));
     }
 
     @Test
-    void implementedIntegerProduct123() {
+    void product123() {
         Assertions.assertEquals(6, arithmetic.product(1, 2, 3));
     }
 
     @Test
-    void implementedIntegerQuotient12() {
+    void quotient12() {
         Assertions.assertThrows(AbstractArithmetic.NotImplementedException.class,
             () -> arithmetic.quotient(1, 2)
         );
@@ -89,12 +89,12 @@ class AbstractArithmeticTest {
     // region exponent and root
 
     @Test
-    void implementedIntegerExponent12() {
+    void exponent12() {
         Assertions.assertEquals(1, arithmetic.exponent(1, 2));
     }
 
     @Test
-    void implementedIntegerRoot21() {
+    void root21() {
         Assertions.assertEquals(1d, arithmetic.root2(1));
     }
 
