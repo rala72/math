@@ -18,6 +18,16 @@ class IntegerArithmeticTest {
     }
 
     @Test
+    void signum1() {
+        Assertions.assertEquals(1, arithmetic.signum(1));
+    }
+
+    @Test
+    void negate1() {
+        Assertions.assertEquals(-1, arithmetic.negate(1));
+    }
+
+    @Test
     void sum12() {
         Assertions.assertEquals(3, arithmetic.sum(1, 2));
     }
@@ -45,5 +55,18 @@ class IntegerArithmeticTest {
     @Test
     void quotient12() {
         Assertions.assertEquals(0, arithmetic.quotient(1, 2));
+    }
+
+    @Test
+    void exponent12() {
+        Assertions.assertEquals(1, arithmetic.exponent(1, 2));
+    }
+
+    @Test
+    void root21() {
+        Assertions.assertEquals(
+            (int) Math.sqrt(1),
+            arithmetic.root2(1)
+        );
     }
 }

@@ -11,6 +11,11 @@ public class FloatArithmetic extends AbstractArithmetic<Float> {
     }
 
     @Override
+    public double signum(Float a) {
+        return Math.signum(a);
+    }
+
+    @Override
     public Float sum(Float a, Float b) {
         return a + b;
     }
@@ -28,5 +33,15 @@ public class FloatArithmetic extends AbstractArithmetic<Float> {
     @Override
     public Float quotient(Float a, Float b) {
         return a / b;
+    }
+
+    @Override
+    public Float exponent(Float a, int b) {
+        return (float) Math.pow(a, b);
+    }
+
+    @Override
+    public Float root2(Float a) {
+        return (float) Math.sqrt(a);
     }
 }

@@ -18,6 +18,16 @@ class DoubleArithmeticTest {
     }
 
     @Test
+    void signum1() {
+        Assertions.assertEquals(1, arithmetic.signum(1d));
+    }
+
+    @Test
+    void negate1() {
+        Assertions.assertEquals(-1, arithmetic.negate(1d));
+    }
+
+    @Test
     void sum12() {
         Assertions.assertEquals(3, arithmetic.sum(1d, 2d));
     }
@@ -45,5 +55,18 @@ class DoubleArithmeticTest {
     @Test
     void quotient12() {
         Assertions.assertEquals(0.5d, arithmetic.quotient(1d, 2d));
+    }
+
+    @Test
+    void exponent12() {
+        Assertions.assertEquals(1, arithmetic.exponent(1d, 2));
+    }
+
+    @Test
+    void root21() {
+        Assertions.assertEquals(
+            Math.sqrt(1),
+            arithmetic.root2(1d)
+        );
     }
 }

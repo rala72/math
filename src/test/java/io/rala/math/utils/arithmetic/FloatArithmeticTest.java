@@ -18,6 +18,16 @@ class FloatArithmeticTest {
     }
 
     @Test
+    void signum1() {
+        Assertions.assertEquals(1, arithmetic.signum(1f));
+    }
+
+    @Test
+    void negate1() {
+        Assertions.assertEquals(-1, arithmetic.negate(1f));
+    }
+
+    @Test
     void sum12() {
         Assertions.assertEquals(3, arithmetic.sum(1f, 2f));
     }
@@ -45,5 +55,18 @@ class FloatArithmeticTest {
     @Test
     void quotient12() {
         Assertions.assertEquals(0.5f, arithmetic.quotient(1f, 2f));
+    }
+
+    @Test
+    void exponent12() {
+        Assertions.assertEquals(1, arithmetic.exponent(1f, 2));
+    }
+
+    @Test
+    void root21() {
+        Assertions.assertEquals(
+            (float) Math.sqrt(1),
+            arithmetic.root2(1f)
+        );
     }
 }

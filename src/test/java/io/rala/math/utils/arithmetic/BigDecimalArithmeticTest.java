@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 class BigDecimalArithmeticTest {
     private static BigDecimalArithmetic arithmetic;
@@ -17,6 +18,16 @@ class BigDecimalArithmeticTest {
     @Test
     void fromInt1() {
         Assertions.assertEquals(BigDecimal.ONE, arithmetic.fromInt(1));
+    }
+
+    @Test
+    void signum1() {
+        Assertions.assertEquals(1, arithmetic.signum(BigDecimal.ONE));
+    }
+
+    @Test
+    void negate1() {
+        Assertions.assertEquals(BigDecimal.ONE.negate(), arithmetic.negate(BigDecimal.ONE));
     }
 
     @Test
@@ -58,6 +69,19 @@ class BigDecimalArithmeticTest {
     void quotient12() {
         Assertions.assertEquals(BigDecimal.valueOf(0.5),
             arithmetic.quotient(BigDecimal.ONE, BigDecimal.valueOf(2))
+        );
+    }
+
+    @Test
+    void exponent12() {
+        Assertions.assertEquals(BigDecimal.ONE, arithmetic.exponent(BigDecimal.ONE, 2));
+    }
+
+    @Test
+    void root21() {
+        Assertions.assertEquals(
+            BigDecimal.ONE.sqrt(new MathContext(10)),
+            arithmetic.root2(BigDecimal.ONE)
         );
     }
 }

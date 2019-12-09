@@ -19,6 +19,16 @@ class AbstractArithmeticTest {
     }
 
     @Test
+    void implementedSignum1() {
+        Assertions.assertEquals(1, arithmetic.signum(1));
+    }
+
+    @Test
+    void implementedNegate1() {
+        Assertions.assertEquals(-1, arithmetic.negate(1));
+    }
+
+    @Test
     void implementedIntegerSum12() {
         Assertions.assertEquals(3, arithmetic.sum(1, 2));
     }
@@ -48,5 +58,15 @@ class AbstractArithmeticTest {
         Assertions.assertThrows(AbstractArithmetic.NotImplementedException.class,
             () -> arithmetic.quotient(1, 2)
         );
+    }
+
+    @Test
+    void implementedExponent12() {
+        Assertions.assertEquals(1, arithmetic.exponent(1, 2));
+    }
+
+    @Test
+    void implementedRoot21() {
+        Assertions.assertEquals(1, arithmetic.root2(1));
     }
 }

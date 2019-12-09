@@ -13,6 +13,11 @@ public class BigIntegerArithmetic extends AbstractArithmetic<BigInteger> {
     }
 
     @Override
+    public double signum(BigInteger a) {
+        return a.signum();
+    }
+
+    @Override
     public BigInteger sum(BigInteger a, BigInteger b) {
         return a.add(b);
     }
@@ -30,5 +35,15 @@ public class BigIntegerArithmetic extends AbstractArithmetic<BigInteger> {
     @Override
     public BigInteger quotient(BigInteger a, BigInteger b) {
         return a.divide(b);
+    }
+
+    @Override
+    public BigInteger exponent(BigInteger a, int b) {
+        return a.pow(b);
+    }
+
+    @Override
+    public BigInteger root2(BigInteger a) {
+        return a.sqrt();
     }
 }

@@ -20,6 +20,16 @@ class BigIntegerArithmeticTest {
     }
 
     @Test
+    void signum1() {
+        Assertions.assertEquals(1, arithmetic.signum(BigInteger.ONE));
+    }
+
+    @Test
+    void negate1() {
+        Assertions.assertEquals(BigInteger.ONE.negate(), arithmetic.negate(BigInteger.ONE));
+    }
+
+    @Test
     void sum12() {
         Assertions.assertEquals(BigInteger.valueOf(3),
             arithmetic.sum(BigInteger.ONE, BigInteger.TWO)
@@ -58,6 +68,19 @@ class BigIntegerArithmeticTest {
     void quotient12() {
         Assertions.assertEquals(BigInteger.ZERO,
             arithmetic.quotient(BigInteger.ONE, BigInteger.TWO)
+        );
+    }
+
+    @Test
+    void exponent12() {
+        Assertions.assertEquals(BigInteger.ONE, arithmetic.exponent(BigInteger.ONE, 2));
+    }
+
+    @Test
+    void root21() {
+        Assertions.assertEquals(
+            BigInteger.ONE.sqrt(),
+            arithmetic.root2(BigInteger.ONE)
         );
     }
 }

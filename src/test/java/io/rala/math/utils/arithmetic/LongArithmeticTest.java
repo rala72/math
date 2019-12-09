@@ -18,6 +18,16 @@ class LongArithmeticTest {
     }
 
     @Test
+    void signum1() {
+        Assertions.assertEquals(1, arithmetic.signum(1L));
+    }
+
+    @Test
+    void negate1() {
+        Assertions.assertEquals(-1, arithmetic.negate(1L));
+    }
+
+    @Test
     void sum12() {
         Assertions.assertEquals(3, arithmetic.sum(1L, 2L));
     }
@@ -45,5 +55,18 @@ class LongArithmeticTest {
     @Test
     void quotient12() {
         Assertions.assertEquals(0, arithmetic.quotient(1L, 2L));
+    }
+
+    @Test
+    void exponent12() {
+        Assertions.assertEquals(1, arithmetic.exponent(1L, 2));
+    }
+
+    @Test
+    void root21() {
+        Assertions.assertEquals(
+            (long) Math.sqrt(1),
+            arithmetic.root2(1L)
+        );
     }
 }

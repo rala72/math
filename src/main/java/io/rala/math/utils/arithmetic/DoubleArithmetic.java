@@ -11,6 +11,11 @@ public class DoubleArithmetic extends AbstractArithmetic<Double> {
     }
 
     @Override
+    public double signum(Double a) {
+        return Math.signum(a);
+    }
+
+    @Override
     public Double sum(Double a, Double b) {
         return a + b;
     }
@@ -28,5 +33,15 @@ public class DoubleArithmetic extends AbstractArithmetic<Double> {
     @Override
     public Double quotient(Double a, Double b) {
         return a / b;
+    }
+
+    @Override
+    public Double exponent(Double a, int b) {
+        return Math.pow(a, b);
+    }
+
+    @Override
+    public Double root2(Double a) {
+        return Math.sqrt(a);
     }
 }
