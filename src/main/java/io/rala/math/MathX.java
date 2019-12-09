@@ -283,23 +283,36 @@ public class MathX {
      * @param a number to calc root
      * @param n number of root
      * @return calculated root
+     * @see #root(BigDecimal, int)
      */
     public static BigDecimal root(BigDecimal a, int n) {
+        return root(a, n, MATH_CONTEXT);
+    }
+
+    /**
+     * calculates nth-root using a custom {@link MathContext}
+     *
+     * @param a       number to calc root
+     * @param n       number of root
+     * @param context context to use
+     * @return calculated root
+     */
+    public static BigDecimal root(BigDecimal a, int n, MathContext context) {
         // https://stackoverflow.com/a/34074999/2715720
         if (a.compareTo(BigDecimal.ZERO) < 0)
             throw new IllegalArgumentException(ILLEGAL_ARGUMENT__NUMBER_HAS_TO_BE_POSITIVE);
         if (a.equals(BigDecimal.ZERO)) return BigDecimal.ZERO;
-        if (n == 2) return a.sqrt(MATH_CONTEXT);
-        BigDecimal current = a.divide(BigDecimal.valueOf(n), MATH_CONTEXT);
+        if (n == 2) return a.sqrt(context);
+        BigDecimal current = a.divide(BigDecimal.valueOf(n), context);
         BigDecimal precision = BigDecimal.valueOf(.1)
-            .movePointLeft(MATH_CONTEXT.getPrecision());
+            .movePointLeft(context.getPrecision());
         BigDecimal prev = a;
         while (current.subtract(prev).abs().compareTo(precision) > 0) {
             prev = current;
             current = BigDecimal.valueOf(n - 1)
                 .multiply(current)
-                .add(a.divide(current.pow(n - 1), MATH_CONTEXT))
-                .divide(BigDecimal.valueOf(n), MATH_CONTEXT);
+                .add(a.divide(current.pow(n - 1), context))
+                .divide(BigDecimal.valueOf(n), context);
         }
         return current;
     }

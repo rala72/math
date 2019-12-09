@@ -90,7 +90,7 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
 
     @Override
     public BigDecimal root(BigDecimal a, int b) {
-        return cleanup(MathX.root(a, b));
+        return cleanup(MathX.root(a, b, getMathContext()));
     }
 
     // endregion
