@@ -12,11 +12,16 @@ class DoubleArithmeticTest {
         arithmetic = new DoubleArithmetic();
     }
 
-    // region fromInt, signum and negate
+    // region fromInt, fromDouble, signum and negate
 
     @Test
     void fromInt1() {
         Assertions.assertEquals(1, arithmetic.fromInt(1));
+    }
+
+    @Test
+    void fromDouble1_1() {
+        Assertions.assertEquals(1.1, arithmetic.fromDouble(1.1));
     }
 
     @Test

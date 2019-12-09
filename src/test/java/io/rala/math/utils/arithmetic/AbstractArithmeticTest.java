@@ -13,11 +13,16 @@ class AbstractArithmeticTest {
         arithmetic = new TestAbstractArithmetic();
     }
 
-    // region fromInt, signum and negate
+    // region fromInt, fromDouble signum and negate
 
     @Test
     void implementedIntegerFromInt0() {
         Assertions.assertEquals(0d, arithmetic.fromInt(0));
+    }
+
+    @Test
+    void implementedIntegerFromDouble0() {
+        Assertions.assertEquals(0d, arithmetic.fromDouble(0));
     }
 
     @Test
@@ -78,6 +83,55 @@ class AbstractArithmeticTest {
     @Test
     void implementedIntegerRoot21() {
         Assertions.assertEquals(1d, arithmetic.root2(1));
+    }
+
+    // endregion
+
+    // region trigonometry
+
+    @Test
+    void sinOf1() {
+        Assertions.assertEquals(Math.sin(1), arithmetic.sin(1));
+    }
+
+    @Test
+    void cosOf1() {
+        Assertions.assertEquals(Math.cos(1), arithmetic.cos(1));
+    }
+
+    @Test
+    void tanOf1() {
+        Assertions.assertEquals(Math.tan(1), arithmetic.tan(1));
+    }
+
+    @Test
+    void asinOf1() {
+        Assertions.assertEquals(Math.asin(1), arithmetic.asin(1));
+    }
+
+    @Test
+    void acosOf1() {
+        Assertions.assertEquals(Math.acos(1), arithmetic.acos(1));
+    }
+
+    @Test
+    void atanOf1() {
+        Assertions.assertEquals(Math.atan(1), arithmetic.atan(1));
+    }
+
+    @Test
+    void sinhOf1() {
+        Assertions.assertEquals(Math.sinh(1), arithmetic.sinh(1));
+    }
+
+    @Test
+    void coshOf1() {
+        Assertions.assertEquals(Math.cosh(1), arithmetic.cosh(1));
+    }
+
+    @Test
+    void tanhOf1() {
+        Assertions.assertEquals(Math.tanh(1), arithmetic.tanh(1));
     }
 
     // endregion

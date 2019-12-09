@@ -36,10 +36,15 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
         return mathContext;
     }
 
-    // region fromInt and signum
+    // region fromInt, fromDouble and signum
 
     @Override
     public BigDecimal fromInt(int a) {
+        return BigDecimal.valueOf(a);
+    }
+
+    @Override
+    public BigDecimal fromDouble(double a) {
         return BigDecimal.valueOf(a);
     }
 

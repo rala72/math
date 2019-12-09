@@ -7,11 +7,16 @@ import java.math.BigInteger;
  */
 @SuppressWarnings("unused")
 public class BigIntegerArithmetic extends AbstractArithmetic<BigInteger> {
-    // region fromInt and signum
+    // region fromInt, fromDouble and signum
 
     @Override
     public BigInteger fromInt(int a) {
         return BigInteger.valueOf(a);
+    }
+
+    @Override
+    public BigInteger fromDouble(double a) {
+        return BigInteger.valueOf((long) a);
     }
 
     @Override

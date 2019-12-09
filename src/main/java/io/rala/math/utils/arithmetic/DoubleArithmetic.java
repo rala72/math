@@ -5,11 +5,16 @@ package io.rala.math.utils.arithmetic;
  */
 @SuppressWarnings("unused")
 public class DoubleArithmetic extends AbstractArithmetic<Double> {
-    // region fromInt and signum
+    // region fromInt, fromDouble and signum
 
     @Override
     public Double fromInt(int a) {
         return (double) a;
+    }
+
+    @Override
+    public Double fromDouble(double a) {
+        return a;
     }
 
     @Override

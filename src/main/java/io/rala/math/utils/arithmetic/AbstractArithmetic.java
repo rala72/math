@@ -7,7 +7,7 @@ package io.rala.math.utils.arithmetic;
  */
 @SuppressWarnings({"unused", "SameParameterValue", "UnusedReturnValue"})
 public abstract class AbstractArithmetic<T extends Number> {
-    // region fromInt, signum and negate
+    // region fromInt, fromDouble, signum and negate
 
     /**
      * @param a value from integer
@@ -15,6 +15,13 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @throws NotImplementedException if operation is not implemented
      */
     public abstract T fromInt(int a);
+
+    /**
+     * @param a value from double
+     * @return number as <code>T</code>
+     * @throws NotImplementedException if operation is not implemented
+     */
+    public abstract T fromDouble(double a);
 
     /**
      * @param a value to get signum
@@ -98,14 +105,111 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @param a basis of exponent
      * @param b power of exponent
      * @return <code>a^b</code>
+     * @throws NotImplementedException if operation is not implemented
      */
     public abstract T exponent(T a, int b);
 
     /**
      * @param a value
      * @return <code>sqrt(a)</code>
+     * @throws NotImplementedException if operation is not implemented
      */
     public abstract T root2(T a);
+
+    // endregion
+
+    // region trigonometry
+
+    /**
+     * @param a value to calc sin from
+     * @return <code>sin(a)</code>
+     * @throws NotImplementedException if operation is not implemented
+     * @see Math#sin(double)
+     */
+    public T sin(T a) {
+        return fromDouble(Math.sin(a.doubleValue()));
+    }
+
+    /**
+     * @param a value to calc cos from
+     * @return <code>cos(a)</code>
+     * @throws NotImplementedException if operation is not implemented
+     * @see Math#cos(double)
+     */
+    public T cos(T a) {
+        return fromDouble(Math.cos(a.doubleValue()));
+    }
+
+    /**
+     * @param a value to calc tan from
+     * @return <code>tan(a)</code>
+     * @throws NotImplementedException if operation is not implemented
+     * @see Math#tan(double)
+     */
+    public T tan(T a) {
+        return fromDouble(Math.tan(a.doubleValue()));
+    }
+
+    /**
+     * @param a value to calc asin from
+     * @return <code>asin(a)</code>
+     * @throws NotImplementedException if operation is not implemented
+     * @see Math#asin(double)
+     */
+    public T asin(T a) {
+        return fromDouble(Math.asin(a.doubleValue()));
+    }
+
+    /**
+     * @param a value to calc acos from
+     * @return <code>acos(a)</code>
+     * @throws NotImplementedException if operation is not implemented
+     * @see Math#acos(double)
+     */
+    public T acos(T a) {
+        return fromDouble(Math.acos(a.doubleValue()));
+    }
+
+    /**
+     * @param a value to calc acos from
+     * @return <code>atan(a)</code>
+     * @throws NotImplementedException if operation is not implemented
+     * @see Math#atan(double)
+     */
+    public T atan(T a) {
+        return fromDouble(Math.atan(a.doubleValue()));
+    }
+
+
+    /**
+     * @param a value to calc sin from
+     * @return <code>sinh(a)</code>
+     * @throws NotImplementedException if operation is not implemented
+     * @see Math#sinh(double)
+     */
+    public T sinh(T a) {
+        return fromDouble(Math.sinh(a.doubleValue()));
+    }
+
+    /**
+     * @param a value to calc cos from
+     * @return <code>cosh(a)</code>
+     * @throws NotImplementedException if operation is not implemented
+     * @see Math#cosh(double)
+     */
+    public T cosh(T a) {
+        return fromDouble(Math.cosh(a.doubleValue()));
+    }
+
+    /**
+     * @param a value to calc tan from
+     * @return <code>tanh(a)</code>
+     * @throws NotImplementedException if operation is not implemented
+     * @see Math#tanh(double)
+     */
+    public T tanh(T a) {
+        return fromDouble(Math.tanh(a.doubleValue()));
+    }
 
     // endregion
 

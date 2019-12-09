@@ -14,11 +14,16 @@ class BigIntegerArithmeticTest {
         arithmetic = new BigIntegerArithmetic();
     }
 
-    // region fromInt, signum and negate
+    // region fromInt, fromDouble signum and negate
 
     @Test
     void fromInt1() {
         Assertions.assertEquals(BigInteger.ONE, arithmetic.fromInt(1));
+    }
+
+    @Test
+    void fromDouble1_1() {
+        Assertions.assertEquals(BigInteger.ONE, arithmetic.fromDouble(1.1));
     }
 
     @Test

@@ -5,10 +5,15 @@ package io.rala.math.utils.arithmetic;
  */
 @SuppressWarnings("unused")
 public class FloatArithmetic extends AbstractArithmetic<Float> {
-    // region fromInt and signum
+    // region fromInt, fromDouble and signum
 
     @Override
     public Float fromInt(int a) {
+        return (float) a;
+    }
+
+    @Override
+    public Float fromDouble(double a) {
         return (float) a;
     }
 

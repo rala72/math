@@ -4,11 +4,16 @@ import io.rala.math.utils.arithmetic.AbstractArithmetic;
 
 @SuppressWarnings("unused")
 public class TestAbstractArithmetic extends AbstractArithmetic<Number> {
-    // region fromInt, signum
+    // region fromInt, fromDouble and signum
 
     @Override
     public Number fromInt(int a) {
         return (double) a;
+    }
+
+    @Override
+    public Number fromDouble(double a) {
+        return a;
     }
 
     @Override

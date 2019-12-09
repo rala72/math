@@ -5,10 +5,15 @@ package io.rala.math.utils.arithmetic;
  */
 @SuppressWarnings("unused")
 public class LongArithmetic extends AbstractArithmetic<Long> {
-    // region fromInt and signum
+    // region fromInt, fromDouble and signum
 
     @Override
     public Long fromInt(int a) {
+        return (long) a;
+    }
+
+    @Override
+    public Long fromDouble(double a) {
         return (long) a;
     }
 
