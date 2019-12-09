@@ -10,4 +10,8 @@ public class TestComplex extends Complex<Number> {
     public TestComplex(Number re, Number im) {
         super(new TestAbstractArithmetic(), re, im);
     }
+
+    public TestComplex(Complex<Number> complex) {
+        super(complex);
+    }
 }

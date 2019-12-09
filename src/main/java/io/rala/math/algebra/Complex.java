@@ -49,6 +49,15 @@ public class Complex<T extends Number> extends Number implements Validatable,
         this.im = im;
     }
 
+    /**
+     * creates a new complex based on given one
+     *
+     * @param complex complex to copy
+     */
+    protected Complex(Complex<T> complex) {
+        this(complex.getArithmetic(), complex.getRe(), complex.getIm());
+    }
+
     // endregion
 
     // region getter and setter

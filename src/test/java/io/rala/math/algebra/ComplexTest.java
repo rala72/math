@@ -24,6 +24,11 @@ class ComplexTest {
     }
 
     @Test
+    void constructorWithComplex() {
+        assertComplex(new TestComplex(new TestComplex(2d, 3d)), 2, 3);
+    }
+
+    @Test
     void createAndSetRe() {
         TestComplex complex = new TestComplex();
         assertComplex(complex);
@@ -366,7 +371,7 @@ class ComplexTest {
     // region static of, asVector, static ofVector
 
     @Test
-    void ofOfAb3AndAr50() {
+    void ofAb3AndAr50() {
         assertComplex(
             Complex.of(new TestAbstractArithmetic(), 3, 50),
             0,
