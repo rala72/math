@@ -1,6 +1,6 @@
 package io.rala.math;
 
-import io.rala.math.testUtils.MathXArgumentsStreamFactory;
+import io.rala.math.testUtils.arguments.MathXArgumentsStreamFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
