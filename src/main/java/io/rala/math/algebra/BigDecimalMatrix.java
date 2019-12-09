@@ -125,7 +125,7 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      */
     public static BigDecimalMatrix ofValuesByRows(int rows, BigDecimal... values) {
         if (values.length % rows != 0)
-            throw new IllegalArgumentException("rows modulo values.length is not congruent 0");
+            throw new IllegalArgumentException(EXCEPTION_ROWS_NOT_CONGRUENT_0);
         BigDecimalMatrix matrix = new BigDecimalMatrix(rows, values.length / rows);
         for (int i = 0; i < values.length; i++)
             matrix.setValue(i, values[i]);
@@ -143,7 +143,7 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      */
     public static BigDecimalMatrix ofValuesByCols(int cols, BigDecimal... values) {
         if (values.length % cols != 0)
-            throw new IllegalArgumentException("cols modulo values.length is not congruent 0");
+            throw new IllegalArgumentException(EXCEPTION_COLS_NOT_CONGRUENT_0);
         return new BigDecimalMatrix(
             ofValuesByRows(values.length / cols, values)
                 .transpose()

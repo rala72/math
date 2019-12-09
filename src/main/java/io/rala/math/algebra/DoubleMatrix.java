@@ -99,7 +99,7 @@ public class DoubleMatrix extends Matrix<Double> {
      */
     public static DoubleMatrix ofValuesByRows(int rows, double... values) {
         if (values.length % rows != 0)
-            throw new IllegalArgumentException("rows modulo values.length is not congruent 0");
+            throw new IllegalArgumentException(EXCEPTION_ROWS_NOT_CONGRUENT_0);
         DoubleMatrix matrix = new DoubleMatrix(rows, values.length / rows);
         for (int i = 0; i < values.length; i++)
             matrix.setValue(i, values[i]);
@@ -117,7 +117,7 @@ public class DoubleMatrix extends Matrix<Double> {
      */
     public static DoubleMatrix ofValuesByCols(int cols, double... values) {
         if (values.length % cols != 0)
-            throw new IllegalArgumentException("cols modulo values.length is not congruent 0");
+            throw new IllegalArgumentException(EXCEPTION_COLS_NOT_CONGRUENT_0);
         return new DoubleMatrix(
             ofValuesByRows(values.length / cols, values)
                 .transpose()

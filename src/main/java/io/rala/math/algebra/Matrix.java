@@ -13,10 +13,19 @@ import java.util.stream.StreamSupport;
  * @param <T> number class
  */
 @SuppressWarnings({"unused", "WeakerAccess", "UnusedReturnValue"})
-public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, Iterable<Matrix<T>.Field> {
+public abstract class Matrix<T extends Number>
+    implements Copyable<Matrix<T>>, Iterable<Matrix<T>.Field> {
     protected static final String EXCEPTION_SIZE_PREFIX = "size: ";
     protected static final String EXCEPTION_ROW_PREFIX = "row: ";
     protected static final String EXCEPTION_COL_PREFIX = "col: ";
+    protected static final String EXCEPTION_ANY_COLS_EQUALS_OTHER_ROWS =
+        "any cols have to be equal to the other matrix rows";
+    protected static final String EXCEPTION_COLS_EQUALS_PARAM_ROWS =
+        "cols have to be equal to parameter rows";
+    protected static final String EXCEPTION_ROWS_NOT_CONGRUENT_0 =
+        "rows modulo values.length is not congruent 0";
+    protected static final String EXCEPTION_COLS_NOT_CONGRUENT_0 =
+        "cols modulo values.length is not congruent 0";
 
     // region attributes
 
@@ -31,7 +40,8 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
     // region constructor and newInstance
 
     /**
-     * calls {@link #Matrix(AbstractArithmetic, int, int, Number)} with size as rows and cols and
+     * calls {@link #Matrix(AbstractArithmetic, int, int, Number)}
+     * with size as rows and cols and
      * given default value for non-existing values
      *
      * @param arithmetic   arithmetic for calculations
@@ -266,7 +276,7 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
      */
     public Matrix<T> multiply(Matrix<T> matrix) {
         if (getCols() != matrix.getRows())
-            throw new IllegalArgumentException("cols have to be equal to parameter rows");
+            throw new IllegalArgumentException(EXCEPTION_COLS_EQUALS_PARAM_ROWS);
         Matrix<T> result = newInstance(getRows(), matrix.getCols());
         for (int r = 0; r < result.getRows(); r++)
             for (int c = 0; c < result.getCols(); c++) {
@@ -294,7 +304,7 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
             return this.multiply(matrix);
         else if (getRows() == matrix.getCols())
             return matrix.multiplyTolerant(this);
-        throw new IllegalArgumentException("any cols have to be equal to the other matrix rows");
+        throw new IllegalArgumentException(EXCEPTION_ANY_COLS_EQUALS_OTHER_ROWS);
     }
 
     // public Matrix<T> inverse();
@@ -617,9 +627,8 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
         );
     }
 
-    private static <T extends Number> Map.Entry<Integer, List<Matrix<T>.Field>> getBestEntry(
-        List<Matrix<T>.Field> zeros, boolean isRowMode
-    ) {
+    private static <T extends Number> Map.Entry<Integer, List<Matrix<T>.Field>>
+    getBestEntry(List<Matrix<T>.Field> zeros, boolean isRowMode) {
         return zeros.stream()
             .collect(Collectors.groupingBy(field ->
                 isRowMode ? field.getRow() : field.getCol()
