@@ -47,7 +47,7 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
 
     @Override
     public BigDecimal fromDouble(double a) {
-        return BigDecimal.valueOf(a);
+        return cleanup(BigDecimal.valueOf(a));
     }
 
     @Override
@@ -61,22 +61,22 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
 
     @Override
     public BigDecimal sum(BigDecimal a, BigDecimal b) {
-        return a.add(b, getMathContext());
+        return cleanup(a.add(b, getMathContext()));
     }
 
     @Override
     public BigDecimal difference(BigDecimal a, BigDecimal b) {
-        return a.subtract(b, getMathContext());
+        return cleanup(a.subtract(b, getMathContext()));
     }
 
     @Override
     public BigDecimal product(BigDecimal a, BigDecimal b) {
-        return a.multiply(b, getMathContext());
+        return cleanup(a.multiply(b, getMathContext()));
     }
 
     @Override
     public BigDecimal quotient(BigDecimal a, BigDecimal b) {
-        return a.divide(b, getMathContext());
+        return cleanup(a.divide(b, getMathContext()));
     }
 
     // endregion
@@ -85,13 +85,20 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
 
     @Override
     public BigDecimal exponent(BigDecimal a, int b) {
-        return a.pow(b, getMathContext());
+        return cleanup(a.pow(b, getMathContext()));
     }
 
     @Override
     public BigDecimal root(BigDecimal a, int b) {
-        return MathX.root(a, b);
+        return cleanup(MathX.root(a, b));
     }
 
     // endregion
+
+    private BigDecimal cleanup(BigDecimal a) {
+        return new BigDecimal(
+            a.stripTrailingZeros().toPlainString(),
+            getMathContext()
+        );
+    }
 }

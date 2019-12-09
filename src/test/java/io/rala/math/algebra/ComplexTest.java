@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 class ComplexTest {
-    private static final double DELTA = 0.00001;
-
     // region constructors, getter and setter
 
     @Test
@@ -109,8 +107,7 @@ class ComplexTest {
     @Test
     void argumentOfComplexX1Y1() {
         Assertions.assertEquals(0d,
-            new TestComplex(1, 1).argument().doubleValue(),
-            DELTA
+            new TestComplex(1, 1).argument().doubleValue()
         );
     }
 
