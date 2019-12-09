@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class AbstractArithmeticTest {
-    private AbstractArithmetic<Integer> arithmetic;
+    private AbstractArithmetic<Number> arithmetic;
 
     @BeforeEach
     void setUp() {
@@ -15,7 +15,7 @@ class AbstractArithmeticTest {
 
     @Test
     void implementedFromInt0() {
-        Assertions.assertEquals(0, arithmetic.fromInt(0));
+        Assertions.assertEquals(0d, arithmetic.fromInt(0));
     }
 
     @Test
@@ -67,6 +67,6 @@ class AbstractArithmeticTest {
 
     @Test
     void implementedRoot21() {
-        Assertions.assertEquals(1, arithmetic.root2(1));
+        Assertions.assertEquals(1d, arithmetic.root2(1));
     }
 }
