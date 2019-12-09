@@ -5,6 +5,8 @@ package io.rala.math.utils.arithmetic;
  */
 @SuppressWarnings("unused")
 public class LongArithmetic extends AbstractArithmetic<Long> {
+    // region fromInt and signum
+
     @Override
     public Long fromInt(int a) {
         return (long) a;
@@ -14,6 +16,10 @@ public class LongArithmetic extends AbstractArithmetic<Long> {
     public double signum(Long a) {
         return Math.signum(a);
     }
+
+    // endregion
+
+    // region sum, difference, product and quotient
 
     @Override
     public Long sum(Long a, Long b) {
@@ -35,6 +41,10 @@ public class LongArithmetic extends AbstractArithmetic<Long> {
         return a / b;
     }
 
+    // endregion
+
+    // region exponent and root
+
     @Override
     public Long exponent(Long a, int b) {
         return (long) Math.pow(a, b);
@@ -44,4 +54,6 @@ public class LongArithmetic extends AbstractArithmetic<Long> {
     public Long root2(Long a) {
         return (long) Math.sqrt(a);
     }
+
+    // endregion
 }

@@ -14,6 +14,8 @@ class BigIntegerArithmeticTest {
         arithmetic = new BigIntegerArithmetic();
     }
 
+    // region fromInt, signum and negate
+
     @Test
     void fromInt1() {
         Assertions.assertEquals(BigInteger.ONE, arithmetic.fromInt(1));
@@ -28,6 +30,10 @@ class BigIntegerArithmeticTest {
     void negate1() {
         Assertions.assertEquals(BigInteger.ONE.negate(), arithmetic.negate(BigInteger.ONE));
     }
+
+    // endregion
+
+    // region sum, difference, product and quotient
 
     @Test
     void sum12() {
@@ -71,6 +77,10 @@ class BigIntegerArithmeticTest {
         );
     }
 
+    // endregion
+
+    // region exponent and root
+
     @Test
     void exponent12() {
         Assertions.assertEquals(BigInteger.ONE, arithmetic.exponent(BigInteger.ONE, 2));
@@ -83,4 +93,6 @@ class BigIntegerArithmeticTest {
             arithmetic.root2(BigInteger.ONE)
         );
     }
+
+    // endregion
 }

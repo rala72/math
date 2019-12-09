@@ -13,20 +13,26 @@ class AbstractArithmeticTest {
         arithmetic = new TestAbstractArithmetic();
     }
 
+    // region fromInt, signum and negate
+
     @Test
-    void implementedFromInt0() {
+    void implementedIntegerFromInt0() {
         Assertions.assertEquals(0d, arithmetic.fromInt(0));
     }
 
     @Test
-    void implementedSignum1() {
+    void implementedIntegerSignum1() {
         Assertions.assertEquals(1, arithmetic.signum(1));
     }
 
     @Test
-    void implementedNegate1() {
+    void implementedIntegerNegate1() {
         Assertions.assertEquals(-1, arithmetic.negate(1));
     }
+
+    // endregion
+
+    // region sum, difference, product and quotient
 
     @Test
     void implementedIntegerSum12() {
@@ -60,13 +66,19 @@ class AbstractArithmeticTest {
         );
     }
 
+    // endregion
+
+    // region exponent and root
+
     @Test
-    void implementedExponent12() {
+    void implementedIntegerExponent12() {
         Assertions.assertEquals(1, arithmetic.exponent(1, 2));
     }
 
     @Test
-    void implementedRoot21() {
+    void implementedIntegerRoot21() {
         Assertions.assertEquals(1d, arithmetic.root2(1));
     }
+
+    // endregion
 }

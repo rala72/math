@@ -12,6 +12,8 @@ class LongArithmeticTest {
         arithmetic = new LongArithmetic();
     }
 
+    // region fromInt, signum and negate
+
     @Test
     void fromInt1() {
         Assertions.assertEquals(1, arithmetic.fromInt(1));
@@ -26,6 +28,10 @@ class LongArithmeticTest {
     void negate1() {
         Assertions.assertEquals(-1, arithmetic.negate(1L));
     }
+
+    // endregion
+
+    // region sum, difference, product and quotient
 
     @Test
     void sum12() {
@@ -57,6 +63,10 @@ class LongArithmeticTest {
         Assertions.assertEquals(0, arithmetic.quotient(1L, 2L));
     }
 
+    // endregion
+
+    // region exponent and root
+
     @Test
     void exponent12() {
         Assertions.assertEquals(1, arithmetic.exponent(1L, 2));
@@ -69,4 +79,6 @@ class LongArithmeticTest {
             arithmetic.root2(1L)
         );
     }
+
+    // endregion
 }

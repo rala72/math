@@ -7,6 +7,8 @@ import java.math.BigInteger;
  */
 @SuppressWarnings("unused")
 public class BigIntegerArithmetic extends AbstractArithmetic<BigInteger> {
+    // region fromInt and signum
+
     @Override
     public BigInteger fromInt(int a) {
         return BigInteger.valueOf(a);
@@ -16,6 +18,10 @@ public class BigIntegerArithmetic extends AbstractArithmetic<BigInteger> {
     public double signum(BigInteger a) {
         return a.signum();
     }
+
+    // endregion
+
+    // region sum, difference, product and quotient
 
     @Override
     public BigInteger sum(BigInteger a, BigInteger b) {
@@ -37,6 +43,10 @@ public class BigIntegerArithmetic extends AbstractArithmetic<BigInteger> {
         return a.divide(b);
     }
 
+    // endregion
+
+    // region exponent and root
+
     @Override
     public BigInteger exponent(BigInteger a, int b) {
         return a.pow(b);
@@ -46,4 +56,6 @@ public class BigIntegerArithmetic extends AbstractArithmetic<BigInteger> {
     public BigInteger root2(BigInteger a) {
         return a.sqrt();
     }
+
+    // endregion
 }

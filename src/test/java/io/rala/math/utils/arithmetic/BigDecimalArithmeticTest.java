@@ -15,6 +15,8 @@ class BigDecimalArithmeticTest {
         arithmetic = new BigDecimalArithmetic();
     }
 
+    // region fromInt, signum and negate
+
     @Test
     void fromInt1() {
         Assertions.assertEquals(BigDecimal.ONE, arithmetic.fromInt(1));
@@ -29,6 +31,10 @@ class BigDecimalArithmeticTest {
     void negate1() {
         Assertions.assertEquals(BigDecimal.ONE.negate(), arithmetic.negate(BigDecimal.ONE));
     }
+
+    // endregion
+
+    // region sum, difference, product and quotient
 
     @Test
     void sum12() {
@@ -72,6 +78,10 @@ class BigDecimalArithmeticTest {
         );
     }
 
+    // endregion
+
+    // region exponent and root
+
     @Test
     void exponent12() {
         Assertions.assertEquals(BigDecimal.ONE, arithmetic.exponent(BigDecimal.ONE, 2));
@@ -84,4 +94,6 @@ class BigDecimalArithmeticTest {
             arithmetic.root2(BigDecimal.ONE)
         );
     }
+
+    // endregion
 }

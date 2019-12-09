@@ -12,6 +12,8 @@ class FloatArithmeticTest {
         arithmetic = new FloatArithmetic();
     }
 
+    // region fromInt, signum and negate
+
     @Test
     void fromInt1() {
         Assertions.assertEquals(1, arithmetic.fromInt(1));
@@ -26,6 +28,10 @@ class FloatArithmeticTest {
     void negate1() {
         Assertions.assertEquals(-1, arithmetic.negate(1f));
     }
+
+    // endregion
+
+    // region sum, difference, product and quotient
 
     @Test
     void sum12() {
@@ -57,6 +63,10 @@ class FloatArithmeticTest {
         Assertions.assertEquals(0.5f, arithmetic.quotient(1f, 2f));
     }
 
+    // endregion
+
+    // region exponent and root
+
     @Test
     void exponent12() {
         Assertions.assertEquals(1, arithmetic.exponent(1f, 2));
@@ -69,4 +79,6 @@ class FloatArithmeticTest {
             arithmetic.root2(1f)
         );
     }
+
+    // endregion
 }

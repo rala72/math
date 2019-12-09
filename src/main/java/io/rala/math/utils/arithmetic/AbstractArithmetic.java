@@ -7,6 +7,8 @@ package io.rala.math.utils.arithmetic;
  */
 @SuppressWarnings({"unused", "SameParameterValue", "UnusedReturnValue"})
 public abstract class AbstractArithmetic<T extends Number> {
+    // region fromInt, signum and negate
+
     /**
      * @param a value from integer
      * @return number as <code>T</code>
@@ -27,6 +29,10 @@ public abstract class AbstractArithmetic<T extends Number> {
     public T negate(T a) {
         return product(a, fromInt(-1));
     }
+
+    // endregion
+
+    // region sum, difference, product and quotient
 
     /**
      * @param a first value of sum
@@ -84,6 +90,10 @@ public abstract class AbstractArithmetic<T extends Number> {
      */
     public abstract T quotient(T a, T b);
 
+    // endregion
+
+    // region exponent and root
+
     /**
      * @param a basis of exponent
      * @param b power of exponent
@@ -96,6 +106,8 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @return <code>sqrt(a)</code>
      */
     public abstract T root2(T a);
+
+    // endregion
 
     /**
      * thrown if operation is not supported

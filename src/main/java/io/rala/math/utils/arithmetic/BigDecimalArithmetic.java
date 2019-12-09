@@ -29,9 +29,14 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
         this.mathContext = mathContext;
     }
 
+    /**
+     * @return current {@link MathContext}
+     */
     public MathContext getMathContext() {
         return mathContext;
     }
+
+    // region fromInt and signum
 
     @Override
     public BigDecimal fromInt(int a) {
@@ -42,6 +47,10 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
     public double signum(BigDecimal a) {
         return a.signum();
     }
+
+    // endregion
+
+    // region sum, difference, product and quotient
 
     @Override
     public BigDecimal sum(BigDecimal a, BigDecimal b) {
@@ -63,6 +72,10 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
         return a.divide(b, getMathContext());
     }
 
+    // endregion
+
+    // region exponent and root
+
     @Override
     public BigDecimal exponent(BigDecimal a, int b) {
         return a.pow(b, getMathContext());
@@ -72,4 +85,6 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
     public BigDecimal root2(BigDecimal a) {
         return a.sqrt(getMathContext());
     }
+
+    // endregion
 }

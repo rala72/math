@@ -12,6 +12,8 @@ class IntegerArithmeticTest {
         arithmetic = new IntegerArithmetic();
     }
 
+    // region fromInt, signum and negate
+
     @Test
     void fromInt1() {
         Assertions.assertEquals(1, arithmetic.fromInt(1));
@@ -26,6 +28,10 @@ class IntegerArithmeticTest {
     void negate1() {
         Assertions.assertEquals(-1, arithmetic.negate(1));
     }
+
+    // endregion
+
+    // region sum, difference, product and quotient
 
     @Test
     void sum12() {
@@ -57,6 +63,10 @@ class IntegerArithmeticTest {
         Assertions.assertEquals(0, arithmetic.quotient(1, 2));
     }
 
+    // endregion
+
+    // region exponent and root
+
     @Test
     void exponent12() {
         Assertions.assertEquals(1, arithmetic.exponent(1, 2));
@@ -69,4 +79,6 @@ class IntegerArithmeticTest {
             arithmetic.root2(1)
         );
     }
+
+    // endregion
 }

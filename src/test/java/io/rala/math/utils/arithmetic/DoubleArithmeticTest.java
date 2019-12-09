@@ -12,6 +12,8 @@ class DoubleArithmeticTest {
         arithmetic = new DoubleArithmetic();
     }
 
+    // region fromInt, signum and negate
+
     @Test
     void fromInt1() {
         Assertions.assertEquals(1, arithmetic.fromInt(1));
@@ -26,6 +28,10 @@ class DoubleArithmeticTest {
     void negate1() {
         Assertions.assertEquals(-1, arithmetic.negate(1d));
     }
+
+    // endregion
+
+    // region sum, difference, product and quotient
 
     @Test
     void sum12() {
@@ -62,6 +68,10 @@ class DoubleArithmeticTest {
         Assertions.assertEquals(1, arithmetic.exponent(1d, 2));
     }
 
+    // endregion
+
+    // region exponent and root
+
     @Test
     void root21() {
         Assertions.assertEquals(
@@ -69,4 +79,6 @@ class DoubleArithmeticTest {
             arithmetic.root2(1d)
         );
     }
+
+    // endregion
 }
