@@ -471,7 +471,7 @@ class MatrixTest {
         List<TestMatrix.Field> values = new ArrayList<>();
         for (TestMatrix.Field d : matrix) {
             values.add(d);
-            Assertions.assertEquals(0, d.getValue());
+            Assertions.assertEquals(0d, d.getValue());
         }
         Assertions.assertEquals(matrix.size(), values.size());
     }
@@ -727,7 +727,7 @@ class MatrixTest {
 
     // endregion
 
-    // region protected: getIndexOfRowAndCol and isValid
+    // region protected: getIndexOfRowAndCol, isDefaultValue and isValid
 
     @Test
     void getIndexOfRowAndColOfMatrixWithSize2() {
@@ -736,6 +736,22 @@ class MatrixTest {
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 Assertions.assertEquals(index++, matrix.getIndexOfRowAndCol(r, c));
+    }
+
+    @Test
+    void isDefaultValueOfMatrixWithDefaultValueNull() {
+        TestMatrix matrix = new TestMatrix(1, null);
+        Assertions.assertTrue(matrix.isDefaultValue(null));
+        Assertions.assertFalse(matrix.isDefaultValue(0));
+        Assertions.assertFalse(matrix.isDefaultValue(1));
+    }
+
+    @Test
+    void isDefaultValueOfMatrixWithDefaultValue1() {
+        TestMatrix matrix = new TestMatrix(1, 1d);
+        Assertions.assertFalse(matrix.isDefaultValue(null));
+        Assertions.assertFalse(matrix.isDefaultValue(0));
+        Assertions.assertTrue(matrix.isDefaultValue(1d));
     }
 
     @Test

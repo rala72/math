@@ -1,6 +1,7 @@
 package io.rala.math.algebra;
 
 import io.rala.math.utils.Copyable;
+import io.rala.math.utils.arithmetic.AbstractArithmetic;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,6 +20,7 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
 
     // region attributes
 
+    private final AbstractArithmetic<T> arithmetic;
     private final Map<Integer, T> matrix = new TreeMap<>();
     private final int rows;
     private final int cols;
@@ -29,25 +31,28 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
     // region constructor and newInstance
 
     /**
-     * calls {@link #Matrix(int, int, Number)} with size as rows and cols and
+     * calls {@link #Matrix(AbstractArithmetic, int, int, Number)} with size as rows and cols and
      * given default value for non-existing values
      *
+     * @param arithmetic   arithmetic for calculations
      * @param size         size of matrix
      * @param defaultValue default value of non-existing values
      */
-    public Matrix(int size, T defaultValue) {
-        this(size, size, defaultValue);
+    public Matrix(AbstractArithmetic<T> arithmetic, int size, T defaultValue) {
+        this(arithmetic, size, size, defaultValue);
     }
 
     /**
      * creates a new matrix with given rows and cols
      * which uses given default value for non-existing values
      *
+     * @param arithmetic   arithmetic for calculations
      * @param rows         rows of matrix
      * @param cols         cols of matrix
      * @param defaultValue default value of non-existing values
      */
-    public Matrix(int rows, int cols, T defaultValue) {
+    public Matrix(AbstractArithmetic<T> arithmetic, int rows, int cols, T defaultValue) {
+        this.arithmetic = arithmetic;
         this.rows = rows;
         this.cols = cols;
         this.defaultValue = defaultValue;
@@ -59,7 +64,11 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
      * @param matrix matrix to copy
      */
     protected Matrix(Matrix<T> matrix) {
-        this(matrix.getRows(), matrix.getCols(), matrix.getDefaultValue());
+        this(
+            matrix.getArithmetic(),
+            matrix.getRows(), matrix.getCols(),
+            matrix.getDefaultValue()
+        );
         getMatrix().putAll(matrix.getMatrix());
     }
 
@@ -86,6 +95,13 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
     // endregion
 
     // region getter and size
+
+    /**
+     * @return current arithmetic
+     */
+    protected AbstractArithmetic<T> getArithmetic() {
+        return arithmetic;
+    }
 
     /**
      * @return matrix map which uses index as key
@@ -226,57 +242,6 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
 
     // endregion
 
-    // region abstract: generic number arithmetic
-
-    /**
-     * @param a value from integer
-     * @return number as <code>T</code>
-     */
-    protected abstract T fromInt(int a);
-
-    /**
-     * @param a first value of sum
-     * @param b second value of sum
-     * @return <code>a+b</code>
-     */
-    protected abstract T sum(T a, T b);
-
-    /**
-     * @param a first value of sum
-     * @param b second value of sum
-     * @param c third value of sum
-     * @return <code>a+b+c</code>
-     */
-    protected T sum(T a, T b, T c) {
-        return sum(sum(a, b), c);
-    }
-
-    /**
-     * @param a first value of difference
-     * @param b second value of difference
-     * @return <code>a-b</code>
-     */
-    protected abstract T difference(T a, T b);
-
-    /**
-     * @param a first value of product
-     * @param b second value of product
-     * @return <code>a*b</code>
-     */
-    protected abstract T product(T a, T b);
-
-    /**
-     * @param a first value of product
-     * @param b second value of product
-     * @param c third value of product
-     * @return <code>a*b*c</code>
-     */
-    protected T product(T a, T b, T c) {
-        return product(product(a, b), c);
-    }
-
-    // endregion
-
     // region matrix arithmetic
 
     /**
@@ -290,7 +255,8 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
             throw new IllegalArgumentException("cols have to be equal");
         Matrix<T> result = copy();
         for (int i = 0; i < size(); i++)
-            result.getMatrix().merge(i, matrix.getValue(i), this::sum);
+            result.getMatrix().merge(i, matrix.getValue(i), getArithmetic()::sum);
+        result.removeDefaultValues();
         return result;
     }
 
@@ -306,7 +272,9 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
             for (int c = 0; c < result.getCols(); c++) {
                 T d = getDefaultValue();
                 for (int i = 0; i < getRows(); i++)
-                    d = sum(d, product(getValue(r, i), matrix.getValue(i, c)));
+                    d = getArithmetic().sum(d,
+                        getArithmetic().product(getValue(r, i), matrix.getValue(i, c))
+                    );
                 result.setValue(r, c, d);
             }
         return result;
@@ -349,22 +317,34 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
         if (size() == 0 || !isSquare()) return getDefaultValue();
         if (getRows() == 1) return getValue(0);
         if (getRows() == 2) {
-            return difference(
-                product(getValue(0, 0), getValue(1, 1)),
-                product(getValue(0, 1), getValue(1, 0))
+            return getArithmetic().difference(
+                getArithmetic().product(getValue(0, 0), getValue(1, 1)),
+                getArithmetic().product(getValue(0, 1), getValue(1, 0))
             );
         }
         if (getRows() == 3) {
-            return difference(
-                sum(
-                    product(getValue(0, 0), getValue(1, 1), getValue(2, 2)),
-                    product(getValue(0, 1), getValue(1, 2), getValue(2, 0)),
-                    product(getValue(0, 2), getValue(1, 0), getValue(2, 1))
+            return getArithmetic().difference(
+                getArithmetic().sum(
+                    getArithmetic().product(
+                        getValue(0, 0), getValue(1, 1), getValue(2, 2)
+                    ),
+                    getArithmetic().product(
+                        getValue(0, 1), getValue(1, 2), getValue(2, 0)
+                    ),
+                    getArithmetic().product(
+                        getValue(0, 2), getValue(1, 0), getValue(2, 1)
+                    )
                 ),
-                sum(
-                    product(getValue(2, 0), getValue(1, 1), getValue(0, 2)),
-                    product(getValue(2, 1), getValue(1, 2), getValue(0, 0)),
-                    product(getValue(2, 2), getValue(1, 0), getValue(0, 1))
+                getArithmetic().sum(
+                    getArithmetic().product(getValue(2, 0),
+                        getValue(1, 1), getValue(0, 2)
+                    ),
+                    getArithmetic().product(getValue(2, 1),
+                        getValue(1, 2), getValue(0, 0)
+                    ),
+                    getArithmetic().product(getValue(2, 2),
+                        getValue(1, 0), getValue(0, 1)
+                    )
                 )
             );
         }
@@ -391,7 +371,7 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
             int col = isRowMode ? i : index;
             T indexValue = isRowMode ? getValue(index, i) : getValue(i, index);
             if (indexValue.equals(getDefaultValue())) continue;
-            T signum = fromInt(index + i % 2 == 0 ? 1 : -1);
+            T signum = getArithmetic().fromInt(index + i % 2 == 0 ? 1 : -1);
             Matrix<T> sub = newInstance(getRows() - 1, getCols() - 1);
             for (int r = 0; r < sub.getRows(); r++) {
                 int ar = r < row ? r : r + 1;
@@ -400,7 +380,12 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
                     sub.setValue(r, c, getValue(ar, ac));
                 }
             }
-            t = sum(t, product(product(indexValue, signum), sub.determinante()));
+            t = getArithmetic().sum(t,
+                getArithmetic().product(
+                    getArithmetic().product(indexValue, signum),
+                    sub.determinante()
+                )
+            );
         }
         return t;
     }
@@ -504,7 +489,12 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
         Matrix<T> copy = copy();
         if (n == 1) return copy;
         for (int c = 0; c < getCols(); c++)
-            copy.setValue(row, c, product(getValue(row, c), fromInt(n)));
+            copy.setValue(row, c,
+                getArithmetic().product(
+                    getValue(row, c),
+                    getArithmetic().fromInt(n)
+                )
+            );
         return copy;
     }
 
@@ -520,7 +510,12 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
         Matrix<T> copy = copy();
         if (n == 1) return copy;
         for (int r = 0; r < getRows(); r++)
-            copy.setValue(r, col, product(getValue(r, col), fromInt(n)));
+            copy.setValue(r, col,
+                getArithmetic().product(
+                    getValue(r, col),
+                    getArithmetic().fromInt(n)
+                )
+            );
         return copy;
     }
 
@@ -539,8 +534,8 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
         if (row1 == row2) return multiplyRow(row1, n);
         Matrix<T> copy = copy();
         for (int c = 0; c < getCols(); c++)
-            copy.setValue(row1, c, sum(getValue(row1, c),
-                product(getValue(row2, c), fromInt(n))
+            copy.setValue(row1, c, getArithmetic().sum(getValue(row1, c),
+                getArithmetic().product(getValue(row2, c), getArithmetic().fromInt(n))
             ));
         return copy;
     }
@@ -560,15 +555,15 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
         if (col1 == col2) return multiplyCol(col1, n);
         Matrix<T> copy = copy();
         for (int r = 0; r < getRows(); r++)
-            copy.setValue(r, col1, sum(getValue(r, col1),
-                product(getValue(r, col2), fromInt(n))
+            copy.setValue(r, col1, getArithmetic().sum(getValue(r, col1),
+                getArithmetic().product(getValue(r, col2), getArithmetic().fromInt(n))
             ));
         return copy;
     }
 
     // endregion
 
-    // region protected: getIndexOfRowAndCol and isValid
+    // region protected: isDefaultValue, getIndexOfRowAndCol and isValid
 
     /**
      * @param row row of requested index
@@ -577,6 +572,15 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
      */
     protected final int getIndexOfRowAndCol(int row, int col) {
         return row * getCols() + col;
+    }
+
+    /**
+     * @param t value to check
+     * @return <code>true</code> if t is equal to {@link #getDefaultValue()}
+     */
+    protected final boolean isDefaultValue(T t) {
+        return getDefaultValue() == null && t == null ||
+            t != null && t.equals(getDefaultValue());
     }
 
     /**
@@ -606,6 +610,12 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
     // endregion
 
     // region private
+
+    private void removeDefaultValues() {
+        getMatrix().entrySet().removeIf(integerTEntry ->
+            isDefaultValue(integerTEntry.getValue())
+        );
+    }
 
     private static <T extends Number> Map.Entry<Integer, List<Matrix<T>.Field>> getBestEntry(
         List<Matrix<T>.Field> zeros, boolean isRowMode

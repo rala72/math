@@ -3,44 +3,44 @@ package io.rala.math.testUtils;
 import io.rala.math.utils.arithmetic.AbstractArithmetic;
 
 @SuppressWarnings("unused")
-public class TestAbstractArithmetic extends AbstractArithmetic<Integer> {
+public class TestAbstractArithmetic extends AbstractArithmetic<Number> {
     @Override
-    public Integer fromInt(int a) {
-        return a;
+    public Number fromInt(int a) {
+        return (double) a;
     }
 
     @Override
-    public double signum(Integer a) {
-        return Math.signum(a);
+    public double signum(Number a) {
+        return Math.signum(a.intValue());
     }
 
     @Override
-    public Integer sum(Integer a, Integer b) {
-        return a + b;
+    public Number sum(Number a, Number b) {
+        return a.intValue() + b.intValue();
     }
 
     @Override
-    public Integer difference(Integer a, Integer b) {
-        return a - b;
+    public Number difference(Number a, Number b) {
+        return a.intValue() - b.intValue();
     }
 
     @Override
-    public Integer product(Integer a, Integer b) {
-        return a * b;
+    public Number product(Number a, Number b) {
+        return a.intValue() * b.intValue();
     }
 
     @Override
-    public Integer quotient(Integer a, Integer b) {
+    public Number quotient(Number a, Number b) {
         throw new NotImplementedException();
     }
 
     @Override
-    public Integer exponent(Integer a, int b) {
-        return Math.toIntExact((long) Math.pow(a, b));
+    public Number exponent(Number a, int b) {
+        return Math.toIntExact((long) Math.pow(a.doubleValue(), b));
     }
 
     @Override
-    public Integer root2(Integer a) {
-        return (int) Math.sqrt(a);
+    public Number root2(Number a) {
+        return Math.sqrt(a.doubleValue());
     }
 }

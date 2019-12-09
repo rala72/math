@@ -1,5 +1,8 @@
 package io.rala.math.algebra;
 
+import io.rala.math.utils.arithmetic.AbstractArithmetic;
+import io.rala.math.utils.arithmetic.DoubleArithmetic;
+
 /**
  * class which holds a matrix with <code>rows</code> and <code>cols</code>
  * storing {@link Double}
@@ -12,10 +15,10 @@ public class DoubleMatrix extends Matrix<Double> {
      * default value is <code>0</code>
      *
      * @param size size of matrix
-     * @see Matrix#Matrix(int, Number)
+     * @see Matrix#Matrix(AbstractArithmetic, int, Number)
      */
     public DoubleMatrix(int size) {
-        super(size, 0d);
+        super(new DoubleArithmetic(), size, 0d);
     }
 
     /**
@@ -23,10 +26,10 @@ public class DoubleMatrix extends Matrix<Double> {
      *
      * @param rows rows of matrix
      * @param cols cols of matrix
-     * @see Matrix#Matrix(int, int, Number)
+     * @see Matrix#Matrix(AbstractArithmetic, int, int, Number)
      */
     public DoubleMatrix(int rows, int cols) {
-        super(rows, cols, 0d);
+        super(new DoubleArithmetic(), rows, cols, 0d);
     }
 
     /**
@@ -42,30 +45,6 @@ public class DoubleMatrix extends Matrix<Double> {
     @Override
     protected Matrix<Double> newInstance(int rows, int cols) {
         return new DoubleMatrix(rows, cols);
-    }
-
-    // endregion
-
-    // region abstract: generic number arithmetic
-
-    @Override
-    protected Double fromInt(int a) {
-        return (double) a;
-    }
-
-    @Override
-    protected Double sum(Double a, Double b) {
-        return a + b;
-    }
-
-    @Override
-    protected Double difference(Double a, Double b) {
-        return a - b;
-    }
-
-    @Override
-    protected Double product(Double a, Double b) {
-        return a * b;
     }
 
     // endregion

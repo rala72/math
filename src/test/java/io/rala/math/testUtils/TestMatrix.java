@@ -7,19 +7,19 @@ public class TestMatrix extends Matrix<Number> {
     // region constructors and newInstance
 
     public TestMatrix(int size) {
-        super(size, 0);
+        super(new TestAbstractArithmetic(), size, 0d);
     }
 
     public TestMatrix(int rows, int cols) {
-        super(rows, cols, 0);
+        super(new TestAbstractArithmetic(), rows, cols, 0d);
     }
 
     public TestMatrix(int size, Number defaultValue) {
-        super(size, defaultValue);
+        super(new TestAbstractArithmetic(), size, defaultValue);
     }
 
     public TestMatrix(int rows, int cols, Number defaultValue) {
-        super(rows, cols, defaultValue);
+        super(new TestAbstractArithmetic(), rows, cols, defaultValue);
     }
 
     public TestMatrix(Matrix<Number> matrix) {
@@ -32,30 +32,6 @@ public class TestMatrix extends Matrix<Number> {
     @Override
     public Matrix<Number> newInstance(int rows, int cols) {
         return new TestMatrix(rows, cols);
-    }
-
-    // endregion
-
-    // region abstract: generic number arithmetic
-
-    @Override
-    protected Number fromInt(int a) {
-        return a;
-    }
-
-    @Override
-    protected Number sum(Number a, Number b) {
-        return a.intValue() + b.intValue();
-    }
-
-    @Override
-    protected Number difference(Number a, Number b) {
-        return a.intValue() - b.intValue();
-    }
-
-    @Override
-    protected Number product(Number a, Number b) {
-        return a.intValue() * b.intValue();
     }
 
     // endregion
