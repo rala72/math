@@ -39,6 +39,30 @@ class ComplexTest {
 
     // endregion
 
+    // region value
+
+    @Test
+    void intValueOfComplexWithX1_1Y2_2() {
+        Assertions.assertEquals(1, new Complex(1.1, 2.2).intValue());
+    }
+
+    @Test
+    void longValueOfComplexWithX1_1Y2_2() {
+        Assertions.assertEquals(1, new Complex(1.1, 2.2).longValue());
+    }
+
+    @Test
+    void floatValueOfComplexWithX1_1Y2_2() {
+        Assertions.assertEquals((float) 1.1d, new Complex(1.1, 2.2).floatValue());
+    }
+
+    @Test
+    void doubleValueOfComplexWithX1_1Y2_2() {
+        Assertions.assertEquals(1.1d, new Complex(1.1, 2.2).doubleValue());
+    }
+
+    // endregion
+
     // region absoluteValue, argument, conjugation and reciprocal
 
     @Test

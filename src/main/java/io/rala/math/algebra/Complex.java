@@ -13,7 +13,8 @@ import java.util.Objects;
  * class which holds a real and a imaginary part of a complex number
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Complex implements Validatable, Copyable<Complex>, Comparable<Complex> {
+public class Complex extends Number implements Validatable,
+    Copyable<Complex>, Comparable<Complex> {
     // region attributes
 
     private double re;
@@ -71,6 +72,30 @@ public class Complex implements Validatable, Copyable<Complex>, Comparable<Compl
      */
     public void setIm(double im) {
         this.im = im;
+    }
+
+    // endregion
+
+    // region value
+
+    @Override
+    public int intValue() {
+        return (int) getRe();
+    }
+
+    @Override
+    public long longValue() {
+        return (long) getRe();
+    }
+
+    @Override
+    public float floatValue() {
+        return (float) getRe();
+    }
+
+    @Override
+    public double doubleValue() {
+        return getRe();
     }
 
     // endregion
