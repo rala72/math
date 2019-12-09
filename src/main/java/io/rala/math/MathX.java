@@ -272,7 +272,7 @@ public class MathX {
     public static double root(double a, int n) {
         if (a < 0)
             throw new IllegalArgumentException(ILLEGAL_ARGUMENT__NUMBER_HAS_TO_BE_POSITIVE);
-        return Math.pow(a, 1.0 / n);
+        return n == 2 ? Math.sqrt(a) : Math.pow(a, 1.0 / n);
     }
 
     /**
@@ -289,6 +289,7 @@ public class MathX {
         if (a.compareTo(BigDecimal.ZERO) < 0)
             throw new IllegalArgumentException(ILLEGAL_ARGUMENT__NUMBER_HAS_TO_BE_POSITIVE);
         if (a.equals(BigDecimal.ZERO)) return BigDecimal.ZERO;
+        if (n == 2) return a.sqrt(MATH_CONTEXT);
         BigDecimal current = a.divide(BigDecimal.valueOf(n), MATH_CONTEXT);
         BigDecimal precision = BigDecimal.valueOf(.1)
             .movePointLeft(MATH_CONTEXT.getPrecision());
