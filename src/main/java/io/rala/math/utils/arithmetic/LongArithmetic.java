@@ -1,5 +1,7 @@
 package io.rala.math.utils.arithmetic;
 
+import io.rala.math.MathX;
+
 /**
  * class which handles {@link Long} arithmetic
  */
@@ -56,8 +58,8 @@ public class LongArithmetic extends AbstractArithmetic<Long> {
     }
 
     @Override
-    public Long root2(Long a) {
-        return (long) Math.sqrt(a);
+    public Long root(Long a, int b) {
+        return (long) MathX.root(a, b);
     }
 
     // endregion

@@ -124,10 +124,20 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     /**
      * @param a value
+     * @param b power of root
      * @return <code>sqrt(a)</code>
      * @throws NotImplementedException if operation is not implemented
      */
-    public abstract T root2(T a);
+    public abstract T root(T a, int b);
+
+    /**
+     * @param a value
+     * @return <code>sqrt(a)</code>
+     * @throws NotImplementedException if operation is not implemented
+     */
+    public T root2(T a) {
+        return root(a, 2);
+    }
 
     // endregion
 

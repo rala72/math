@@ -1,5 +1,7 @@
 package io.rala.math.utils.arithmetic;
 
+import io.rala.math.MathX;
+
 /**
  * class which handles {@link Double} arithmetic
  */
@@ -56,8 +58,8 @@ public class DoubleArithmetic extends AbstractArithmetic<Double> {
     }
 
     @Override
-    public Double root2(Double a) {
-        return Math.sqrt(a);
+    public Double root(Double a, int b) {
+        return MathX.root(a, b);
     }
 
     // endregion

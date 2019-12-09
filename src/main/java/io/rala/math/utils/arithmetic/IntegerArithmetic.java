@@ -1,5 +1,7 @@
 package io.rala.math.utils.arithmetic;
 
+import io.rala.math.MathX;
+
 /**
  * class which handles {@link Integer} arithmetic
  */
@@ -56,8 +58,8 @@ public class IntegerArithmetic extends AbstractArithmetic<Integer> {
     }
 
     @Override
-    public Integer root2(Integer a) {
-        return (int) Math.sqrt(a);
+    public Integer root(Integer a, int b) {
+        return (int) MathX.root(a, b);
     }
 
     // endregion

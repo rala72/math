@@ -1,5 +1,7 @@
 package io.rala.math.utils.arithmetic;
 
+import io.rala.math.MathX;
+
 /**
  * class which handles {@link Float} arithmetic
  */
@@ -56,8 +58,8 @@ public class FloatArithmetic extends AbstractArithmetic<Float> {
     }
 
     @Override
-    public Float root2(Float a) {
-        return (float) Math.sqrt(a);
+    public Float root(Float a, int b) {
+        return (float) MathX.root(a, b);
     }
 
     // endregion

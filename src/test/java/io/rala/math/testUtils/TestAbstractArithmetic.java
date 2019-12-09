@@ -1,5 +1,6 @@
 package io.rala.math.testUtils;
 
+import io.rala.math.MathX;
 import io.rala.math.utils.arithmetic.AbstractArithmetic;
 
 @SuppressWarnings("unused")
@@ -55,8 +56,8 @@ public class TestAbstractArithmetic extends AbstractArithmetic<Number> {
     }
 
     @Override
-    public Number root2(Number a) {
-        return Math.sqrt(a.doubleValue());
+    public Number root(Number a, int b) {
+        return MathX.root(a.doubleValue(), b);
     }
 
     // endregion

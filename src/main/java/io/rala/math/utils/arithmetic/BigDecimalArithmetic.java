@@ -1,5 +1,7 @@
 package io.rala.math.utils.arithmetic;
 
+import io.rala.math.MathX;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 
@@ -87,8 +89,8 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
     }
 
     @Override
-    public BigDecimal root2(BigDecimal a) {
-        return a.sqrt(getMathContext());
+    public BigDecimal root(BigDecimal a, int b) {
+        return MathX.root(a, b);
     }
 
     // endregion
