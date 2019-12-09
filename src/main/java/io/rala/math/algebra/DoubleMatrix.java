@@ -9,6 +9,8 @@ import io.rala.math.utils.arithmetic.DoubleArithmetic;
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class DoubleMatrix extends Matrix<Double> {
+    public static final Double DEFAULT_VALUE = 0d;
+
     // region constructor & newInstance
 
     /**
@@ -18,7 +20,7 @@ public class DoubleMatrix extends Matrix<Double> {
      * @see Matrix#Matrix(AbstractArithmetic, int, Number)
      */
     public DoubleMatrix(int size) {
-        super(new DoubleArithmetic(), size, 0d);
+        super(new DoubleArithmetic(), size, DEFAULT_VALUE);
     }
 
     /**
@@ -29,7 +31,7 @@ public class DoubleMatrix extends Matrix<Double> {
      * @see Matrix#Matrix(AbstractArithmetic, int, int, Number)
      */
     public DoubleMatrix(int rows, int cols) {
-        super(new DoubleArithmetic(), rows, cols, 0d);
+        super(new DoubleArithmetic(), rows, cols, DEFAULT_VALUE);
     }
 
     /**
