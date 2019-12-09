@@ -1,9 +1,10 @@
-package io.rala.math.testUtils;
+package io.rala.math.utils.arithmetic;
 
-import io.rala.math.utils.arithmetic.AbstractArithmetic;
-
+/**
+ * class which handles {@link Integer} arithmetic
+ */
 @SuppressWarnings("unused")
-public class TestAbstractArithmetic extends AbstractArithmetic<Integer> {
+public class IntegerArithmetic extends AbstractArithmetic<Integer> {
     @Override
     public Integer fromInt(int a) {
         return a;
@@ -26,6 +27,6 @@ public class TestAbstractArithmetic extends AbstractArithmetic<Integer> {
 
     @Override
     public Integer quotient(Integer a, Integer b) {
-        throw new NotImplementedException();
+        return a / b;
     }
 }

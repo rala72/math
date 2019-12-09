@@ -1,11 +1,11 @@
-package io.rala.math.utils;
+package io.rala.math.utils.arithmetic;
 
 import io.rala.math.testUtils.TestAbstractArithmetic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class AbstractArithmeticTest {
+class AbstractArithmeticTest {
     private AbstractArithmetic<Integer> arithmetic;
 
     @BeforeEach
