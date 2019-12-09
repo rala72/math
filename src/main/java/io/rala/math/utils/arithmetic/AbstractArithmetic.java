@@ -7,7 +7,7 @@ package io.rala.math.utils.arithmetic;
  */
 @SuppressWarnings({"unused", "SameParameterValue", "UnusedReturnValue"})
 public abstract class AbstractArithmetic<T extends Number> {
-    // region fromInt, fromDouble, signum and negate
+    // region fromInt, fromDouble, signum, negate and compare
 
     /**
      * @param a value from integer
@@ -26,15 +26,28 @@ public abstract class AbstractArithmetic<T extends Number> {
     /**
      * @param a value to get signum
      * @return -1 if negative, 0 if zero or 1 if positive
+     * @throws NotImplementedException if operation is not implemented
      */
     public abstract double signum(T a);
 
     /**
      * @param a value to negate
      * @return <code>-a</code>
+     * @throws NotImplementedException if operation is not implemented
      */
     public T negate(T a) {
         return product(a, fromInt(-1));
+    }
+
+    /**
+     * @param a first value of comparison
+     * @param b second value of comparison
+     * @return {@link Comparable#compareTo(Object)}
+     * @throws NotImplementedException if operation is not implemented
+     * @see Comparable#compareTo(Object)
+     */
+    public int compare(T a, T b) {
+        return Double.compare(a.doubleValue(), b.doubleValue());
     }
 
     // endregion
