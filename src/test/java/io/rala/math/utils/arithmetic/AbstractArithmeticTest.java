@@ -100,6 +100,31 @@ class AbstractArithmeticTest {
 
     // endregion
 
+    // region isFinite, isInfinite and isNaN
+
+    @Test
+    void isFinite() {
+        Assertions.assertTrue(arithmetic.isFinite(0));
+        Assertions.assertFalse(arithmetic.isFinite(Double.POSITIVE_INFINITY));
+        Assertions.assertFalse(arithmetic.isFinite(Double.NaN));
+    }
+
+    @Test
+    void isInfinite() {
+        Assertions.assertFalse(arithmetic.isInfinite(0));
+        Assertions.assertTrue(arithmetic.isInfinite(Double.POSITIVE_INFINITY));
+        Assertions.assertFalse(arithmetic.isInfinite(Double.NaN));
+    }
+
+    @Test
+    void isNaN() {
+        Assertions.assertFalse(arithmetic.isNaN(0));
+        Assertions.assertFalse(arithmetic.isNaN(Double.POSITIVE_INFINITY));
+        Assertions.assertTrue(arithmetic.isNaN(Double.NaN));
+    }
+
+    // endregion
+
     // region trigonometry
 
     @Test

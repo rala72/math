@@ -131,6 +131,40 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     // endregion
 
+    // region isFinite, isInfinite and isNaN
+
+    /**
+     * @param a value to check
+     * @return <code>true</code> if value is finite
+     * @throws NotImplementedException if operation is not implemented
+     * @see Double#isInfinite(double)
+     */
+    public boolean isFinite(T a) {
+        return Double.isFinite(a.doubleValue());
+    }
+
+    /**
+     * @param a value to check
+     * @return <code>true</code> if value is infinite
+     * @throws NotImplementedException if operation is not implemented
+     * @see Double#isInfinite(double)
+     */
+    public boolean isInfinite(T a) {
+        return Double.isInfinite(a.doubleValue());
+    }
+
+    /**
+     * @param a value to check
+     * @return <code>true</code> if value is NaN
+     * @throws NotImplementedException if operation is not implemented
+     * @see Double#isNaN(double)
+     */
+    public boolean isNaN(T a) {
+        return Double.isNaN(a.doubleValue());
+    }
+
+    // endregion
+
     // region trigonometry
 
     /**
