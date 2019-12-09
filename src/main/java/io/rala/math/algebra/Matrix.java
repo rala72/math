@@ -415,7 +415,7 @@ public abstract class Matrix<T extends Number> implements Copyable<Matrix<T>>, I
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Matrix<?>)) return false;
         Matrix<?> matrix1 = (Matrix<?>) o;
         return getRows() == matrix1.getRows() &&
             getCols() == matrix1.getCols() &&
