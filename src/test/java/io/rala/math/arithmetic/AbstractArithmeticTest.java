@@ -177,6 +177,20 @@ class AbstractArithmeticTest {
 
     // endregion
 
+    // region toResultArithmetic
+
+    @Test
+    void toResultArithmetic() {
+        AbstractResultArithmetic<Number, Number> resultArithmetic =
+            arithmetic.toResultArithmetic();
+        Assertions.assertEquals(arithmetic, resultArithmetic.getTArithmetic());
+        Assertions.assertEquals(arithmetic, resultArithmetic.getRArithmetic());
+        Assertions.assertEquals(0, resultArithmetic.fromT(0));
+        Assertions.assertEquals(-0d, resultArithmetic.fromT(-0d));
+    }
+
+    // endregion
+
     @Test
     void notImplementedException() {
         Assertions.assertThrows(AbstractArithmetic.NotImplementedException.class, () -> {

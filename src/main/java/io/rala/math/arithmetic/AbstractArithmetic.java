@@ -282,6 +282,19 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     // endregion
 
+    // region toResultArithmetic
+
+    public AbstractResultArithmetic<T, T> toResultArithmetic() {
+        return new AbstractResultArithmetic<>(this, this) {
+            @Override
+            public T fromT(T a) {
+                return a;
+            }
+        };
+    }
+
+    // endregion
+
     /**
      * thrown if operation is not supported
      */
