@@ -100,4 +100,18 @@ class LongArithmeticTest {
     }
 
     // endregion
+
+    // region gcd and lcm
+
+    @Test
+    void gcd() {
+        Assertions.assertEquals(1, arithmetic.gcd(3L, 4L));
+    }
+
+    @Test
+    void lcm() {
+        Assertions.assertEquals(12, arithmetic.lcm(3L, 4L));
+    }
+
+    // endregion
 }

@@ -92,4 +92,13 @@ public class ComplexArithmetic<T extends Number> extends AbstractArithmetic<Comp
     }
 
     // endregion
+
+    // region gcd
+
+    @Override
+    public Complex<T> gcd(Complex<T> a, Complex<T> b) {
+        throw new NotImplementedException();
+    }
+
+    // endregion
 }

@@ -116,4 +116,22 @@ class BigIntegerArithmeticTest {
     }
 
     // endregion
+
+    // region gcd and lcm
+
+    @Test
+    void gcd() {
+        Assertions.assertEquals(BigInteger.ONE,
+            arithmetic.gcd(BigInteger.valueOf(3), BigInteger.valueOf(4))
+        );
+    }
+
+    @Test
+    void lcm() {
+        Assertions.assertEquals(BigInteger.valueOf(12),
+            arithmetic.lcm(BigInteger.valueOf(3), BigInteger.valueOf(4))
+        );
+    }
+
+    // endregion
 }

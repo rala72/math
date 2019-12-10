@@ -1,5 +1,6 @@
 package io.rala.math.arithmetic.core;
 
+import io.rala.math.arithmetic.AbstractArithmetic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -114,6 +115,24 @@ class BigDecimalArithmeticTest {
             BigDecimal.ONE.sqrt(new MathContext(10)),
             arithmetic.root2(BigDecimal.ONE)
         );
+    }
+
+    // endregion
+
+    // region gcd and lcm
+
+    @Test
+    void gcd() {
+        Assertions.assertThrows(AbstractArithmetic.NotImplementedException.class,
+            () -> arithmetic.gcd(BigDecimal.valueOf(3), BigDecimal.valueOf(4))
+        ); // assert exception message?
+    }
+
+    @Test
+    void lcm() {
+        Assertions.assertThrows(AbstractArithmetic.NotImplementedException.class,
+            () -> arithmetic.gcd(BigDecimal.valueOf(3), BigDecimal.valueOf(4))
+        ); // assert exception message?
     }
 
     // endregion

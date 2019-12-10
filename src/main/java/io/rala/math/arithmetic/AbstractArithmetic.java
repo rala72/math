@@ -200,6 +200,28 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     // endregion
 
+    // region gcd and lcm
+
+    /**
+     * @param a first value
+     * @param b second value
+     * @return greatest common divisor
+     * @throws NotImplementedException if operation is not implemented
+     */
+    public abstract T gcd(T a, T b);
+
+    /**
+     * @param a first value
+     * @param b second value
+     * @return least common multiple
+     * @throws NotImplementedException if operation is not implemented
+     */
+    public T lcm(T a, T b) {
+        return quotient(absolute(product(a, b)), gcd(a, b));
+    }
+
+    // endregion
+
     // region trigonometry
 
     /**

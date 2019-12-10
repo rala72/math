@@ -68,5 +68,14 @@ public class LongArithmetic extends AbstractArithmetic<Long> {
         return (long) MathX.root(a, b);
     }
 
+    // endregion+
+
+    // region gcd
+
+    @Override
+    public Long gcd(Long a, Long b) {
+        return MathX.gcd(a, b);
+    }
+
     // endregion
 }

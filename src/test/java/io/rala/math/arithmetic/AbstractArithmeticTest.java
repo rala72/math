@@ -137,6 +137,20 @@ class AbstractArithmeticTest {
 
     // endregion
 
+    // region gcd and lcm
+
+    @Test
+    void gcd() {
+        Assertions.assertEquals(1L, arithmetic.gcd(3, 4));
+    }
+
+    @Test
+    void lcm() {
+        Assertions.assertEquals(12d, arithmetic.lcm(3, 4));
+    }
+
+    // endregion
+
     // region trigonometry
 
     @Test

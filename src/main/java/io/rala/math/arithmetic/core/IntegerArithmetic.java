@@ -69,4 +69,13 @@ public class IntegerArithmetic extends AbstractArithmetic<Integer> {
     }
 
     // endregion
+
+    // region gcd
+
+    @Override
+    public Integer gcd(Integer a, Integer b) {
+        return MathX.gcd(a, b);
+    }
+
+    // endregion
 }

@@ -1,6 +1,7 @@
 package io.rala.math.arithmetic.core;
 
 import io.rala.math.algebra.numeric.Complex;
+import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.testUtils.algebra.TestComplexArithmetic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -177,6 +178,24 @@ class ComplexArithmeticTest {
         Assertions.assertTrue(arithmetic.isNaN(
             create(Double.NaN, Double.NaN)
         ));
+    }
+
+    // endregion
+
+    // region gcd and lcm
+
+    @Test
+    void gcd() {
+        Assertions.assertThrows(AbstractArithmetic.NotImplementedException.class,
+            () -> arithmetic.gcd(create(1, 2), create(3, 4))
+        ); // assert exception message?
+    }
+
+    @Test
+    void lcm() {
+        Assertions.assertThrows(AbstractArithmetic.NotImplementedException.class,
+            () -> arithmetic.lcm(create(1, 2), create(3, 4))
+        ); // assert exception message?
     }
 
     // endregion

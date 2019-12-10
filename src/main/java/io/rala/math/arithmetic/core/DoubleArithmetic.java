@@ -69,4 +69,13 @@ public class DoubleArithmetic extends AbstractArithmetic<Double> {
     }
 
     // endregion
+
+    // region gcd
+
+    @Override
+    public Double gcd(Double a, Double b) {
+        throw new NotImplementedException();
+    }
+
+    // endregion
 }

@@ -1,5 +1,6 @@
 package io.rala.math.arithmetic.core;
 
+import io.rala.math.arithmetic.AbstractArithmetic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -97,6 +98,24 @@ class FloatArithmeticTest {
             (float) Math.sqrt(1),
             arithmetic.root2(1f)
         );
+    }
+
+    // endregion
+
+    // region gcd and lcm
+
+    @Test
+    void gcd() {
+        Assertions.assertThrows(AbstractArithmetic.NotImplementedException.class,
+            () -> arithmetic.gcd(3f, 4f)
+        ); // assert exception message?
+    }
+
+    @Test
+    void lcm() {
+        Assertions.assertThrows(AbstractArithmetic.NotImplementedException.class,
+            () -> arithmetic.lcm(3f, 4f)
+        ); // assert exception message?
     }
 
     // endregion
