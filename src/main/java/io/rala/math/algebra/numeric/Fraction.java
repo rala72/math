@@ -163,6 +163,40 @@ public class Fraction<T extends Number, V extends Number> extends Number
 
     // endregion
 
+    // region add
+
+    /**
+     * calls {@link #add(Fraction)} with given values
+     *
+     * @param numerator   numerator value to add
+     * @param denominator denominator value to add
+     * @return new fraction with sum of current and given parameters
+     * @see #add(Fraction)
+     */
+    public Fraction<T, V> add(T numerator, T denominator) {
+        return add(new Fraction<>(getArithmetic(), numerator, denominator));
+    }
+
+    /**
+     * @param fraction fraction to add
+     * @return new fraction with sum of current and given fraction
+     */
+    public Fraction<T, V> add(Fraction<T, V> fraction) {
+        AbstractArithmetic<T> tArithmetic = getArithmetic().getTArithmetic();
+        T lcm;
+        try {
+            lcm = tArithmetic.lcm(getDenominator(), fraction.getDenominator());
+        } catch (AbstractArithmetic.NotImplementedException e) {
+            lcm = tArithmetic.product(getDenominator(), fraction.getDenominator());
+        }
+        T t1 = tArithmetic.quotient(lcm, getNumerator());
+        T t2 = tArithmetic.quotient(lcm, fraction.getNumerator());
+        T sum = tArithmetic.sum(t1, t2);
+        return new Fraction<>(getArithmetic(), sum, lcm);
+    }
+
+    // endregion
+
     // region copy
 
     @Override

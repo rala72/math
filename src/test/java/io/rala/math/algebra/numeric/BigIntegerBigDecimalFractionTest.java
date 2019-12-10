@@ -148,6 +148,36 @@ class BigIntegerBigDecimalFractionTest {
 
     // endregion
 
+    // region add
+
+    @Test
+    void addWithNumerator() {
+        Assertions.assertEquals(
+            new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.ONE),
+            new BigIntegerBigDecimalFraction(BigInteger.ONE).add(BigInteger.ONE, BigInteger.ONE)
+        );
+    }
+
+    @Test
+    void addWithXAndY() {
+        Assertions.assertEquals(
+            new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.ONE),
+            new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.ONE)
+                .add(BigInteger.ONE, BigInteger.ONE)
+        );
+    }
+
+    @Test
+    void addWithFraction() {
+        Assertions.assertEquals(
+            new BigIntegerBigDecimalFraction(BigInteger.valueOf(4), BigInteger.TWO),
+            new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.ONE)
+                .add(new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO))
+        );
+    }
+
+    // endregion
+
     // region isValid and copy
 
     @Test

@@ -1,5 +1,6 @@
 package io.rala.math.algebra.numeric;
 
+import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.core.DoubleArithmetic;
 import io.rala.math.testUtils.algebra.TestFraction;
 import org.junit.jupiter.api.Assertions;
@@ -123,6 +124,43 @@ class FractionTest {
             new DoubleArithmetic().toResultArithmetic(), 2d, 4d
         );
         Assertions.assertEquals(fraction, fraction.simplify());
+    }
+
+    // endregion
+
+    // region add
+
+    @Test
+    void addWithNumerator() {
+        Assertions.assertEquals(
+            new TestFraction(2, 1d),
+            new TestFraction(1).add(1, 1)
+        );
+    }
+
+    @Test
+    void addWithXAndY() {
+        Assertions.assertEquals(
+            new TestFraction(2, 1d),
+            new TestFraction(1, 1).add(1, 1)
+        );
+    }
+
+    @Test
+    void addWithFraction() {
+        Assertions.assertEquals(new TestFraction(4, 2d),
+            new TestFraction(1, 1).add(new TestFraction(1, 2))
+        );
+    }
+
+    @Test
+    void addWithDoubleFraction() {
+        AbstractResultArithmetic<Double, Double> arithmetic =
+            new DoubleArithmetic().toResultArithmetic();
+        Assertions.assertEquals(new Fraction<>(arithmetic, 4d, 2d),
+            new Fraction<>(arithmetic, 1d, 1d)
+                .add(new Fraction<>(arithmetic, 1d, 2d))
+        );
     }
 
     // endregion

@@ -113,6 +113,34 @@ class LongDoubleFractionTest {
 
     // endregion
 
+    // region add
+
+    @Test
+    void addWithNumerator() {
+        Assertions.assertEquals(
+            new LongDoubleFraction(2, 1L),
+            new LongDoubleFraction(1).add(1L, 1L)
+        );
+    }
+
+    @Test
+    void addWithXAndY() {
+        Assertions.assertEquals(
+            new LongDoubleFraction(2, 1L),
+            new LongDoubleFraction(1, 1).add(1L, 1L)
+        );
+    }
+
+    @Test
+    void addWithFraction() {
+        Assertions.assertEquals(new LongDoubleFraction(4, 2L),
+            new LongDoubleFraction(1, 1)
+                .add(new LongDoubleFraction(1, 2))
+        );
+    }
+
+    // endregion
+
     // region isValid and copy
 
     @Test
