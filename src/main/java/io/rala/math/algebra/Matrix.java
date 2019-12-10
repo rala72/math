@@ -15,6 +15,7 @@ import java.util.stream.StreamSupport;
 @SuppressWarnings({"unused", "WeakerAccess", "UnusedReturnValue"})
 public class Matrix<T extends Number>
     implements Copyable<Matrix<T>>, Iterable<Matrix<T>.Field> {
+    // region protected exception messages
     protected static final String EXCEPTION_SIZE_PREFIX = "size: ";
     protected static final String EXCEPTION_ROW_PREFIX = "row: ";
     protected static final String EXCEPTION_COL_PREFIX = "col: ";
@@ -26,6 +27,7 @@ public class Matrix<T extends Number>
         "rows modulo values.length is not congruent 0";
     protected static final String EXCEPTION_COLS_NOT_CONGRUENT_0 =
         "cols modulo values.length is not congruent 0";
+    // endregion
 
     // region attributes
 
