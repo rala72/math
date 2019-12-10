@@ -141,7 +141,18 @@ public class Fraction<T extends Number, V extends Number> extends Number
 
     // endregion
 
-    // region simplify
+    // region negate and simplify
+
+    /**
+     * @return new fraction with negated {@link #getNumerator()}
+     */
+    public Fraction<T, V> negate() {
+        return new Fraction<>(
+            getArithmetic(),
+            getArithmetic().getTArithmetic().negate(getNumerator()),
+            getDenominator()
+        );
+    }
 
     /**
      * both numbers are divided through {@link AbstractArithmetic#gcd(Number, Number)}
