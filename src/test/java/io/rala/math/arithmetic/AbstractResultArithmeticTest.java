@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class AbstractResultArithmeticTest {
+class AbstractResultArithmeticTest {
     private AbstractResultArithmetic<Number, Number> arithmetic;
 
     @BeforeEach
