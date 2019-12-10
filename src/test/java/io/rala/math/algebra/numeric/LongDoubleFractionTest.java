@@ -168,6 +168,18 @@ class LongDoubleFractionTest {
 
     // endregion
 
+    // region protected
+
+    @Test
+    void simplifySignum() {
+        assertFraction(new LongDoubleFraction(1L, 1L), 1, 1);
+        assertFraction(new LongDoubleFraction(1L, -1L), -1, 1);
+        assertFraction(new LongDoubleFraction(-1L, 1L), -1, 1);
+        assertFraction(new LongDoubleFraction(-1L, -1L), 1, 1);
+    }
+
+    // endregion
+
 
     // region assert
 

@@ -182,6 +182,18 @@ class FractionTest {
 
     // endregion
 
+    // region protected
+
+    @Test
+    void simplifySignum() {
+        assertFraction(new TestFraction(1, 1), 1, 1);
+        assertFraction(new TestFraction(1, -1), -1, 1);
+        assertFraction(new TestFraction(-1, 1), -1, 1);
+        assertFraction(new TestFraction(-1, -1), 1, 1);
+    }
+
+    // endregion
+
 
     // region assert
 

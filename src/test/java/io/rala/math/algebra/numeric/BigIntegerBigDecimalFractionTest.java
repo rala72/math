@@ -215,6 +215,34 @@ class BigIntegerBigDecimalFractionTest {
 
     // endregion
 
+    // region protected
+
+    @Test
+    void simplifySignum() {
+        assertFraction(new BigIntegerBigDecimalFraction(
+                BigInteger.ONE, BigInteger.ONE
+            ),
+            BigInteger.ONE, BigInteger.ONE
+        );
+        assertFraction(new BigIntegerBigDecimalFraction(
+                BigInteger.ONE, BigInteger.ONE.negate()
+            ),
+            BigInteger.ONE.negate(), BigInteger.ONE
+        );
+        assertFraction(new BigIntegerBigDecimalFraction(
+                BigInteger.ONE.negate(), BigInteger.ONE
+            ),
+            BigInteger.ONE.negate(), BigInteger.ONE
+        );
+        assertFraction(new BigIntegerBigDecimalFraction(
+                BigInteger.ONE.negate(), BigInteger.ONE.negate()
+            ),
+            BigInteger.ONE, BigInteger.ONE
+        );
+    }
+
+    // endregion
+
 
     // region assert
 

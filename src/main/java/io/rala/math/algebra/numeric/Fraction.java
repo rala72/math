@@ -48,13 +48,8 @@ public class Fraction<T extends Number, V extends Number> extends Number
      */
     public Fraction(AbstractResultArithmetic<T, V> arithmetic, T numerator, T denominator) {
         this.arithmetic = arithmetic;
-        if (numerator == null)
-            throw new IllegalArgumentException(EXCEPTION_NUMERATOR_NOT_NULL);
-        this.numerator = numerator;
-        this.denominator = denominator == null ?
-            arithmetic.getTArithmetic().fromInt(1) : denominator;
-        if (this.denominator.equals(arithmetic.getTArithmetic().fromInt(0)))
-            throw new IllegalArgumentException(EXCEPTION_DENOMINATOR_NOT_ZERO);
+        setNumerator(numerator);
+        setDenominator(denominator);
     }
 
     /**
@@ -102,6 +97,8 @@ public class Fraction<T extends Number, V extends Number> extends Number
         if (denominator.equals(getArithmetic().getTArithmetic().fromInt(0)))
             throw new IllegalArgumentException(EXCEPTION_DENOMINATOR_NOT_ZERO);
         this.denominator = denominator;
+
+        simplifySignum();
     }
 
     /**
@@ -202,4 +199,18 @@ public class Fraction<T extends Number, V extends Number> extends Number
     }
 
 // endregion
+
+    // region protected
+
+    /**
+     * ensures that if there is a signum it is on {@link #getNumerator()}
+     */
+    protected void simplifySignum() {
+        if (getArithmetic().getTArithmetic().signum(denominator) < 0) {
+            denominator = arithmetic.getTArithmetic().negate(denominator);
+            numerator = arithmetic.getTArithmetic().negate(numerator);
+        }
+    }
+
+    // endregion
 }
