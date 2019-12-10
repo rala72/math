@@ -1,7 +1,7 @@
 package io.rala.math.algebra;
 
 import io.rala.math.arithmetic.AbstractArithmetic;
-import io.rala.math.arithmetic.DoubleArithmetic;
+import io.rala.math.arithmetic.core.DoubleArithmetic;
 
 /**
  * class which holds a matrix with <code>rows</code> and <code>cols</code>

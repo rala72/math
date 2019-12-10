@@ -1,4 +1,8 @@
-package io.rala.math.arithmetic;
+package io.rala.math.arithmetic.result;
+
+import io.rala.math.arithmetic.AbstractResultArithmetic;
+import io.rala.math.arithmetic.core.DoubleArithmetic;
+import io.rala.math.arithmetic.core.LongArithmetic;
 
 /**
  * class which defines required arithmetic for calculations

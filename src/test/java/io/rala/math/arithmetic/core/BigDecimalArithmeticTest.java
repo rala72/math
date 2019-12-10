@@ -1,4 +1,4 @@
-package io.rala.math.arithmetic;
+package io.rala.math.arithmetic.core;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;

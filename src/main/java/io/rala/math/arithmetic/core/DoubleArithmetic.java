@@ -1,6 +1,7 @@
-package io.rala.math.arithmetic;
+package io.rala.math.arithmetic.core;
 
 import io.rala.math.MathX;
+import io.rala.math.arithmetic.AbstractArithmetic;
 
 /**
  * class which handles {@link Double} arithmetic

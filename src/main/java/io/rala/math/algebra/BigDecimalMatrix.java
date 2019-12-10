@@ -1,7 +1,7 @@
 package io.rala.math.algebra;
 
 import io.rala.math.arithmetic.AbstractArithmetic;
-import io.rala.math.arithmetic.BigDecimalArithmetic;
+import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 
 import java.math.BigDecimal;
 import java.math.MathContext;

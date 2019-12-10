@@ -1,6 +1,6 @@
 package io.rala.math.testUtils;
 
-import io.rala.math.arithmetic.ComplexArithmetic;
+import io.rala.math.arithmetic.core.ComplexArithmetic;
 
 @SuppressWarnings("unused")
 public class TestComplexArithmetic extends ComplexArithmetic<Number> {

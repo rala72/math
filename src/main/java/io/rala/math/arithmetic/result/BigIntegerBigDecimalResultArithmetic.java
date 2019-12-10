@@ -1,4 +1,8 @@
-package io.rala.math.arithmetic;
+package io.rala.math.arithmetic.result;
+
+import io.rala.math.arithmetic.AbstractResultArithmetic;
+import io.rala.math.arithmetic.core.BigDecimalArithmetic;
+import io.rala.math.arithmetic.core.BigIntegerArithmetic;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

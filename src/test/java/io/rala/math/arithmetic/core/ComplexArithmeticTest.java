@@ -1,4 +1,4 @@
-package io.rala.math.arithmetic;
+package io.rala.math.arithmetic.core;
 
 import io.rala.math.algebra.Complex;
 import io.rala.math.testUtils.TestComplexArithmetic;

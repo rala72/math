@@ -2,7 +2,7 @@ package io.rala.math.algebra;
 
 import io.rala.math.MathX;
 import io.rala.math.arithmetic.AbstractArithmetic;
-import io.rala.math.arithmetic.DoubleArithmetic;
+import io.rala.math.arithmetic.core.DoubleArithmetic;
 import io.rala.math.geometry.Vector;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Validatable;

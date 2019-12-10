@@ -1,5 +1,6 @@
-package io.rala.math.arithmetic;
+package io.rala.math.arithmetic.result;
 
+import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
