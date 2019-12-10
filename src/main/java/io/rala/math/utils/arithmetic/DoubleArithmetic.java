@@ -26,7 +26,7 @@ public class DoubleArithmetic extends AbstractArithmetic<Double> {
 
     // endregion
 
-    // region sum, difference, product and quotient
+    // region sum, difference, product, quotient and modulo
 
     @Override
     public Double sum(Double a, Double b) {
@@ -46,6 +46,11 @@ public class DoubleArithmetic extends AbstractArithmetic<Double> {
     @Override
     public Double quotient(Double a, Double b) {
         return a / b;
+    }
+
+    @Override
+    public Double modulo(Double a, Double b) {
+        return a % b;
     }
 
     // endregion

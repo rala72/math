@@ -26,7 +26,7 @@ public class LongArithmetic extends AbstractArithmetic<Long> {
 
     // endregion
 
-    // region sum, difference, product and quotient
+    // region sum, difference, product, quotient and modulo
 
     @Override
     public Long sum(Long a, Long b) {
@@ -46,6 +46,11 @@ public class LongArithmetic extends AbstractArithmetic<Long> {
     @Override
     public Long quotient(Long a, Long b) {
         return a / b;
+    }
+
+    @Override
+    public Long modulo(Long a, Long b) {
+        return a % b;
     }
 
     // endregion

@@ -29,7 +29,7 @@ public class BigIntegerArithmetic extends AbstractArithmetic<BigInteger> {
 
     // endregion
 
-    // region sum, difference, product and quotient
+    // region sum, difference, product, quotient and modulo
 
     @Override
     public BigInteger sum(BigInteger a, BigInteger b) {
@@ -49,6 +49,11 @@ public class BigIntegerArithmetic extends AbstractArithmetic<BigInteger> {
     @Override
     public BigInteger quotient(BigInteger a, BigInteger b) {
         return a.divide(b);
+    }
+
+    @Override
+    public BigInteger modulo(BigInteger a, BigInteger b) {
+        return a.mod(b);
     }
 
     // endregion

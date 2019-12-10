@@ -38,7 +38,7 @@ class BigIntegerArithmeticTest {
 
     // endregion
 
-    // region sum, difference, product and quotient
+    // region sum, difference, product, quotient and modulo
 
     @Test
     void sum12() {
@@ -79,6 +79,13 @@ class BigIntegerArithmeticTest {
     void quotient12() {
         Assertions.assertEquals(BigInteger.ZERO,
             arithmetic.quotient(BigInteger.ONE, BigInteger.TWO)
+        );
+    }
+
+    @Test
+    void modulo12() {
+        Assertions.assertEquals(BigInteger.ONE,
+            arithmetic.modulo(BigInteger.ONE, BigInteger.TWO)
         );
     }
 

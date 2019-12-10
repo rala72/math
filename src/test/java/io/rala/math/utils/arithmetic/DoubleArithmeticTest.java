@@ -36,7 +36,7 @@ class DoubleArithmeticTest {
 
     // endregion
 
-    // region sum, difference, product and quotient
+    // region sum, difference, product quotient and modulo
 
     @Test
     void sum12() {
@@ -71,6 +71,11 @@ class DoubleArithmeticTest {
     @Test
     void exponent12() {
         Assertions.assertEquals(1, arithmetic.exponent(1d, 2));
+    }
+
+    @Test
+    void modulo12() {
+        Assertions.assertEquals(1, arithmetic.modulo(1d, 2d));
     }
 
     // endregion

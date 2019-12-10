@@ -52,7 +52,7 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     // endregion
 
-    // region sum, difference, product and quotient
+    // region sum, difference, product, quotient and modulo
 
     /**
      * @param a first value of sum
@@ -109,6 +109,17 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @throws NotImplementedException if operation is not implemented
      */
     public abstract T quotient(T a, T b);
+
+    /**
+     * @param a first value of quotient
+     * @param b second value of quotient
+     * @return reminder of division like <code>r=a-q*b</code>
+     */
+    public T modulo(T a, T b) {
+        T quotient = quotient(a, b);
+        T product = product(quotient, b);
+        return difference(a, product);
+    }
 
     // endregion
 

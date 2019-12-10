@@ -26,7 +26,7 @@ public class FloatArithmetic extends AbstractArithmetic<Float> {
 
     // endregion
 
-    // region sum, difference, product and quotient
+    // region sum, difference, product, quotient and modulo
 
     @Override
     public Float sum(Float a, Float b) {
@@ -46,6 +46,11 @@ public class FloatArithmetic extends AbstractArithmetic<Float> {
     @Override
     public Float quotient(Float a, Float b) {
         return a / b;
+    }
+
+    @Override
+    public Float modulo(Float a, Float b) {
+        return a % b;
     }
 
     // endregion

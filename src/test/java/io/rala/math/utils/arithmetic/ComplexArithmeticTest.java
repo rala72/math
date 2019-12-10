@@ -51,7 +51,7 @@ class ComplexArithmeticTest {
 
     // endregion
 
-    // region sum, difference, product and quotient
+    // region sum, difference, product, quotient and modulo
 
     @Test
     void sum12() {
@@ -102,6 +102,14 @@ class ComplexArithmeticTest {
         Assertions.assertEquals(
             create(0.5, 0d),
             arithmetic.quotient(create(1, 1), create(2, 2))
+        );
+    }
+
+    @Test
+    void modulo12() {
+        Assertions.assertEquals(
+            create(1, 1),
+            arithmetic.modulo(create(1, 1), create(2, 2))
         );
     }
 

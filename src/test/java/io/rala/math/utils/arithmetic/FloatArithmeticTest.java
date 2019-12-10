@@ -36,7 +36,7 @@ class FloatArithmeticTest {
 
     // endregion
 
-    // region sum, difference, product and quotient
+    // region sum, difference, product, quotient and modulo
 
     @Test
     void sum12() {
@@ -66,6 +66,11 @@ class FloatArithmeticTest {
     @Test
     void quotient12() {
         Assertions.assertEquals(0.5f, arithmetic.quotient(1f, 2f));
+    }
+
+    @Test
+    void modulo12() {
+        Assertions.assertEquals(1, arithmetic.modulo(1f, 2f));
     }
 
     // endregion

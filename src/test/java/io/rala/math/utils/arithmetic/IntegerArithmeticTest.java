@@ -36,7 +36,7 @@ class IntegerArithmeticTest {
 
     // endregion
 
-    // region sum, difference, product and quotient
+    // region sum, difference, product, quotient and modulo
 
     @Test
     void sum12() {
@@ -66,6 +66,11 @@ class IntegerArithmeticTest {
     @Test
     void quotient12() {
         Assertions.assertEquals(0, arithmetic.quotient(1, 2));
+    }
+
+    @Test
+    void modulo12() {
+        Assertions.assertEquals(1, arithmetic.modulo(1, 2));
     }
 
     // endregion

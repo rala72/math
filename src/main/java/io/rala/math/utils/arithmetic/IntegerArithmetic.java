@@ -26,7 +26,7 @@ public class IntegerArithmetic extends AbstractArithmetic<Integer> {
 
     // endregion
 
-    // region sum, difference, product and quotient
+    // region sum, difference, product, quotient and modulo
 
     @Override
     public Integer sum(Integer a, Integer b) {
@@ -46,6 +46,11 @@ public class IntegerArithmetic extends AbstractArithmetic<Integer> {
     @Override
     public Integer quotient(Integer a, Integer b) {
         return a / b;
+    }
+
+    @Override
+    public Integer modulo(Integer a, Integer b) {
+        return a % b;
     }
 
     // endregion

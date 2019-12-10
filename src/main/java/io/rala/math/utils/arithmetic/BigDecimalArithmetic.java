@@ -57,7 +57,7 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
 
     // endregion
 
-    // region sum, difference, product and quotient
+    // region sum, difference, product, quotient and modulo
 
     @Override
     public BigDecimal sum(BigDecimal a, BigDecimal b) {
@@ -77,6 +77,11 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
     @Override
     public BigDecimal quotient(BigDecimal a, BigDecimal b) {
         return cleanup(a.divide(b, getMathContext()));
+    }
+
+    @Override
+    public BigDecimal modulo(BigDecimal a, BigDecimal b) {
+        return a.remainder(b, getMathContext());
     }
 
     // endregion
