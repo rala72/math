@@ -118,7 +118,7 @@ class LongDoubleFractionTest {
 
     // endregion
 
-    // region add
+    // region add and subtract
 
     @Test
     void addWithNumerator() {
@@ -141,6 +141,30 @@ class LongDoubleFractionTest {
         Assertions.assertEquals(new LongDoubleFraction(3, 2L),
             new LongDoubleFraction(1, 1)
                 .add(new LongDoubleFraction(1, 2))
+        );
+    }
+
+    @Test
+    void subtractWithNumerator() {
+        Assertions.assertEquals(
+            new LongDoubleFraction(0, 1L),
+            new LongDoubleFraction(2).subtract(2L, 1L)
+        );
+    }
+
+    @Test
+    void subtractWithXAndY() {
+        Assertions.assertEquals(
+            new LongDoubleFraction(1, 1L),
+            new LongDoubleFraction(2, 1).subtract(1L, 1L)
+        );
+    }
+
+    @Test
+    void subtractWithFraction() {
+        Assertions.assertEquals(new LongDoubleFraction(3, 2L),
+            new LongDoubleFraction(2, 1)
+                .subtract(new LongDoubleFraction(1, 2))
         );
     }
 

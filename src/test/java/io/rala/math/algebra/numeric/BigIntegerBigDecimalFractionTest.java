@@ -155,7 +155,7 @@ class BigIntegerBigDecimalFractionTest {
 
     // endregion
 
-    // region add
+    // region add and subtract
 
     @Test
     void addWithNumerator() {
@@ -178,8 +178,38 @@ class BigIntegerBigDecimalFractionTest {
     void addWithFraction() {
         Assertions.assertEquals(
             new BigIntegerBigDecimalFraction(BigInteger.valueOf(3), BigInteger.TWO),
-            new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.ONE)
-                .add(new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO))
+            new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.ONE).add(
+                new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO)
+            )
+        );
+    }
+
+    @Test
+    void subtractWithNumerator() {
+        Assertions.assertEquals(
+            new BigIntegerBigDecimalFraction(BigInteger.ZERO, BigInteger.ONE),
+            new BigIntegerBigDecimalFraction(BigInteger.TWO)
+                .subtract(BigInteger.TWO, BigInteger.ONE)
+        );
+    }
+
+    @Test
+    void subtractWithXAndY() {
+        Assertions.assertEquals(
+            new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.ONE),
+            new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.ONE)
+                .subtract(BigInteger.ONE, BigInteger.ONE)
+        );
+    }
+
+    @Test
+    void subtractWithFraction() {
+        Assertions.assertEquals(new BigIntegerBigDecimalFraction(
+                BigInteger.valueOf(3), BigInteger.TWO
+            ),
+            new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.ONE).subtract(
+                new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO)
+            )
         );
     }
 

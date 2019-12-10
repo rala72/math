@@ -133,7 +133,7 @@ class FractionTest {
 
     // endregion
 
-    // region add
+    // region add and subtract
 
     @Test
     void addWithNumerator() {
@@ -165,6 +165,29 @@ class FractionTest {
         Assertions.assertEquals(new Fraction<>(arithmetic, 3d, 2d),
             new Fraction<>(arithmetic, 1d, 1d)
                 .add(new Fraction<>(arithmetic, 1d, 2d))
+        );
+    }
+
+    @Test
+    void subtractWithNumerator() {
+        Assertions.assertEquals(
+            new TestFraction(0, 1d),
+            new TestFraction(2).subtract(2, 1)
+        );
+    }
+
+    @Test
+    void subtractWithXAndY() {
+        Assertions.assertEquals(
+            new TestFraction(1, 1d),
+            new TestFraction(2, 1).subtract(1, 1)
+        );
+    }
+
+    @Test
+    void subtractWithFraction() {
+        Assertions.assertEquals(new TestFraction(3, 2d),
+            new TestFraction(2, 1).subtract(new TestFraction(1, 2))
         );
     }
 

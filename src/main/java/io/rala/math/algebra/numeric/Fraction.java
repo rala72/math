@@ -174,7 +174,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
 
     // endregion
 
-    // region add
+    // region add and subtract
 
     /**
      * calls {@link #add(Fraction)} with given values
@@ -208,6 +208,26 @@ public class Fraction<T extends Number, V extends Number> extends Number
         );
         T sum = tArithmetic.sum(t1, t2);
         return new Fraction<>(getArithmetic(), sum, lcm);
+    }
+
+    /**
+     * calls {@link #subtract(Fraction)} with given values
+     *
+     * @param numerator   numerator value to subtract
+     * @param denominator denominator value to subtract
+     * @return new fraction with difference of current and given parameters
+     * @see #subtract(Fraction)
+     */
+    public Fraction<T, V> subtract(T numerator, T denominator) {
+        return subtract(new Fraction<>(getArithmetic(), numerator, getDenominator()));
+    }
+
+    /**
+     * @param fraction fraction to subtract
+     * @return new fraction with difference of current and given fraction
+     */
+    public Fraction<T, V> subtract(Fraction<T, V> fraction) {
+        return add(fraction.negate());
     }
 
     // endregion
