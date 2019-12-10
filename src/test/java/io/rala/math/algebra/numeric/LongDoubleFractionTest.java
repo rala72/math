@@ -101,6 +101,18 @@ class LongDoubleFractionTest {
 
     // endregion
 
+    // region simplify
+
+    @Test
+    void simplify() {
+        assertFraction(
+            new LongDoubleFraction(2L, 4L).simplify(),
+            1L, 2L
+        );
+    }
+
+    // endregion
+
     // region isValid and copy
 
     @Test

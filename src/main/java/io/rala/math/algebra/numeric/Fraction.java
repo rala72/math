@@ -1,5 +1,6 @@
 package io.rala.math.algebra.numeric;
 
+import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.utils.Copyable;
 
@@ -139,6 +140,28 @@ public class Fraction<T extends Number, V extends Number> extends Number
     @Override
     public double doubleValue() {
         return value().doubleValue();
+    }
+
+    // endregion
+
+    // region simplify
+
+    /**
+     * both numbers are divided through {@link AbstractArithmetic#gcd(Number, Number)}
+     *
+     * @return simplified {@link Fraction} or {@link #copy()}
+     */
+    public Fraction<T, V> simplify() {
+        AbstractArithmetic<T> tArithmetic = getArithmetic().getTArithmetic();
+        T gcd;
+        try {
+            gcd = tArithmetic.gcd(getNumerator(), getDenominator());
+        } catch (AbstractArithmetic.NotImplementedException e) {
+            return copy();
+        }
+        T newNumerator = tArithmetic.quotient(getNumerator(), gcd);
+        T newDenominator = tArithmetic.quotient(getDenominator(), gcd);
+        return new Fraction<>(getArithmetic(), newNumerator, newDenominator);
     }
 
     // endregion

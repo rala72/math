@@ -137,6 +137,17 @@ class BigIntegerBigDecimalFractionTest {
 
     // endregion
 
+    // region simplify
+
+    @Test
+    void simplify() {
+        assertFraction(new BigIntegerBigDecimalFraction(
+            BigInteger.TWO, BigInteger.valueOf(4)
+        ).simplify(), BigInteger.ONE, BigInteger.TWO);
+    }
+
+    // endregion
+
     // region isValid and copy
 
     @Test
