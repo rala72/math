@@ -14,7 +14,7 @@ class ComplexArithmeticTest {
         arithmetic = new TestComplexArithmetic();
     }
 
-    // region fromInt, fromDouble signum, negate and compare
+    // region fromInt, fromDouble and signum
 
     @Test
     void fromInt0() {
@@ -29,6 +29,15 @@ class ComplexArithmeticTest {
     @Test
     void signum() {
         Assertions.assertEquals(1, arithmetic.signum(create(1, 1)));
+    }
+
+    // endregion
+
+    // region absolute and negate
+
+    @Test
+    void absoluteReM1Im0() {
+        Assertions.assertEquals(create(1, 0), arithmetic.absolute(create(-1, 0)));
     }
 
     @Test

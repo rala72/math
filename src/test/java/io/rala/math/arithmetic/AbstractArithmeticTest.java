@@ -13,7 +13,7 @@ class AbstractArithmeticTest {
         arithmetic = new TestAbstractArithmetic();
     }
 
-    // region fromInt, fromDouble signum, negate and compare
+    // region fromInt, fromDouble and signum
 
     @Test
     void fromInt0() {
@@ -28,6 +28,15 @@ class AbstractArithmeticTest {
     @Test
     void signum1() {
         Assertions.assertEquals(1, arithmetic.signum(1));
+    }
+
+    // endregion
+
+    // region absolute, negate and compare
+
+    @Test
+    void absoluteM1() {
+        Assertions.assertEquals(1, arithmetic.absolute(-1));
     }
 
     @Test

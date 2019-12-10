@@ -7,7 +7,7 @@ package io.rala.math.arithmetic;
  */
 @SuppressWarnings({"unused", "SameParameterValue", "UnusedReturnValue"})
 public abstract class AbstractArithmetic<T extends Number> {
-    // region fromInt, fromDouble, signum, negate and compare
+    // region fromInt, fromDouble and signum
 
     /**
      * @param a value from integer
@@ -29,6 +29,19 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @throws NotImplementedException if operation is not implemented
      */
     public abstract double signum(T a);
+
+    // endregion
+
+    // region absolute, negate and compare
+
+    /**
+     * @param a value to make absolute
+     * @return absolute value of a
+     * @throws NotImplementedException if operation is not implemented
+     */
+    public T absolute(T a) {
+        return signum(a) < 0 ? negate(a) : a;
+    }
 
     /**
      * @param a value to negate

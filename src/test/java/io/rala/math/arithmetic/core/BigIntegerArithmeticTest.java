@@ -14,7 +14,7 @@ class BigIntegerArithmeticTest {
         arithmetic = new BigIntegerArithmetic();
     }
 
-    // region fromInt, fromDouble signum and negate
+    // region fromInt, fromDouble and signum
 
     @Test
     void fromInt1() {
@@ -29,6 +29,15 @@ class BigIntegerArithmeticTest {
     @Test
     void signum1() {
         Assertions.assertEquals(1, arithmetic.signum(BigInteger.ONE));
+    }
+
+    // endregion
+
+    // region absolute and negate
+
+    @Test
+    void absoluteM1() {
+        Assertions.assertEquals(BigInteger.ONE, arithmetic.absolute(BigInteger.ONE.negate()));
     }
 
     @Test

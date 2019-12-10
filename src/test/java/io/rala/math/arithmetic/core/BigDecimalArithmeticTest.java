@@ -15,7 +15,7 @@ class BigDecimalArithmeticTest {
         arithmetic = new BigDecimalArithmetic();
     }
 
-    // region fromInt, fromDouble, signum and negate
+    // region fromInt, fromDouble and signum
 
     @Test
     void fromInt1() {
@@ -30,6 +30,15 @@ class BigDecimalArithmeticTest {
     @Test
     void signum1() {
         Assertions.assertEquals(1, arithmetic.signum(BigDecimal.ONE));
+    }
+
+    // endregion
+
+    // region absolute and negate
+
+    @Test
+    void absoluteM1() {
+        Assertions.assertEquals(BigDecimal.ONE, arithmetic.absolute(BigDecimal.ONE.negate()));
     }
 
     @Test
