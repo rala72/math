@@ -1,4 +1,4 @@
-package io.rala.math.algebra;
+package io.rala.math.algebra.matrix;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

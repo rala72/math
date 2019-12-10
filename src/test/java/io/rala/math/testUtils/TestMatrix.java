@@ -1,6 +1,6 @@
 package io.rala.math.testUtils;
 
-import io.rala.math.algebra.Matrix;
+import io.rala.math.algebra.matrix.Matrix;
 
 @SuppressWarnings("unused")
 public class TestMatrix extends Matrix<Number> {

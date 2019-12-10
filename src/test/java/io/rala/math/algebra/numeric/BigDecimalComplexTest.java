@@ -1,4 +1,4 @@
-package io.rala.math.algebra;
+package io.rala.math.algebra.numeric;
 
 import io.rala.math.geometry.Vector;
 import org.junit.jupiter.api.Assertions;

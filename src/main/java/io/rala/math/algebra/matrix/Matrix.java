@@ -1,4 +1,4 @@
-package io.rala.math.algebra;
+package io.rala.math.algebra.matrix;
 
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.utils.Copyable;

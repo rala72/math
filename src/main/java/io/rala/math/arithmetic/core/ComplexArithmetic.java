@@ -1,6 +1,6 @@
 package io.rala.math.arithmetic.core;
 
-import io.rala.math.algebra.Complex;
+import io.rala.math.algebra.numeric.Complex;
 import io.rala.math.arithmetic.AbstractArithmetic;
 
 import java.math.BigDecimal;

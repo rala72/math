@@ -1,4 +1,4 @@
-package io.rala.math.algebra;
+package io.rala.math.algebra.numeric;
 
 import io.rala.math.geometry.Vector;
 import io.rala.math.testUtils.TestAbstractArithmetic;
