@@ -94,7 +94,7 @@ class BigDecimalComplexTest {
 
     // endregion
 
-    // region absoluteValue, argument, conjugation and reciprocal
+    // region absoluteValue, argument and signum
 
     @Test
     void absoluteValueOfComplexWithoutParameter() {
@@ -139,6 +139,68 @@ class BigDecimalComplexTest {
             BigDecimal.ONE, BigDecimal.ZERO).argument()
         );
     }
+
+    @Test
+    void signumOfComplexWithoutParameter() {
+        Assertions.assertEquals(new BigDecimalComplex(),
+            new BigDecimalComplex().signum()
+        );
+    }
+
+    @Test
+    void signumOfComplexX1Y1() {
+        BigDecimal sqrt2half = BigDecimal.valueOf(0.7071067814);
+        // Math.sqrt(2d) / 2d
+        Assertions.assertEquals(new BigDecimalComplex(sqrt2half, sqrt2half),
+            new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).signum()
+        );
+    }
+
+    @Test
+    void signumOfComplexX1Y0() {
+        Assertions.assertEquals(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ZERO),
+            new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ZERO).signum()
+        );
+    }
+
+    @Test
+    void complexSignumOfComplexWithoutParameter() {
+        Assertions.assertEquals(0,
+            new BigDecimalComplex().complexSignum()
+        );
+    }
+
+    @Test
+    void complexSignumOfComplexX1Y1() {
+        Assertions.assertEquals(1,
+            new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).complexSignum()
+        );
+    }
+
+    @Test
+    void complexSignumOfComplexXMinus1Y0() {
+        Assertions.assertEquals(-1,
+            new BigDecimalComplex(BigDecimal.ONE.negate(), BigDecimal.ZERO).complexSignum()
+        );
+    }
+
+    @Test
+    void complexSignumOfComplexX0Y1() {
+        Assertions.assertEquals(1,
+            new BigDecimalComplex(BigDecimal.ZERO, BigDecimal.ONE).complexSignum()
+        );
+    }
+
+    @Test
+    void complexSignumOfComplexX0YMinus1() {
+        Assertions.assertEquals(-1,
+            new BigDecimalComplex(BigDecimal.ZERO, BigDecimal.ONE.negate()).complexSignum()
+        );
+    }
+
+    // endregion
+
+    // region conjugation and reciprocal
 
     @Test
     void conjugationOfComplexWithRe1Im2() {

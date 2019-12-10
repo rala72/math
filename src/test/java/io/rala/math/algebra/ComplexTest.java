@@ -76,7 +76,7 @@ class ComplexTest {
 
     // endregion
 
-    // region absoluteValue, argument, conjugation and reciprocal
+    // region absoluteValue, argument and signum
 
     @Test
     void absoluteValueOfComplexWithoutParameter() {
@@ -115,6 +115,67 @@ class ComplexTest {
     void argumentOfComplexX1Y0() {
         Assertions.assertEquals(0, new TestComplex(1, 0).argument());
     }
+
+    @Test
+    void signumOfComplexWithoutParameter() {
+        Assertions.assertEquals(new TestComplex(),
+            new TestComplex().signum()
+        );
+    }
+
+    @Test
+    void signumOfComplexX1Y1() {
+        double sqrt2half = 0.7071067811865475; // Math.sqrt(2d) / 2
+        Assertions.assertEquals(new TestComplex(sqrt2half, sqrt2half),
+            new TestComplex(1, 1).signum()
+        );
+    }
+
+    @Test
+    void signumOfComplexX1Y0() {
+        Assertions.assertEquals(new TestComplex(1d, 0d),
+            new TestComplex(1, 0).signum()
+        );
+    }
+
+    @Test
+    void complexSignumOfComplexWithoutParameter() {
+        Assertions.assertEquals(0,
+            new TestComplex().complexSignum()
+        );
+    }
+
+    @Test
+    void complexSignumOfComplexX1Y1() {
+        Assertions.assertEquals(1,
+            new TestComplex(1, 1).complexSignum()
+        );
+    }
+
+    @Test
+    void complexSignumOfComplexXMinus1Y0() {
+        Assertions.assertEquals(-1,
+            new TestComplex(-1, 0).complexSignum()
+        );
+    }
+
+    @Test
+    void complexSignumOfComplexX0Y1() {
+        Assertions.assertEquals(1,
+            new TestComplex(0, 1).complexSignum()
+        );
+    }
+
+    @Test
+    void complexSignumOfComplexX0YMinus1() {
+        Assertions.assertEquals(-1,
+            new TestComplex(0, -1).complexSignum()
+        );
+    }
+
+    // endregion
+
+    // region conjugation and reciprocal
 
     @Test
     void conjugationOfComplexWithRe1Im2() {

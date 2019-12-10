@@ -13,6 +13,8 @@ import java.util.Objects;
 
 /**
  * class which holds a real and a imaginary part of a complex number
+ *
+ * @param <T> number class
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Complex<T extends Number> extends Number implements Validatable,
@@ -125,7 +127,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
 
     // endregion
 
-    // region absoluteValue, argument conjugation and reciprocal
+    // region absoluteValue, argument and signum
 
     /**
      * @return absolute <i>(modulus)</i> value of complex based on pythagoras
@@ -146,6 +148,30 @@ public class Complex<T extends Number> extends Number implements Validatable,
             getArithmetic().acos(getArithmetic().quotient(getRe(), absoluteValue()))
         );
     }
+
+    /**
+     * @return 0 if z is zero otherwise <code>z/|z|</code>
+     */
+    public Complex<T> signum() {
+        if (getRe().equals(getArithmetic().fromInt(0)) &&
+            getIm().equals(getArithmetic().fromInt(0)))
+            return new Complex<>(getArithmetic());
+        return divide(absoluteValue());
+    }
+
+    /**
+     * @return if re is not 0 <code>sign(re)</code> otherwise <code>sign(im)</code>
+     */
+    public int complexSignum() {
+        return (int) (
+            !getRe().equals(getArithmetic().fromInt(0)) ?
+                getArithmetic().signum(getRe()) : getArithmetic().signum(getIm())
+        );
+    }
+
+    // endregion
+
+    // region conjugation and reciprocal
 
     /**
      * @return {@link #inverseIm()}
