@@ -153,7 +153,7 @@ class FractionTest {
 
     @Test
     void addWithFraction() {
-        Assertions.assertEquals(new TestFraction(4, 2d),
+        Assertions.assertEquals(new TestFraction(3, 2d),
             new TestFraction(1, 1).add(new TestFraction(1, 2))
         );
     }
@@ -162,7 +162,7 @@ class FractionTest {
     void addWithDoubleFraction() {
         AbstractResultArithmetic<Double, Double> arithmetic =
             new DoubleArithmetic().toResultArithmetic();
-        Assertions.assertEquals(new Fraction<>(arithmetic, 4d, 2d),
+        Assertions.assertEquals(new Fraction<>(arithmetic, 3d, 2d),
             new Fraction<>(arithmetic, 1d, 1d)
                 .add(new Fraction<>(arithmetic, 1d, 2d))
         );

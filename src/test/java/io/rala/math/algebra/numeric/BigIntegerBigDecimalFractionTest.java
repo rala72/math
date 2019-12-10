@@ -177,7 +177,7 @@ class BigIntegerBigDecimalFractionTest {
     @Test
     void addWithFraction() {
         Assertions.assertEquals(
-            new BigIntegerBigDecimalFraction(BigInteger.valueOf(4), BigInteger.TWO),
+            new BigIntegerBigDecimalFraction(BigInteger.valueOf(3), BigInteger.TWO),
             new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.ONE)
                 .add(new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO))
         );

@@ -200,8 +200,12 @@ public class Fraction<T extends Number, V extends Number> extends Number
         } catch (AbstractArithmetic.NotImplementedException e) {
             lcm = tArithmetic.product(getDenominator(), fraction.getDenominator());
         }
-        T t1 = tArithmetic.quotient(lcm, getNumerator());
-        T t2 = tArithmetic.quotient(lcm, fraction.getNumerator());
+        T t1 = tArithmetic.product(getNumerator(),
+            tArithmetic.quotient(lcm, getDenominator())
+        );
+        T t2 = tArithmetic.product(fraction.getNumerator(),
+            tArithmetic.quotient(lcm, fraction.getDenominator())
+        );
         T sum = tArithmetic.sum(t1, t2);
         return new Fraction<>(getArithmetic(), sum, lcm);
     }

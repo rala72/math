@@ -138,7 +138,7 @@ class LongDoubleFractionTest {
 
     @Test
     void addWithFraction() {
-        Assertions.assertEquals(new LongDoubleFraction(4, 2L),
+        Assertions.assertEquals(new LongDoubleFraction(3, 2L),
             new LongDoubleFraction(1, 1)
                 .add(new LongDoubleFraction(1, 2))
         );
