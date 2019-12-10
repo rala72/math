@@ -29,6 +29,8 @@ public class Complex<T extends Number> extends Number implements Validatable,
 
     /**
      * calls {@link #Complex(AbstractArithmetic, Number, Number)} with <code>0</code>
+     *
+     * @param arithmetic arithmetic for calculations
      */
     public Complex(AbstractArithmetic<T> arithmetic) {
         this(arithmetic,
@@ -39,7 +41,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
     /**
      * creates a complex number with real and imaginary part
      *
-     * @param arithmetic arithmetic to use
+     * @param arithmetic arithmetic for calculations
      * @param re         real part
      * @param im         imaginary part
      */
@@ -185,7 +187,6 @@ public class Complex<T extends Number> extends Number implements Validatable,
     /**
      * @param complex complex value to add
      * @return new complex with sum of current and given complex
-     * @see #add(T, T)
      */
     public Complex<T> add(Complex<T> complex) {
         return new Complex<>(getArithmetic(),
@@ -209,7 +210,6 @@ public class Complex<T extends Number> extends Number implements Validatable,
     /**
      * @param complex complex value to subtract
      * @return new complex with difference of current and given complex
-     * @see #subtract(T, T)
      */
     public Complex<T> subtract(Complex<T> complex) {
         return add(complex.inverse());
@@ -362,8 +362,10 @@ public class Complex<T extends Number> extends Number implements Validatable,
     // region static of, asVector, static ofVector
 
     /**
+     * @param arithmetic    arithmetic for calculations
      * @param absoluteValue absolute value of complex
      * @param argument      argument of vector
+     * @param <T>           number class of values
      * @return new complex based on absoluteValue and argument
      */
     public static <T extends Number> Complex<T> of(
