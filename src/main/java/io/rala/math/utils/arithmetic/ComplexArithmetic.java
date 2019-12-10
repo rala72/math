@@ -52,6 +52,10 @@ public class ComplexArithmetic<T extends Number> extends AbstractArithmetic<Comp
         return a.complexSignum();
     }
 
+    // endregion
+
+    // region sum, difference, product and quotient
+
     @Override
     public Complex<T> sum(Complex<T> a, Complex<T> b) {
         return a.add(b);
