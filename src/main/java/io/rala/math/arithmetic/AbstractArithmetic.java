@@ -114,6 +114,7 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @param a first value of quotient
      * @param b second value of quotient
      * @return reminder of division like <code>r=a-q*b</code>
+     * @throws NotImplementedException if operation is not implemented
      */
     public T modulo(T a, T b) {
         T quotient = quotient(a, b);
