@@ -1,8 +1,8 @@
 package io.rala.math.algebra.numeric;
 
 import io.rala.math.geometry.Vector;
-import io.rala.math.testUtils.TestAbstractArithmetic;
-import io.rala.math.testUtils.TestComplex;
+import io.rala.math.testUtils.algebra.TestComplex;
+import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

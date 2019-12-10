@@ -1,6 +1,7 @@
-package io.rala.math.testUtils;
+package io.rala.math.testUtils.algebra;
 
 import io.rala.math.algebra.numeric.Complex;
+import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
 
 public class TestComplex extends Complex<Number> {
     public TestComplex() {

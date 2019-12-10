@@ -1,6 +1,6 @@
 package io.rala.math.algebra.matrix;
 
-import io.rala.math.testUtils.TestMatrix;
+import io.rala.math.testUtils.algebra.TestMatrix;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

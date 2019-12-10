@@ -1,4 +1,4 @@
-package io.rala.math.testUtils;
+package io.rala.math.testUtils.arithmetic;
 
 import io.rala.math.arithmetic.AbstractResultArithmetic;
 

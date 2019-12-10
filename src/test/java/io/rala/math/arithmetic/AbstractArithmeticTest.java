@@ -1,6 +1,6 @@
 package io.rala.math.arithmetic;
 
-import io.rala.math.testUtils.TestAbstractArithmetic;
+import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
