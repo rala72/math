@@ -54,12 +54,41 @@ class BigIntegerBigDecimalFractionTest {
     }
 
     @Test
+    void createAndSetNumeratorNull() {
+        BigIntegerBigDecimalFraction complex =
+            new BigIntegerBigDecimalFraction(BigInteger.ONE);
+        assertFraction(complex);
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> complex.setNumerator(null)
+        ); // assert exception message?
+    }
+
+    @Test
     void createAndSetDenominator() {
         BigIntegerBigDecimalFraction complex =
             new BigIntegerBigDecimalFraction(BigInteger.ONE);
         assertFraction(complex);
         complex.setDenominator(BigInteger.valueOf(3));
         assertFraction(complex, BigInteger.ONE, BigInteger.valueOf(3));
+    }
+
+    @Test
+    void createAndSetDenominatorZero() {
+        BigIntegerBigDecimalFraction complex =
+            new BigIntegerBigDecimalFraction(BigInteger.ONE);
+        assertFraction(complex);
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> complex.setDenominator(BigInteger.ZERO)
+        ); // assert exception message?
+    }
+
+    @Test
+    void createAndSetDenominatorNull() {
+        BigIntegerBigDecimalFraction complex =
+            new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO);
+        assertFraction(complex, BigInteger.ONE, BigInteger.TWO);
+        complex.setDenominator(null);
+        assertFraction(complex, BigInteger.ONE, BigInteger.ONE);
     }
 
     // endregion

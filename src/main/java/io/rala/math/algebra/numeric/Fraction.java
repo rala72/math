@@ -14,6 +14,9 @@ import java.util.Objects;
 @SuppressWarnings("unused")
 public class Fraction<T extends Number, V extends Number> extends Number
     implements Copyable<Fraction<T, V>>, Comparable<Fraction<T, V>> {
+    protected static final String EXCEPTION_NUMERATOR_NOT_NULL = "numerator must not be null";
+    protected static final String EXCEPTION_DENOMINATOR_NOT_ZERO = "denominator must not be zero";
+
     // region attributes
 
     private final AbstractResultArithmetic<T, V> arithmetic;
@@ -45,12 +48,12 @@ public class Fraction<T extends Number, V extends Number> extends Number
     public Fraction(AbstractResultArithmetic<T, V> arithmetic, T numerator, T denominator) {
         this.arithmetic = arithmetic;
         if (numerator == null)
-            throw new IllegalArgumentException("numerator must not be null");
+            throw new IllegalArgumentException(EXCEPTION_NUMERATOR_NOT_NULL);
         this.numerator = numerator;
         this.denominator = denominator == null ?
             arithmetic.getTArithmetic().fromInt(1) : denominator;
         if (this.denominator.equals(arithmetic.getTArithmetic().fromInt(0)))
-            throw new IllegalArgumentException("denominator must not be zero");
+            throw new IllegalArgumentException(EXCEPTION_DENOMINATOR_NOT_ZERO);
     }
 
     /**
@@ -77,6 +80,8 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @param numerator new numerator of fraction
      */
     public void setNumerator(T numerator) {
+        if (numerator == null)
+            throw new IllegalArgumentException(EXCEPTION_NUMERATOR_NOT_NULL);
         this.numerator = numerator;
     }
 
@@ -91,6 +96,10 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @param denominator new denominator of fraction
      */
     public void setDenominator(T denominator) {
+        if (denominator == null)
+            denominator = getArithmetic().getTArithmetic().fromInt(1);
+        if (denominator.equals(getArithmetic().getTArithmetic().fromInt(0)))
+            throw new IllegalArgumentException(EXCEPTION_DENOMINATOR_NOT_ZERO);
         this.denominator = denominator;
     }
 

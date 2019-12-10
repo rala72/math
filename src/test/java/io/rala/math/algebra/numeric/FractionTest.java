@@ -45,11 +45,37 @@ class FractionTest {
     }
 
     @Test
+    void createAndSetNumeratorNull() {
+        TestFraction complex = new TestFraction(1);
+        assertFraction(complex);
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> complex.setNumerator(null)
+        ); // assert exception message?
+    }
+
+    @Test
     void createAndSetDenominator() {
         TestFraction complex = new TestFraction(1);
         assertFraction(complex);
         complex.setDenominator(3);
         assertFraction(complex, 1, 3);
+    }
+
+    @Test
+    void createAndSetDenominatorZero() {
+        TestFraction complex = new TestFraction(1);
+        assertFraction(complex);
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> complex.setDenominator(0)
+        ); // assert exception message?
+    }
+
+    @Test
+    void createAndSetDenominatorNull() {
+        TestFraction complex = new TestFraction(1, 2);
+        assertFraction(complex, 1, 2);
+        complex.setDenominator(null);
+        assertFraction(complex, 1, 1);
     }
 
     // endregion

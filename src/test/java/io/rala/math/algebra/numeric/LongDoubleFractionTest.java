@@ -37,11 +37,37 @@ class LongDoubleFractionTest {
     }
 
     @Test
+    void createAndSetNumeratorNull() {
+        LongDoubleFraction complex = new LongDoubleFraction(1);
+        assertFraction(complex);
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> complex.setNumerator(null)
+        ); // assert exception message?
+    }
+
+    @Test
     void createAndSetDenominator() {
         LongDoubleFraction complex = new LongDoubleFraction(1);
         assertFraction(complex);
         complex.setDenominator(3L);
         assertFraction(complex, 1, 3);
+    }
+
+    @Test
+    void createAndSetDenominatorZero() {
+        LongDoubleFraction complex = new LongDoubleFraction(1);
+        assertFraction(complex);
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> complex.setDenominator(0L)
+        ); // assert exception message?
+    }
+
+    @Test
+    void createAndSetDenominatorNull() {
+        LongDoubleFraction complex = new LongDoubleFraction(1, 2);
+        assertFraction(complex, 1, 2);
+        complex.setDenominator(null);
+        assertFraction(complex, 1, 1);
     }
 
     // endregion
