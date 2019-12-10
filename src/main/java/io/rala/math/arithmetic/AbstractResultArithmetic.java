@@ -132,6 +132,22 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
 
     // endregion
 
+    // region map
+
+    /**
+     * @param arithmetic arithmetic for target
+     * @param map        mapping function to convert current result to new one
+     * @param <V>        number class of target
+     * @return new {@link AbstractResultArithmetic} witch returns <code>V</code>
+     */
+    public <V extends Number> AbstractResultArithmetic<T, V> map(
+        AbstractArithmetic<V> arithmetic, Function<T, V> map
+    ) {
+        return AbstractResultArithmetic.of(getTArithmetic(), arithmetic, map);
+    }
+
+    // endregion
+
     // region static of
 
     public static <T extends Number, R extends Number> AbstractResultArithmetic<T, R> of(

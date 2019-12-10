@@ -1,5 +1,7 @@
 package io.rala.math.arithmetic.result;
 
+import io.rala.math.arithmetic.AbstractResultArithmetic;
+import io.rala.math.arithmetic.core.IntegerArithmetic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -56,6 +58,19 @@ class LongDoubleResultArithmeticTest {
     @Test
     void modulo12() {
         Assertions.assertEquals(1, arithmetic.modulo(1L, 2L));
+    }
+
+    // endregion
+
+    // region map
+
+    @Test
+    void mapToInteger() {
+        AbstractResultArithmetic<Long, Integer> mapped =
+            arithmetic.map(new IntegerArithmetic(), Long::intValue);
+        Assertions.assertTrue(mapped.getRArithmetic() instanceof IntegerArithmetic);
+        Assertions.assertEquals(0.5, arithmetic.quotient(1L, 2L));
+        Assertions.assertEquals(0, mapped.quotient(1L, 2L));
     }
 
     // endregion

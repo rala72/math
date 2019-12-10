@@ -1,6 +1,8 @@
 package io.rala.math.arithmetic.result;
 
+import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.core.BigDecimalArithmetic;
+import io.rala.math.arithmetic.core.IntegerArithmetic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -83,6 +85,23 @@ class BigIntegerBigDecimalResultArithmeticTest {
     void modulo12() {
         Assertions.assertEquals(BigDecimal.ONE,
             arithmetic.modulo(BigInteger.ONE, BigInteger.valueOf(2))
+        );
+    }
+
+    // endregion
+
+    // region map
+
+    @Test
+    void mapToInteger() {
+        AbstractResultArithmetic<BigInteger, Integer> mapped =
+            arithmetic.map(new IntegerArithmetic(), BigInteger::intValue);
+        Assertions.assertTrue(mapped.getRArithmetic() instanceof IntegerArithmetic);
+        Assertions.assertEquals(BigDecimal.valueOf(0.5),
+            arithmetic.quotient(BigInteger.ONE, BigInteger.TWO)
+        );
+        Assertions.assertEquals(0,
+            mapped.quotient(BigInteger.ONE, BigInteger.TWO)
         );
     }
 

@@ -1,5 +1,6 @@
 package io.rala.math.arithmetic;
 
+import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.testUtils.TestAbstractArithmetic;
 import io.rala.math.testUtils.TestAbstractResultArithmetic;
 import org.junit.jupiter.api.Assertions;
@@ -55,6 +56,19 @@ public class AbstractResultArithmeticTest {
     @Test
     void modulo12() {
         Assertions.assertEquals(1, arithmetic.modulo(1, 2));
+    }
+
+    // endregion
+
+    // region map
+
+    @Test
+    void mapToInteger() {
+        AbstractResultArithmetic<Number, Integer> mapped =
+            arithmetic.map(new IntegerArithmetic(), Number::intValue);
+        Assertions.assertTrue(mapped.getRArithmetic() instanceof IntegerArithmetic);
+        Assertions.assertEquals(0.5, arithmetic.quotient(1, 2));
+        Assertions.assertEquals(0, mapped.quotient(1, 2));
     }
 
     // endregion
