@@ -1,4 +1,4 @@
-package io.rala.math.utils.arithmetic;
+package io.rala.math.arithmetic;
 
 import io.rala.math.testUtils.TestAbstractArithmetic;
 import org.junit.jupiter.api.Assertions;

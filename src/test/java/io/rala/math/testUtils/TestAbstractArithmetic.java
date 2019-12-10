@@ -1,7 +1,7 @@
 package io.rala.math.testUtils;
 
 import io.rala.math.MathX;
-import io.rala.math.utils.arithmetic.AbstractArithmetic;
+import io.rala.math.arithmetic.AbstractArithmetic;
 
 @SuppressWarnings("unused")
 public class TestAbstractArithmetic extends AbstractArithmetic<Number> {

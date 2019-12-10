@@ -1,7 +1,7 @@
 package io.rala.math.algebra;
 
+import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.utils.Copyable;
-import io.rala.math.utils.arithmetic.AbstractArithmetic;
 
 import java.util.*;
 import java.util.stream.Collectors;

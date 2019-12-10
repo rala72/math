@@ -1,4 +1,4 @@
-package io.rala.math.utils.arithmetic;
+package io.rala.math.arithmetic;
 
 /**
  * class which defines required arithmetic for calculations
