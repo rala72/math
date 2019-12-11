@@ -260,24 +260,24 @@ class MatrixTest {
     @Test
     void addOfEmptyMatrixWithSize1AndEmptyMatrixWithRows2Cols1() {
         Assertions.assertThrows(IllegalArgumentException.class,
-            () -> new DoubleMatrix(1)
-                .add(new DoubleMatrix(2, 1))
+            () -> new TestMatrix(1)
+                .add(new TestMatrix(2, 1))
         ); // assert exception message?
     }
 
     @Test
     void addOfEmptyMatrixWithSize1AndEmptyMatrixWithRows1Cols2() {
         Assertions.assertThrows(IllegalArgumentException.class,
-            () -> new DoubleMatrix(1)
-                .add(new DoubleMatrix(1, 2))
+            () -> new TestMatrix(1)
+                .add(new TestMatrix(1, 2))
         ); // assert exception message?
     }
 
     @Test
     void addOfEmptyMatrixWithSize2AndEmptyMatrixWithSize2() {
-        DoubleMatrix matrix1 = new DoubleMatrix(2);
-        DoubleMatrix matrix2 = new DoubleMatrix(2);
-        DoubleMatrix result = new DoubleMatrix(2);
+        TestMatrix matrix1 = new TestMatrix(2);
+        TestMatrix matrix2 = new TestMatrix(2);
+        TestMatrix result = new TestMatrix(2);
         for (int i = 0; i < result.size(); i++)
             result.setValue(i, 0d);
         Assertions.assertEquals(result, matrix1.add(matrix2));
@@ -285,39 +285,39 @@ class MatrixTest {
 
     @Test
     void addOfMatrixWithSize2ToItself() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        DoubleMatrix result = new DoubleMatrix(2);
+        TestMatrix matrix = new TestMatrix(2);
+        TestMatrix result = new TestMatrix(2);
         for (int i = 0; i < matrix.size(); i++) {
             matrix.setValue(i, i + 1d);
-            result.setValue(i, 2 * (i + 1d));
+            result.setValue(i, 2 * (i + 1));
         }
         Assertions.assertEquals(result, matrix.add(matrix));
     }
 
     @Test
     void multiplyOfEmptyMatrixWithSize2AndEmptyMatrixWithSize2() {
-        DoubleMatrix matrix1 = new DoubleMatrix(2);
-        DoubleMatrix matrix2 = new DoubleMatrix(2);
-        DoubleMatrix result = new DoubleMatrix(2);
+        TestMatrix matrix1 = new TestMatrix(2);
+        TestMatrix matrix2 = new TestMatrix(2);
+        TestMatrix result = new TestMatrix(2);
         for (int i = 0; i < result.size(); i++)
-            result.setValue(i, 0d);
+            result.setValue(i, 0);
         Assertions.assertEquals(result, matrix1.multiply(matrix2));
     }
 
     @Test
     void multiplyOfEmptyMatrixWithRow1Col2AndEmptyMatrixWithRow2Col3() {
-        DoubleMatrix matrix1 = new DoubleMatrix(1, 2);
-        DoubleMatrix matrix2 = new DoubleMatrix(2, 3);
-        DoubleMatrix result = new DoubleMatrix(1, 3);
+        TestMatrix matrix1 = new TestMatrix(1, 2);
+        TestMatrix matrix2 = new TestMatrix(2, 3);
+        TestMatrix result = new TestMatrix(1, 3);
         for (int i = 0; i < result.size(); i++)
-            result.setValue(i, 0d);
+            result.setValue(i, 0);
         Assertions.assertEquals(result, matrix1.multiply(matrix2));
     }
 
     @Test
     void multiplyOfEmptyMatrixWithRow2Col3AndEmptyMatrixWithRow1Col2() {
-        DoubleMatrix matrix1 = new DoubleMatrix(2, 3);
-        DoubleMatrix matrix2 = new DoubleMatrix(1, 2);
+        TestMatrix matrix1 = new TestMatrix(2, 3);
+        TestMatrix matrix2 = new TestMatrix(1, 2);
         Assertions.assertThrows(IllegalArgumentException.class,
             () -> matrix1.multiply(matrix2)
         ); // assert exception message?
@@ -335,28 +335,28 @@ class MatrixTest {
 
     @Test
     void multiplyTolerantOfEmptyMatrixWithRow1Col2AndEmptyMatrixWithRow2Col3() {
-        DoubleMatrix matrix1 = new DoubleMatrix(1, 2);
-        DoubleMatrix matrix2 = new DoubleMatrix(2, 3);
-        DoubleMatrix result = new DoubleMatrix(1, 3);
+        TestMatrix matrix1 = new TestMatrix(1, 2);
+        TestMatrix matrix2 = new TestMatrix(2, 3);
+        TestMatrix result = new TestMatrix(1, 3);
         for (int i = 0; i < result.size(); i++)
-            result.setValue(i, 0d);
+            result.setValue(i, 0);
         Assertions.assertEquals(result, matrix1.multiplyTolerant(matrix2));
     }
 
     @Test
     void multiplyTolerantOfEmptyMatrixWithRow2Col3AndEmptyMatrixWithRow1Col2() {
-        DoubleMatrix matrix1 = new DoubleMatrix(2, 3);
-        DoubleMatrix matrix2 = new DoubleMatrix(1, 2);
-        DoubleMatrix result = new DoubleMatrix(1, 3);
+        TestMatrix matrix1 = new TestMatrix(2, 3);
+        TestMatrix matrix2 = new TestMatrix(1, 2);
+        TestMatrix result = new TestMatrix(1, 3);
         for (int i = 0; i < result.size(); i++)
-            result.setValue(i, 0d);
+            result.setValue(i, 0);
         Assertions.assertEquals(result, matrix1.multiplyTolerant(matrix2));
     }
 
     @Test
     void multiplyTolerantOfEmptyMatrixWithRow1Col2AndEmptyMatrixWithRow3Col4() {
-        DoubleMatrix matrix1 = new DoubleMatrix(1, 2);
-        DoubleMatrix matrix2 = new DoubleMatrix(3, 4);
+        TestMatrix matrix1 = new TestMatrix(1, 2);
+        TestMatrix matrix2 = new TestMatrix(3, 4);
         Assertions.assertThrows(IllegalArgumentException.class,
             () -> matrix1.multiplyTolerant(matrix2)
         );
@@ -381,16 +381,16 @@ class MatrixTest {
 
     @Test
     void transposeOfEmptyMatrixWithSize2() {
-        DoubleMatrix result = new DoubleMatrix(2);
+        TestMatrix result = new TestMatrix(2);
         for (int i = 0; i < result.size(); i++)
             result.setValue(i, 0d);
-        Assertions.assertEquals(result, new DoubleMatrix(2).transpose());
+        Assertions.assertEquals(result, new TestMatrix(2).transpose());
     }
 
     @Test
     void transposeOfMatrixWithSize2() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        DoubleMatrix result = new DoubleMatrix(2);
+        TestMatrix matrix = new TestMatrix(2);
+        TestMatrix result = new TestMatrix(2);
         for (int r = 0; r < matrix.getRows(); r++) {
             for (int c = 0; c < matrix.getCols(); c++) {
                 int i = matrix.getIndexOfRowAndCol(r, c);
@@ -403,13 +403,13 @@ class MatrixTest {
 
     @Test
     void determinanteOfEmptyMatrixWithSize2() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
+        TestMatrix matrix = new TestMatrix(2);
         Assertions.assertEquals(0, matrix.determinante());
     }
 
     @Test
     void determinanteOfMatrixWithSize2AndValues1234() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
+        TestMatrix matrix = new TestMatrix(2);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i + 1d);
         Assertions.assertEquals(-2, matrix.determinante());
@@ -417,7 +417,7 @@ class MatrixTest {
 
     @Test
     void determinanteOfMatrixWithSize3AndValues123456789() {
-        DoubleMatrix matrix = new DoubleMatrix(3);
+        TestMatrix matrix = new TestMatrix(3);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i + 1d);
         Assertions.assertEquals(0, matrix.determinante());
@@ -425,7 +425,7 @@ class MatrixTest {
 
     @Test
     void determinanteOfMatrixWithSize3AndValues1And2OnDiagonale() {
-        DoubleMatrix matrix = new DoubleMatrix(3);
+        TestMatrix matrix = new TestMatrix(3);
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, r == c ? 2d : 1d);
@@ -434,7 +434,7 @@ class MatrixTest {
 
     @Test
     void determinanteOfMatrixWithSize4AndValues1And2OnDiagonale() {
-        DoubleMatrix matrix = new DoubleMatrix(4);
+        TestMatrix matrix = new TestMatrix(4);
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, r == c ? 2d : 1d);
@@ -443,7 +443,7 @@ class MatrixTest {
 
     @Test
     void determinanteOfMatrixWithSize4AndValues1AndMore0InRow() {
-        DoubleMatrix matrix = new DoubleMatrix(4);
+        TestMatrix matrix = new TestMatrix(4);
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, c != 0 && (r == c || r == 0) ? 0d : 1d);
@@ -452,7 +452,7 @@ class MatrixTest {
 
     @Test
     void determinanteOfMatrixWithSize4AndValues1AndMore0InCol() {
-        DoubleMatrix matrix = new DoubleMatrix(4);
+        TestMatrix matrix = new TestMatrix(4);
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, r != 0 && (r == c || c == 0) ? 0d : 1d);
