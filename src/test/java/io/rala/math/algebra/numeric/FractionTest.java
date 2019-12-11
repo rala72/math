@@ -198,7 +198,7 @@ class FractionTest {
 
     // endregion
 
-    // region multiply
+    // region multiply and divide
 
     @Test
     void multiplyWithNumerator() {
@@ -221,6 +221,30 @@ class FractionTest {
         Assertions.assertEquals(new TestFraction(4, 6),
             new TestFraction(1, 2)
                 .multiply(new TestFraction(4, 3))
+        );
+    }
+
+    @Test
+    void divideWithNumerator() {
+        Assertions.assertEquals(
+            new TestFraction(1, 2),
+            new TestFraction(1).divide(2)
+        );
+    }
+
+    @Test
+    void divideWithXAndY() {
+        Assertions.assertEquals(
+            new TestFraction(4, 6),
+            new TestFraction(1, 2).divide(3, 4)
+        );
+    }
+
+    @Test
+    void divideWithFraction() {
+        Assertions.assertEquals(new TestFraction(3, 8),
+            new TestFraction(1, 2)
+                .divide(new TestFraction(4, 3))
         );
     }
 

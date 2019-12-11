@@ -239,7 +239,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
 
     // endregion
 
-    // region multiply
+    // region multiply and divide
 
     /**
      * calls {@link #multiply(Fraction)} with given value
@@ -277,6 +277,37 @@ public class Fraction<T extends Number, V extends Number> extends Number
             getDenominator(), fraction.getDenominator()
         );
         return new Fraction<>(getArithmetic(), newNumerator, newDenominator);
+    }
+
+    /**
+     * calls {@link #divide(Fraction)} with given value
+     *
+     * @param numerator numerator value to multiply
+     * @return new fraction with quotient of current and given parameter
+     * @see #divide(Fraction)
+     */
+    public Fraction<T, V> divide(T numerator) {
+        return divide(new Fraction<>(getArithmetic(), numerator));
+    }
+
+    /**
+     * calls {@link #divide(Fraction)} with given values
+     *
+     * @param numerator   numerator value to multiply
+     * @param denominator denominator value to multiply
+     * @return new fraction with quotient of current and given parameters
+     * @see #divide(Fraction)
+     */
+    public Fraction<T, V> divide(T numerator, T denominator) {
+        return divide(new Fraction<>(getArithmetic(), numerator, denominator));
+    }
+
+    /**
+     * @param fraction fraction to divide
+     * @return new fraction with quotient of current and given fraction
+     */
+    public Fraction<T, V> divide(Fraction<T, V> fraction) {
+        return multiply(fraction.inverse());
     }
 
     // endregion
