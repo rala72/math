@@ -1,5 +1,6 @@
 package io.rala.math.arithmetic.core;
 
+import io.rala.math.algebra.numeric.Fraction;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.testUtils.algebra.TestFraction;
 import io.rala.math.testUtils.arithmetic.TestAbstractResultArithmetic;
@@ -147,6 +148,30 @@ class FractionArithmeticTest {
         Assertions.assertThrows(AbstractArithmetic.NotImplementedException.class,
             () -> arithmetic.lcm(new TestFraction(3d), new TestFraction(4d))
         ); // assert exception message?
+    }
+
+    // endregion
+
+    // region static of
+
+    @Test
+    void ofNumerator() {
+        Fraction<Integer, Integer> ofArithmetic =
+            Fraction.of(new IntegerArithmetic(), 1);
+        Assertions.assertNotNull(ofArithmetic.getNumerator());
+        Assertions.assertNotNull(ofArithmetic.getDenominator());
+        Assertions.assertEquals(1, ofArithmetic.getNumerator());
+        Assertions.assertEquals(1, ofArithmetic.getDenominator());
+    }
+
+    @Test
+    void ofNumeratorAndDenominator() {
+        Fraction<Integer, Integer> ofArithmetic =
+            Fraction.of(new IntegerArithmetic(), 1, 2);
+        Assertions.assertNotNull(ofArithmetic.getNumerator());
+        Assertions.assertNotNull(ofArithmetic.getDenominator());
+        Assertions.assertEquals(1, ofArithmetic.getNumerator());
+        Assertions.assertEquals(2, ofArithmetic.getDenominator());
     }
 
     // endregion

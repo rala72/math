@@ -342,6 +342,39 @@ public class Fraction<T extends Number, V extends Number> extends Number
 
     // endregion
 
+    // region static of
+
+    /**
+     * @param arithmetic arithmetic of calculations
+     * @param numerator  numerator of fraction
+     * @param <T>        number class of fraction elements
+     * @return new fraction based on arguments
+     * @see #of(AbstractArithmetic, Number, Number)
+     * @see AbstractArithmetic#toResultArithmetic()
+     */
+    public static <T extends Number> Fraction<T, T> of(
+        AbstractArithmetic<T> arithmetic, T numerator
+    ) {
+        return new Fraction<>(arithmetic.toResultArithmetic(), numerator);
+    }
+
+    /**
+     * @param arithmetic  arithmetic of calculations
+     * @param numerator   numerator of fraction
+     * @param denominator denominator of fraction
+     * @param <T>         number class of fraction elements
+     * @return new fraction based on arguments
+     * @see #of(AbstractArithmetic, Number)
+     * @see AbstractArithmetic#toResultArithmetic()
+     */
+    public static <T extends Number> Fraction<T, T> of(
+        AbstractArithmetic<T> arithmetic, T numerator, T denominator
+    ) {
+        return new Fraction<>(arithmetic.toResultArithmetic(), numerator, denominator);
+    }
+
+    // endregion
+
     // region copy
 
     @Override
