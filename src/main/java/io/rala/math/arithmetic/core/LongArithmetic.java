@@ -68,7 +68,7 @@ public class LongArithmetic extends AbstractArithmetic<Long> {
         return (long) MathX.root(a, b);
     }
 
-    // endregion+
+    // endregion
 
     // region gcd
 

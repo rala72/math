@@ -27,6 +27,8 @@ public class FractionArithmetic<T extends Number, R extends Number> extends Abst
         return arithmetic;
     }
 
+    // region fromInt, fromDouble and signum
+
     @Override
     public Fraction<T, R> fromInt(int a) {
         return new Fraction<>(getArithmetic(), getArithmetic().getTArithmetic().fromInt(a));
@@ -50,6 +52,10 @@ public class FractionArithmetic<T extends Number, R extends Number> extends Abst
         return getArithmetic().getTArithmetic().signum(a.getNumerator());
     }
 
+    // endregion
+
+    // region sum, difference, product and quotient
+
     @Override
     public Fraction<T, R> sum(Fraction<T, R> a, Fraction<T, R> b) {
         return a.add(b);
@@ -70,6 +76,10 @@ public class FractionArithmetic<T extends Number, R extends Number> extends Abst
         return a.divide(b);
     }
 
+    // endregion
+
+    // region power and root
+
     @Override
     public Fraction<T, R> power(Fraction<T, R> a, int b) {
         return a.pow(b);
@@ -80,8 +90,14 @@ public class FractionArithmetic<T extends Number, R extends Number> extends Abst
         return a.root(b);
     }
 
+    // endregion
+
+    // region gcd
+
     @Override
     public Fraction<T, R> gcd(Fraction<T, R> a, Fraction<T, R> b) {
         throw new NotImplementedException();
     }
+
+    // endregion
 }
