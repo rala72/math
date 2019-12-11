@@ -461,6 +461,82 @@ class MatrixTest {
 
     // endregion
 
+    // region static: identity and diagonal
+
+    @Test
+    void identityOfSize1() {
+        TestMatrix matrix = TestMatrix.identity(1);
+        Assertions.assertEquals(1, matrix.size());
+        for (int i = 0; i < Math.sqrt(matrix.size()); i++)
+            Assertions.assertEquals(1, matrix.getValue(i, i));
+    }
+
+    @Test
+    void identityOfSize2() {
+        TestMatrix matrix = TestMatrix.identity(2);
+        Assertions.assertEquals(2 * 2, matrix.size());
+        for (int i = 0; i < Math.sqrt(matrix.size()); i++)
+            Assertions.assertEquals(1, matrix.getValue(i, i));
+    }
+
+    @Test
+    void diagonalOfSize1() {
+        TestMatrix matrix = TestMatrix.diagonal(1);
+        Assertions.assertEquals(1, matrix.size());
+        for (int i = 0; i < Math.sqrt(matrix.size()); i++)
+            Assertions.assertEquals(1, matrix.getValue(i, i));
+    }
+
+    @Test
+    void diagonalOfSize2() {
+        TestMatrix matrix = TestMatrix.diagonal(2, 2);
+        Assertions.assertEquals(2 * 2, matrix.size());
+        for (int i = 0; i < Math.sqrt(matrix.size()); i++)
+            Assertions.assertEquals(2, matrix.getValue(i, i));
+    }
+
+    // endregion
+
+    // region static: of
+
+    @Test
+    void ofValuesByRows2WithInvalidParamCount() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> TestMatrix.ofValuesByRows(2, 1)
+        );
+    }
+
+    @Test
+    void ofValuesByRows2WithValidParamCount() {
+        TestMatrix matrix = TestMatrix.ofValuesByRows(2, 1, 2);
+        for (int i = 0; i < matrix.size(); i++)
+            Assertions.assertEquals(
+                i + 1,
+                matrix.getValue(i),
+                "index: " + i
+            );
+    }
+
+    @Test
+    void ofValuesByCols2WithInvalidParamCount() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> TestMatrix.ofValuesByCols(2, 1)
+        );
+    }
+
+    @Test
+    void ofValuesByCols2WithValidParamCount() {
+        TestMatrix matrix = TestMatrix.ofValuesByCols(2, 1, 2);
+        for (int i = 0; i < matrix.size(); i++)
+            Assertions.assertEquals(
+                i + 1,
+                matrix.getValue(i),
+                "index: " + i
+            );
+    }
+
+    // endregion
+
     // region override
 
     @Test

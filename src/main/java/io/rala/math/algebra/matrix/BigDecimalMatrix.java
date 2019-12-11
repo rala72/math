@@ -77,23 +77,23 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
     /**
      * @param size size of matrix
      * @return new created matrix
+     * @see Matrix#identity(AbstractArithmetic, int, Number)
      */
     public static BigDecimalMatrix identity(int size) {
-        BigDecimalMatrix matrix = new BigDecimalMatrix(size);
-        for (int i = 0; i < size; i++)
-            matrix.setValue(i, i, BigDecimal.ONE);
-        return matrix;
+        return new BigDecimalMatrix(
+            Matrix.identity(new BigDecimalArithmetic(), size, DEFAULT_VALUE)
+        );
     }
 
     /**
      * @param values diagonal values of matrix
      * @return new created matrix
+     * @see Matrix#diagonal(AbstractArithmetic, Number, Number[])
      */
     public static BigDecimalMatrix diagonal(BigDecimal... values) {
-        BigDecimalMatrix matrix = new BigDecimalMatrix(values.length);
-        for (int i = 0; i < values.length; i++)
-            matrix.setValue(i, i, values[i]);
-        return matrix;
+        return new BigDecimalMatrix(
+            Matrix.diagonal(new BigDecimalArithmetic(), DEFAULT_VALUE, values)
+        );
     }
 
     // endregion
@@ -108,14 +108,14 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      * @return new created matrix
      * @throws IllegalArgumentException if rows modulo <code>values.length</code>
      *                                  is not congruent 0
+     * @see Matrix#ofValuesByRows(AbstractArithmetic, Number, int, Number[])
      */
     public static BigDecimalMatrix ofValuesByRows(int rows, BigDecimal... values) {
-        if (values.length % rows != 0)
-            throw new IllegalArgumentException(EXCEPTION_ROWS_NOT_CONGRUENT_0);
-        BigDecimalMatrix matrix = new BigDecimalMatrix(rows, values.length / rows);
-        for (int i = 0; i < values.length; i++)
-            matrix.setValue(i, values[i]);
-        return matrix;
+        return new BigDecimalMatrix(
+            Matrix.ofValuesByRows(new BigDecimalArithmetic(),
+                DEFAULT_VALUE, rows, values
+            )
+        );
     }
 
     /**
@@ -126,13 +126,13 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      * @return new created matrix
      * @throws IllegalArgumentException if cols modulo <code>values.length</code>
      *                                  is not congruent 0
+     * @see Matrix#ofValuesByCols(AbstractArithmetic, Number, int, Number[])
      */
     public static BigDecimalMatrix ofValuesByCols(int cols, BigDecimal... values) {
-        if (values.length % cols != 0)
-            throw new IllegalArgumentException(EXCEPTION_COLS_NOT_CONGRUENT_0);
         return new BigDecimalMatrix(
-            ofValuesByRows(values.length / cols, values)
-                .transpose()
+            Matrix.ofValuesByCols(new BigDecimalArithmetic(),
+                DEFAULT_VALUE, cols, values
+            )
         );
     }
 

@@ -28,4 +28,40 @@ public class TestMatrix extends Matrix<Number> {
     }
 
     // endregion
+
+    // region static: identity and diagonal
+
+    public static TestMatrix identity(int size) {
+        return new TestMatrix(
+            Matrix.identity(new TestAbstractArithmetic(), size, 0d)
+        );
+    }
+
+    public static TestMatrix diagonal(Number... values) {
+        return new TestMatrix(
+            Matrix.diagonal(new TestAbstractArithmetic(), 0d, values)
+        );
+    }
+
+    // endregion
+
+    // region static: of
+
+    public static TestMatrix ofValuesByRows(int rows, Number... values) {
+        return new TestMatrix(
+            Matrix.ofValuesByRows(new TestAbstractArithmetic(),
+                0d, rows, values
+            )
+        );
+    }
+
+    public static TestMatrix ofValuesByCols(int cols, Number... values) {
+        return new TestMatrix(
+            Matrix.ofValuesByCols(new TestAbstractArithmetic(),
+                0d, cols, values
+            )
+        );
+    }
+
+    // endregion
 }

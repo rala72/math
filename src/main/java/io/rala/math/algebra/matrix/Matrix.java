@@ -408,6 +408,94 @@ public class Matrix<T extends Number>
 
     // endregion
 
+    // region static: identity and diagonal
+
+    /**
+     * @param arithmetic   arithmetic for calculations
+     * @param size         size of matrix
+     * @param defaultValue default value of non-existing values
+     * @param <T>          number class
+     * @return new created matrix
+     */
+    public static <T extends Number> Matrix<T> identity(
+        AbstractArithmetic<T> arithmetic, int size, T defaultValue
+    ) {
+        Matrix<T> matrix = new Matrix<>(arithmetic, size, defaultValue);
+        for (int i = 0; i < size; i++)
+            matrix.setValue(i, i, arithmetic.fromInt(1));
+        return matrix;
+    }
+
+    /**
+     * @param arithmetic   arithmetic for calculations
+     * @param defaultValue default value of non-existing values
+     * @param values       diagonal values of matrix
+     * @param <T>          number class
+     * @return new created matrix
+     */
+    @SafeVarargs
+    public static <T extends Number> Matrix<T> diagonal(
+        AbstractArithmetic<T> arithmetic, T defaultValue, T... values
+    ) {
+        Matrix<T> matrix = new Matrix<>(arithmetic, values.length, defaultValue);
+        for (int i = 0; i < values.length; i++)
+            matrix.setValue(i, i, values[i]);
+        return matrix;
+    }
+
+    // endregion
+
+    // region static: of
+
+    /**
+     * creates a new matrix containing all provided values
+     *
+     * @param arithmetic   arithmetic for calculations
+     * @param defaultValue default value of non-existing values
+     * @param rows         rows of matrix
+     * @param values       row based values of matrix
+     * @param <T>          number class
+     * @return new created matrix
+     * @throws IllegalArgumentException if rows modulo <code>values.length</code>
+     *                                  is not congruent 0
+     */
+    @SafeVarargs
+    public static <T extends Number> Matrix<T> ofValuesByRows(
+        AbstractArithmetic<T> arithmetic, T defaultValue, int rows, T... values
+    ) {
+        if (values.length % rows != 0)
+            throw new IllegalArgumentException(EXCEPTION_ROWS_NOT_CONGRUENT_0);
+        Matrix<T> matrix = new Matrix<>(arithmetic, rows, values.length / rows, defaultValue);
+        for (int i = 0; i < values.length; i++)
+            matrix.setValue(i, values[i]);
+        return matrix;
+    }
+
+    /**
+     * creates a new matrix containing all provided values
+     *
+     * @param arithmetic   arithmetic for calculations
+     * @param defaultValue default value of non-existing values
+     * @param cols         cols of matrix
+     * @param values       column based values of matrix
+     * @param <T>          number class
+     * @return new created matrix
+     * @throws IllegalArgumentException if cols modulo <code>values.length</code>
+     *                                  is not congruent 0
+     */
+    @SafeVarargs
+    public static <T extends Number> Matrix<T> ofValuesByCols(
+        AbstractArithmetic<T> arithmetic, T defaultValue, int cols, T... values
+    ) {
+        if (values.length % cols != 0)
+            throw new IllegalArgumentException(EXCEPTION_COLS_NOT_CONGRUENT_0);
+        return Matrix.ofValuesByRows(
+            arithmetic, defaultValue, values.length / cols, values
+        ).transpose();
+    }
+
+    // endregion
+
     // region copy
 
     @Override

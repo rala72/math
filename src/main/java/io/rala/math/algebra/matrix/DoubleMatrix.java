@@ -3,6 +3,8 @@ package io.rala.math.algebra.matrix;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.core.DoubleArithmetic;
 
+import java.util.Arrays;
+
 /**
  * class which holds a matrix with <code>rows</code> and <code>cols</code>
  * storing {@link Double}
@@ -51,23 +53,24 @@ public class DoubleMatrix extends Matrix<Double> {
     /**
      * @param size size of matrix
      * @return new created matrix
+     * @see Matrix#identity(AbstractArithmetic, int, Number)
      */
     public static DoubleMatrix identity(int size) {
-        DoubleMatrix matrix = new DoubleMatrix(size);
-        for (int i = 0; i < size; i++)
-            matrix.setValue(i, i, 1d);
-        return matrix;
+        return new DoubleMatrix(
+            Matrix.identity(new DoubleArithmetic(), size, DEFAULT_VALUE)
+        );
     }
 
     /**
      * @param values diagonal values of matrix
      * @return new created matrix
+     * @see Matrix#diagonal(AbstractArithmetic, Number, Number[])
      */
     public static DoubleMatrix diagonal(double... values) {
-        DoubleMatrix matrix = new DoubleMatrix(values.length);
-        for (int i = 0; i < values.length; i++)
-            matrix.setValue(i, i, values[i]);
-        return matrix;
+        Double[] boxed = Arrays.stream(values).boxed().toArray(Double[]::new);
+        return new DoubleMatrix(
+            Matrix.diagonal(new DoubleArithmetic(), DEFAULT_VALUE, boxed)
+        );
     }
 
     // endregion
@@ -82,14 +85,15 @@ public class DoubleMatrix extends Matrix<Double> {
      * @return new created matrix
      * @throws IllegalArgumentException if rows modulo <code>values.length</code>
      *                                  is not congruent 0
+     * @see Matrix#ofValuesByRows(AbstractArithmetic, Number, int, Number[])
      */
     public static DoubleMatrix ofValuesByRows(int rows, double... values) {
-        if (values.length % rows != 0)
-            throw new IllegalArgumentException(EXCEPTION_ROWS_NOT_CONGRUENT_0);
-        DoubleMatrix matrix = new DoubleMatrix(rows, values.length / rows);
-        for (int i = 0; i < values.length; i++)
-            matrix.setValue(i, values[i]);
-        return matrix;
+        Double[] boxed = Arrays.stream(values).boxed().toArray(Double[]::new);
+        return new DoubleMatrix(
+            Matrix.ofValuesByRows(new DoubleArithmetic(),
+                DEFAULT_VALUE, rows, boxed
+            )
+        );
     }
 
     /**
@@ -100,13 +104,14 @@ public class DoubleMatrix extends Matrix<Double> {
      * @return new created matrix
      * @throws IllegalArgumentException if cols modulo <code>values.length</code>
      *                                  is not congruent 0
+     * @see Matrix#ofValuesByCols(AbstractArithmetic, Number, int, Number[])
      */
     public static DoubleMatrix ofValuesByCols(int cols, double... values) {
-        if (values.length % cols != 0)
-            throw new IllegalArgumentException(EXCEPTION_COLS_NOT_CONGRUENT_0);
+        Double[] boxed = Arrays.stream(values).boxed().toArray(Double[]::new);
         return new DoubleMatrix(
-            ofValuesByRows(values.length / cols, values)
-                .transpose()
+            Matrix.ofValuesByCols(new DoubleArithmetic(),
+                DEFAULT_VALUE, cols, boxed
+            )
         );
     }
 
