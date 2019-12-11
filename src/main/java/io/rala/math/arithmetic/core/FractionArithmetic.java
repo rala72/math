@@ -8,7 +8,8 @@ import io.rala.math.arithmetic.AbstractResultArithmetic;
  * class which handles {@link Fraction} arithmetic
  */
 @SuppressWarnings("unused")
-public class FractionArithmetic<T extends Number, R extends Number> extends AbstractArithmetic<Fraction<T, R>> {
+public class FractionArithmetic<T extends Number, R extends Number>
+    extends AbstractArithmetic<Fraction<T, R>> {
     private final AbstractResultArithmetic<T, R> arithmetic;
 
     /**
