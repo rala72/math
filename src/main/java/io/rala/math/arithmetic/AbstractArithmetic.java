@@ -319,6 +319,9 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     // region toResultArithmetic
 
+    /**
+     * @return {@link AbstractResultArithmetic} with current arithmetic
+     */
     public AbstractResultArithmetic<T, T> toResultArithmetic() {
         return new AbstractResultArithmetic<>(this, this) {
             @Override

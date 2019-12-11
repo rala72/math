@@ -150,6 +150,14 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
 
     // region static of
 
+    /**
+     * @param tArithmetic {@link AbstractArithmetic} for calculations inside <code>T</code>
+     * @param rArithmetic {@link AbstractArithmetic} for calculations to result
+     * @param map         mapping function to convert <code>T</code> to <code>R</code>
+     * @param <T>         number class for storing
+     * @param <R>         number class for result
+     * @return {@link AbstractResultArithmetic} with given values
+     */
     public static <T extends Number, R extends Number> AbstractResultArithmetic<T, R> of(
         AbstractArithmetic<T> tArithmetic, AbstractArithmetic<R> rArithmetic, Function<T, R> map
     ) {
