@@ -279,6 +279,24 @@ class DoubleMatrixTest {
     }
 
     @Test
+    void multiplyOfEmptyMatrixWithSize2With2() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        DoubleMatrix result = new DoubleMatrix(2);
+        Assertions.assertEquals(result, matrix.multiply(2d));
+    }
+
+    @Test
+    void multiplyMatrixWithSize2With2() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        DoubleMatrix result = new DoubleMatrix(2);
+        for (int i = 0; i < result.size(); i++) {
+            matrix.setValue(i, (i + 1d));
+            result.setValue(i, (i + 1d) * 2);
+        }
+        Assertions.assertEquals(result, matrix.multiply(2d));
+    }
+
+    @Test
     void multiplyOfEmptyMatrixWithSize2AndEmptyMatrixWithSize2() {
         DoubleMatrix matrix1 = new DoubleMatrix(2);
         DoubleMatrix matrix2 = new DoubleMatrix(2);

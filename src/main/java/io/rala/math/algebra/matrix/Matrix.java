@@ -277,6 +277,20 @@ public class Matrix<T extends Number>
     }
 
     /**
+     * @param t value to multiply
+     * @return new matrix with calculated values
+     */
+    public Matrix<T> multiply(T t) {
+        Matrix<T> result = copy();
+        for (int i = 0; i < size(); i++)
+            result.getMatrix().computeIfPresent(i,
+                (integer, value) -> getArithmetic().product(value, t)
+            );
+        result.removeDefaultValues();
+        return result;
+    }
+
+    /**
      * @param matrix matrix to multiply
      * @return new matrix with calculated values
      */

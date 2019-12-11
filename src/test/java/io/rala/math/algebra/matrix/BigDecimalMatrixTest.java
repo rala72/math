@@ -294,6 +294,24 @@ class BigDecimalMatrixTest {
     }
 
     @Test
+    void multiplyOfEmptyMatrixWithSize2With2() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        BigDecimalMatrix result = new BigDecimalMatrix(2);
+        Assertions.assertEquals(result, matrix.multiply(BigDecimal.valueOf(2)));
+    }
+
+    @Test
+    void multiplyMatrixWithSize2With2() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        BigDecimalMatrix result = new BigDecimalMatrix(2);
+        for (int i = 0; i < result.size(); i++) {
+            matrix.setValue(i, BigDecimal.valueOf(i + 1));
+            result.setValue(i, BigDecimal.valueOf((i + 1) * 2));
+        }
+        Assertions.assertEquals(result, matrix.multiply(BigDecimal.valueOf(2)));
+    }
+
+    @Test
     void multiplyOfEmptyMatrixWithSize2AndEmptyMatrixWithSize2() {
         BigDecimalMatrix matrix1 = new BigDecimalMatrix(2);
         BigDecimalMatrix matrix2 = new BigDecimalMatrix(2);
