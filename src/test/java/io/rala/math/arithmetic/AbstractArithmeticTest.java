@@ -13,7 +13,7 @@ class AbstractArithmeticTest {
         arithmetic = new TestAbstractArithmetic();
     }
 
-    // region fromInt, fromDouble signum, negate and compare
+    // region fromInt, fromDouble and signum
 
     @Test
     void fromInt0() {
@@ -28,6 +28,15 @@ class AbstractArithmeticTest {
     @Test
     void signum1() {
         Assertions.assertEquals(1, arithmetic.signum(1));
+    }
+
+    // endregion
+
+    // region absolute, negate and compare
+
+    @Test
+    void absoluteM1() {
+        Assertions.assertEquals(1, arithmetic.absolute(-1));
     }
 
     @Test
@@ -124,6 +133,20 @@ class AbstractArithmeticTest {
         Assertions.assertFalse(arithmetic.isNaN(0));
         Assertions.assertFalse(arithmetic.isNaN(Double.POSITIVE_INFINITY));
         Assertions.assertTrue(arithmetic.isNaN(Double.NaN));
+    }
+
+    // endregion
+
+    // region gcd and lcm
+
+    @Test
+    void gcd() {
+        Assertions.assertEquals(1L, arithmetic.gcd(3, 4));
+    }
+
+    @Test
+    void lcm() {
+        Assertions.assertEquals(12d, arithmetic.lcm(3, 4));
     }
 
     // endregion

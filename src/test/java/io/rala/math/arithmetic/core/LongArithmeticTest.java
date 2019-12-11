@@ -12,7 +12,7 @@ class LongArithmeticTest {
         arithmetic = new LongArithmetic();
     }
 
-    // region fromInt, fromDouble, signum and negate
+    // region fromInt, fromDouble and signum
 
     @Test
     void fromInt1() {
@@ -27,6 +27,15 @@ class LongArithmeticTest {
     @Test
     void signum1() {
         Assertions.assertEquals(1, arithmetic.signum(1L));
+    }
+
+    // endregion
+
+    // region absolute and negate
+
+    @Test
+    void absoluteM1() {
+        Assertions.assertEquals(1, arithmetic.absolute(-1L));
     }
 
     @Test
@@ -88,6 +97,20 @@ class LongArithmeticTest {
             (long) Math.sqrt(1),
             arithmetic.root2(1L)
         );
+    }
+
+    // endregion
+
+    // region gcd and lcm
+
+    @Test
+    void gcd() {
+        Assertions.assertEquals(1, arithmetic.gcd(3L, 4L));
+    }
+
+    @Test
+    void lcm() {
+        Assertions.assertEquals(12, arithmetic.lcm(3L, 4L));
     }
 
     // endregion

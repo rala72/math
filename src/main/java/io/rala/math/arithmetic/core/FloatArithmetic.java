@@ -69,4 +69,13 @@ public class FloatArithmetic extends AbstractArithmetic<Float> {
     }
 
     // endregion
+
+    // region gcd
+
+    @Override
+    public Float gcd(Float a, Float b) {
+        throw new NotImplementedException();
+    }
+
+    // endregion
 }

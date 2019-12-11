@@ -61,4 +61,13 @@ public class TestAbstractArithmetic extends AbstractArithmetic<Number> {
     }
 
     // endregion
+
+    // region gcd
+
+    @Override
+    public Number gcd(Number a, Number b) {
+        return MathX.gcd(a.longValue(), b.longValue());
+    }
+
+    // endregion
 }

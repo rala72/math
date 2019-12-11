@@ -1,5 +1,6 @@
 package io.rala.math.arithmetic.core;
 
+import io.rala.math.arithmetic.AbstractArithmetic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ class BigDecimalArithmeticTest {
         arithmetic = new BigDecimalArithmetic();
     }
 
-    // region fromInt, fromDouble, signum and negate
+    // region fromInt, fromDouble and signum
 
     @Test
     void fromInt1() {
@@ -30,6 +31,15 @@ class BigDecimalArithmeticTest {
     @Test
     void signum1() {
         Assertions.assertEquals(1, arithmetic.signum(BigDecimal.ONE));
+    }
+
+    // endregion
+
+    // region absolute and negate
+
+    @Test
+    void absoluteM1() {
+        Assertions.assertEquals(BigDecimal.ONE, arithmetic.absolute(BigDecimal.ONE.negate()));
     }
 
     @Test
@@ -105,6 +115,24 @@ class BigDecimalArithmeticTest {
             BigDecimal.ONE.sqrt(new MathContext(10)),
             arithmetic.root2(BigDecimal.ONE)
         );
+    }
+
+    // endregion
+
+    // region gcd and lcm
+
+    @Test
+    void gcd() {
+        Assertions.assertThrows(AbstractArithmetic.NotImplementedException.class,
+            () -> arithmetic.gcd(BigDecimal.valueOf(3), BigDecimal.valueOf(4))
+        ); // assert exception message?
+    }
+
+    @Test
+    void lcm() {
+        Assertions.assertThrows(AbstractArithmetic.NotImplementedException.class,
+            () -> arithmetic.gcd(BigDecimal.valueOf(3), BigDecimal.valueOf(4))
+        ); // assert exception message?
     }
 
     // endregion

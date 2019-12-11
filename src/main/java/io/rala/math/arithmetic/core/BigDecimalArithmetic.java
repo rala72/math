@@ -101,6 +101,15 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
 
     // endregion
 
+    // region gcd
+
+    @Override
+    public BigDecimal gcd(BigDecimal a, BigDecimal b) {
+        throw new NotImplementedException();
+    }
+
+    // endregion
+
     private BigDecimal cleanup(BigDecimal a) {
         return new BigDecimal(
             a.stripTrailingZeros().toPlainString(),

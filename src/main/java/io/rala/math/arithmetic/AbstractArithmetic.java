@@ -7,7 +7,7 @@ package io.rala.math.arithmetic;
  */
 @SuppressWarnings({"unused", "SameParameterValue", "UnusedReturnValue"})
 public abstract class AbstractArithmetic<T extends Number> {
-    // region fromInt, fromDouble, signum, negate and compare
+    // region fromInt, fromDouble and signum
 
     /**
      * @param a value from integer
@@ -29,6 +29,19 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @throws NotImplementedException if operation is not implemented
      */
     public abstract double signum(T a);
+
+    // endregion
+
+    // region absolute, negate and compare
+
+    /**
+     * @param a value to make absolute
+     * @return absolute value of a
+     * @throws NotImplementedException if operation is not implemented
+     */
+    public T absolute(T a) {
+        return signum(a) < 0 ? negate(a) : a;
+    }
 
     /**
      * @param a value to negate
@@ -183,6 +196,28 @@ public abstract class AbstractArithmetic<T extends Number> {
      */
     public boolean isNaN(T a) {
         return Double.isNaN(a.doubleValue());
+    }
+
+    // endregion
+
+    // region gcd and lcm
+
+    /**
+     * @param a first value
+     * @param b second value
+     * @return greatest common divisor
+     * @throws NotImplementedException if operation is not implemented
+     */
+    public abstract T gcd(T a, T b);
+
+    /**
+     * @param a first value
+     * @param b second value
+     * @return least common multiple
+     * @throws NotImplementedException if operation is not implemented
+     */
+    public T lcm(T a, T b) {
+        return quotient(absolute(product(a, b)), gcd(a, b));
     }
 
     // endregion

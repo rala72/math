@@ -1,6 +1,7 @@
 package io.rala.math.arithmetic.core;
 
 import io.rala.math.algebra.numeric.Complex;
+import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.testUtils.algebra.TestComplexArithmetic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +15,7 @@ class ComplexArithmeticTest {
         arithmetic = new TestComplexArithmetic();
     }
 
-    // region fromInt, fromDouble signum, negate and compare
+    // region fromInt, fromDouble and signum
 
     @Test
     void fromInt0() {
@@ -29,6 +30,15 @@ class ComplexArithmeticTest {
     @Test
     void signum() {
         Assertions.assertEquals(1, arithmetic.signum(create(1, 1)));
+    }
+
+    // endregion
+
+    // region absolute and negate
+
+    @Test
+    void absoluteReM1Im0() {
+        Assertions.assertEquals(create(1, 0), arithmetic.absolute(create(-1, 0)));
     }
 
     @Test
@@ -168,6 +178,24 @@ class ComplexArithmeticTest {
         Assertions.assertTrue(arithmetic.isNaN(
             create(Double.NaN, Double.NaN)
         ));
+    }
+
+    // endregion
+
+    // region gcd and lcm
+
+    @Test
+    void gcd() {
+        Assertions.assertThrows(AbstractArithmetic.NotImplementedException.class,
+            () -> arithmetic.gcd(create(1, 2), create(3, 4))
+        ); // assert exception message?
+    }
+
+    @Test
+    void lcm() {
+        Assertions.assertThrows(AbstractArithmetic.NotImplementedException.class,
+            () -> arithmetic.lcm(create(1, 2), create(3, 4))
+        ); // assert exception message?
     }
 
     // endregion

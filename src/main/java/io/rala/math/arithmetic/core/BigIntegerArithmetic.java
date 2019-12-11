@@ -72,4 +72,13 @@ public class BigIntegerArithmetic extends AbstractArithmetic<BigInteger> {
     }
 
     // endregion
+
+    // region gcd
+
+    @Override
+    public BigInteger gcd(BigInteger a, BigInteger b) {
+        return MathX.gcd(a, b);
+    }
+
+    // endregion
 }
