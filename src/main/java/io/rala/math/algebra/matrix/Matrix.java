@@ -422,7 +422,7 @@ public class Matrix<T extends Number>
     ) {
         Matrix<T> matrix = new Matrix<>(arithmetic, size, defaultValue);
         for (int i = 0; i < size; i++)
-            matrix.setValue(i, i, arithmetic.fromInt(1));
+            matrix.setValue(i, i, arithmetic.one());
         return matrix;
     }
 

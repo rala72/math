@@ -32,6 +32,30 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     // endregion
 
+    // region number constants
+
+    /**
+     * <i>in general the additive identity element</i>
+     *
+     * @return <code>0</code>
+     * @see #fromInt(int)
+     */
+    public final T zero() {
+        return fromInt(0);
+    }
+
+    /**
+     * <i>in general the multiplicative identity element</i>
+     *
+     * @return <code>1</code>
+     * @see #fromInt(int)
+     */
+    public final T one() {
+        return fromInt(1);
+    }
+
+    // endregion
+
     // region absolute, negate and compare
 
     /**

@@ -36,7 +36,7 @@ public class ComplexArithmetic<T extends Number> extends AbstractArithmetic<Comp
     public Complex<T> fromInt(int a) {
         return new Complex<>(getArithmetic(),
             getArithmetic().fromInt(a),
-            getArithmetic().fromInt(0)
+            getArithmetic().zero()
         );
     }
 

@@ -32,6 +32,20 @@ class AbstractArithmeticTest {
 
     // endregion
 
+    // region number constants
+
+    @Test
+    void zero() {
+        Assertions.assertEquals(0, arithmetic.zero());
+    }
+
+    @Test
+    void one() {
+        Assertions.assertEquals(1, arithmetic.one());
+    }
+
+    // endregion
+
     // region absolute, negate and compare
 
     @Test
