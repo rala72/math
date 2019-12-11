@@ -134,8 +134,8 @@ public class Complex<T extends Number> extends Number implements Validatable,
      */
     public T absoluteValue() {
         return getArithmetic().root2(getArithmetic().sum(
-            getArithmetic().exponent(getRe(), 2),
-            getArithmetic().exponent(getIm(), 2)
+            getArithmetic().power(getRe(), 2),
+            getArithmetic().power(getIm(), 2)
         ));
     }
 
@@ -185,8 +185,8 @@ public class Complex<T extends Number> extends Number implements Validatable,
      */
     public Complex<T> reciprocal() {
         T d = getArithmetic().sum(
-            getArithmetic().exponent(getRe(), 2),
-            getArithmetic().exponent(getIm(), 2)
+            getArithmetic().power(getRe(), 2),
+            getArithmetic().power(getIm(), 2)
         );
         return new Complex<>(getArithmetic(),
             getArithmetic().quotient(getRe(), d),
@@ -296,8 +296,8 @@ public class Complex<T extends Number> extends Number implements Validatable,
                     getArithmetic().product(getIm(), complex.getIm())
                 ),
                 getArithmetic().sum(
-                    getArithmetic().exponent(complex.getRe(), 2),
-                    getArithmetic().exponent(complex.getIm(), 2)
+                    getArithmetic().power(complex.getRe(), 2),
+                    getArithmetic().power(complex.getIm(), 2)
                 )
             ),
             getArithmetic().quotient(
@@ -306,8 +306,8 @@ public class Complex<T extends Number> extends Number implements Validatable,
                     getArithmetic().product(getRe(), complex.getIm())
                 ),
                 getArithmetic().sum(
-                    getArithmetic().exponent(complex.getRe(), 2),
-                    getArithmetic().exponent(complex.getIm(), 2)
+                    getArithmetic().power(complex.getRe(), 2),
+                    getArithmetic().power(complex.getIm(), 2)
                 )
             )
         );
@@ -323,7 +323,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
      */
     public Complex<T> pow(int n) {
         return Complex.of(getArithmetic(),
-            getArithmetic().exponent(absoluteValue(), n),
+            getArithmetic().power(absoluteValue(), n),
             getArithmetic().product(argument(), getArithmetic().fromInt(n))
         );
     }

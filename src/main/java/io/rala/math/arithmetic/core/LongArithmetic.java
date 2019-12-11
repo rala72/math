@@ -56,10 +56,10 @@ public class LongArithmetic extends AbstractArithmetic<Long> {
 
     // endregion
 
-    // region exponent and root
+    // region power and root
 
     @Override
-    public Long exponent(Long a, int b) {
+    public Long power(Long a, int b) {
         return (long) Math.pow(a, b);
     }
 

@@ -137,19 +137,19 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     // endregion
 
-    // region exponent and root
+    // region power and root
 
     /**
-     * @param a basis of exponent
-     * @param b power of exponent
+     * @param a basis of power
+     * @param b exponent of power
      * @return <code>a^b</code>
      * @throws NotImplementedException if operation is not implemented
      */
-    public abstract T exponent(T a, int b);
+    public abstract T power(T a, int b);
 
     /**
      * @param a value
-     * @param b power of root
+     * @param b degree of root
      * @return <code>sqrt(a)</code>
      * @throws NotImplementedException if operation is not implemented
      */

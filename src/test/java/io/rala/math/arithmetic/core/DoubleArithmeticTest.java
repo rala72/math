@@ -85,11 +85,11 @@ class DoubleArithmeticTest {
 
     // endregion
 
-    // region exponent and root
+    // region power and root
 
     @Test
-    void exponent12() {
-        Assertions.assertEquals(1, arithmetic.exponent(1d, 2));
+    void power12() {
+        Assertions.assertEquals(1, arithmetic.power(1d, 2));
     }
 
     @Test

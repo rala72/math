@@ -51,7 +51,7 @@ public class TestAbstractArithmetic extends AbstractArithmetic<Number> {
     // region exponent and root
 
     @Override
-    public Number exponent(Number a, int b) {
+    public Number power(Number a, int b) {
         return Math.toIntExact((long) Math.pow(a.doubleValue(), b));
     }
 

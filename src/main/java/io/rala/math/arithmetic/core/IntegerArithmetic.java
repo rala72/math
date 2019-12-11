@@ -56,10 +56,10 @@ public class IntegerArithmetic extends AbstractArithmetic<Integer> {
 
     // endregion
 
-    // region exponent and root
+    // region power and root
 
     @Override
-    public Integer exponent(Integer a, int b) {
+    public Integer power(Integer a, int b) {
         return Math.toIntExact((long) Math.pow(a, b));
     }
 

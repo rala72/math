@@ -102,11 +102,11 @@ class BigDecimalArithmeticTest {
 
     // endregion
 
-    // region exponent and root
+    // region power and root
 
     @Test
-    void exponent12() {
-        Assertions.assertEquals(BigDecimal.ONE, arithmetic.exponent(BigDecimal.ONE, 2));
+    void power12() {
+        Assertions.assertEquals(BigDecimal.ONE, arithmetic.power(BigDecimal.ONE, 2));
     }
 
     @Test

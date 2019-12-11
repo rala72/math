@@ -125,13 +125,13 @@ class ComplexArithmeticTest {
 
     // endregion
 
-    // region exponent and root
+    // region power and root
 
     @Test
-    void exponent12() {
+    void power12() {
         Assertions.assertEquals(
             create(2, 0),
-            arithmetic.exponent(create(1, 1), 2)
+            arithmetic.power(create(1, 1), 2)
         );
     }
 

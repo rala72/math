@@ -79,10 +79,10 @@ public class ComplexArithmetic<T extends Number> extends AbstractArithmetic<Comp
 
     // endregion
 
-    // region exponent and root
+    // region power and root
 
     @Override
-    public Complex<T> exponent(Complex<T> a, int b) {
+    public Complex<T> power(Complex<T> a, int b) {
         return a.pow(b);
     }
 

@@ -56,10 +56,10 @@ public class FloatArithmetic extends AbstractArithmetic<Float> {
 
     // endregion
 
-    // region exponent and root
+    // region power and root
 
     @Override
-    public Float exponent(Float a, int b) {
+    public Float power(Float a, int b) {
         return (float) Math.pow(a, b);
     }
 

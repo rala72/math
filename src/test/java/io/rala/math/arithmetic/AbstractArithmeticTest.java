@@ -98,11 +98,11 @@ class AbstractArithmeticTest {
 
     // endregion
 
-    // region exponent and root
+    // region power and root
 
     @Test
-    void exponent12() {
-        Assertions.assertEquals(1, arithmetic.exponent(1, 2));
+    void power12() {
+        Assertions.assertEquals(1, arithmetic.power(1, 2));
     }
 
     @Test

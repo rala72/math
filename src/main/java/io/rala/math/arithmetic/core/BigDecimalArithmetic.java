@@ -87,10 +87,10 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
 
     // endregion
 
-    // region exponent and root
+    // region power and root
 
     @Override
-    public BigDecimal exponent(BigDecimal a, int b) {
+    public BigDecimal power(BigDecimal a, int b) {
         return cleanup(a.pow(b, getMathContext()));
     }
 

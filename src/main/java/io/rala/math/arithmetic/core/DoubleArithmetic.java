@@ -56,10 +56,10 @@ public class DoubleArithmetic extends AbstractArithmetic<Double> {
 
     // endregion
 
-    // region exponent and root
+    // region power and root
 
     @Override
-    public Double exponent(Double a, int b) {
+    public Double power(Double a, int b) {
         return Math.pow(a, b);
     }
 

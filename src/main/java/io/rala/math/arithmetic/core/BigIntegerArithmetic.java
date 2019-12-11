@@ -59,10 +59,10 @@ public class BigIntegerArithmetic extends AbstractArithmetic<BigInteger> {
 
     // endregion
 
-    // region exponent and root
+    // region power and root
 
     @Override
-    public BigInteger exponent(BigInteger a, int b) {
+    public BigInteger power(BigInteger a, int b) {
         return a.pow(b);
     }
 
