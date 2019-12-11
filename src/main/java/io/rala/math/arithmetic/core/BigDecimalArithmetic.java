@@ -58,6 +58,25 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
 
     // endregion
 
+    // region absolute, negate and compare
+
+    @Override
+    public BigDecimal absolute(BigDecimal a) {
+        return a.abs();
+    }
+
+    @Override
+    public BigDecimal negate(BigDecimal a) {
+        return a.negate();
+    }
+
+    @Override
+    public int compare(BigDecimal a, BigDecimal b) {
+        return a.compareTo(b);
+    }
+
+    // endregion
+
     // region sum, difference, product, quotient and modulo
 
     @Override

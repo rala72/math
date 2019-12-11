@@ -55,6 +55,20 @@ public class FractionArithmetic<T extends Number, R extends Number>
 
     // endregion
 
+    // region negate and compare
+
+    @Override
+    public Fraction<T, R> negate(Fraction<T, R> a) {
+        return a.negate();
+    }
+
+    @Override
+    public int compare(Fraction<T, R> a, Fraction<T, R> b) {
+        return a.compareTo(b);
+    }
+
+    // endregion
+
     // region sum, difference, product and quotient
 
     @Override

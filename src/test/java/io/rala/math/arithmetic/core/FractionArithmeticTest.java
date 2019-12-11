@@ -37,7 +37,7 @@ class FractionArithmeticTest {
 
     // endregion
 
-    // region absolute and negate
+    // region absolute, negate and compare
 
     @Test
     void absoluteM1() {
@@ -50,6 +50,20 @@ class FractionArithmeticTest {
     void negate1() {
         Assertions.assertEquals(new TestFraction(-1),
             arithmetic.negate(new TestFraction(1d))
+        );
+    }
+
+    @Test
+    void compare() {
+        TestFraction complex = new TestFraction(2, 3);
+        Assertions.assertEquals(
+            0, arithmetic.compare(complex, new TestFraction(2, 3))
+        );
+        Assertions.assertEquals(
+            -1, arithmetic.compare(complex, new TestFraction(3, 1))
+        );
+        Assertions.assertEquals(
+            1, arithmetic.compare(complex, new TestFraction(1, 2))
         );
     }
 

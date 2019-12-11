@@ -55,6 +55,15 @@ public class ComplexArithmetic<T extends Number> extends AbstractArithmetic<Comp
 
     // endregion
 
+    // region compare
+
+    @Override
+    public int compare(Complex<T> a, Complex<T> b) {
+        return a.compareTo(b);
+    }
+
+    // endregion
+
     // region sum, difference, product and quotient
 
     @Override

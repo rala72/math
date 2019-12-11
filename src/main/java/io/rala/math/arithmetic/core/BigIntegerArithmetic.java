@@ -30,6 +30,25 @@ public class BigIntegerArithmetic extends AbstractArithmetic<BigInteger> {
 
     // endregion
 
+    // region absolute, negate and compare
+
+    @Override
+    public BigInteger absolute(BigInteger a) {
+        return a.abs();
+    }
+
+    @Override
+    public BigInteger negate(BigInteger a) {
+        return a.negate();
+    }
+
+    @Override
+    public int compare(BigInteger a, BigInteger b) {
+        return a.compareTo(b);
+    }
+
+    // endregion
+
     // region sum, difference, product, quotient and modulo
 
     @Override
