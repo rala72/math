@@ -19,6 +19,8 @@ public class Matrix<T extends Number>
     protected static final String EXCEPTION_SIZE_PREFIX = "size: ";
     protected static final String EXCEPTION_ROW_PREFIX = "row: ";
     protected static final String EXCEPTION_COL_PREFIX = "col: ";
+    protected static final String EXCEPTION_NO_SQUARE =
+        "matrix has to be a square matrix";
     protected static final String EXCEPTION_ANY_COLS_EQUALS_OTHER_ROWS =
         "any cols have to be equal to the other matrix rows";
     protected static final String EXCEPTION_COLS_EQUALS_PARAM_ROWS =
@@ -386,14 +388,7 @@ public class Matrix<T extends Number>
             T indexValue = isRowMode ? getValue(index, i) : getValue(i, index);
             if (indexValue.equals(getDefaultValue())) continue;
             T signum = getArithmetic().fromInt(index + i % 2 == 0 ? 1 : -1);
-            Matrix<T> sub = newInstance(getRows() - 1, getCols() - 1);
-            for (int r = 0; r < sub.getRows(); r++) {
-                int ar = r < row ? r : r + 1;
-                for (int c = 0; c < sub.getCols(); c++) {
-                    int ac = c < col ? c : c + 1;
-                    sub.setValue(r, c, getValue(ar, ac));
-                }
-            }
+            Matrix<T> sub = subMatrix(row, col);
             t = getArithmetic().sum(t,
                 getArithmetic().product(
                     getArithmetic().product(indexValue, signum),
@@ -454,6 +449,33 @@ public class Matrix<T extends Number>
     @Override
     public String toString() {
         return getRows() + " " + getCols() + ": " + getMatrix().entrySet().toString();
+    }
+
+    // endregion
+
+    // region protected: subMatrix
+
+    /**
+     * @param row row to exclude
+     * @param col col to exclude
+     * @return new sub matrix excluding specified row and col
+     */
+    protected final Matrix<T> subMatrix(int row, int col) {
+        if (!isSquare())
+            throw new IllegalArgumentException(EXCEPTION_NO_SQUARE);
+        if (!isRowValid(row))
+            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
+        if (!isColValid(col))
+            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
+        Matrix<T> subMatrix = newInstance(getRows() - 1, getCols() - 1);
+        for (int r = 0; r < subMatrix.getRows(); r++) {
+            int ar = r < row ? r : r + 1;
+            for (int c = 0; c < subMatrix.getCols(); c++) {
+                int ac = c < col ? c : c + 1;
+                subMatrix.setValue(r, c, getValue(ar, ac));
+            }
+        }
+        return subMatrix;
     }
 
     // endregion

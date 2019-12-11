@@ -505,6 +505,78 @@ class MatrixTest {
 
     // endregion
 
+    // region protected: subMatrix
+
+    @Test
+    void subMatrixR0C0OfMatrixWithR1C2WitchIsNoSquare() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> new TestMatrix(1, 2).subMatrix(0, 0)
+        ); // assert exception message?
+    }
+
+    @Test
+    void subMatrixR1C0OfMatrixWithSize1UsingInvalidRow1() {
+        Assertions.assertThrows(IndexOutOfBoundsException.class,
+            () -> new TestMatrix(1).subMatrix(1, 0)
+        ); // assert exception message?
+    }
+
+    @Test
+    void subMatrixR0C1OfMatrixWithSize1UsingInvalidCol1() {
+        Assertions.assertThrows(IndexOutOfBoundsException.class,
+            () -> new TestMatrix(1).subMatrix(0, 1)
+        ); // assert exception message?
+    }
+
+    @Test
+    void subMatrixR0C0OfMatrixWithSize1() {
+        Assertions.assertEquals(0,
+            new TestMatrix(1).subMatrix(0, 0).size()
+        );
+    }
+
+    @Test
+    void subMatrixR0C0OfMatrixWithSize2() {
+        TestMatrix matrix = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, i);
+        Matrix<Number> subMatrix = matrix.subMatrix(0, 0);
+        Assertions.assertEquals(1, subMatrix.size());
+        Assertions.assertEquals(3, subMatrix.getValue(0));
+    }
+
+    @Test
+    void subMatrixR0C1OfMatrixWithSize2() {
+        TestMatrix matrix = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, i);
+        Matrix<Number> subMatrix = matrix.subMatrix(0, 1);
+        Assertions.assertEquals(1, subMatrix.size());
+        Assertions.assertEquals(2, subMatrix.getValue(0));
+    }
+
+    @Test
+    void subMatrixR1C0OfMatrixWithSize2() {
+        TestMatrix matrix = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, i);
+        Matrix<Number> subMatrix = matrix.subMatrix(1, 0);
+        Assertions.assertEquals(1, subMatrix.size());
+        Assertions.assertEquals(1, subMatrix.getValue(0));
+    }
+
+    @Test
+    void subMatrixR1C1OfMatrixWithSize2() {
+        TestMatrix matrix = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, i);
+        Matrix<Number> subMatrix = matrix.subMatrix(1, 1);
+        Assertions.assertEquals(1, subMatrix.size());
+        Assertions.assertEquals(0, subMatrix.getValue(0));
+    }
+
+    // endregion
+
     // region protected: modify
 
     @Test
