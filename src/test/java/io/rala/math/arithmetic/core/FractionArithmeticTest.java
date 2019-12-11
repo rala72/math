@@ -107,7 +107,7 @@ class FractionArithmeticTest {
 
     @Test
     void modulo12() {
-        Assertions.assertEquals(new TestFraction(0, 2d),
+        Assertions.assertEquals(new TestFraction(0, 1),
             arithmetic.modulo(new TestFraction(1d), new TestFraction(2d))
         );
     }

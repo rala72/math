@@ -50,6 +50,10 @@ public class Fraction<T extends Number, V extends Number> extends Number
         this.arithmetic = arithmetic;
         setNumerator(numerator);
         setDenominator(denominator);
+
+        if (getNumerator().equals(arithmetic.getTArithmetic().fromInt(0)) &&
+            !getDenominator().equals(arithmetic.getTArithmetic().fromInt(1)))
+            setDenominator(arithmetic.getTArithmetic().fromInt(1));
     }
 
     /**
