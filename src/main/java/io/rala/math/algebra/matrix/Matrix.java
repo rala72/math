@@ -475,6 +475,7 @@ public class Matrix<T extends Number>
      * @param row row to exclude
      * @param col col to exclude
      * @return new sub matrix excluding specified row and col
+     * @throws IndexOutOfBoundsException if row or col is invalid
      */
     protected final Matrix<T> subMatrix(int row, int col) {
         if (!isSquare())
