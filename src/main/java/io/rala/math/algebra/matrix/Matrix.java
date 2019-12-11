@@ -368,6 +368,18 @@ public class Matrix<T extends Number>
                 )
             );
         }
+        return determinanteRecursive();
+    }
+
+    /**
+     * recursive implementation especially for matrices
+     * with sizes greater than <code>3</code><br>
+     *
+     * @return determinante of matrix
+     * @see #determinante()
+     */
+    protected T determinanteRecursive() {
+        if (size() == 0 || !isSquare()) return getDefaultValue();
         boolean isRowMode = true;
         int index = 0;
         List<Field> zeros = StreamSupport.stream(spliterator(), true)
