@@ -364,7 +364,6 @@ public class Matrix<T extends Number>
                 )
             );
         }
-        T t = getDefaultValue();
         boolean isRowMode = true;
         int index = 0;
         List<Field> zeros = StreamSupport.stream(spliterator(), true)
@@ -382,12 +381,13 @@ public class Matrix<T extends Number>
                 index = bestRow.getKey();
             }
         }
+        T t = getDefaultValue();
         for (int i = 0; i < (isRowMode ? getCols() : getRows()); i++) {
             int row = isRowMode ? index : i;
             int col = isRowMode ? i : index;
             T indexValue = isRowMode ? getValue(index, i) : getValue(i, index);
             if (indexValue.equals(getDefaultValue())) continue;
-            T signum = getArithmetic().fromInt(index + i % 2 == 0 ? 1 : -1);
+            T signum = getArithmetic().fromInt(signumFactor(row, col));
             Matrix<T> sub = subMatrix(row, col);
             t = getArithmetic().sum(t,
                 getArithmetic().product(
@@ -453,7 +453,7 @@ public class Matrix<T extends Number>
 
     // endregion
 
-    // region protected: subMatrix
+    // region protected: subMatrix and signumFactor
 
     /**
      * @param row row to exclude
@@ -476,6 +476,15 @@ public class Matrix<T extends Number>
             }
         }
         return subMatrix;
+    }
+
+    /**
+     * @param row row of matrix
+     * @param col col of matrix
+     * @return <code>(-1)^(row+col)</code>
+     */
+    protected static int signumFactor(int row, int col) {
+        return (row + col) % 2 == 0 ? 1 : -1;
     }
 
     // endregion
