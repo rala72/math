@@ -606,7 +606,7 @@ class MatrixTest {
     // region protected: subMatrix, coFactor and signumFactor
 
     @Test
-    void subMatrixR0C0OfMatrixWithR1C2WitchIsNoSquare() {
+    void subMatrixR0C0OfMatrixWithR1C2WichIsNoSquare() {
         Assertions.assertThrows(IllegalArgumentException.class,
             () -> new TestMatrix(1, 2).subMatrix(0, 0)
         ); // assert exception message?
@@ -674,7 +674,7 @@ class MatrixTest {
     }
 
     @Test
-    void coFactorR0C0OfMatrixWithR1C2WitchIsNoSquare() {
+    void coFactorR0C0OfMatrixWithR1C2WichIsNoSquare() {
         Assertions.assertThrows(IllegalArgumentException.class,
             () -> new TestMatrix(1, 2).coFactor(0, 0)
         ); // assert exception message?
