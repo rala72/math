@@ -232,6 +232,48 @@ public class Fraction<T extends Number, V extends Number> extends Number
 
     // endregion
 
+    // region multiply
+
+    /**
+     * calls {@link #multiply(Fraction)} with given value
+     *
+     * @param numerator numerator value to multiply
+     * @return new fraction with product of current and given parameter
+     * @see #multiply(Fraction)
+     */
+    public Fraction<T, V> multiply(T numerator) {
+        return multiply(new Fraction<>(getArithmetic(), numerator));
+    }
+
+    /**
+     * calls {@link #multiply(Fraction)} with given values
+     *
+     * @param numerator   numerator value to multiply
+     * @param denominator denominator value to multiply
+     * @return new fraction with product of current and given parameters
+     * @see #multiply(Fraction)
+     */
+    public Fraction<T, V> multiply(T numerator, T denominator) {
+        return multiply(new Fraction<>(getArithmetic(), numerator, denominator));
+    }
+
+    /**
+     * @param fraction fraction to multiply
+     * @return new fraction with product of current and given fraction
+     */
+    public Fraction<T, V> multiply(Fraction<T, V> fraction) {
+        AbstractArithmetic<T> tArithmetic = getArithmetic().getTArithmetic();
+        T newNumerator = tArithmetic.product(
+            getNumerator(), fraction.getNumerator()
+        );
+        T newDenominator = tArithmetic.product(
+            getDenominator(), fraction.getDenominator()
+        );
+        return new Fraction<>(getArithmetic(), newNumerator, newDenominator);
+    }
+
+    // endregion
+
     // region copy
 
     @Override

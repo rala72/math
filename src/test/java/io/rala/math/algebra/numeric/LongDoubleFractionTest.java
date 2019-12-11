@@ -170,6 +170,34 @@ class LongDoubleFractionTest {
 
     // endregion
 
+    // region multiply
+
+    @Test
+    void multiplyWithNumerator() {
+        Assertions.assertEquals(
+            new LongDoubleFraction(2, 1),
+            new LongDoubleFraction(1).multiply(2L)
+        );
+    }
+
+    @Test
+    void multiplyWithXAndY() {
+        Assertions.assertEquals(
+            new LongDoubleFraction(3, 8),
+            new LongDoubleFraction(1, 2).multiply(3L, 4L)
+        );
+    }
+
+    @Test
+    void multiplyWithFraction() {
+        Assertions.assertEquals(new LongDoubleFraction(4, 6),
+            new LongDoubleFraction(1, 2)
+                .multiply(new LongDoubleFraction(4, 3))
+        );
+    }
+
+    // endregion
+
     // region isValid and copy
 
     @Test

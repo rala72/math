@@ -193,6 +193,34 @@ class FractionTest {
 
     // endregion
 
+    // region multiply
+
+    @Test
+    void multiplyWithNumerator() {
+        Assertions.assertEquals(
+            new TestFraction(2, 1),
+            new TestFraction(1).multiply(2)
+        );
+    }
+
+    @Test
+    void multiplyWithXAndY() {
+        Assertions.assertEquals(
+            new TestFraction(3, 8),
+            new TestFraction(1, 2).multiply(3, 4)
+        );
+    }
+
+    @Test
+    void multiplyWithFraction() {
+        Assertions.assertEquals(new TestFraction(4, 6),
+            new TestFraction(1, 2)
+                .multiply(new TestFraction(4, 3))
+        );
+    }
+
+    // endregion
+
     // region isValid and copy
 
     @Test

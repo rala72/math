@@ -215,6 +215,41 @@ class BigIntegerBigDecimalFractionTest {
 
     // endregion
 
+    // region multiply
+
+    @Test
+    void multiplyWithNumerator() {
+        Assertions.assertEquals(
+            new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.ONE),
+            new BigIntegerBigDecimalFraction(BigInteger.ONE).multiply(BigInteger.TWO)
+        );
+    }
+
+    @Test
+    void multiplyWithXAndY() {
+        Assertions.assertEquals(
+            new BigIntegerBigDecimalFraction(
+                BigInteger.valueOf(3), BigInteger.valueOf(8)
+            ),
+            new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO)
+                .multiply(BigInteger.valueOf(3), BigInteger.valueOf(4))
+        );
+    }
+
+    @Test
+    void multiplyWithFraction() {
+        Assertions.assertEquals(new BigIntegerBigDecimalFraction(
+                BigInteger.valueOf(4), BigInteger.valueOf(6)
+            ),
+            new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO)
+                .multiply(new BigIntegerBigDecimalFraction(
+                    BigInteger.valueOf(4), BigInteger.valueOf(3)
+                ))
+        );
+    }
+
+    // endregion
+
     // region isValid and copy
 
     @Test
