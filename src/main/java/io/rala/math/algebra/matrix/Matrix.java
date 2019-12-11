@@ -332,7 +332,7 @@ public class Matrix<T extends Number>
     // region matrix arithmetic: inverse, transpose and determinante
 
     /**
-     * @return new inverse matrix
+     * @return new inverse matrix or <code>null</code> if there is none
      */
     public Matrix<T> inverse() {
         if (!isSquare())
