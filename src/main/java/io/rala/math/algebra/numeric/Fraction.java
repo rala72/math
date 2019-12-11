@@ -230,7 +230,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @see #subtract(Fraction)
      */
     public Fraction<T, V> subtract(T numerator, T denominator) {
-        return subtract(new Fraction<>(getArithmetic(), numerator, getDenominator()));
+        return subtract(new Fraction<>(getArithmetic(), numerator, denominator));
     }
 
     /**
