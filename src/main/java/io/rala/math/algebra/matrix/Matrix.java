@@ -401,16 +401,7 @@ public class Matrix<T extends Number>
         for (int i = 0; i < (isRowMode ? getCols() : getRows()); i++) {
             int row = isRowMode ? index : i;
             int col = isRowMode ? i : index;
-            T indexValue = isRowMode ? getValue(index, i) : getValue(i, index);
-            if (indexValue.equals(getDefaultValue())) continue;
-            T signum = getArithmetic().fromInt(signumFactor(row, col));
-            Matrix<T> sub = subMatrix(row, col);
-            t = getArithmetic().sum(t,
-                getArithmetic().product(
-                    getArithmetic().product(indexValue, signum),
-                    sub.determinante()
-                )
-            );
+            t = getArithmetic().sum(t, coFactor(row, col));
         }
         return t;
     }
@@ -469,7 +460,7 @@ public class Matrix<T extends Number>
 
     // endregion
 
-    // region protected: subMatrix and signumFactor
+    // region protected: subMatrix, coFactor and signumFactor
 
     /**
      * @param row row to exclude
@@ -493,6 +484,30 @@ public class Matrix<T extends Number>
             }
         }
         return subMatrix;
+    }
+
+    /**
+     * @param row row of coFactor
+     * @param col col of coFactor
+     * @return coFactor of matrix
+     * @throws IndexOutOfBoundsException if row or col is invalid
+     * @see #subMatrix(int, int)
+     * @see #signumFactor(int, int)
+     */
+    protected final T coFactor(int row, int col) {
+        if (!isSquare())
+            throw new IllegalArgumentException(EXCEPTION_NO_SQUARE);
+        if (!isRowValid(row))
+            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
+        if (!isColValid(col))
+            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
+        return getArithmetic().product(
+            getArithmetic().product(
+                getValue(row, col),
+                getArithmetic().fromInt(signumFactor(row, col))
+            ),
+            subMatrix(row, col).determinante()
+        );
     }
 
     /**

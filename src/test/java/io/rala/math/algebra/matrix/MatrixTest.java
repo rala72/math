@@ -509,7 +509,7 @@ class MatrixTest {
 
     // endregion
 
-    // region protected: subMatrix and signumFactor
+    // region protected: subMatrix, coFactor and signumFactor
 
     @Test
     void subMatrixR0C0OfMatrixWithR1C2WitchIsNoSquare() {
@@ -577,6 +577,46 @@ class MatrixTest {
         Matrix<Number> subMatrix = matrix.subMatrix(1, 1);
         Assertions.assertEquals(1, subMatrix.size());
         Assertions.assertEquals(0, subMatrix.getValue(0));
+    }
+
+    @Test
+    void coFactorR0C0OfMatrixWithR1C2WitchIsNoSquare() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> new TestMatrix(1, 2).coFactor(0, 0)
+        ); // assert exception message?
+    }
+
+    @Test
+    void coFactorR1C0OfMatrixWithSize1UsingInvalidRow1() {
+        Assertions.assertThrows(IndexOutOfBoundsException.class,
+            () -> new TestMatrix(1).coFactor(1, 0)
+        ); // assert exception message?
+    }
+
+    @Test
+    void coFactorR0C1OfMatrixWithSize1UsingInvalidCol1() {
+        Assertions.assertThrows(IndexOutOfBoundsException.class,
+            () -> new TestMatrix(1).coFactor(0, 1)
+        ); // assert exception message?
+    }
+
+    @Test
+    void coFactorR0C0OfMatrixWithSize1() {
+        Assertions.assertEquals(0,
+            new TestMatrix(1).coFactor(0, 0)
+        );
+    }
+
+    @Test
+    void coFactorsOfMatrixWithSize2() {
+        TestMatrix matrix = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, i);
+
+        Assertions.assertEquals(0, matrix.coFactor(0, 0));
+        Assertions.assertEquals(-2, matrix.coFactor(0, 1));
+        Assertions.assertEquals(-2, matrix.coFactor(1, 0));
+        Assertions.assertEquals(0, matrix.coFactor(1, 1));
     }
 
     @Test
