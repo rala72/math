@@ -137,12 +137,20 @@ class BigIntegerBigDecimalFractionTest {
 
     // endregion
 
-    // region negate and simplify
+    // region negate, inverse and simplify
 
     @Test
     void negate() {
         assertFraction(new BigIntegerBigDecimalFraction(BigInteger.ONE).negate(),
             BigInteger.ONE.negate(), BigInteger.ONE
+        );
+    }
+
+    @Test
+    void inverse() {
+        assertFraction(
+            new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO).inverse(),
+            BigInteger.TWO, BigInteger.ONE
         );
     }
 

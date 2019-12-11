@@ -141,7 +141,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
 
     // endregion
 
-    // region negate and simplify
+    // region negate, inverse and simplify
 
     /**
      * @return new fraction with negated {@link #getNumerator()}
@@ -152,6 +152,13 @@ public class Fraction<T extends Number, V extends Number> extends Number
             getArithmetic().getTArithmetic().negate(getNumerator()),
             getDenominator()
         );
+    }
+
+    /**
+     * @return new fraction with flipped <code>numerator</code> and <code>denominator</code>
+     */
+    public Fraction<T, V> inverse() {
+        return new Fraction<>(getArithmetic(), getDenominator(), getNumerator());
     }
 
     /**

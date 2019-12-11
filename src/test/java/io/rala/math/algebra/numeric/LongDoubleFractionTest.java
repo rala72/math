@@ -101,11 +101,16 @@ class LongDoubleFractionTest {
 
     // endregion
 
-    // region negate and simplify
+    // region negate, inverse and simplify
 
     @Test
     void negate() {
         assertFraction(new LongDoubleFraction(1).negate(), -1, 1);
+    }
+
+    @Test
+    void inverse() {
+        assertFraction(new LongDoubleFraction(1, 2).inverse(), 2, 1);
     }
 
     @Test

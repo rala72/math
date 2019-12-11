@@ -111,11 +111,16 @@ class FractionTest {
 
     // endregion
 
-    // region negate and simplify
+    // region negate, inverse and simplify
 
     @Test
     void negate() {
         assertFraction(new TestFraction(1).negate(), -1, 1);
+    }
+
+    @Test
+    void inverse() {
+        assertFraction(new TestFraction(1, 2).inverse(), 2, 1);
     }
 
     @Test
