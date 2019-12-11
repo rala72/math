@@ -509,7 +509,7 @@ class MatrixTest {
 
     // endregion
 
-    // region protected: subMatrix
+    // region protected: subMatrix and signumFactor
 
     @Test
     void subMatrixR0C0OfMatrixWithR1C2WitchIsNoSquare() {
@@ -577,6 +577,26 @@ class MatrixTest {
         Matrix<Number> subMatrix = matrix.subMatrix(1, 1);
         Assertions.assertEquals(1, subMatrix.size());
         Assertions.assertEquals(0, subMatrix.getValue(0));
+    }
+
+    @Test
+    void signumFactorOfR0C0() {
+        Assertions.assertEquals(1, Matrix.signumFactor(0, 0));
+    }
+
+    @Test
+    void signumFactorOfR0C1() {
+        Assertions.assertEquals(-1, Matrix.signumFactor(0, 1));
+    }
+
+    @Test
+    void signumFactorOfR1C0() {
+        Assertions.assertEquals(-1, Matrix.signumFactor(1, 0));
+    }
+
+    @Test
+    void signumFactorOfR1C1() {
+        Assertions.assertEquals(1, Matrix.signumFactor(1, 1));
     }
 
     // endregion
