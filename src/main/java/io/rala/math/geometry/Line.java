@@ -11,7 +11,6 @@ import java.util.Objects;
  * if line is vertical m is considered to be {@link Double#NaN}<br>
  * <code>y=b</code>
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
 public class Line implements Validatable, Copyable<Line>, Comparable<Line> {
     // region attributes
 

@@ -8,7 +8,6 @@ import java.util.Arrays;
 /**
  * collection of enumerative combinatoric math functions
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
 public class EnumerativeCombinatoric {
     private EnumerativeCombinatoric() {
     }

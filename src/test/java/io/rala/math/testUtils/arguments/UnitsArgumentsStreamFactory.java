@@ -4,7 +4,6 @@ import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.stream.Stream;
 
-@SuppressWarnings("unused")
 public class UnitsArgumentsStreamFactory {
     private UnitsArgumentsStreamFactory() {
     }

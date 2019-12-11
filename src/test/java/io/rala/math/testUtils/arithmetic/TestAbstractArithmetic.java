@@ -3,7 +3,6 @@ package io.rala.math.testUtils.arithmetic;
 import io.rala.math.MathX;
 import io.rala.math.arithmetic.AbstractArithmetic;
 
-@SuppressWarnings("unused")
 public class TestAbstractArithmetic extends AbstractArithmetic<Number> {
     // region fromInt, fromDouble and signum
 

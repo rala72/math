@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
  *
  * @see Math
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
 public class MathX {
     private static final MathContext MATH_CONTEXT =
         new MathContext(10, RoundingMode.HALF_EVEN);

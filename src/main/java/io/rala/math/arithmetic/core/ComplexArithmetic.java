@@ -10,7 +10,6 @@ import java.math.BigDecimal;
  *
  * @param <T> number class
  */
-@SuppressWarnings("unused")
 public class ComplexArithmetic<T extends Number> extends AbstractArithmetic<Complex<T>> {
     private final AbstractArithmetic<T> arithmetic;
 

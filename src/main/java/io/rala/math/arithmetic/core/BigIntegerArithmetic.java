@@ -9,7 +9,6 @@ import java.math.BigInteger;
 /**
  * class which handles {@link BigInteger} arithmetic
  */
-@SuppressWarnings("unused")
 public class BigIntegerArithmetic extends AbstractArithmetic<BigInteger> {
     // region fromInt, fromDouble and signum
 

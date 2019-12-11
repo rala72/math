@@ -6,7 +6,6 @@ import io.rala.math.arithmetic.AbstractArithmetic;
 /**
  * class which handles {@link Double} arithmetic
  */
-@SuppressWarnings("unused")
 public class DoubleArithmetic extends AbstractArithmetic<Double> {
     // region fromInt, fromDouble and signum
 

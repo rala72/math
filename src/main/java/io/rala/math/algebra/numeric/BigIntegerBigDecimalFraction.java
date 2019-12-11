@@ -9,7 +9,6 @@ import java.math.BigInteger;
  * class which holds fraction values as {@link BigInteger}
  * and calculates its actual value as {@link BigDecimal}
  */
-@SuppressWarnings("unused")
 public class BigIntegerBigDecimalFraction extends Fraction<BigInteger, BigDecimal> {
     // region constructors
 

@@ -12,7 +12,6 @@ import java.util.stream.StreamSupport;
  *
  * @param <T> number class
  */
-@SuppressWarnings({"unused", "WeakerAccess", "UnusedReturnValue"})
 public class Matrix<T extends Number>
     implements Copyable<Matrix<T>>, Iterable<Matrix<T>.Field> {
     // region protected exception messages

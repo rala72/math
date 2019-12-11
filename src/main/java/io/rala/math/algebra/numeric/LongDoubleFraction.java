@@ -6,7 +6,6 @@ import io.rala.math.arithmetic.result.LongDoubleResultArithmetic;
  * class which holds fraction values as {@link Long}
  * and calculates its actual value as {@link Double}
  */
-@SuppressWarnings("unused")
 public class LongDoubleFraction extends Fraction<Long, Double> {
     // region constructors
 

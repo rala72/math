@@ -10,7 +10,6 @@ import java.math.MathContext;
  * class which holds a real and a imaginary part of a complex number
  * storing {@link BigDecimal}
  */
-@SuppressWarnings("unused")
 public class BigDecimalComplex extends Complex<BigDecimal> {
     // region constructor
 

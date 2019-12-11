@@ -12,7 +12,6 @@ import java.math.MathContext;
  * class which defines required arithmetic for calculations
  * which calculates {@link BigInteger} to {@link BigDecimal}
  */
-@SuppressWarnings("unused")
 public class BigIntegerBigDecimalResultArithmetic extends AbstractResultArithmetic<BigInteger, BigDecimal> {
     /**
      * creates a new {@link AbstractResultArithmetic} with

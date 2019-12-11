@@ -11,7 +11,6 @@ import java.util.Objects;
 /**
  * class which holds a rect in 2d area with point a, b &amp; size
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
 public class Rect implements Validatable, Movable<Rect>, Rotatable<Rect>,
     Copyable<Rect>, Comparable<Rect> {
     // region attributes

@@ -3,7 +3,6 @@ package io.rala.math.utils;
 /**
  * collection of unit conversion functions
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
 public class Units {
     // TO DO: move to root package?
     private Units() {

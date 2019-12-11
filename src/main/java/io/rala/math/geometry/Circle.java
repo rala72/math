@@ -10,7 +10,6 @@ import java.util.Objects;
 /**
  * class which holds a circle a in 2d area with center &amp; radius
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
 public class Circle implements Validatable, Movable<Circle>, Rotatable<Circle>,
     Copyable<Circle>, Comparable<Circle> {
     // region attributes

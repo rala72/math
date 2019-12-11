@@ -9,7 +9,6 @@ import java.util.Objects;
 /**
  * class which holds a vector in a 2d area with x &amp; y
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
 public class Vector implements Validatable, Rotatable<Vector>,
     Copyable<Vector>, Comparable<Vector> {
     // region attributes

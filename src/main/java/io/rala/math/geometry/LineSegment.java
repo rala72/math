@@ -11,7 +11,6 @@ import java.util.Objects;
 /**
  * class which holds a line segment in a 2d area with points a &amp; b
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
 public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable<LineSegment>,
     Copyable<LineSegment>, Comparable<LineSegment> {
     // region attributes

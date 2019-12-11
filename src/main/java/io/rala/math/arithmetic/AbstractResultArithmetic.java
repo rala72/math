@@ -8,7 +8,6 @@ import java.util.function.Function;
  * @param <T> number class of arithmetic input
  * @param <R> number class of arithmetic result
  */
-@SuppressWarnings("unused")
 public abstract class AbstractResultArithmetic<T extends Number, R extends Number> {
 
     private final AbstractArithmetic<T> tArithmetic;

@@ -9,7 +9,6 @@ import java.util.Arrays;
  * class which holds a matrix with <code>rows</code> and <code>cols</code>
  * storing {@link Double}
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
 public class DoubleMatrix extends Matrix<Double> {
     public static final Double DEFAULT_VALUE = 0d;
 

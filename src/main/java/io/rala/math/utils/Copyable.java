@@ -5,6 +5,7 @@ package io.rala.math.utils;
  *
  * @param <T> class to copy
  */
+@SuppressWarnings("unused")
 public interface Copyable<T> {
     /**
      * @return a new instance with same properties

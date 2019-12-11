@@ -12,7 +12,6 @@ import java.util.Objects;
  * @param <T> number class of fraction elements
  * @param <V> number class of value
  */
-@SuppressWarnings("unused")
 public class Fraction<T extends Number, V extends Number> extends Number
     implements Copyable<Fraction<T, V>>, Comparable<Fraction<T, V>> {
     protected static final String EXCEPTION_NUMERATOR_NOT_NULL = "numerator must not be null";

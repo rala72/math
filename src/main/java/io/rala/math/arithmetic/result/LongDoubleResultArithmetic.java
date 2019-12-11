@@ -8,7 +8,6 @@ import io.rala.math.arithmetic.core.LongArithmetic;
  * class which defines required arithmetic for calculations
  * which calculates {@link Long} to {@link Double}
  */
-@SuppressWarnings("unused")
 public class LongDoubleResultArithmetic extends AbstractResultArithmetic<Long, Double> {
     /**
      * creates a new {@link AbstractResultArithmetic} with

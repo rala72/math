@@ -9,7 +9,6 @@ import java.math.MathContext;
 /**
  * class which handles {@link BigDecimal} arithmetic
  */
-@SuppressWarnings("unused")
 public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
     private final MathContext mathContext;
 

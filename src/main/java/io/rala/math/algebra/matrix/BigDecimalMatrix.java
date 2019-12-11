@@ -10,7 +10,6 @@ import java.math.MathContext;
  * class which holds a matrix with <code>rows</code> and <code>cols</code>
  * storing {@link BigDecimal}
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
 public class BigDecimalMatrix extends Matrix<BigDecimal> {
     public static final BigDecimal DEFAULT_VALUE = BigDecimal.ZERO;
 

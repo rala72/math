@@ -3,7 +3,6 @@ package io.rala.math.geometry;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("SameParameterValue")
 class RectTest {
     // region constructors, getter and setter
 

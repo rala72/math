@@ -7,7 +7,6 @@ import io.rala.math.arithmetic.core.DoubleArithmetic;
  * class which holds a real and a imaginary part of a complex number
  * storing {@link Double}
  */
-@SuppressWarnings("unused")
 public class DoubleComplex extends Complex<Double> {
     // region constructor
 

@@ -5,7 +5,6 @@ package io.rala.math.arithmetic;
  *
  * @param <T> number class of arithmetic
  */
-@SuppressWarnings({"unused", "SameParameterValue", "UnusedReturnValue"})
 public abstract class AbstractArithmetic<T extends Number> {
     // region fromInt, fromDouble and signum
 

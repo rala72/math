@@ -10,7 +10,6 @@ import java.util.Objects;
 /**
  * class which holds a point in a 2d area with x &amp; y
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
 public class Point implements Validatable, Movable<Point>, Rotatable<Point>,
     Copyable<Point>, Comparable<Point> {
     // region attributes

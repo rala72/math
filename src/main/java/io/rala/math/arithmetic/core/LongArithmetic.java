@@ -6,7 +6,6 @@ import io.rala.math.arithmetic.AbstractArithmetic;
 /**
  * class which handles {@link Long} arithmetic
  */
-@SuppressWarnings("unused")
 public class LongArithmetic extends AbstractArithmetic<Long> {
     // region fromInt, fromDouble and signum
 

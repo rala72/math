@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-@SuppressWarnings("unused")
 public class LineArgumentsStreamFactory {
     private LineArgumentsStreamFactory() {
     }

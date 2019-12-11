@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 /**
  * class which holds a triangle in a 2d area with points a, b &amp; c
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
 public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Triangle>,
     Copyable<Triangle>, Comparable<Triangle> {
     // region attributes

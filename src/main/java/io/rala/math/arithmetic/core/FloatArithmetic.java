@@ -6,7 +6,6 @@ import io.rala.math.arithmetic.AbstractArithmetic;
 /**
  * class which handles {@link Float} arithmetic
  */
-@SuppressWarnings("unused")
 public class FloatArithmetic extends AbstractArithmetic<Float> {
     // region fromInt, fromDouble and signum
 

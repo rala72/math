@@ -3,7 +3,6 @@ package io.rala.math.geometry;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("SameParameterValue")
 class CircleTest {
     private static final double DELTA = 0.00001;
 
@@ -239,6 +238,7 @@ class CircleTest {
         assertCircle(circle, center, 1);
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static void assertCircle(Circle circle, double radius) {
         assertCircle(circle, new Point(), radius);
     }

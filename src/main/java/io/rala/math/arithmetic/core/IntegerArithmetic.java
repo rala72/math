@@ -6,7 +6,6 @@ import io.rala.math.arithmetic.AbstractArithmetic;
 /**
  * class which handles {@link Integer} arithmetic
  */
-@SuppressWarnings("unused")
 public class IntegerArithmetic extends AbstractArithmetic<Integer> {
     // region fromInt, fromDouble and signum
 
