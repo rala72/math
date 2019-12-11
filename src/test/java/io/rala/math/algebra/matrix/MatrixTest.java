@@ -325,10 +325,10 @@ class MatrixTest {
 
     @Test
     void multiplyOfMatrixWithSize2ToItself() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
+        TestMatrix matrix = new TestMatrix(2);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i + 1d);
-        Assertions.assertEquals(DoubleMatrix.ofValuesByRows(2,
+        Assertions.assertEquals(TestMatrix.ofValuesByRows(2,
             7, 10, 15, 22
         ), matrix.multiply(matrix));
     }
@@ -364,11 +364,11 @@ class MatrixTest {
 
     @Test
     void multiplyTolerantOfMatrixWithSize2ToItself() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
+        TestMatrix matrix = new TestMatrix(2);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i + 1d);
         Assertions.assertEquals(
-            DoubleMatrix.ofValuesByRows(2,
+            TestMatrix.ofValuesByRows(2,
                 7, 10, 15, 22
             ),
             matrix.multiplyTolerant(matrix)
