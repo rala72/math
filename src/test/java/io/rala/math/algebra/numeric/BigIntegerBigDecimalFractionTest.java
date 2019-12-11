@@ -289,6 +289,30 @@ class BigIntegerBigDecimalFractionTest {
 
     // endregion
 
+    // region pow and root
+
+    @Test
+    void pow2OfFraction1_2() {
+        assertFraction(
+            new BigIntegerBigDecimalFraction(
+                BigInteger.ONE, BigInteger.TWO
+            ).pow(2),
+            BigInteger.ONE, BigInteger.valueOf(4)
+        );
+    }
+
+    @Test
+    void root2OfFraction1_4() {
+        assertFraction(
+            new BigIntegerBigDecimalFraction(
+                BigInteger.ONE, BigInteger.valueOf(4)
+            ).root(2),
+            BigInteger.ONE, BigInteger.TWO
+        );
+    }
+
+    // endregion
+
     // region isValid and copy
 
     @Test

@@ -312,6 +312,32 @@ public class Fraction<T extends Number, V extends Number> extends Number
 
     // endregion
 
+    // region pow and root
+
+    /**
+     * @param n number of power
+     * @return <code>pow(numerator,n)/pow(denominator,n)</code>
+     */
+    public Fraction<T, V> pow(int n) {
+        AbstractArithmetic<T> tArithmetic = getArithmetic().getTArithmetic();
+        T newNumerator = tArithmetic.power(getNumerator(), n);
+        T newDenominator = tArithmetic.power(getDenominator(), n);
+        return new Fraction<>(getArithmetic(), newNumerator, newDenominator);
+    }
+
+    /**
+     * @param n degree of root
+     * @return <code>root(numerator,n)/root(denominator,n)</code>
+     */
+    public Fraction<T, V> root(int n) {
+        AbstractArithmetic<T> tArithmetic = getArithmetic().getTArithmetic();
+        T newNumerator = tArithmetic.root(getNumerator(), n);
+        T newDenominator = tArithmetic.root(getDenominator(), n);
+        return new Fraction<>(getArithmetic(), newNumerator, newDenominator);
+    }
+
+    // endregion
+
     // region copy
 
     @Override

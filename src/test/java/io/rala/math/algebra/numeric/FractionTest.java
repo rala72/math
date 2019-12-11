@@ -250,6 +250,20 @@ class FractionTest {
 
     // endregion
 
+    // region pow and root
+
+    @Test
+    void pow2OfFraction1_2() {
+        assertFraction(new TestFraction(1, 2).pow(2), 1, 4);
+    }
+
+    @Test
+    void root2OfFraction1_4() {
+        assertFraction(new TestFraction(1, 4).root(2), 1, 2);
+    }
+
+    // endregion
+
     // region isValid and copy
 
     @Test
