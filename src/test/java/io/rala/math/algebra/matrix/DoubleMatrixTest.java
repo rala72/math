@@ -239,7 +239,7 @@ class DoubleMatrixTest {
 
     // endregion
 
-    // region matrix arithmetic
+    // region matrix arithmetic: add and multiply
 
     @Test
     void addOfEmptyMatrixWithSize1AndEmptyMatrixWithRows2Cols1() {
@@ -358,6 +358,10 @@ class DoubleMatrixTest {
             matrix.multiplyTolerant(matrix)
         );
     }
+
+    // endregion
+
+    // region matrix arithmetic: transpose and determinante
 
     @Test
     void transposeOfEmptyMatrixWithSize2() {

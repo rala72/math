@@ -258,7 +258,7 @@ public class Matrix<T extends Number>
 
     // endregion
 
-    // region matrix arithmetic
+    // region matrix arithmetic: add and multiply
 
     /**
      * @param matrix matrix to add
@@ -312,6 +312,10 @@ public class Matrix<T extends Number>
             return matrix.multiplyTolerant(this);
         throw new IllegalArgumentException(EXCEPTION_ANY_COLS_EQUALS_OTHER_ROWS);
     }
+
+    // endregion
+
+    // region matrix arithmetic: transpose and determinante
 
     // public Matrix<T> inverse();
 
