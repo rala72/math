@@ -262,7 +262,7 @@ class MatrixTest {
         Assertions.assertThrows(IllegalArgumentException.class,
             () -> new DoubleMatrix(1)
                 .add(new DoubleMatrix(2, 1))
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -270,7 +270,7 @@ class MatrixTest {
         Assertions.assertThrows(IllegalArgumentException.class,
             () -> new DoubleMatrix(1)
                 .add(new DoubleMatrix(1, 2))
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -320,7 +320,7 @@ class MatrixTest {
         DoubleMatrix matrix2 = new DoubleMatrix(1, 2);
         Assertions.assertThrows(IllegalArgumentException.class,
             () -> matrix1.multiply(matrix2)
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -512,7 +512,7 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.flipRows(-1, 0)
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -520,7 +520,7 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.flipRows(0, -1)
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -539,7 +539,7 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.flipCols(-1, 0)
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -547,7 +547,7 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.flipCols(0, -1)
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -566,7 +566,7 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.multiplyRow(-1, 0)
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -585,7 +585,7 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.multiplyCol(-1, 0)
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -604,7 +604,7 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.addRowMultipleTimes(-1, 0, 0)
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -612,7 +612,7 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.addRowMultipleTimes(0, -1, 0)
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -667,7 +667,7 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.addColMultipleTimes(-1, 0, 1)
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -675,7 +675,7 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.addColMultipleTimes(0, -1, 0)
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test

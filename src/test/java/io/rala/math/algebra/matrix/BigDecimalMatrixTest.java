@@ -261,7 +261,7 @@ class BigDecimalMatrixTest {
         Assertions.assertThrows(IllegalArgumentException.class,
             () -> new BigDecimalMatrix(1)
                 .add(new BigDecimalMatrix(2, 1))
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -269,7 +269,7 @@ class BigDecimalMatrixTest {
         Assertions.assertThrows(IllegalArgumentException.class,
             () -> new BigDecimalMatrix(1)
                 .add(new BigDecimalMatrix(1, 2))
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -319,7 +319,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix2 = new BigDecimalMatrix(1, 2);
         Assertions.assertThrows(IllegalArgumentException.class,
             () -> matrix1.multiply(matrix2)
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -597,7 +597,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.flipRows(-1, 0)
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -605,7 +605,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.flipRows(0, -1)
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -627,7 +627,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.flipCols(-1, 0)
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -635,7 +635,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.flipCols(0, -1)
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -656,7 +656,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.multiplyRow(-1, 0)
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -675,7 +675,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.multiplyCol(-1, 0)
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -694,7 +694,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.addRowMultipleTimes(-1, 0, 0)
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -702,7 +702,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.addRowMultipleTimes(0, -1, 0)
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -757,7 +757,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.addColMultipleTimes(-1, 0, 1)
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
@@ -765,7 +765,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.addColMultipleTimes(0, -1, 0)
-        ); // assert message
+        ); // assert exception message?
     }
 
     @Test
