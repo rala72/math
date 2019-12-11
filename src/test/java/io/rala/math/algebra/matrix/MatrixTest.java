@@ -395,7 +395,41 @@ class MatrixTest {
 
     // endregion
 
-    // region matrix arithmetic: transpose and determinante
+    // region matrix arithmetic: inverse, transpose and determinante
+
+    @Test
+    void inverseOfEmptyMatrixWichIsNoSquare() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> new TestMatrix(1, 2).inverse()
+        ); // assert exception message?
+    }
+
+    @Test
+    void inverseOfEmptyMatrixWithSize2() {
+        Assertions.assertNull(new TestMatrix(2, (Number) 0).inverse());
+    }
+
+    @Test
+    void inverseOfMatrixWithSize2() {
+        TestMatrix matrix = TestMatrix.ofValuesByRows(2,
+            2, 5, 1, 3
+        );
+        TestMatrix result = TestMatrix.ofValuesByRows(2,
+            3, -5, -1, 2
+        );
+        Assertions.assertEquals(result, matrix.inverse());
+    }
+
+    @Test
+    void inverseOfMatrixWithSize3() {
+        TestMatrix matrix = TestMatrix.ofValuesByRows(3,
+            3, 5, 1, 2, 4, 5, 1, 2, 2
+        );
+        TestMatrix result = TestMatrix.ofValuesByRows(3,
+            2, 8, -21, -1, -5, 13, 0, 1, -2
+        );
+        Assertions.assertEquals(result, matrix.inverse());
+    }
 
     @Test
     void transposeOfEmptyMatrixWithSize2() {

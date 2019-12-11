@@ -396,7 +396,47 @@ class BigDecimalMatrixTest {
 
     // endregion
 
-    // region matrix arithmetic: transpose and determinante
+    // region matrix arithmetic: inverse, transpose and determinante
+
+    @Test
+    void inverseOfEmptyMatrixWichIsNoSquare() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> new BigDecimalMatrix(1, 2).inverse()
+        ); // assert exception message?
+    }
+
+    @Test
+    void inverseOfEmptyMatrixWithSize2() {
+        Assertions.assertNull(new BigDecimalMatrix(2).inverse());
+    }
+
+    @Test
+    void inverseOfMatrixWithSize2() {
+        BigDecimalMatrix matrix = BigDecimalMatrix.ofValuesByRows(2,
+            BigDecimal.valueOf(2), BigDecimal.valueOf(5),
+            BigDecimal.ONE, BigDecimal.valueOf(3)
+        );
+        BigDecimalMatrix result = BigDecimalMatrix.ofValuesByRows(2,
+            BigDecimal.valueOf(3), BigDecimal.valueOf(5).negate(),
+            BigDecimal.ONE.negate(), BigDecimal.valueOf(2)
+        );
+        Assertions.assertEquals(result, matrix.inverse());
+    }
+
+    @Test
+    void inverseOfMatrixWithSize3() {
+        BigDecimalMatrix matrix = BigDecimalMatrix.ofValuesByRows(3,
+            BigDecimal.valueOf(3), BigDecimal.valueOf(5), BigDecimal.ONE,
+            BigDecimal.valueOf(2), BigDecimal.valueOf(4), BigDecimal.valueOf(5),
+            BigDecimal.ONE, BigDecimal.valueOf(2), BigDecimal.valueOf(2)
+        );
+        BigDecimalMatrix result = BigDecimalMatrix.ofValuesByRows(3,
+            BigDecimal.valueOf(2), BigDecimal.valueOf(8), BigDecimal.valueOf(21).negate(),
+            BigDecimal.ONE.negate(), BigDecimal.valueOf(5).negate(), BigDecimal.valueOf(13),
+            BigDecimal.ZERO, BigDecimal.valueOf(1), BigDecimal.valueOf(2).negate()
+        );
+        Assertions.assertEquals(result, matrix.inverse());
+    }
 
     @Test
     void transposeOfEmptyMatrixWithSize2() {

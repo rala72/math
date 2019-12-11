@@ -329,9 +329,30 @@ public class Matrix<T extends Number>
 
     // endregion
 
-    // region matrix arithmetic: transpose and determinante
+    // region matrix arithmetic: inverse, transpose and determinante
 
-    // public Matrix<T> inverse();
+    /**
+     * @return new inverse matrix
+     */
+    public Matrix<T> inverse() {
+        if (!isSquare())
+            throw new IllegalArgumentException(EXCEPTION_NO_SQUARE);
+        T determinante = determinante();
+        if (determinante == null || isDefaultValue(determinante))
+            return null;
+        T k = getArithmetic().quotient(getArithmetic().fromInt(1), determinante);
+        Matrix<T> minorMatrix = newInstance(getRows(), getCols());
+        for (int r = 0; r < minorMatrix.getRows(); r++) {
+            for (int c = 0; c < minorMatrix.getCols(); c++) {
+                T value = getArithmetic().product(
+                    getArithmetic().fromInt(signumFactor(r, c)),
+                    subMatrix(r, c).determinante()
+                );
+                minorMatrix.setValue(r, c, value);
+            }
+        }
+        return minorMatrix.transpose().multiply(k);
+    }
 
     /**
      * @return new transposed matrix
