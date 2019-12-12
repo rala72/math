@@ -119,4 +119,27 @@ class FloatArithmeticTest {
     }
 
     // endregion
+
+    // region override
+
+    @Test
+    void equalsOfArithmetic() {
+        Assertions.assertEquals(new FloatArithmetic(), new FloatArithmetic());
+    }
+
+    @Test
+    void hashCodeOfArithmetic() {
+        Assertions.assertEquals(1065354177,
+            new FloatArithmetic().hashCode()
+        );
+    }
+
+    @Test
+    void toStringOfArithmetic() {
+        Assertions.assertEquals("FloatArithmetic",
+            new FloatArithmetic().toString()
+        );
+    }
+
+    // endregion
 }

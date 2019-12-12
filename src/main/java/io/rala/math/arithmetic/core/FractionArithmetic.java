@@ -4,6 +4,8 @@ import io.rala.math.algebra.numeric.Fraction;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.AbstractResultArithmetic;
 
+import java.util.Objects;
+
 /**
  * class which handles {@link Fraction} arithmetic
  */
@@ -112,6 +114,25 @@ public class FractionArithmetic<T extends Number, R extends Number>
     public Fraction<T, R> gcd(Fraction<T, R> a, Fraction<T, R> b) {
         throw new NotImplementedException();
     }
+
+    // endregion
+
+    // region override
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof FractionArithmetic)) return false;
+        if (!super.equals(o)) return false;
+        FractionArithmetic<?, ?> that = (FractionArithmetic<?, ?>) o;
+        return Objects.equals(getArithmetic(), that.getArithmetic());
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() + Objects.hash(getArithmetic());
+    }
+
 
     // endregion
 }

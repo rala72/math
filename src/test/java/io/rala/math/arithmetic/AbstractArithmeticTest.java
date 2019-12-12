@@ -228,6 +228,29 @@ class AbstractArithmeticTest {
 
     // endregion
 
+    // region override
+
+    @Test
+    void equalsOfAbstractArithmetic() {
+        Assertions.assertEquals(new TestAbstractArithmetic(), new TestAbstractArithmetic());
+    }
+
+    @Test
+    void hashCodeOfAbstractArithmetic() {
+        Assertions.assertEquals(962,
+            new TestAbstractArithmetic().hashCode()
+        );
+    }
+
+    @Test
+    void toStringOfAbstractArithmetic() {
+        Assertions.assertEquals("TestAbstractArithmetic",
+            new TestAbstractArithmetic().toString()
+        );
+    }
+
+    // endregion
+
     @Test
     void notImplementedException() {
         Assertions.assertThrows(AbstractArithmetic.NotImplementedException.class, () -> {

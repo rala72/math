@@ -276,6 +276,29 @@ class ComplexArithmeticTest {
 
     // endregion
 
+    // region override
+
+    @Test
+    void equalsOfArithmetic() {
+        Assertions.assertEquals(new TestComplexArithmetic(), new TestComplexArithmetic());
+    }
+
+    @Test
+    void hashCodeOfArithmetic() {
+        Assertions.assertEquals(32737,
+            new TestComplexArithmetic().hashCode()
+        );
+    }
+
+    @Test
+    void toStringOfArithmetic() {
+        Assertions.assertEquals("TestComplexArithmetic",
+            new TestComplexArithmetic().toString()
+        );
+    }
+
+    // endregion
+
 
     // region create
 

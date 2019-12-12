@@ -114,4 +114,27 @@ class LongArithmeticTest {
     }
 
     // endregion
+
+    // region override
+
+    @Test
+    void equalsOfArithmetic() {
+        Assertions.assertEquals(new LongArithmetic(), new LongArithmetic());
+    }
+
+    @Test
+    void hashCodeOfArithmetic() {
+        Assertions.assertEquals(962,
+            new LongArithmetic().hashCode()
+        );
+    }
+
+    @Test
+    void toStringOfArithmetic() {
+        Assertions.assertEquals("LongArithmetic",
+            new LongArithmetic().toString()
+        );
+    }
+
+    // endregion
 }

@@ -114,4 +114,27 @@ class IntegerArithmeticTest {
     }
 
     // endregion
+
+    // region override
+
+    @Test
+    void equalsOfArithmetic() {
+        Assertions.assertEquals(new IntegerArithmetic(), new IntegerArithmetic());
+    }
+
+    @Test
+    void hashCodeOfArithmetic() {
+        Assertions.assertEquals(962,
+            new IntegerArithmetic().hashCode()
+        );
+    }
+
+    @Test
+    void toStringOfArithmetic() {
+        Assertions.assertEquals("IntegerArithmetic",
+            new IntegerArithmetic().toString()
+        );
+    }
+
+    // endregion
 }

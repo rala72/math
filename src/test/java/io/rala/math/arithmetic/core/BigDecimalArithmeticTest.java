@@ -136,4 +136,32 @@ class BigDecimalArithmeticTest {
     }
 
     // endregion
+
+    // region override
+
+    @Test
+    void equalsOfArithmetic() {
+        Assertions.assertEquals(new BigDecimalArithmetic(), new BigDecimalArithmetic());
+        Assertions.assertNotEquals(new BigDecimalArithmetic(),
+            new BigDecimalArithmetic(new MathContext(5))
+        );
+    }
+
+    @Test
+    void hashCodeOfArithmetic() {
+        // hashCode of RoundingMode enum changing after every start
+        Assertions.assertEquals(
+            new BigDecimalArithmetic().hashCode(),
+            new BigDecimalArithmetic().hashCode()
+        );
+    }
+
+    @Test
+    void toStringOfArithmetic() {
+        Assertions.assertEquals("BigDecimalArithmetic",
+            new BigDecimalArithmetic().toString()
+        );
+    }
+
+    // endregion
 }

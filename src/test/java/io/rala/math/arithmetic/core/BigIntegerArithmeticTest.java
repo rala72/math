@@ -147,4 +147,27 @@ class BigIntegerArithmeticTest {
     }
 
     // endregion
+
+    // region override
+
+    @Test
+    void equalsOfArithmetic() {
+        Assertions.assertEquals(new BigIntegerArithmetic(), new BigIntegerArithmetic());
+    }
+
+    @Test
+    void hashCodeOfArithmetic() {
+        Assertions.assertEquals(962,
+            new BigIntegerArithmetic().hashCode()
+        );
+    }
+
+    @Test
+    void toStringOfArithmetic() {
+        Assertions.assertEquals("BigIntegerArithmetic",
+            new BigIntegerArithmetic().toString()
+        );
+    }
+
+    // endregion
 }

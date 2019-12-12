@@ -119,4 +119,27 @@ class DoubleArithmeticTest {
     }
 
     // endregion
+
+    // region override
+
+    @Test
+    void equalsOfArithmetic() {
+        Assertions.assertEquals(new DoubleArithmetic(), new DoubleArithmetic());
+    }
+
+    @Test
+    void hashCodeOfArithmetic() {
+        Assertions.assertEquals(1072694209,
+            new DoubleArithmetic().hashCode()
+        );
+    }
+
+    @Test
+    void toStringOfArithmetic() {
+        Assertions.assertEquals("DoubleArithmetic",
+            new DoubleArithmetic().toString()
+        );
+    }
+
+    // endregion
 }

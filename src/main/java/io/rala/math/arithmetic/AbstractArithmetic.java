@@ -1,5 +1,7 @@
 package io.rala.math.arithmetic;
 
+import java.util.Objects;
+
 /**
  * class which defines required arithmetic for calculations
  *
@@ -352,6 +354,27 @@ public abstract class AbstractArithmetic<T extends Number> {
                 return a;
             }
         };
+    }
+
+    // endregion
+
+    // region override
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        return o instanceof AbstractArithmetic<?> &&
+            getClass().equals(o.getClass());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(zero(), one());
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName();
     }
 
     // endregion

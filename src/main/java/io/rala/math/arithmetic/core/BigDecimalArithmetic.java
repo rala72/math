@@ -5,6 +5,7 @@ import io.rala.math.arithmetic.AbstractArithmetic;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.Objects;
 
 /**
  * class which handles {@link BigDecimal} arithmetic
@@ -125,6 +126,25 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
     public BigDecimal gcd(BigDecimal a, BigDecimal b) {
         throw new NotImplementedException();
     }
+
+    // endregion
+
+    // region override
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BigDecimalArithmetic)) return false;
+        if (!super.equals(o)) return false;
+        BigDecimalArithmetic that = (BigDecimalArithmetic) o;
+        return Objects.equals(getMathContext(), that.getMathContext());
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() + Objects.hash(getMathContext());
+    }
+
 
     // endregion
 

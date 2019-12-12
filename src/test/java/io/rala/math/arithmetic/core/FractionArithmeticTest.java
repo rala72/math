@@ -189,4 +189,27 @@ class FractionArithmeticTest {
     }
 
     // endregion
+
+    // region override
+
+    @Test
+    void equalsOfArithmetic() {
+        Assertions.assertEquals(new TestFractionArithmetic(), new TestFractionArithmetic());
+    }
+
+    @Test
+    void hashCodeOfArithmetic() {
+        Assertions.assertEquals(63552,
+            new TestFractionArithmetic().hashCode()
+        );
+    }
+
+    @Test
+    void toStringOfArithmetic() {
+        Assertions.assertEquals("TestFractionArithmetic",
+            new TestFractionArithmetic().toString()
+        );
+    }
+
+    // endregion
 }

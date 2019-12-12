@@ -4,6 +4,7 @@ import io.rala.math.algebra.numeric.Complex;
 import io.rala.math.arithmetic.AbstractArithmetic;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 /**
  * class which handles {@link BigDecimal} arithmetic
@@ -107,6 +108,25 @@ public class ComplexArithmetic<T extends Number> extends AbstractArithmetic<Comp
     public Complex<T> gcd(Complex<T> a, Complex<T> b) {
         throw new NotImplementedException();
     }
+
+    // endregion
+
+    // region override
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ComplexArithmetic)) return false;
+        if (!super.equals(o)) return false;
+        ComplexArithmetic<?> that = (ComplexArithmetic<?>) o;
+        return Objects.equals(getArithmetic(), that.getArithmetic());
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() + Objects.hash(getArithmetic());
+    }
+
 
     // endregion
 }
