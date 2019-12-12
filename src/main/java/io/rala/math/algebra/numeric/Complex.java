@@ -435,11 +435,11 @@ public class Complex<T extends Number> extends Number implements Validatable,
     /**
      * @param arithmetic arithmetic for calculations
      * @param map        mapping function to convert current values to new one
-     * @param <V>        new number class
+     * @param <NT>       new number class
      * @return mapped complex
      */
-    public <V extends Number> Complex<V> map(
-        AbstractArithmetic<V> arithmetic, Function<T, V> map
+    public <NT extends Number> Complex<NT> map(
+        AbstractArithmetic<NT> arithmetic, Function<T, NT> map
     ) {
         return new Complex<>(arithmetic,
             map.apply(getRe()),

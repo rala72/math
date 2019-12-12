@@ -381,13 +381,13 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @param arithmetic arithmetic for calculations
      * @param mapTR      mapping function to convert current values to new one
      * @param mapRV      mapping function to convert current values to new one
-     * @param <R>        new number class
+     * @param <NT>       new number class
      * @return mapped fraction
      * @see #mapValues(AbstractResultArithmetic, Function)
      * @see AbstractResultArithmetic#map(AbstractArithmetic, Function)
      */
-    public <R extends Number> Fraction<R, V> mapValues(
-        AbstractArithmetic<R> arithmetic, Function<T, R> mapTR, Function<R, V> mapRV
+    public <NT extends Number> Fraction<NT, V> mapValues(
+        AbstractArithmetic<NT> arithmetic, Function<T, NT> mapTR, Function<NT, V> mapRV
     ) {
         return mapValues(getArithmetic().map(arithmetic, mapRV), mapTR);
     }
@@ -395,11 +395,11 @@ public class Fraction<T extends Number, V extends Number> extends Number
     /**
      * @param arithmetic arithmetic for calculations
      * @param map        mapping function to convert current values to new one
-     * @param <R>        new number class
+     * @param <NT>       new number class
      * @return mapped fraction
      */
-    public <R extends Number> Fraction<R, V> mapValues(
-        AbstractResultArithmetic<R, V> arithmetic, Function<T, R> map
+    public <NT extends Number> Fraction<NT, V> mapValues(
+        AbstractResultArithmetic<NT, V> arithmetic, Function<T, NT> map
     ) {
         return new Fraction<>(
             arithmetic,
@@ -411,12 +411,12 @@ public class Fraction<T extends Number, V extends Number> extends Number
     /**
      * @param arithmetic arithmetic for calculations
      * @param map        mapping function to convert current values to new one
-     * @param <R>        new number class
+     * @param <NV>       new number class
      * @return mapped fraction
      * @see AbstractResultArithmetic#mapResult(AbstractArithmetic, Function)
      */
-    public <R extends Number> Fraction<T, R> mapValue(
-        AbstractArithmetic<R> arithmetic, Function<T, R> map
+    public <NV extends Number> Fraction<T, NV> mapValue(
+        AbstractArithmetic<NV> arithmetic, Function<T, NV> map
     ) {
         return new Fraction<>(
             getArithmetic().mapResult(arithmetic, map),

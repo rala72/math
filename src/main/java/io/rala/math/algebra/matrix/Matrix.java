@@ -536,13 +536,13 @@ public class Matrix<T extends Number>
     /**
      * @param arithmetic arithmetic for calculations
      * @param map        mapping function to convert current values to new one
-     * @param <V>        new number class
+     * @param <NT>       new number class
      * @return mapped matrix
      */
-    public <V extends Number> Matrix<V> map(
-        AbstractArithmetic<V> arithmetic, Function<T, V> map
+    public <NT extends Number> Matrix<NT> map(
+        AbstractArithmetic<NT> arithmetic, Function<T, NT> map
     ) {
-        Matrix<V> matrix = new Matrix<>(
+        Matrix<NT> matrix = new Matrix<>(
             arithmetic, getRows(), getCols(), map.apply(getDefaultValue())
         );
         getMatrix().forEach((integer, t) -> matrix.setValue(integer, map.apply(t)));
