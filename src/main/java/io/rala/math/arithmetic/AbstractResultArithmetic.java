@@ -1,5 +1,6 @@
 package io.rala.math.arithmetic;
 
+import java.util.Objects;
 import java.util.function.Function;
 
 /**
@@ -166,6 +167,32 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
                 return map.apply(a);
             }
         };
+    }
+
+    // endregion
+
+    // region override
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AbstractResultArithmetic)) return false;
+        AbstractResultArithmetic<?, ?> that = (AbstractResultArithmetic<?, ?>) o;
+        return Objects.equals(getTArithmetic(), that.getTArithmetic()) &&
+            Objects.equals(getRArithmetic(), that.getRArithmetic());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getTArithmetic(), getRArithmetic());
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+            "tArithmetic=" + getTArithmetic() +
+            ", rArithmetic=" + getRArithmetic() +
+            '}';
     }
 
     // endregion

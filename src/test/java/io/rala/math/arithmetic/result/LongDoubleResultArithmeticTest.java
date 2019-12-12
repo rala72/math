@@ -74,4 +74,33 @@ class LongDoubleResultArithmeticTest {
     }
 
     // endregion
+
+    // region override
+
+    @Test
+    void equalsOfAbstractResultArithmetic() {
+        Assertions.assertEquals(
+            new LongDoubleResultArithmetic(),
+            new LongDoubleResultArithmetic()
+        );
+    }
+
+    @Test
+    void hashCodeOfAbstractResultArithmetic() {
+        Assertions.assertEquals(1072724992,
+            new LongDoubleResultArithmetic().hashCode()
+        );
+    }
+
+    @Test
+    void toStringOfAbstractResultArithmetic() {
+        String toString = "LongDoubleResultArithmetic{" +
+            "tArithmetic=LongArithmetic, " +
+            "rArithmetic=DoubleArithmetic}";
+        Assertions.assertEquals(toString,
+            new LongDoubleResultArithmetic().toString()
+        );
+    }
+
+    // endregion
 }

@@ -89,4 +89,33 @@ class AbstractResultArithmeticTest {
     }
 
     // endregion
+
+    // region override
+
+    @Test
+    void equalsOfAbstractResultArithmetic() {
+        Assertions.assertEquals(
+            new TestAbstractResultArithmetic(),
+            new TestAbstractResultArithmetic()
+        );
+    }
+
+    @Test
+    void hashCodeOfAbstractResultArithmetic() {
+        Assertions.assertEquals(31745,
+            new TestAbstractResultArithmetic().hashCode()
+        );
+    }
+
+    @Test
+    void toStringOfAbstractResultArithmetic() {
+        String toString = "TestAbstractResultArithmetic{" +
+            "tArithmetic=TestAbstractArithmetic, " +
+            "rArithmetic=TestAbstractArithmetic}";
+        Assertions.assertEquals(toString,
+            new TestAbstractResultArithmetic().toString()
+        );
+    }
+
+    // endregion
 }

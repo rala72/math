@@ -106,4 +106,35 @@ class BigIntegerBigDecimalResultArithmeticTest {
     }
 
     // endregion
+
+    // region override
+
+    @Test
+    void equalsOfAbstractResultArithmetic() {
+        Assertions.assertEquals(
+            new BigIntegerBigDecimalResultArithmetic(),
+            new BigIntegerBigDecimalResultArithmetic()
+        );
+    }
+
+    @Test
+    void hashCodeOfAbstractResultArithmetic() {
+        // hashCode of RoundingMode enum changing after every start
+        Assertions.assertEquals(
+            new BigIntegerBigDecimalResultArithmetic().hashCode(),
+            new BigIntegerBigDecimalResultArithmetic().hashCode()
+        );
+    }
+
+    @Test
+    void toStringOfAbstractResultArithmetic() {
+        String toString = "BigIntegerBigDecimalResultArithmetic{" +
+            "tArithmetic=BigIntegerArithmetic, " +
+            "rArithmetic=BigDecimalArithmetic}";
+        Assertions.assertEquals(toString,
+            new BigIntegerBigDecimalResultArithmetic().toString()
+        );
+    }
+
+    // endregion
 }
