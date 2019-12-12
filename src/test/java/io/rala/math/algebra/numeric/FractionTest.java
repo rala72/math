@@ -269,6 +269,17 @@ class FractionTest {
     // region map and copy
 
     @Test
+    void mapOfFraction() {
+        TestFraction fraction = new TestFraction(0.5, 1.5);
+        Fraction<Integer, Integer> result = new Fraction<>(
+            new IntegerArithmetic().toResultArithmetic(), 0, 1
+        );
+        Assertions.assertEquals(result, fraction.map(
+            new IntegerArithmetic().toResultArithmetic(), Number::intValue
+        ));
+    }
+
+    @Test
     void mapValuesOfFractionWithArithmetic() {
         TestFraction fraction = new TestFraction(0.5, 1.5);
         Fraction<Integer, Number> result = new Fraction<>(

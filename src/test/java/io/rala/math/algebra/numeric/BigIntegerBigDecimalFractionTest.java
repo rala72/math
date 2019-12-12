@@ -320,6 +320,18 @@ class BigIntegerBigDecimalFractionTest {
     // region map and copy
 
     @Test
+    void mapOfFraction() {
+        BigIntegerBigDecimalFraction fraction =
+            new BigIntegerBigDecimalFraction(BigInteger.ZERO, BigInteger.ONE);
+        Fraction<Integer, Integer> result = new Fraction<>(
+            new IntegerArithmetic().toResultArithmetic(), 0, 1
+        );
+        Assertions.assertEquals(result, fraction.map(
+            new IntegerArithmetic().toResultArithmetic(), Number::intValue
+        ));
+    }
+
+    @Test
     void mapValuesOfFractionWithArithmetic() {
         BigIntegerBigDecimalFraction fraction =
             new BigIntegerBigDecimalFraction(BigInteger.ZERO, BigInteger.ONE);

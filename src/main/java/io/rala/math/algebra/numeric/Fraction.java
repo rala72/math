@@ -379,6 +379,23 @@ public class Fraction<T extends Number, V extends Number> extends Number
 
     /**
      * @param arithmetic arithmetic for calculations
+     * @param map        mapping function to convert current values to new one
+     * @param <NT>       new number class
+     * @param <NV>       new value class
+     * @return mapped fraction
+     */
+    public <NT extends Number, NV extends Number> Fraction<NT, NV> map(
+        AbstractResultArithmetic<NT, NV> arithmetic, Function<T, NT> map
+    ) {
+        return new Fraction<>(
+            arithmetic,
+            map.apply(getNumerator()),
+            map.apply(getDenominator())
+        );
+    }
+
+    /**
+     * @param arithmetic arithmetic for calculations
      * @param mapTR      mapping function to convert current values to new one
      * @param mapRV      mapping function to convert current values to new one
      * @param <NT>       new number class
@@ -397,15 +414,12 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @param map        mapping function to convert current values to new one
      * @param <NT>       new number class
      * @return mapped fraction
+     * @see #map(AbstractResultArithmetic, Function)
      */
     public <NT extends Number> Fraction<NT, V> mapValues(
         AbstractResultArithmetic<NT, V> arithmetic, Function<T, NT> map
     ) {
-        return new Fraction<>(
-            arithmetic,
-            map.apply(getNumerator()),
-            map.apply(getDenominator())
-        );
+        return map(arithmetic, map);
     }
 
     /**

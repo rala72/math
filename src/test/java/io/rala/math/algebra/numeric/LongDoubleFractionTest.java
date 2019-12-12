@@ -248,6 +248,17 @@ class LongDoubleFractionTest {
     // region map and copy
 
     @Test
+    void mapOfFraction() {
+        LongDoubleFraction fraction = new LongDoubleFraction(0, 1);
+        Fraction<Integer, Integer> result = new Fraction<>(
+            new IntegerArithmetic().toResultArithmetic(), 0, 1
+        );
+        Assertions.assertEquals(result, fraction.map(
+            new IntegerArithmetic().toResultArithmetic(), Number::intValue
+        ));
+    }
+
+    @Test
     void mapValuesOfFractionWithArithmetic() {
         LongDoubleFraction fraction = new LongDoubleFraction(0, 1);
         Fraction<Integer, Double> result = new Fraction<>(
