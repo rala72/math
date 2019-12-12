@@ -11,7 +11,7 @@ class LongDoubleFractionTest {
     // region constructors, getter and setter
 
     @Test
-    void constructorWithoutParameter() {
+    void constructorWithNu() {
         assertFraction(new LongDoubleFraction(1));
     }
 

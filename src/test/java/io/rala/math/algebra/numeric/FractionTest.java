@@ -12,7 +12,7 @@ class FractionTest {
     // region constructors, getter and setter
 
     @Test
-    void constructorWithoutParameter() {
+    void constructorWithNu() {
         assertFraction(new TestFraction(1));
     }
 

@@ -14,7 +14,7 @@ class BigIntegerBigDecimalFractionTest {
     // region constructors, getter and setter
 
     @Test
-    void constructorWithoutParameter() {
+    void constructorWithNu() {
         assertFraction(new BigIntegerBigDecimalFraction(BigInteger.ONE));
     }
 
