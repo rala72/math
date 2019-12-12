@@ -345,10 +345,10 @@ public class Vector implements Validatable, Rotatable<Vector>,
     // region override
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Vector)) return false;
-        Vector vector = (Vector) obj;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Vector)) return false;
+        Vector vector = (Vector) o;
         return getX() == vector.getX() && getY() == vector.getY();
     }
 
