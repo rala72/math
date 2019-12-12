@@ -10,6 +10,7 @@ import io.rala.math.utils.Validatable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * class which holds a real and a imaginary part of a complex number
@@ -425,6 +426,25 @@ public class Complex<T extends Number> extends Number implements Validatable,
      */
     public static Complex<Double> ofVector(Vector vector) {
         return new Complex<>(new DoubleArithmetic(), vector.getX(), vector.getY());
+    }
+
+    // endregion
+
+    // region map
+
+    /**
+     * @param arithmetic arithmetic for calculations
+     * @param map        mapping function to convert current values to new one
+     * @param <V>        new number class
+     * @return mapped complex
+     */
+    public <V extends Number> Complex<V> map(
+        AbstractArithmetic<V> arithmetic, Function<T, V> map
+    ) {
+        return new Complex<>(arithmetic,
+            map.apply(getRe()),
+            map.apply(getIm())
+        );
     }
 
     // endregion

@@ -1,5 +1,6 @@
 package io.rala.math.algebra.numeric;
 
+import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Vector;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -534,6 +535,23 @@ class BigDecimalComplexTest {
     void asVectorOfComplexWithRe1Im2() {
         Assertions.assertEquals(new Vector(1, 2),
             new BigDecimalComplex(BigDecimal.ONE, BigDecimal.valueOf(2)).asVector()
+        );
+    }
+
+    // endregion
+
+    // region map
+
+    @Test
+    void mapOfComplexWithR0_5Im1_5() {
+        BigDecimalComplex complex = new BigDecimalComplex(
+            BigDecimal.valueOf(0.5),
+            BigDecimal.valueOf(1.5)
+        );
+        Complex<Integer> result =
+            new Complex<>(new IntegerArithmetic(), 0, 1);
+        Assertions.assertEquals(result,
+            complex.map(new IntegerArithmetic(), Number::intValue)
         );
     }
 

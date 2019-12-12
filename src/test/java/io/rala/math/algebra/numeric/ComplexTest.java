@@ -1,5 +1,6 @@
 package io.rala.math.algebra.numeric;
 
+import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Vector;
 import io.rala.math.testUtils.algebra.TestComplex;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
@@ -466,6 +467,20 @@ class ComplexTest {
         // better word than of superfluous?
         Complex<Number> complex = new TestComplex(1d, 2d);
         Assertions.assertEquals(complex, Complex.ofVector(complex.asVector()));
+    }
+
+    // endregion
+
+    // region map
+
+    @Test
+    void mapOfComplexWithR0_5Im1_5() {
+        TestComplex complex = new TestComplex(0.5, 1.5);
+        Complex<Integer> result =
+            new Complex<>(new IntegerArithmetic(), 0, 1);
+        Assertions.assertEquals(result,
+            complex.map(new IntegerArithmetic(), Number::intValue)
+        );
     }
 
     // endregion

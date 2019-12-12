@@ -1,5 +1,6 @@
 package io.rala.math.algebra.numeric;
 
+import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Vector;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -457,6 +458,20 @@ class DoubleComplexTest {
         // better word than of superfluous?
         Complex<Double> complex = new DoubleComplex(1d, 2d);
         Assertions.assertEquals(complex, Complex.ofVector(complex.asVector()));
+    }
+
+    // endregion
+
+    // region map
+
+    @Test
+    void mapOfComplexWithR0_5Im1_5() {
+        DoubleComplex complex = new DoubleComplex(0.5, 1.5);
+        Complex<Integer> result =
+            new Complex<>(new IntegerArithmetic(), 0, 1);
+        Assertions.assertEquals(result,
+            complex.map(new IntegerArithmetic(), Number::intValue)
+        );
     }
 
     // endregion
