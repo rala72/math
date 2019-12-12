@@ -443,6 +443,42 @@ class BigIntegerBigDecimalFractionTest {
     // region protected
 
     @Test
+    void createFromArithmeticWithDifferentNuDeParameter() {
+        BigIntegerBigDecimalFraction fraction =
+            new BigIntegerBigDecimalFraction(BigInteger.ONE);
+        assertFraction(
+            fraction.createFromArithmetic(
+                BigInteger.valueOf(2), BigInteger.valueOf(3)
+            ),
+            BigInteger.valueOf(2), BigInteger.valueOf(3)
+        );
+    }
+
+    @Test
+    void createFromArithmeticWithNullNuParameter() {
+        BigIntegerBigDecimalFraction fraction =
+            new BigIntegerBigDecimalFraction(BigInteger.ONE);
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> fraction.createFromArithmetic(
+                null,
+                BigInteger.ONE
+            )
+        ); // assert exception message?
+    }
+
+    @Test
+    void createFromArithmeticWithZeroDeParameter() {
+        BigIntegerBigDecimalFraction fraction =
+            new BigIntegerBigDecimalFraction(BigInteger.ONE);
+        Assertions.assertThrows(ArithmeticException.class,
+            () -> fraction.createFromArithmetic(
+                BigInteger.ONE,
+                BigInteger.ZERO
+            )
+        ); // assert exception message?
+    }
+
+    @Test
     void simplifySignum() {
         assertFraction(new BigIntegerBigDecimalFraction(
                 BigInteger.ONE, BigInteger.ONE

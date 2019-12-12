@@ -4,6 +4,7 @@ import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.core.DoubleArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.arithmetic.core.LongArithmetic;
+import io.rala.math.testUtils.algebra.TestFraction;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -353,6 +354,28 @@ class LongDoubleFractionTest {
     // endregion
 
     // region protected
+
+    @Test
+    void createFromArithmeticWithDifferentNuDeParameter() {
+        LongDoubleFraction fraction = new LongDoubleFraction(1);
+        assertFraction(fraction.createFromArithmetic(2L, 3L), 2, 3);
+    }
+
+    @Test
+    void createFromArithmeticWithNullNuParameter() {
+        TestFraction fraction = new TestFraction(1);
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> fraction.createFromArithmetic(null, 1)
+        ); // assert exception message?
+    }
+
+    @Test
+    void createFromArithmeticWithZeroDeParameter() {
+        TestFraction fraction = new TestFraction(1);
+        Assertions.assertThrows(ArithmeticException.class,
+            () -> fraction.createFromArithmetic(1, 0)
+        ); // assert exception message?
+    }
 
     @Test
     void simplifySignum() {

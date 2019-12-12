@@ -151,8 +151,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @return new fraction with negated {@link #getNumerator()}
      */
     public Fraction<T, V> negate() {
-        return new Fraction<>(
-            getArithmetic(),
+        return createFromArithmetic(
             getArithmetic().getTArithmetic().negate(getNumerator()),
             getDenominator()
         );
@@ -162,7 +161,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @return new fraction with flipped <code>numerator</code> and <code>denominator</code>
      */
     public Fraction<T, V> inverse() {
-        return new Fraction<>(getArithmetic(), getDenominator(), getNumerator());
+        return createFromArithmetic(getDenominator(), getNumerator());
     }
 
     /**
@@ -180,7 +179,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
         }
         T newNumerator = tArithmetic.quotient(getNumerator(), gcd);
         T newDenominator = tArithmetic.quotient(getDenominator(), gcd);
-        return new Fraction<>(getArithmetic(), newNumerator, newDenominator);
+        return createFromArithmetic(newNumerator, newDenominator);
     }
 
     // endregion
@@ -218,7 +217,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
             tArithmetic.quotient(lcm, fraction.getDenominator())
         );
         T sum = tArithmetic.sum(t1, t2);
-        return new Fraction<>(getArithmetic(), sum, lcm);
+        return createFromArithmetic(sum, lcm);
     }
 
     /**
@@ -280,7 +279,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
         T newDenominator = tArithmetic.product(
             getDenominator(), fraction.getDenominator()
         );
-        return new Fraction<>(getArithmetic(), newNumerator, newDenominator);
+        return createFromArithmetic(newNumerator, newDenominator);
     }
 
     /**
@@ -326,7 +325,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
         AbstractArithmetic<T> tArithmetic = getArithmetic().getTArithmetic();
         T newNumerator = tArithmetic.power(getNumerator(), n);
         T newDenominator = tArithmetic.power(getDenominator(), n);
-        return new Fraction<>(getArithmetic(), newNumerator, newDenominator);
+        return createFromArithmetic(newNumerator, newDenominator);
     }
 
     /**
@@ -337,7 +336,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
         AbstractArithmetic<T> tArithmetic = getArithmetic().getTArithmetic();
         T newNumerator = tArithmetic.root(getNumerator(), n);
         T newDenominator = tArithmetic.root(getDenominator(), n);
-        return new Fraction<>(getArithmetic(), newNumerator, newDenominator);
+        return createFromArithmetic(newNumerator, newDenominator);
     }
 
     // endregion
@@ -474,6 +473,24 @@ public class Fraction<T extends Number, V extends Number> extends Number
 // endregion
 
     // region protected
+
+    /**
+     * @param numerator   numerator of fraction
+     * @param denominator denominator of fraction
+     * @return new fraction
+     * @throws ArithmeticException      if denominator is <code>0</code>
+     * @throws IllegalArgumentException if constructor throws one
+     */
+    protected final Fraction<T, V> createFromArithmetic(T numerator, T denominator) {
+        try {
+            return new Fraction<>(getArithmetic(), numerator, denominator);
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage().equals(EXCEPTION_DENOMINATOR_NOT_ZERO))
+                throw new ArithmeticException(EXCEPTION_DENOMINATOR_NOT_ZERO);
+            else
+                throw e;
+        }
+    }
 
     /**
      * ensures that if there is a signum it is on {@link #getNumerator()}

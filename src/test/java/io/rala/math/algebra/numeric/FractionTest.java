@@ -376,6 +376,28 @@ class FractionTest {
     // region protected
 
     @Test
+    void createFromArithmeticWithDifferentNuDeParameter() {
+        TestFraction fraction = new TestFraction(1);
+        assertFraction(fraction.createFromArithmetic(2, 3), 2, 3);
+    }
+
+    @Test
+    void createFromArithmeticWithNullNuParameter() {
+        TestFraction fraction = new TestFraction(1);
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> fraction.createFromArithmetic(null, 1)
+        ); // assert exception message?
+    }
+
+    @Test
+    void createFromArithmeticWithZeroDeParameter() {
+        TestFraction fraction = new TestFraction(1);
+        Assertions.assertThrows(ArithmeticException.class,
+            () -> fraction.createFromArithmetic(1, 0)
+        ); // assert exception message?
+    }
+
+    @Test
     void simplifySignum() {
         assertFraction(new TestFraction(1, 1), 1, 1);
         assertFraction(new TestFraction(1, -1), -1, 1);
