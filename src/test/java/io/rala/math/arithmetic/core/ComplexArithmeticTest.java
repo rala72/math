@@ -2,7 +2,7 @@ package io.rala.math.arithmetic.core;
 
 import io.rala.math.algebra.numeric.Complex;
 import io.rala.math.arithmetic.AbstractArithmetic;
-import io.rala.math.testUtils.algebra.TestComplexArithmetic;
+import io.rala.math.testUtils.arithmetic.TestComplexArithmetic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
