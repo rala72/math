@@ -5,6 +5,7 @@ import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.utils.Copyable;
 
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * class which holds a numerator and denominator
@@ -374,7 +375,54 @@ public class Fraction<T extends Number, V extends Number> extends Number
 
     // endregion
 
-    // region copy
+    // region map and copy
+
+    /**
+     * @param arithmetic arithmetic for calculations
+     * @param mapTR      mapping function to convert current values to new one
+     * @param mapRV      mapping function to convert current values to new one
+     * @param <R>        new number class
+     * @return mapped fraction
+     * @see #mapValues(AbstractResultArithmetic, Function)
+     */
+    public <R extends Number> Fraction<R, V> mapValues(
+        AbstractArithmetic<R> arithmetic, Function<T, R> mapTR, Function<R, V> mapRV
+    ) {
+        return mapValues(AbstractResultArithmetic.of(
+            arithmetic, getArithmetic().getRArithmetic(), mapRV
+        ), mapTR);
+    }
+
+    /**
+     * @param arithmetic arithmetic for calculations
+     * @param map        mapping function to convert current values to new one
+     * @param <R>        new number class
+     * @return mapped fraction
+     */
+    public <R extends Number> Fraction<R, V> mapValues(
+        AbstractResultArithmetic<R, V> arithmetic, Function<T, R> map
+    ) {
+        return new Fraction<>(
+            arithmetic,
+            map.apply(getNumerator()),
+            map.apply(getDenominator())
+        );
+    }
+
+    /**
+     * @param arithmetic arithmetic for calculations
+     * @param map        mapping function to convert current values to new one
+     * @param <R>        new number class
+     * @return mapped fraction
+     */
+    public <R extends Number> Fraction<T, R> mapValue(
+        AbstractArithmetic<R> arithmetic, Function<T, R> map
+    ) {
+        return new Fraction<>(
+            getArithmetic().map(arithmetic, map),
+            getNumerator(), getDenominator()
+        );
+    }
 
     @Override
     public Fraction<T, V> copy() {

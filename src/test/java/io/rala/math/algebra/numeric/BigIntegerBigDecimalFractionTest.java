@@ -1,5 +1,9 @@
 package io.rala.math.algebra.numeric;
 
+import io.rala.math.arithmetic.AbstractResultArithmetic;
+import io.rala.math.arithmetic.core.BigDecimalArithmetic;
+import io.rala.math.arithmetic.core.BigIntegerArithmetic;
+import io.rala.math.arithmetic.core.IntegerArithmetic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -313,7 +317,51 @@ class BigIntegerBigDecimalFractionTest {
 
     // endregion
 
-    // region isValid and copy
+    // region map and copy
+
+    @Test
+    void mapValuesOfFractionWithArithmetic() {
+        BigIntegerBigDecimalFraction fraction =
+            new BigIntegerBigDecimalFraction(BigInteger.ZERO, BigInteger.ONE);
+        Fraction<Integer, BigDecimal> result = new Fraction<>(
+            AbstractResultArithmetic.of(
+                new IntegerArithmetic(), new BigDecimalArithmetic(), BigDecimal::valueOf
+            ), 0, 1
+        );
+        Assertions.assertEquals(result, fraction.mapValues(
+            new IntegerArithmetic(), BigInteger::intValue, BigDecimal::valueOf
+        ));
+    }
+
+    @Test
+    void mapValuesOfFractionWithResultArithmetic() {
+        BigIntegerBigDecimalFraction fraction =
+            new BigIntegerBigDecimalFraction(BigInteger.ZERO, BigInteger.ONE);
+        Fraction<Integer, BigDecimal> result = new Fraction<>(
+            AbstractResultArithmetic.of(
+                new IntegerArithmetic(), new BigDecimalArithmetic(), BigDecimal::valueOf
+            ), 0, 1
+        );
+        Assertions.assertEquals(result, fraction.mapValues(
+            AbstractResultArithmetic.of(
+                new IntegerArithmetic(), new BigDecimalArithmetic(), BigDecimal::valueOf
+            ), Number::intValue
+        ));
+    }
+
+    @Test
+    void mapValueOfFraction() {
+        BigIntegerBigDecimalFraction fraction =
+            new BigIntegerBigDecimalFraction(BigInteger.ZERO, BigInteger.ONE);
+        Fraction<BigInteger, Integer> result = new Fraction<>(
+            AbstractResultArithmetic.of(
+                new BigIntegerArithmetic(), new IntegerArithmetic(), BigInteger::intValue
+            ), BigInteger.ZERO, BigInteger.ONE
+        );
+        Assertions.assertEquals(result, fraction.mapValue(
+            new IntegerArithmetic(), Number::intValue
+        ));
+    }
 
     @Test
     void copyOfFractionWithNuDe() {

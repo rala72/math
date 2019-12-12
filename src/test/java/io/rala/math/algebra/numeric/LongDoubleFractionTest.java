@@ -1,5 +1,9 @@
 package io.rala.math.algebra.numeric;
 
+import io.rala.math.arithmetic.AbstractResultArithmetic;
+import io.rala.math.arithmetic.core.DoubleArithmetic;
+import io.rala.math.arithmetic.core.IntegerArithmetic;
+import io.rala.math.arithmetic.core.LongArithmetic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -241,7 +245,48 @@ class LongDoubleFractionTest {
 
     // endregion
 
-    // region isValid and copy
+    // region map and copy
+
+    @Test
+    void mapValuesOfFractionWithArithmetic() {
+        LongDoubleFraction fraction = new LongDoubleFraction(0, 1);
+        Fraction<Integer, Double> result = new Fraction<>(
+            AbstractResultArithmetic.of(
+                new IntegerArithmetic(), new DoubleArithmetic(), Integer::doubleValue
+            ), 0, 1
+        );
+        Assertions.assertEquals(result, fraction.mapValues(
+            new IntegerArithmetic(), Long::intValue, Integer::doubleValue
+        ));
+    }
+
+    @Test
+    void mapValuesOfFractionWithResultArithmetic() {
+        LongDoubleFraction fraction = new LongDoubleFraction(0, 1);
+        Fraction<Integer, Double> result = new Fraction<>(
+            AbstractResultArithmetic.of(
+                new IntegerArithmetic(), new DoubleArithmetic(), Integer::doubleValue
+            ), 0, 1
+        );
+        Assertions.assertEquals(result, fraction.mapValues(
+            AbstractResultArithmetic.of(
+                new IntegerArithmetic(), new DoubleArithmetic(), Integer::doubleValue
+            ), Number::intValue
+        ));
+    }
+
+    @Test
+    void mapValueOfFraction() {
+        LongDoubleFraction fraction = new LongDoubleFraction(0, 1);
+        Fraction<Long, Integer> result = new Fraction<>(
+            AbstractResultArithmetic.of(
+                new LongArithmetic(), new IntegerArithmetic(), Long::intValue
+            ), 0L, 1L
+        );
+        Assertions.assertEquals(result, fraction.mapValue(
+            new IntegerArithmetic(), Number::intValue
+        ));
+    }
 
     @Test
     void copyOfFractionWithNuDe() {

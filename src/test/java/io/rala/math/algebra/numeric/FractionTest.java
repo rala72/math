@@ -2,7 +2,9 @@ package io.rala.math.algebra.numeric;
 
 import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.core.DoubleArithmetic;
+import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.testUtils.algebra.TestFraction;
+import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -264,7 +266,48 @@ class FractionTest {
 
     // endregion
 
-    // region isValid and copy
+    // region map and copy
+
+    @Test
+    void mapValuesOfFractionWithArithmetic() {
+        TestFraction fraction = new TestFraction(0.5, 1.5);
+        Fraction<Integer, Number> result = new Fraction<>(
+            AbstractResultArithmetic.of(
+                new IntegerArithmetic(), new TestAbstractArithmetic(), Number::intValue
+            ), 0, 1
+        );
+        Assertions.assertEquals(result, fraction.mapValues(
+            new IntegerArithmetic(), Number::intValue, Integer::intValue
+        ));
+    }
+
+    @Test
+    void mapValuesOfFractionWithResultArithmetic() {
+        TestFraction fraction = new TestFraction(0.5, 1.5);
+        Fraction<Integer, Number> result = new Fraction<>(
+            AbstractResultArithmetic.of(
+                new IntegerArithmetic(), new TestAbstractArithmetic(), Number::intValue
+            ), 0, 1
+        );
+        Assertions.assertEquals(result, fraction.mapValues(
+            AbstractResultArithmetic.of(
+                new IntegerArithmetic(), new TestAbstractArithmetic(), Number::intValue
+            ), Number::intValue
+        ));
+    }
+
+    @Test
+    void mapValueOfFraction() {
+        TestFraction fraction = new TestFraction(0.5, 1.5);
+        Fraction<Number, Integer> result = new Fraction<>(
+            AbstractResultArithmetic.of(
+                new TestAbstractArithmetic(), new IntegerArithmetic(), Number::intValue
+            ), 0.5, 1.5
+        );
+        Assertions.assertEquals(result, fraction.mapValue(
+            new IntegerArithmetic(), Number::intValue
+        ));
+    }
 
     @Test
     void copyOfFractionWithNuDe() {
