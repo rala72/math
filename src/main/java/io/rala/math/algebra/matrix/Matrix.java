@@ -4,6 +4,7 @@ import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.utils.Copyable;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -530,7 +531,23 @@ public class Matrix<T extends Number>
 
     // endregion
 
-    // region copy
+    // region map and copy
+
+    /**
+     * @param arithmetic arithmetic for calculations
+     * @param map        mapping function to convert current values to new one
+     * @param <V>        new number class
+     * @return mapped matrix
+     */
+    public <V extends Number> Matrix<V> map(
+        AbstractArithmetic<V> arithmetic, Function<T, V> map
+    ) {
+        Matrix<V> matrix = new Matrix<>(
+            arithmetic, getRows(), getCols(), map.apply(getDefaultValue())
+        );
+        getMatrix().forEach((integer, t) -> matrix.setValue(integer, map.apply(t)));
+        return matrix;
+    }
 
     @Override
     public Matrix<T> copy() {

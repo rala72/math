@@ -1,5 +1,6 @@
 package io.rala.math.algebra.matrix;
 
+import io.rala.math.arithmetic.core.IntegerArithmetic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -573,13 +574,33 @@ class DoubleMatrixTest {
 
     // endregion
 
-    // region override
+    // region map and copy
+
+    @Test
+    void mapOfMatrixWithSize2() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        Matrix<Integer> result =
+            new Matrix<>(new IntegerArithmetic(), 2, 0);
+        for (int r = 0; r < matrix.getRows(); r++)
+            for (int c = 0; c < matrix.getCols(); c++) {
+                matrix.setValue(r, c, r + c + 0.5);
+                result.setValue(r, c, r + c);
+            }
+
+        Assertions.assertEquals(result,
+            matrix.map(new IntegerArithmetic(), Number::intValue)
+        );
+    }
 
     @Test
     void copyOfMatrixWithSize2() {
         DoubleMatrix matrix = new DoubleMatrix(2);
         Assertions.assertEquals(matrix, matrix.copy());
     }
+
+    // endregion
+
+    // region override
 
     @Test
     void iteratorOfEmptyMatrix() {
