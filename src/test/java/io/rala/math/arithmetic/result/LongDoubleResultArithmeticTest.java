@@ -66,8 +66,21 @@ class LongDoubleResultArithmeticTest {
 
     @Test
     void mapToInteger() {
+        AbstractResultArithmetic<Integer, Double> mapped =
+            arithmetic.map(new IntegerArithmetic(), Number::doubleValue);
+        Assertions.assertTrue(mapped.getTArithmetic() instanceof IntegerArithmetic);
+        Assertions.assertEquals(0.5,
+            arithmetic.quotient(1L, 2L)
+        );
+        Assertions.assertEquals(0.5,
+            mapped.quotient(1, 2)
+        );
+    }
+
+    @Test
+    void mapResultToInteger() {
         AbstractResultArithmetic<Long, Integer> mapped =
-            arithmetic.map(new IntegerArithmetic(), Long::intValue);
+            arithmetic.mapResult(new IntegerArithmetic(), Long::intValue);
         Assertions.assertTrue(mapped.getRArithmetic() instanceof IntegerArithmetic);
         Assertions.assertEquals(0.5, arithmetic.quotient(1L, 2L));
         Assertions.assertEquals(0, mapped.quotient(1L, 2L));

@@ -384,13 +384,12 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @param <R>        new number class
      * @return mapped fraction
      * @see #mapValues(AbstractResultArithmetic, Function)
+     * @see AbstractResultArithmetic#map(AbstractArithmetic, Function)
      */
     public <R extends Number> Fraction<R, V> mapValues(
         AbstractArithmetic<R> arithmetic, Function<T, R> mapTR, Function<R, V> mapRV
     ) {
-        return mapValues(AbstractResultArithmetic.of(
-            arithmetic, getArithmetic().getRArithmetic(), mapRV
-        ), mapTR);
+        return mapValues(getArithmetic().map(arithmetic, mapRV), mapTR);
     }
 
     /**
@@ -414,12 +413,13 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @param map        mapping function to convert current values to new one
      * @param <R>        new number class
      * @return mapped fraction
+     * @see AbstractResultArithmetic#mapResult(AbstractArithmetic, Function)
      */
     public <R extends Number> Fraction<T, R> mapValue(
         AbstractArithmetic<R> arithmetic, Function<T, R> map
     ) {
         return new Fraction<>(
-            getArithmetic().map(arithmetic, map),
+            getArithmetic().mapResult(arithmetic, map),
             getNumerator(), getDenominator()
         );
     }

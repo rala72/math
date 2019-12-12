@@ -64,8 +64,17 @@ class AbstractResultArithmeticTest {
 
     @Test
     void mapToInteger() {
-        AbstractResultArithmetic<Number, Integer> mapped =
+        AbstractResultArithmetic<Integer, Number> mapped =
             arithmetic.map(new IntegerArithmetic(), Number::intValue);
+        Assertions.assertTrue(mapped.getTArithmetic() instanceof IntegerArithmetic);
+        Assertions.assertEquals(0.5, arithmetic.quotient(1, 2));
+        Assertions.assertEquals(0.5, mapped.quotient(1, 2));
+    }
+
+    @Test
+    void mapResultToInteger() {
+        AbstractResultArithmetic<Number, Integer> mapped =
+            arithmetic.mapResult(new IntegerArithmetic(), Number::intValue);
         Assertions.assertTrue(mapped.getRArithmetic() instanceof IntegerArithmetic);
         Assertions.assertEquals(0.5, arithmetic.quotient(1, 2));
         Assertions.assertEquals(0, mapped.quotient(1, 2));

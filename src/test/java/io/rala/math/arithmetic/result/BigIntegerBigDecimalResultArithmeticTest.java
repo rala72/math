@@ -94,8 +94,21 @@ class BigIntegerBigDecimalResultArithmeticTest {
 
     @Test
     void mapToInteger() {
+        AbstractResultArithmetic<Integer, BigDecimal> mapped =
+            arithmetic.map(new IntegerArithmetic(), BigDecimal::valueOf);
+        Assertions.assertTrue(mapped.getTArithmetic() instanceof IntegerArithmetic);
+        Assertions.assertEquals(BigDecimal.valueOf(0.5),
+            arithmetic.quotient(BigInteger.ONE, BigInteger.TWO)
+        );
+        Assertions.assertEquals(BigDecimal.valueOf(0.5),
+            mapped.quotient(1, 2)
+        );
+    }
+
+    @Test
+    void mapResultToInteger() {
         AbstractResultArithmetic<BigInteger, Integer> mapped =
-            arithmetic.map(new IntegerArithmetic(), BigInteger::intValue);
+            arithmetic.mapResult(new IntegerArithmetic(), BigInteger::intValue);
         Assertions.assertTrue(mapped.getRArithmetic() instanceof IntegerArithmetic);
         Assertions.assertEquals(BigDecimal.valueOf(0.5),
             arithmetic.quotient(BigInteger.ONE, BigInteger.TWO)
