@@ -763,18 +763,20 @@ public class Matrix<T extends Number>
      * @param n   factor to use
      * @return new matrix with multiplied row
      */
-    protected final Matrix<T> multiplyRow(int row, int n) {
+    protected final Matrix<T> multiplyRow(int row, T n) {
         if (!isRowValid(row))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
-        if (n == 0) return newInstance(getRows(), getCols());
         Matrix<T> copy = copy();
-        if (n == 1) return copy;
+        if (getArithmetic().zero().equals(n)) {
+            for (int i = 0; i < getCols(); i++)
+                copy.setValue(row, i, getArithmetic().zero());
+            return copy;
+        }
+        if (getArithmetic().one().equals(n))
+            return copy;
         for (int c = 0; c < getCols(); c++)
             copy.setValue(row, c,
-                getArithmetic().product(
-                    getValue(row, c),
-                    getArithmetic().fromInt(n)
-                )
+                getArithmetic().product(getValue(row, c), n)
             );
         return copy;
     }
@@ -784,18 +786,20 @@ public class Matrix<T extends Number>
      * @param n   factor to use
      * @return new matrix with multiplied col
      */
-    protected final Matrix<T> multiplyCol(int col, int n) {
+    protected final Matrix<T> multiplyCol(int col, T n) {
         if (!isColValid(col))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
-        if (n == 0) return newInstance(getRows(), getCols());
         Matrix<T> copy = copy();
-        if (n == 1) return copy;
+        if (getArithmetic().zero().equals(n)) {
+            for (int i = 0; i < getCols(); i++)
+                copy.setValue(i, col, getArithmetic().zero());
+            return copy;
+        }
+        if (getArithmetic().one().equals(n))
+            return copy;
         for (int r = 0; r < getRows(); r++)
             copy.setValue(r, col,
-                getArithmetic().product(
-                    getValue(r, col),
-                    getArithmetic().fromInt(n)
-                )
+                getArithmetic().product(getValue(r, col), n)
             );
         return copy;
     }
@@ -806,17 +810,18 @@ public class Matrix<T extends Number>
      * @param n    factor to use
      * @return new matrix with multiplied rows
      */
-    protected final Matrix<T> addRowMultipleTimes(int row1, int row2, int n) {
+    protected final Matrix<T> addRowMultipleTimes(int row1, int row2, T n) {
         if (!isRowValid(row1))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row1);
         if (!isRowValid(row2))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row2);
-        if (n == 0) return copy();
+        if (getArithmetic().zero().equals(n))
+            return copy();
         if (row1 == row2) return multiplyRow(row1, n);
         Matrix<T> copy = copy();
         for (int c = 0; c < getCols(); c++)
             copy.setValue(row1, c, getArithmetic().sum(getValue(row1, c),
-                getArithmetic().product(getValue(row2, c), getArithmetic().fromInt(n))
+                getArithmetic().product(getValue(row2, c), n)
             ));
         return copy;
     }
@@ -827,17 +832,18 @@ public class Matrix<T extends Number>
      * @param n    factor to use
      * @return new matrix with multiplied cols
      */
-    protected final Matrix<T> addColMultipleTimes(int col1, int col2, int n) {
+    protected final Matrix<T> addColMultipleTimes(int col1, int col2, T n) {
         if (!isColValid(col1))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col1);
         if (!isColValid(col2))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col2);
-        if (n == 0) return copy();
+        if (getArithmetic().zero().equals(n))
+            return copy();
         if (col1 == col2) return multiplyCol(col1, n);
         Matrix<T> copy = copy();
         for (int r = 0; r < getRows(); r++)
             copy.setValue(r, col1, getArithmetic().sum(getValue(r, col1),
-                getArithmetic().product(getValue(r, col2), getArithmetic().fromInt(n))
+                getArithmetic().product(getValue(r, col2), n)
             ));
         return copy;
     }
