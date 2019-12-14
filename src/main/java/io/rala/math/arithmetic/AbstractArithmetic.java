@@ -82,6 +82,7 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @param b second value of comparison
      * @return {@link Comparable#compareTo(Object)}
      * @throws NotImplementedException if operation is not implemented
+     * @implSpec default implementation uses {@link Double#compare(double, double)}
      * @see Comparable#compareTo(Object)
      */
     public int compare(T a, T b) {
@@ -106,6 +107,7 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @param c third value of sum
      * @return {@code a+b+c}
      * @throws NotImplementedException if operation is not implemented
+     * @implSpec default implementation uses {@link #sum(Number, Number)} twice
      * @see #sum(Number, Number)
      */
     public T sum(T a, T b, T c) {
@@ -134,6 +136,7 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @param c third value of product
      * @return {@code a*b*c}
      * @throws NotImplementedException if operation is not implemented
+     * @implSpec default implementation uses {@link #product(Number, Number)} twice
      * @see #product(Number, Number)
      */
     public T product(T a, T b, T c) {
@@ -197,7 +200,7 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @param a value to check
      * @return {@code true} if value is finite
      * @throws NotImplementedException if operation is not implemented
-     * @see Double#isInfinite(double)
+     * @implSpec default implementation uses {@link Double#isInfinite(double)}
      */
     public boolean isFinite(T a) {
         return Double.isFinite(a.doubleValue());
@@ -207,7 +210,7 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @param a value to check
      * @return {@code true} if value is infinite
      * @throws NotImplementedException if operation is not implemented
-     * @see Double#isInfinite(double)
+     * @implSpec default implementation uses {@link Double#isInfinite(double)}
      */
     public boolean isInfinite(T a) {
         return Double.isInfinite(a.doubleValue());
@@ -217,7 +220,7 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @param a value to check
      * @return {@code true} if value is NaN
      * @throws NotImplementedException if operation is not implemented
-     * @see Double#isNaN(double)
+     * @implSpec default implementation uses {@link Double#isNaN(double)}
      */
     public boolean isNaN(T a) {
         return Double.isNaN(a.doubleValue());
@@ -240,6 +243,7 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @param b second value
      * @return least common multiple
      * @throws NotImplementedException if operation is not implemented
+     * @implSpec default implementation uses {@code abs(a*b)/gcd(a,b)}
      */
     public T lcm(T a, T b) {
         return quotient(absolute(product(a, b)), gcd(a, b));
@@ -253,7 +257,7 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @param a value to calc sin from
      * @return {@code sin(a)}
      * @throws NotImplementedException if operation is not implemented
-     * @see Math#sin(double)
+     * @implSpec default implementation uses {@link Math#sin(double)}
      */
     public T sin(T a) {
         return fromDouble(Math.sin(a.doubleValue()));
@@ -263,7 +267,7 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @param a value to calc cos from
      * @return {@code cos(a)}
      * @throws NotImplementedException if operation is not implemented
-     * @see Math#cos(double)
+     * @implSpec default implementation uses {@link Math#cos(double)}
      */
     public T cos(T a) {
         return fromDouble(Math.cos(a.doubleValue()));
@@ -273,7 +277,7 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @param a value to calc tan from
      * @return {@code tan(a)}
      * @throws NotImplementedException if operation is not implemented
-     * @see Math#tan(double)
+     * @implSpec default implementation uses {@link Math#tan(double)}
      */
     public T tan(T a) {
         return fromDouble(Math.tan(a.doubleValue()));
@@ -283,7 +287,7 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @param a value to calc asin from
      * @return {@code asin(a)}
      * @throws NotImplementedException if operation is not implemented
-     * @see Math#asin(double)
+     * @implSpec default implementation uses {@link Math#asin(double)}
      */
     public T asin(T a) {
         return fromDouble(Math.asin(a.doubleValue()));
@@ -293,7 +297,7 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @param a value to calc acos from
      * @return {@code acos(a)}
      * @throws NotImplementedException if operation is not implemented
-     * @see Math#acos(double)
+     * @implSpec default implementation uses {@link Math#acos(double)}
      */
     public T acos(T a) {
         return fromDouble(Math.acos(a.doubleValue()));
@@ -303,7 +307,7 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @param a value to calc acos from
      * @return {@code atan(a)}
      * @throws NotImplementedException if operation is not implemented
-     * @see Math#atan(double)
+     * @implSpec default implementation uses {@link Math#atan(double)}
      */
     public T atan(T a) {
         return fromDouble(Math.atan(a.doubleValue()));
@@ -314,7 +318,7 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @param a value to calc sin from
      * @return {@code sinh(a)}
      * @throws NotImplementedException if operation is not implemented
-     * @see Math#sinh(double)
+     * @implSpec default implementation uses {@link Math#sinh(double)}
      */
     public T sinh(T a) {
         return fromDouble(Math.sinh(a.doubleValue()));
@@ -324,7 +328,7 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @param a value to calc cos from
      * @return {@code cosh(a)}
      * @throws NotImplementedException if operation is not implemented
-     * @see Math#cosh(double)
+     * @implSpec default implementation uses {@link Math#cosh(double)}
      */
     public T cosh(T a) {
         return fromDouble(Math.cosh(a.doubleValue()));
@@ -334,7 +338,7 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @param a value to calc tan from
      * @return {@code tanh(a)}
      * @throws NotImplementedException if operation is not implemented
-     * @see Math#tanh(double)
+     * @implSpec default implementation uses {@link Math#tanh(double)}
      */
     public T tanh(T a) {
         return fromDouble(Math.tanh(a.doubleValue()));
