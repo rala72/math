@@ -381,6 +381,8 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     /**
      * thrown if operation is not supported
+     * <p>
+     * may be used in similar context like {@link UnsupportedOperationException}
      */
     public static class NotImplementedException extends RuntimeException {
     }
