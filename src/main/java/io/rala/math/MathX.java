@@ -113,7 +113,7 @@ public class MathX {
     public static List<Integer> factors(int a) {
         return factors((long) a).stream()
             .mapToInt(Long::intValue).boxed()
-            .collect(Collectors.toList());
+            .collect(Collectors.toUnmodifiableList());
     }
 
     /**
