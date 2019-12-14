@@ -877,57 +877,57 @@ class MatrixTest {
     // region protected: modify
 
     @Test
-    void flipRowsOfMatrixWithSize2UsingInvalidRow1() {
+    void swapRowsOfMatrixWithSize2UsingInvalidRow1() {
         TestMatrix matrix = new TestMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.flipRows(-1, 0)
+            () -> matrix.swapRows(-1, 0)
         ); // assert exception message?
     }
 
     @Test
-    void flipRowsOfMatrixWithSize2UsingInvalidRow2() {
+    void swapRowsOfMatrixWithSize2UsingInvalidRow2() {
         TestMatrix matrix = new TestMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.flipRows(0, -1)
+            () -> matrix.swapRows(0, -1)
         ); // assert exception message?
     }
 
     @Test
-    void flipRowsOfMatrixWithSize2() {
+    void swapRowsOfMatrixWithSize2() {
         TestMatrix matrix = new TestMatrix(2);
         TestMatrix result = new TestMatrix(2);
         for (int i = 0; i < matrix.size(); i++) {
             matrix.setValue(i, i + 1);
             result.setValue((i + result.getCols()) % result.size(), i + 1);
         }
-        Assertions.assertEquals(result, matrix.flipRows(0, 1));
+        Assertions.assertEquals(result, matrix.swapRows(0, 1));
     }
 
     @Test
-    void flipColsOfMatrixWithSize2UsingInvalidCol1() {
+    void swapColsOfMatrixWithSize2UsingInvalidCol1() {
         TestMatrix matrix = new TestMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.flipCols(-1, 0)
+            () -> matrix.swapCols(-1, 0)
         ); // assert exception message?
     }
 
     @Test
-    void flipColsOfMatrixWithSize2UsingInvalidCol2() {
+    void swapColsOfMatrixWithSize2UsingInvalidCol2() {
         TestMatrix matrix = new TestMatrix(2);
         Assertions.assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.flipCols(0, -1)
+            () -> matrix.swapCols(0, -1)
         ); // assert exception message?
     }
 
     @Test
-    void flipColsOfMatrixWithSize2() {
+    void swapColsOfMatrixWithSize2() {
         TestMatrix matrix = new TestMatrix(2);
         TestMatrix result = new TestMatrix(2);
         for (int i = 0; i < matrix.size(); i++) {
             matrix.setValue(i, i + 1);
             result.setValue(i + (i % result.getCols() == 0 ? 1 : -1), i + 1);
         }
-        Assertions.assertEquals(result, matrix.flipCols(0, 1));
+        Assertions.assertEquals(result, matrix.swapCols(0, 1));
     }
 
     @Test

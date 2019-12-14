@@ -368,7 +368,7 @@ public class Matrix<T extends Number>
 
     /**
      * calls {@link #multiply(Matrix)} but flips matrizen
-     * if they do not flip in provided order but in flipped one
+     * if arithmetic does not work in provided order but in flipped one
      *
      * @param matrix matrix to multiply
      * @return new matrix with calculated values
@@ -719,12 +719,12 @@ public class Matrix<T extends Number>
     // region protected: modify
 
     /**
-     * @param row1 row1 to flip with row2
-     * @param row2 row2 to flip with row1
-     * @return new matrix with flipped values
+     * @param row1 row1 to swap with row2
+     * @param row2 row2 to swap with row1
+     * @return new matrix with swapped values
      * @throws IndexOutOfBoundsException if row1 or row2 is invalid
      */
-    protected final Matrix<T> flipRows(int row1, int row2) {
+    protected final Matrix<T> swapRows(int row1, int row2) {
         if (!isRowValid(row1))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row1);
         if (!isRowValid(row2))
@@ -739,12 +739,12 @@ public class Matrix<T extends Number>
     }
 
     /**
-     * @param col1 col1 to flip with col2
-     * @param col2 col2 to flip with col1
-     * @return new matrix with flipped values
+     * @param col1 col1 to swap with col2
+     * @param col2 col2 to swap with col1
+     * @return new matrix with swapped values
      * @throws IndexOutOfBoundsException if col1 or col2 is invalid
      */
-    protected final Matrix<T> flipCols(int col1, int col2) {
+    protected final Matrix<T> swapCols(int col1, int col2) {
         if (!isColValid(col1))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col1);
         if (!isColValid(col2))
