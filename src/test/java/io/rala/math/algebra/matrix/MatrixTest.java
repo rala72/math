@@ -630,6 +630,18 @@ class MatrixTest {
     }
 
     @Test
+    void streamOfEmptyMatrix() {
+        TestMatrix matrix = new TestMatrix(2);
+        Assertions.assertEquals(4, matrix.stream().count());
+    }
+
+    @Test
+    void parallelStreamOfEmptyMatrix() {
+        TestMatrix matrix = new TestMatrix(2);
+        Assertions.assertEquals(4, matrix.parallelStream().count());
+    }
+
+    @Test
     void equalsOfTestMatrixWithRow2Col3() {
         TestMatrix matrix = new TestMatrix(2, 3);
         Assertions.assertEquals(

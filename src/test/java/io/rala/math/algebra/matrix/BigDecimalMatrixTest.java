@@ -645,6 +645,18 @@ class BigDecimalMatrixTest {
     }
 
     @Test
+    void streamOfEmptyMatrix() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        Assertions.assertEquals(4, matrix.stream().count());
+    }
+
+    @Test
+    void parallelStreamOfEmptyMatrix() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        Assertions.assertEquals(4, matrix.parallelStream().count());
+    }
+
+    @Test
     void equalsOfBigDecimalMatrixWithRow2Col3() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2, 3);
         Assertions.assertEquals(
