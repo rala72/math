@@ -7,6 +7,7 @@ import io.rala.math.utils.StreamIterable;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.StreamSupport;
 
 /**
@@ -153,6 +154,60 @@ public class Matrix<T extends Number>
      */
     public final int size() {
         return getRows() * getCols();
+    }
+
+    // endregion
+
+    // region rows and cols
+
+    /**
+     * @param row row of matrix
+     * @return list of fields in row
+     * @throws IndexOutOfBoundsException if row is invalid
+     */
+    public List<Field> getRowFields(int row) {
+        if (!isRowValid(row))
+            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
+        return IntStream.range(0, getCols())
+            .mapToObj(col -> new Field(row, col, getValue(row, col)))
+            .collect(Collectors.toUnmodifiableList());
+    }
+
+    /**
+     * @param row row of matrix
+     * @return list of values in row
+     * @throws IndexOutOfBoundsException if row is invalid
+     * @see #getRowFields(int)
+     */
+    public List<T> getRow(int row) {
+        return getRowFields(row).stream()
+            .map(Field::getValue)
+            .collect(Collectors.toUnmodifiableList());
+    }
+
+    /**
+     * @param col col of matrix
+     * @return list of fields in col
+     * @throws IndexOutOfBoundsException if col is invalid
+     */
+    public List<Field> getColFields(int col) {
+        if (!isColValid(col))
+            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
+        return IntStream.range(0, getRows())
+            .mapToObj(row -> new Field(row, col, getValue(row, col)))
+            .collect(Collectors.toUnmodifiableList());
+    }
+
+    /**
+     * @param col col of matrix
+     * @return list of values in col
+     * @throws IndexOutOfBoundsException if col is invalid
+     * @see #getColFields(int)
+     */
+    public List<T> getCol(int col) {
+        return getColFields(col).stream()
+            .map(Field::getValue)
+            .collect(Collectors.toUnmodifiableList());
     }
 
     // endregion
@@ -862,6 +917,17 @@ public class Matrix<T extends Number>
     public class Field {
         private final int index;
         private final T value;
+
+        /**
+         * @param row   row of field
+         * @param col   col of field
+         * @param value value of field
+         * @see #Field(int, Number)
+         * @see #getIndexOfRowAndCol(int, int)
+         */
+        protected Field(int row, int col, T value) {
+            this(getIndexOfRowAndCol(row, col), value);
+        }
 
         /**
          * @param index index of field

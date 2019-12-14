@@ -83,6 +83,78 @@ class BigDecimalMatrixTest {
 
     // endregion
 
+    // region rows and cols
+
+    @Test
+    void getRowFieldsM1OfMatrix() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        Assertions.assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.getRowFields(-1)
+        ); // assert exception message?
+    }
+
+    @Test
+    void getRowFields0OfMatrix() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, BigDecimal.valueOf(i));
+        List<Matrix<BigDecimal>.Field> row0 = matrix.getRowFields(0);
+        Assertions.assertEquals(2, row0.size());
+        for (int i = 0; i < row0.size(); i++) {
+            Matrix<BigDecimal>.Field field = row0.get(i);
+            Assertions.assertEquals(0, field.getRow());
+            Assertions.assertEquals(i, field.getCol());
+            Assertions.assertEquals(BigDecimal.valueOf(i), field.getValue());
+        }
+    }
+
+    @Test
+    void getRow0OfMatrix() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, BigDecimal.valueOf(i));
+        List<BigDecimal> row0 = matrix.getRow(0);
+        Assertions.assertEquals(2, row0.size());
+        for (int i = 0; i < row0.size(); i++)
+            Assertions.assertEquals(BigDecimal.valueOf(i), row0.get(i));
+    }
+
+    @Test
+    void getColFieldsM1OfMatrix() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        Assertions.assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.getColFields(-1)
+        ); // assert exception message?
+    }
+
+    @Test
+    void getColFields0OfMatrix() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, BigDecimal.valueOf(i));
+        List<Matrix<BigDecimal>.Field> col0 = matrix.getColFields(0);
+        Assertions.assertEquals(2, col0.size());
+        for (int i = 0; i < col0.size(); i++) {
+            Matrix<BigDecimal>.Field field = col0.get(i);
+            Assertions.assertEquals(0, field.getCol());
+            Assertions.assertEquals(i, field.getRow());
+            Assertions.assertEquals(BigDecimal.valueOf(i * 2), field.getValue());
+        }
+    }
+
+    @Test
+    void getCol0OfMatrix() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, BigDecimal.valueOf(i));
+        List<BigDecimal> col0 = matrix.getCol(0);
+        Assertions.assertEquals(2, col0.size());
+        for (int i = 0; i < col0.size(); i++)
+            Assertions.assertEquals(BigDecimal.valueOf(i * 2), col0.get(i));
+    }
+
+    // endregion
+
     // region value
 
     @Test

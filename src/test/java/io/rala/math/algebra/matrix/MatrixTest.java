@@ -86,6 +86,78 @@ class MatrixTest {
 
     // endregion
 
+    // region rows and cols
+
+    @Test
+    void getRowFieldsM1OfMatrix() {
+        TestMatrix matrix = new TestMatrix(2);
+        Assertions.assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.getRowFields(-1)
+        ); // assert exception message?
+    }
+
+    @Test
+    void getRowFields0OfMatrix() {
+        TestMatrix matrix = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, i);
+        List<Matrix<Number>.Field> row0 = matrix.getRowFields(0);
+        Assertions.assertEquals(2, row0.size());
+        for (int i = 0; i < row0.size(); i++) {
+            Matrix<Number>.Field field = row0.get(i);
+            Assertions.assertEquals(0, field.getRow());
+            Assertions.assertEquals(i, field.getCol());
+            Assertions.assertEquals(i, field.getValue());
+        }
+    }
+
+    @Test
+    void getRow0OfMatrix() {
+        TestMatrix matrix = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, i);
+        List<Number> row0 = matrix.getRow(0);
+        Assertions.assertEquals(2, row0.size());
+        for (int i = 0; i < row0.size(); i++)
+            Assertions.assertEquals(i, row0.get(i));
+    }
+
+    @Test
+    void getColFieldsM1OfMatrix() {
+        TestMatrix matrix = new TestMatrix(2);
+        Assertions.assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.getColFields(-1)
+        ); // assert exception message?
+    }
+
+    @Test
+    void getColFields0OfMatrix() {
+        TestMatrix matrix = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, i);
+        List<Matrix<Number>.Field> col0 = matrix.getColFields(0);
+        Assertions.assertEquals(2, col0.size());
+        for (int i = 0; i < col0.size(); i++) {
+            Matrix<Number>.Field field = col0.get(i);
+            Assertions.assertEquals(0, field.getCol());
+            Assertions.assertEquals(i, field.getRow());
+            Assertions.assertEquals(i * 2, field.getValue());
+        }
+    }
+
+    @Test
+    void getCol0OfMatrix() {
+        TestMatrix matrix = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, i);
+        List<Number> col0 = matrix.getCol(0);
+        Assertions.assertEquals(2, col0.size());
+        for (int i = 0; i < col0.size(); i++)
+            Assertions.assertEquals(i * 2, col0.get(i));
+    }
+
+    // endregion
+
     // region value
 
     @Test
