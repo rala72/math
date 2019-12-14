@@ -22,7 +22,7 @@ public class Point implements Validatable, Movable<Point>, Rotatable<Point>,
     // region constructors
 
     /**
-     * calls {@link #Point(double)} with <code>0</code>
+     * calls {@link #Point(double)} with {@code 0}
      *
      * @see #Point(double)
      * @see #Point(double, double)

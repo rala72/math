@@ -21,7 +21,7 @@ public class Vector implements Validatable, Rotatable<Vector>,
     // region constructors
 
     /**
-     * calls {@link #Vector(double)} with <code>0</code>
+     * calls {@link #Vector(double)} with {@code 0}
      *
      * @see #Vector(double)
      * @see #Vector(double, double)
@@ -253,7 +253,7 @@ public class Vector implements Validatable, Rotatable<Vector>,
 
     /**
      * @param vector vector to calc angle between
-     * @return angle in <code>rad</code> between vectors
+     * @return angle in {@code rad} between vectors
      */
     public double angle(Vector vector) {
         return Math.acos(scalarProduct(vector) / (length() * vector.length()));
@@ -313,7 +313,7 @@ public class Vector implements Validatable, Rotatable<Vector>,
     // region isZeroVector
 
     /**
-     * @return <code>true</code> if both params casted to <code>int</code> are zero
+     * @return {@code true} if both params casted to {@code int} are zero
      */
     public boolean isZeroVector() {
         return (int) getX() == 0 && (int) getY() == 0;

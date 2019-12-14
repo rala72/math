@@ -88,7 +88,7 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     // region vertexes
 
     /**
-     * @return <code>(A+B+C)/3</code>
+     * @return {@code (A+B+C)/3}
      */
     public Point centerOfGravity() {
         return new Point(
@@ -130,7 +130,7 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     /**
      * calculates angle using law of cosines
      *
-     * @return angle in <code>rad</code> at point <code>A</code>
+     * @return angle in {@code rad} at point {@code A}
      */
     public double angleAlpha() {
         double dividend = Math.pow(edgeA().length(), 2) -
@@ -143,7 +143,7 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     /**
      * calculates angle using law of cosines
      *
-     * @return angle in <code>rad</code> at point <code>B</code>
+     * @return angle in {@code rad} at point {@code B}
      */
     public double angleBeta() {
         double dividend = Math.pow(edgeB().length(), 2) -
@@ -156,7 +156,7 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     /**
      * calculates angle using law of cosines
      *
-     * @return angle in <code>rad</code> at point <code>C</code>
+     * @return angle in {@code rad} at point {@code C}
      */
     public double angleGamma() {
         double dividend = Math.pow(edgeC().length(), 2) -
@@ -171,7 +171,7 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     // region area, circumference, circumRadius and inRadius
 
     /**
-     * @return <code>sqrt(s*(s-a)*(s-b)*(s-c))</code>
+     * @return {@code sqrt(s*(s-a)*(s-b)*(s-c))}
      */
     public double area() {
         final double s = circumference() / 2;
@@ -183,7 +183,7 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     }
 
     /**
-     * @return <code>a+b+c</code>
+     * @return {@code a+b+c}
      */
     public double circumference() {
         return edgeA().length() +
@@ -192,7 +192,7 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     }
 
     /**
-     * @return <code>(a*b*c)/A</code>
+     * @return {@code (a*b*c)/A}
      */
     public double circumRadius() {
         return (edgeA().length() *
@@ -201,7 +201,7 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     }
 
     /**
-     * @return <code>A/(r/2)</code>
+     * @return {@code A/(r/2)}
      */
     public double inRadius() {
         return area() / (circumference() / 2);

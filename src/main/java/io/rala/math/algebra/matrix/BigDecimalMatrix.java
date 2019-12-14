@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 /**
- * class which holds a matrix with <code>rows</code> and <code>cols</code>
+ * class which holds a matrix with {@code rows} and {@code cols}
  * storing {@link BigDecimal}
  */
 public class BigDecimalMatrix extends Matrix<BigDecimal> {
@@ -16,7 +16,7 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
     // region constructor
 
     /**
-     * default value is <code>0</code>
+     * default value is {@code 0}
      *
      * @param size size of matrix
      * @see Matrix#Matrix(AbstractArithmetic, int, Number)
@@ -26,7 +26,7 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
     }
 
     /**
-     * default value is <code>0</code>
+     * default value is {@code 0}
      *
      * @param size    size of matrix
      * @param context context of {@link BigDecimalArithmetic}
@@ -37,7 +37,7 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
     }
 
     /**
-     * default value is <code>0</code>
+     * default value is {@code 0}
      *
      * @param rows rows of matrix
      * @param cols cols of matrix
@@ -48,7 +48,7 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
     }
 
     /**
-     * default value is <code>0</code>
+     * default value is {@code 0}
      *
      * @param rows    rows of matrix
      * @param cols    cols of matrix
@@ -61,7 +61,7 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
 
     /**
      * creates a new matrix based on given one<br>
-     * default value is <code>0</code>
+     * default value is {@code 0}
      *
      * @param matrix matrix to copy
      */
@@ -105,7 +105,7 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      * @param rows   rows of matrix
      * @param values row based values of matrix
      * @return new created matrix
-     * @throws IllegalArgumentException if rows modulo <code>values.length</code>
+     * @throws IllegalArgumentException if rows modulo {@code values.length}
      *                                  is not congruent 0
      * @see Matrix#ofValuesByRows(AbstractArithmetic, Number, int, Number[])
      */
@@ -123,7 +123,7 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      * @param cols   cols of matrix
      * @param values column based values of matrix
      * @return new created matrix
-     * @throws IllegalArgumentException if cols modulo <code>values.length</code>
+     * @throws IllegalArgumentException if cols modulo {@code values.length}
      *                                  is not congruent 0
      * @see Matrix#ofValuesByCols(AbstractArithmetic, Number, int, Number[])
      */

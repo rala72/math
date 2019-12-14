@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 /**
- * class which holds a matrix with <code>rows</code> and <code>cols</code>
+ * class which holds a matrix with {@code rows} and {@code cols}
  *
  * @param <T> number class
  */
@@ -163,7 +163,7 @@ public class Matrix<T extends Number>
      * @param row   row where value should be stored
      * @param col   col where value should be stored
      * @param value new value to store
-     * @return old value if existed - may return <code>null</code> if it was empty
+     * @return old value if existed - may return {@code null} if it was empty
      * @throws IndexOutOfBoundsException if index is invalid
      * @see #setValue(int, Number)
      * @see Map#put(Object, Object)
@@ -175,7 +175,7 @@ public class Matrix<T extends Number>
     /**
      * @param index index where value should be stored
      * @param value new value to store
-     * @return old value if existed - may return <code>null</code> if it was empty
+     * @return old value if existed - may return {@code null} if it was empty
      * @throws IndexOutOfBoundsException if index is invalid
      * @see Map#put(Object, Object)
      */
@@ -214,7 +214,7 @@ public class Matrix<T extends Number>
     /**
      * @param row row of value to remove
      * @param col col of value to remove
-     * @return old value - may return <code>null</code> if it was empty
+     * @return old value - may return {@code null} if it was empty
      * @throws IndexOutOfBoundsException if index is invalid
      * @see #removeValue(int)
      * @see Map#remove(Object)
@@ -225,7 +225,7 @@ public class Matrix<T extends Number>
 
     /**
      * @param index index of value to remove
-     * @return old value - may return <code>null</code> if it was empty
+     * @return old value - may return {@code null} if it was empty
      * @throws IndexOutOfBoundsException if index is invalid
      * @see Map#remove(Object)
      */
@@ -240,14 +240,14 @@ public class Matrix<T extends Number>
     // region isDiagonal
 
     /**
-     * @return <code>true</code> if amount of rows and cols is equal
+     * @return {@code true} if amount of rows and cols is equal
      */
     public final boolean isSquare() {
         return getRows() == getCols();
     }
 
     /**
-     * @return <code>true</code> if only the diagonal has values
+     * @return {@code true} if only the diagonal has values
      */
     public final boolean isDiagonal() {
         return isSquare() && StreamSupport.stream(spliterator(), true)
@@ -333,7 +333,7 @@ public class Matrix<T extends Number>
     // region matrix arithmetic: inverse, transpose and determinante
 
     /**
-     * @return new inverse matrix or <code>null</code> if there is none
+     * @return new inverse matrix or {@code null} if there is none
      */
     public Matrix<T> inverse() {
         if (!isSquare())
@@ -409,7 +409,7 @@ public class Matrix<T extends Number>
 
     /**
      * recursive implementation especially for matrices
-     * with sizes greater than <code>3</code><br>
+     * with sizes greater than {@code 3}<br>
      *
      * @return determinante of matrix
      * @see #determinante()
@@ -492,7 +492,7 @@ public class Matrix<T extends Number>
      * @param values       row based values of matrix
      * @param <T>          number class
      * @return new created matrix
-     * @throws IllegalArgumentException if rows modulo <code>values.length</code>
+     * @throws IllegalArgumentException if rows modulo {@code values.length}
      *                                  is not congruent 0
      */
     @SafeVarargs
@@ -516,7 +516,7 @@ public class Matrix<T extends Number>
      * @param values       column based values of matrix
      * @param <T>          number class
      * @return new created matrix
-     * @throws IllegalArgumentException if cols modulo <code>values.length</code>
+     * @throws IllegalArgumentException if cols modulo {@code values.length}
      *                                  is not congruent 0
      */
     @SafeVarargs
@@ -653,7 +653,7 @@ public class Matrix<T extends Number>
     /**
      * @param row row of matrix
      * @param col col of matrix
-     * @return <code>(-1)^(row+col)</code>
+     * @return {@code (-1)^(row+col)}
      */
     protected static int signumFactor(int row, int col) {
         return (row + col) % 2 == 0 ? 1 : -1;
@@ -802,7 +802,7 @@ public class Matrix<T extends Number>
 
     /**
      * @param t value to check
-     * @return <code>true</code> if t is equal to {@link #getDefaultValue()}
+     * @return {@code true} if t is equal to {@link #getDefaultValue()}
      */
     protected final boolean isDefaultValue(T t) {
         return getDefaultValue() == null && t == null ||
@@ -811,7 +811,7 @@ public class Matrix<T extends Number>
 
     /**
      * @param index index to check
-     * @return <code>true</code> if value is valid
+     * @return {@code true} if value is valid
      */
     protected final boolean isIndexValid(int index) {
         return 0 <= index && index < size();
@@ -819,7 +819,7 @@ public class Matrix<T extends Number>
 
     /**
      * @param row row to check
-     * @return <code>true</code> if value is valid
+     * @return {@code true} if value is valid
      */
     protected final boolean isRowValid(int row) {
         return 0 <= row && row < getRows();
@@ -827,7 +827,7 @@ public class Matrix<T extends Number>
 
     /**
      * @param col col to check
-     * @return <code>true</code> if col is valid
+     * @return {@code true} if col is valid
      */
     protected final boolean isColValid(int col) {
         return 0 <= col && col < getCols();

@@ -30,7 +30,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
     // region constructors
 
     /**
-     * calls {@link #Complex(AbstractArithmetic, Number, Number)} with <code>0</code>
+     * calls {@link #Complex(AbstractArithmetic, Number, Number)} with {@code 0}
      *
      * @param arithmetic arithmetic for calculations
      */
@@ -150,7 +150,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
     }
 
     /**
-     * @return 0 if z is zero otherwise <code>z/|z|</code>
+     * @return 0 if z is zero otherwise {@code z/|z|}
      */
     public Complex<T> signum() {
         if (getRe().equals(getArithmetic().zero()) &&
@@ -160,7 +160,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
     }
 
     /**
-     * @return if re is not 0 <code>sign(re)</code> otherwise <code>sign(im)</code>
+     * @return if re is not 0 {@code sign(re)} otherwise {@code sign(im)}
      */
     public int complexSignum() {
         return (int) (
@@ -411,8 +411,8 @@ public class Complex<T extends Number> extends Number implements Validatable,
 
     /**
      * @return new vector representing
-     * {@link #getRe()} as <code>x</code> and
-     * {@link #getIm()} as <code>y</code>
+     * {@link #getRe()} as {@code x} and
+     * {@link #getIm()} as {@code y}
      */
     public Vector asVector() {
         return new Vector(getRe().doubleValue(), getIm().doubleValue());
@@ -421,8 +421,8 @@ public class Complex<T extends Number> extends Number implements Validatable,
     /**
      * @param vector vector to convert to {@link Complex}
      * @return new complex using
-     * {@link Vector#getX()} as <code>re</code> and
-     * {@link Vector#getY()} as <code>im</code>
+     * {@link Vector#getX()} as {@code re} and
+     * {@link Vector#getY()} as {@code im}
      */
     public static Complex<Double> ofVector(Vector vector) {
         return new Complex<>(new DoubleArithmetic(), vector.getX(), vector.getY());

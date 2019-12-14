@@ -12,14 +12,14 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     /**
      * @param a value from integer
-     * @return number as <code>T</code>
+     * @return number as {@code T}
      * @throws NotImplementedException if operation is not implemented
      */
     public abstract T fromInt(int a);
 
     /**
      * @param a value from double
-     * @return number as <code>T</code>
+     * @return number as {@code T}
      * @throws NotImplementedException if operation is not implemented
      */
     public abstract T fromDouble(double a);
@@ -38,7 +38,7 @@ public abstract class AbstractArithmetic<T extends Number> {
     /**
      * <i>in general the additive identity element</i>
      *
-     * @return <code>0</code>
+     * @return {@code 0}
      * @see #fromInt(int)
      */
     public final T zero() {
@@ -48,7 +48,7 @@ public abstract class AbstractArithmetic<T extends Number> {
     /**
      * <i>in general the multiplicative identity element</i>
      *
-     * @return <code>1</code>
+     * @return {@code 1}
      * @see #fromInt(int)
      */
     public final T one() {
@@ -70,7 +70,7 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     /**
      * @param a value to negate
-     * @return <code>-a</code>
+     * @return {@code -a}
      * @throws NotImplementedException if operation is not implemented
      */
     public T negate(T a) {
@@ -95,7 +95,7 @@ public abstract class AbstractArithmetic<T extends Number> {
     /**
      * @param a first value of sum
      * @param b second value of sum
-     * @return <code>a+b</code>
+     * @return {@code a+b}
      * @throws NotImplementedException if operation is not implemented
      */
     public abstract T sum(T a, T b);
@@ -104,7 +104,7 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @param a first value of sum
      * @param b second value of sum
      * @param c third value of sum
-     * @return <code>a+b+c</code>
+     * @return {@code a+b+c}
      * @throws NotImplementedException if operation is not implemented
      * @see #sum(Number, Number)
      */
@@ -115,7 +115,7 @@ public abstract class AbstractArithmetic<T extends Number> {
     /**
      * @param a first value of difference
      * @param b second value of difference
-     * @return <code>a-b</code>
+     * @return {@code a-b}
      * @throws NotImplementedException if operation is not implemented
      */
     public abstract T difference(T a, T b);
@@ -123,7 +123,7 @@ public abstract class AbstractArithmetic<T extends Number> {
     /**
      * @param a first value of product
      * @param b second value of product
-     * @return <code>a*b</code>
+     * @return {@code a*b}
      * @throws NotImplementedException if operation is not implemented
      */
     public abstract T product(T a, T b);
@@ -132,7 +132,7 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @param a first value of product
      * @param b second value of product
      * @param c third value of product
-     * @return <code>a*b*c</code>
+     * @return {@code a*b*c}
      * @throws NotImplementedException if operation is not implemented
      * @see #product(Number, Number)
      */
@@ -143,7 +143,7 @@ public abstract class AbstractArithmetic<T extends Number> {
     /**
      * @param a first value of quotient
      * @param b second value of quotient
-     * @return <code>a/b</code>
+     * @return {@code a/b}
      * @throws NotImplementedException if operation is not implemented
      */
     public abstract T quotient(T a, T b);
@@ -151,7 +151,7 @@ public abstract class AbstractArithmetic<T extends Number> {
     /**
      * @param a first value of quotient
      * @param b second value of quotient
-     * @return reminder of division like <code>r=a-q*b</code>
+     * @return reminder of division like {@code r=a-q*b}
      * @throws NotImplementedException if operation is not implemented
      */
     public T modulo(T a, T b) {
@@ -167,7 +167,7 @@ public abstract class AbstractArithmetic<T extends Number> {
     /**
      * @param a basis of power
      * @param b exponent of power
-     * @return <code>a^b</code>
+     * @return {@code a^b}
      * @throws NotImplementedException if operation is not implemented
      */
     public abstract T power(T a, int b);
@@ -175,14 +175,14 @@ public abstract class AbstractArithmetic<T extends Number> {
     /**
      * @param a value
      * @param b degree of root
-     * @return <code>sqrt(a)</code>
+     * @return {@code sqrt(a)}
      * @throws NotImplementedException if operation is not implemented
      */
     public abstract T root(T a, int b);
 
     /**
      * @param a value
-     * @return <code>sqrt(a)</code>
+     * @return {@code sqrt(a)}
      * @throws NotImplementedException if operation is not implemented
      */
     public T root2(T a) {
@@ -195,7 +195,7 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     /**
      * @param a value to check
-     * @return <code>true</code> if value is finite
+     * @return {@code true} if value is finite
      * @throws NotImplementedException if operation is not implemented
      * @see Double#isInfinite(double)
      */
@@ -205,7 +205,7 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     /**
      * @param a value to check
-     * @return <code>true</code> if value is infinite
+     * @return {@code true} if value is infinite
      * @throws NotImplementedException if operation is not implemented
      * @see Double#isInfinite(double)
      */
@@ -215,7 +215,7 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     /**
      * @param a value to check
-     * @return <code>true</code> if value is NaN
+     * @return {@code true} if value is NaN
      * @throws NotImplementedException if operation is not implemented
      * @see Double#isNaN(double)
      */
@@ -251,7 +251,7 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     /**
      * @param a value to calc sin from
-     * @return <code>sin(a)</code>
+     * @return {@code sin(a)}
      * @throws NotImplementedException if operation is not implemented
      * @see Math#sin(double)
      */
@@ -261,7 +261,7 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     /**
      * @param a value to calc cos from
-     * @return <code>cos(a)</code>
+     * @return {@code cos(a)}
      * @throws NotImplementedException if operation is not implemented
      * @see Math#cos(double)
      */
@@ -271,7 +271,7 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     /**
      * @param a value to calc tan from
-     * @return <code>tan(a)</code>
+     * @return {@code tan(a)}
      * @throws NotImplementedException if operation is not implemented
      * @see Math#tan(double)
      */
@@ -281,7 +281,7 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     /**
      * @param a value to calc asin from
-     * @return <code>asin(a)</code>
+     * @return {@code asin(a)}
      * @throws NotImplementedException if operation is not implemented
      * @see Math#asin(double)
      */
@@ -291,7 +291,7 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     /**
      * @param a value to calc acos from
-     * @return <code>acos(a)</code>
+     * @return {@code acos(a)}
      * @throws NotImplementedException if operation is not implemented
      * @see Math#acos(double)
      */
@@ -301,7 +301,7 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     /**
      * @param a value to calc acos from
-     * @return <code>atan(a)</code>
+     * @return {@code atan(a)}
      * @throws NotImplementedException if operation is not implemented
      * @see Math#atan(double)
      */
@@ -312,7 +312,7 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     /**
      * @param a value to calc sin from
-     * @return <code>sinh(a)</code>
+     * @return {@code sinh(a)}
      * @throws NotImplementedException if operation is not implemented
      * @see Math#sinh(double)
      */
@@ -322,7 +322,7 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     /**
      * @param a value to calc cos from
-     * @return <code>cosh(a)</code>
+     * @return {@code cosh(a)}
      * @throws NotImplementedException if operation is not implemented
      * @see Math#cosh(double)
      */
@@ -332,7 +332,7 @@ public abstract class AbstractArithmetic<T extends Number> {
 
     /**
      * @param a value to calc tan from
-     * @return <code>tanh(a)</code>
+     * @return {@code tanh(a)}
      * @throws NotImplementedException if operation is not implemented
      * @see Math#tanh(double)
      */

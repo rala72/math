@@ -29,7 +29,7 @@ public class Circle implements Validatable, Movable<Circle>, Rotatable<Circle>,
     }
 
     /**
-     * calls {@link #Circle(Point, double)} with radius <code>1</code>
+     * calls {@link #Circle(Point, double)} with radius {@code 1}
      *
      * @param center center point of circle
      */
@@ -97,7 +97,7 @@ public class Circle implements Validatable, Movable<Circle>, Rotatable<Circle>,
     }
 
     /**
-     * calls {@link #setRadius(double)} with <code>diameter/2</code>
+     * calls {@link #setRadius(double)} with {@code diameter/2}
      *
      * @param diameter new diameter of circle
      * @see #setRadius(double)
@@ -111,14 +111,14 @@ public class Circle implements Validatable, Movable<Circle>, Rotatable<Circle>,
     // region area and circumference
 
     /**
-     * @return <code>&pi;*r^2</code>
+     * @return {@code &pi;*r^2}
      */
     public double area() {
         return Math.PI * Math.pow(getRadius(), 2);
     }
 
     /**
-     * @return <code>2*&pi;*r</code>
+     * @return {@code 2*&pi;*r}
      */
     public double circumference() {
         return 2 * Math.PI * getRadius();
@@ -129,7 +129,7 @@ public class Circle implements Validatable, Movable<Circle>, Rotatable<Circle>,
     // region isUnitCircle
 
     /**
-     * @return <code>true</code> if {@link #getRadius()} is 1
+     * @return {@code true} if {@link #getRadius()} is 1
      */
     public boolean isUnitCircle() {
         return getRadius() == 1;

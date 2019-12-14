@@ -15,7 +15,7 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
 
     /**
      * calls {@link #BigDecimalArithmetic(MathContext)}
-     * with a new {@link MathContext} which precision is <code>10</code>
+     * with a new {@link MathContext} which precision is {@code 10}
      *
      * @see MathContext#MathContext(int)
      */

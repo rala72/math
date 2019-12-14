@@ -7,9 +7,9 @@ import java.util.Objects;
 
 /**
  * class which holds a line in a 2d area with m &amp; b<br>
- * <code>y=m*x+b</code><br>
+ * {@code y=m*x+b}<br>
  * if line is vertical m is considered to be {@link Double#NaN}<br>
- * <code>y=b</code>
+ * {@code y=b}
  */
 public class Line implements Validatable, Copyable<Line>, Comparable<Line> {
     // region attributes
@@ -23,8 +23,8 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line> {
 
     /**
      * creates a vertical line storing
-     * <code>m</code> as {@link Double#NaN} and
-     * <code>b</code> as <code>x</code>
+     * {@code m} as {@link Double#NaN} and
+     * {@code b} as {@code x}
      *
      * @param x x value of line
      */
@@ -80,14 +80,14 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line> {
     // region isHorizontal and isVertical
 
     /**
-     * @return <code>true</code> if {@link #getM()} returns <code>0</code>
+     * @return {@code true} if {@link #getM()} returns {@code 0}
      */
     public boolean isHorizontal() {
         return getM() == 0;
     }
 
     /**
-     * @return <code>true</code> if {@link #getM()} returns {@link Double#NaN}
+     * @return {@code true} if {@link #getM()} returns {@link Double#NaN}
      */
     public boolean isVertical() {
         return Double.isNaN(getM());
@@ -124,7 +124,7 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line> {
 
     /**
      * @param line line to check if intersection exists
-     * @return <code>true</code> if <code>m</code> is not equal
+     * @return {@code true} if {@code m} is not equal
      */
     public boolean hasIntersection(Line line) {
         return (!isVertical() || !line.isVertical()) && getM() != line.getM();
@@ -132,8 +132,8 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line> {
 
     /**
      * @param line line to intersect
-     * @return intersection or <code>null</code>
-     * if {@link #hasIntersection(Line)} is <code>false</code>
+     * @return intersection or {@code null}
+     * if {@link #hasIntersection(Line)} is {@code false}
      */
     public Point intersection(Line line) {
         if (!hasIntersection(line)) return null;
@@ -147,7 +147,7 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line> {
 
     /**
      * @param line line to intersect
-     * @return intersection angle in <code>rad</code> or {@link Double#NaN}
+     * @return intersection angle in {@code rad} or {@link Double#NaN}
      * if there is no intersection
      */
     public double intersectionAngle(Line line) {

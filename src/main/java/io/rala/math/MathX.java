@@ -261,7 +261,7 @@ public class MathX {
 
     /**
      * calculates nth-root using {@link Math#pow(double, double)}
-     * with <code>1.0/n</code>
+     * with {@code 1.0/n}
      *
      * @param a number to calc root
      * @param n number of root
@@ -276,7 +276,7 @@ public class MathX {
 
     /**
      * calculates nth-root using a {@link MathContext} with
-     * precision <code>10</code> and
+     * precision {@code 10} and
      * rounding mode {@link RoundingMode#HALF_EVEN}
      *
      * @param a number to calc root

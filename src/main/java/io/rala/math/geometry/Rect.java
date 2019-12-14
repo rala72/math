@@ -27,7 +27,7 @@ public class Rect implements Validatable, Movable<Rect>, Rotatable<Rect>,
      * calls {@link #Rect(Point, Point, double)}
      * with {@link Point#Point()}
      * and {@link Point#Point(double, double)}
-     * where <code>x=width</code> and <code>y=0</code>
+     * where {@code x=width} and {@code y=0}
      *
      * @param height height of rect
      * @param width  width of rect
@@ -114,14 +114,14 @@ public class Rect implements Validatable, Movable<Rect>, Rotatable<Rect>,
     }
 
     /**
-     * @return {@link #vertexB()}<code>+size</code>
+     * @return {@link #vertexB()}{@code +size}
      */
     public Point vertexC() {
         return new Point(vertexB().getX(), vertexB().getY() + getSize());
     }
 
     /**
-     * @return {@link #vertexA()}<code>+size</code>
+     * @return {@link #vertexA()}{@code +size}
      */
     public Point vertexD() {
         return new Point(vertexA().getX(), vertexA().getY() + getSize());
@@ -146,7 +146,7 @@ public class Rect implements Validatable, Movable<Rect>, Rotatable<Rect>,
     }
 
     /**
-     * @return <code>sqrt(w^2+h^2)</code>
+     * @return {@code sqrt(w^2+h^2)}
      */
     public double diagonale() {
         return Math.sqrt(Math.pow(height(), 2) + Math.pow(width(), 2));
@@ -157,14 +157,14 @@ public class Rect implements Validatable, Movable<Rect>, Rotatable<Rect>,
     // region area and circumference
 
     /**
-     * @return <code>h*w</code>
+     * @return {@code h*w}
      */
     public double area() {
         return height() * width();
     }
 
     /**
-     * @return <code>2*(h+w)</code>
+     * @return {@code 2*(h+w)}
      */
     public double circumference() {
         return 2 * (height() + width());
@@ -175,7 +175,7 @@ public class Rect implements Validatable, Movable<Rect>, Rotatable<Rect>,
     // region isSquare
 
     /**
-     * @return <code>true</code> if {@link #height()} and {@link #width()} are equal
+     * @return {@code true} if {@link #height()} and {@link #width()} are equal
      */
     public boolean isSquare() {
         return height() == width();

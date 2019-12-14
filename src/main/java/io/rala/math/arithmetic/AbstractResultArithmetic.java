@@ -43,7 +43,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
 
     /**
      * @param a value to convert
-     * @return value as <code>R</code>
+     * @return value as {@code R}
      */
     public abstract R fromT(T a);
 
@@ -52,7 +52,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
     /**
      * @param a first value of sum
      * @param b second value of sum
-     * @return <code>a+b</code>
+     * @return {@code a+b}
      * @throws AbstractArithmetic.NotImplementedException if operation is not implemented
      * @see AbstractArithmetic#sum(Number, Number)
      */
@@ -64,7 +64,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @param a first value of sum
      * @param b second value of sum
      * @param c third value of sum
-     * @return <code>a+b+c</code>
+     * @return {@code a+b+c}
      * @throws AbstractArithmetic.NotImplementedException if operation is not implemented
      * @see #sum(Number, Number)
      * @see AbstractArithmetic#sum(Number, Number, Number)
@@ -76,7 +76,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
     /**
      * @param a first value of difference
      * @param b second value of difference
-     * @return <code>a-b</code>
+     * @return {@code a-b}
      * @throws AbstractArithmetic.NotImplementedException if operation is not implemented
      * @see AbstractArithmetic#difference(Number, Number)
      */
@@ -87,7 +87,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
     /**
      * @param a first value of product
      * @param b second value of product
-     * @return <code>a*b</code>
+     * @return {@code a*b}
      * @throws AbstractArithmetic.NotImplementedException if operation is not implemented
      * @see AbstractArithmetic#product(Number, Number)
      */
@@ -99,7 +99,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @param a first value of product
      * @param b second value of product
      * @param c third value of product
-     * @return <code>a*b*c</code>
+     * @return {@code a*b*c}
      * @throws AbstractArithmetic.NotImplementedException if operation is not implemented
      * @see #product(Number, Number)
      * @see AbstractArithmetic#product(Number, Number, Number)
@@ -111,7 +111,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
     /**
      * @param a first value of quotient
      * @param b second value of quotient
-     * @return <code>a/b</code>
+     * @return {@code a/b}
      * @throws AbstractArithmetic.NotImplementedException if operation is not implemented
      * @see AbstractArithmetic#quotient(Number, Number)
      */
@@ -122,7 +122,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
     /**
      * @param a first value of quotient
      * @param b second value of quotient
-     * @return reminder of division like <code>r=a-q*b</code>
+     * @return reminder of division like {@code r=a-q*b}
      * @throws AbstractArithmetic.NotImplementedException if operation is not implemented
      * @see AbstractArithmetic#modulo(Number, Number)
      */
@@ -138,7 +138,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @param arithmetic arithmetic for source
      * @param map        mapping function to convert current source to new one
      * @param <NT>       number class of new source
-     * @return new {@link AbstractResultArithmetic} wich uses <code>V</code>
+     * @return new {@link AbstractResultArithmetic} wich uses {@code V}
      */
     public <NT extends Number> AbstractResultArithmetic<NT, R> map(
         AbstractArithmetic<NT> arithmetic, Function<NT, R> map
@@ -152,7 +152,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @param arithmetic arithmetic for target
      * @param map        mapping function to convert current result to new one
      * @param <NR>       number class of target
-     * @return new {@link AbstractResultArithmetic} wich returns <code>V</code>
+     * @return new {@link AbstractResultArithmetic} wich returns {@code V}
      */
     public <NR extends Number> AbstractResultArithmetic<T, NR> mapResult(
         AbstractArithmetic<NR> arithmetic, Function<T, NR> map
@@ -165,9 +165,9 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
     // region static of
 
     /**
-     * @param tArithmetic {@link AbstractArithmetic} for calculations inside <code>T</code>
+     * @param tArithmetic {@link AbstractArithmetic} for calculations inside {@code T}
      * @param rArithmetic {@link AbstractArithmetic} for calculations to result
-     * @param map         mapping function to convert <code>T</code> to <code>R</code>
+     * @param map         mapping function to convert {@code T} to {@code R}
      * @param <T>         number class for storing
      * @param <R>         number class for result
      * @return {@link AbstractResultArithmetic} with given values

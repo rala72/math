@@ -92,7 +92,7 @@ public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable
     }
 
     /**
-     * @return <code>(A+B)/2</code>
+     * @return {@code (A+B)/2}
      */
     public Point halvingPoint() {
         return new Point(
@@ -103,7 +103,7 @@ public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable
 
     /**
      * @param d proportion of distribution
-     * @return <code>(1-d)*A+d*B</code>
+     * @return {@code (1-d)*A+d*B}
      */
     public Point distributionPoint(double d) {
         return new Point(
@@ -125,8 +125,8 @@ public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable
 
     /**
      * may return a new Line with {@link Double#NaN}
-     * as <code>m</code> if the line is vertical -
-     * <code>b</code> is corresponding <code>x</code>
+     * as {@code m} if the line is vertical -
+     * {@code b} is corresponding {@code x}
      *
      * @return new line instance
      */

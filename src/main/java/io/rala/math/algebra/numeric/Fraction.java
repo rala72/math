@@ -29,7 +29,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
     // region constructors
 
     /**
-     * calls {@link #Fraction(AbstractResultArithmetic, Number, Number)} with given numerator and <code>null</code>
+     * calls {@link #Fraction(AbstractResultArithmetic, Number, Number)} with given numerator and {@code null}
      *
      * @param arithmetic arithmetic for calculations
      * @param numerator  numerator of fraction
@@ -40,7 +40,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
 
     /**
      * creates a new fraction with numerator and denominator<br>
-     * denominator may be <code>null</code> - in this case <code>1</code> is used
+     * denominator may be {@code null} - in this case {@code 1} is used
      *
      * @param arithmetic  arithmetic for calculations
      * @param numerator   numerator of fraction
@@ -158,7 +158,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
     }
 
     /**
-     * @return new fraction with flipped <code>numerator</code> and <code>denominator</code>
+     * @return new fraction with flipped {@code numerator} and {@code denominator}
      */
     public Fraction<T, V> inverse() {
         return createFromArithmetic(getDenominator(), getNumerator());
@@ -319,7 +319,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
 
     /**
      * @param n number of power
-     * @return <code>pow(numerator,n)/pow(denominator,n)</code>
+     * @return {@code pow(numerator,n)/pow(denominator,n)}
      */
     public Fraction<T, V> pow(int n) {
         AbstractArithmetic<T> tArithmetic = getArithmetic().getTArithmetic();
@@ -330,7 +330,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
 
     /**
      * @param n degree of root
-     * @return <code>root(numerator,n)/root(denominator,n)</code>
+     * @return {@code root(numerator,n)/root(denominator,n)}
      */
     public Fraction<T, V> root(int n) {
         AbstractArithmetic<T> tArithmetic = getArithmetic().getTArithmetic();
@@ -478,7 +478,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @param numerator   numerator of fraction
      * @param denominator denominator of fraction
      * @return new fraction
-     * @throws ArithmeticException      if denominator is <code>0</code>
+     * @throws ArithmeticException      if denominator is {@code 0}
      * @throws IllegalArgumentException if constructor throws one
      */
     protected final Fraction<T, V> createFromArithmetic(T numerator, T denominator) {

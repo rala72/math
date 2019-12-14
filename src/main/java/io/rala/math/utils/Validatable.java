@@ -6,7 +6,7 @@ package io.rala.math.utils;
 @SuppressWarnings("unused")
 public interface Validatable {
     /**
-     * @return <code>true</code> if valid
+     * @return {@code true} if valid
      */
     boolean isValid();
 }
