@@ -95,7 +95,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
     }
 
     /**
-     * @return current {@link AbstractArithmetic}
+     * @return stored {@link AbstractArithmetic}
      */
     protected AbstractArithmetic<T> getArithmetic() {
         return arithmetic;

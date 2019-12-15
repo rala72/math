@@ -28,14 +28,14 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
     }
 
     /**
-     * @return current t {@link AbstractArithmetic}
+     * @return stored t {@link AbstractArithmetic}
      */
     public AbstractArithmetic<T> getTArithmetic() {
         return tArithmetic;
     }
 
     /**
-     * @return current r {@link AbstractArithmetic}
+     * @return stored r {@link AbstractArithmetic}
      */
     public AbstractArithmetic<R> getRArithmetic() {
         return rArithmetic;

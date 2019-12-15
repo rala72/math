@@ -23,7 +23,7 @@ public class FractionArithmetic<T extends Number, R extends Number>
     }
 
     /**
-     * @return current {@link AbstractResultArithmetic}
+     * @return stored {@link AbstractResultArithmetic}
      */
     public AbstractResultArithmetic<T, R> getArithmetic() {
         return arithmetic;

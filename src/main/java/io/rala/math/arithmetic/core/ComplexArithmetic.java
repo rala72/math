@@ -24,7 +24,7 @@ public class ComplexArithmetic<T extends Number> extends AbstractArithmetic<Comp
     }
 
     /**
-     * @return current {@link AbstractArithmetic} of {@link Complex}
+     * @return stored {@link AbstractArithmetic} of {@link Complex}
      */
     public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;

@@ -33,7 +33,7 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
     }
 
     /**
-     * @return current {@link MathContext}
+     * @return stored {@link MathContext}
      */
     public MathContext getMathContext() {
         return mathContext;

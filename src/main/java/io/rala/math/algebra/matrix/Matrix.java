@@ -115,7 +115,7 @@ public class Matrix<T extends Number>
     // region getter and size
 
     /**
-     * @return current arithmetic
+     * @return stored arithmetic
      */
     protected AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
