@@ -1,5 +1,6 @@
 package io.rala.math.algebra.equation.linear;
 
+import io.rala.math.algebra.equation.Solution;
 import io.rala.math.algebra.matrix.Matrix;
 import io.rala.math.testUtils.algebra.TestMatrix;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
@@ -22,6 +23,14 @@ class LinearEquationSystemTest {
         LinearEquationSystem<Number> equationSystem =
             new LinearEquationSystem<>(matrix);
         Assertions.assertEquals(matrix, equationSystem.getMatrix());
+    }
+
+    @Test
+    void solveWithGaussOfLinearEquationSystem() {
+        LinearEquationSystem<Number> equationSystem =
+            new LinearEquationSystem<>(matrix);
+        Solution<Number> solution = equationSystem.solveWithGauss();
+        Assertions.assertEquals(Solution.unsolvable(equationSystem), solution);
     }
 
     // region override

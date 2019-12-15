@@ -1,6 +1,8 @@
 package io.rala.math.algebra.equation.linear;
 
 import io.rala.math.algebra.equation.AbstractEquationSystem;
+import io.rala.math.algebra.equation.Solution;
+import io.rala.math.algebra.equation.linear.solver.GaussSolver;
 import io.rala.math.algebra.matrix.Matrix;
 import io.rala.math.arithmetic.AbstractArithmetic;
 
@@ -44,6 +46,13 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
      */
     public LinearEquationMatrix<T> getMatrix() {
         return matrix;
+    }
+
+    /**
+     * @return {@link Solution} of {@link GaussSolver#solve()}
+     */
+    public Solution<T> solveWithGauss() {
+        return new GaussSolver<>(this).solve();
     }
 
     // region override
