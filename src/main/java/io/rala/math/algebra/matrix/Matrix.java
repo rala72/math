@@ -724,7 +724,7 @@ public class Matrix<T extends Number>
      * @return new matrix with swapped values
      * @throws IndexOutOfBoundsException if row1 or row2 is invalid
      */
-    protected final Matrix<T> swapRows(int row1, int row2) {
+    protected Matrix<T> swapRows(int row1, int row2) {
         if (!isRowValid(row1))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row1);
         if (!isRowValid(row2))
@@ -744,7 +744,7 @@ public class Matrix<T extends Number>
      * @return new matrix with swapped values
      * @throws IndexOutOfBoundsException if col1 or col2 is invalid
      */
-    protected final Matrix<T> swapCols(int col1, int col2) {
+    protected Matrix<T> swapCols(int col1, int col2) {
         if (!isColValid(col1))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col1);
         if (!isColValid(col2))
@@ -763,7 +763,7 @@ public class Matrix<T extends Number>
      * @param n   factor to use
      * @return new matrix with multiplied row
      */
-    protected final Matrix<T> multiplyRow(int row, T n) {
+    protected Matrix<T> multiplyRow(int row, T n) {
         if (!isRowValid(row))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
         Matrix<T> copy = copy();
@@ -786,7 +786,7 @@ public class Matrix<T extends Number>
      * @param n   factor to use
      * @return new matrix with multiplied col
      */
-    protected final Matrix<T> multiplyCol(int col, T n) {
+    protected Matrix<T> multiplyCol(int col, T n) {
         if (!isColValid(col))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
         Matrix<T> copy = copy();
@@ -810,7 +810,7 @@ public class Matrix<T extends Number>
      * @param n    factor to use
      * @return new matrix with multiplied rows
      */
-    protected final Matrix<T> addRowMultipleTimes(int row1, int row2, T n) {
+    protected Matrix<T> addRowMultipleTimes(int row1, int row2, T n) {
         if (!isRowValid(row1))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row1);
         if (!isRowValid(row2))
@@ -832,7 +832,7 @@ public class Matrix<T extends Number>
      * @param n    factor to use
      * @return new matrix with multiplied cols
      */
-    protected final Matrix<T> addColMultipleTimes(int col1, int col2, T n) {
+    protected Matrix<T> addColMultipleTimes(int col1, int col2, T n) {
         if (!isColValid(col1))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col1);
         if (!isColValid(col2))
