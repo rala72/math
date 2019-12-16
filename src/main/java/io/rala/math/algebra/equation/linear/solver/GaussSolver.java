@@ -89,8 +89,6 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
      */
     protected void prepareMatrixBySwapping(int rowIndex) {
         List<T> row = getWorkingMatrix().getRow(rowIndex);
-        if (row.stream().allMatch(t -> getArithmetic().zero().equals(t)))
-            return;
         if (!getArithmetic().zero().equals(row.get(rowIndex)))
             return;
         for (int i = rowIndex + 1; i < getWorkingMatrix().getRows(); i++)
