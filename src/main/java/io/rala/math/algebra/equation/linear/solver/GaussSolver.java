@@ -108,8 +108,9 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
         List<T> row = getWorkingMatrix().getRow(rowIndex);
         if (!getArithmetic().zero().equals(row.get(rowIndex)))
             return;
+        List<T> col = getWorkingMatrix().getCol(rowIndex);
         for (int i = rowIndex + 1; i < getWorkingMatrix().getRows(); i++)
-            if (!getArithmetic().zero().equals(row.get(i))) {
+            if (!getArithmetic().zero().equals(col.get(i))) {
                 setWorkingMatrix(getWorkingMatrix().swapRows(rowIndex, i));
                 return;
             }
