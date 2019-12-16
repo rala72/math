@@ -208,7 +208,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
             List<T> row = getWorkingMatrix().getRow(i);
             if (getArithmetic().zero().equals(row.get(row.size() - 1)))
                 continue;
-            if (areAllZeroExceptSolution(row))
+            if (areAllZeroIgnoringSolution(row))
                 return true;
         }
         return false;

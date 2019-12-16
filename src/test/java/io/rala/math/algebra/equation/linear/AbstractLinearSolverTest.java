@@ -77,24 +77,24 @@ class AbstractLinearSolverTest {
     }
 
     @Test
-    void areAllZeroExceptSolutionWithOnlyZeros() {
+    void areAllZeroIgnoringSolutionWithOnlyZeros() {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);
         Assertions.assertTrue(solver.areAllZero(List.of(0, 0)));
     }
 
     @Test
-    void areAllZeroExceptSolutionWithOnlyZerosExceptSolution() {
+    void areAllZeroIgnoringSolutionWithOnlyZerosExceptSolution() {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);
-        Assertions.assertTrue(solver.areAllZeroExceptSolution(List.of(0, 1)));
+        Assertions.assertTrue(solver.areAllZeroIgnoringSolution(List.of(0, 1)));
     }
 
     @Test
-    void areAllZeroExceptSolutionWithNotOnlyZerosExceptSolution() {
+    void areAllZeroIgnoringSolutionWithNotOnlyZerosExceptSolution() {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);
-        Assertions.assertFalse(solver.areAllZeroExceptSolution(List.of(1, 0)));
+        Assertions.assertFalse(solver.areAllZeroIgnoringSolution(List.of(1, 0)));
     }
 
     // endregion

@@ -71,11 +71,11 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
 
     /**
      * @param collection collection to check
-     * @return {@code true} if all elements except last one are {@code 0}
+     * @return {@code true} if all elements ignoring last one are {@code 0}
      * @see #areAllZero(Collection)
      * @see List#subList(int, int)
      */
-    protected final boolean areAllZeroExceptSolution(Collection<T> collection) {
+    protected final boolean areAllZeroIgnoringSolution(Collection<T> collection) {
         return areAllZero(
             new LinkedList<>(collection).subList(0, collection.size() - 1)
         );
