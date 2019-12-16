@@ -78,6 +78,8 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
             if (areAllZero(getWorkingMatrix().getRow(i)))
                 continue;
             prepareMatrixBySwapping(i);
+            if (getWorkingMatrix().getCols() - 1 <= i)
+                continue;
             prepareMatrixByMakingFieldToOne(i);
             prepareMatrixByMakeColToZero(i);
         }
