@@ -137,6 +137,28 @@ class GaussSolverTest {
     }
 
     @Test
+    void prepareMatrixWithMoreRowsThanCols() {
+        DoubleMatrix matrix = DoubleMatrix.ofValuesByRows(3,
+            1, 2,
+            2, 3,
+            3, 4
+        );
+        TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
+        solver.reset();
+        solver.prepareMatrix();
+        Assertions.assertEquals(
+            new LinearEquationSystem.LinearEquationMatrix<>(
+                DoubleMatrix.ofValuesByRows(3,
+                    1, 2,
+                    0, -1,
+                    0, -2
+                )
+            ),
+            solver.getWorkingMatrix()
+        );
+    }
+
+    @Test
     void prepareMatrixBySwappingZeroRowsToBottom() {
         DoubleMatrix matrix = DoubleMatrix.ofValuesByRows(2,
             0, 0,
