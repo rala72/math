@@ -49,8 +49,8 @@ public class Complex<T extends Number> extends Number implements Validatable,
      */
     public Complex(AbstractArithmetic<T> arithmetic, T re, T im) {
         this.arithmetic = arithmetic;
-        this.re = re;
-        this.im = im;
+        setRe(re);
+        setIm(im);
     }
 
     /**

@@ -39,8 +39,8 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line> {
      * @param b y-intercept of line
      */
     public Line(double m, double b) {
-        this.m = m;
-        this.b = b;
+        setM(m);
+        setB(b);
     }
 
     // endregion

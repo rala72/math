@@ -32,9 +32,9 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
      * @param c c of triangle
      */
     public Triangle(Point a, Point b, Point c) {
-        this.a = a;
-        this.b = b;
-        this.c = c;
+        setA(a);
+        setB(b);
+        setC(c);
     }
 
     // endregion

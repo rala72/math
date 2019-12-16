@@ -53,8 +53,8 @@ public class Circle implements Validatable, Movable<Circle>, Rotatable<Circle>,
      * @param radius radius of circle
      */
     public Circle(Point center, double radius) {
-        this.center = center;
-        this.radius = radius;
+        setCenter(center);
+        setRadius(radius);
     }
 
     // endregion

@@ -41,8 +41,8 @@ public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable
      * @see #LineSegment(Point)
      */
     public LineSegment(Point a, Point b) {
-        this.a = a;
-        this.b = b;
+        setA(a);
+        setB(b);
     }
 
     // endregion

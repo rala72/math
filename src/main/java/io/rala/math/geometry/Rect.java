@@ -44,9 +44,9 @@ public class Rect implements Validatable, Movable<Rect>, Rotatable<Rect>,
      * @param size height of rect
      */
     public Rect(Point a, Point b, double size) {
-        this.a = a;
-        this.b = b;
-        this.size = size;
+        setA(a);
+        setB(b);
+        setSize(size);
     }
 
     // endregion
