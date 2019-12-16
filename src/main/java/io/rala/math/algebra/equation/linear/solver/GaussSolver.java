@@ -7,6 +7,7 @@ import io.rala.math.algebra.equation.linear.LinearEquationSystem;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * solves a {@link LinearEquationSystem} based on Gauss
@@ -253,5 +254,28 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
         public int getCol2() {
             return col2;
         }
+
+        // region override
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof ColPair)) return false;
+            ColPair colPair = (ColPair) o;
+            return getCol1() == colPair.getCol1() &&
+                getCol2() == colPair.getCol2();
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(getCol1(), getCol2());
+        }
+
+        @Override
+        public String toString() {
+            return getCol1() + " <> " + getCol2();
+        }
+
+        // endregion
     }
 }
