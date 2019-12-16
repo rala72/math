@@ -4,10 +4,7 @@ import io.rala.math.algebra.equation.Solution;
 import io.rala.math.algebra.equation.linear.AbstractLinearSolver;
 import io.rala.math.algebra.equation.linear.LinearEquationSystem;
 
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * solves a {@link LinearEquationSystem} based on Gauss
@@ -105,6 +102,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
      * ensure {@code rowIndex} value is not {@code 0}
      *
      * @param rowIndex rowIndex to handle
+     * @implSpec pre: non zero row
      */
     protected void prepareMatrixBySwapping(int rowIndex) {
         List<T> row = getWorkingMatrix().getRow(rowIndex);
@@ -129,6 +127,8 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
      * ensures that {@code rowIndex} value is {@code 1}
      *
      * @param rowIndex rowIndex to handle
+     * @implSpec pre: <i>see {@link #prepareMatrixBySwapping(int)}</i>
+     * and {@code rowIndex} is also a valid column index
      */
     protected void prepareMatrixByMakingFieldToOne(int rowIndex) {
         T rowIndexValue = getWorkingMatrix().getValue(rowIndex, rowIndex);
@@ -144,6 +144,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
      * ensures that all col values below {@code rowIndex} are {@code 0}
      *
      * @param rowIndex rowIndex to handle
+     * @implSpec pre: <i>see {@link #prepareMatrixByMakingFieldToOne(int)}</i>
      */
     protected void prepareMatrixByMakeColToZero(int rowIndex) {
         for (int i = rowIndex + 1; i < getWorkingMatrix().getRows(); i++) {
@@ -188,6 +189,8 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
 
     /**
      * sorts rows after {@link #reSwapCols()}
+     *
+     * @implSpec suggested only if {@link #getSwappedCols()} was non-empty
      */
     protected void sortRows() {
         for (int i = 0; i < getWorkingMatrix().getRows(); i++) {
@@ -206,6 +209,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
 
     /**
      * @return {@code true} if current {@link #getWorkingMatrix()} has no solutions
+     * @implSpec checks if a row values {@link #areAllZeroIgnoringSolution(Collection)}
      */
     protected boolean hasNoSolutions() {
         for (int i = 0; i < getWorkingMatrix().getRows(); i++) {
@@ -220,6 +224,9 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
 
     /**
      * @return {@code true} if current {@link #getWorkingMatrix()} has infinite solutions
+     * @implSpec pre: {@link #prepareMatrix()} and {@link #solveBottomUp()};
+     * all possible eliminations have been done -
+     * it is checking for non-zero values between main diagonale and solution
      */
     protected boolean hasInfiniteSolutions() {
         for (int i = 0; i < getWorkingMatrix().getRows(); i++) {
