@@ -96,6 +96,22 @@ class GaussSolverTest {
         );
     }
 
+    @Test
+    void solveInfiniteLinearEquationSystem() {
+        LinearEquationSystem<Double> equationSystem = new LinearEquationSystem<>(
+            DoubleMatrix.ofValuesByRows(3,
+                1, 1, 2, 9,
+                0, 1, 3, 1,
+                0, 2, 6, 2
+            )
+        );
+        GaussSolver<Double> solver = new GaussSolver<>(equationSystem);
+        Assertions.assertEquals(
+            Solution.infinite(equationSystem),
+            solver.solve()
+        );
+    }
+
     // endregion
 
     // region prepare
