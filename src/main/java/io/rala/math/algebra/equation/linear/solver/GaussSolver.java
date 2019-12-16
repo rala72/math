@@ -228,6 +228,8 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
                 continue;
             if (getArithmetic().zero().equals(row.get(row.size() - 1)))
                 return true;
+            if (row.size() <= i + 1)
+                continue; // how to check remaining rows?
             List<T> subList = row.subList(i + 1, row.size() - 1);
             if (subList.stream().anyMatch(t -> !getArithmetic().zero().equals(t)))
                 return true;
