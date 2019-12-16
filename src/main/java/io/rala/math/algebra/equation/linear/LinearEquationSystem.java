@@ -94,7 +94,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
 
         /**
          * @return {@link Matrix#getArithmetic()}
-         * @implNote overridden so solver methods have access to {@link Matrix#getArithmetic()}
+         * @implSpec overridden so solver methods have access to {@link Matrix#getArithmetic()}
          */
         protected AbstractArithmetic<T> getArithmetic() {
             return super.getArithmetic();
