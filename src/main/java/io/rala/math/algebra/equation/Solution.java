@@ -14,7 +14,7 @@ public class Solution<T extends Number> {
 
     // region attributes
 
-    private final AbstractEquationSystem<T> equationSystem;
+    private final AbstractEquationSystem equationSystem;
     private final List<T> solution;
     private final State state;
 
@@ -27,7 +27,7 @@ public class Solution<T extends Number> {
      * @param solution       solution values
      * @param state          state of solution
      */
-    public Solution(AbstractEquationSystem<T> equationSystem, List<T> solution, State state) {
+    public Solution(AbstractEquationSystem equationSystem, List<T> solution, State state) {
         this.equationSystem = equationSystem;
         this.solution = solution;
         this.state = state;
@@ -38,7 +38,7 @@ public class Solution<T extends Number> {
     /**
      * @return equation system of solution
      */
-    public AbstractEquationSystem<T> getEquationSystem() {
+    public AbstractEquationSystem getEquationSystem() {
         return equationSystem;
     }
 
@@ -93,7 +93,7 @@ public class Solution<T extends Number> {
      * @return new {@link Solution} instance
      */
     public static <T extends Number> Solution<T> solved(
-        AbstractEquationSystem<T> equationSystem, List<T> solution
+        AbstractEquationSystem equationSystem, List<T> solution
     ) {
         return new Solution<>(equationSystem, solution, State.SOLVED);
     }
@@ -105,7 +105,7 @@ public class Solution<T extends Number> {
      * @param <T>            number class
      * @return new {@link Solution} instance
      */
-    public static <T extends Number> Solution<T> unsolvable(AbstractEquationSystem<T> equationSystem) {
+    public static <T extends Number> Solution<T> unsolvable(AbstractEquationSystem equationSystem) {
         return new Solution<>(equationSystem, Collections.emptyList(), State.UNSOLVABLE);
     }
 
@@ -116,7 +116,7 @@ public class Solution<T extends Number> {
      * @param <T>            number class
      * @return new {@link Solution} instance
      */
-    public static <T extends Number> Solution<T> infinite(AbstractEquationSystem<T> equationSystem) {
+    public static <T extends Number> Solution<T> infinite(AbstractEquationSystem equationSystem) {
         return new Solution<>(equationSystem, Collections.emptyList(), State.INFINITE);
     }
 

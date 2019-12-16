@@ -13,7 +13,7 @@ import java.util.Objects;
  *
  * @param <T> number class of matrix
  */
-public class LinearEquationSystem<T extends Number> extends AbstractEquationSystem<T> {
+public class LinearEquationSystem<T extends Number> extends AbstractEquationSystem {
     // region attributes
 
     private final LinearEquationMatrix<T> matrix;

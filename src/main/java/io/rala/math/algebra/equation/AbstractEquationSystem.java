@@ -3,7 +3,7 @@ package io.rala.math.algebra.equation;
 /**
  * class which stores and allows to solve equation systems
  *
- * @param <T> number class
+ * @implNote this class does nothing at the moment
  */
-public abstract class AbstractEquationSystem<T extends Number> {
+public abstract class AbstractEquationSystem {
 }

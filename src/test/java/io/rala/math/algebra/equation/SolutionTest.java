@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 class SolutionTest {
-    private static AbstractEquationSystem<Number> equationSystem;
+    private static AbstractEquationSystem equationSystem;
 
     @BeforeAll
     static void beforeAll() {
