@@ -133,8 +133,11 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
             return;
         T quotient = getArithmetic().quotient(getArithmetic().one(), rowIndexValue);
         setWorkingMatrix(getWorkingMatrix().multiplyRow(rowIndex, quotient));
-        if (!getArithmetic().one().equals(getWorkingMatrix().getRow(rowIndex).get(rowIndex)))
+        /*
+        // was there in case of rounding issues - was not reproducible yet
+        if (!getArithmetic().one().equals(getWorkingMatrix().getValue(rowIndex, rowIndex)))
             getWorkingMatrix().setValue(rowIndex, rowIndex, getArithmetic().one());
+        */
     }
 
     /**
