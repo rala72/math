@@ -114,7 +114,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
                 setWorkingMatrix(getWorkingMatrix().swapRows(rowIndex, i));
                 return;
             }
-        for (int i = rowIndex + 1; i < getWorkingMatrix().getCols() - 1; i++)
+        for (int i = rowIndex + 1; i < getWorkingMatrix().getCols(); i++)
             if (!getArithmetic().zero().equals(row.get(i))) {
                 setWorkingMatrix(getWorkingMatrix().swapCols(rowIndex, i));
                 getSwappedCols().add(new ColPair(rowIndex, i));
