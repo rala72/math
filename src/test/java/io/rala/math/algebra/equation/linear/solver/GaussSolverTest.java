@@ -4,54 +4,26 @@ import io.rala.math.algebra.equation.Solution;
 import io.rala.math.algebra.equation.linear.LinearEquationSystem;
 import io.rala.math.algebra.matrix.DoubleMatrix;
 import io.rala.math.testUtils.algebra.equation.TestGaussSolver;
+import io.rala.math.testUtils.arguments.LinearEquationArgumentsStreamFactory;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 class GaussSolverTest {
-    private static LinearEquationSystem<Double> equationSystem1;
-    private static LinearEquationSystem<Double> equationSystem2;
-
-    @BeforeAll
-    static void beforeAll() {
-        equationSystem1 = new LinearEquationSystem<>(
-            DoubleMatrix.ofValuesByRows(3,
-                1, 2, 3, 2,
-                1, 1, 1, 2,
-                3, 3, 1, 0
-            )
-        );
-        equationSystem2 = new LinearEquationSystem<>(
-            DoubleMatrix.ofValuesByRows(3,
-                1, -1, 2, 0,
-                -2, 1, -6, 0,
-                1, 0, -2, 3
-            )
-        );
-    }
-
     // region solve
 
-    @Test
-    void solveLinearEquationSystem1() {
-        GaussSolver<Double> solver = new GaussSolver<>(equationSystem1);
-        Assertions.assertEquals(
-            Solution.solved(equationSystem1, List.of(5d, -6d, 3d)),
-            solver.solve()
-        );
-    }
-
-    @Test
-    void solveLinearEquationSystem2() {
-        GaussSolver<Double> solver = new GaussSolver<>(equationSystem2);
-        Assertions.assertEquals(
-            Solution.solved(equationSystem2, List.of(2d, 1d, -0.5)),
-            solver.solve()
-        );
+    @ParameterizedTest
+    @MethodSource("getDoubleLinearEquationSystems")
+    void solveLinearEquationSystem(Solution<LinearEquationSystem<Double>, Double> solution) {
+        GaussSolver<Double> solver = new GaussSolver<>(solution.getEquationSystem());
+        Assertions.assertEquals(solution, solver.solve());
     }
 
     @Test
@@ -542,6 +514,14 @@ class GaussSolverTest {
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
         Assertions.assertTrue(solver.hasInfiniteSolutions());
+    }
+
+    // endregion
+
+    // region argument streams
+
+    private static Stream<Arguments> getDoubleLinearEquationSystems() {
+        return LinearEquationArgumentsStreamFactory.doubleLinearEquationSystems();
     }
 
     // endregion
