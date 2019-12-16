@@ -14,7 +14,7 @@ import java.util.List;
  * @param <T> number class
  */
 public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
-    private final Deque<ColPair> colSwapped = new LinkedList<>();
+    private final Deque<ColPair> swappedCols = new LinkedList<>();
 
     /**
      * creates a new GaussSolver based on a {@link LinearEquationSystem}
@@ -24,6 +24,17 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
     public GaussSolver(LinearEquationSystem<T> equationSystem) {
         super(equationSystem);
     }
+
+    // region protected getSwappedCols
+
+    /**
+     * @return current swappedCols instance
+     */
+    protected Deque<ColPair> getSwappedCols() {
+        return swappedCols;
+    }
+
+    // endregion
 
     @Override
     public Solution<T> solve() {
@@ -40,7 +51,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
         solveBottomUp();
         if (hasInfiniteSolutions())
             return Solution.infinite(getEquationSystem());
-        if (!colSwapped.isEmpty()) {
+        if (!getSwappedCols().isEmpty()) {
             reSwapCols();
             sortRows();
         }
@@ -90,7 +101,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
         for (int i = rowIndex + 1; i < getWorkingMatrix().getCols() - 1; i++)
             if (!getArithmetic().zero().equals(row.get(i))) {
                 setWorkingMatrix(getWorkingMatrix().swapCols(rowIndex, i));
-                colSwapped.add(new ColPair(rowIndex, i));
+                getSwappedCols().add(new ColPair(rowIndex, i));
                 return;
             }
     }
@@ -151,8 +162,8 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
      * reSwaps cols which have been swapped during {@link #prepareMatrixBySwapping(int)}
      */
     protected void reSwapCols() {
-        while (!colSwapped.isEmpty()) {
-            ColPair pop = colSwapped.pop();
+        while (!getSwappedCols().isEmpty()) {
+            ColPair pop = getSwappedCols().pop();
             setWorkingMatrix(getWorkingMatrix().swapCols(pop.getCol1(), pop.getCol2()));
         }
     }
@@ -211,7 +222,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
     @Override
     protected void reset() {
         super.reset();
-        colSwapped.clear();
+        getSwappedCols().clear();
     }
 
     /**
