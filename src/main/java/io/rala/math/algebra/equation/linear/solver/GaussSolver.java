@@ -67,18 +67,34 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
 
     /**
      * prepares matrix by calling
+     * {@link #prepareMatrixBySwappingZeroRowsToBottom()},
      * {@link #prepareMatrixBySwapping(int)},
      * {@link #prepareMatrixByMakingFieldToOne(int)} and
      * {@link #prepareMatrixByMakeColToZero(int)}
      */
     protected void prepareMatrix() {
-        // TODO: cleanup zero rows
+        prepareMatrixBySwappingZeroRowsToBottom();
         for (int i = 0; i < getWorkingMatrix().getRows(); i++) {
             if (areAllZero(getWorkingMatrix().getRow(i)))
                 continue;
             prepareMatrixBySwapping(i);
             prepareMatrixByMakingFieldToOne(i);
             prepareMatrixByMakeColToZero(i);
+        }
+    }
+
+    /**
+     * moves zero rows to bottom
+     */
+    protected void prepareMatrixBySwappingZeroRowsToBottom() {
+        for (int i = 0; i < getWorkingMatrix().getRows() - 1; i++) {
+            List<T> row = getWorkingMatrix().getRow(i);
+            if (!areAllZero(row)) continue;
+            for (int j = i + 1; j < getWorkingMatrix().getRows(); j++)
+                if (!areAllZero(getWorkingMatrix().getRow(j))) {
+                    setWorkingMatrix(getWorkingMatrix().swapRows(i, j));
+                    break;
+                }
         }
     }
 
