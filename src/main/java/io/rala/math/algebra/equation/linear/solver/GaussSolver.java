@@ -110,8 +110,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
      * @param rowIndex rowIndex to handle
      */
     protected void prepareMatrixByMakingFieldToOne(int rowIndex) {
-        List<T> row = getWorkingMatrix().getRow(rowIndex);
-        T rowIndexValue = row.get(rowIndex);
+        T rowIndexValue = getWorkingMatrix().getValue(rowIndex, rowIndex);
         if (getArithmetic().one().equals(rowIndexValue))
             return;
         T quotient = getArithmetic().quotient(getArithmetic().one(), rowIndexValue);
@@ -127,7 +126,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
      */
     protected void prepareMatrixByMakeColToZero(int rowIndex) {
         for (int i = rowIndex + 1; i < getWorkingMatrix().getRows(); i++) {
-            T rowIndexValue = getWorkingMatrix().getRow(i).get(rowIndex);
+            T rowIndexValue = getWorkingMatrix().getValue(i, rowIndex);
             if (getArithmetic().zero().equals(rowIndexValue))
                 continue;
             T negate = getArithmetic().negate(rowIndexValue);
