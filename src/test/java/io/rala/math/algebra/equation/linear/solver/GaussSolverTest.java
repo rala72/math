@@ -97,7 +97,7 @@ class GaussSolverTest {
     }
 
     @Test
-    void solveInfiniteLinearEquationSystem() {
+    void solveInfiniteLinearEquationSystemAfterSolveBottomUp() {
         LinearEquationSystem<Double> equationSystem = new LinearEquationSystem<>(
             DoubleMatrix.ofValuesByRows(3,
                 1, 1, 2, 9,
