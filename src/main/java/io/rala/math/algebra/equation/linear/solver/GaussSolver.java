@@ -153,7 +153,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
 
     // endregion
 
-    // region solveBottomUp and reSwapCols
+    // region solveBottomUp, reSwapCols and sortRows
 
     /**
      * clears all values above rows so that only the diagonal is left
