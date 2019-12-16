@@ -55,7 +55,7 @@ class AbstractLinearSolverTest {
             new TestAbstractLinearSolver(equationSystem);
         solver.reset();
 
-        Solution<Number> expectedSolution =
+        Solution<LinearEquationSystem<Number>, Number> expectedSolution =
             Solution.solved(equationSystem, List.of(2, 4));
         Assertions.assertEquals(expectedSolution, solver.toSolvedSolution());
     }

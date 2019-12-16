@@ -9,12 +9,12 @@ import java.util.Objects;
  *
  * @param <T> number class
  */
-public class Solution<T extends Number> {
+public class Solution<E extends AbstractEquationSystem, T extends Number> {
     public enum State {SOLVED, UNSOLVABLE, INFINITE}
 
     // region attributes
 
-    private final AbstractEquationSystem equationSystem;
+    private final E equationSystem;
     private final List<T> solution;
     private final State state;
 
@@ -27,7 +27,7 @@ public class Solution<T extends Number> {
      * @param solution       solution values
      * @param state          state of solution
      */
-    public Solution(AbstractEquationSystem equationSystem, List<T> solution, State state) {
+    public Solution(E equationSystem, List<T> solution, State state) {
         this.equationSystem = equationSystem;
         this.solution = solution;
         this.state = state;
@@ -38,7 +38,7 @@ public class Solution<T extends Number> {
     /**
      * @return equation system of solution
      */
-    public AbstractEquationSystem getEquationSystem() {
+    public E getEquationSystem() {
         return equationSystem;
     }
 
@@ -64,7 +64,7 @@ public class Solution<T extends Number> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Solution)) return false;
-        Solution<?> solution1 = (Solution<?>) o;
+        Solution<?, ?> solution1 = (Solution<?, ?>) o;
         return Objects.equals(getEquationSystem(), solution1.getEquationSystem()) &&
             Objects.equals(getSolution(), solution1.getSolution()) &&
             getState() == solution1.getState();
@@ -92,9 +92,8 @@ public class Solution<T extends Number> {
      * @param <T>            number class
      * @return new {@link Solution} instance
      */
-    public static <T extends Number> Solution<T> solved(
-        AbstractEquationSystem equationSystem, List<T> solution
-    ) {
+    public static <E extends AbstractEquationSystem, T extends Number>
+    Solution<E, T> solved(E equationSystem, List<T> solution) {
         return new Solution<>(equationSystem, solution, State.SOLVED);
     }
 
@@ -105,7 +104,8 @@ public class Solution<T extends Number> {
      * @param <T>            number class
      * @return new {@link Solution} instance
      */
-    public static <T extends Number> Solution<T> unsolvable(AbstractEquationSystem equationSystem) {
+    public static <E extends AbstractEquationSystem, T extends Number>
+    Solution<E, T> unsolvable(E equationSystem) {
         return new Solution<>(equationSystem, Collections.emptyList(), State.UNSOLVABLE);
     }
 
@@ -116,7 +116,8 @@ public class Solution<T extends Number> {
      * @param <T>            number class
      * @return new {@link Solution} instance
      */
-    public static <T extends Number> Solution<T> infinite(AbstractEquationSystem equationSystem) {
+    public static <E extends AbstractEquationSystem, T extends Number>
+    Solution<E, T> infinite(E equationSystem) {
         return new Solution<>(equationSystem, Collections.emptyList(), State.INFINITE);
     }
 

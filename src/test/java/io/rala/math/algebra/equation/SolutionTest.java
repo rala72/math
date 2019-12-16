@@ -19,7 +19,8 @@ class SolutionTest {
 
     @Test
     void equalsOfTestAbstractSolver() {
-        Solution<Number> solution = Solution.unsolvable(equationSystem);
+        Solution<AbstractEquationSystem, Number> solution =
+            Solution.unsolvable(equationSystem);
         Assertions.assertEquals(
             solution,
             Solution.unsolvable(equationSystem)
@@ -41,7 +42,8 @@ class SolutionTest {
 
     @Test
     void toStringOfTestAbstractSolver() {
-        Solution<Number> solution = Solution.solved(equationSystem, List.of(1));
+        Solution<AbstractEquationSystem, Number> solution =
+            Solution.solved(equationSystem, List.of(1));
         Assertions.assertEquals("SOLVED: [1]", solution.toString());
     }
 
@@ -51,7 +53,7 @@ class SolutionTest {
 
     @Test
     void createStaticSolved() {
-        Solution<Number> solution = Solution.solved(
+        Solution<AbstractEquationSystem, Number> solution = Solution.solved(
             equationSystem, List.of(1)
         );
         Assertions.assertEquals(equationSystem, solution.getEquationSystem());
@@ -61,7 +63,7 @@ class SolutionTest {
 
     @Test
     void createStaticUnsolvable() {
-        Solution<Number> solution = Solution.unsolvable(equationSystem);
+        Solution<AbstractEquationSystem, Number> solution = Solution.unsolvable(equationSystem);
         Assertions.assertEquals(equationSystem, solution.getEquationSystem());
         Assertions.assertTrue(solution.getSolution().isEmpty());
         Assertions.assertEquals(Solution.State.UNSOLVABLE, solution.getState());
@@ -69,7 +71,7 @@ class SolutionTest {
 
     @Test
     void createStaticInfinite() {
-        Solution<Number> solution = Solution.infinite(equationSystem);
+        Solution<AbstractEquationSystem, Number> solution = Solution.infinite(equationSystem);
         Assertions.assertEquals(equationSystem, solution.getEquationSystem());
         Assertions.assertTrue(solution.getSolution().isEmpty());
         Assertions.assertEquals(Solution.State.INFINITE, solution.getState());

@@ -54,7 +54,7 @@ public abstract class AbstractSolver<E extends AbstractEquationSystem, T extends
     /**
      * @return solution of {@link AbstractEquationSystem}
      */
-    public abstract Solution<T> solve();
+    public abstract Solution<E, T> solve();
 
     /**
      * resets solver

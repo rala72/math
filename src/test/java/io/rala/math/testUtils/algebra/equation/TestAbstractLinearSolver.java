@@ -10,7 +10,7 @@ public class TestAbstractLinearSolver extends AbstractLinearSolver<Number> {
     }
 
     @Override
-    public Solution<Number> solve() {
+    public Solution<LinearEquationSystem<Number>, Number> solve() {
         return null;
     }
 }

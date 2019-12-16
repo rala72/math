@@ -38,7 +38,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
     // endregion
 
     @Override
-    public Solution<T> solve() {
+    public Solution<LinearEquationSystem<T>, T> solve() {
         reset();
         prepareMatrix();
         if (hasNoSolutions())

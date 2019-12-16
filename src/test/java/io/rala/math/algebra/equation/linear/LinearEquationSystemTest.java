@@ -29,7 +29,7 @@ class LinearEquationSystemTest {
     void solveWithGaussOfLinearEquationSystem() {
         LinearEquationSystem<Number> equationSystem =
             new LinearEquationSystem<>(matrix);
-        Solution<Number> solution = equationSystem.solveWithGauss();
+        Solution<LinearEquationSystem<Number>, Number> solution = equationSystem.solveWithGauss();
         Assertions.assertEquals(Solution.unsolvable(equationSystem), solution);
     }
 

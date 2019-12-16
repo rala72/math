@@ -9,7 +9,7 @@ public class TestAbstractSolver extends AbstractSolver<TestAbstractEquationSyste
     }
 
     @Override
-    public Solution<Number> solve() {
+    public Solution<TestAbstractEquationSystem, Number> solve() {
         return null;
     }
 

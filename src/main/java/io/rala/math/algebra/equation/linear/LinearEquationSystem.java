@@ -51,7 +51,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
     /**
      * @return {@link Solution} of {@link GaussSolver#solve()}
      */
-    public Solution<T> solveWithGauss() {
+    public Solution<LinearEquationSystem<T>, T> solveWithGauss() {
         return new GaussSolver<>(this).solve();
     }
 
