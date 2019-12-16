@@ -17,14 +17,14 @@ import java.util.List;
 import java.util.stream.Stream;
 
 class GaussSolverTest {
-    // region solve
-
     @ParameterizedTest
     @MethodSource("getDoubleLinearEquationSystems")
     void solveLinearEquationSystem(Solution<LinearEquationSystem<Double>, Double> solution) {
         GaussSolver<Double> solver = new GaussSolver<>(solution.getEquationSystem());
         Assertions.assertEquals(solution, solver.solve());
     }
+
+    // region solve
 
     @Test
     void solveUnsolvableLinearEquationSystemAfterPrepare() {
@@ -297,6 +297,27 @@ class GaussSolverTest {
     }
 
     @Test
+    void prepareMatrixByMakingFieldToOneWithDecimalOnIndex() {
+        // 'easier' number possible?
+        DoubleMatrix matrix = DoubleMatrix.ofValuesByRows(2,
+            -6.153846153846154, 1,
+            0, 0
+        );
+        TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
+        solver.reset();
+        solver.prepareMatrixByMakingFieldToOne(0);
+        Assertions.assertEquals(
+            new LinearEquationSystem.LinearEquationMatrix<>(
+                DoubleMatrix.ofValuesByRows(2,
+                    1, -0.16249999999999998,
+                    0, 0
+                )
+            ),
+            solver.getWorkingMatrix()
+        );
+    }
+
+    @Test
     void prepareMatrixByMakeColToZeroWithZeroRow() {
         DoubleMatrix matrix = DoubleMatrix.ofValuesByRows(2,
             1, 0.5,
@@ -479,17 +500,6 @@ class GaussSolverTest {
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
         Assertions.assertFalse(solver.hasInfiniteSolutions());
-    }
-
-    @Test
-    void hasInfiniteSolutionsWithNonZeroRowExceptSolution() {
-        DoubleMatrix matrix = DoubleMatrix.ofValuesByRows(2,
-            1, 2,
-            1, 0
-        );
-        TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
-        solver.reset();
-        Assertions.assertTrue(solver.hasInfiniteSolutions());
     }
 
     @Test

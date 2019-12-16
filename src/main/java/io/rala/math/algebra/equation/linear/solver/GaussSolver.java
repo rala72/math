@@ -136,11 +136,8 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
             return;
         T quotient = getArithmetic().quotient(getArithmetic().one(), rowIndexValue);
         setWorkingMatrix(getWorkingMatrix().multiplyRow(rowIndex, quotient));
-        /*
-        // was there in case of rounding issues - was not reproducible yet
         if (!getArithmetic().one().equals(getWorkingMatrix().getValue(rowIndex, rowIndex)))
             getWorkingMatrix().setValue(rowIndex, rowIndex, getArithmetic().one());
-        */
     }
 
     /**
@@ -229,8 +226,6 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
             List<T> row = getWorkingMatrix().getRow(i);
             if (areAllZero(row))
                 continue;
-            if (getArithmetic().zero().equals(row.get(row.size() - 1)))
-                return true;
             if (row.size() <= i + 1)
                 continue; // how to check remaining rows?
             List<T> subList = row.subList(i + 1, row.size() - 1);
