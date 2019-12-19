@@ -92,6 +92,17 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <!-- remove if plugin supports it out of the box -->
+                    <!-- https://stackoverflow.com/a/38708383/2715720 -->
+                    <tags>
+                        <tag>
+                            <name>implSpec</name>
+                            <placement>a</placement>
+                            <head>Implementation Requirements:</head>
+                        </tag>
+                    </tags>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
