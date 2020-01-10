@@ -214,9 +214,8 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
     protected boolean hasNoSolutions() {
         for (int i = 0; i < getWorkingMatrix().getRows(); i++) {
             List<T> row = getWorkingMatrix().getRow(i);
-            if (getArithmetic().zero().equals(row.get(row.size() - 1)))
-                continue;
-            if (areAllZeroIgnoringSolution(row))
+            if (!getArithmetic().zero().equals(row.get(row.size() - 1)) &&
+                areAllZeroIgnoringSolution(row))
                 return true;
         }
         return false;
@@ -231,10 +230,8 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
     protected boolean hasInfiniteSolutions() {
         for (int i = 0; i < getWorkingMatrix().getRows(); i++) {
             List<T> row = getWorkingMatrix().getRow(i);
-            if (areAllZero(row))
-                continue;
-            if (row.size() <= i + 1)
-                continue; // how to check remaining rows?
+            if (areAllZero(row) || row.size() <= i + 1)
+                continue; // 2nd part: how to check remaining rows?
             List<T> subList = row.subList(i + 1, row.size() - 1);
             if (subList.stream().anyMatch(t -> !getArithmetic().zero().equals(t)))
                 return true;
