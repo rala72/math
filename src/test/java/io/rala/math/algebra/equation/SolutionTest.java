@@ -49,7 +49,7 @@ class SolutionTest {
 
     // endregion
 
-    // region protected static
+    // region public static
 
     @Test
     void createStaticSolved() {

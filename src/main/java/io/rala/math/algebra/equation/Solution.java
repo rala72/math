@@ -82,7 +82,7 @@ public class Solution<E extends AbstractEquationSystem, T extends Number> {
 
     // endregion
 
-    // region protected static
+    // region public static
 
     /**
      * creates a solved solution for given equationSystem
