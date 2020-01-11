@@ -28,6 +28,8 @@ public class Solution<E extends AbstractEquationSystem, T extends Number> {
      * @param state          state of solution
      */
     public Solution(E equationSystem, List<T> solution, State state) {
+        if (equationSystem == null || solution == null || state == null)
+            throw new IllegalArgumentException("arguments must not be null");
         this.equationSystem = equationSystem;
         this.solution = solution;
         this.state = state;
