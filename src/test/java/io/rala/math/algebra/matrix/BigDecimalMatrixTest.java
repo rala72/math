@@ -13,6 +13,20 @@ class BigDecimalMatrixTest {
     // region constructors
 
     @Test
+    void constructorWithNegativeSize() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> new BigDecimalMatrix(-1)
+        ); // assert exception message?
+    }
+
+    @Test
+    void constructorWithToLargeSize() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> new BigDecimalMatrix(Integer.MAX_VALUE)
+        ); // assert exception message?
+    }
+
+    @Test
     void constructorWithSize0() {
         assertMatrix(new BigDecimalMatrix(0), 0);
     }

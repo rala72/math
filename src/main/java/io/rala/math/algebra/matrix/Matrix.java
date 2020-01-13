@@ -53,6 +53,7 @@ public class Matrix<T extends Number>
      * @param arithmetic   arithmetic for calculations
      * @param size         size of matrix
      * @param defaultValue default value of non-existing values
+     * @throws IllegalArgumentException if rows or cols is negative or size is to large
      */
     public Matrix(AbstractArithmetic<T> arithmetic, int size, T defaultValue) {
         this(arithmetic, size, size, defaultValue);
@@ -66,8 +67,13 @@ public class Matrix<T extends Number>
      * @param rows         rows of matrix
      * @param cols         cols of matrix
      * @param defaultValue default value of non-existing values
+     * @throws IllegalArgumentException if rows or cols is negative or size is to large
      */
     public Matrix(AbstractArithmetic<T> arithmetic, int rows, int cols, T defaultValue) {
+        if (rows < 0 || cols < 0)
+            throw new IllegalArgumentException("rows and cols have to be greater or equals to 0");
+        if (0 < rows && 0 < cols && (rows * cols < rows || rows * cols < cols))
+            throw new IllegalArgumentException("size is to large");
         this.arithmetic = arithmetic;
         this.rows = rows;
         this.cols = cols;
@@ -93,6 +99,7 @@ public class Matrix<T extends Number>
      *
      * @param size size of new matrix
      * @return new matrix instance
+     * @throws IllegalArgumentException if rows or cols is negative or size is to large
      * @see #newInstance(int, int)
      */
     protected final Matrix<T> newInstance(int size) {
@@ -105,6 +112,7 @@ public class Matrix<T extends Number>
      * @param rows rows of new matrix
      * @param cols cols of new matrix
      * @return new matrix instance
+     * @throws IllegalArgumentException if rows or cols is negative or size is to large
      */
     protected final Matrix<T> newInstance(int rows, int cols) {
         return new Matrix<>(getArithmetic(), rows, cols, getDefaultValue());

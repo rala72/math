@@ -12,6 +12,20 @@ class MatrixTest {
     // region constructors and newInstance
 
     @Test
+    void constructorWithNegativeSize() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> new TestMatrix(-1)
+        ); // assert exception message?
+    }
+
+    @Test
+    void constructorWithToLargeSize() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> new TestMatrix(Integer.MAX_VALUE)
+        ); // assert exception message?
+    }
+
+    @Test
     void constructorWithSize0() {
         assertMatrix(new TestMatrix(0), 0);
     }

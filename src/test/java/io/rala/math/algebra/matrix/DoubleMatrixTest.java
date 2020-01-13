@@ -11,6 +11,20 @@ class DoubleMatrixTest {
     // region constructors
 
     @Test
+    void constructorWithNegativeSize() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> new DoubleMatrix(-1)
+        ); // assert exception message?
+    }
+
+    @Test
+    void constructorWithToLargeSize() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> new DoubleMatrix(Integer.MAX_VALUE)
+        ); // assert exception message?
+    }
+
+    @Test
     void constructorWithSize0() {
         assertMatrix(new DoubleMatrix(0), 0);
     }
