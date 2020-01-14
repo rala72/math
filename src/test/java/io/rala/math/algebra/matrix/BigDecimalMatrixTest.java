@@ -751,7 +751,7 @@ class BigDecimalMatrixTest {
     }
 
     @Test
-    void equalsOfBigDecimalMatrixWithRow2Col3() {
+    void equalsOfMatrixWithRow2Col3() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2, 3);
         Assertions.assertEquals(
             matrix,
@@ -764,7 +764,7 @@ class BigDecimalMatrixTest {
     }
 
     @Test
-    void hashCodeOfBigDecimalMatrixWithRow2Col3() {
+    void hashCodeOfMatrixWithRow2Col3() {
         Assertions.assertEquals(
             925536,
             new BigDecimalMatrix(2, 3).hashCode()
@@ -772,7 +772,7 @@ class BigDecimalMatrixTest {
     }
 
     @Test
-    void toStringOfBigDecimalMatrixWithRow2Col3() {
+    void toStringOfMatrixWithRow2Col3() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2, 3);
         Assertions.assertEquals("2 3: []", matrix.toString());
     }

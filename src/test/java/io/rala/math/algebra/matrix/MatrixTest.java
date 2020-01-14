@@ -728,7 +728,7 @@ class MatrixTest {
     }
 
     @Test
-    void equalsOfTestMatrixWithRow2Col3() {
+    void equalsOfMatrixWithRow2Col3() {
         TestMatrix matrix = new TestMatrix(2, 3);
         Assertions.assertEquals(
             matrix,
@@ -741,7 +741,7 @@ class MatrixTest {
     }
 
     @Test
-    void hashCodeOfTestMatrixWithRow2Col3() {
+    void hashCodeOfMatrixWithRow2Col3() {
         Assertions.assertEquals(
             925536,
             new TestMatrix(2, 3).hashCode()
@@ -749,7 +749,7 @@ class MatrixTest {
     }
 
     @Test
-    void toStringOfTestMatrixWithRow2Col3() {
+    void toStringOfMatrixWithRow2Col3() {
         TestMatrix matrix = new TestMatrix(2, 3);
         Assertions.assertEquals("2 3: []", matrix.toString());
     }
