@@ -1,6 +1,7 @@
 package io.rala.math.algebra.matrix;
 
 import io.rala.math.arithmetic.core.IntegerArithmetic;
+import io.rala.math.testUtils.SerializableTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -751,7 +752,7 @@ class BigDecimalMatrixTest {
     }
 
     @Test
-    void equalsOfMatrixWithRow2Col3() {
+    void equalsOfBigDecimalMatrixWithRow2Col3() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2, 3);
         Assertions.assertEquals(
             matrix,
@@ -764,7 +765,7 @@ class BigDecimalMatrixTest {
     }
 
     @Test
-    void hashCodeOfMatrixWithRow2Col3() {
+    void hashCodeOfBigDecimalMatrixWithRow2Col3() {
         Assertions.assertEquals(
             925536,
             new BigDecimalMatrix(2, 3).hashCode()
@@ -772,9 +773,17 @@ class BigDecimalMatrixTest {
     }
 
     @Test
-    void toStringOfMatrixWithRow2Col3() {
+    void toStringOfBigDecimalMatrixWithRow2Col3() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2, 3);
         Assertions.assertEquals("2 3: []", matrix.toString());
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new BigDecimalMatrix(0),
+            BigDecimalMatrix.class
+        );
     }
 
     // endregion

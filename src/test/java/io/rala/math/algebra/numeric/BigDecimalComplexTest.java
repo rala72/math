@@ -2,6 +2,7 @@ package io.rala.math.algebra.numeric;
 
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Vector;
+import io.rala.math.testUtils.SerializableTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -631,6 +632,14 @@ class BigDecimalComplexTest {
             1, complex.compareTo(new BigDecimalComplex(
                 BigDecimal.valueOf(2), BigDecimal.ONE
             ))
+        );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new BigDecimalComplex(),
+            BigDecimalComplex.class
         );
     }
 

@@ -4,13 +4,14 @@ import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Rotatable;
 import io.rala.math.utils.Validatable;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * class which holds a vector in a 2d area with x &amp; y
  */
 public class Vector implements Validatable, Rotatable<Vector>,
-    Copyable<Vector>, Comparable<Vector> {
+    Copyable<Vector>, Comparable<Vector>, Serializable {
     // region attributes
 
     private double x;

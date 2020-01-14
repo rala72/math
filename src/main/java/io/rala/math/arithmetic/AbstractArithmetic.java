@@ -1,5 +1,6 @@
 package io.rala.math.arithmetic;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Objects;
  *
  * @param <T> number class of arithmetic
  */
-public abstract class AbstractArithmetic<T extends Number> {
+public abstract class AbstractArithmetic<T extends Number> implements Serializable {
     // region fromInt, fromDouble and signum
 
     /**

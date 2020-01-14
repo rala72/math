@@ -4,6 +4,7 @@ import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.StreamIterable;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -16,7 +17,7 @@ import java.util.stream.StreamSupport;
  * @param <T> number class
  */
 public class Matrix<T extends Number>
-    implements Copyable<Matrix<T>>, StreamIterable<Matrix<T>.Field> {
+    implements Copyable<Matrix<T>>, StreamIterable<Matrix<T>.Field>, Serializable {
     // region protected exception messages
     protected static final String EXCEPTION_SIZE_PREFIX = "size: ";
     protected static final String EXCEPTION_ROW_PREFIX = "row: ";

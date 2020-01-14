@@ -2,6 +2,7 @@ package io.rala.math.arithmetic.result;
 
 import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
+import io.rala.math.testUtils.SerializableTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -112,6 +113,14 @@ class LongDoubleResultArithmeticTest {
             "rArithmetic=DoubleArithmetic}";
         Assertions.assertEquals(toString,
             new LongDoubleResultArithmetic().toString()
+        );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new LongDoubleResultArithmetic(),
+            LongDoubleResultArithmetic.class
         );
     }
 

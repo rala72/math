@@ -1,5 +1,6 @@
 package io.rala.math.arithmetic.core;
 
+import io.rala.math.testUtils.SerializableTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -133,6 +134,14 @@ class LongArithmeticTest {
     void toStringOfArithmetic() {
         Assertions.assertEquals("LongArithmetic",
             new LongArithmetic().toString()
+        );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new LongArithmetic(),
+            LongArithmetic.class
         );
     }
 

@@ -3,6 +3,7 @@ package io.rala.math.geometry;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Validatable;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Objects;
  * if line is vertical m is considered to be {@link Double#NaN}<br>
  * {@code y=b}
  */
-public class Line implements Validatable, Copyable<Line>, Comparable<Line> {
+public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Serializable {
     // region attributes
 
     private double m;

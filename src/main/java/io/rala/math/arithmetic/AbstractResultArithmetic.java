@@ -1,5 +1,6 @@
 package io.rala.math.arithmetic;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -9,7 +10,7 @@ import java.util.function.Function;
  * @param <T> number class of arithmetic input
  * @param <R> number class of arithmetic result
  */
-public abstract class AbstractResultArithmetic<T extends Number, R extends Number> {
+public abstract class AbstractResultArithmetic<T extends Number, R extends Number> implements Serializable {
 
     private final AbstractArithmetic<T> tArithmetic;
     private final AbstractArithmetic<R> rArithmetic;

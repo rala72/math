@@ -4,6 +4,7 @@ import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.core.DoubleArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.arithmetic.core.LongArithmetic;
+import io.rala.math.testUtils.SerializableTestUtils;
 import io.rala.math.testUtils.algebra.TestFraction;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -348,6 +349,14 @@ class LongDoubleFractionTest {
         );
         Assertions.assertEquals(
             1, complex.compareTo(new LongDoubleFraction(1, 2))
+        );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new LongDoubleFraction(2, 3),
+            LongDoubleFraction.class
         );
     }
 

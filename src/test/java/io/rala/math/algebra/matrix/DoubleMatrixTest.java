@@ -1,6 +1,7 @@
 package io.rala.math.algebra.matrix;
 
 import io.rala.math.arithmetic.core.IntegerArithmetic;
+import io.rala.math.testUtils.SerializableTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -712,7 +713,7 @@ class DoubleMatrixTest {
     }
 
     @Test
-    void equalsOfMatrixWithRow2Col3() {
+    void equalsOfDoubleMatrixWithRow2Col3() {
         DoubleMatrix matrix = new DoubleMatrix(2, 3);
         Assertions.assertEquals(
             matrix,
@@ -725,7 +726,7 @@ class DoubleMatrixTest {
     }
 
     @Test
-    void hashCodeOfMatrixWithRow2Col3() {
+    void hashCodeOfDoubleMatrixWithRow2Col3() {
         Assertions.assertEquals(
             925536,
             new DoubleMatrix(2, 3).hashCode()
@@ -733,9 +734,17 @@ class DoubleMatrixTest {
     }
 
     @Test
-    void toStringOfMatrixWithRow2Col3() {
+    void toStringOfDoubleMatrixWithRow2Col3() {
         DoubleMatrix matrix = new DoubleMatrix(2, 3);
         Assertions.assertEquals("2 3: []", matrix.toString());
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new DoubleMatrix(0),
+            DoubleMatrix.class
+        );
     }
 
     // endregion

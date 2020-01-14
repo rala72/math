@@ -1,5 +1,6 @@
 package io.rala.math.geometry;
 
+import io.rala.math.testUtils.SerializableTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -284,6 +285,14 @@ class TriangleTest {
             1, triangle.compareTo(new Triangle(
                 new Point(0.5, 1), new Point(1, 0.5), new Point(1)
             ))
+        );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new Triangle(new Point(), new Point(), new Point()),
+            Triangle.class
         );
     }
 

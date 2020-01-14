@@ -1,5 +1,6 @@
 package io.rala.math.arithmetic;
 
+import io.rala.math.testUtils.SerializableTestUtils;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -246,6 +247,14 @@ class AbstractArithmeticTest {
     void toStringOfAbstractArithmetic() {
         Assertions.assertEquals("TestAbstractArithmetic",
             new TestAbstractArithmetic().toString()
+        );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new TestAbstractArithmetic(),
+            TestAbstractArithmetic.class
         );
     }
 

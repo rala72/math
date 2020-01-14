@@ -1,6 +1,7 @@
 package io.rala.math.arithmetic.core;
 
 import io.rala.math.arithmetic.AbstractArithmetic;
+import io.rala.math.testUtils.SerializableTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -138,6 +139,14 @@ class DoubleArithmeticTest {
     void toStringOfArithmetic() {
         Assertions.assertEquals("DoubleArithmetic",
             new DoubleArithmetic().toString()
+        );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new DoubleArithmetic(),
+            DoubleArithmetic.class
         );
     }
 

@@ -2,6 +2,7 @@ package io.rala.math.arithmetic.core;
 
 import io.rala.math.algebra.numeric.Fraction;
 import io.rala.math.arithmetic.AbstractArithmetic;
+import io.rala.math.testUtils.SerializableTestUtils;
 import io.rala.math.testUtils.algebra.TestFraction;
 import io.rala.math.testUtils.arithmetic.TestFractionArithmetic;
 import org.junit.jupiter.api.Assertions;
@@ -208,6 +209,14 @@ class FractionArithmeticTest {
     void toStringOfArithmetic() {
         Assertions.assertEquals("TestFractionArithmetic",
             new TestFractionArithmetic().toString()
+        );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new TestFractionArithmetic(),
+            TestFractionArithmetic.class
         );
     }
 

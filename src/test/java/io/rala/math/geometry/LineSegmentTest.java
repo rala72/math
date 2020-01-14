@@ -1,5 +1,6 @@
 package io.rala.math.geometry;
 
+import io.rala.math.testUtils.SerializableTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -246,6 +247,11 @@ class LineSegmentTest {
         Assertions.assertEquals(
             1, lineSegment.compareTo(new LineSegment(new Point(1), new Point(1)))
         );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(new LineSegment(new Point()), LineSegment.class);
     }
 
     // endregion
