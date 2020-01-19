@@ -1250,6 +1250,10 @@ class MatrixTest {
             );
             previous = field;
         }
+
+        Assertions.assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.new Field(matrix.size(), 0)
+        ); // assert exception message?
     }
 
     // endregion

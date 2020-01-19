@@ -228,7 +228,7 @@ public class Matrix<T extends Number>
      * @param col   col where value should be stored
      * @param value new value to store
      * @return old value if existed or {@link #getDefaultValue()}
-     * @throws IndexOutOfBoundsException if index is invalid
+     * @throws IndexOutOfBoundsException if row or col is invalid
      * @see #setValue(int, Number)
      */
     public T setValue(int row, int col, T value) {
@@ -254,7 +254,7 @@ public class Matrix<T extends Number>
      * @param row row of requested value
      * @param col col of requested value
      * @return current value on given position
-     * @throws IndexOutOfBoundsException if index is invalid
+     * @throws IndexOutOfBoundsException if row or col is invalid
      * @see #getValue(int)
      */
     public T getValue(int row, int col) {
@@ -276,7 +276,7 @@ public class Matrix<T extends Number>
      * @param row row of value to remove
      * @param col col of value to remove
      * @return old value if existed or {@link #getDefaultValue()}
-     * @throws IndexOutOfBoundsException if index is invalid
+     * @throws IndexOutOfBoundsException if row or col is invalid
      * @see #removeValue(int)
      */
     public T removeValue(int row, int col) {
@@ -861,8 +861,13 @@ public class Matrix<T extends Number>
      * @param row row of requested index
      * @param col col of requested index
      * @return index of requested position
+     * @throws IndexOutOfBoundsException if row or col is invalid
      */
     protected final int getIndexOfRowAndCol(int row, int col) {
+        if (!isRowValid(row))
+            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
+        if (!isColValid(col))
+            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
         return row * getCols() + col;
     }
 
@@ -933,6 +938,7 @@ public class Matrix<T extends Number>
          * @param row   row of field
          * @param col   col of field
          * @param value value of field
+         * @throws IndexOutOfBoundsException if row or col is invalid
          * @see #Field(int, Number)
          * @see #getIndexOfRowAndCol(int, int)
          */
@@ -943,8 +949,11 @@ public class Matrix<T extends Number>
         /**
          * @param index index of field
          * @param value value of field
+         * @throws IndexOutOfBoundsException if index is invalid
          */
         protected Field(int index, T value) {
+            if (!isIndexValid(index))
+                throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
             this.index = index;
             this.value = value;
         }
