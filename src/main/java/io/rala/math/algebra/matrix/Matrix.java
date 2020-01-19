@@ -227,10 +227,9 @@ public class Matrix<T extends Number>
      * @param row   row where value should be stored
      * @param col   col where value should be stored
      * @param value new value to store
-     * @return old value if existed - may return {@code null} if it was empty
+     * @return old value if existed or {@link #getDefaultValue()}
      * @throws IndexOutOfBoundsException if index is invalid
      * @see #setValue(int, Number)
-     * @see Map#put(Object, Object)
      */
     public T setValue(int row, int col, T value) {
         return setValue(getIndexOfRowAndCol(row, col), value);
@@ -239,16 +238,16 @@ public class Matrix<T extends Number>
     /**
      * @param index index where value should be stored
      * @param value new value to store
-     * @return old value if existed - may return {@code null} if it was empty
+     * @return old value if existed or {@link #getDefaultValue()}
      * @throws IndexOutOfBoundsException if index is invalid
-     * @see Map#put(Object, Object)
      */
     public T setValue(int index, T value) {
         if (!isIndexValid(index))
             throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
-        return value == null && getDefaultValue() == null ||
+        T previous = value == null && getDefaultValue() == null ||
             value != null && value.equals(getDefaultValue()) ?
             removeValue(index) : matrix.put(index, value);
+        return previous != null ? previous : getDefaultValue();
     }
 
     /**
@@ -257,7 +256,6 @@ public class Matrix<T extends Number>
      * @return current value on given position
      * @throws IndexOutOfBoundsException if index is invalid
      * @see #getValue(int)
-     * @see Map#getOrDefault(Object, Object)
      */
     public T getValue(int row, int col) {
         return getValue(getIndexOfRowAndCol(row, col));
@@ -267,7 +265,6 @@ public class Matrix<T extends Number>
      * @param index index of requested value
      * @return current value on given position
      * @throws IndexOutOfBoundsException if index is invalid
-     * @see Map#getOrDefault(Object, Object)
      */
     public T getValue(int index) {
         if (!isIndexValid(index))
@@ -278,10 +275,9 @@ public class Matrix<T extends Number>
     /**
      * @param row row of value to remove
      * @param col col of value to remove
-     * @return old value - may return {@code null} if it was empty
+     * @return old value if existed or {@link #getDefaultValue()}
      * @throws IndexOutOfBoundsException if index is invalid
      * @see #removeValue(int)
-     * @see Map#remove(Object)
      */
     public T removeValue(int row, int col) {
         return removeValue(getIndexOfRowAndCol(row, col));
@@ -289,14 +285,14 @@ public class Matrix<T extends Number>
 
     /**
      * @param index index of value to remove
-     * @return old value - may return {@code null} if it was empty
+     * @return old value if existed or {@link #getDefaultValue()}
      * @throws IndexOutOfBoundsException if index is invalid
-     * @see Map#remove(Object)
      */
     public T removeValue(int index) {
         if (!isIndexValid(index))
             throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
-        return getMatrix().remove(index);
+        T previous = getMatrix().remove(index);
+        return previous != null ? previous : getDefaultValue();
     }
 
     // endregion

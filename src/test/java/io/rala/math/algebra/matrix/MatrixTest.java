@@ -186,7 +186,7 @@ class MatrixTest {
     @Test
     void setValueByIndex0WhichWasEmpty() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertNull(matrix.setValue(0, 1));
+        Assertions.assertEquals(0d, matrix.setValue(0, 1));
         Assertions.assertEquals(1, matrix.getValue(0));
         Assertions.assertEquals(1, matrix.getValue(0, 0));
         // assert all other are unset
@@ -195,7 +195,7 @@ class MatrixTest {
     @Test
     void setValueByIndex3WhichWasEmpty() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertNull(matrix.setValue(3, 1));
+        Assertions.assertEquals(0d, matrix.setValue(3, 1));
         Assertions.assertEquals(1, matrix.getValue(3));
         Assertions.assertEquals(1, matrix.getValue(1, 1));
         // assert all other are unset
@@ -220,7 +220,7 @@ class MatrixTest {
     @Test
     void setValueByRow0Col0WhichWasEmpty() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertNull(matrix.setValue(0, 0, 1));
+        Assertions.assertEquals(0d, matrix.setValue(0, 0, 1));
         Assertions.assertEquals(1, matrix.getValue(0));
         Assertions.assertEquals(1, matrix.getValue(0, 0));
         // assert all other are unset
@@ -229,7 +229,7 @@ class MatrixTest {
     @Test
     void setValueByRow1Col0WhichWasEmpty() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertNull(matrix.setValue(1, 0, 1));
+        Assertions.assertEquals(0d, matrix.setValue(1, 0, 1));
         Assertions.assertEquals(1, matrix.getValue(1, 0));
         Assertions.assertEquals(1, matrix.getValue(2));
         // assert all other are unset
@@ -270,7 +270,7 @@ class MatrixTest {
     @Test
     void removeValueByIndex0WhichWasEmpty() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertNull(matrix.removeValue(0));
+        Assertions.assertEquals(0d, matrix.removeValue(0));
     }
 
     @Test
@@ -292,7 +292,7 @@ class MatrixTest {
     @Test
     void removeValueByRow0Col0WhichWasEmpty() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertNull(matrix.removeValue(0, 0));
+        Assertions.assertEquals(0d, matrix.removeValue(0, 0));
     }
 
     @Test
