@@ -38,7 +38,6 @@ public class LinearEquationArgumentsStreamFactory {
                     List.of(2d, 1d, -0.5)
                 )
             ),
-
             Arguments.of(
                 Solution.solved(
                     new LinearEquationSystem<>(
