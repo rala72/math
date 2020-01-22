@@ -49,8 +49,6 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
             reSwapCols();
             sortRows();
         }
-        if (hasNoSolutions())
-            return Solution.unsolvable(getEquationSystem());
         if (hasInfiniteSolutions())
             return Solution.infinite(getEquationSystem());
         return toSolvedSolution();
