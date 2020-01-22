@@ -128,83 +128,36 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
      * @return line segment of height <code>a</code> starting at {@link #getA()}
      */
     public LineSegment heightA() {
-        double aL = edgeA().length();
-        double a_ = Math.sqrt(
-            Math.pow(edgeC().length(), 2) -
-                Math.pow(heightALength(), 2)
-        );
-        double c_ = Math.sqrt(
-            Math.pow(aL, 2) - Math.pow(heightCLength(), 2)
-        );
-        double lengthRatio = a_ < aL ? a_ / aL : aL / a_;
-        double requestedX = heightCLength() * lengthRatio;
-        double requestedY = c_ / lengthRatio;
-        return new LineSegment(getA(),
-            new Point(getA().getX() + requestedX, getA().getY() + requestedY)
-        );
+        return getHeight(edgeA().toLine(), getA());
     }
 
     /**
      * @return line segment of height <code>b</code> starting at {@link #getB()}
      */
     public LineSegment heightB() {
-        double bL = edgeB().length();
-        double b_ = Math.sqrt(
-            Math.pow(edgeC().length(), 2) -
-                Math.pow(heightBLength(), 2)
-        );
-        double c_ = Math.sqrt(
-            Math.pow(bL, 2) -
-                Math.pow(heightCLength(), 2)
-        );
-        double lengthRatio = b_ < bL ? b_ / bL : bL / b_;
-        double requestedX = c_ * lengthRatio;
-        double requestedY = heightCLength() * lengthRatio;
-        return new LineSegment(getB(),
-            new Point(getB().getX() + requestedX, getB().getY() - requestedY)
-        );
+        return getHeight(edgeB().toLine(), getB());
     }
 
     /**
      * @return line segment of height <code>c</code> starting at {@link #getC()}
      */
     public LineSegment heightC() {
-        double bC = edgeC().length();
-        double c_ = Math.sqrt(
-            Math.pow(edgeA().length(), 2) -
-                Math.pow(heightCLength(), 2)
-        );
-        double a_ = Math.sqrt(
-            Math.pow(bC, 2) -
-                Math.pow(heightALength(), 2)
-        );
-        double lengthRatio = c_ < bC ? c_ / bC : bC / c_;
-        double requestedX = a_ / lengthRatio;
-        double requestedY = heightALength() * lengthRatio;
-        return new LineSegment(getC(),
-            new Point(getC().getX() - requestedX, getC().getY() + requestedY)
-        );
+        return getHeight(edgeC().toLine(), getC());
     }
 
     /**
-     * @return <code>2*A/a</code>
+     * @param edge  edge to get height from
+     * @param point point to get height from
+     * @return height starting at {@code point} and ending at intersection with {@code edge}
      */
-    protected double heightALength() {
-        return 2 * area() / edgeA().length();
-    }
-
-    /**
-     * @return <code>2*A/b</code>
-     */
-    protected double heightBLength() {
-        return 2 * area() / edgeB().length();
-    }
-
-    /**
-     * @return <code>2*A/c</code>
-     */
-    protected double heightCLength() {
-        return 2 * area() / edgeC().length();
+    protected LineSegment getHeight(Line edge, Point point) {
+        double m = edge.isVertical() ? 0 :
+            edge.isHorizontal() ? Double.NaN :
+                -1 / edge.getM();
+        double b = Double.isNaN(m) ? point.getX() :
+            point.getY() - m * point.getX();
+        Line heightLine = new Line(m, b);
+        return new LineSegment(point, heightLine.intersection(edge));
     }
 
     // endregion

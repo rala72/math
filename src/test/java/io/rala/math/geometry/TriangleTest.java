@@ -75,42 +75,50 @@ class TriangleTest {
 
     @Test
     void heightsOfTriangleWithA00B01C11() {
-        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
+        Triangle triangle = new Triangle(
+            new Point(),
+            new Point(0, 1),
+            new Point(1, 1)
+        );
 
         LineSegment heightA = triangle.heightA();
-        Assertions.assertEquals(1.0000000000000002, heightA.length());
+        Assertions.assertEquals(1, heightA.length());
         Assertions.assertEquals(triangle.getA(), heightA.getA());
-        Assertions.assertEquals(new Point(2.5809568279517837e-8, 1), heightA.getB()); // point b
+        Assertions.assertEquals(triangle.getB(), heightA.getB());
 
         LineSegment heightB = triangle.heightB();
-        Assertions.assertEquals(0.7071067811865478, heightB.length());
+        Assertions.assertEquals(Math.sqrt(2) / 2, heightB.length());
         Assertions.assertEquals(triangle.getB(), heightB.getA());
-        Assertions.assertEquals(new Point(0.5000000000000003, 0.5), heightB.getB());
+        Assertions.assertEquals(triangle.edgeB().halvingPoint(), heightB.getB());
 
         LineSegment heightC = triangle.heightC();
-        Assertions.assertEquals(1.0000000000000002, heightC.length());
+        Assertions.assertEquals(1, heightC.length());
         Assertions.assertEquals(triangle.getC(), heightC.getA());
-        Assertions.assertEquals(new Point(0, 1.0000000258095683), heightC.getB()); // point c
+        Assertions.assertEquals(triangle.getB(), heightC.getB());
     }
 
     @Test
     void heightsOfTriangleWithA00B10C11() {
-        Triangle triangle = new Triangle(new Point(), new Point(1, 0), new Point(1, 1));
+        Triangle triangle = new Triangle(
+            new Point(),
+            new Point(1, 0),
+            new Point(1, 1)
+        );
 
         LineSegment heightA = triangle.heightA();
-        Assertions.assertEquals(1.0000000000000002, heightA.length());
+        Assertions.assertEquals(1, heightA.length());
         Assertions.assertEquals(triangle.getA(), heightA.getA());
-        Assertions.assertEquals(new Point(2.5809568279517837e-8, 1), heightA.getB()); // point b
+        Assertions.assertEquals(triangle.getB(), heightA.getB());
 
         LineSegment heightB = triangle.heightB();
-        Assertions.assertEquals(0.7071067811865478, heightB.length());
+        Assertions.assertEquals(Math.sqrt(2) / 2, heightB.length());
         Assertions.assertEquals(triangle.getB(), heightB.getA());
-        Assertions.assertEquals(new Point(0.5000000000000003, 0.5), heightB.getB());
+        Assertions.assertEquals(triangle.edgeB().halvingPoint(), heightB.getB());
 
         LineSegment heightC = triangle.heightC();
-        Assertions.assertEquals(1.0000000000000002, heightC.length());
+        Assertions.assertEquals(1, heightC.length());
         Assertions.assertEquals(triangle.getC(), heightC.getA());
-        Assertions.assertEquals(new Point(0, 1.0000000258095683), heightC.getB()); // point c
+        Assertions.assertEquals(triangle.getB(), heightC.getB());
     }
 
     // endregion
