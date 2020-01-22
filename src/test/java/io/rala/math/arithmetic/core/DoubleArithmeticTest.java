@@ -33,7 +33,7 @@ class DoubleArithmeticTest {
 
     // endregion
 
-    // region absolute and negate
+    // region absolute, negate and compare
 
     @Test
     void absoluteM1() {
@@ -43,6 +43,19 @@ class DoubleArithmeticTest {
     @Test
     void negate1() {
         Assertions.assertEquals(-1, arithmetic.negate(1d));
+    }
+
+    @Test
+    void compare() {
+        Assertions.assertEquals(
+            0, arithmetic.compare(1d, 1d)
+        );
+        Assertions.assertEquals(
+            -1, arithmetic.compare(1d, 2d)
+        );
+        Assertions.assertEquals(
+            1, arithmetic.compare(2d, 1d)
+        );
     }
 
     // endregion

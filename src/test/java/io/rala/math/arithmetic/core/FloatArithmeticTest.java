@@ -33,7 +33,7 @@ class FloatArithmeticTest {
 
     // endregion
 
-    // region absolute and negate
+    // region absolute, negate and compare
 
     @Test
     void absoluteM1() {
@@ -43,6 +43,19 @@ class FloatArithmeticTest {
     @Test
     void negate1() {
         Assertions.assertEquals(-1, arithmetic.negate(1f));
+    }
+
+    @Test
+    void compare() {
+        Assertions.assertEquals(
+            0, arithmetic.compare(1f, 1f)
+        );
+        Assertions.assertEquals(
+            -1, arithmetic.compare(1f, 2f)
+        );
+        Assertions.assertEquals(
+            1, arithmetic.compare(2f, 1f)
+        );
     }
 
     // endregion

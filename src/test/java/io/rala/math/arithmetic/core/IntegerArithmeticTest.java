@@ -32,7 +32,7 @@ class IntegerArithmeticTest {
 
     // endregion
 
-    // region absolute and negate
+    // region absolute, negate and compare
 
     @Test
     void absoluteM1() {
@@ -42,6 +42,19 @@ class IntegerArithmeticTest {
     @Test
     void negate1() {
         Assertions.assertEquals(-1, arithmetic.negate(1));
+    }
+
+    @Test
+    void compare() {
+        Assertions.assertEquals(
+            0, arithmetic.compare(1, 1)
+        );
+        Assertions.assertEquals(
+            -1, arithmetic.compare(1, 2)
+        );
+        Assertions.assertEquals(
+            1, arithmetic.compare(2, 1)
+        );
     }
 
     // endregion

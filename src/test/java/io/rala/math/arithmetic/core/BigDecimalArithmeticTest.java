@@ -36,7 +36,7 @@ class BigDecimalArithmeticTest {
 
     // endregion
 
-    // region absolute and negate
+    // region absolute, negate and compare
 
     @Test
     void absoluteM1() {
@@ -46,6 +46,19 @@ class BigDecimalArithmeticTest {
     @Test
     void negate1() {
         Assertions.assertEquals(BigDecimal.ONE.negate(), arithmetic.negate(BigDecimal.ONE));
+    }
+
+    @Test
+    void compare() {
+        Assertions.assertEquals(
+            0, arithmetic.compare(BigDecimal.ONE, BigDecimal.ONE)
+        );
+        Assertions.assertEquals(
+            -1, arithmetic.compare(BigDecimal.ONE, BigDecimal.valueOf(2))
+        );
+        Assertions.assertEquals(
+            1, arithmetic.compare(BigDecimal.valueOf(2), BigDecimal.ONE)
+        );
     }
 
     // endregion

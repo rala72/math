@@ -32,7 +32,7 @@ class LongArithmeticTest {
 
     // endregion
 
-    // region absolute and negate
+    // region absolute, negate and compare
 
     @Test
     void absoluteM1() {
@@ -42,6 +42,19 @@ class LongArithmeticTest {
     @Test
     void negate1() {
         Assertions.assertEquals(-1, arithmetic.negate(1L));
+    }
+
+    @Test
+    void compare() {
+        Assertions.assertEquals(
+            0, arithmetic.compare(1L, 1L)
+        );
+        Assertions.assertEquals(
+            -1, arithmetic.compare(1L, 2L)
+        );
+        Assertions.assertEquals(
+            1, arithmetic.compare(2L, 1L)
+        );
     }
 
     // endregion

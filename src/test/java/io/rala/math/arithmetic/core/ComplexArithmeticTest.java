@@ -35,7 +35,7 @@ class ComplexArithmeticTest {
 
     // endregion
 
-    // region absolute and negate
+    // region absolute, negate and compare
 
     @Test
     void absoluteReM1Im0() {
