@@ -65,8 +65,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
      * @return {@code true} if all elements are {@code 0}
      */
     protected final boolean areAllZero(Collection<T> collection) {
-        return collection.stream()
-            .allMatch(t -> getArithmetic().zero().equals(t));
+        return collection.stream().allMatch(t -> getArithmetic().isZero(t));
     }
 
     /**
