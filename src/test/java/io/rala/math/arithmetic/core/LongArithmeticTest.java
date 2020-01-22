@@ -57,6 +57,13 @@ class LongArithmeticTest {
         );
     }
 
+    @Test
+    void isZero() {
+        Assertions.assertTrue(arithmetic.isZero(0L));
+        Assertions.assertTrue(arithmetic.isZero(-0L));
+        Assertions.assertFalse(arithmetic.isZero(1L));
+    }
+
     // endregion
 
     // region sum, difference, product, quotient and modulo

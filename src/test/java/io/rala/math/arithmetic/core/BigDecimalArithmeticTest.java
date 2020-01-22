@@ -61,6 +61,13 @@ class BigDecimalArithmeticTest {
         );
     }
 
+    @Test
+    void isZero() {
+        Assertions.assertTrue(arithmetic.isZero(BigDecimal.ZERO));
+        Assertions.assertTrue(arithmetic.isZero(BigDecimal.ZERO.negate()));
+        Assertions.assertFalse(arithmetic.isZero(BigDecimal.ONE));
+    }
+
     // endregion
 
     // region sum, difference, product, quotient and modulo

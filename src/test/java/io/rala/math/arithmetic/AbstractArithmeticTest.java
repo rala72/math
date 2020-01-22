@@ -72,6 +72,13 @@ class AbstractArithmeticTest {
         );
     }
 
+    @Test
+    void isZero() {
+        Assertions.assertTrue(arithmetic.isZero(0));
+        Assertions.assertTrue(arithmetic.isZero(-0));
+        Assertions.assertFalse(arithmetic.isZero(1));
+    }
+
     // endregion
 
     // region sum, difference, product, quotient and modulo

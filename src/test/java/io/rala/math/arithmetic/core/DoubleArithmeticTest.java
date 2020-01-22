@@ -58,6 +58,13 @@ class DoubleArithmeticTest {
         );
     }
 
+    @Test
+    void isZero() {
+        Assertions.assertTrue(arithmetic.isZero(0d));
+        Assertions.assertTrue(arithmetic.isZero(-0d));
+        Assertions.assertFalse(arithmetic.isZero(1d));
+    }
+
     // endregion
 
     // region sum, difference, product, quotient and modulo

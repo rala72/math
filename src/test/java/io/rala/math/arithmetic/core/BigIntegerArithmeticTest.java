@@ -59,6 +59,13 @@ class BigIntegerArithmeticTest {
         );
     }
 
+    @Test
+    void isZero() {
+        Assertions.assertTrue(arithmetic.isZero(BigInteger.ZERO));
+        Assertions.assertTrue(arithmetic.isZero(BigInteger.ZERO.negate()));
+        Assertions.assertFalse(arithmetic.isZero(BigInteger.ONE));
+    }
+
     // endregion
 
     // region sum, difference, product, quotient and modulo

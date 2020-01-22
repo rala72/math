@@ -58,6 +58,13 @@ class FloatArithmeticTest {
         );
     }
 
+    @Test
+    void isZero() {
+        Assertions.assertTrue(arithmetic.isZero(0f));
+        Assertions.assertTrue(arithmetic.isZero(-0f));
+        Assertions.assertFalse(arithmetic.isZero(1f));
+    }
+
     // endregion
 
     // region sum, difference, product, quotient and modulo

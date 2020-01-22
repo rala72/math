@@ -90,6 +90,15 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
         return Double.compare(a.doubleValue(), b.doubleValue());
     }
 
+    /**
+     * @param a number to check
+     * @return {@code true} if {@code abs(a)} is {@code 0}
+     * @see #absolute(Number)
+     */
+    public boolean isZero(T a) {
+        return zero().equals(absolute(a));
+    }
+
     // endregion
 
     // region sum, difference, product, quotient and modulo
