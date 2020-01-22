@@ -66,7 +66,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @throws NotImplementedException if operation is not implemented
      */
     public T absolute(T a) {
-        return signum(a) < 0 ? negate(a) : a;
+        return signum(a) < 0 || Double.valueOf(signum(a)).equals(-0d) ? negate(a) : a;
     }
 
     /**
