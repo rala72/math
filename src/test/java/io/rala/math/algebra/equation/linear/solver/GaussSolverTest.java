@@ -41,20 +41,6 @@ class GaussSolverTest {
     }
 
     @Test
-    void solveUnsolvableLinearEquationSystemWithLessRowsThanCols() {
-        LinearEquationSystem<Double> equationSystem = new LinearEquationSystem<>(
-            DoubleMatrix.ofValuesByRows(1,
-                1, 0, 0, 0
-            )
-        );
-        GaussSolver<Double> solver = new GaussSolver<>(equationSystem);
-        Assertions.assertEquals(
-            Solution.unsolvable(equationSystem),
-            solver.solve()
-        );
-    }
-
-    @Test
     void solveInfiniteLinearEquationSystemWithLessRowsThanCols() {
         LinearEquationSystem<Double> equationSystem = new LinearEquationSystem<>(
             DoubleMatrix.ofValuesByRows(1,

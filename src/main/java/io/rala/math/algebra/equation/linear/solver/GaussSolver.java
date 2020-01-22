@@ -40,12 +40,8 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
         prepareMatrix();
         if (hasNoSolutions())
             return Solution.unsolvable(getEquationSystem());
-        if (getWorkingMatrix().getRows() < getWorkingMatrix().getCols() - 1) {
-            List<T> lastRow = getWorkingMatrix().getRow(getWorkingMatrix().getRows() - 1);
-            return getArithmetic().zero().equals(lastRow.get(lastRow.size() - 1)) ?
-                Solution.unsolvable(getEquationSystem()) :
-                Solution.infinite(getEquationSystem());
-        }
+        if (getWorkingMatrix().getRows() < getWorkingMatrix().getCols() - 1)
+            return Solution.infinite(getEquationSystem());
         solveBottomUp();
         if (hasInfiniteSolutions())
             return Solution.infinite(getEquationSystem());
