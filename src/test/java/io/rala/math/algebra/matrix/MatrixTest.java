@@ -1,6 +1,7 @@
 package io.rala.math.algebra.matrix;
 
 import io.rala.math.arithmetic.core.IntegerArithmetic;
+import io.rala.math.testUtils.SerializableTestUtils;
 import io.rala.math.testUtils.algebra.TestMatrix;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,20 @@ import java.util.List;
 
 class MatrixTest {
     // region constructors and newInstance
+
+    @Test
+    void constructorWithNegativeSize() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> new TestMatrix(-1)
+        ); // assert exception message?
+    }
+
+    @Test
+    void constructorWithToLargeSize() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> new TestMatrix(Integer.MAX_VALUE)
+        ); // assert exception message?
+    }
 
     @Test
     void constructorWithSize0() {
@@ -171,7 +186,7 @@ class MatrixTest {
     @Test
     void setValueByIndex0WhichWasEmpty() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertNull(matrix.setValue(0, 1));
+        Assertions.assertEquals(0d, matrix.setValue(0, 1));
         Assertions.assertEquals(1, matrix.getValue(0));
         Assertions.assertEquals(1, matrix.getValue(0, 0));
         // assert all other are unset
@@ -180,7 +195,7 @@ class MatrixTest {
     @Test
     void setValueByIndex3WhichWasEmpty() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertNull(matrix.setValue(3, 1));
+        Assertions.assertEquals(0d, matrix.setValue(3, 1));
         Assertions.assertEquals(1, matrix.getValue(3));
         Assertions.assertEquals(1, matrix.getValue(1, 1));
         // assert all other are unset
@@ -205,7 +220,7 @@ class MatrixTest {
     @Test
     void setValueByRow0Col0WhichWasEmpty() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertNull(matrix.setValue(0, 0, 1));
+        Assertions.assertEquals(0d, matrix.setValue(0, 0, 1));
         Assertions.assertEquals(1, matrix.getValue(0));
         Assertions.assertEquals(1, matrix.getValue(0, 0));
         // assert all other are unset
@@ -214,7 +229,7 @@ class MatrixTest {
     @Test
     void setValueByRow1Col0WhichWasEmpty() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertNull(matrix.setValue(1, 0, 1));
+        Assertions.assertEquals(0d, matrix.setValue(1, 0, 1));
         Assertions.assertEquals(1, matrix.getValue(1, 0));
         Assertions.assertEquals(1, matrix.getValue(2));
         // assert all other are unset
@@ -255,7 +270,7 @@ class MatrixTest {
     @Test
     void removeValueByIndex0WhichWasEmpty() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertNull(matrix.removeValue(0));
+        Assertions.assertEquals(0d, matrix.removeValue(0));
     }
 
     @Test
@@ -277,7 +292,7 @@ class MatrixTest {
     @Test
     void removeValueByRow0Col0WhichWasEmpty() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertNull(matrix.removeValue(0, 0));
+        Assertions.assertEquals(0d, matrix.removeValue(0, 0));
     }
 
     @Test
@@ -738,6 +753,14 @@ class MatrixTest {
     void toStringOfTestMatrixWithRow2Col3() {
         TestMatrix matrix = new TestMatrix(2, 3);
         Assertions.assertEquals("2 3: []", matrix.toString());
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new TestMatrix(0),
+            TestMatrix.class
+        );
     }
 
     // endregion
@@ -1227,6 +1250,10 @@ class MatrixTest {
             );
             previous = field;
         }
+
+        Assertions.assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.new Field(matrix.size(), 0)
+        ); // assert exception message?
     }
 
     // endregion

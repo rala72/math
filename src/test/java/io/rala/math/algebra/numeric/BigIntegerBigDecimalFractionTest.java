@@ -4,6 +4,7 @@ import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 import io.rala.math.arithmetic.core.BigIntegerArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
+import io.rala.math.testUtils.SerializableTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -435,6 +436,14 @@ class BigIntegerBigDecimalFractionTest {
             1, complex.compareTo(new BigIntegerBigDecimalFraction(
                 BigInteger.ONE, BigInteger.valueOf(3)
             ))
+        );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.valueOf(3)),
+            BigIntegerBigDecimalFraction.class
         );
     }
 

@@ -1,6 +1,7 @@
 package io.rala.math.algebra.matrix;
 
 import io.rala.math.arithmetic.core.IntegerArithmetic;
+import io.rala.math.testUtils.SerializableTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +10,20 @@ import java.util.List;
 
 class DoubleMatrixTest {
     // region constructors
+
+    @Test
+    void constructorWithNegativeSize() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> new DoubleMatrix(-1)
+        ); // assert exception message?
+    }
+
+    @Test
+    void constructorWithToLargeSize() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> new DoubleMatrix(Integer.MAX_VALUE)
+        ); // assert exception message?
+    }
 
     @Test
     void constructorWithSize0() {
@@ -156,7 +171,7 @@ class DoubleMatrixTest {
     @Test
     void setValueByIndex0WhichWasEmpty() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        Assertions.assertNull(matrix.setValue(0, 1d));
+        Assertions.assertEquals(0d, matrix.setValue(0, 1d));
         Assertions.assertEquals(1, matrix.getValue(0));
         Assertions.assertEquals(1, matrix.getValue(0, 0));
         // assert all other are unset
@@ -165,7 +180,7 @@ class DoubleMatrixTest {
     @Test
     void setValueByIndex3WhichWasEmpty() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        Assertions.assertNull(matrix.setValue(3, 1d));
+        Assertions.assertEquals(0d, matrix.setValue(3, 1d));
         Assertions.assertEquals(1, matrix.getValue(3));
         Assertions.assertEquals(1, matrix.getValue(1, 1));
         // assert all other are unset
@@ -190,7 +205,7 @@ class DoubleMatrixTest {
     @Test
     void setValueByRow0Col0WhichWasEmpty() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        Assertions.assertNull(matrix.setValue(0, 0, 1d));
+        Assertions.assertEquals(0d, matrix.setValue(0, 0, 1d));
         Assertions.assertEquals(1, matrix.getValue(0));
         Assertions.assertEquals(1, matrix.getValue(0, 0));
         // assert all other are unset
@@ -199,7 +214,7 @@ class DoubleMatrixTest {
     @Test
     void setValueByRow1Col0WhichWasEmpty() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        Assertions.assertNull(matrix.setValue(1, 0, 1d));
+        Assertions.assertEquals(0d, matrix.setValue(1, 0, 1d));
         Assertions.assertEquals(1, matrix.getValue(1, 0));
         Assertions.assertEquals(1, matrix.getValue(2));
         // assert all other are unset
@@ -240,7 +255,7 @@ class DoubleMatrixTest {
     @Test
     void removeValueByIndex0WhichWasEmpty() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        Assertions.assertNull(matrix.removeValue(0));
+        Assertions.assertEquals(0d, matrix.removeValue(0));
     }
 
     @Test
@@ -262,7 +277,7 @@ class DoubleMatrixTest {
     @Test
     void removeValueByRow0Col0WhichWasEmpty() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        Assertions.assertNull(matrix.removeValue(0, 0));
+        Assertions.assertEquals(0d, matrix.removeValue(0, 0));
     }
 
     @Test
@@ -722,6 +737,14 @@ class DoubleMatrixTest {
     void toStringOfDoubleMatrixWithRow2Col3() {
         DoubleMatrix matrix = new DoubleMatrix(2, 3);
         Assertions.assertEquals("2 3: []", matrix.toString());
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new DoubleMatrix(0),
+            DoubleMatrix.class
+        );
     }
 
     // endregion

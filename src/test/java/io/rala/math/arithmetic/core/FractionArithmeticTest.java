@@ -2,6 +2,7 @@ package io.rala.math.arithmetic.core;
 
 import io.rala.math.algebra.numeric.Fraction;
 import io.rala.math.arithmetic.AbstractArithmetic;
+import io.rala.math.testUtils.SerializableTestUtils;
 import io.rala.math.testUtils.algebra.TestFraction;
 import io.rala.math.testUtils.arithmetic.TestFractionArithmetic;
 import org.junit.jupiter.api.Assertions;
@@ -65,6 +66,13 @@ class FractionArithmeticTest {
         Assertions.assertEquals(
             1, arithmetic.compare(complex, new TestFraction(1, 2))
         );
+    }
+
+    @Test
+    void isZero() {
+        Assertions.assertTrue(arithmetic.isZero(new TestFraction(0)));
+        Assertions.assertTrue(arithmetic.isZero(new TestFraction(-0)));
+        Assertions.assertFalse(arithmetic.isZero(new TestFraction(1)));
     }
 
     // endregion
@@ -208,6 +216,14 @@ class FractionArithmeticTest {
     void toStringOfArithmetic() {
         Assertions.assertEquals("TestFractionArithmetic",
             new TestFractionArithmetic().toString()
+        );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new TestFractionArithmetic(),
+            TestFractionArithmetic.class
         );
     }
 

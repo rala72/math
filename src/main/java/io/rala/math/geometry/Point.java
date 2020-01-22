@@ -5,13 +5,14 @@ import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
 import io.rala.math.utils.Validatable;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * class which holds a point in a 2d area with x &amp; y
  */
 public class Point implements Validatable, Movable<Point>, Rotatable<Point>,
-    Copyable<Point>, Comparable<Point> {
+    Copyable<Point>, Comparable<Point>, Serializable {
     // region attributes
 
     private double x;
@@ -51,8 +52,8 @@ public class Point implements Validatable, Movable<Point>, Rotatable<Point>,
      * @see #Point(double)
      */
     public Point(double x, double y) {
-        this.x = x;
-        this.y = y;
+        setX(x);
+        setY(y);
     }
 
     // endregion

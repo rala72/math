@@ -1,6 +1,7 @@
 package io.rala.math.arithmetic.core;
 
 import io.rala.math.arithmetic.AbstractArithmetic;
+import io.rala.math.testUtils.SerializableTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -32,7 +33,7 @@ class DoubleArithmeticTest {
 
     // endregion
 
-    // region absolute and negate
+    // region absolute, negate and compare
 
     @Test
     void absoluteM1() {
@@ -42,6 +43,26 @@ class DoubleArithmeticTest {
     @Test
     void negate1() {
         Assertions.assertEquals(-1, arithmetic.negate(1d));
+    }
+
+    @Test
+    void compare() {
+        Assertions.assertEquals(
+            0, arithmetic.compare(1d, 1d)
+        );
+        Assertions.assertEquals(
+            -1, arithmetic.compare(1d, 2d)
+        );
+        Assertions.assertEquals(
+            1, arithmetic.compare(2d, 1d)
+        );
+    }
+
+    @Test
+    void isZero() {
+        Assertions.assertTrue(arithmetic.isZero(0d));
+        Assertions.assertTrue(arithmetic.isZero(-0d));
+        Assertions.assertFalse(arithmetic.isZero(1d));
     }
 
     // endregion
@@ -138,6 +159,14 @@ class DoubleArithmeticTest {
     void toStringOfArithmetic() {
         Assertions.assertEquals("DoubleArithmetic",
             new DoubleArithmetic().toString()
+        );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new DoubleArithmetic(),
+            DoubleArithmetic.class
         );
     }
 

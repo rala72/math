@@ -4,6 +4,7 @@ import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.StreamIterable;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -16,7 +17,7 @@ import java.util.stream.StreamSupport;
  * @param <T> number class
  */
 public class Matrix<T extends Number>
-    implements Copyable<Matrix<T>>, StreamIterable<Matrix<T>.Field> {
+    implements Copyable<Matrix<T>>, StreamIterable<Matrix<T>.Field>, Serializable {
     // region protected exception messages
     protected static final String EXCEPTION_SIZE_PREFIX = "size: ";
     protected static final String EXCEPTION_ROW_PREFIX = "row: ";
@@ -53,6 +54,7 @@ public class Matrix<T extends Number>
      * @param arithmetic   arithmetic for calculations
      * @param size         size of matrix
      * @param defaultValue default value of non-existing values
+     * @throws IllegalArgumentException if rows or cols is negative or size is to large
      */
     public Matrix(AbstractArithmetic<T> arithmetic, int size, T defaultValue) {
         this(arithmetic, size, size, defaultValue);
@@ -66,8 +68,13 @@ public class Matrix<T extends Number>
      * @param rows         rows of matrix
      * @param cols         cols of matrix
      * @param defaultValue default value of non-existing values
+     * @throws IllegalArgumentException if rows or cols is negative or size is to large
      */
     public Matrix(AbstractArithmetic<T> arithmetic, int rows, int cols, T defaultValue) {
+        if (rows < 0 || cols < 0)
+            throw new IllegalArgumentException("rows and cols have to be greater or equals to 0");
+        if (0 < rows && 0 < cols && (rows * cols < rows || rows * cols < cols))
+            throw new IllegalArgumentException("size is to large");
         this.arithmetic = arithmetic;
         this.rows = rows;
         this.cols = cols;
@@ -93,6 +100,7 @@ public class Matrix<T extends Number>
      *
      * @param size size of new matrix
      * @return new matrix instance
+     * @throws IllegalArgumentException if rows or cols is negative or size is to large
      * @see #newInstance(int, int)
      */
     protected final Matrix<T> newInstance(int size) {
@@ -105,6 +113,7 @@ public class Matrix<T extends Number>
      * @param rows rows of new matrix
      * @param cols cols of new matrix
      * @return new matrix instance
+     * @throws IllegalArgumentException if rows or cols is negative or size is to large
      */
     protected final Matrix<T> newInstance(int rows, int cols) {
         return new Matrix<>(getArithmetic(), rows, cols, getDefaultValue());
@@ -218,10 +227,9 @@ public class Matrix<T extends Number>
      * @param row   row where value should be stored
      * @param col   col where value should be stored
      * @param value new value to store
-     * @return old value if existed - may return {@code null} if it was empty
-     * @throws IndexOutOfBoundsException if index is invalid
+     * @return old value if existed or {@link #getDefaultValue()}
+     * @throws IndexOutOfBoundsException if row or col is invalid
      * @see #setValue(int, Number)
-     * @see Map#put(Object, Object)
      */
     public T setValue(int row, int col, T value) {
         return setValue(getIndexOfRowAndCol(row, col), value);
@@ -230,25 +238,24 @@ public class Matrix<T extends Number>
     /**
      * @param index index where value should be stored
      * @param value new value to store
-     * @return old value if existed - may return {@code null} if it was empty
+     * @return old value if existed or {@link #getDefaultValue()}
      * @throws IndexOutOfBoundsException if index is invalid
-     * @see Map#put(Object, Object)
      */
     public T setValue(int index, T value) {
         if (!isIndexValid(index))
             throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
-        return value == null && getDefaultValue() == null ||
+        T previous = value == null && getDefaultValue() == null ||
             value != null && value.equals(getDefaultValue()) ?
             removeValue(index) : matrix.put(index, value);
+        return previous != null ? previous : getDefaultValue();
     }
 
     /**
      * @param row row of requested value
      * @param col col of requested value
      * @return current value on given position
-     * @throws IndexOutOfBoundsException if index is invalid
+     * @throws IndexOutOfBoundsException if row or col is invalid
      * @see #getValue(int)
-     * @see Map#getOrDefault(Object, Object)
      */
     public T getValue(int row, int col) {
         return getValue(getIndexOfRowAndCol(row, col));
@@ -258,7 +265,6 @@ public class Matrix<T extends Number>
      * @param index index of requested value
      * @return current value on given position
      * @throws IndexOutOfBoundsException if index is invalid
-     * @see Map#getOrDefault(Object, Object)
      */
     public T getValue(int index) {
         if (!isIndexValid(index))
@@ -269,10 +275,9 @@ public class Matrix<T extends Number>
     /**
      * @param row row of value to remove
      * @param col col of value to remove
-     * @return old value - may return {@code null} if it was empty
-     * @throws IndexOutOfBoundsException if index is invalid
+     * @return old value if existed or {@link #getDefaultValue()}
+     * @throws IndexOutOfBoundsException if row or col is invalid
      * @see #removeValue(int)
-     * @see Map#remove(Object)
      */
     public T removeValue(int row, int col) {
         return removeValue(getIndexOfRowAndCol(row, col));
@@ -280,14 +285,14 @@ public class Matrix<T extends Number>
 
     /**
      * @param index index of value to remove
-     * @return old value - may return {@code null} if it was empty
+     * @return old value if existed or {@link #getDefaultValue()}
      * @throws IndexOutOfBoundsException if index is invalid
-     * @see Map#remove(Object)
      */
     public T removeValue(int index) {
         if (!isIndexValid(index))
             throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
-        return getMatrix().remove(index);
+        T previous = getMatrix().remove(index);
+        return previous != null ? previous : getDefaultValue();
     }
 
     // endregion
@@ -856,8 +861,13 @@ public class Matrix<T extends Number>
      * @param row row of requested index
      * @param col col of requested index
      * @return index of requested position
+     * @throws IndexOutOfBoundsException if row or col is invalid
      */
     protected final int getIndexOfRowAndCol(int row, int col) {
+        if (!isRowValid(row))
+            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
+        if (!isColValid(col))
+            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
         return row * getCols() + col;
     }
 
@@ -928,6 +938,7 @@ public class Matrix<T extends Number>
          * @param row   row of field
          * @param col   col of field
          * @param value value of field
+         * @throws IndexOutOfBoundsException if row or col is invalid
          * @see #Field(int, Number)
          * @see #getIndexOfRowAndCol(int, int)
          */
@@ -938,8 +949,11 @@ public class Matrix<T extends Number>
         /**
          * @param index index of field
          * @param value value of field
+         * @throws IndexOutOfBoundsException if index is invalid
          */
         protected Field(int index, T value) {
+            if (!isIndexValid(index))
+                throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
             this.index = index;
             this.value = value;
         }

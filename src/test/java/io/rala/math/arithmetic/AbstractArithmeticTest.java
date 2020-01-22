@@ -1,5 +1,6 @@
 package io.rala.math.arithmetic;
 
+import io.rala.math.testUtils.SerializableTestUtils;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -69,6 +70,13 @@ class AbstractArithmeticTest {
         Assertions.assertEquals(
             1, arithmetic.compare(2, 1)
         );
+    }
+
+    @Test
+    void isZero() {
+        Assertions.assertTrue(arithmetic.isZero(0));
+        Assertions.assertTrue(arithmetic.isZero(-0));
+        Assertions.assertFalse(arithmetic.isZero(1));
     }
 
     // endregion
@@ -246,6 +254,14 @@ class AbstractArithmeticTest {
     void toStringOfAbstractArithmetic() {
         Assertions.assertEquals("TestAbstractArithmetic",
             new TestAbstractArithmetic().toString()
+        );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new TestAbstractArithmetic(),
+            TestAbstractArithmetic.class
         );
     }
 

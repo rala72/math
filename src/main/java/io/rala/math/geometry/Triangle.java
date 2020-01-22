@@ -5,6 +5,7 @@ import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
 import io.rala.math.utils.Validatable;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
  * class which holds a triangle in a 2d area with points a, b &amp; c
  */
 public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Triangle>,
-    Copyable<Triangle>, Comparable<Triangle> {
+    Copyable<Triangle>, Comparable<Triangle>, Serializable {
     // region attributes
 
     private Point a;
@@ -32,9 +33,9 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
      * @param c c of triangle
      */
     public Triangle(Point a, Point b, Point c) {
-        this.a = a;
-        this.b = b;
-        this.c = c;
+        setA(a);
+        setB(b);
+        setC(c);
     }
 
     // endregion

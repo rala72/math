@@ -1,6 +1,7 @@
 package io.rala.math.arithmetic.core;
 
 import io.rala.math.arithmetic.AbstractArithmetic;
+import io.rala.math.testUtils.SerializableTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -35,7 +36,7 @@ class BigDecimalArithmeticTest {
 
     // endregion
 
-    // region absolute and negate
+    // region absolute, negate and compare
 
     @Test
     void absoluteM1() {
@@ -45,6 +46,26 @@ class BigDecimalArithmeticTest {
     @Test
     void negate1() {
         Assertions.assertEquals(BigDecimal.ONE.negate(), arithmetic.negate(BigDecimal.ONE));
+    }
+
+    @Test
+    void compare() {
+        Assertions.assertEquals(
+            0, arithmetic.compare(BigDecimal.ONE, BigDecimal.ONE)
+        );
+        Assertions.assertEquals(
+            -1, arithmetic.compare(BigDecimal.ONE, BigDecimal.valueOf(2))
+        );
+        Assertions.assertEquals(
+            1, arithmetic.compare(BigDecimal.valueOf(2), BigDecimal.ONE)
+        );
+    }
+
+    @Test
+    void isZero() {
+        Assertions.assertTrue(arithmetic.isZero(BigDecimal.ZERO));
+        Assertions.assertTrue(arithmetic.isZero(BigDecimal.ZERO.negate()));
+        Assertions.assertFalse(arithmetic.isZero(BigDecimal.ONE));
     }
 
     // endregion
@@ -160,6 +181,14 @@ class BigDecimalArithmeticTest {
     void toStringOfArithmetic() {
         Assertions.assertEquals("BigDecimalArithmetic",
             new BigDecimalArithmetic().toString()
+        );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new BigDecimalArithmetic(),
+            BigDecimalArithmetic.class
         );
     }
 

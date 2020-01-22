@@ -1,5 +1,6 @@
 package io.rala.math.arithmetic;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Objects;
  *
  * @param <T> number class of arithmetic
  */
-public abstract class AbstractArithmetic<T extends Number> {
+public abstract class AbstractArithmetic<T extends Number> implements Serializable {
     // region fromInt, fromDouble and signum
 
     /**
@@ -65,7 +66,7 @@ public abstract class AbstractArithmetic<T extends Number> {
      * @throws NotImplementedException if operation is not implemented
      */
     public T absolute(T a) {
-        return signum(a) < 0 ? negate(a) : a;
+        return signum(a) < 0 || Double.valueOf(signum(a)).equals(-0d) ? negate(a) : a;
     }
 
     /**
@@ -87,6 +88,15 @@ public abstract class AbstractArithmetic<T extends Number> {
      */
     public int compare(T a, T b) {
         return Double.compare(a.doubleValue(), b.doubleValue());
+    }
+
+    /**
+     * @param a number to check
+     * @return {@code true} if {@code abs(a)} is {@code 0}
+     * @see #absolute(Number)
+     */
+    public boolean isZero(T a) {
+        return zero().equals(absolute(a));
     }
 
     // endregion

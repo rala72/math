@@ -3,6 +3,7 @@ package io.rala.math.arithmetic.result;
 import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
+import io.rala.math.testUtils.SerializableTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -146,6 +147,14 @@ class BigIntegerBigDecimalResultArithmeticTest {
             "rArithmetic=BigDecimalArithmetic}";
         Assertions.assertEquals(toString,
             new BigIntegerBigDecimalResultArithmetic().toString()
+        );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new BigIntegerBigDecimalResultArithmetic(),
+            BigIntegerBigDecimalResultArithmetic.class
         );
     }
 

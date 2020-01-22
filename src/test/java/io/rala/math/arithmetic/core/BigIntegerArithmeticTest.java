@@ -1,5 +1,6 @@
 package io.rala.math.arithmetic.core;
 
+import io.rala.math.testUtils.SerializableTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -56,6 +57,13 @@ class BigIntegerArithmeticTest {
         Assertions.assertEquals(
             1, arithmetic.compare(BigInteger.TWO, BigInteger.ONE)
         );
+    }
+
+    @Test
+    void isZero() {
+        Assertions.assertTrue(arithmetic.isZero(BigInteger.ZERO));
+        Assertions.assertTrue(arithmetic.isZero(BigInteger.ZERO.negate()));
+        Assertions.assertFalse(arithmetic.isZero(BigInteger.ONE));
     }
 
     // endregion
@@ -166,6 +174,14 @@ class BigIntegerArithmeticTest {
     void toStringOfArithmetic() {
         Assertions.assertEquals("BigIntegerArithmetic",
             new BigIntegerArithmetic().toString()
+        );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new BigIntegerArithmetic(),
+            BigIntegerArithmetic.class
         );
     }
 

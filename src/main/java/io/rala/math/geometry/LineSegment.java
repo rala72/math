@@ -5,6 +5,7 @@ import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
 import io.rala.math.utils.Validatable;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,7 +13,7 @@ import java.util.Objects;
  * class which holds a line segment in a 2d area with points a &amp; b
  */
 public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable<LineSegment>,
-    Copyable<LineSegment>, Comparable<LineSegment> {
+    Copyable<LineSegment>, Comparable<LineSegment>, Serializable {
     // region attributes
 
     private Point a;
@@ -41,8 +42,8 @@ public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable
      * @see #LineSegment(Point)
      */
     public LineSegment(Point a, Point b) {
-        this.a = a;
-        this.b = b;
+        setA(a);
+        setB(b);
     }
 
     // endregion

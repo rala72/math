@@ -1,5 +1,6 @@
 package io.rala.math.arithmetic.core;
 
+import io.rala.math.testUtils.SerializableTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,7 @@ class IntegerArithmeticTest {
 
     // endregion
 
-    // region absolute and negate
+    // region absolute, negate and compare
 
     @Test
     void absoluteM1() {
@@ -41,6 +42,26 @@ class IntegerArithmeticTest {
     @Test
     void negate1() {
         Assertions.assertEquals(-1, arithmetic.negate(1));
+    }
+
+    @Test
+    void compare() {
+        Assertions.assertEquals(
+            0, arithmetic.compare(1, 1)
+        );
+        Assertions.assertEquals(
+            -1, arithmetic.compare(1, 2)
+        );
+        Assertions.assertEquals(
+            1, arithmetic.compare(2, 1)
+        );
+    }
+
+    @Test
+    void isZero() {
+        Assertions.assertTrue(arithmetic.isZero(0));
+        Assertions.assertTrue(arithmetic.isZero(-0));
+        Assertions.assertFalse(arithmetic.isZero(1));
     }
 
     // endregion
@@ -133,6 +154,14 @@ class IntegerArithmeticTest {
     void toStringOfArithmetic() {
         Assertions.assertEquals("IntegerArithmetic",
             new IntegerArithmetic().toString()
+        );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new IntegerArithmetic(),
+            IntegerArithmetic.class
         );
     }
 

@@ -5,13 +5,14 @@ import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
 import io.rala.math.utils.Validatable;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * class which holds a circle a in 2d area with center &amp; radius
  */
 public class Circle implements Validatable, Movable<Circle>, Rotatable<Circle>,
-    Copyable<Circle>, Comparable<Circle> {
+    Copyable<Circle>, Comparable<Circle>, Serializable {
     // region attributes
 
     private Point center;
@@ -53,8 +54,8 @@ public class Circle implements Validatable, Movable<Circle>, Rotatable<Circle>,
      * @param radius radius of circle
      */
     public Circle(Point center, double radius) {
-        this.center = center;
-        this.radius = radius;
+        setCenter(center);
+        setRadius(radius);
     }
 
     // endregion

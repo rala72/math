@@ -3,6 +3,7 @@ package io.rala.math.algebra.numeric;
 import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.core.DoubleArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
+import io.rala.math.testUtils.SerializableTestUtils;
 import io.rala.math.testUtils.algebra.TestFraction;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
 import org.junit.jupiter.api.Assertions;
@@ -368,6 +369,14 @@ class FractionTest {
         );
         Assertions.assertEquals(
             1, complex.compareTo(new TestFraction(1, 2))
+        );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new TestFraction(2, 3),
+            TestFraction.class
         );
     }
 

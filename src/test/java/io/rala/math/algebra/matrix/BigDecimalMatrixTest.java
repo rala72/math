@@ -1,6 +1,7 @@
 package io.rala.math.algebra.matrix;
 
 import io.rala.math.arithmetic.core.IntegerArithmetic;
+import io.rala.math.testUtils.SerializableTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +12,20 @@ import java.util.List;
 
 class BigDecimalMatrixTest {
     // region constructors
+
+    @Test
+    void constructorWithNegativeSize() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> new BigDecimalMatrix(-1)
+        ); // assert exception message?
+    }
+
+    @Test
+    void constructorWithToLargeSize() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> new BigDecimalMatrix(Integer.MAX_VALUE)
+        ); // assert exception message?
+    }
 
     @Test
     void constructorWithSize0() {
@@ -168,7 +183,7 @@ class BigDecimalMatrixTest {
     @Test
     void setValueByIndex0WhichWasEmpty() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertNull(matrix.setValue(0, BigDecimal.ONE));
+        Assertions.assertEquals(BigDecimal.ZERO, matrix.setValue(0, BigDecimal.ONE));
         Assertions.assertEquals(BigDecimal.ONE, matrix.getValue(0));
         Assertions.assertEquals(BigDecimal.ONE, matrix.getValue(0, 0));
         // assert all other are unset
@@ -177,7 +192,7 @@ class BigDecimalMatrixTest {
     @Test
     void setValueByIndex3WhichWasEmpty() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertNull(matrix.setValue(3, BigDecimal.ONE));
+        Assertions.assertEquals(BigDecimal.ZERO, matrix.setValue(3, BigDecimal.ONE));
         Assertions.assertEquals(BigDecimal.ONE, matrix.getValue(3));
         Assertions.assertEquals(BigDecimal.ONE, matrix.getValue(1, 1));
         // assert all other are unset
@@ -202,7 +217,7 @@ class BigDecimalMatrixTest {
     @Test
     void setValueByRow0Col0WhichWasEmpty() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertNull(matrix.setValue(0, 0, BigDecimal.ONE));
+        Assertions.assertEquals(BigDecimal.ZERO, matrix.setValue(0, 0, BigDecimal.ONE));
         Assertions.assertEquals(BigDecimal.ONE, matrix.getValue(0));
         Assertions.assertEquals(BigDecimal.ONE, matrix.getValue(0, 0));
         // assert all other are unset
@@ -211,7 +226,7 @@ class BigDecimalMatrixTest {
     @Test
     void setValueByRow1Col0WhichWasEmpty() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertNull(matrix.setValue(1, 0, BigDecimal.ONE));
+        Assertions.assertEquals(BigDecimal.ZERO, matrix.setValue(1, 0, BigDecimal.ONE));
         Assertions.assertEquals(BigDecimal.ONE, matrix.getValue(1, 0));
         Assertions.assertEquals(BigDecimal.ONE, matrix.getValue(2));
         // assert all other are unset
@@ -252,7 +267,7 @@ class BigDecimalMatrixTest {
     @Test
     void removeValueByIndex0WhichWasEmpty() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertNull(matrix.removeValue(0));
+        Assertions.assertEquals(BigDecimal.ZERO, matrix.removeValue(0));
     }
 
     @Test
@@ -274,7 +289,7 @@ class BigDecimalMatrixTest {
     @Test
     void removeValueByRow0Col0WhichWasEmpty() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertNull(matrix.removeValue(0, 0));
+        Assertions.assertEquals(BigDecimal.ZERO, matrix.removeValue(0, 0));
     }
 
     @Test
@@ -761,6 +776,14 @@ class BigDecimalMatrixTest {
     void toStringOfBigDecimalMatrixWithRow2Col3() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2, 3);
         Assertions.assertEquals("2 3: []", matrix.toString());
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new BigDecimalMatrix(0),
+            BigDecimalMatrix.class
+        );
     }
 
     // endregion

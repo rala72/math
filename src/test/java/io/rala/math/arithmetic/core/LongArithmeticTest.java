@@ -1,5 +1,6 @@
 package io.rala.math.arithmetic.core;
 
+import io.rala.math.testUtils.SerializableTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,7 @@ class LongArithmeticTest {
 
     // endregion
 
-    // region absolute and negate
+    // region absolute, negate and compare
 
     @Test
     void absoluteM1() {
@@ -41,6 +42,26 @@ class LongArithmeticTest {
     @Test
     void negate1() {
         Assertions.assertEquals(-1, arithmetic.negate(1L));
+    }
+
+    @Test
+    void compare() {
+        Assertions.assertEquals(
+            0, arithmetic.compare(1L, 1L)
+        );
+        Assertions.assertEquals(
+            -1, arithmetic.compare(1L, 2L)
+        );
+        Assertions.assertEquals(
+            1, arithmetic.compare(2L, 1L)
+        );
+    }
+
+    @Test
+    void isZero() {
+        Assertions.assertTrue(arithmetic.isZero(0L));
+        Assertions.assertTrue(arithmetic.isZero(-0L));
+        Assertions.assertFalse(arithmetic.isZero(1L));
     }
 
     // endregion
@@ -133,6 +154,14 @@ class LongArithmeticTest {
     void toStringOfArithmetic() {
         Assertions.assertEquals("LongArithmetic",
             new LongArithmetic().toString()
+        );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new LongArithmetic(),
+            LongArithmetic.class
         );
     }
 

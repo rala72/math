@@ -2,6 +2,7 @@ package io.rala.math.arithmetic.core;
 
 import io.rala.math.algebra.numeric.Complex;
 import io.rala.math.arithmetic.AbstractArithmetic;
+import io.rala.math.testUtils.SerializableTestUtils;
 import io.rala.math.testUtils.arithmetic.TestComplexArithmetic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +35,7 @@ class ComplexArithmeticTest {
 
     // endregion
 
-    // region absolute and negate
+    // region absolute, negate and compare
 
     @Test
     void absoluteReM1Im0() {
@@ -57,6 +58,13 @@ class ComplexArithmeticTest {
         Assertions.assertEquals(
             1, arithmetic.compare(create(2, 2), create(1, 1))
         );
+    }
+
+    @Test
+    void isZero() {
+        Assertions.assertTrue(arithmetic.isZero(create(0, 0)));
+        Assertions.assertTrue(arithmetic.isZero(create(-0, -0)));
+        Assertions.assertFalse(arithmetic.isZero(create(1, 1)));
     }
 
     // endregion
@@ -294,6 +302,14 @@ class ComplexArithmeticTest {
     void toStringOfArithmetic() {
         Assertions.assertEquals("TestComplexArithmetic",
             new TestComplexArithmetic().toString()
+        );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new TestComplexArithmetic(),
+            TestComplexArithmetic.class
         );
     }
 

@@ -5,6 +5,7 @@ import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
 import io.rala.math.utils.Validatable;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,7 +13,7 @@ import java.util.Objects;
  * class which holds a rect in 2d area with point a, b &amp; size
  */
 public class Rect implements Validatable, Movable<Rect>, Rotatable<Rect>,
-    Copyable<Rect>, Comparable<Rect> {
+    Copyable<Rect>, Comparable<Rect>, Serializable {
     // region attributes
 
     private Point a;
@@ -44,9 +45,9 @@ public class Rect implements Validatable, Movable<Rect>, Rotatable<Rect>,
      * @param size height of rect
      */
     public Rect(Point a, Point b, double size) {
-        this.a = a;
-        this.b = b;
-        this.size = size;
+        setA(a);
+        setB(b);
+        setSize(size);
     }
 
     // endregion
