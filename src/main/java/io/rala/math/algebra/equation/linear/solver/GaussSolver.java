@@ -73,7 +73,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
         prepareMatrixBySwappingZeroRowsToBottom();
         for (int i = 0; i < getWorkingMatrix().getRows(); i++) {
             if (areAllZero(getWorkingMatrix().getRow(i)))
-                continue;
+                break;
             prepareMatrixBySwapping(i);
             if (getWorkingMatrix().getCols() - 1 <= i)
                 continue;
