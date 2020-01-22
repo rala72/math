@@ -123,14 +123,14 @@ class LineSegmentTest {
 
     @Test
     void toLineOfLineSegmentWithAXY1AndBX0Y1() {
-        Assertions.assertEquals(new Line(1, 0),
+        Assertions.assertEquals(new Line(-0d, 1),
             new LineSegment(new Point(1), new Point(0, 1)).toLine()
         );
     }
 
     @Test
     void toLineOfLineSegmentWithAXY1AndBX2Y3() {
-        Assertions.assertEquals(new Line(2.23606797749979, -1.2360679774997898),
+        Assertions.assertEquals(new Line(2, -1),
             new LineSegment(new Point(1), new Point(2, 3)).toLine()
         );
     }

@@ -132,8 +132,9 @@ public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable
      * @return new line instance
      */
     public Line toLine() {
-        if (getA().getX() == getB().getX()) return new Line(Double.NaN, getA().getX());
-        double m = Math.sqrt(Math.pow(getA().getX(), 2) + Math.pow(getB().getX(), 2));
+        if (getA().getX() == getB().getX())
+            return new Line(Double.NaN, getA().getX());
+        double m = (getB().getY() - getA().getY()) / (getB().getX() - getA().getX());
         return new Line(m, getA().getY() - (m * getA().getX()));
     }
 
