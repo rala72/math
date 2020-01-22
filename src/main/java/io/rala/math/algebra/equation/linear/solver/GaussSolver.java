@@ -72,11 +72,9 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
     protected void prepareMatrix() {
         prepareMatrixBySwappingZeroRowsToBottom();
         for (int i = 0; i < getWorkingMatrix().getRows(); i++) {
-            if (areAllZero(getWorkingMatrix().getRow(i)))
+            if (areAllZeroIgnoringSolution(getWorkingMatrix().getRow(i)))
                 break;
             prepareMatrixBySwapping(i);
-            if (getWorkingMatrix().getCols() - 1 <= i)
-                continue;
             prepareMatrixByMakingFieldToOne(i);
             prepareMatrixByMakeColToZero(i);
         }
@@ -100,6 +98,8 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
     /**
      * swaps (preferred) rows and (if required) cols to
      * ensure {@code rowIndex} value is not {@code 0}
+     * <p>
+     * solution column method will be untouched if columns are swapped
      *
      * @param rowIndex rowIndex to handle
      * @implSpec pre: non zero row
@@ -115,7 +115,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
                 setWorkingMatrix(getWorkingMatrix().swapRows(rowIndex, i));
                 return;
             } else if (areAllZero(getWorkingMatrix().getRow(i))) break;
-        for (int i = rowIndex + 1; i < getWorkingMatrix().getCols(); i++)
+        for (int i = rowIndex + 1; i < getWorkingMatrix().getCols() - 1; i++)
             if (!getArithmetic().zero().equals(row.get(i))) {
                 setWorkingMatrix(getWorkingMatrix().swapCols(rowIndex, i));
                 getSwappedCols().add(new ColPair(rowIndex, i));

@@ -194,8 +194,8 @@ class GaussSolverTest {
     @Test
     void prepareMatrixBySwappingWithZeroOnIndexForColSwap() {
         DoubleMatrix matrix = DoubleMatrix.ofValuesByRows(2,
-            0, 1,
-            0, 1
+            0, 1, 0,
+            0, 1, 0
         );
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
@@ -203,8 +203,8 @@ class GaussSolverTest {
         Assertions.assertEquals(
             new LinearEquationSystem.LinearEquationMatrix<>(
                 DoubleMatrix.ofValuesByRows(2,
-                    1, 0,
-                    1, 0
+                    1, 0, 0,
+                    1, 0, 0
                 )
             ),
             solver.getWorkingMatrix()

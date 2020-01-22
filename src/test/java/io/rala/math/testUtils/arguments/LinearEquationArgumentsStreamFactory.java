@@ -205,6 +205,16 @@ public class LinearEquationArgumentsStreamFactory {
                         )
                     )
                 )
+            ),
+            Arguments.of(
+                Solution.infinite(
+                    new LinearEquationSystem<>(
+                        DoubleMatrix.ofValuesByRows(3,
+                            1, 0, 0, 2,
+                            0, 0, 1, 0,
+                            0, 0, 1, 0)
+                    )
+                )
             )
         );
     }
