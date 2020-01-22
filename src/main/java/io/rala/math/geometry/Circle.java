@@ -3,14 +3,16 @@ package io.rala.math.geometry;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
+import io.rala.math.utils.Validatable;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * class which holds a circle a in 2d area with center &amp; radius
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
-public class Circle implements Copyable<Circle>, Movable<Circle>, Rotatable<Circle>, Comparable<Circle> {
+public class Circle implements Validatable, Movable<Circle>, Rotatable<Circle>,
+    Copyable<Circle>, Comparable<Circle>, Serializable {
     // region attributes
 
     private Point center;
@@ -28,7 +30,7 @@ public class Circle implements Copyable<Circle>, Movable<Circle>, Rotatable<Circ
     }
 
     /**
-     * calls {@link #Circle(Point, double)} with radius <code>1</code>
+     * calls {@link #Circle(Point, double)} with radius {@code 1}
      *
      * @param center center point of circle
      */
@@ -52,8 +54,8 @@ public class Circle implements Copyable<Circle>, Movable<Circle>, Rotatable<Circ
      * @param radius radius of circle
      */
     public Circle(Point center, double radius) {
-        this.center = center;
-        this.radius = radius;
+        setCenter(center);
+        setRadius(radius);
     }
 
     // endregion
@@ -96,7 +98,7 @@ public class Circle implements Copyable<Circle>, Movable<Circle>, Rotatable<Circ
     }
 
     /**
-     * calls {@link #setRadius(double)} with <code>diameter/2</code>
+     * calls {@link #setRadius(double)} with {@code diameter/2}
      *
      * @param diameter new diameter of circle
      * @see #setRadius(double)
@@ -110,14 +112,14 @@ public class Circle implements Copyable<Circle>, Movable<Circle>, Rotatable<Circ
     // region area and circumference
 
     /**
-     * @return <code>&pi;*r^2</code>
+     * @return {@code &pi;*r^2}
      */
     public double area() {
         return Math.PI * Math.pow(getRadius(), 2);
     }
 
     /**
-     * @return <code>2*&pi;*r</code>
+     * @return {@code 2*&pi;*r}
      */
     public double circumference() {
         return 2 * Math.PI * getRadius();
@@ -128,7 +130,7 @@ public class Circle implements Copyable<Circle>, Movable<Circle>, Rotatable<Circ
     // region isUnitCircle
 
     /**
-     * @return <code>true</code> if {@link #getRadius()} is 1
+     * @return {@code true} if {@link #getRadius()} is 1
      */
     public boolean isUnitCircle() {
         return getRadius() == 1;
@@ -136,7 +138,13 @@ public class Circle implements Copyable<Circle>, Movable<Circle>, Rotatable<Circ
 
     // endregion
 
-    // region move, rotate and copy
+    // region isValid, move, rotate and copy
+
+    @Override
+    public boolean isValid() {
+        return getCenter().isValid() && Double.isFinite(getRadius()) &&
+            0 <= getRadius();
+    }
 
     @Override
     public Circle move(Vector vector) {

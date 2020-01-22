@@ -1,11 +1,10 @@
-package io.rala.math.testUtils;
+package io.rala.math.testUtils.arguments;
 
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-@SuppressWarnings("unused")
 public class EnumerativeCombinatoricsArgumentsStreamFactory {
     private EnumerativeCombinatoricsArgumentsStreamFactory() {
     }

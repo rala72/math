@@ -1,10 +1,12 @@
 package io.rala.math.geometry;
 
+import io.rala.math.testUtils.SerializableTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("SameParameterValue")
 class CircleTest {
+    private static final double DELTA = 0.00001;
+
     // region constructors, getter and setter
 
     @Test
@@ -73,7 +75,7 @@ class CircleTest {
 
     @Test
     void areaOfCircleWithoutParameter() {
-        Assertions.assertEquals(3.141592653589793, new Circle().area());
+        Assertions.assertEquals(Math.PI, new Circle().area(), DELTA);
     }
 
     @Test
@@ -122,7 +124,25 @@ class CircleTest {
 
     // endregion
 
-    // region move, rotate and copy
+    // region isValid, move, rotate and copy
+
+    @Test
+    void isValidWithZeroValues() {
+        Assertions.assertTrue(new Circle().isValid());
+    }
+
+    @Test
+    void isValidWithNegativeRadius() {
+        Assertions.assertFalse(new Circle(-1).isValid());
+    }
+
+    @Test
+    void isValidWithInfValues() {
+        Assertions.assertFalse(
+            new Circle(new Point(Double.POSITIVE_INFINITY), Double.POSITIVE_INFINITY)
+                .isValid()
+        );
+    }
 
     @Test
     void moveOfCircleWithoutParameterWithXY() {
@@ -199,11 +219,16 @@ class CircleTest {
             0, circle.compareTo(new Circle(new Point(2), 3))
         );
         Assertions.assertEquals(
-            -1, circle.compareTo(new Circle(new Point(4), 3))
+            -1, circle.compareTo(new Circle(new Point(3), 3))
         );
         Assertions.assertEquals(
             1, circle.compareTo(new Circle(new Point(2), 1))
         );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(new Circle(), Circle.class);
     }
 
     // endregion
@@ -219,6 +244,7 @@ class CircleTest {
         assertCircle(circle, center, 1);
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static void assertCircle(Circle circle, double radius) {
         assertCircle(circle, new Point(), radius);
     }

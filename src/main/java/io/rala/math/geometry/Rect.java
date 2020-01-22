@@ -3,15 +3,17 @@ package io.rala.math.geometry;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
+import io.rala.math.utils.Validatable;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 /**
  * class which holds a rect in 2d area with point a, b &amp; size
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
-public class Rect implements Copyable<Rect>, Movable<Rect>, Rotatable<Rect>, Comparable<Rect> {
+public class Rect implements Validatable, Movable<Rect>, Rotatable<Rect>,
+    Copyable<Rect>, Comparable<Rect>, Serializable {
     // region attributes
 
     private Point a;
@@ -26,7 +28,7 @@ public class Rect implements Copyable<Rect>, Movable<Rect>, Rotatable<Rect>, Com
      * calls {@link #Rect(Point, Point, double)}
      * with {@link Point#Point()}
      * and {@link Point#Point(double, double)}
-     * where <code>x=width</code> and <code>y=0</code>
+     * where {@code x=width} and {@code y=0}
      *
      * @param height height of rect
      * @param width  width of rect
@@ -43,9 +45,9 @@ public class Rect implements Copyable<Rect>, Movable<Rect>, Rotatable<Rect>, Com
      * @param size height of rect
      */
     public Rect(Point a, Point b, double size) {
-        this.a = a;
-        this.b = b;
-        this.size = size;
+        setA(a);
+        setB(b);
+        setSize(size);
     }
 
     // endregion
@@ -113,14 +115,14 @@ public class Rect implements Copyable<Rect>, Movable<Rect>, Rotatable<Rect>, Com
     }
 
     /**
-     * @return {@link #vertexB()}<code>+size</code>
+     * @return {@link #vertexB()}{@code +size}
      */
     public Point vertexC() {
         return new Point(vertexB().getX(), vertexB().getY() + getSize());
     }
 
     /**
-     * @return {@link #vertexA()}<code>+size</code>
+     * @return {@link #vertexA()}{@code +size}
      */
     public Point vertexD() {
         return new Point(vertexA().getX(), vertexA().getY() + getSize());
@@ -145,7 +147,7 @@ public class Rect implements Copyable<Rect>, Movable<Rect>, Rotatable<Rect>, Com
     }
 
     /**
-     * @return <code>sqrt(w^2+h^2)</code>
+     * @return {@code sqrt(w^2+h^2)}
      */
     public double diagonale() {
         return Math.sqrt(Math.pow(height(), 2) + Math.pow(width(), 2));
@@ -156,14 +158,14 @@ public class Rect implements Copyable<Rect>, Movable<Rect>, Rotatable<Rect>, Com
     // region area and circumference
 
     /**
-     * @return <code>h*w</code>
+     * @return {@code h*w}
      */
     public double area() {
         return height() * width();
     }
 
     /**
-     * @return <code>2*(h+w)</code>
+     * @return {@code 2*(h+w)}
      */
     public double circumference() {
         return 2 * (height() + width());
@@ -174,7 +176,7 @@ public class Rect implements Copyable<Rect>, Movable<Rect>, Rotatable<Rect>, Com
     // region isSquare
 
     /**
-     * @return <code>true</code> if {@link #height()} and {@link #width()} are equal
+     * @return {@code true} if {@link #height()} and {@link #width()} are equal
      */
     public boolean isSquare() {
         return height() == width();
@@ -182,7 +184,13 @@ public class Rect implements Copyable<Rect>, Movable<Rect>, Rotatable<Rect>, Com
 
     // endregion
 
-    // region move, rotate and copy
+    // region isValid, move, rotate and copy
+
+    @Override
+    public boolean isValid() {
+        return getA().isValid() && getB().isValid() && !getA().equals(getB()) &&
+            Double.isFinite(getSize()) && getSize() != 0;
+    }
 
     @Override
     public Rect move(Vector vector) {

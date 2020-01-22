@@ -3,7 +3,9 @@ package io.rala.math.geometry;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
+import io.rala.math.utils.Validatable;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -11,8 +13,8 @@ import java.util.stream.Collectors;
 /**
  * class which holds a triangle in a 2d area with points a, b &amp; c
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
-public class Triangle implements Copyable<Triangle>, Movable<Triangle>, Rotatable<Triangle>, Comparable<Triangle> {
+public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Triangle>,
+    Copyable<Triangle>, Comparable<Triangle>, Serializable {
     // region attributes
 
     private Point a;
@@ -31,9 +33,9 @@ public class Triangle implements Copyable<Triangle>, Movable<Triangle>, Rotatabl
      * @param c c of triangle
      */
     public Triangle(Point a, Point b, Point c) {
-        this.a = a;
-        this.b = b;
-        this.c = c;
+        setA(a);
+        setB(b);
+        setC(c);
     }
 
     // endregion
@@ -87,7 +89,7 @@ public class Triangle implements Copyable<Triangle>, Movable<Triangle>, Rotatabl
     // region vertexes
 
     /**
-     * @return <code>(A+B+C)/3</code>
+     * @return {@code (A+B+C)/3}
      */
     public Point centerOfGravity() {
         return new Point(
@@ -207,10 +209,53 @@ public class Triangle implements Copyable<Triangle>, Movable<Triangle>, Rotatabl
 
     // endregion
 
+    // region angles
+
+    /**
+     * calculates angle using law of cosines
+     *
+     * @return angle in {@code rad} at point {@code A}
+     */
+    public double angleAlpha() {
+        double dividend = Math.pow(edgeA().length(), 2) -
+            Math.pow(edgeB().length(), 2) -
+            Math.pow(edgeC().length(), 2);
+        double divisor = -2 * edgeB().length() * edgeC().length();
+        return Math.acos(dividend / divisor);
+    }
+
+    /**
+     * calculates angle using law of cosines
+     *
+     * @return angle in {@code rad} at point {@code B}
+     */
+    public double angleBeta() {
+        double dividend = Math.pow(edgeB().length(), 2) -
+            Math.pow(edgeA().length(), 2) -
+            Math.pow(edgeC().length(), 2);
+        double divisor = -2 * edgeA().length() * edgeC().length();
+        return Math.acos(dividend / divisor);
+    }
+
+    /**
+     * calculates angle using law of cosines
+     *
+     * @return angle in {@code rad} at point {@code C}
+     */
+    public double angleGamma() {
+        double dividend = Math.pow(edgeC().length(), 2) -
+            Math.pow(edgeA().length(), 2) -
+            Math.pow(edgeB().length(), 2);
+        double divisor = -2 * edgeA().length() * edgeB().length();
+        return Math.acos(dividend / divisor);
+    }
+
+    // endregion
+
     // region area, circumference, circumRadius and inRadius
 
     /**
-     * @return <code>sqrt(s*(s-a)*(s-b)*(s-c))</code>
+     * @return {@code sqrt(s*(s-a)*(s-b)*(s-c))}
      */
     public double area() {
         final double s = circumference() / 2;
@@ -222,7 +267,7 @@ public class Triangle implements Copyable<Triangle>, Movable<Triangle>, Rotatabl
     }
 
     /**
-     * @return <code>a+b+c</code>
+     * @return {@code a+b+c}
      */
     public double circumference() {
         return edgeA().length() +
@@ -231,7 +276,7 @@ public class Triangle implements Copyable<Triangle>, Movable<Triangle>, Rotatabl
     }
 
     /**
-     * @return <code>(a*b*c)/A</code>
+     * @return {@code (a*b*c)/A}
      */
     public double circumRadius() {
         return (edgeA().length() *
@@ -240,7 +285,7 @@ public class Triangle implements Copyable<Triangle>, Movable<Triangle>, Rotatabl
     }
 
     /**
-     * @return <code>A/(r/2)</code>
+     * @return {@code A/(r/2)}
      */
     public double inRadius() {
         return area() / (circumference() / 2);
@@ -248,7 +293,15 @@ public class Triangle implements Copyable<Triangle>, Movable<Triangle>, Rotatabl
 
     // endregion
 
-    // region move and copy
+    // region isValid, move, rotate and copy
+
+    @Override
+    public boolean isValid() {
+        return getA().isValid() && getB().isValid() && getC().isValid() &&
+            edgeA().length() < edgeB().length() + edgeC().length() &&
+            edgeB().length() < edgeA().length() + edgeC().length() &&
+            edgeC().length() < edgeA().length() + edgeB().length();
+    }
 
     @Override
     public Triangle move(Vector vector) {

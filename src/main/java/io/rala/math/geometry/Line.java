@@ -1,15 +1,18 @@
 package io.rala.math.geometry;
 
 import io.rala.math.utils.Copyable;
+import io.rala.math.utils.Validatable;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * class which holds a line in a 2d area with m &amp; b<br>
- * <code>y=m*x+b</code>
+ * {@code y=m*x+b}<br>
+ * if line is vertical m is considered to be {@link Double#NaN}<br>
+ * {@code y=b}
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
-public class Line implements Copyable<Line>, Comparable<Line> {
+public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Serializable {
     // region attributes
 
     private double m;
@@ -20,14 +23,25 @@ public class Line implements Copyable<Line>, Comparable<Line> {
     // region constructor
 
     /**
+     * creates a vertical line storing
+     * {@code m} as {@link Double#NaN} and
+     * {@code b} as {@code x}
+     *
+     * @param x x value of line
+     */
+    public Line(double x) {
+        this(Double.NaN, x);
+    }
+
+    /**
      * creates a line with given slope/gradient and y-intercept
      *
      * @param m slope/gradient of line
      * @param b y-intercept of line
      */
     public Line(double m, double b) {
-        this.m = m;
-        this.b = b;
+        setM(m);
+        setB(b);
     }
 
     // endregion
@@ -64,6 +78,25 @@ public class Line implements Copyable<Line>, Comparable<Line> {
 
     // endregion
 
+    // region isHorizontal and isVertical
+
+    /**
+     * @return {@code true} if {@link #getM()} returns {@code 0}
+     */
+    public boolean isHorizontal() {
+        return getM() == 0;
+    }
+
+    /**
+     * @return {@code true} if {@link #getM()} returns {@link Double#NaN}
+     */
+    public boolean isVertical() {
+        return Double.isNaN(getM());
+    }
+
+
+    // endregion
+
     // region calculateX and calculateY
 
     /**
@@ -92,21 +125,41 @@ public class Line implements Copyable<Line>, Comparable<Line> {
 
     /**
      * @param line line to check if intersection exists
-     * @return <code>true</code> if <code>m</code> is not equal
+     * @return {@code true} if {@code m} is not equal
      */
     public boolean hasIntersection(Line line) {
-        return getM() != line.getM();
+        return (!isVertical() || !line.isVertical()) && getM() != line.getM();
     }
 
     /**
      * @param line line to intersect
-     * @return intersection or <code>null</code>
-     * if {@link #hasIntersection(Line)} is <code>false</code>
+     * @return intersection or {@code null}
+     * if {@link #hasIntersection(Line)} is {@code false}
      */
     public Point intersection(Line line) {
         if (!hasIntersection(line)) return null;
+        if (isVertical())
+            return new Point(getB(), line.calculateY(getB()));
+        if (line.isVertical())
+            return new Point(line.getB(), calculateY(line.getB()));
         double x = -(getB() - line.getB()) / (getM() - line.getM());
         return new Point(x, calculateY(x));
+    }
+
+    /**
+     * @param line line to intersect
+     * @return intersection angle in {@code rad} or {@link Double#NaN}
+     * if there is no intersection
+     */
+    public double intersectionAngle(Line line) {
+        if (!hasIntersection(line)) return Double.NaN;
+        if (isVertical() || line.isVertical()) {
+            // calculated like y-axis
+            double m = isVertical() ? line.getM() : getM();
+            return Math.PI / 2 - Math.atan(Math.abs(m));
+        }
+        double tan = (getM() - line.getM()) / (1 + getM() * line.getM());
+        return Math.atan(Math.abs(tan));
     }
 
     // endregion
@@ -141,7 +194,12 @@ public class Line implements Copyable<Line>, Comparable<Line> {
 
     // endregion
 
-    // region copy
+    // region isValid, copy
+
+    @Override
+    public boolean isValid() {
+        return !Double.isInfinite(getM()) && Double.isFinite(getB());
+    }
 
     @Override
     public Line copy() {
@@ -168,7 +226,9 @@ public class Line implements Copyable<Line>, Comparable<Line> {
 
     @Override
     public String toString() {
-        return "y=" + getM() + "*x" + (0 <= getB() ? "+" : "") + getB();
+        return "y=" + (isVertical() ? "" :
+            getM() + "*x" + (0 <= getB() ? "+" : "")
+        ) + getB();
     }
 
     @Override

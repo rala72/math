@@ -3,15 +3,17 @@ package io.rala.math.geometry;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
+import io.rala.math.utils.Validatable;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 /**
  * class which holds a line segment in a 2d area with points a &amp; b
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
-public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>, Rotatable<LineSegment>, Comparable<LineSegment> {
+public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable<LineSegment>,
+    Copyable<LineSegment>, Comparable<LineSegment>, Serializable {
     // region attributes
 
     private Point a;
@@ -22,24 +24,14 @@ public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>,
     // region constructors
 
     /**
-     * calls {@link #LineSegment(Point)} with {@link Point#Point()}
+     * calls {@link #LineSegment(Point, Point)} with
+     * {@link Point#Point()} and the value at b
      *
-     * @see #LineSegment(Point)
+     * @param b b value to be used in {@link #LineSegment(Point, Point)} at b
      * @see #LineSegment(Point, Point)
      */
-    public LineSegment() {
-        this(new Point());
-    }
-
-    /**
-     * calls {@link #LineSegment(Point, Point)} with the value at a and b
-     *
-     * @param ab ab value to be used in {@link #LineSegment(Point, Point)} at a and b
-     * @see #LineSegment()
-     * @see #LineSegment(Point, Point)
-     */
-    public LineSegment(Point ab) {
-        this(ab, ab);
+    public LineSegment(Point b) {
+        this(new Point(), b);
     }
 
     /**
@@ -47,12 +39,11 @@ public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>,
      *
      * @param a a value of line segment
      * @param b b value of line segment
-     * @see #LineSegment()
      * @see #LineSegment(Point)
      */
     public LineSegment(Point a, Point b) {
-        this.a = a;
-        this.b = b;
+        setA(a);
+        setB(b);
     }
 
     // endregion
@@ -87,14 +78,6 @@ public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>,
         this.b = b;
     }
 
-    /**
-     * @param ab new a and b value of line segment
-     */
-    public void setAB(Point ab) {
-        setA(ab);
-        setB(ab);
-    }
-
     // endregion
 
     // region length, halvingPoint and distributionPoint
@@ -110,7 +93,7 @@ public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>,
     }
 
     /**
-     * @return <code>(A+B)/2</code>
+     * @return {@code (A+B)/2}
      */
     public Point halvingPoint() {
         return new Point(
@@ -121,7 +104,7 @@ public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>,
 
     /**
      * @param d proportion of distribution
-     * @return <code>(1-d)*A+d*B</code>
+     * @return {@code (1-d)*A+d*B}
      */
     public Point distributionPoint(double d) {
         return new Point(
@@ -132,24 +115,37 @@ public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>,
 
     // endregion
 
-    // region toLine
+    // region flip, toLine
+
+    /**
+     * @return a new line segment with flipped points
+     */
+    public LineSegment flip() {
+        return new LineSegment(getB(), getA());
+    }
 
     /**
      * may return a new Line with {@link Double#NaN}
-     * as <code>m</code> if the line is vertical -
-     * <code>b</code> is corresponding <code>x</code>
+     * as {@code m} if the line is vertical -
+     * {@code b} is corresponding {@code x}
      *
      * @return new line instance
      */
     public Line toLine() {
-        if (getA().getX() == getB().getX()) return new Line(Double.NaN, getA().getX());
-        double m = Math.sqrt(Math.pow(getA().getX(), 2) + Math.pow(getB().getX(), 2));
+        if (getA().getX() == getB().getX())
+            return new Line(Double.NaN, getA().getX());
+        double m = (getB().getY() - getA().getY()) / (getB().getX() - getA().getX());
         return new Line(m, getA().getY() - (m * getA().getX()));
     }
 
     // endregion
 
-    // region move, rotate and copy
+    // region isValid, move, rotate and copy
+
+    @Override
+    public boolean isValid() {
+        return getA().isValid() && getB().isValid();
+    }
 
     @Override
     public LineSegment move(Vector vector) {
@@ -174,17 +170,6 @@ public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>,
     // region override
 
     @Override
-    public int compareTo(LineSegment o) {
-        Point min = List.of(a, b).stream().min(Point::compareTo).get();
-        Point minO = List.of(o.a, o.b).stream().min(Point::compareTo).get();
-        int i = min.compareTo(minO);
-        if (i != 0) return i;
-        Point max = List.of(a, b).stream().max(Point::compareTo).get();
-        Point maxO = List.of(o.a, o.b).stream().max(Point::compareTo).get();
-        return max.compareTo(maxO);
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -201,6 +186,17 @@ public class LineSegment implements Copyable<LineSegment>, Movable<LineSegment>,
     @Override
     public String toString() {
         return a + " " + b;
+    }
+
+    @Override
+    public int compareTo(LineSegment o) {
+        Point min = List.of(a, b).stream().min(Point::compareTo).get();
+        Point minO = List.of(o.a, o.b).stream().min(Point::compareTo).get();
+        int i = min.compareTo(minO);
+        if (i != 0) return i;
+        Point max = List.of(a, b).stream().max(Point::compareTo).get();
+        Point maxO = List.of(o.a, o.b).stream().max(Point::compareTo).get();
+        return max.compareTo(maxO);
     }
 
     // endregion

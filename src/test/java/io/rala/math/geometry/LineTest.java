@@ -1,6 +1,7 @@
 package io.rala.math.geometry;
 
-import io.rala.math.testUtils.LineArgumentsStreamFactory;
+import io.rala.math.testUtils.SerializableTestUtils;
+import io.rala.math.testUtils.arguments.LineArgumentsStreamFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,6 +12,11 @@ import java.util.stream.Stream;
 
 class LineTest {
     // region constructors, getter and setter
+
+    @Test
+    void constructorWithX() {
+        assertLine(new Line(1), Double.NaN, 1);
+    }
 
     @Test
     void constructorWithMB() {
@@ -29,6 +35,40 @@ class LineTest {
         Line line = new Line(0, 0);
         line.setB(2);
         assertLine(line, 0, 2);
+    }
+
+    // endregion
+
+    // region isHorizontal and isVertical
+
+    @Test
+    void isHorizontalOfHorizontalLine() {
+        Assertions.assertTrue(new Line(0, 1).isHorizontal());
+    }
+
+    @Test
+    void isHorizontalOfVerticalLine() {
+        Assertions.assertFalse(new Line(Double.NaN, 1).isHorizontal());
+    }
+
+    @Test
+    void isHorizontalOfM1B1Line() {
+        Assertions.assertFalse(new Line(1, 1).isHorizontal());
+    }
+
+    @Test
+    void isVerticalOfHorizontalLine() {
+        Assertions.assertFalse(new Line(0, 1).isVertical());
+    }
+
+    @Test
+    void isVerticalOfVerticalLine() {
+        Assertions.assertTrue(new Line(Double.NaN, 1).isVertical());
+    }
+
+    @Test
+    void isVerticalOfM1B1Line() {
+        Assertions.assertFalse(new Line(1, 1).isVertical());
     }
 
     // endregion
@@ -62,6 +102,16 @@ class LineTest {
     }
 
     @Test
+    void hasIntersectionWithLineX1AndX2() {
+        Assertions.assertFalse(new Line(1).hasIntersection(new Line(2)));
+    }
+
+    @Test
+    void hasIntersectionWithLineM1B2AndX1() {
+        Assertions.assertTrue(new Line(1, 2).hasIntersection(new Line(1)));
+    }
+
+    @Test
     void intersectionWithEqualM() {
         Assertions.assertNull(new Line(1, 2).intersection(new Line(1, 0)));
     }
@@ -70,6 +120,51 @@ class LineTest {
     void intersectionWithLineM1B2AndM2B1() {
         Assertions.assertEquals(new Point(1, 3),
             new Line(1, 2).intersection(new Line(2, 1))
+        );
+    }
+
+    @Test
+    void intersectionWithLineX1AndX2() {
+        Assertions.assertNull(new Line(1).intersection(new Line(2)));
+    }
+
+    @Test
+    void intersectionWithLineM1B2AndX1() {
+        Assertions.assertEquals(new Point(1, 3),
+            new Line(1, 2).intersection(new Line(1))
+        );
+    }
+
+    @Test
+    void intersectionWithLineX1AndM1B2() {
+        Assertions.assertEquals(new Point(1, 3),
+            new Line(1).intersection(new Line(1, 2))
+        );
+    }
+
+    @Test
+    void intersectionAngleWithLineM1B2AndM2B1() {
+        Assertions.assertEquals(0.3217505543966422,
+            new Line(1, 2).intersectionAngle(new Line(2, 1))
+        );
+    }
+
+    @Test
+    void intersectionAngleWithLineX1AndX2() {
+        Assertions.assertTrue(Double.isNaN(new Line(1).intersectionAngle(new Line(2))));
+    }
+
+    @Test
+    void intersectionAngleWithLineM1B2AndX1() {
+        Assertions.assertEquals(0.7853981633974483,
+            new Line(1, 2).intersectionAngle(new Line(1))
+        );
+    }
+
+    @Test
+    void intersectionAngleWithLineX1AndM1B2() {
+        Assertions.assertEquals(0.7853981633974483,
+            new Line(1).intersectionAngle(new Line(1, 2))
         );
     }
 
@@ -111,7 +206,20 @@ class LineTest {
 
     // endregion
 
-    // region copy
+    // region isValid, copy
+
+    @Test
+    void isValidWithZeroValues() {
+        Assertions.assertTrue(new Line(0, 0).isValid());
+    }
+
+    @Test
+    void isValidWithInfValues() {
+        Assertions.assertFalse(
+            new Line(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
+                .isValid()
+        );
+    }
 
     @Test
     void copyOfLieWithMB() {
@@ -151,6 +259,12 @@ class LineTest {
     }
 
     @Test
+    void toStringOfVerticalLine() {
+        Line line = new Line(1);
+        Assertions.assertEquals("y=1.0", line.toString());
+    }
+
+    @Test
     void compareToOfLineWithMB() {
         Line line = new Line(2, 3);
         Assertions.assertEquals(
@@ -162,6 +276,11 @@ class LineTest {
         Assertions.assertEquals(
             1, line.compareTo(new Line(2, 1))
         );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(new Line(0), Line.class);
     }
 
     // endregion

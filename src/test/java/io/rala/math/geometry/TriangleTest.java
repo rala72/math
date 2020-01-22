@@ -1,9 +1,12 @@
 package io.rala.math.geometry;
 
+import io.rala.math.testUtils.SerializableTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class TriangleTest {
+    private static final double DELTA = 0.00001;
+
     // region constructors, getter and setter
 
     @Test
@@ -44,7 +47,7 @@ class TriangleTest {
 
     @Test
     void centerOfGravityOfTriangleWithA00B01C11() {
-        Assertions.assertEquals(new Point(0.3333333333333333, 0.6666666666666666),
+        Assertions.assertEquals(new Point(1d / 3, 2d / 3),
             new Triangle(new Point(), new Point(0, 1), new Point(1, 1)).centerOfGravity()
         );
     }
@@ -112,24 +115,63 @@ class TriangleTest {
 
     // endregion
 
+    // region angles
+
+    @Test
+    void angleAlpha() {
+        Triangle triangle = new Triangle(
+            new Point(0, 0), new Point(0, 1), new Point(1, 1)
+        );
+        Assertions.assertEquals(Math.PI / 4, triangle.angleAlpha(), 0.00001);
+    }
+
+    @Test
+    void angleBeta() {
+        Triangle triangle = new Triangle(
+            new Point(0, 0), new Point(0, 1), new Point(1, 1)
+        );
+        Assertions.assertEquals(Math.PI / 2, triangle.angleBeta(), DELTA);
+    }
+
+    @Test
+    void angleGamma() {
+        Triangle triangle = new Triangle(
+            new Point(0, 0), new Point(0, 1), new Point(1, 1)
+        );
+        Assertions.assertEquals(Math.PI / 4, triangle.angleGamma(), DELTA);
+    }
+
+    @Test
+    void angleSum() {
+        Triangle triangle = new Triangle(
+            new Point(0, 0), new Point(0, 1), new Point(1, 1)
+        );
+        Assertions.assertEquals(
+            Math.PI,
+            triangle.angleAlpha() + triangle.angleBeta() + triangle.angleGamma()
+        );
+    }
+
+    // endregion
+
     // region area, circumference, circumRadius, inRadius
 
     @Test
     void areaOfTriangleWithA00B01C11() {
         Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
-        Assertions.assertEquals(0.49999999999999983, triangle.area());
+        Assertions.assertEquals(0.5, triangle.area(), DELTA);
     }
 
     @Test
     void circumferenceOfTriangleWithA00B01C11() {
         Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
-        Assertions.assertEquals(3.414213562373095, triangle.circumference());
+        Assertions.assertEquals(2 + Math.sqrt(2), triangle.circumference());
     }
 
     @Test
     void circumRadiusOfTriangleWithA00B01C11() {
         Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
-        Assertions.assertEquals(0.7071067811865478, triangle.circumRadius());
+        Assertions.assertEquals(Math.sqrt(2) / 2, triangle.circumRadius(), DELTA);
     }
 
     @Test
@@ -140,7 +182,45 @@ class TriangleTest {
 
     // endregion
 
-    // region move, rotate and copy
+    // region isValid, move, rotate and copy
+
+    @Test
+    void isValidWithPositiveValues() {
+        Assertions.assertTrue(
+            new Triangle(
+                new Point(1), new Point(1, 2), new Point(2)
+            ).isValid()
+        );
+    }
+
+    @Test
+    void isValidWithLineValues() {
+        Assertions.assertFalse(
+            new Triangle(
+                new Point(0), new Point(1), new Point(2)
+            ).isValid()
+        );
+    }
+
+    @Test
+    void isValidWithZeroValues() {
+        Assertions.assertFalse(
+            new Triangle(
+                new Point(0), new Point(0), new Point(0)
+            ).isValid()
+        );
+    }
+
+    @Test
+    void isValidWithInfValues() {
+        Assertions.assertFalse(
+            new Triangle(
+                new Point(Double.POSITIVE_INFINITY),
+                new Point(Double.POSITIVE_INFINITY),
+                new Point(Double.POSITIVE_INFINITY)
+            ).isValid()
+        );
+    }
 
     @Test
     void moveOfTriangleWithXYWithXY() {
@@ -245,6 +325,14 @@ class TriangleTest {
             1, triangle.compareTo(new Triangle(
                 new Point(0.5, 1), new Point(1, 0.5), new Point(1)
             ))
+        );
+    }
+
+    @Test
+    void serializable() {
+        SerializableTestUtils.verify(
+            new Triangle(new Point(), new Point(), new Point()),
+            Triangle.class
         );
     }
 

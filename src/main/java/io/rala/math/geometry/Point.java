@@ -3,14 +3,16 @@ package io.rala.math.geometry;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
+import io.rala.math.utils.Validatable;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * class which holds a point in a 2d area with x &amp; y
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
-public class Point implements Copyable<Point>, Movable<Point>, Rotatable<Point>, Comparable<Point> {
+public class Point implements Validatable, Movable<Point>, Rotatable<Point>,
+    Copyable<Point>, Comparable<Point>, Serializable {
     // region attributes
 
     private double x;
@@ -21,7 +23,7 @@ public class Point implements Copyable<Point>, Movable<Point>, Rotatable<Point>,
     // region constructors
 
     /**
-     * calls {@link #Point(double)} with <code>0</code>
+     * calls {@link #Point(double)} with {@code 0}
      *
      * @see #Point(double)
      * @see #Point(double, double)
@@ -69,7 +71,7 @@ public class Point implements Copyable<Point>, Movable<Point>, Rotatable<Point>,
      * @param x new x value of point
      */
     public void setX(double x) {
-        this.x = !Double.isFinite(x) ? 0 : x;
+        this.x = x;
     }
 
     /**
@@ -83,7 +85,7 @@ public class Point implements Copyable<Point>, Movable<Point>, Rotatable<Point>,
      * @param y new y value of point
      */
     public void setY(double y) {
-        this.y = !Double.isFinite(y) ? 0 : y;
+        this.y = y;
     }
 
     /**
@@ -96,7 +98,12 @@ public class Point implements Copyable<Point>, Movable<Point>, Rotatable<Point>,
 
     // endregion
 
-    // region move, rotate and copy
+    // region isValid, move, rotate and copy
+
+    @Override
+    public boolean isValid() {
+        return Double.isFinite(getX()) && Double.isFinite(getY());
+    }
 
     @Override
     public Point move(Vector vector) {
@@ -142,9 +149,9 @@ public class Point implements Copyable<Point>, Movable<Point>, Rotatable<Point>,
 
     @Override
     public int compareTo(Point o) {
-        int compare = Double.compare(getX(), o.getX());
-        if (compare != 0) return compare;
-        return Double.compare(getY(), o.getY());
+        int diffX = (int) Math.ceil(getX() - o.getX());
+        if (diffX != 0) return diffX;
+        return (int) Math.ceil(getY() - o.getY());
     }
 
     // endregion

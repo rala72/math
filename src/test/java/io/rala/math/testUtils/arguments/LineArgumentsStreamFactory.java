@@ -1,4 +1,4 @@
-package io.rala.math.testUtils;
+package io.rala.math.testUtils.arguments;
 
 import org.junit.jupiter.params.provider.Arguments;
 
@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-@SuppressWarnings("unused")
 public class LineArgumentsStreamFactory {
     private LineArgumentsStreamFactory() {
     }

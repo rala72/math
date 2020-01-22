@@ -2,14 +2,16 @@ package io.rala.math.geometry;
 
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Rotatable;
+import io.rala.math.utils.Validatable;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * class which holds a vector in a 2d area with x &amp; y
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
-public class Vector implements Rotatable<Vector>, Copyable<Vector>, Comparable<Vector> {
+public class Vector implements Validatable, Rotatable<Vector>,
+    Copyable<Vector>, Comparable<Vector>, Serializable {
     // region attributes
 
     private double x;
@@ -20,7 +22,7 @@ public class Vector implements Rotatable<Vector>, Copyable<Vector>, Comparable<V
     // region constructors
 
     /**
-     * calls {@link #Vector(double)} with <code>0</code>
+     * calls {@link #Vector(double)} with {@code 0}
      *
      * @see #Vector(double)
      * @see #Vector(double, double)
@@ -68,7 +70,7 @@ public class Vector implements Rotatable<Vector>, Copyable<Vector>, Comparable<V
      * @param x new x value of vector
      */
     public void setX(double x) {
-        this.x = !Double.isFinite(x) ? 0 : x;
+        this.x = x;
     }
 
     /**
@@ -82,7 +84,7 @@ public class Vector implements Rotatable<Vector>, Copyable<Vector>, Comparable<V
      * @param y new y value of vector
      */
     public void setY(double y) {
-        this.y = !Double.isFinite(y) ? 0 : y;
+        this.y = y;
     }
 
     /**
@@ -252,7 +254,7 @@ public class Vector implements Rotatable<Vector>, Copyable<Vector>, Comparable<V
 
     /**
      * @param vector vector to calc angle between
-     * @return angle between vectors
+     * @return angle in {@code rad} between vectors
      */
     public double angle(Vector vector) {
         return Math.acos(scalarProduct(vector) / (length() * vector.length()));
@@ -312,7 +314,7 @@ public class Vector implements Rotatable<Vector>, Copyable<Vector>, Comparable<V
     // region isZeroVector
 
     /**
-     * @return <code>true</code> if both params casted to <code>int</code> are zero
+     * @return {@code true} if both params casted to {@code int} are zero
      */
     public boolean isZeroVector() {
         return (int) getX() == 0 && (int) getY() == 0;
@@ -320,7 +322,12 @@ public class Vector implements Rotatable<Vector>, Copyable<Vector>, Comparable<V
 
     // endregion
 
-    // region rotate and copy
+    // region isValid, rotate and copy
+
+    @Override
+    public boolean isValid() {
+        return Double.isFinite(getX()) && Double.isFinite(getY());
+    }
 
     @Override
     public Vector rotate(Point center, double phi) {
@@ -339,10 +346,10 @@ public class Vector implements Rotatable<Vector>, Copyable<Vector>, Comparable<V
     // region override
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Vector)) return false;
-        Vector vector = (Vector) obj;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Vector)) return false;
+        Vector vector = (Vector) o;
         return getX() == vector.getX() && getY() == vector.getY();
     }
 
@@ -357,10 +364,10 @@ public class Vector implements Rotatable<Vector>, Copyable<Vector>, Comparable<V
     }
 
     @Override
-    public int compareTo(Vector v) {
-        int diffX = (int) Math.ceil(getX() - v.getX());
+    public int compareTo(Vector o) {
+        int diffX = (int) Math.ceil(getX() - o.getX());
         if (diffX != 0) return diffX;
-        return (int) Math.ceil(getY() - v.getY());
+        return (int) Math.ceil(getY() - o.getY());
     }
 
     // endregion

@@ -1,13 +1,13 @@
-package io.rala.math.testUtils;
+package io.rala.math.testUtils.arguments;
 
 import org.junit.jupiter.params.provider.Arguments;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-@SuppressWarnings("unused")
 public class MathXArgumentsStreamFactory {
     private MathXArgumentsStreamFactory() {
     }
@@ -84,6 +84,30 @@ public class MathXArgumentsStreamFactory {
             Arguments.of(3630, IntStream.of(15, 22, 121).toArray()),
             Arguments.of(7801080, IntStream.of(444, 753, 280).toArray()),
             Arguments.of(672, IntStream.of(21, 32, 16, 4, 7).toArray())
+        );
+    }
+
+    public static Stream<Arguments> rootUsingDouble() {
+        return Stream.of(
+            Arguments.of(-1, 3, null),
+            Arguments.of(0, 3, 0d),
+            Arguments.of(1, 3, 1d),
+            Arguments.of(8, 3, 2d),
+            Arguments.of(27, 3, 3d),
+            Arguments.of(64, 3, 4d),
+            Arguments.of(125, 3, 5d)
+        );
+    }
+
+    public static Stream<Arguments> rootUsingBigDecimal() {
+        return Stream.of(
+            Arguments.of(BigDecimal.valueOf(-1), 3, null),
+            Arguments.of(BigDecimal.valueOf(0), 3, BigDecimal.valueOf(0)),
+            Arguments.of(BigDecimal.valueOf(1), 3, BigDecimal.valueOf(1)),
+            Arguments.of(BigDecimal.valueOf(8), 3, BigDecimal.valueOf(2)),
+            Arguments.of(BigDecimal.valueOf(27), 3, BigDecimal.valueOf(3)),
+            Arguments.of(BigDecimal.valueOf(64), 3, BigDecimal.valueOf(4)),
+            Arguments.of(BigDecimal.valueOf(125), 3, BigDecimal.valueOf(5))
         );
     }
 }
