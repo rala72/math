@@ -106,7 +106,7 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      * @param values row based values of matrix
      * @return new created matrix
      * @throws IllegalArgumentException if rows modulo {@code values.length}
-     *                                  is not congruent 0
+     *                                  is not congruent {@code 0}
      * @see Matrix#ofValuesByRows(AbstractArithmetic, Number, int, Number[])
      */
     public static BigDecimalMatrix ofValuesByRows(int rows, BigDecimal... values) {
@@ -124,7 +124,7 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      * @param values column based values of matrix
      * @return new created matrix
      * @throws IllegalArgumentException if cols modulo {@code values.length}
-     *                                  is not congruent 0
+     *                                  is not congruent {@code 0}
      * @see Matrix#ofValuesByCols(AbstractArithmetic, Number, int, Number[])
      */
     public static BigDecimalMatrix ofValuesByCols(int cols, BigDecimal... values) {

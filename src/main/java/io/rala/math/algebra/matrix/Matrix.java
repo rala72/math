@@ -553,7 +553,7 @@ public class Matrix<T extends Number>
      * @param <T>          number class
      * @return new created matrix
      * @throws IllegalArgumentException if rows modulo {@code values.length}
-     *                                  is not congruent 0
+     *                                  is not congruent {@code 0}
      */
     @SafeVarargs
     public static <T extends Number> Matrix<T> ofValuesByRows(
@@ -577,7 +577,7 @@ public class Matrix<T extends Number>
      * @param <T>          number class
      * @return new created matrix
      * @throws IllegalArgumentException if cols modulo {@code values.length}
-     *                                  is not congruent 0
+     *                                  is not congruent {@code 0}
      */
     @SafeVarargs
     public static <T extends Number> Matrix<T> ofValuesByCols(

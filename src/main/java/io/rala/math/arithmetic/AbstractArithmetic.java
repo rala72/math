@@ -28,7 +28,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
 
     /**
      * @param a value to get signum
-     * @return -1 if negative, 0 if zero or 1 if positive
+     * @return {@code -1} if negative, {@code 0} if zero or {@code 1} if positive
      * @throws NotImplementedException if operation is not implemented
      */
     public abstract double signum(T a);

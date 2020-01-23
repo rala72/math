@@ -91,7 +91,7 @@ public class Circle implements Validatable, Movable<Circle>, Rotatable<Circle>,
     }
 
     /**
-     * @return {@link #getRadius()}*2
+     * @return {@link #getRadius()}{@code *2}
      */
     public double getDiameter() {
         return getRadius() * 2;

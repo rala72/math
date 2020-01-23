@@ -83,7 +83,7 @@ public class DoubleMatrix extends Matrix<Double> {
      * @param values row based values of matrix
      * @return new created matrix
      * @throws IllegalArgumentException if rows modulo {@code values.length}
-     *                                  is not congruent 0
+     *                                  is not congruent {@code 0}
      * @see Matrix#ofValuesByRows(AbstractArithmetic, Number, int, Number[])
      */
     public static DoubleMatrix ofValuesByRows(int rows, double... values) {
@@ -102,7 +102,7 @@ public class DoubleMatrix extends Matrix<Double> {
      * @param values column based values of matrix
      * @return new created matrix
      * @throws IllegalArgumentException if cols modulo {@code values.length}
-     *                                  is not congruent 0
+     *                                  is not congruent {@code 0}
      * @see Matrix#ofValuesByCols(AbstractArithmetic, Number, int, Number[])
      */
     public static DoubleMatrix ofValuesByCols(int cols, double... values) {
