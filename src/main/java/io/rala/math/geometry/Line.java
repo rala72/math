@@ -121,6 +121,38 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
 
     // endregion
 
+    // region normal
+
+    /**
+     * @return normal line without changing {@link #getB()}
+     */
+    public Line normal() {
+        double m = isVertical() ? 0 :
+            isHorizontal() ? Double.NaN :
+                -1 / getM();
+        return new Line(m, getB());
+    }
+
+    /**
+     * @param point point on line
+     * @return normal line based on given point or {@code null}
+     * @see #normal()
+     */
+    public Line normal(Point point) {
+        if ((!isVertical() || getB() != point.getX()) &&
+            calculateX(point.getY()) != point.getX() &&
+            calculateY(point.getX()) != point.getY())
+            return null;
+        Line normal = normal();
+        normal.setB(
+            normal.isVertical() ? point.getX() :
+                point.getY() - normal.getM() * point.getX()
+        );
+        return normal;
+    }
+
+    // endregion
+
     // region intersection
 
     /**

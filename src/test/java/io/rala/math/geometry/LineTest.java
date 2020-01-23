@@ -89,6 +89,45 @@ class LineTest {
 
     // endregion
 
+    // region normal
+
+    @Test
+    void normalM1B0() {
+        assertLine(new Line(1, 0).normal(), -1, 0);
+    }
+
+    @Test
+    void normalOfVerticalLine() {
+        assertLine(new Line(0).normal(), 0, 0);
+    }
+
+    @Test
+    void normalOfHorizontalLine() {
+        assertLine(new Line(0, 0).normal(), Double.NaN, 0);
+    }
+
+    @Test
+    void normalM1B1AndInvalidPoint() {
+        Assertions.assertNull(new Line(1, 1).normal(new Point(1, 1)));
+    }
+
+    @Test
+    void normalM1B0AndPointXY1() {
+        assertLine(new Line(1, 0).normal(new Point(1, 1)), -1, 2);
+    }
+
+    @Test
+    void normalOfVerticalLineAndPointX0Y1() {
+        assertLine(new Line(0).normal(new Point(0, 1)), 0, 1);
+    }
+
+    @Test
+    void normalOfHorizontalLineAndPointX1Y0() {
+        assertLine(new Line(0, 0).normal(new Point(1, 0)), Double.NaN, 1);
+    }
+
+    // endregion
+
     // region intersection
 
     @Test
