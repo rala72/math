@@ -125,21 +125,21 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     }
 
     /**
-     * @return line segment of height <code>a</code> starting at {@link #getA()}
+     * @return line segment of height {@code a} starting at {@link #getA()}
      */
     public LineSegment heightA() {
         return getHeight(edgeA().toLine(), getA());
     }
 
     /**
-     * @return line segment of height <code>b</code> starting at {@link #getB()}
+     * @return line segment of height {@code b} starting at {@link #getB()}
      */
     public LineSegment heightB() {
         return getHeight(edgeB().toLine(), getB());
     }
 
     /**
-     * @return line segment of height <code>c</code> starting at {@link #getC()}
+     * @return line segment of height {@code c} starting at {@link #getC()}
      */
     public LineSegment heightC() {
         return getHeight(edgeC().toLine(), getC());
