@@ -135,13 +135,10 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
 
     /**
      * @param point point on line
-     * @return normal line based on given point or {@code null}
+     * @return normal line through given point
      * @see #normal()
-     * @see #hasPoint(Point)
      */
     public Line normal(Point point) {
-        if (!hasPoint(point))
-            return null;
         Line normal = normal();
         normal.setB(
             normal.isVertical() ? point.getX() :

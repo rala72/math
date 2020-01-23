@@ -107,8 +107,8 @@ class LineTest {
     }
 
     @Test
-    void normalM1B1AndInvalidPoint() {
-        Assertions.assertNull(new Line(1, 1).normal(new Point(1, 1)));
+    void normalM1B1AndPointXY1() {
+        assertLine(new Line(1, 1).normal(new Point(1)), -1, 2);
     }
 
     @Test
