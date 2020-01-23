@@ -151,12 +151,7 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
      * @return height starting at {@code point} and ending at intersection with {@code edge}
      */
     protected LineSegment getHeight(Line edge, Point point) {
-        double m = edge.isVertical() ? 0 :
-            edge.isHorizontal() ? Double.NaN :
-                -1 / edge.getM();
-        double b = Double.isNaN(m) ? point.getX() :
-            point.getY() - m * point.getX();
-        Line heightLine = new Line(m, b);
+        Line heightLine = edge.normal(point);
         return new LineSegment(point, heightLine.intersection(edge));
     }
 
