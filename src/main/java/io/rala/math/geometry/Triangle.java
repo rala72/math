@@ -100,7 +100,7 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
 
     // endregion
 
-    // region edges
+    // region edges and heights
     // line segments
 
     /**
@@ -122,6 +122,37 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
      */
     public LineSegment edgeC() {
         return new LineSegment(getA(), getB());
+    }
+
+    /**
+     * @return line segment of height {@code a} starting at {@link #getA()}
+     */
+    public LineSegment heightA() {
+        return getHeight(edgeA().toLine(), getA());
+    }
+
+    /**
+     * @return line segment of height {@code b} starting at {@link #getB()}
+     */
+    public LineSegment heightB() {
+        return getHeight(edgeB().toLine(), getB());
+    }
+
+    /**
+     * @return line segment of height {@code c} starting at {@link #getC()}
+     */
+    public LineSegment heightC() {
+        return getHeight(edgeC().toLine(), getC());
+    }
+
+    /**
+     * @param edge  edge to get height from
+     * @param point point to get height from
+     * @return height starting at {@code point} and ending at intersection with {@code edge}
+     */
+    protected LineSegment getHeight(Line edge, Point point) {
+        Line heightLine = edge.normal(point);
+        return new LineSegment(point, heightLine.intersection(edge));
     }
 
     // endregion
