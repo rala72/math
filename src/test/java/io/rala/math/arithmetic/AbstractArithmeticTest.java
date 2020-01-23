@@ -1,5 +1,6 @@
 package io.rala.math.arithmetic;
 
+import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.testUtils.SerializableTestUtils;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
 import org.junit.jupiter.api.Assertions;
@@ -232,6 +233,17 @@ class AbstractArithmeticTest {
         Assertions.assertEquals(arithmetic, resultArithmetic.getRArithmetic());
         Assertions.assertEquals(0, resultArithmetic.fromT(0));
         Assertions.assertEquals(-0d, resultArithmetic.fromT(-0d));
+    }
+
+    @Test
+    void toResultArithmeticWithTarget() {
+        IntegerArithmetic targetArithmetic = new IntegerArithmetic();
+        AbstractResultArithmetic<Number, Integer> resultArithmetic =
+            arithmetic.toResultArithmetic(targetArithmetic, Number::intValue);
+        Assertions.assertEquals(arithmetic, resultArithmetic.getTArithmetic());
+        Assertions.assertEquals(targetArithmetic, resultArithmetic.getRArithmetic());
+        Assertions.assertEquals(0, resultArithmetic.fromT(0));
+        Assertions.assertEquals(0, resultArithmetic.fromT(-0d));
     }
 
     // endregion

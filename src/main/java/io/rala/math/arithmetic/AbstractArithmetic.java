@@ -2,6 +2,7 @@ package io.rala.math.arithmetic;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * class which defines required arithmetic for calculations
@@ -368,6 +369,21 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
                 return a;
             }
         };
+    }
+
+    /**
+     * @param arithmetic arithmetic for target
+     * @param map        mapping function to convert {@code T} to {@code R}
+     * @param <R>        number class of target
+     * @return {@link AbstractResultArithmetic} wich returns {@code V}
+     * @see AbstractResultArithmetic#of(AbstractArithmetic, AbstractArithmetic, Function)
+     * @see #toResultArithmetic()
+     * @see AbstractResultArithmetic#mapResult(AbstractArithmetic, Function)
+     */
+    public <R extends Number> AbstractResultArithmetic<T, R> toResultArithmetic(
+        AbstractArithmetic<R> arithmetic, Function<T, R> map
+    ) {
+        return AbstractResultArithmetic.of(this, arithmetic, map);
     }
 
     // endregion
