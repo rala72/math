@@ -137,11 +137,10 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
      * @param point point on line
      * @return normal line based on given point or {@code null}
      * @see #normal()
+     * @see #hasPoint(Point)
      */
     public Line normal(Point point) {
-        if ((!isVertical() || getB() != point.getX()) &&
-            calculateX(point.getY()) != point.getX() &&
-            calculateY(point.getX()) != point.getY())
+        if (!hasPoint(point))
             return null;
         Line normal = normal();
         normal.setB(
@@ -192,6 +191,20 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
         }
         double tan = (getM() - line.getM()) / (1 + getM() * line.getM());
         return Math.atan(Math.abs(tan));
+    }
+
+    // endregion
+
+    // region hasPoint
+
+    /**
+     * @param point point to check if on line
+     * @return {@code true} if point is on line
+     */
+    public boolean hasPoint(Point point) {
+        return isVertical() && getB() == point.getX() ||
+            calculateX(point.getY()) == point.getX() ||
+            calculateY(point.getX()) == point.getY();
     }
 
     // endregion

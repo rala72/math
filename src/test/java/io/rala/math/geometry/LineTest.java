@@ -209,6 +209,30 @@ class LineTest {
 
     // endregion
 
+    // region hasPoint
+
+    @Test
+    void hasPointWithM1B0AndPointXY1() {
+        Assertions.assertTrue(new Line(1, 0).hasPoint(new Point(1)));
+    }
+
+    @Test
+    void hasPointWithM1B1AndPointXY1() {
+        Assertions.assertFalse(new Line(1, 1).hasPoint(new Point(1)));
+    }
+
+    @Test
+    void hasPointWithVerticalLine0AndPointX0Y1() {
+        Assertions.assertTrue(new Line(0).hasPoint(new Point(0, 1)));
+    }
+
+    @Test
+    void hasPointWithVerticalLine0AndPointXY1() {
+        Assertions.assertFalse(new Line(0).hasPoint(new Point(1)));
+    }
+
+    // endregion
+
     // region toLineSegment
 
     @Test
