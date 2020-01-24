@@ -1,48 +1,48 @@
 package io.rala.math.geometry;
 
+import io.rala.math.testUtils.assertion.GeometryAssertions;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class CircleTest {
-    private static final double DELTA = 0.00001;
 
     // region constructors, getter and setter
 
     @Test
     void constructorWithoutParameter() {
-        assertCircle(new Circle());
+        GeometryAssertions.assertCircle(new Circle());
     }
 
     @Test
     void constructorWithCenterButWithoutRadius() {
-        assertCircle(new Circle(new Point(1)), new Point(1));
+        GeometryAssertions.assertCircle(new Circle(new Point(1)), new Point(1));
     }
 
     @Test
     void constructorWithRadiusButWithoutCenter() {
-        assertCircle(new Circle(2), 2);
+        GeometryAssertions.assertCircle(new Circle(2), 2);
     }
 
     @Test
     void constructorWithCenterAndRadius() {
-        assertCircle(new Circle(new Point(2), 3), new Point(2), 3);
+        GeometryAssertions.assertCircle(new Circle(new Point(2), 3), new Point(2), 3);
     }
 
     @Test
     void createAndSetCenter() {
         Circle circle = new Circle();
-        assertCircle(circle);
+        GeometryAssertions.assertCircle(circle);
         circle.setCenter(new Point(1));
-        assertCircle(circle, new Point(1), 1);
+        GeometryAssertions.assertCircle(circle, new Point(1), 1);
     }
 
     @Test
     void createAndSetRadius() {
         Circle circle = new Circle();
-        assertCircle(circle);
+        GeometryAssertions.assertCircle(circle);
         circle.setRadius(2);
-        assertCircle(circle, 2);
+        GeometryAssertions.assertCircle(circle, 2);
     }
 
     @Test
@@ -75,7 +75,7 @@ class CircleTest {
 
     @Test
     void areaOfCircleWithoutParameter() {
-        Assertions.assertEquals(Math.PI, new Circle().area(), DELTA);
+        Assertions.assertEquals(Math.PI, new Circle().area(), GeometryAssertions.DELTA);
     }
 
     @Test
@@ -146,22 +146,22 @@ class CircleTest {
 
     @Test
     void moveOfCircleWithoutParameterWithXY() {
-        Assertions.assertEquals(new Circle(new Point(1)), new Circle().move(1));
+        GeometryAssertions.assertCircle(new Circle().move(1), new Point(1));
     }
 
     @Test
     void moveOfCircleWithoutParameterWithXAndY() {
-        Assertions.assertEquals(new Circle(new Point(1)), new Circle().move(1, 1));
+        GeometryAssertions.assertCircle(new Circle().move(1, 1), new Point(1));
     }
 
     @Test
     void moveOfCircleWithoutParameterWithVector() {
-        Assertions.assertEquals(new Circle(new Point(1)), new Circle().move(new Vector(1)));
+        GeometryAssertions.assertCircle(new Circle().move(new Vector(1)), new Point(1));
     }
 
     @Test
     void rotateOfCircleWithX1Y2WithoutCenterWithPiHalf() {
-        assertCircle(new Circle(new Point(1, 2))
+        GeometryAssertions.assertCircle(new Circle(new Point(1, 2))
                 .rotate(Math.PI / 2),
             new Point(-2, 1.0000000000000002)
         );
@@ -169,7 +169,7 @@ class CircleTest {
 
     @Test
     void rotateOfCircleWithX1Y2WithCenterXY1WithPiHalf() {
-        assertCircle(new Circle(new Point(1, 2))
+        GeometryAssertions.assertCircle(new Circle(new Point(1, 2))
                 .rotate(new Point(1), Math.PI / 2),
             new Point(0, 1)
         );
@@ -229,29 +229,6 @@ class CircleTest {
     @Test
     void serializable() {
         SerializableAssertions.assertSerializable(new Circle(), Circle.class);
-    }
-
-    // endregion
-
-
-    // region assert
-
-    private static void assertCircle(Circle circle) {
-        assertCircle(circle, new Point());
-    }
-
-    private static void assertCircle(Circle circle, Point center) {
-        assertCircle(circle, center, 1);
-    }
-
-    @SuppressWarnings("SameParameterValue")
-    private static void assertCircle(Circle circle, double radius) {
-        assertCircle(circle, new Point(), radius);
-    }
-
-    private static void assertCircle(Circle circle, Point center, double radius) {
-        Assertions.assertEquals(center, circle.getCenter(), "center is invalid");
-        Assertions.assertEquals(radius, circle.getRadius(), "radius is invalid");
     }
 
     // endregion

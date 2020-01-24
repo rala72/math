@@ -1,17 +1,16 @@
 package io.rala.math.geometry;
 
+import io.rala.math.testUtils.assertion.GeometryAssertions;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class TriangleTest {
-    private static final double DELTA = 0.00001;
-
     // region constructors, getter and setter
 
     @Test
     void constructorWithA2B3C4() {
-        assertTriangle(
+        GeometryAssertions.assertTriangle(
             new Triangle(new Point(2), new Point(3), new Point(4)),
             new Point(2), new Point(3), new Point(4)
         );
@@ -20,25 +19,25 @@ class TriangleTest {
     @Test
     void createAndSetA() {
         Triangle triangle = new Triangle(new Point(), new Point(), new Point());
-        assertTriangle(triangle, new Point(), new Point(), new Point());
+        GeometryAssertions.assertTriangle(triangle, new Point(), new Point(), new Point());
         triangle.setA(new Point(1));
-        assertTriangle(triangle, new Point(1), new Point(), new Point());
+        GeometryAssertions.assertTriangle(triangle, new Point(1), new Point(), new Point());
     }
 
     @Test
     void createAndSetB() {
         Triangle triangle = new Triangle(new Point(), new Point(), new Point());
-        assertTriangle(triangle, new Point(), new Point(), new Point());
+        GeometryAssertions.assertTriangle(triangle, new Point(), new Point(), new Point());
         triangle.setB(new Point(2));
-        assertTriangle(triangle, new Point(), new Point(2), new Point());
+        GeometryAssertions.assertTriangle(triangle, new Point(), new Point(2), new Point());
     }
 
     @Test
     void createAndSetC() {
         Triangle triangle = new Triangle(new Point(), new Point(), new Point());
-        assertTriangle(triangle, new Point(), new Point(), new Point());
+        GeometryAssertions.assertTriangle(triangle, new Point(), new Point(), new Point());
         triangle.setC(new Point(3));
-        assertTriangle(triangle, new Point(), new Point(), new Point(3));
+        GeometryAssertions.assertTriangle(triangle, new Point(), new Point(), new Point(3));
     }
 
     // endregion
@@ -47,8 +46,10 @@ class TriangleTest {
 
     @Test
     void centerOfGravityOfTriangleWithA00B01C11() {
-        Assertions.assertEquals(new Point(1d / 3, 2d / 3),
-            new Triangle(new Point(), new Point(0, 1), new Point(1, 1)).centerOfGravity()
+        GeometryAssertions.assertPoint(
+            new Triangle(new Point(), new Point(0, 1), new Point(1, 1))
+                .centerOfGravity(),
+            1d / 3, 2d / 3
         );
     }
 
@@ -59,17 +60,17 @@ class TriangleTest {
     @Test
     void edgesOfTriangleWithA00B01C11() {
         Triangle triangle = new Triangle(new Point(), new Point(1), new Point(2));
-        Assertions.assertEquals(
-            new LineSegment(new Point(1), new Point(2)),
-            triangle.edgeA()
+        GeometryAssertions.assertLineSegment(
+            triangle.edgeA(),
+            new Point(1), new Point(2)
         );
-        Assertions.assertEquals(
-            new LineSegment(new Point(), new Point(2)),
-            triangle.edgeB()
+        GeometryAssertions.assertLineSegment(
+            triangle.edgeB(),
+            new Point(), new Point(2)
         );
-        Assertions.assertEquals(
-            new LineSegment(new Point(), new Point(1)),
-            triangle.edgeC()
+        GeometryAssertions.assertLineSegment(
+            triangle.edgeC(),
+            new Point(), new Point(1)
         );
     }
 
@@ -138,7 +139,7 @@ class TriangleTest {
         Triangle triangle = new Triangle(
             new Point(0, 0), new Point(0, 1), new Point(1, 1)
         );
-        Assertions.assertEquals(Math.PI / 2, triangle.angleBeta(), DELTA);
+        Assertions.assertEquals(Math.PI / 2, triangle.angleBeta(), GeometryAssertions.DELTA);
     }
 
     @Test
@@ -146,7 +147,7 @@ class TriangleTest {
         Triangle triangle = new Triangle(
             new Point(0, 0), new Point(0, 1), new Point(1, 1)
         );
-        Assertions.assertEquals(Math.PI / 4, triangle.angleGamma(), DELTA);
+        Assertions.assertEquals(Math.PI / 4, triangle.angleGamma(), GeometryAssertions.DELTA);
     }
 
     @Test
@@ -167,7 +168,7 @@ class TriangleTest {
     @Test
     void areaOfTriangleWithA00B01C11() {
         Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
-        Assertions.assertEquals(0.5, triangle.area(), DELTA);
+        Assertions.assertEquals(0.5, triangle.area(), GeometryAssertions.DELTA);
     }
 
     @Test
@@ -179,7 +180,7 @@ class TriangleTest {
     @Test
     void circumCircleRadiusOfTriangleWithA00B01C11() {
         Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
-        Assertions.assertEquals(Math.sqrt(2) / 2, triangle.circumCircleRadius(), DELTA);
+        Assertions.assertEquals(Math.sqrt(2) / 2, triangle.circumCircleRadius(), GeometryAssertions.DELTA);
     }
 
     @Test
@@ -232,34 +233,34 @@ class TriangleTest {
 
     @Test
     void moveOfTriangleWithXYWithXY() {
-        Assertions.assertEquals(
-            new Triangle(new Point(1), new Point(2, 1), new Point(2)),
+        GeometryAssertions.assertTriangle(
             new Triangle(new Point(0), new Point(1, 0), new Point(1))
-                .move(1)
+                .move(1),
+            new Point(1), new Point(2, 1), new Point(2)
         );
     }
 
     @Test
     void moveOfTriangleWithXYWithXAndY() {
-        Assertions.assertEquals(
-            new Triangle(new Point(1), new Point(2, 1), new Point(2)),
+        GeometryAssertions.assertTriangle(
             new Triangle(new Point(0), new Point(1, 0), new Point(1))
-                .move(1, 1)
+                .move(1, 1),
+            new Point(1), new Point(2, 1), new Point(2)
         );
     }
 
     @Test
     void moveOfTriangleWithXYWithVector() {
-        Assertions.assertEquals(
-            new Triangle(new Point(1), new Point(2, 1), new Point(2)),
+        GeometryAssertions.assertTriangle(
             new Triangle(new Point(0), new Point(1, 0), new Point(1))
-                .move(new Vector(1))
+                .move(new Vector(1)),
+            new Point(1), new Point(2, 1), new Point(2)
         );
     }
 
     @Test
     void rotateOfTriangleWithA00B01C11WithoutCenterWithPiHalf() {
-        assertTriangle(
+        GeometryAssertions.assertTriangle(
             new Triangle(new Point(0, 0), new Point(0, 1), new Point(1, 1))
                 .rotate(Math.PI / 2),
             new Point(),
@@ -270,7 +271,7 @@ class TriangleTest {
 
     @Test
     void rotateOfTriangleWithA00B01C11WithCenterXY1WithPiHalf() {
-        assertTriangle(
+        GeometryAssertions.assertTriangle(
             new Triangle(new Point(0, 0), new Point(0, 1), new Point(1, 1))
                 .rotate(new Point(1), Math.PI / 2),
             new Point(2, 0),
@@ -342,17 +343,6 @@ class TriangleTest {
             new Triangle(new Point(), new Point(), new Point()),
             Triangle.class
         );
-    }
-
-    // endregion
-
-
-    // region assert
-
-    private static void assertTriangle(Triangle triangle, Point a, Point b, Point c) {
-        Assertions.assertEquals(a, triangle.getA(), "a is invalid");
-        Assertions.assertEquals(b, triangle.getB(), "b is invalid");
-        Assertions.assertEquals(c, triangle.getC(), "c is invalid");
     }
 
     // endregion

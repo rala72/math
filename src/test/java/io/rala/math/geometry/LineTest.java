@@ -1,6 +1,7 @@
 package io.rala.math.geometry;
 
 import io.rala.math.testUtils.arguments.LineArgumentsStreamFactory;
+import io.rala.math.testUtils.assertion.GeometryAssertions;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,26 +16,26 @@ class LineTest {
 
     @Test
     void constructorWithX() {
-        assertLine(new Line(1), Double.NaN, 1);
+        GeometryAssertions.assertLine(new Line(1), Double.NaN, 1);
     }
 
     @Test
     void constructorWithMB() {
-        assertLine(new Line(2, 3), 2, 3);
+        GeometryAssertions.assertLine(new Line(2, 3), 2, 3);
     }
 
     @Test
     void createAndSetM() {
         Line line = new Line(0, 0);
         line.setM(1);
-        assertLine(line, 1, 0);
+        GeometryAssertions.assertLine(line, 1, 0);
     }
 
     @Test
     void createAndSetB() {
         Line line = new Line(0, 0);
         line.setB(2);
-        assertLine(line, 0, 2);
+        GeometryAssertions.assertLine(line, 0, 2);
     }
 
     // endregion
@@ -93,37 +94,37 @@ class LineTest {
 
     @Test
     void normalM1B0() {
-        assertLine(new Line(1, 0).normal(), -1, 0);
+        GeometryAssertions.assertLine(new Line(1, 0).normal(), -1, 0);
     }
 
     @Test
     void normalOfVerticalLine() {
-        assertLine(new Line(0).normal(), 0, 0);
+        GeometryAssertions.assertLine(new Line(0).normal(), 0, 0);
     }
 
     @Test
     void normalOfHorizontalLine() {
-        assertLine(new Line(0, 0).normal(), Double.NaN, 0);
+        GeometryAssertions.assertLine(new Line(0, 0).normal(), Double.NaN, 0);
     }
 
     @Test
     void normalM1B1AndPointXY1() {
-        assertLine(new Line(1, 1).normal(new Point(1)), -1, 2);
+        GeometryAssertions.assertLine(new Line(1, 1).normal(new Point(1)), -1, 2);
     }
 
     @Test
     void normalM1B0AndPointXY1() {
-        assertLine(new Line(1, 0).normal(new Point(1, 1)), -1, 2);
+        GeometryAssertions.assertLine(new Line(1, 0).normal(new Point(1, 1)), -1, 2);
     }
 
     @Test
     void normalOfVerticalLineAndPointX0Y1() {
-        assertLine(new Line(0).normal(new Point(0, 1)), 0, 1);
+        GeometryAssertions.assertLine(new Line(0).normal(new Point(0, 1)), 0, 1);
     }
 
     @Test
     void normalOfHorizontalLineAndPointX1Y0() {
-        assertLine(new Line(0, 0).normal(new Point(1, 0)), Double.NaN, 1);
+        GeometryAssertions.assertLine(new Line(0, 0).normal(new Point(1, 0)), Double.NaN, 1);
     }
 
     // endregion
@@ -157,8 +158,9 @@ class LineTest {
 
     @Test
     void intersectionWithLineM1B2AndM2B1() {
-        Assertions.assertEquals(new Point(1, 3),
-            new Line(1, 2).intersection(new Line(2, 1))
+        GeometryAssertions.assertPoint(
+            new Line(1, 2).intersection(new Line(2, 1)),
+            1, 3
         );
     }
 
@@ -169,15 +171,17 @@ class LineTest {
 
     @Test
     void intersectionWithLineM1B2AndX1() {
-        Assertions.assertEquals(new Point(1, 3),
-            new Line(1, 2).intersection(new Line(1))
+        GeometryAssertions.assertPoint(
+            new Line(1, 2).intersection(new Line(1)),
+            1, 3
         );
     }
 
     @Test
     void intersectionWithLineX1AndM1B2() {
-        Assertions.assertEquals(new Point(1, 3),
-            new Line(1).intersection(new Line(1, 2))
+        GeometryAssertions.assertPoint(
+            new Line(1).intersection(new Line(1, 2)),
+            1, 3
         );
     }
 
@@ -237,33 +241,33 @@ class LineTest {
 
     @Test
     void toLineSegmentUsingXOfLineWithM0B1() {
-        Assertions.assertEquals(
-            new LineSegment(new Point(0, 1), new Point(1, 1)),
-            new Line(0, 1).toLineSegmentUsingX(0, 1)
+        GeometryAssertions.assertLineSegment(
+            new Line(0, 1).toLineSegmentUsingX(0, 1),
+            new Point(0, 1), new Point(1, 1)
         );
     }
 
     @Test
     void toLineSegmentUsingXOfLineWithM1B1() {
-        Assertions.assertEquals(
-            new LineSegment(new Point(0, 1), new Point(1, 2)),
-            new Line(1, 1).toLineSegmentUsingX(0, 1)
+        GeometryAssertions.assertLineSegment(
+            new Line(1, 1).toLineSegmentUsingX(0, 1),
+            new Point(0, 1), new Point(1, 2)
         );
     }
 
     @Test
     void toLineSegmentUsingYOfLineWithM1B0() {
-        Assertions.assertEquals(
-            new LineSegment(new Point(0, 0), new Point(1, 1)),
-            new Line(1, 0).toLineSegmentUsingY(0, 1)
+        GeometryAssertions.assertLineSegment(
+            new Line(1, 0).toLineSegmentUsingY(0, 1),
+            new Point(0, 0), new Point(1, 1)
         );
     }
 
     @Test
     void toLineSegmentUsingYOfLineWithM1B1() {
-        Assertions.assertEquals(
-            new LineSegment(new Point(-1, 0), new Point(0, 1)),
-            new Line(1, 1).toLineSegmentUsingY(0, 1)
+        GeometryAssertions.assertLineSegment(
+            new Line(1, 1).toLineSegmentUsingY(0, 1),
+            new Point(-1, 0), new Point(0, 1)
         );
     }
 
@@ -348,15 +352,6 @@ class LineTest {
 
     // endregion
 
-
-    // region assert
-
-    private static void assertLine(Line line, double m, double b) {
-        Assertions.assertEquals(m, line.getM(), "m is invalid");
-        Assertions.assertEquals(b, line.getB(), "b is invalid");
-    }
-
-    // endregion
 
     // region argument streams
 
