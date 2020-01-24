@@ -191,6 +191,22 @@ class TriangleTest {
 
     // endregion
 
+    // region centroid and orthoCenter
+
+    @Test
+    void centroidOfTriangleWithA00B01C11() {
+        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
+        GeometryAssertions.assertPoint(triangle.centroid(), 1d / 3, 2d / 3);
+    }
+
+    @Test
+    void orthoCenterOfTriangleWithA00B01C11() {
+        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
+        Assertions.assertEquals(triangle.getB(), triangle.orthoCenter());
+    }
+
+    // endregion
+
     // region isValid, move, rotate and copy
 
     @Test

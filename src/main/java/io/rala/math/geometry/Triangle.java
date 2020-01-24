@@ -240,6 +240,28 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
 
     // endregion
 
+    // region centroid and orthoCenter
+
+    /**
+     * @return {@code ( (xA+xB+xC)/3, (yA+yB+yC)/3 )}
+     */
+    public Point centroid() {
+        return new Point(
+            (getA().getX() + getB().getX() + getC().getX()) / 3,
+            (getA().getY() + getB().getY() + getC().getY()) / 3
+        );
+    }
+
+    /**
+     * @return intersection from {@link #altitudeA()} and {@link #altitudeB()}
+     * @see Line#intersection(Line)
+     */
+    public Point orthoCenter() {
+        return altitudeA().toLine().intersection(altitudeB().toLine());
+    }
+
+    // endregion
+
     // region isValid, move, rotate and copy
 
     @Override
