@@ -7,6 +7,7 @@ import org.opentest4j.AssertionFailedError;
 /**
  * assertions for {@link io.rala.math.geometry} package
  */
+@SuppressWarnings("unused")
 public class GeometryAssertions {
     public static final double DELTA = 0.00001;
 
@@ -44,11 +45,7 @@ public class GeometryAssertions {
      * asserts that circle has expected values
      */
     public static void assertCircle(Circle circle, Point center, double radius) {
-        try {
-            assertPoint(center, circle.getCenter().getX(), circle.getCenter().getY());
-        } catch (AssertionFailedError error) { // better way?
-            Assertions.fail("center is invalid [" + error.getMessage() + "]", error);
-        }
+        assertEquals(center, circle.getCenter(), "center is invalid");
         Assertions.assertEquals(radius, circle.getRadius(), DELTA, "radius is invalid");
     }
 
@@ -68,8 +65,8 @@ public class GeometryAssertions {
      * asserts that lineSegment has expected values
      */
     public static void assertLineSegment(LineSegment lineSegment, Point a, Point b) {
-        Assertions.assertEquals(a, lineSegment.getA(), "a is invalid");
-        Assertions.assertEquals(b, lineSegment.getB(), "b is invalid");
+        assertEquals(a, lineSegment.getA(), "a is invalid");
+        assertEquals(b, lineSegment.getB(), "b is invalid");
     }
 
     // endregion
@@ -128,9 +125,9 @@ public class GeometryAssertions {
      * asserts that rect has expected values
      */
     public static void assertRect(Rect rect, Point a, Point b, double size) {
-        Assertions.assertEquals(a, rect.getA(), "a is invalid");
-        Assertions.assertEquals(b, rect.getB(), "b is invalid");
-        Assertions.assertEquals(size, rect.getSize(), "size is invalid");
+        assertEquals(a, rect.getA(), "a is invalid");
+        assertEquals(b, rect.getB(), "b is invalid");
+        Assertions.assertEquals(size, rect.getSize(), DELTA, "size is invalid");
     }
 
     // endregion
@@ -141,9 +138,9 @@ public class GeometryAssertions {
      * asserts that triangle has expected values
      */
     public static void assertTriangle(Triangle triangle, Point a, Point b, Point c) {
-        Assertions.assertEquals(a, triangle.getA(), "a is invalid");
-        Assertions.assertEquals(b, triangle.getB(), "b is invalid");
-        Assertions.assertEquals(c, triangle.getC(), "c is invalid");
+        assertEquals(a, triangle.getA(), "a is invalid");
+        assertEquals(b, triangle.getB(), "b is invalid");
+        assertEquals(c, triangle.getC(), "c is invalid");
     }
 
     // endregion
@@ -172,6 +169,23 @@ public class GeometryAssertions {
     public static void assertVector(Vector vector, double x, double y) {
         Assertions.assertEquals(x, vector.getX(), DELTA, "x is invalid");
         Assertions.assertEquals(y, vector.getY(), DELTA, "y is invalid");
+    }
+
+    // endregion
+
+    // region private assertEquals
+
+    private static void assertEquals(Point expected, Point actual) {
+        assertEquals(actual, expected, null);
+    }
+
+    private static void assertEquals(Point expected, Point actual, String message) {
+        if (message == null) message = "point is invalid";
+        try {
+            assertPoint(actual, expected.getX(), expected.getY());
+        } catch (AssertionFailedError error) { // better way?
+            Assertions.fail(message + " [" + error.getMessage() + "]", error);
+        }
     }
 
     // endregion
