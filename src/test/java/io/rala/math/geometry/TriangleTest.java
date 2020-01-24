@@ -224,6 +224,12 @@ class TriangleTest {
     }
 
     @Test
+    void circumCirclePointOfTriangleWithA00B01C11() {
+        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
+        Assertions.assertEquals(new Point(0.5, -0.5), triangle.circumCirclePoint());
+    }
+
+    @Test
     void inCircleRadiusOfTriangleWithA00B01C11() {
         Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
         Assertions.assertEquals(
@@ -231,12 +237,6 @@ class TriangleTest {
             triangle.inCircleRadius(),
             GeometryAssertions.DELTA
         );
-    }
-
-    @Test
-    void circumCirclePointOfTriangleWithA00B01C11() {
-        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
-        Assertions.assertEquals(new Point(0.5, -0.5), triangle.circumCirclePoint());
     }
 
     @Test

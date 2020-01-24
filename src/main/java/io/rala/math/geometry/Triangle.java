@@ -272,13 +272,6 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     }
 
     /**
-     * @return {@code A/(r/2)}
-     */
-    protected double inCircleRadius() {
-        return area() / (circumference() / 2);
-    }
-
-    /**
      * @return {@code ( (a2*(By-Cy)+b2*(Cy-Ay)+c2*(Ay-By))/d,
      * (a2*(Bx-Cx)+b2*(Cx-Ax)+c2*(Ax-Bx))/d )}
      * where {@code N2=Nx^2+Ny^2} with {@code N in [ABC]}
@@ -303,6 +296,13 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
                 c2 * (getA().getX() - getB().getX())
             ) / d
         );
+    }
+
+    /**
+     * @return {@code A/(r/2)}
+     */
+    protected double inCircleRadius() {
+        return area() / (circumference() / 2);
     }
 
     /**
