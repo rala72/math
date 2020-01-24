@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static io.rala.math.testUtils.assertion.MatrixAssertions.assertMatrix;
+
 class MatrixTest {
     // region constructors and newInstance
 
@@ -1254,20 +1256,6 @@ class MatrixTest {
         Assertions.assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.new Field(matrix.size(), 0)
         ); // assert exception message?
-    }
-
-    // endregion
-
-
-    // region assert
-
-    private static <T extends Number> void assertMatrix(Matrix<T> matrix, int size) {
-        assertMatrix(matrix, size, size);
-    }
-
-    private static <T extends Number> void assertMatrix(Matrix<T> matrix, int rows, int cols) {
-        Assertions.assertEquals(rows, matrix.getRows(), "rows is invalid");
-        Assertions.assertEquals(cols, matrix.getCols(), "cols is invalid");
     }
 
     // endregion

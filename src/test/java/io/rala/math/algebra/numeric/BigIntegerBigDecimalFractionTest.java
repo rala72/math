@@ -4,6 +4,7 @@ import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 import io.rala.math.arithmetic.core.BigIntegerArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
+import io.rala.math.testUtils.assertion.NumericAssertions;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -523,8 +524,7 @@ class BigIntegerBigDecimalFractionTest {
     private static void assertFraction(
         Fraction<BigInteger, BigDecimal> fraction, BigInteger no, BigInteger de
     ) {
-        Assertions.assertEquals(no, fraction.getNumerator(), "no is invalid");
-        Assertions.assertEquals(de, fraction.getDenominator(), "de is invalid");
+        NumericAssertions.assertFraction(fraction, no, de);
     }
 
     // endregion

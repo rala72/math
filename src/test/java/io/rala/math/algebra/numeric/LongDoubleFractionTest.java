@@ -5,6 +5,7 @@ import io.rala.math.arithmetic.core.DoubleArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.arithmetic.core.LongArithmetic;
 import io.rala.math.testUtils.algebra.TestFraction;
+import io.rala.math.testUtils.assertion.NumericAssertions;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -404,8 +405,7 @@ class LongDoubleFractionTest {
     }
 
     private static void assertFraction(Fraction<Long, Double> fraction, long no, long de) {
-        Assertions.assertEquals(no, fraction.getNumerator().doubleValue(), "no is invalid");
-        Assertions.assertEquals(de, fraction.getDenominator().doubleValue(), "de is invalid");
+        NumericAssertions.assertFraction(fraction, no, de);
     }
 
     // endregion

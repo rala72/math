@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static io.rala.math.testUtils.assertion.MatrixAssertions.assertMatrix;
+
 class DoubleMatrixTest {
     // region constructors
 
@@ -1013,20 +1015,6 @@ class DoubleMatrixTest {
                     2 * value : 0));
         }
         Assertions.assertEquals(result, matrix.addColMultipleTimes(0, 1, 2d));
-    }
-
-    // endregion
-
-
-    // region assert
-
-    private static <T extends Number> void assertMatrix(Matrix<T> matrix, int size) {
-        assertMatrix(matrix, size, size);
-    }
-
-    private static <T extends Number> void assertMatrix(Matrix<T> matrix, int rows, int cols) {
-        Assertions.assertEquals(rows, matrix.getRows(), "rows is invalid");
-        Assertions.assertEquals(cols, matrix.getCols(), "cols is invalid");
     }
 
     // endregion

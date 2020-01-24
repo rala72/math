@@ -2,6 +2,7 @@ package io.rala.math.algebra.numeric;
 
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Vector;
+import io.rala.math.testUtils.assertion.NumericAssertions;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -563,8 +564,7 @@ class DoubleComplexTest {
     }
 
     private static void assertComplex(Complex<Double> complex, double re, double im) {
-        Assertions.assertEquals(re, complex.getRe(), "re is invalid");
-        Assertions.assertEquals(im, complex.getIm(), "im is invalid");
+        NumericAssertions.assertComplex(complex, re, im);
     }
 
     // endregion

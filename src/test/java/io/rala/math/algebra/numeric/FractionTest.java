@@ -5,6 +5,7 @@ import io.rala.math.arithmetic.core.DoubleArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.testUtils.algebra.TestFraction;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
+import io.rala.math.testUtils.assertion.NumericAssertions;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ class FractionTest {
 
     @Test
     void constructorWithDifferentNuDeParameter() {
-        assertFraction(new TestFraction(2d, 3d), 2, 3);
+        assertFraction(new TestFraction(2, 3), 2, 3);
     }
 
     @Test
@@ -38,7 +39,7 @@ class FractionTest {
 
     @Test
     void constructorWithFraction() {
-        assertFraction(new TestFraction(new TestFraction(2d, 3d)), 2, 3);
+        assertFraction(new TestFraction(new TestFraction(2, 3)), 2, 3);
     }
 
     @Test
@@ -128,7 +129,7 @@ class FractionTest {
 
     @Test
     void simplify() {
-        assertFraction(new TestFraction(2, 4).simplify(), 1, 2);
+        assertFraction(new TestFraction(2, 4).simplify(), 1d, 2d);
     }
 
     @Test
@@ -262,7 +263,7 @@ class FractionTest {
 
     @Test
     void root2OfFraction1_4() {
-        assertFraction(new TestFraction(1, 4).root(2), 1, 2);
+        assertFraction(new TestFraction(1, 4).root(2), 1d, 2d);
     }
 
     // endregion
@@ -423,9 +424,8 @@ class FractionTest {
         assertFraction(fraction, 1, 1);
     }
 
-    private static void assertFraction(Fraction<Number, Number> fraction, double no, double de) {
-        Assertions.assertEquals(no, fraction.getNumerator().doubleValue(), "no is invalid");
-        Assertions.assertEquals(de, fraction.getDenominator().doubleValue(), "de is invalid");
+    private static void assertFraction(Fraction<Number, Number> fraction, Number no, Number de) {
+        NumericAssertions.assertFraction(fraction, no, de);
     }
 
     // endregion
