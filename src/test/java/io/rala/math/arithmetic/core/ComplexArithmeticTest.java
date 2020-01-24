@@ -2,8 +2,8 @@ package io.rala.math.arithmetic.core;
 
 import io.rala.math.algebra.numeric.Complex;
 import io.rala.math.arithmetic.AbstractArithmetic;
-import io.rala.math.testUtils.SerializableTestUtils;
 import io.rala.math.testUtils.arithmetic.TestComplexArithmetic;
+import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -307,7 +307,7 @@ class ComplexArithmeticTest {
 
     @Test
     void serializable() {
-        SerializableTestUtils.verify(
+        SerializableAssertions.assertSerializable(
             new TestComplexArithmetic(),
             TestComplexArithmetic.class
         );

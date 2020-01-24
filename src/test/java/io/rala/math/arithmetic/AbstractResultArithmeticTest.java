@@ -1,9 +1,9 @@
 package io.rala.math.arithmetic;
 
 import io.rala.math.arithmetic.core.IntegerArithmetic;
-import io.rala.math.testUtils.SerializableTestUtils;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
 import io.rala.math.testUtils.arithmetic.TestAbstractResultArithmetic;
+import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -129,7 +129,7 @@ class AbstractResultArithmeticTest {
 
     @Test
     void serializable() {
-        SerializableTestUtils.verify(
+        SerializableAssertions.assertSerializable(
             new TestAbstractResultArithmetic(),
             TestAbstractResultArithmetic.class
         );

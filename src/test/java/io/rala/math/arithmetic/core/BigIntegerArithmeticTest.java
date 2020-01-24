@@ -1,6 +1,6 @@
 package io.rala.math.arithmetic.core;
 
-import io.rala.math.testUtils.SerializableTestUtils;
+import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -179,7 +179,7 @@ class BigIntegerArithmeticTest {
 
     @Test
     void serializable() {
-        SerializableTestUtils.verify(
+        SerializableAssertions.assertSerializable(
             new BigIntegerArithmetic(),
             BigIntegerArithmetic.class
         );

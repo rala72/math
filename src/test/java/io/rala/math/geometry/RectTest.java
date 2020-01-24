@@ -1,6 +1,6 @@
 package io.rala.math.geometry;
 
-import io.rala.math.testUtils.SerializableTestUtils;
+import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -304,7 +304,7 @@ class RectTest {
 
     @Test
     void serializable() {
-        SerializableTestUtils.verify(new Rect(0, 0), Rect.class);
+        SerializableAssertions.assertSerializable(new Rect(0, 0), Rect.class);
     }
 
     // endregion

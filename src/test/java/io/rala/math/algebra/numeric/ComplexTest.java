@@ -2,9 +2,9 @@ package io.rala.math.algebra.numeric;
 
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Vector;
-import io.rala.math.testUtils.SerializableTestUtils;
 import io.rala.math.testUtils.algebra.TestComplex;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
+import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -554,7 +554,7 @@ class ComplexTest {
 
     @Test
     void serializable() {
-        SerializableTestUtils.verify(
+        SerializableAssertions.assertSerializable(
             new TestComplex(),
             TestComplex.class
         );

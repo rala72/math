@@ -1,7 +1,7 @@
 package io.rala.math.algebra.matrix;
 
 import io.rala.math.arithmetic.core.IntegerArithmetic;
-import io.rala.math.testUtils.SerializableTestUtils;
+import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -780,7 +780,7 @@ class BigDecimalMatrixTest {
 
     @Test
     void serializable() {
-        SerializableTestUtils.verify(
+        SerializableAssertions.assertSerializable(
             new BigDecimalMatrix(0),
             BigDecimalMatrix.class
         );

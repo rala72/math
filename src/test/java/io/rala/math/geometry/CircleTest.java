@@ -1,6 +1,6 @@
 package io.rala.math.geometry;
 
-import io.rala.math.testUtils.SerializableTestUtils;
+import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -228,7 +228,7 @@ class CircleTest {
 
     @Test
     void serializable() {
-        SerializableTestUtils.verify(new Circle(), Circle.class);
+        SerializableAssertions.assertSerializable(new Circle(), Circle.class);
     }
 
     // endregion

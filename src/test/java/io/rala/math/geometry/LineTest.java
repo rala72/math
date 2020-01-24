@@ -1,7 +1,7 @@
 package io.rala.math.geometry;
 
-import io.rala.math.testUtils.SerializableTestUtils;
 import io.rala.math.testUtils.arguments.LineArgumentsStreamFactory;
+import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -343,7 +343,7 @@ class LineTest {
 
     @Test
     void serializable() {
-        SerializableTestUtils.verify(new Line(0), Line.class);
+        SerializableAssertions.assertSerializable(new Line(0), Line.class);
     }
 
     // endregion
