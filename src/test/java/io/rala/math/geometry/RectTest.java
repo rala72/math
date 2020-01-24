@@ -161,6 +161,34 @@ class RectTest {
 
     // endregion
 
+    // region circumCircle
+
+    @Test
+    void circumCircleOfRectWithHeightAndWidth1() {
+        GeometryAssertions.assertCircle(
+            new Rect(1, 1).circumCircle(),
+            new Point(0.5, 0.5), Math.sqrt(2) / 2
+        );
+    }
+
+    @Test
+    void circumCircleRadiusOfRectWithHeightAndWidth1() {
+        Assertions.assertEquals(
+            Math.sqrt(2) / 2,
+            new Rect(1, 1).circumCircleRadius()
+        );
+    }
+
+    @Test
+    void circumCirclePointOfRectWithHeightAndWidth1() {
+        GeometryAssertions.assertPoint(
+            new Rect(1, 1).circumCirclePoint(),
+            0.5, 0.5
+        );
+    }
+
+    // endregion
+
     // region isSquare
 
     @Test

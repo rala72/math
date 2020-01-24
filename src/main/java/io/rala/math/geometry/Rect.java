@@ -173,6 +173,33 @@ public class Rect implements Validatable, Movable<Rect>, Rotatable<Rect>,
 
     // endregion
 
+    // region circumCircle
+
+    /**
+     * @return circum circle of rect
+     */
+    public Circle circumCircle() {
+        return new Circle(circumCirclePoint(), circumCircleRadius());
+    }
+
+    /**
+     * @return {@link #diagonale()}{@code /2}
+     */
+    protected double circumCircleRadius() {
+        return diagonale() / 2;
+    }
+
+    /**
+     * @return intersection of AC and BD diagonals
+     */
+    protected Point circumCirclePoint() {
+        LineSegment ac = new LineSegment(vertexA(), vertexC());
+        LineSegment bd = new LineSegment(vertexB(), vertexD());
+        return ac.toLine().intersection(bd.toLine());
+    }
+
+    // endregion
+
     // region isSquare
 
     /**
