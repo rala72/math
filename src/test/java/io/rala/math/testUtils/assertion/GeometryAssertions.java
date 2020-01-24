@@ -2,6 +2,7 @@ package io.rala.math.testUtils.assertion;
 
 import io.rala.math.geometry.*;
 import org.junit.jupiter.api.Assertions;
+import org.opentest4j.AssertionFailedError;
 
 /**
  * assertions for {@link io.rala.math.geometry} package
@@ -43,7 +44,11 @@ public class GeometryAssertions {
      * asserts that circle has expected values
      */
     public static void assertCircle(Circle circle, Point center, double radius) {
-        Assertions.assertEquals(center, circle.getCenter(), "center is invalid");
+        try {
+            assertPoint(center, circle.getCenter().getX(), circle.getCenter().getY());
+        } catch (AssertionFailedError error) { // better way?
+            Assertions.fail("center is invalid [" + error.getMessage() + "]", error);
+        }
         Assertions.assertEquals(radius, circle.getRadius(), DELTA, "radius is invalid");
     }
 

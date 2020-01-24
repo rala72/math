@@ -199,7 +199,7 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
 
     // endregion
 
-    // region area, circumference, circumCircleRadius and inCircleRadius
+    // region area and circumference
 
     /**
      * @return {@code sqrt(s*(s-a)*(s-b)*(s-c))}
@@ -222,22 +222,6 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
             edgeC().length();
     }
 
-    /**
-     * @return {@code (a*b*c)/A}
-     */
-    public double circumCircleRadius() {
-        return (edgeA().length() *
-            edgeB().length() *
-            edgeC().length()) / (4 * area());
-    }
-
-    /**
-     * @return {@code A/(r/2)}
-     */
-    public double inCircleRadius() {
-        return area() / (circumference() / 2);
-    }
-
     // endregion
 
     // region centroid and orthoCenter
@@ -258,6 +242,84 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
      */
     public Point orthoCenter() {
         return altitudeA().toLine().intersection(altitudeB().toLine());
+    }
+
+    // endregion
+
+    // region circumCircle and inCircle
+
+    /**
+     * @return circum circle of triangle
+     */
+    public Circle circumCircle() {
+        return new Circle(circumCirclePoint(), circumCircleRadius());
+    }
+
+    /**
+     * @return in circle of triangle
+     */
+    public Circle inCircle() {
+        return new Circle(inCirclePoint(), inCircleRadius());
+    }
+
+    /**
+     * @return {@code (a*b*c)/A}
+     */
+    protected double circumCircleRadius() {
+        return (edgeA().length() *
+            edgeB().length() *
+            edgeC().length()) / (4 * area());
+    }
+
+    /**
+     * @return {@code A/(r/2)}
+     */
+    protected double inCircleRadius() {
+        return area() / (circumference() / 2);
+    }
+
+    /**
+     * @return {@code ( (a2*(By-Cy)+b2*(Cy-Ay)+c2*(Ay-By))/d,
+     * (a2*(Bx-Cx)+b2*(Cx-Ax)+c2*(Ax-Bx))/d )}
+     * where {@code N2=Nx^2+Ny^2} with {@code N in [ABC]}
+     * and {@code d=Ax*(By-Cy)+Bx*(Cy-Ay)+Cx*(Ay-By)}
+     */
+    protected Point circumCirclePoint() {
+        double d = 2 * (
+            getA().getX() * (getB().getY() - getC().getY()) +
+                getB().getX() * (getC().getY() - getA().getY()) +
+                getC().getX() * (getA().getY() - getB().getY())
+        );
+        double a2 = (Math.pow(getA().getX(), 2) + Math.pow(getA().getY(), 2));
+        double b2 = (Math.pow(getB().getX(), 2) + Math.pow(getB().getY(), 2));
+        double c2 = (Math.pow(getC().getX(), 2) + Math.pow(getC().getY(), 2));
+        return new Point(
+            (a2 * (getB().getY() - getC().getY()) +
+                b2 * (getC().getY() - getA().getY()) +
+                c2 * (getA().getY() - getB().getY())
+            ) / d,
+            (a2 * (getB().getX() - getC().getX()) +
+                b2 * (getC().getX() - getA().getX()) +
+                c2 * (getA().getX() - getB().getX())
+            ) / d
+        );
+    }
+
+    /**
+     * @return {@code ( (a*xA+b*xB+c*xC)/p, (a*yA+b*yB+c*yC)/p )} where {@code p=a+b+c}
+     */
+    protected Point inCirclePoint() {
+        double p = circumference();
+        return new Point(
+            (edgeA().length() * getA().getX() +
+                edgeB().length() * getB().getX() +
+                edgeC().length() * getC().getX()
+            ) / p,
+            (edgeA().length() * getA().getY() +
+                edgeB().length() * getB().getY() +
+                edgeC().length() * getC().getY()
+            ) / p
+        );
     }
 
     // endregion

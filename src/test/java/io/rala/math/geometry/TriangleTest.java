@@ -163,7 +163,7 @@ class TriangleTest {
 
     // endregion
 
-    // region area, circumference, circumCircleRadius, inCircleRadius
+    // region area and circumference
 
     @Test
     void areaOfTriangleWithA00B01C11() {
@@ -175,18 +175,6 @@ class TriangleTest {
     void circumferenceOfTriangleWithA00B01C11() {
         Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
         Assertions.assertEquals(2 + Math.sqrt(2), triangle.circumference());
-    }
-
-    @Test
-    void circumCircleRadiusOfTriangleWithA00B01C11() {
-        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
-        Assertions.assertEquals(Math.sqrt(2) / 2, triangle.circumCircleRadius(), GeometryAssertions.DELTA);
-    }
-
-    @Test
-    void inCircleRadiusOfTriangleWithA00B01C11() {
-        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
-        Assertions.assertEquals(0.29289321881345237, triangle.inCircleRadius());
     }
 
     // endregion
@@ -203,6 +191,62 @@ class TriangleTest {
     void orthoCenterOfTriangleWithA00B01C11() {
         Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
         Assertions.assertEquals(triangle.getB(), triangle.orthoCenter());
+    }
+
+    // endregion
+
+    // region circumCircle and inCircle
+
+    @Test
+    void circumCircleOfTriangleWithA00B01C11() {
+        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
+        GeometryAssertions.assertCircle(
+            triangle.circumCircle(),
+            new Point(0.5, -0.5),
+            Math.sqrt(2) / 2
+        );
+    }
+
+    @Test
+    void inCircleOfTriangleWithA00B01C11() {
+        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
+        GeometryAssertions.assertCircle(
+            triangle.inCircle(),
+            new Point(1 - Math.sqrt(2) / 2, Math.sqrt(2) / 2),
+            1 - Math.sqrt(2) / 2
+        );
+    }
+
+    @Test
+    void circumCircleRadiusOfTriangleWithA00B01C11() {
+        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
+        Assertions.assertEquals(Math.sqrt(2) / 2, triangle.circumCircleRadius(), GeometryAssertions.DELTA);
+    }
+
+    @Test
+    void inCircleRadiusOfTriangleWithA00B01C11() {
+        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
+        Assertions.assertEquals(
+            1 - Math.sqrt(2) / 2,
+            triangle.inCircleRadius(),
+            GeometryAssertions.DELTA
+        );
+    }
+
+    @Test
+    void circumCirclePointOfTriangleWithA00B01C11() {
+        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
+        Assertions.assertEquals(new Point(0.5, -0.5), triangle.circumCirclePoint());
+    }
+
+    @Test
+    void inCirclePointOfTriangleWithA00B01C11() {
+        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
+        GeometryAssertions.assertPoint(
+            triangle.inCirclePoint(),
+            1 - Math.sqrt(2) / 2,
+            Math.sqrt(2) / 2
+        );
     }
 
     // endregion
