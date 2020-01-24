@@ -100,8 +100,7 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
 
     // endregion
 
-    // region edges and heights
-    // line segments
+    // region edges and altitudes
 
     /**
      * @return line segment from b to c
@@ -125,34 +124,34 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     }
 
     /**
-     * @return line segment of height {@code a} starting at {@link #getA()}
+     * @return line segment of altitude {@code a} starting at {@link #getA()}
      */
-    public LineSegment heightA() {
-        return getHeight(edgeA().toLine(), getA());
+    public LineSegment altitudeA() {
+        return getAltitude(edgeA().toLine(), getA());
     }
 
     /**
-     * @return line segment of height {@code b} starting at {@link #getB()}
+     * @return line segment of altitude {@code b} starting at {@link #getB()}
      */
-    public LineSegment heightB() {
-        return getHeight(edgeB().toLine(), getB());
+    public LineSegment altitudeB() {
+        return getAltitude(edgeB().toLine(), getB());
     }
 
     /**
-     * @return line segment of height {@code c} starting at {@link #getC()}
+     * @return line segment of altitude {@code c} starting at {@link #getC()}
      */
-    public LineSegment heightC() {
-        return getHeight(edgeC().toLine(), getC());
+    public LineSegment altitudeC() {
+        return getAltitude(edgeC().toLine(), getC());
     }
 
     /**
-     * @param edge  edge to get height from
-     * @param point point to get height from
-     * @return height starting at {@code point} and ending at intersection with {@code edge}
+     * @param edge  edge to get altitude from
+     * @param point point to get altitude from
+     * @return altitude starting at {@code point} and ending at intersection with {@code edge}
      */
-    protected LineSegment getHeight(Line edge, Point point) {
-        Line heightLine = edge.normal(point);
-        return new LineSegment(point, heightLine.intersection(edge));
+    protected LineSegment getAltitude(Line edge, Point point) {
+        Line altitudeLine = edge.normal(point);
+        return new LineSegment(point, altitudeLine.intersection(edge));
     }
 
     // endregion
