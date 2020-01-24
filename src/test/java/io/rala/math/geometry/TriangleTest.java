@@ -162,7 +162,7 @@ class TriangleTest {
 
     // endregion
 
-    // region area, circumference, circumRadius, inRadius
+    // region area, circumference, circumCircleRadius, inCircleRadius
 
     @Test
     void areaOfTriangleWithA00B01C11() {
@@ -177,15 +177,15 @@ class TriangleTest {
     }
 
     @Test
-    void circumRadiusOfTriangleWithA00B01C11() {
+    void circumCircleRadiusOfTriangleWithA00B01C11() {
         Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
-        Assertions.assertEquals(Math.sqrt(2) / 2, triangle.circumRadius(), DELTA);
+        Assertions.assertEquals(Math.sqrt(2) / 2, triangle.circumCircleRadius(), DELTA);
     }
 
     @Test
-    void inRadiusOfTriangleWithA00B01C11() {
+    void inCircleRadiusOfTriangleWithA00B01C11() {
         Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
-        Assertions.assertEquals(0.29289321881345237, triangle.inRadius());
+        Assertions.assertEquals(0.29289321881345237, triangle.inCircleRadius());
     }
 
     // endregion

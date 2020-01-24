@@ -200,7 +200,7 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
 
     // endregion
 
-    // region area, circumference, circumRadius and inRadius
+    // region area, circumference, circumCircleRadius and inCircleRadius
 
     /**
      * @return {@code sqrt(s*(s-a)*(s-b)*(s-c))}
@@ -226,7 +226,7 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     /**
      * @return {@code (a*b*c)/A}
      */
-    public double circumRadius() {
+    public double circumCircleRadius() {
         return (edgeA().length() *
             edgeB().length() *
             edgeC().length()) / (4 * area());
@@ -235,7 +235,7 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     /**
      * @return {@code A/(r/2)}
      */
-    public double inRadius() {
+    public double inCircleRadius() {
         return area() / (circumference() / 2);
     }
 
