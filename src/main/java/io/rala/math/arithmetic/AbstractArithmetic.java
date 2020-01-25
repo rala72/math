@@ -361,14 +361,10 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
 
     /**
      * @return {@link AbstractResultArithmetic} with current arithmetic
+     * @see AbstractResultArithmetic#of(AbstractArithmetic, AbstractArithmetic, Function)
      */
     public AbstractResultArithmetic<T, T> toResultArithmetic() {
-        return new AbstractResultArithmetic<>(this, this) {
-            @Override
-            public T fromT(T a) {
-                return a;
-            }
-        };
+        return AbstractResultArithmetic.of(this, this, t -> t);
     }
 
     /**
