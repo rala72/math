@@ -94,7 +94,6 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
         return Double.isNaN(getM());
     }
 
-
     // endregion
 
     // region calculateX and calculateY

@@ -324,7 +324,6 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
         return fromDouble(Math.atan(a.doubleValue()));
     }
 
-
     /**
      * @param a value to calc sin from
      * @return {@code sinh(a)}
