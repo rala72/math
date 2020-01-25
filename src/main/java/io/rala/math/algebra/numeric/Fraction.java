@@ -15,8 +15,10 @@ import java.util.function.Function;
  */
 public class Fraction<T extends Number, V extends Number> extends Number
     implements Copyable<Fraction<T, V>>, Comparable<Fraction<T, V>> {
-    protected static final String EXCEPTION_NUMERATOR_NOT_NULL = "numerator must not be null";
-    protected static final String EXCEPTION_DENOMINATOR_NOT_ZERO = "denominator must not be zero";
+    protected static final String EXCEPTION_NUMERATOR_NOT_NULL =
+        "numerator has to be non-null";
+    protected static final String EXCEPTION_DENOMINATOR_NOT_ZERO =
+        "denominator has to be non-zero";
 
     // region attributes
 
