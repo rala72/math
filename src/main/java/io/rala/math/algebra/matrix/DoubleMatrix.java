@@ -10,6 +10,11 @@ import java.util.Arrays;
  * storing {@link Double}
  */
 public class DoubleMatrix extends Matrix<Double> {
+    /**
+     * default value of {@link DoubleMatrix} is {@code 0}
+     *
+     * @see Matrix#getDefaultValue()
+     */
     public static final Double DEFAULT_VALUE = 0d;
 
     // region constructor

@@ -11,6 +11,11 @@ import java.math.MathContext;
  * storing {@link BigDecimal}
  */
 public class BigDecimalMatrix extends Matrix<BigDecimal> {
+    /**
+     * default value of {@link BigDecimalMatrix} is {@link BigDecimal#ZERO}
+     *
+     * @see Matrix#getDefaultValue()
+     */
     public static final BigDecimal DEFAULT_VALUE = BigDecimal.ZERO;
 
     // region constructor
