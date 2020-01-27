@@ -83,7 +83,7 @@ public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable
     // region length, halvingPoint and distributionPoint
 
     /**
-     * @return length of vector based on pythagoras
+     * @return length of line segment based on pythagoras
      */
     public double length() {
         return Math.sqrt(
