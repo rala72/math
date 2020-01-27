@@ -86,20 +86,6 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
 
     // endregion
 
-    // region vertexes
-
-    /**
-     * @return {@code (A+B+C)/3}
-     */
-    public Point centerOfGravity() {
-        return new Point(
-            (getA().getX() + getB().getX() + getC().getX()) / 3,
-            (getA().getY() + getB().getY() + getC().getY()) / 3
-        );
-    }
-
-    // endregion
-
     // region edges and altitudes
 
     /**
@@ -227,7 +213,7 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     // region centroid and orthoCenter
 
     /**
-     * @return {@code ( (xA+xB+xC)/3, (yA+yB+yC)/3 )}
+     * @return {@code (A+B+C)/3}
      */
     public Point centroid() {
         return new Point(

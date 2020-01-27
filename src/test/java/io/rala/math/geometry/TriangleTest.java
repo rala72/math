@@ -60,19 +60,6 @@ class TriangleTest {
 
     // endregion
 
-    // region vertexes
-
-    @Test
-    void centerOfGravityOfTriangleWithA00B01C11() {
-        GeometryAssertions.assertPoint(
-            new Triangle(new Point(), new Point(0, 1), new Point(1, 1))
-                .centerOfGravity(),
-            1d / 3, 2d / 3
-        );
-    }
-
-    // endregion
-
     // region edges and altitudes
 
     @Test
