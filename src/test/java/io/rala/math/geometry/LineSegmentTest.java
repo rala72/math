@@ -10,7 +10,10 @@ class LineSegmentTest {
 
     @Test
     void constructorWithBParameter() {
-        GeometryAssertions.assertLineSegment(new LineSegment(new Point(1)), new Point(1));
+        GeometryAssertions.assertLineSegment(
+            new LineSegment(new Point(1)),
+            new Point(1)
+        );
     }
 
     @Test
@@ -36,7 +39,10 @@ class LineSegmentTest {
         LineSegment lineSegment = new LineSegment(new Point());
         GeometryAssertions.assertLineSegment(lineSegment, new Point());
         lineSegment.setA(new Point(1));
-        GeometryAssertions.assertLineSegment(lineSegment, new Point(1), new Point());
+        GeometryAssertions.assertLineSegment(
+            lineSegment,
+            new Point(1), new Point()
+        );
     }
 
     @Test
@@ -44,7 +50,10 @@ class LineSegmentTest {
         LineSegment lineSegment = new LineSegment(new Point());
         GeometryAssertions.assertLineSegment(lineSegment, new Point());
         lineSegment.setB(new Point(2));
-        GeometryAssertions.assertLineSegment(lineSegment, new Point(), new Point(2));
+        GeometryAssertions.assertLineSegment(
+            lineSegment,
+            new Point(), new Point(2)
+        );
     }
 
     // endregion
@@ -60,12 +69,24 @@ class LineSegmentTest {
 
     @Test
     void lengthOfLineSegmentWithInverseParameters() {
-        Assertions.assertEquals(Math.sqrt(2), new LineSegment(new Point(1, 2), new Point(2, 1)).length());
+        Assertions.assertEquals(
+            Math.sqrt(2),
+            new LineSegment(
+                new Point(1, 2),
+                new Point(2, 1)
+            ).length()
+        );
     }
 
     @Test
     void lengthOfLineSegmentWithTwoDifferenceEach() {
-        Assertions.assertEquals(2 * Math.sqrt(2), new LineSegment(new Point(3, 4), new Point(1, 2)).length());
+        Assertions.assertEquals(
+            2 * Math.sqrt(2),
+            new LineSegment(
+                new Point(3, 4),
+                new Point(1, 2)
+            ).length()
+        );
     }
 
     @Test
@@ -260,7 +281,10 @@ class LineSegmentTest {
 
     @Test
     void serializable() {
-        SerializableAssertions.assertSerializable(new LineSegment(new Point()), LineSegment.class);
+        SerializableAssertions.assertSerializable(
+            new LineSegment(new Point()),
+            LineSegment.class
+        );
     }
 
     // endregion

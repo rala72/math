@@ -19,25 +19,43 @@ class TriangleTest {
     @Test
     void createAndSetA() {
         Triangle triangle = new Triangle(new Point(), new Point(), new Point());
-        GeometryAssertions.assertTriangle(triangle, new Point(), new Point(), new Point());
+        GeometryAssertions.assertTriangle(
+            triangle,
+            new Point(), new Point(), new Point()
+        );
         triangle.setA(new Point(1));
-        GeometryAssertions.assertTriangle(triangle, new Point(1), new Point(), new Point());
+        GeometryAssertions.assertTriangle(
+            triangle,
+            new Point(1), new Point(), new Point()
+        );
     }
 
     @Test
     void createAndSetB() {
         Triangle triangle = new Triangle(new Point(), new Point(), new Point());
-        GeometryAssertions.assertTriangle(triangle, new Point(), new Point(), new Point());
+        GeometryAssertions.assertTriangle(
+            triangle,
+            new Point(), new Point(), new Point()
+        );
         triangle.setB(new Point(2));
-        GeometryAssertions.assertTriangle(triangle, new Point(), new Point(2), new Point());
+        GeometryAssertions.assertTriangle(
+            triangle,
+            new Point(), new Point(2), new Point()
+        );
     }
 
     @Test
     void createAndSetC() {
         Triangle triangle = new Triangle(new Point(), new Point(), new Point());
-        GeometryAssertions.assertTriangle(triangle, new Point(), new Point(), new Point());
+        GeometryAssertions.assertTriangle(
+            triangle,
+            new Point(), new Point(), new Point()
+        );
         triangle.setC(new Point(3));
-        GeometryAssertions.assertTriangle(triangle, new Point(), new Point(), new Point(3));
+        GeometryAssertions.assertTriangle(
+            triangle,
+            new Point(), new Point(), new Point(3)
+        );
     }
 
     // endregion
@@ -139,7 +157,11 @@ class TriangleTest {
         Triangle triangle = new Triangle(
             new Point(0, 0), new Point(0, 1), new Point(1, 1)
         );
-        Assertions.assertEquals(Math.PI / 2, triangle.angleBeta(), GeometryAssertions.DELTA);
+        Assertions.assertEquals(
+            Math.PI / 2,
+            triangle.angleBeta(),
+            GeometryAssertions.DELTA
+        );
     }
 
     @Test
@@ -147,7 +169,11 @@ class TriangleTest {
         Triangle triangle = new Triangle(
             new Point(0, 0), new Point(0, 1), new Point(1, 1)
         );
-        Assertions.assertEquals(Math.PI / 4, triangle.angleGamma(), GeometryAssertions.DELTA);
+        Assertions.assertEquals(
+            Math.PI / 4,
+            triangle.angleGamma(),
+            GeometryAssertions.DELTA
+        );
     }
 
     @Test
@@ -167,13 +193,17 @@ class TriangleTest {
 
     @Test
     void areaOfTriangleWithA00B01C11() {
-        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
+        Triangle triangle = new Triangle(
+            new Point(), new Point(0, 1), new Point(1, 1)
+        );
         Assertions.assertEquals(0.5, triangle.area(), GeometryAssertions.DELTA);
     }
 
     @Test
     void circumferenceOfTriangleWithA00B01C11() {
-        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
+        Triangle triangle = new Triangle(
+            new Point(), new Point(0, 1), new Point(1, 1)
+        );
         Assertions.assertEquals(2 + Math.sqrt(2), triangle.circumference());
     }
 
@@ -183,13 +213,17 @@ class TriangleTest {
 
     @Test
     void centroidOfTriangleWithA00B01C11() {
-        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
+        Triangle triangle = new Triangle(
+            new Point(), new Point(0, 1), new Point(1, 1)
+        );
         GeometryAssertions.assertPoint(triangle.centroid(), 1d / 3, 2d / 3);
     }
 
     @Test
     void orthoCenterOfTriangleWithA00B01C11() {
-        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
+        Triangle triangle = new Triangle(
+            new Point(), new Point(0, 1), new Point(1, 1)
+        );
         Assertions.assertEquals(triangle.getB(), triangle.orthoCenter());
     }
 
@@ -199,7 +233,9 @@ class TriangleTest {
 
     @Test
     void circumCircleOfTriangleWithA00B01C11() {
-        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
+        Triangle triangle = new Triangle(
+            new Point(), new Point(0, 1), new Point(1, 1)
+        );
         GeometryAssertions.assertCircle(
             triangle.circumCircle(),
             new Point(0.5, -0.5),
@@ -209,7 +245,9 @@ class TriangleTest {
 
     @Test
     void inCircleOfTriangleWithA00B01C11() {
-        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
+        Triangle triangle = new Triangle(
+            new Point(), new Point(0, 1), new Point(1, 1)
+        );
         GeometryAssertions.assertCircle(
             triangle.inCircle(),
             new Point(1 - Math.sqrt(2) / 2, Math.sqrt(2) / 2),
@@ -219,19 +257,29 @@ class TriangleTest {
 
     @Test
     void circumCircleRadiusOfTriangleWithA00B01C11() {
-        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
-        Assertions.assertEquals(Math.sqrt(2) / 2, triangle.circumCircleRadius(), GeometryAssertions.DELTA);
+        Triangle triangle = new Triangle(
+            new Point(), new Point(0, 1), new Point(1, 1)
+        );
+        Assertions.assertEquals(
+            Math.sqrt(2) / 2,
+            triangle.circumCircleRadius(),
+            GeometryAssertions.DELTA
+        );
     }
 
     @Test
     void circumCirclePointOfTriangleWithA00B01C11() {
-        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
+        Triangle triangle = new Triangle(
+            new Point(), new Point(0, 1), new Point(1, 1)
+        );
         Assertions.assertEquals(new Point(0.5, -0.5), triangle.circumCirclePoint());
     }
 
     @Test
     void inCircleRadiusOfTriangleWithA00B01C11() {
-        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
+        Triangle triangle = new Triangle(
+            new Point(), new Point(0, 1), new Point(1, 1)
+        );
         Assertions.assertEquals(
             1 - Math.sqrt(2) / 2,
             triangle.inCircleRadius(),
@@ -241,7 +289,9 @@ class TriangleTest {
 
     @Test
     void inCirclePointOfTriangleWithA00B01C11() {
-        Triangle triangle = new Triangle(new Point(), new Point(0, 1), new Point(1, 1));
+        Triangle triangle = new Triangle(
+            new Point(), new Point(0, 1), new Point(1, 1)
+        );
         GeometryAssertions.assertPoint(
             triangle.inCirclePoint(),
             1 - Math.sqrt(2) / 2,
@@ -342,7 +392,9 @@ class TriangleTest {
 
     @Test
     void copyOfTriangleWithA2B3C4() {
-        Triangle triangle = new Triangle(new Point(1, 2), new Point(3, 4), new Point(5, 6));
+        Triangle triangle = new Triangle(
+            new Point(1, 2), new Point(3, 4), new Point(5, 6)
+        );
         Assertions.assertEquals(triangle, triangle.copy());
     }
 
@@ -379,7 +431,9 @@ class TriangleTest {
 
     @Test
     void compareToOfTriangleWithA2B3C4() {
-        Triangle triangle = new Triangle(new Point(0), new Point(1, 0), new Point(1));
+        Triangle triangle = new Triangle(
+            new Point(0), new Point(1, 0), new Point(1)
+        );
         Assertions.assertEquals(
             0, triangle.compareTo(new Triangle(
                 new Point(0), new Point(1, 0), new Point(1)

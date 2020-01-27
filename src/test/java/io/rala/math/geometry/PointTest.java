@@ -97,7 +97,10 @@ class PointTest {
 
     @Test
     void rotateOfPointWithX1Y2WithoutCenterWithPiThreeHalf() {
-        GeometryAssertions.assertPoint(new Point(1, 2).rotate(Math.PI * 3 / 2), 2, -1);
+        GeometryAssertions.assertPoint(
+            new Point(1, 2).rotate(Math.PI * 3 / 2),
+            2, -1
+        );
     }
 
     @Test
@@ -107,24 +110,34 @@ class PointTest {
 
     @Test
     void rotateOfPointWithX1Y2WithCenterXY1WithPiHalf() {
-        GeometryAssertions.assertPoint(new Point(1, 2).rotate(new Point(1), Math.PI / 2),
+        GeometryAssertions.assertPoint(
+            new Point(1, 2).rotate(new Point(1), Math.PI / 2),
             0, 1
         );
     }
 
     @Test
     void rotateOfPointWithX1Y2WithCenterXY1WithPi() {
-        GeometryAssertions.assertPoint(new Point(1, 2).rotate(new Point(1), Math.PI), 1, 0);
+        GeometryAssertions.assertPoint(
+            new Point(1, 2).rotate(new Point(1), Math.PI),
+            1, 0
+        );
     }
 
     @Test
     void rotateOfPointWithX1Y2WithCenterXY1WithPiThreeHalf() {
-        GeometryAssertions.assertPoint(new Point(1, 2).rotate(new Point(1), Math.PI * 3 / 2), 2, 1);
+        GeometryAssertions.assertPoint(
+            new Point(1, 2).rotate(new Point(1), Math.PI * 3 / 2),
+            2, 1
+        );
     }
 
     @Test
     void rotateOfPointWithX1Y2WithCenterXY1WithTwoPi() {
-        GeometryAssertions.assertPoint(new Point(1, 2).rotate(new Point(1), Math.PI * 2), 1, 2);
+        GeometryAssertions.assertPoint(
+            new Point(1, 2).rotate(new Point(1), Math.PI * 2),
+            1, 2
+        );
     }
 
     @Test

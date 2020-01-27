@@ -35,7 +35,10 @@ class CircleTest {
 
     @Test
     void constructorWithCenterAndRadius() {
-        GeometryAssertions.assertCircle(new Circle(new Point(2), 3), new Point(2), 3);
+        GeometryAssertions.assertCircle(
+            new Circle(new Point(2), 3),
+            new Point(2), 3
+        );
     }
 
     @Test
@@ -84,7 +87,11 @@ class CircleTest {
 
     @Test
     void areaOfCircleWithoutParameter() {
-        Assertions.assertEquals(Math.PI, new Circle().area(), GeometryAssertions.DELTA);
+        Assertions.assertEquals(
+            Math.PI,
+            new Circle().area(),
+            GeometryAssertions.DELTA
+        );
     }
 
     @Test
@@ -147,9 +154,9 @@ class CircleTest {
 
     @Test
     void isValidWithInfValues() {
-        Assertions.assertFalse(
-            new Circle(new Point(Double.POSITIVE_INFINITY), Double.POSITIVE_INFINITY)
-                .isValid()
+        Assertions.assertFalse(new Circle(
+            new Point(Double.POSITIVE_INFINITY), Double.POSITIVE_INFINITY)
+            .isValid()
         );
     }
 
@@ -165,7 +172,10 @@ class CircleTest {
 
     @Test
     void moveOfCircleWithoutParameterWithVector() {
-        GeometryAssertions.assertCircle(new Circle().move(new Vector(1)), new Point(1));
+        GeometryAssertions.assertCircle(
+            new Circle().move(new Vector(1)),
+            new Point(1)
+        );
     }
 
     @Test

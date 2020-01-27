@@ -183,7 +183,10 @@ class VectorTest {
     @Test
     void normalizedOfVectorWithX1Y2() {
         Vector vector = new Vector(1, 2).normalized();
-        GeometryAssertions.assertVector(vector, 0.4472135954999579, 0.8944271909999159);
+        GeometryAssertions.assertVector(
+            vector,
+            0.4472135954999579, 0.8944271909999159
+        );
         Assertions.assertEquals(1, Math.round(vector.length()));
     }
 
@@ -378,7 +381,10 @@ class VectorTest {
 
     @Test
     void rotateOfVectorWithX1Y2WithPiHalf() {
-        GeometryAssertions.assertVector(new Vector(1, 2).rotate(Math.PI / 2), -2, 1);
+        GeometryAssertions.assertVector(
+            new Vector(1, 2).rotate(Math.PI / 2),
+            -2, 1
+        );
     }
 
     @Test
@@ -388,7 +394,10 @@ class VectorTest {
 
     @Test
     void rotateOfVectorWithX1Y2WithPiThreeHalf() {
-        GeometryAssertions.assertVector(new Vector(1, 2).rotate(Math.PI * 3 / 2), 2, -1);
+        GeometryAssertions.assertVector(
+            new Vector(1, 2).rotate(Math.PI * 3 / 2),
+            2, -1
+        );
     }
 
     @Test

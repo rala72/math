@@ -114,7 +114,10 @@ class LineTest {
 
     @Test
     void normalM1B0AndPointXY1() {
-        GeometryAssertions.assertLine(new Line(1, 0).normal(new Point(1, 1)), -1, 2);
+        GeometryAssertions.assertLine(
+            new Line(1, 0).normal(new Point(1, 1)),
+            -1, 2
+        );
     }
 
     @Test
@@ -124,7 +127,10 @@ class LineTest {
 
     @Test
     void normalOfHorizontalLineAndPointX1Y0() {
-        GeometryAssertions.assertLine(new Line(0, 0).normal(new Point(1, 0)), Double.NaN, 1);
+        GeometryAssertions.assertLine(
+            new Line(0, 0).normal(new Point(1, 0)),
+            Double.NaN, 1
+        );
     }
 
     // endregion
@@ -194,7 +200,9 @@ class LineTest {
 
     @Test
     void intersectionAngleWithLineX1AndX2() {
-        Assertions.assertTrue(Double.isNaN(new Line(1).intersectionAngle(new Line(2))));
+        Assertions.assertTrue(Double.isNaN(
+            new Line(1).intersectionAngle(new Line(2))
+        ));
     }
 
     @Test
