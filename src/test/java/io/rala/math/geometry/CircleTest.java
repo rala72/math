@@ -25,6 +25,15 @@ class CircleTest {
     }
 
     @Test
+    void constructorWithCenterAndPoint() {
+        GeometryAssertions.assertCircle(
+            new Circle(new Point(2), new Point(1)),
+            new Point(2),
+            Math.sqrt(2)
+        );
+    }
+
+    @Test
     void constructorWithCenterAndRadius() {
         GeometryAssertions.assertCircle(new Circle(new Point(2), 3), new Point(2), 3);
     }

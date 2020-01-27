@@ -36,7 +36,6 @@ public class GeometryAssertions {
      * @see Circle#Circle(double)
      * @see #assertCircle(Circle, Point, double)
      */
-    @SuppressWarnings("SameParameterValue")
     public static void assertCircle(Circle circle, double radius) {
         assertCircle(circle, new Point(), radius);
     }
