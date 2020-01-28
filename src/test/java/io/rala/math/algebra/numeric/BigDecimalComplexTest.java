@@ -2,7 +2,8 @@ package io.rala.math.algebra.numeric;
 
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Vector;
-import io.rala.math.testUtils.SerializableTestUtils;
+import io.rala.math.testUtils.assertion.NumericAssertions;
+import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -637,7 +638,7 @@ class BigDecimalComplexTest {
 
     @Test
     void serializable() {
-        SerializableTestUtils.verify(
+        SerializableAssertions.assertSerializable(
             new BigDecimalComplex(),
             BigDecimalComplex.class
         );
@@ -653,8 +654,7 @@ class BigDecimalComplexTest {
     }
 
     private static void assertComplex(Complex<BigDecimal> complex, BigDecimal re, BigDecimal im) {
-        Assertions.assertEquals(re, complex.getRe(), "re is invalid");
-        Assertions.assertEquals(im, complex.getIm(), "im is invalid");
+        NumericAssertions.assertComplex(complex, re, im);
     }
 
     // endregion

@@ -145,7 +145,6 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
         return super.hashCode() + Objects.hash(getMathContext());
     }
 
-
     // endregion
 
     private BigDecimal cleanup(BigDecimal a) {

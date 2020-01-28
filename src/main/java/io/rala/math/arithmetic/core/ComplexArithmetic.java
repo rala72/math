@@ -127,6 +127,5 @@ public class ComplexArithmetic<T extends Number> extends AbstractArithmetic<Comp
         return super.hashCode() + Objects.hash(getArithmetic());
     }
 
-
     // endregion
 }

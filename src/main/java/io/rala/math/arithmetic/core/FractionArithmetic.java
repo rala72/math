@@ -133,6 +133,5 @@ public class FractionArithmetic<T extends Number, R extends Number>
         return super.hashCode() + Objects.hash(getArithmetic());
     }
 
-
     // endregion
 }

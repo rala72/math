@@ -2,6 +2,7 @@ package io.rala.math.arithmetic;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * class which defines required arithmetic for calculations
@@ -27,7 +28,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
 
     /**
      * @param a value to get signum
-     * @return -1 if negative, 0 if zero or 1 if positive
+     * @return {@code -1} if negative, {@code 0} if zero or {@code 1} if positive
      * @throws NotImplementedException if operation is not implemented
      */
     public abstract double signum(T a);
@@ -323,7 +324,6 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
         return fromDouble(Math.atan(a.doubleValue()));
     }
 
-
     /**
      * @param a value to calc sin from
      * @return {@code sinh(a)}
@@ -360,14 +360,25 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
 
     /**
      * @return {@link AbstractResultArithmetic} with current arithmetic
+     * @see AbstractResultArithmetic#of(AbstractArithmetic, AbstractArithmetic, Function)
      */
     public AbstractResultArithmetic<T, T> toResultArithmetic() {
-        return new AbstractResultArithmetic<>(this, this) {
-            @Override
-            public T fromT(T a) {
-                return a;
-            }
-        };
+        return AbstractResultArithmetic.of(this, this, t -> t);
+    }
+
+    /**
+     * @param arithmetic arithmetic for target
+     * @param map        mapping function to convert {@code T} to {@code R}
+     * @param <R>        number class of target
+     * @return {@link AbstractResultArithmetic} wich returns {@code V}
+     * @see AbstractResultArithmetic#of(AbstractArithmetic, AbstractArithmetic, Function)
+     * @see #toResultArithmetic()
+     * @see AbstractResultArithmetic#mapResult(AbstractArithmetic, Function)
+     */
+    public <R extends Number> AbstractResultArithmetic<T, R> toResultArithmetic(
+        AbstractArithmetic<R> arithmetic, Function<T, R> map
+    ) {
+        return AbstractResultArithmetic.of(this, arithmetic, map);
     }
 
     // endregion

@@ -2,9 +2,10 @@ package io.rala.math.algebra.numeric;
 
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Vector;
-import io.rala.math.testUtils.SerializableTestUtils;
 import io.rala.math.testUtils.algebra.TestComplex;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
+import io.rala.math.testUtils.assertion.NumericAssertions;
+import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -20,12 +21,12 @@ class ComplexTest {
 
     @Test
     void constructorWithDifferentReImParameter() {
-        assertComplex(new TestComplex(2d, 3d), 2, 3);
+        assertComplex(new TestComplex(2, 3), 2, 3);
     }
 
     @Test
     void constructorWithComplex() {
-        assertComplex(new TestComplex(new TestComplex(2d, 3d)), 2, 3);
+        assertComplex(new TestComplex(new TestComplex(2, 3)), 2, 3);
     }
 
     @Test
@@ -554,7 +555,7 @@ class ComplexTest {
 
     @Test
     void serializable() {
-        SerializableTestUtils.verify(
+        SerializableAssertions.assertSerializable(
             new TestComplex(),
             TestComplex.class
         );
@@ -569,9 +570,8 @@ class ComplexTest {
         assertComplex(complex, 0, 0);
     }
 
-    private static void assertComplex(Complex<Number> complex, double re, double im) {
-        Assertions.assertEquals(re, complex.getRe().doubleValue(), "re is invalid");
-        Assertions.assertEquals(im, complex.getIm().doubleValue(), "im is invalid");
+    private static void assertComplex(Complex<Number> complex, Number re, Number im) {
+        NumericAssertions.assertComplex(complex, re, im);
     }
 
     // endregion

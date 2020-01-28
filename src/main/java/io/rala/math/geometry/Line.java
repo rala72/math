@@ -94,7 +94,6 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
         return Double.isNaN(getM());
     }
 
-
     // endregion
 
     // region calculateX and calculateY
@@ -117,6 +116,34 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
      */
     public double calculateY(double x) {
         return getM() * x + getB();
+    }
+
+    // endregion
+
+    // region normal
+
+    /**
+     * @return normal line without changing {@link #getB()}
+     */
+    public Line normal() {
+        double m = isVertical() ? 0 :
+            isHorizontal() ? Double.NaN :
+                -1 / getM();
+        return new Line(m, getB());
+    }
+
+    /**
+     * @param point point on line
+     * @return normal line through given point
+     * @see #normal()
+     */
+    public Line normal(Point point) {
+        Line normal = normal();
+        normal.setB(
+            normal.isVertical() ? point.getX() :
+                point.getY() - normal.getM() * point.getX()
+        );
+        return normal;
     }
 
     // endregion
@@ -160,6 +187,20 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
         }
         double tan = (getM() - line.getM()) / (1 + getM() * line.getM());
         return Math.atan(Math.abs(tan));
+    }
+
+    // endregion
+
+    // region hasPoint
+
+    /**
+     * @param point point to check if on line
+     * @return {@code true} if point is on line
+     */
+    public boolean hasPoint(Point point) {
+        return isVertical() && getB() == point.getX() ||
+            calculateX(point.getY()) == point.getX() ||
+            calculateY(point.getX()) == point.getY();
     }
 
     // endregion

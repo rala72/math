@@ -1,12 +1,14 @@
 package io.rala.math.algebra.matrix;
 
 import io.rala.math.arithmetic.core.IntegerArithmetic;
-import io.rala.math.testUtils.SerializableTestUtils;
+import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static io.rala.math.testUtils.assertion.MatrixAssertions.assertMatrix;
 
 class DoubleMatrixTest {
     // region constructors
@@ -19,10 +21,14 @@ class DoubleMatrixTest {
     }
 
     @Test
-    void constructorWithToLargeSize() {
-        Assertions.assertThrows(IllegalArgumentException.class,
-            () -> new DoubleMatrix(Integer.MAX_VALUE)
-        ); // assert exception message?
+    void constructorWithIntegerMaxValueSize() {
+        DoubleMatrix matrix = new DoubleMatrix(Integer.MAX_VALUE);
+
+        long expectedSize = (long) Integer.MAX_VALUE * Integer.MAX_VALUE;
+        Assertions.assertEquals(expectedSize, matrix.size());
+
+        Assertions.assertTrue(matrix.isIndexValid(expectedSize - 1));
+        Assertions.assertFalse(matrix.isIndexValid(expectedSize));
     }
 
     @Test
@@ -517,7 +523,7 @@ class DoubleMatrixTest {
         DoubleMatrix result = new DoubleMatrix(2);
         for (int r = 0; r < matrix.getRows(); r++) {
             for (int c = 0; c < matrix.getCols(); c++) {
-                int i = matrix.getIndexOfRowAndCol(r, c);
+                int i = (int) matrix.getIndexOfRowAndCol(r, c);
                 matrix.setValue(i, i + 1d);
                 result.setValue(result.getIndexOfRowAndCol(c, r), i + 1d);
             }
@@ -741,7 +747,7 @@ class DoubleMatrixTest {
 
     @Test
     void serializable() {
-        SerializableTestUtils.verify(
+        SerializableAssertions.assertSerializable(
             new DoubleMatrix(0),
             DoubleMatrix.class
         );
@@ -773,7 +779,7 @@ class DoubleMatrixTest {
         DoubleMatrix result = new DoubleMatrix(2);
         for (int i = 0; i < matrix.size(); i++) {
             matrix.setValue(i, i + 1d);
-            result.setValue((i + result.getCols()) % result.size(), i + 1d);
+            result.setValue((i + result.getCols()) % (int) result.size(), i + 1d);
         }
         Assertions.assertEquals(result, matrix.swapRows(0, 1));
     }
@@ -1013,20 +1019,6 @@ class DoubleMatrixTest {
                     2 * value : 0));
         }
         Assertions.assertEquals(result, matrix.addColMultipleTimes(0, 1, 2d));
-    }
-
-    // endregion
-
-
-    // region assert
-
-    private static <T extends Number> void assertMatrix(Matrix<T> matrix, int size) {
-        assertMatrix(matrix, size, size);
-    }
-
-    private static <T extends Number> void assertMatrix(Matrix<T> matrix, int rows, int cols) {
-        Assertions.assertEquals(rows, matrix.getRows(), "rows is invalid");
-        Assertions.assertEquals(cols, matrix.getCols(), "cols is invalid");
     }
 
     // endregion

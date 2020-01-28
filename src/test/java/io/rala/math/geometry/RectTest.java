@@ -1,6 +1,7 @@
 package io.rala.math.geometry;
 
-import io.rala.math.testUtils.SerializableTestUtils;
+import io.rala.math.testUtils.assertion.GeometryAssertions;
+import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -9,13 +10,13 @@ class RectTest {
 
     @Test
     void constructorWithHeightAndWidthButWithoutPoints() {
-        assertRect(new Rect(1, 2), 1, 2);
+        GeometryAssertions.assertRect(new Rect(1, 2), 1, 2);
     }
 
 
     @Test
     void constructorWithPoint1AndSize() {
-        assertRect(new Rect(new Point(0), new Point(1), 2),
+        GeometryAssertions.assertRect(new Rect(new Point(0), new Point(1), 2),
             new Point(), new Point(1), 2
         );
     }
@@ -23,25 +24,25 @@ class RectTest {
     @Test
     void createAndSetA() {
         Rect rect = new Rect(0, 0);
-        assertRect(rect, 0, 0);
+        GeometryAssertions.assertRect(rect, 0, 0);
         rect.setA(new Point(1));
-        assertRect(rect, new Point(1), new Point(0), 0);
+        GeometryAssertions.assertRect(rect, new Point(1), new Point(0), 0);
     }
 
     @Test
     void createAndSetB() {
         Rect rect = new Rect(0, 0);
-        assertRect(rect, 0, 0);
+        GeometryAssertions.assertRect(rect, 0, 0);
         rect.setB(new Point(2));
-        assertRect(rect, new Point(0), new Point(2), 0);
+        GeometryAssertions.assertRect(rect, new Point(0), new Point(2), 0);
     }
 
     @Test
     void createAndSetSize() {
         Rect rect = new Rect(0, 0);
-        assertRect(rect, 0, 0);
+        GeometryAssertions.assertRect(rect, 0, 0);
         rect.setSize(2);
-        assertRect(rect, 2, 0);
+        GeometryAssertions.assertRect(rect, 2, 0);
     }
 
     // endregion
@@ -51,19 +52,19 @@ class RectTest {
     @Test
     void vertexesOfRectWithHeight1AndWidth2() {
         Rect rect = new Rect(1, 2);
-        Assertions.assertEquals(new Point(0, 0), rect.vertexA());
-        Assertions.assertEquals(new Point(2, 0), rect.vertexB());
-        Assertions.assertEquals(new Point(2, 1), rect.vertexC());
-        Assertions.assertEquals(new Point(0, 1), rect.vertexD());
+        GeometryAssertions.assertPoint(rect.vertexA(), 0, 0);
+        GeometryAssertions.assertPoint(rect.vertexB(), 2, 0);
+        GeometryAssertions.assertPoint(rect.vertexC(), 2, 1);
+        GeometryAssertions.assertPoint(rect.vertexD(), 0, 1);
     }
 
     @Test
     void vertexesOfRectWithPointsAndSize() {
         Rect rect = new Rect(new Point(1, 1), new Point(0, 1), 2);
-        Assertions.assertEquals(new Point(1, 1), rect.vertexA());
-        Assertions.assertEquals(new Point(0, 1), rect.vertexB());
-        Assertions.assertEquals(new Point(0, 3), rect.vertexC());
-        Assertions.assertEquals(new Point(1, 3), rect.vertexD());
+        GeometryAssertions.assertPoint(rect.vertexA(), 1, 1);
+        GeometryAssertions.assertPoint(rect.vertexB(), 0, 1);
+        GeometryAssertions.assertPoint(rect.vertexC(), 0, 3);
+        GeometryAssertions.assertPoint(rect.vertexD(), 1, 3);
     }
 
     // endregion
@@ -160,6 +161,34 @@ class RectTest {
 
     // endregion
 
+    // region circumCircle
+
+    @Test
+    void circumCircleOfRectWithHeightAndWidth1() {
+        GeometryAssertions.assertCircle(
+            new Rect(1, 1).circumCircle(),
+            new Point(0.5, 0.5), Math.sqrt(2) / 2
+        );
+    }
+
+    @Test
+    void circumCircleRadiusOfRectWithHeightAndWidth1() {
+        Assertions.assertEquals(
+            Math.sqrt(2) / 2,
+            new Rect(1, 1).circumCircleRadius()
+        );
+    }
+
+    @Test
+    void circumCirclePointOfRectWithHeightAndWidth1() {
+        GeometryAssertions.assertPoint(
+            new Rect(1, 1).circumCirclePoint(),
+            0.5, 0.5
+        );
+    }
+
+    // endregion
+
     // region isSquare
 
     @Test
@@ -211,31 +240,31 @@ class RectTest {
 
     @Test
     void moveOfRectWithXYWithXY() {
-        Assertions.assertEquals(
-            new Rect(new Point(1), new Point(3, 1), 1),
-            new Rect(1, 2).move(1)
+        GeometryAssertions.assertRect(
+            new Rect(1, 2).move(1),
+            new Point(1), new Point(3, 1), 1
         );
     }
 
     @Test
     void moveOfRectWithXYWithXAndY() {
-        Assertions.assertEquals(
-            new Rect(new Point(1), new Point(3, 1), 1),
-            new Rect(1, 2).move(1, 1)
+        GeometryAssertions.assertRect(
+            new Rect(1, 2).move(1, 1),
+            new Point(1), new Point(3, 1), 1
         );
     }
 
     @Test
     void moveOfRectWithXYWithVector() {
-        Assertions.assertEquals(
-            new Rect(new Point(1), new Point(3, 1), 1),
-            new Rect(1, 2).move(new Vector(1))
+        GeometryAssertions.assertRect(
+            new Rect(1, 2).move(new Vector(1)),
+            new Point(1), new Point(3, 1), 1
         );
     }
 
     @Test
     void rotateOfRectWidthHeight1AndWidth2WithoutCenterWithPiHalf() {
-        assertRect(
+        GeometryAssertions.assertRect(
             new Rect(new Point(), new Point(0, 1), 2)
                 .rotate(Math.PI / 2),
             new Point(), new Point(-1.0, 6.123233995736766E-17), 2
@@ -244,7 +273,7 @@ class RectTest {
 
     @Test
     void rotateOfRectWithHeight1AndWidth2WithCenterXY1WithPiHalf() {
-        assertRect(
+        GeometryAssertions.assertRect(
             new Rect(new Point(), new Point(0, 1), 2)
                 .rotate(new Point(1), Math.PI / 2),
             new Point(2, 0), new Point(0.9999999999999999, 0), 2
@@ -304,22 +333,7 @@ class RectTest {
 
     @Test
     void serializable() {
-        SerializableTestUtils.verify(new Rect(0, 0), Rect.class);
-    }
-
-    // endregion
-
-
-    // region assert
-
-    private static void assertRect(Rect rect, double height, double width) {
-        assertRect(rect, new Point(), new Point(width, 0), height);
-    }
-
-    private static void assertRect(Rect rect, Point a, Point b, double size) {
-        Assertions.assertEquals(a, rect.getA(), "a is invalid");
-        Assertions.assertEquals(b, rect.getB(), "b is invalid");
-        Assertions.assertEquals(size, rect.getSize(), "size is invalid");
+        SerializableAssertions.assertSerializable(new Rect(0, 0), Rect.class);
     }
 
     // endregion

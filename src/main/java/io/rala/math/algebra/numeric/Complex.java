@@ -150,7 +150,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
     }
 
     /**
-     * @return 0 if z is zero otherwise {@code z/|z|}
+     * @return {@code 0} if z is zero otherwise {@code z/|z|}
      */
     public Complex<T> signum() {
         if (getRe().equals(getArithmetic().zero()) &&
@@ -160,7 +160,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
     }
 
     /**
-     * @return if re is not 0 {@code sign(re)} otherwise {@code sign(im)}
+     * @return if re is not {@code 0} {@code sign(re)} otherwise {@code sign(im)}
      */
     public int complexSignum() {
         return (int) (
@@ -436,7 +436,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
      * @param arithmetic arithmetic for calculations
      * @param map        mapping function to convert current values to new one
      * @param <NT>       new number class
-     * @return mapped complex
+     * @return new mapped complex
      */
     public <NT extends Number> Complex<NT> map(
         AbstractArithmetic<NT> arithmetic, Function<T, NT> map

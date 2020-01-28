@@ -48,6 +48,17 @@ public class Circle implements Validatable, Movable<Circle>, Rotatable<Circle>,
     }
 
     /**
+     * calls {@link #Circle(Point, double)}
+     * with {@link LineSegment#length()} as radius
+     *
+     * @param center center point of circle
+     * @param point  point on circle
+     */
+    public Circle(Point center, Point point) {
+        this(center, new LineSegment(center, point).length());
+    }
+
+    /**
      * creates a new circle with given center and radius
      *
      * @param center center point of circle
@@ -91,7 +102,7 @@ public class Circle implements Validatable, Movable<Circle>, Rotatable<Circle>,
     }
 
     /**
-     * @return {@link #getRadius()}*2
+     * @return {@link #getRadius()}{@code *2}
      */
     public double getDiameter() {
         return getRadius() * 2;

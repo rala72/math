@@ -1,56 +1,55 @@
 package io.rala.math.geometry;
 
-import io.rala.math.testUtils.SerializableTestUtils;
+import io.rala.math.testUtils.assertion.GeometryAssertions;
+import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class VectorTest {
-    private static final double DELTA = 0.00001;
-
     // region constructors, getter and setter
 
     @Test
     void constructorWithoutParameter() {
-        assertVector(new Vector());
+        GeometryAssertions.assertVector(new Vector());
     }
 
     @Test
     void constructorWithXYParameter() {
-        assertVector(new Vector(1), 1);
+        GeometryAssertions.assertVector(new Vector(1), 1);
     }
 
     @Test
     void constructorWithEqualXYParameter() {
-        assertVector(new Vector(2, 2), 2);
+        GeometryAssertions.assertVector(new Vector(2, 2), 2);
     }
 
     @Test
     void constructorWithDifferentXYParameter() {
-        assertVector(new Vector(2, 3), 2, 3);
+        GeometryAssertions.assertVector(new Vector(2, 3), 2, 3);
     }
 
     @Test
     void createAndSetX() {
         Vector vector = new Vector();
-        assertVector(vector);
+        GeometryAssertions.assertVector(vector);
         vector.setX(1);
-        assertVector(vector, 1, 0);
+        GeometryAssertions.assertVector(vector, 1, 0);
     }
 
     @Test
     void createAndSetY() {
         Vector vector = new Vector();
-        assertVector(vector);
+        GeometryAssertions.assertVector(vector);
         vector.setY(2);
-        assertVector(vector, 0, 2);
+        GeometryAssertions.assertVector(vector, 0, 2);
     }
 
     @Test
     void createAndSetXY() {
         Vector vector = new Vector();
-        assertVector(vector);
+        GeometryAssertions.assertVector(vector);
         vector.setXY(3);
-        assertVector(vector, 3);
+        GeometryAssertions.assertVector(vector, 3);
     }
 
     // endregion
@@ -74,56 +73,64 @@ class VectorTest {
 
     @Test
     void addWithXY() {
-        Assertions.assertEquals(new Vector(2, 2), new Vector().add(2));
+        GeometryAssertions.assertVector(new Vector().add(2), 2, 2);
     }
 
     @Test
     void addWithXAndY() {
-        Assertions.assertEquals(new Vector(2, 2), new Vector(1).add(1, 1));
+        GeometryAssertions.assertVector(
+            new Vector(1).add(1, 1),
+            2, 2
+        );
     }
 
     @Test
     void addWithVector() {
-        Assertions.assertEquals(new Vector(2, 2),
-            new Vector(1, 0).add(new Vector(1, 2))
+        GeometryAssertions.assertVector(
+            new Vector(1, 0).add(new Vector(1, 2)),
+            2, 2
         );
     }
 
     @Test
     void subtractWithXY() {
-        Assertions.assertEquals(new Vector(), new Vector(2, 2).subtract(2));
+        GeometryAssertions.assertVector(new Vector(2, 2).subtract(2));
     }
 
     @Test
     void subtractWithXAndY() {
-        Assertions.assertEquals(new Vector(1), new Vector(2, 2).subtract(1, 1));
+        GeometryAssertions.assertVector(
+            new Vector(2, 2).subtract(1, 1),
+            1
+        );
     }
 
     @Test
     void subtractWithVector() {
-        Assertions.assertEquals(new Vector(1, 0),
-            new Vector(2, 2).subtract(new Vector(1, 2))
+        GeometryAssertions.assertVector(
+            new Vector(2, 2).subtract(new Vector(1, 2)),
+            1, 0
         );
     }
 
     @Test
     void multiplyZeroVectorWith1() {
-        Assertions.assertEquals(new Vector(), new Vector().multiply(1));
+        GeometryAssertions.assertVector(new Vector().multiply(1));
     }
 
     @Test
     void multiplyVectorWith0() {
-        Assertions.assertEquals(new Vector(), new Vector(1).multiply(0));
+        GeometryAssertions.assertVector(new Vector(1).multiply(0));
     }
 
     @Test
     void multiplyVectorWith1() {
-        Assertions.assertEquals(new Vector(1), new Vector(1).multiply(1));
+        GeometryAssertions.assertVector(new Vector(1).multiply(1), 1);
     }
 
     @Test
     void multiplyVectorWithMinus1() {
-        Assertions.assertEquals(new Vector(-2, -1), new Vector(2, 1).multiply(-1));
+        GeometryAssertions.assertVector(new Vector(2, 1).multiply(-1), -2, -1);
     }
 
     // endregion
@@ -132,17 +139,17 @@ class VectorTest {
 
     @Test
     void inverseXOfVectorWithX1Y2() {
-        Assertions.assertEquals(new Vector(-1, 2), new Vector(1, 2).inverseX());
+        GeometryAssertions.assertVector(new Vector(1, 2).inverseX(), -1, 2);
     }
 
     @Test
     void inverseYOfVectorWithX1Y2() {
-        Assertions.assertEquals(new Vector(1, -2), new Vector(1, 2).inverseY());
+        GeometryAssertions.assertVector(new Vector(1, 2).inverseY(), 1, -2);
     }
 
     @Test
     void inverseXYOfVectorWithX1Y2() {
-        Assertions.assertEquals(new Vector(-1, -2), new Vector(1, 2).inverse());
+        GeometryAssertions.assertVector(new Vector(1, 2).inverse(), -1, -2);
     }
 
     // endregion
@@ -151,32 +158,35 @@ class VectorTest {
 
     @Test
     void normalLeftOfVectorWithX1Y2() {
-        Assertions.assertEquals(new Vector(-2, 1), new Vector(1, 2).normalLeft());
+        GeometryAssertions.assertVector(new Vector(1, 2).normalLeft(), -2, 1);
     }
 
     @Test
     void normalRightOfVectorWithX1Y2() {
-        Assertions.assertEquals(new Vector(2, -1), new Vector(1, 2).normalRight());
+        GeometryAssertions.assertVector(new Vector(1, 2).normalRight(), 2, -1);
     }
 
     @Test
     void normalizedOfVectorWithoutParameter() {
         Vector vector = new Vector().normalized();
-        assertVector(vector, Double.NaN, Double.NaN);
+        GeometryAssertions.assertVector(vector, Double.NaN, Double.NaN);
         Assertions.assertEquals(Double.NaN, vector.length());
     }
 
     @Test
     void normalizedOfVectorWithXY1() {
         Vector vector = new Vector(1).normalized();
-        assertVector(vector, 0.7071067811865475);
+        GeometryAssertions.assertVector(vector, 0.7071067811865475);
         Assertions.assertEquals(1, Math.round(vector.length()));
     }
 
     @Test
     void normalizedOfVectorWithX1Y2() {
         Vector vector = new Vector(1, 2).normalized();
-        assertVector(vector, 0.4472135954999579, 0.8944271909999159);
+        GeometryAssertions.assertVector(
+            vector,
+            0.4472135954999579, 0.8944271909999159
+        );
         Assertions.assertEquals(1, Math.round(vector.length()));
     }
 
@@ -210,7 +220,7 @@ class VectorTest {
     void angleBetweenX0Y1AndXY1() {
         Assertions.assertEquals(Math.PI / 4,
             new Vector(0, 1).angle(new Vector(1, 1)),
-            DELTA
+            GeometryAssertions.DELTA
         );
     }
 
@@ -220,122 +230,122 @@ class VectorTest {
 
     @Test
     void absoluteOfPositiveXY() {
-        Assertions.assertEquals(new Vector(1, 2), new Vector(1, 2).absolute());
+        GeometryAssertions.assertVector(new Vector(1, 2).absolute(), 1, 2);
     }
 
     @Test
     void absoluteOfNegativeXAndPositiveY() {
-        Assertions.assertEquals(new Vector(1, 2), new Vector(-1, 2).absolute());
+        GeometryAssertions.assertVector(new Vector(-1, 2).absolute(), 1, 2);
     }
 
     @Test
     void absoluteOfNegativeYAndPositiveX() {
-        Assertions.assertEquals(new Vector(1, 2), new Vector(-1, -2).absolute());
+        GeometryAssertions.assertVector(new Vector(-1, -2).absolute(), 1, 2);
     }
 
     @Test
     void absoluteOfNegativeXAndY() {
-        Assertions.assertEquals(new Vector(1, 2), new Vector(-1, -2).absolute());
+        GeometryAssertions.assertVector(new Vector(-1, -2).absolute(), 1, 2);
     }
 
     @Test
     void roundOfComma0() {
-        Assertions.assertEquals(new Vector(1, -2), new Vector(1, -2).round());
+        GeometryAssertions.assertVector(new Vector(1, -2).round(), 1, -2);
     }
 
     @Test
     void roundOfComma2() {
-        Assertions.assertEquals(new Vector(1, -2), new Vector(1.2, -2.2).round());
+        GeometryAssertions.assertVector(new Vector(1.2, -2.2).round(), 1, -2);
     }
 
     @Test
     void roundOfComma49() {
-        Assertions.assertEquals(new Vector(1, -2), new Vector(1.49, -2.49).round());
+        GeometryAssertions.assertVector(new Vector(1.49, -2.49).round(), 1, -2);
     }
 
     @Test
     void roundOfComma5() {
-        Assertions.assertEquals(new Vector(2, -2), new Vector(1.5, -2.5).round());
+        GeometryAssertions.assertVector(new Vector(1.5, -2.5).round(), 2, -2);
     }
 
     @Test
     void roundOfComma7() {
-        Assertions.assertEquals(new Vector(2, -3), new Vector(1.7, -2.7).round());
+        GeometryAssertions.assertVector(new Vector(1.7, -2.7).round(), 2, -3);
     }
 
     @Test
     void floorOfComma0() {
-        Assertions.assertEquals(new Vector(1, -2), new Vector(1, -2).floor());
+        GeometryAssertions.assertVector(new Vector(1, -2).floor(), 1, -2);
     }
 
     @Test
     void floorOfComma2() {
-        Assertions.assertEquals(new Vector(1, -3), new Vector(1.2, -2.2).floor());
+        GeometryAssertions.assertVector(new Vector(1.2, -2.2).floor(), 1, -3);
     }
 
     @Test
     void floorOfComma49() {
-        Assertions.assertEquals(new Vector(1, -3), new Vector(1.49, -2.49).floor());
+        GeometryAssertions.assertVector(new Vector(1.49, -2.49).floor(), 1, -3);
     }
 
     @Test
     void floorOfComma5() {
-        Assertions.assertEquals(new Vector(1, -3), new Vector(1.5, -2.5).floor());
+        GeometryAssertions.assertVector(new Vector(1.5, -2.5).floor(), 1, -3);
     }
 
     @Test
     void floorOfComma7() {
-        Assertions.assertEquals(new Vector(1, -3), new Vector(1.7, -2.7).floor());
+        GeometryAssertions.assertVector(new Vector(1.7, -2.7).floor(), 1, -3);
     }
 
     @Test
     void ceilOfComma0() {
-        Assertions.assertEquals(new Vector(1, -2), new Vector(1, -2).ceil());
+        GeometryAssertions.assertVector(new Vector(1, -2).ceil(), 1, -2);
     }
 
     @Test
     void ceilOfComma2() {
-        Assertions.assertEquals(new Vector(2, -2), new Vector(1.2, -2.2).ceil());
+        GeometryAssertions.assertVector(new Vector(1.2, -2.2).ceil(), 2, -2);
     }
 
     @Test
     void ceilOfComma49() {
-        Assertions.assertEquals(new Vector(2, -2), new Vector(1.49, -2.49).ceil());
+        GeometryAssertions.assertVector(new Vector(1.49, -2.49).ceil(), 2, -2);
     }
 
     @Test
     void ceilOfComma5() {
-        Assertions.assertEquals(new Vector(2, -2), new Vector(1.5, -2.5).ceil());
+        GeometryAssertions.assertVector(new Vector(1.5, -2.5).ceil(), 2, -2);
     }
 
     @Test
     void ceilOfComma7() {
-        Assertions.assertEquals(new Vector(2, -2), new Vector(1.7, -2.7).ceil());
+        GeometryAssertions.assertVector(new Vector(1.7, -2.7).ceil(), 2, -2);
     }
 
     @Test
     void truncateOfComma0() {
-        Assertions.assertEquals(new Vector(1, -2), new Vector(1, -2).truncate());
+        GeometryAssertions.assertVector(new Vector(1, -2).truncate(), 1, -2);
     }
 
     @Test
     void truncateOfComma2() {
-        Assertions.assertEquals(new Vector(1, -2), new Vector(1.2, -2.2).truncate());
+        GeometryAssertions.assertVector(new Vector(1.2, -2.2).truncate(), 1, -2);
     }
 
     @Test
     void truncateOfComma49() {
-        Assertions.assertEquals(new Vector(1, -2), new Vector(1.49, -2.49).truncate());
+        GeometryAssertions.assertVector(new Vector(1.49, -2.49).truncate(), 1, -2);
     }
 
     @Test
     void truncateOfComma5() {
-        Assertions.assertEquals(new Vector(1, -2), new Vector(1.5, -2.5).truncate());
+        GeometryAssertions.assertVector(new Vector(1.5, -2.5).truncate(), 1, -2);
     }
 
     @Test
     void truncateOfComma7() {
-        Assertions.assertEquals(new Vector(1, -2), new Vector(1.7, -2.7).truncate());
+        GeometryAssertions.assertVector(new Vector(1.7, -2.7).truncate(), 1, -2);
     }
 
     // endregion
@@ -371,22 +381,28 @@ class VectorTest {
 
     @Test
     void rotateOfVectorWithX1Y2WithPiHalf() {
-        assertVector(new Vector(1, 2).rotate(Math.PI / 2), -2, 1);
+        GeometryAssertions.assertVector(
+            new Vector(1, 2).rotate(Math.PI / 2),
+            -2, 1
+        );
     }
 
     @Test
     void rotateOfVectorWithX1Y2WithPi() {
-        assertVector(new Vector(1, 2).rotate(Math.PI), -1, -2);
+        GeometryAssertions.assertVector(new Vector(1, 2).rotate(Math.PI), -1, -2);
     }
 
     @Test
     void rotateOfVectorWithX1Y2WithPiThreeHalf() {
-        assertVector(new Vector(1, 2).rotate(Math.PI * 3 / 2), 2, -1);
+        GeometryAssertions.assertVector(
+            new Vector(1, 2).rotate(Math.PI * 3 / 2),
+            2, -1
+        );
     }
 
     @Test
     void rotateOfVectorWithX1Y2WithTwoPi() {
-        assertVector(new Vector(1, 2).rotate(Math.PI * 2), 1, 2);
+        GeometryAssertions.assertVector(new Vector(1, 2).rotate(Math.PI * 2), 1, 2);
     }
 
     @Test
@@ -442,25 +458,7 @@ class VectorTest {
 
     @Test
     void serializable() {
-        SerializableTestUtils.verify(new Vector(), Vector.class);
-    }
-
-    // endregion
-
-
-    // region assert
-
-    private static void assertVector(Vector vector) {
-        assertVector(vector, 0);
-    }
-
-    private static void assertVector(Vector vector, double xy) {
-        assertVector(vector, xy, xy);
-    }
-
-    private static void assertVector(Vector vector, double x, double y) {
-        Assertions.assertEquals(x, vector.getX(), DELTA, "x is invalid");
-        Assertions.assertEquals(y, vector.getY(), DELTA, "y is invalid");
+        SerializableAssertions.assertSerializable(new Vector(), Vector.class);
     }
 
     // endregion
