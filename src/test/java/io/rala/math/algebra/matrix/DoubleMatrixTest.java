@@ -21,10 +21,14 @@ class DoubleMatrixTest {
     }
 
     @Test
-    void constructorWithToLargeSize() {
-        Assertions.assertThrows(IllegalArgumentException.class,
-            () -> new DoubleMatrix(Integer.MAX_VALUE)
-        ); // assert exception message?
+    void constructorWithIntegerMaxValueSize() {
+        DoubleMatrix matrix = new DoubleMatrix(Integer.MAX_VALUE);
+
+        long expectedSize = (long) Integer.MAX_VALUE * Integer.MAX_VALUE;
+        Assertions.assertEquals(expectedSize, matrix.size());
+
+        Assertions.assertTrue(matrix.isIndexValid(expectedSize - 1));
+        Assertions.assertFalse(matrix.isIndexValid(expectedSize));
     }
 
     @Test
@@ -519,7 +523,7 @@ class DoubleMatrixTest {
         DoubleMatrix result = new DoubleMatrix(2);
         for (int r = 0; r < matrix.getRows(); r++) {
             for (int c = 0; c < matrix.getCols(); c++) {
-                int i = matrix.getIndexOfRowAndCol(r, c);
+                int i = (int) matrix.getIndexOfRowAndCol(r, c);
                 matrix.setValue(i, i + 1d);
                 result.setValue(result.getIndexOfRowAndCol(c, r), i + 1d);
             }
@@ -775,7 +779,7 @@ class DoubleMatrixTest {
         DoubleMatrix result = new DoubleMatrix(2);
         for (int i = 0; i < matrix.size(); i++) {
             matrix.setValue(i, i + 1d);
-            result.setValue((i + result.getCols()) % result.size(), i + 1d);
+            result.setValue((i + result.getCols()) % (int) result.size(), i + 1d);
         }
         Assertions.assertEquals(result, matrix.swapRows(0, 1));
     }

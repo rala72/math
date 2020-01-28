@@ -23,10 +23,14 @@ class BigDecimalMatrixTest {
     }
 
     @Test
-    void constructorWithToLargeSize() {
-        Assertions.assertThrows(IllegalArgumentException.class,
-            () -> new BigDecimalMatrix(Integer.MAX_VALUE)
-        ); // assert exception message?
+    void constructorWithIntegerMaxValueSize() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(Integer.MAX_VALUE);
+
+        long expectedSize = (long) Integer.MAX_VALUE * Integer.MAX_VALUE;
+        Assertions.assertEquals(expectedSize, matrix.size());
+
+        Assertions.assertTrue(matrix.isIndexValid(expectedSize - 1));
+        Assertions.assertFalse(matrix.isIndexValid(expectedSize));
     }
 
     @Test
@@ -544,7 +548,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix result = new BigDecimalMatrix(2);
         for (int r = 0; r < matrix.getRows(); r++) {
             for (int c = 0; c < matrix.getCols(); c++) {
-                int i = matrix.getIndexOfRowAndCol(r, c);
+                int i = (int) matrix.getIndexOfRowAndCol(r, c);
                 matrix.setValue(i, BigDecimal.valueOf(i).add(BigDecimal.ONE));
                 result.setValue(result.getIndexOfRowAndCol(c, r),
                     BigDecimal.valueOf(i).add(BigDecimal.ONE)
@@ -815,7 +819,7 @@ class BigDecimalMatrixTest {
         for (int i = 0; i < matrix.size(); i++) {
             matrix.setValue(i, BigDecimal.valueOf(i + 1));
             result.setValue(
-                (i + result.getCols()) % result.size(),
+                (i + result.getCols()) % (int) result.size(),
                 BigDecimal.valueOf(i).add(BigDecimal.ONE)
             );
         }

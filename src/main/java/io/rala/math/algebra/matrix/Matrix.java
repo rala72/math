@@ -6,6 +6,7 @@ import io.rala.math.utils.StreamIterable;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -37,7 +38,7 @@ public class Matrix<T extends Number>
     // region attributes
 
     private final AbstractArithmetic<T> arithmetic;
-    private final Map<Integer, T> matrix = new TreeMap<>();
+    private final Map<Integer, Map<Integer, T>> matrix = new TreeMap<>();
     private final int rows;
     private final int cols;
     private final T defaultValue;
@@ -73,8 +74,6 @@ public class Matrix<T extends Number>
     public Matrix(AbstractArithmetic<T> arithmetic, int rows, int cols, T defaultValue) {
         if (rows < 0 || cols < 0)
             throw new IllegalArgumentException("rows and cols have to be greater or equals to 0");
-        if (0 < rows && 0 < cols && (rows * cols < rows || rows * cols < cols))
-            throw new IllegalArgumentException("size is to large");
         this.arithmetic = arithmetic;
         this.rows = rows;
         this.cols = cols;
@@ -92,7 +91,9 @@ public class Matrix<T extends Number>
             matrix.getRows(), matrix.getCols(),
             matrix.getDefaultValue()
         );
-        getMatrix().putAll(matrix.getMatrix());
+        matrix.getMatrix().forEach(
+            (key, value) -> getMatrix().put(key, new TreeMap<>(value))
+        );
     }
 
     /**
@@ -133,7 +134,7 @@ public class Matrix<T extends Number>
     /**
      * @return matrix map which uses index as key
      */
-    protected final Map<Integer, T> getMatrix() {
+    protected final Map<Integer, Map<Integer, T>> getMatrix() {
         return matrix;
     }
 
@@ -161,8 +162,8 @@ public class Matrix<T extends Number>
     /**
      * @return {@link #getRows()} * {@link #getCols()}
      */
-    public final int size() {
-        return getRows() * getCols();
+    public final long size() {
+        return (long) getRows() * getCols();
     }
 
     // endregion
@@ -229,7 +230,7 @@ public class Matrix<T extends Number>
      * @param value new value to store
      * @return old value if existed or {@link #getDefaultValue()}
      * @throws IndexOutOfBoundsException if row or col is invalid
-     * @see #setValue(int, Number)
+     * @see #setValue(long, Number)
      */
     public T setValue(int row, int col, T value) {
         return setValue(getIndexOfRowAndCol(row, col), value);
@@ -241,13 +242,22 @@ public class Matrix<T extends Number>
      * @return old value if existed or {@link #getDefaultValue()}
      * @throws IndexOutOfBoundsException if index is invalid
      */
-    public T setValue(int index, T value) {
+    public T setValue(long index, T value) {
         if (!isIndexValid(index))
             throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
-        T previous = value == null && getDefaultValue() == null ||
-            value != null && value.equals(getDefaultValue()) ?
-            removeValue(index) : matrix.put(index, value);
-        return previous != null ? previous : getDefaultValue();
+        if (value == null && getDefaultValue() == null ||
+            value != null && value.equals(getDefaultValue()))
+            return removeValue(index);
+        else {
+            AtomicReference<T> previous = new AtomicReference<>(getDefaultValue());
+            matrix.compute((int) (index / getCols()), (integer, integerTMap) -> {
+                Map<Integer, T> map = integerTMap == null ? new TreeMap<>() : integerTMap;
+                T prev = map.put((int) (index % getCols()), value);
+                if (prev != null) previous.set(prev);
+                return map;
+            });
+            return previous.get();
+        }
     }
 
     /**
@@ -255,7 +265,7 @@ public class Matrix<T extends Number>
      * @param col col of requested value
      * @return current value on given position
      * @throws IndexOutOfBoundsException if row or col is invalid
-     * @see #getValue(int)
+     * @see #getValue(long)
      */
     public T getValue(int row, int col) {
         return getValue(getIndexOfRowAndCol(row, col));
@@ -266,10 +276,11 @@ public class Matrix<T extends Number>
      * @return current value on given position
      * @throws IndexOutOfBoundsException if index is invalid
      */
-    public T getValue(int index) {
+    public T getValue(long index) {
         if (!isIndexValid(index))
             throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
-        return matrix.getOrDefault(index, getDefaultValue());
+        return matrix.getOrDefault((int) (index / getCols()), Collections.emptyMap())
+            .getOrDefault((int) (index % getCols()), getDefaultValue());
     }
 
     /**
@@ -277,7 +288,7 @@ public class Matrix<T extends Number>
      * @param col col of value to remove
      * @return old value if existed or {@link #getDefaultValue()}
      * @throws IndexOutOfBoundsException if row or col is invalid
-     * @see #removeValue(int)
+     * @see #removeValue(long)
      */
     public T removeValue(int row, int col) {
         return removeValue(getIndexOfRowAndCol(row, col));
@@ -288,11 +299,17 @@ public class Matrix<T extends Number>
      * @return old value if existed or {@link #getDefaultValue()}
      * @throws IndexOutOfBoundsException if index is invalid
      */
-    public T removeValue(int index) {
+    public T removeValue(long index) {
         if (!isIndexValid(index))
             throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
-        T previous = getMatrix().remove(index);
-        return previous != null ? previous : getDefaultValue();
+        AtomicReference<T> previous = new AtomicReference<>(getDefaultValue());
+        getMatrix().compute((int) (index / getCols()), (integer, integerTMap) -> {
+            if (integerTMap == null) return null;
+            T prev = integerTMap.remove((int) (index % getCols()));
+            if (prev != null) previous.set(prev);
+            return integerTMap.isEmpty() ? null : integerTMap;
+        });
+        return previous.get();
     }
 
     // endregion
@@ -331,8 +348,15 @@ public class Matrix<T extends Number>
         if (getCols() != matrix.getCols())
             throw new IllegalArgumentException("cols have to be equal");
         Matrix<T> result = copy();
-        for (int i = 0; i < size(); i++)
-            result.getMatrix().merge(i, matrix.getValue(i), getArithmetic()::sum);
+        for (int r = 0; r < getRows(); r++)
+            result.getMatrix().merge(r,
+                matrix.getMatrix().getOrDefault(r, Collections.emptyMap()),
+                (integerTMap1, integerTMap2) -> {
+                    for (int c = 0; c < getCols(); c++)
+                        integerTMap1.merge(c, integerTMap2.get(c), getArithmetic()::sum);
+                    return integerTMap1;
+                }
+            );
         result.removeDefaultValues();
         return result;
     }
@@ -343,10 +367,14 @@ public class Matrix<T extends Number>
      */
     public Matrix<T> multiply(T t) {
         Matrix<T> result = copy();
-        for (int i = 0; i < size(); i++)
-            result.getMatrix().computeIfPresent(i,
-                (integer, value) -> getArithmetic().product(value, t)
-            );
+        for (int r = 0; r < getRows(); r++)
+            result.getMatrix().computeIfPresent(r, (index, integerTMap) -> {
+                for (int c = 0; c < getCols(); c++)
+                    integerTMap.computeIfPresent(c,
+                        (integer, value) -> getArithmetic().product(value, t)
+                    );
+                return integerTMap;
+            });
         result.removeDefaultValues();
         return result;
     }
@@ -606,7 +634,7 @@ public class Matrix<T extends Number>
         Matrix<NT> matrix = new Matrix<>(
             arithmetic, getRows(), getCols(), map.apply(getDefaultValue())
         );
-        getMatrix().forEach((integer, t) -> matrix.setValue(integer, map.apply(t)));
+        forEach(field -> matrix.setValue(field.index, map.apply(field.value)));
         return matrix;
     }
 
@@ -622,7 +650,7 @@ public class Matrix<T extends Number>
     @Override
     public Iterator<Field> iterator() {
         return new Iterator<>() {
-            private int index = 0;
+            private long index = 0;
 
             @Override
             public boolean hasNext() {
@@ -863,12 +891,12 @@ public class Matrix<T extends Number>
      * @return index of requested position
      * @throws IndexOutOfBoundsException if row or col is invalid
      */
-    protected final int getIndexOfRowAndCol(int row, int col) {
+    protected final long getIndexOfRowAndCol(int row, int col) {
         if (!isRowValid(row))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
         if (!isColValid(col))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
-        return row * getCols() + col;
+        return (long) row * getCols() + col;
     }
 
     /**
@@ -884,7 +912,7 @@ public class Matrix<T extends Number>
      * @param index index to check
      * @return {@code true} if value is valid
      */
-    protected final boolean isIndexValid(int index) {
+    protected final boolean isIndexValid(long index) {
         return 0 <= index && index < size();
     }
 
@@ -909,8 +937,13 @@ public class Matrix<T extends Number>
     // region private
 
     private void removeDefaultValues() {
-        getMatrix().entrySet().removeIf(integerTEntry ->
-            isDefaultValue(integerTEntry.getValue())
+        getMatrix().entrySet().removeIf(integerMapEntry -> {
+                if (integerMapEntry.getValue() == null) return true;
+                integerMapEntry.getValue().entrySet().removeIf(integerTEntry ->
+                    isDefaultValue(integerTEntry.getValue())
+                );
+                return integerMapEntry.getValue().isEmpty();
+            }
         );
     }
 
@@ -931,7 +964,7 @@ public class Matrix<T extends Number>
      * class which holds a field of a matrix
      */
     public class Field {
-        private final int index;
+        private final long index;
         private final T value;
 
         /**
@@ -939,7 +972,7 @@ public class Matrix<T extends Number>
          * @param col   col of field
          * @param value value of field
          * @throws IndexOutOfBoundsException if row or col is invalid
-         * @see #Field(int, Number)
+         * @see #Field(long, Number)
          * @see #getIndexOfRowAndCol(int, int)
          */
         protected Field(int row, int col, T value) {
@@ -951,7 +984,7 @@ public class Matrix<T extends Number>
          * @param value value of field
          * @throws IndexOutOfBoundsException if index is invalid
          */
-        protected Field(int index, T value) {
+        protected Field(long index, T value) {
             if (!isIndexValid(index))
                 throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
             this.index = index;
@@ -962,20 +995,20 @@ public class Matrix<T extends Number>
          * @return row of field
          */
         public final int getRow() {
-            return getIndex() / getCols();
+            return (int) (getIndex() / getCols());
         }
 
         /**
          * @return col of field
          */
         public final int getCol() {
-            return getIndex() % getCols();
+            return (int) (getIndex() % getCols());
         }
 
         /**
          * @return index of field
          */
-        public final int getIndex() {
+        public final long getIndex() {
             return index;
         }
 
