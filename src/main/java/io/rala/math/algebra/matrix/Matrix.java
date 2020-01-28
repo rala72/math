@@ -38,7 +38,7 @@ public class Matrix<T extends Number>
     // region attributes
 
     private final AbstractArithmetic<T> arithmetic;
-    private final Map<Integer, Map<Integer, T>> matrix = new TreeMap<>();
+    private final Map<Integer, Map<Integer, T>> matrix = new HashMap<>();
     private final int rows;
     private final int cols;
     private final T defaultValue;
@@ -92,7 +92,7 @@ public class Matrix<T extends Number>
             matrix.getDefaultValue()
         );
         matrix.getMatrix().forEach(
-            (key, value) -> getMatrix().put(key, new TreeMap<>(value))
+            (key, value) -> getMatrix().put(key, new HashMap<>(value))
         );
     }
 
@@ -251,7 +251,7 @@ public class Matrix<T extends Number>
         else {
             AtomicReference<T> previous = new AtomicReference<>(getDefaultValue());
             matrix.compute((int) (index / getCols()), (integer, integerTMap) -> {
-                Map<Integer, T> map = integerTMap == null ? new TreeMap<>() : integerTMap;
+                Map<Integer, T> map = integerTMap == null ? new HashMap<>() : integerTMap;
                 T prev = map.put((int) (index % getCols()), value);
                 if (prev != null) previous.set(prev);
                 return map;
