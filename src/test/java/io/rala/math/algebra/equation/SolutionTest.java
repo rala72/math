@@ -50,8 +50,8 @@ class SolutionTest {
     @Test
     void toStringOfTestAbstractSolver() {
         Solution<AbstractEquationSystem, Number> solution =
-            Solution.solved(equationSystem, List.of(1));
-        Assertions.assertEquals("SOLVED: [1]", solution.toString());
+            Solution.single(equationSystem, List.of(1));
+        Assertions.assertEquals("SINGLE: [1]", solution.toString());
     }
 
     // endregion
@@ -59,13 +59,13 @@ class SolutionTest {
     // region public static
 
     @Test
-    void createStaticSolved() {
-        Solution<AbstractEquationSystem, Number> solution = Solution.solved(
+    void createStaticSingle() {
+        Solution<AbstractEquationSystem, Number> solution = Solution.single(
             equationSystem, List.of(1)
         );
         Assertions.assertEquals(equationSystem, solution.getEquationSystem());
         Assertions.assertEquals(List.of(1), solution.getSolution());
-        Assertions.assertEquals(Solution.State.SOLVED, solution.getState());
+        Assertions.assertEquals(Solution.State.SINGLE, solution.getState());
     }
 
     @Test

@@ -51,7 +51,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
         }
         if (hasInfiniteSolutions())
             return Solution.infinite(getEquationSystem());
-        return toSolvedSolution();
+        return toSingleSolution();
     }
 
     // region prepare

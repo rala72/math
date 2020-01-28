@@ -10,7 +10,7 @@ import java.util.Objects;
  * @param <T> number class
  */
 public class Solution<E extends AbstractEquationSystem, T extends Number> {
-    public enum State {SOLVED, UNSOLVABLE, INFINITE}
+    public enum State {SINGLE, UNSOLVABLE, INFINITE}
 
     // region attributes
 
@@ -95,8 +95,8 @@ public class Solution<E extends AbstractEquationSystem, T extends Number> {
      * @return new {@link Solution} instance
      */
     public static <E extends AbstractEquationSystem, T extends Number>
-    Solution<E, T> solved(E equationSystem, List<T> solution) {
-        return new Solution<>(equationSystem, solution, State.SOLVED);
+    Solution<E, T> single(E equationSystem, List<T> solution) {
+        return new Solution<>(equationSystem, solution, State.SINGLE);
     }
 
     /**

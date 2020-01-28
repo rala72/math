@@ -48,8 +48,8 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
     /**
      * @return {@link Solution} based on {@link #getWorkingMatrix()}
      */
-    protected Solution<LinearEquationSystem<T>, T> toSolvedSolution() {
-        return Solution.solved(getEquationSystem(),
+    protected Solution<LinearEquationSystem<T>, T> toSingleSolution() {
+        return Solution.single(getEquationSystem(),
             getWorkingMatrix().getCol(getWorkingMatrix().getCols() - 1)
         );
     }
