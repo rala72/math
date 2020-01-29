@@ -51,7 +51,7 @@ class LinearEquationSystemTest {
 
     @Test
     void hashCodeOfTestAbstractSolver() {
-        Assertions.assertEquals(1283028,
+        Assertions.assertEquals(1312819,
             new LinearEquationSystem<>(matrix).hashCode()
         );
     }
@@ -60,7 +60,7 @@ class LinearEquationSystemTest {
     void toStringOfTestAbstractSolver() {
         LinearEquationSystem<Number> equationSystem =
             new LinearEquationSystem<>(matrix);
-        String toString = "2 2: [0=1, 1=2, 2=3, 3=4]";
+        String toString = "2 2: [0={0=1, 1=2}, 1={0=3, 1=4}]";
         Assertions.assertEquals(toString, equationSystem.toString());
     }
 

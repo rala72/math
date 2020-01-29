@@ -41,23 +41,23 @@ class AbstractLinearSolverTest {
     }
 
     @Test
-    void toSolvedSolutionOfAbstractLinearSolverWithNull() {
+    void toSingleSolutionOfAbstractLinearSolverWithNull() {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);
         Assertions.assertThrows(NullPointerException.class,
-            solver::toSolvedSolution
+            solver::toSingleSolution
         );
     }
 
     @Test
-    void toSolvedSolutionOfAbstractLinearSolverWithNonNull() {
+    void toSingleSolutionOfAbstractLinearSolverWithNonNull() {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);
         solver.reset();
 
         Solution<LinearEquationSystem<Number>, Number> expectedSolution =
-            Solution.solved(equationSystem, List.of(2, 4));
-        Assertions.assertEquals(expectedSolution, solver.toSolvedSolution());
+            Solution.single(equationSystem, List.of(2, 4));
+        Assertions.assertEquals(expectedSolution, solver.toSingleSolution());
     }
 
     // region protected final utils

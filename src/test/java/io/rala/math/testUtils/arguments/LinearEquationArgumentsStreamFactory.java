@@ -15,7 +15,7 @@ public class LinearEquationArgumentsStreamFactory {
     public static Stream<Arguments> doubleLinearEquationSystems() {
         return Stream.of(
             Arguments.of(
-                Solution.solved(
+                Solution.single(
                     new LinearEquationSystem<>(
                         DoubleMatrix.ofValuesByRows(3,
                             1, 2, 3, 2,
@@ -27,7 +27,7 @@ public class LinearEquationArgumentsStreamFactory {
                 )
             ),
             Arguments.of(
-                Solution.solved(
+                Solution.single(
                     new LinearEquationSystem<>(
                         DoubleMatrix.ofValuesByRows(3,
                             1, -1, 2, 0,
@@ -39,7 +39,7 @@ public class LinearEquationArgumentsStreamFactory {
                 )
             ),
             Arguments.of(
-                Solution.solved(
+                Solution.single(
                     new LinearEquationSystem<>(
                         DoubleMatrix.ofValuesByRows(2,
                             3, 4, -1,
@@ -50,7 +50,7 @@ public class LinearEquationArgumentsStreamFactory {
                 )
             ),
             Arguments.of(
-                Solution.solved(
+                Solution.single(
                     new LinearEquationSystem<>(
                         DoubleMatrix.ofValuesByRows(2,
                             3, -4, -26,
@@ -94,7 +94,7 @@ public class LinearEquationArgumentsStreamFactory {
                 )
             ),
             Arguments.of(
-                Solution.solved(
+                Solution.single(
                     new LinearEquationSystem<>(
                         DoubleMatrix.ofValuesByRows(3,
                             6, -1, 2, 1,
@@ -106,7 +106,7 @@ public class LinearEquationArgumentsStreamFactory {
                 )
             ),
             Arguments.of(
-                Solution.solved(
+                Solution.single(
                     new LinearEquationSystem<>(
                         DoubleMatrix.ofValuesByRows(3,
                             1, -2, 0, 4,
@@ -118,7 +118,7 @@ public class LinearEquationArgumentsStreamFactory {
                 )
             ),
             Arguments.of(
-                Solution.solved(
+                Solution.single(
                     new LinearEquationSystem<>(
                         DoubleMatrix.ofValuesByRows(3,
                             1, 2, -1, 2,
@@ -130,7 +130,7 @@ public class LinearEquationArgumentsStreamFactory {
                 )
             ),
             Arguments.of(
-                Solution.solved(
+                Solution.single(
                     new LinearEquationSystem<>(
                         DoubleMatrix.ofValuesByRows(3,
                             2, 3, -1, 3,
@@ -147,7 +147,7 @@ public class LinearEquationArgumentsStreamFactory {
                 )
             ),
             Arguments.of(
-                Solution.solved(
+                Solution.single(
                     new LinearEquationSystem<>(
                         DoubleMatrix.ofValuesByRows(3,
                             5, 2, -2, -1,
@@ -163,7 +163,7 @@ public class LinearEquationArgumentsStreamFactory {
                 )
             ),
             Arguments.of(
-                Solution.solved(
+                Solution.single(
                     new LinearEquationSystem<>(
                         DoubleMatrix.ofValuesByRows(3,
                             4, 3, 1, 13,
@@ -179,7 +179,7 @@ public class LinearEquationArgumentsStreamFactory {
                 )
             ),
             Arguments.of(
-                Solution.solved(
+                Solution.single(
                     new LinearEquationSystem<>(
                         DoubleMatrix.ofValuesByRows(3,
                             2, 9, -14, 39,
