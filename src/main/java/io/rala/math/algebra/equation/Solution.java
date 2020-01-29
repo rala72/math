@@ -91,6 +91,7 @@ public class Solution<E extends AbstractEquationSystem, T extends Number> {
      *
      * @param equationSystem equation system to store
      * @param solution       solution values
+     * @param <E>            evaluation class
      * @param <T>            number class
      * @return new {@link Solution} instance
      */
@@ -103,6 +104,7 @@ public class Solution<E extends AbstractEquationSystem, T extends Number> {
      * creates a unsolvable solution for given equationSystem
      *
      * @param equationSystem equation system to store
+     * @param <E>            evaluation class
      * @param <T>            number class
      * @return new {@link Solution} instance
      */
@@ -115,6 +117,7 @@ public class Solution<E extends AbstractEquationSystem, T extends Number> {
      * creates a infinite solution for given equationSystem
      *
      * @param equationSystem equation system to store
+     * @param <E>            evaluation class
      * @param <T>            number class
      * @return new {@link Solution} instance
      */
