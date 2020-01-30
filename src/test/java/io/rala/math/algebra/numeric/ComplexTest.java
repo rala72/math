@@ -352,7 +352,7 @@ class ComplexTest {
     @Test
     void pow8OfComplexWithRe1Im1() {
         Assertions.assertEquals(
-            new TestComplex(16d, 1.0291984957930474e-14),
+            new TestComplex(16.000000000000007, 1.0291984957930479e-14),
             new TestComplex(1, 1).pow(8)
         );
     }
@@ -394,8 +394,8 @@ class ComplexTest {
     void root2OfComplexWithReMinus1ImSqrt3() {
         Assertions.assertEquals(
             List.of(
-                new TestComplex(0.6050003337060553, 1.1687708944803676),
-                new TestComplex(-0.605000333706056, -1.1687708944803674)
+                new TestComplex(0.7071067811865474, 1.224744871391589),
+                new TestComplex(-0.7071067811865469, -1.2247448713915892)
             ),
             new TestComplex(-1, Math.sqrt(3)).root(2)
         );
@@ -447,8 +447,8 @@ class ComplexTest {
         Complex<Number> complex = Complex.of(new TestAbstractArithmetic(),
             1, 2
         );
-        Assertions.assertEquals(0d, complex.absoluteValue());
-        Assertions.assertEquals(Double.NaN, complex.argument());
+        Assertions.assertEquals(1d, complex.absoluteValue());
+        Assertions.assertEquals(2d, complex.argument());
     }
 
     @Test

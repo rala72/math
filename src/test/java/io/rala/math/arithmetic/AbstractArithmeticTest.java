@@ -170,7 +170,7 @@ class AbstractArithmeticTest {
 
     @Test
     void power12() {
-        Assertions.assertEquals(1, arithmetic.power(1, 2));
+        Assertions.assertEquals(1d, arithmetic.power(1, 2));
     }
 
     @Test

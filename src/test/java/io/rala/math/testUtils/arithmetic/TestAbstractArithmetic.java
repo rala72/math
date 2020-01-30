@@ -51,7 +51,7 @@ public class TestAbstractArithmetic extends AbstractArithmetic<Number> {
 
     @Override
     public Number power(Number a, int b) {
-        return Math.toIntExact((long) Math.pow(a.doubleValue(), b));
+        return Math.pow(a.doubleValue(), b);
     }
 
     @Override

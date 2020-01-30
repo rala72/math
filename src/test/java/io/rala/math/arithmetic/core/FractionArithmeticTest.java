@@ -173,7 +173,7 @@ class FractionArithmeticTest {
 
     @Test
     void power12() {
-        Assertions.assertEquals(new TestFraction(1, 1),
+        Assertions.assertEquals(new TestFraction(1d, 1d),
             arithmetic.power(new TestFraction(1d), 2)
         );
     }

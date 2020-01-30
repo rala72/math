@@ -164,7 +164,7 @@ class ComplexArithmeticTest {
     @Test
     void power12() {
         Assertions.assertEquals(
-            create(-3.216245299353273e-16, 2d),
+            create(-3.2162452993532737e-16, 2.0000000000000004),
             arithmetic.power(create(1, 1), 2)
         );
     }

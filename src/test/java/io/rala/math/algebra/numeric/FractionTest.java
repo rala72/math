@@ -258,7 +258,7 @@ class FractionTest {
 
     @Test
     void pow2OfFraction1_2() {
-        assertFraction(new TestFraction(1, 2).pow(2), 1, 4);
+        assertFraction(new TestFraction(1, 2).pow(2), 1d, 4d);
     }
 
     @Test
