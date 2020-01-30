@@ -161,12 +161,11 @@ public class Complex<T extends Number> extends Number implements Validatable,
 
     /**
      * @return if re is not {@code 0} {@code sign(re)} otherwise {@code sign(im)}
+     * @see Math#signum(double)
      */
-    public int complexSignum() {
-        return (int) (
-            !getArithmetic().isZero(getRe()) ?
-                getArithmetic().signum(getRe()) : getArithmetic().signum(getIm())
-        );
+    public double complexSignum() {
+        return !getArithmetic().isZero(getRe()) ?
+            getArithmetic().signum(getRe()) : getArithmetic().signum(getIm());
     }
 
     // endregion
