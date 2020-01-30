@@ -98,12 +98,12 @@ class DoubleCircleTest {
     }
 
     @Test
-    void areaOfCircleWithRadius2d() {
+    void areaOfCircleWithRadius2() {
         Assertions.assertEquals(12.566370614359172d, new DoubleCircle(2d).area());
     }
 
     @Test
-    void areaOfCircleWithRadius3d() {
+    void areaOfCircleWithRadius3() {
         Assertions.assertEquals(28.274333882308138d, new DoubleCircle(3d).area());
     }
 
@@ -113,12 +113,12 @@ class DoubleCircleTest {
     }
 
     @Test
-    void circumferenceOfCircleWithRadius2d() {
+    void circumferenceOfCircleWithRadius2() {
         Assertions.assertEquals(12.566370614359172d, new DoubleCircle(2d).circumference());
     }
 
     @Test
-    void circumferenceOfCircleWithRadius3d() {
+    void circumferenceOfCircleWithRadius3() {
         Assertions.assertEquals(18.84955592153876d, new DoubleCircle(3d).circumference());
     }
 
@@ -127,17 +127,17 @@ class DoubleCircleTest {
     // region isUnitCircle
 
     @Test
-    void isUnitCircleWithRadius0d() {
+    void isUnitCircleWithRadius0() {
         Assertions.assertFalse(new DoubleCircle(0d).isUnitCircle());
     }
 
     @Test
-    void isUnitCircleWithRadius1d() {
+    void isUnitCircleWithRadius1() {
         Assertions.assertTrue(new DoubleCircle(1d).isUnitCircle());
     }
 
     @Test
-    void isUnitCircleWithRadius2d() {
+    void isUnitCircleWithRadius2() {
         Assertions.assertFalse(new DoubleCircle(2d).isUnitCircle());
     }
 
@@ -182,7 +182,7 @@ class DoubleCircleTest {
     }
 
     @Test
-    void rotateOfCircleWithX1dY2dWithoutCenterWithPiHalf() {
+    void rotateOfCircleWithX1Y2WithoutCenterWithPiHalf() {
         GeometryAssertions.assertCircle(new DoubleCircle(new DoublePoint(1d, 2d))
                 .rotate(Math.PI / 2d),
             new DoublePoint(-2d, 1.0000000000000002d)
@@ -190,7 +190,7 @@ class DoubleCircleTest {
     }
 
     @Test
-    void rotateOfCircleWithX1dY2dWithCenterXY1dWithPiHalf() {
+    void rotateOfCircleWithX1Y2WithCenterXY1WithPiHalf() {
         GeometryAssertions.assertCircle(new DoubleCircle(new DoublePoint(1d, 2d))
                 .rotate(new DoublePoint(1d), Math.PI / 2d),
             new DoublePoint(0d, 1d)

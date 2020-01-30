@@ -86,17 +86,17 @@ class DoublePointTest {
     }
 
     @Test
-    void rotateOfPointWithX1dY2dWithoutCenterWithPiHalf() {
+    void rotateOfPointWithX1Y2WithoutCenterWithPiHalf() {
         GeometryAssertions.assertPoint(new DoublePoint(1d, 2d).rotate(Math.PI / 2d), -2d, 1d);
     }
 
     @Test
-    void rotateOfPointWithX1dY2dWithoutCenterWithPi() {
+    void rotateOfPointWithX1Y2WithoutCenterWithPi() {
         GeometryAssertions.assertPoint(new DoublePoint(1d, 2d).rotate(Math.PI), -1d, -2d);
     }
 
     @Test
-    void rotateOfPointWithX1dY2dWithoutCenterWithPiThreeHalf() {
+    void rotateOfPointWithX1Y2WithoutCenterWithPiThreeHalf() {
         GeometryAssertions.assertPoint(
             new DoublePoint(1d, 2d).rotate(Math.PI * 3d / 2d),
             2d, -1d
@@ -104,12 +104,12 @@ class DoublePointTest {
     }
 
     @Test
-    void rotateOfPointWithX1dY2dWithoutCenterWithTwoPi() {
+    void rotateOfPointWithX1Y2WithoutCenterWithTwoPi() {
         GeometryAssertions.assertPoint(new DoublePoint(1d, 2d).rotate(Math.PI * 2d), 1d, 2d);
     }
 
     @Test
-    void rotateOfPointWithX1dY2dWithCenterXY1dWithPiHalf() {
+    void rotateOfPointWithX1Y2WithCenterXY1WithPiHalf() {
         GeometryAssertions.assertPoint(
             new DoublePoint(1d, 2d).rotate(new DoublePoint(1d), Math.PI / 2d),
             0d, 1d
@@ -117,7 +117,7 @@ class DoublePointTest {
     }
 
     @Test
-    void rotateOfPointWithX1dY2dWithCenterXY1dWithPi() {
+    void rotateOfPointWithX1Y2WithCenterXY1WithPi() {
         GeometryAssertions.assertPoint(
             new DoublePoint(1d, 2d).rotate(new DoublePoint(1d), Math.PI),
             1d, 0d
@@ -125,7 +125,7 @@ class DoublePointTest {
     }
 
     @Test
-    void rotateOfPointWithX1dY2dWithCenterXY1dWithPiThreeHalf() {
+    void rotateOfPointWithX1Y2WithCenterXY1WithPiThreeHalf() {
         GeometryAssertions.assertPoint(
             new DoublePoint(1d, 2d).rotate(new DoublePoint(1d), Math.PI * 3d / 2d),
             2d, 1d
@@ -133,7 +133,7 @@ class DoublePointTest {
     }
 
     @Test
-    void rotateOfPointWithX1dY2dWithCenterXY1dWithTwoPi() {
+    void rotateOfPointWithX1Y2WithCenterXY1WithTwoPi() {
         GeometryAssertions.assertPoint(
             new DoublePoint(1d, 2d).rotate(new DoublePoint(1d), Math.PI * 2d),
             1d, 2d

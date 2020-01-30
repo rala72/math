@@ -16,7 +16,7 @@ class DoubleRectTest {
 
 
     @Test
-    void constructorWithPoint1dAndSize() {
+    void constructorWithPoint1AndSize() {
         GeometryAssertions.assertRect(
             new DoubleRect(new DoublePoint(0d), new DoublePoint(1d), 2d),
             new DoublePoint(), new DoublePoint(1d), 2d
@@ -52,7 +52,7 @@ class DoubleRectTest {
     // region vertexes
 
     @Test
-    void vertexesOfRectWithHeight1dAndWidth2d() {
+    void vertexesOfRectWithHeight1AndWidth2() {
         Rect<Double> rect = new DoubleRect(1d, 2d);
         GeometryAssertions.assertPoint(rect.vertexA(), 0d, 0d);
         GeometryAssertions.assertPoint(rect.vertexB(), 2d, 0d);
@@ -88,7 +88,7 @@ class DoubleRectTest {
     }
 
     @Test
-    void heightOfRectWithHeight1dAndWidth0d() {
+    void heightOfRectWithHeight1AndWidth0() {
         Assertions.assertEquals(0d, new DoubleRect(1d, 0d).height());
     }
 
@@ -107,22 +107,22 @@ class DoubleRectTest {
     }
 
     @Test
-    void widthOfRectWithHeight1dAndWidth0d() {
+    void widthOfRectWithHeight1AndWidth0() {
         Assertions.assertEquals(1d, new DoubleRect(1d, 0d).width());
     }
 
     @Test
-    void diagonaleOfRectWithHeightAndWidth1d() {
+    void diagonaleOfRectWithHeightAndWidth1() {
         Assertions.assertEquals(Math.sqrt(2d), new DoubleRect(1d, 1d).diagonale());
     }
 
     @Test
-    void diagonaleOfRectWithHeight1dAndWidth2d() {
+    void diagonaleOfRectWithHeight1AndWidth2() {
         Assertions.assertEquals(Math.sqrt(5d), new DoubleRect(1d, 2d).diagonale());
     }
 
     @Test
-    void diagonaleOfRectWithHeight2dAndWidth3d() {
+    void diagonaleOfRectWithHeight2AndWidth3() {
         Assertions.assertEquals(Math.sqrt(13d), new DoubleRect(2d, 3d).diagonale());
     }
 
@@ -131,33 +131,33 @@ class DoubleRectTest {
     // region area and circumference
 
     @Test
-    void areaOfRectWithHeightAndWidth1d() {
+    void areaOfRectWithHeightAndWidth1() {
         Assertions.assertEquals(1d, new DoubleRect(1d, 1d).area());
     }
 
     @Test
-    void areaOfRectWithHeight1dAndWidth2d() {
+    void areaOfRectWithHeight1AndWidth2() {
         Assertions.assertEquals(2d, new DoubleRect(1d, 2d).area());
     }
 
     @Test
-    void areaOfRectWithHeight2dAndWidth3d() {
+    void areaOfRectWithHeight2AndWidth3() {
         Assertions.assertEquals(6d, new DoubleRect(2d, 3d).area());
     }
 
 
     @Test
-    void circumferenceOfRectWithHeightAndWidth1d() {
+    void circumferenceOfRectWithHeightAndWidth1() {
         Assertions.assertEquals(4d, new DoubleRect(1d, 1d).circumference());
     }
 
     @Test
-    void circumferenceOfRectWithHeight1dAndWidth2d() {
+    void circumferenceOfRectWithHeight1AndWidth2() {
         Assertions.assertEquals(6d, new DoubleRect(1d, 2d).circumference());
     }
 
     @Test
-    void circumferenceOfRectWithHeight2dAndWidth3d() {
+    void circumferenceOfRectWithHeight2AndWidth3() {
         Assertions.assertEquals(10d, new DoubleRect(2d, 3d).circumference());
     }
 
@@ -166,7 +166,7 @@ class DoubleRectTest {
     // region circumCircle
 
     @Test
-    void circumCircleOfRectWithHeightAndWidth1d() {
+    void circumCircleOfRectWithHeightAndWidth1() {
         GeometryAssertions.assertCircle(
             new DoubleRect(1d, 1d).circumCircle(),
             new DoublePoint(0.5d, 0.5d), Math.sqrt(2d) / 2d
@@ -249,7 +249,7 @@ class DoubleRectTest {
     }
 
     @Test
-    void rotateOfRectWidthHeight1dAndWidth2dWithoutCenterWithPiHalf() {
+    void rotateOfRectWidthHeight1AndWidth2WithoutCenterWithPiHalf() {
         GeometryAssertions.assertRect(
             new DoubleRect(new DoublePoint(), new DoublePoint(0d, 1d), 2d)
                 .rotate(Math.PI / 2d),
@@ -258,7 +258,7 @@ class DoubleRectTest {
     }
 
     @Test
-    void rotateOfRectWithHeight1dAndWidth2dWithCenterXY1dWithPiHalf() {
+    void rotateOfRectWithHeight1AndWidth2WithCenterXY1WithPiHalf() {
         GeometryAssertions.assertRect(
             new DoubleRect(new DoublePoint(), new DoublePoint(0d, 1d), 2d)
                 .rotate(new DoublePoint(1d), Math.PI / 2d),

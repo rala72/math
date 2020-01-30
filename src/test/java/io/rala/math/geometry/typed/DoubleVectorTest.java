@@ -65,12 +65,12 @@ class DoubleVectorTest {
     }
 
     @Test
-    void lengthOfVectorXY1d() {
+    void lengthOfVectorXY1() {
         Assertions.assertEquals(Math.sqrt(2d), new DoubleVector(1d).length());
     }
 
     @Test
-    void lengthOfVectorX1dY0d() {
+    void lengthOfVectorX1Y0() {
         Assertions.assertEquals(1d, new DoubleVector(1d, 0d).length());
     }
 
@@ -117,22 +117,22 @@ class DoubleVectorTest {
     }
 
     @Test
-    void multiplyZeroVectorWith1d() {
+    void multiplyZeroVectorWith1() {
         GeometryAssertions.assertVector(new DoubleVector().multiply(1d));
     }
 
     @Test
-    void multiplyVectorWith0d() {
+    void multiplyVectorWith0() {
         GeometryAssertions.assertVector(new DoubleVector(1d).multiply(0d));
     }
 
     @Test
-    void multiplyVectorWith1d() {
+    void multiplyVectorWith1() {
         GeometryAssertions.assertVector(new DoubleVector(1d).multiply(1d), 1d);
     }
 
     @Test
-    void multiplyVectorWithMinus1d() {
+    void multiplyVectorWithMinus1() {
         GeometryAssertions.assertVector(new DoubleVector(2d, 1d).multiply(-1d), -2d, -1d);
     }
 
@@ -141,17 +141,17 @@ class DoubleVectorTest {
     // region inverse
 
     @Test
-    void inverseXOfVectorWithX1dY2d() {
+    void inverseXOfVectorWithX1Y2() {
         GeometryAssertions.assertVector(new DoubleVector(1d, 2d).inverseX(), -1d, 2d);
     }
 
     @Test
-    void inverseYOfVectorWithX1dY2d() {
+    void inverseYOfVectorWithX1Y2() {
         GeometryAssertions.assertVector(new DoubleVector(1d, 2d).inverseY(), 1d, -2d);
     }
 
     @Test
-    void inverseXYOfVectorWithX1dY2d() {
+    void inverseXYOfVectorWithX1Y2() {
         GeometryAssertions.assertVector(new DoubleVector(1d, 2d).inverse(), -1d, -2d);
     }
 
@@ -180,12 +180,12 @@ class DoubleVectorTest {
     }
 
     @Test
-    void normalLeftOfVectorWithX1dY2d() {
+    void normalLeftOfVectorWithX1Y2() {
         GeometryAssertions.assertVector(new DoubleVector(1d, 2d).normalLeft(), -2d, 1d);
     }
 
     @Test
-    void normalRightOfVectorWithX1dY2d() {
+    void normalRightOfVectorWithX1Y2() {
         GeometryAssertions.assertVector(new DoubleVector(1d, 2d).normalRight(), 2d, -1d);
     }
 
@@ -197,7 +197,7 @@ class DoubleVectorTest {
     }
 
     @Test
-    void normalizedOfVectorWithXY1d() {
+    void normalizedOfVectorWithXY1() {
         Vector<Double> vector = new DoubleVector(1d).normalized();
         GeometryAssertions.assertVector(vector, 0.7071067811865475d);
         Assertions.assertEquals(
@@ -208,7 +208,7 @@ class DoubleVectorTest {
     }
 
     @Test
-    void normalizedOfVectorWithX1dY2d() {
+    void normalizedOfVectorWithX1Y2() {
         Vector<Double> vector = new DoubleVector(1d, 2d).normalized();
         GeometryAssertions.assertVector(
             vector,
@@ -226,31 +226,31 @@ class DoubleVectorTest {
     // region scalarProduct and angle
 
     @Test
-    void scalarProductOfVectorWithoutParameterAndXY1d() {
+    void scalarProductOfVectorWithoutParameterAndXY1() {
         Assertions.assertEquals(0d, new DoubleVector().scalarProduct(new DoubleVector(1d)));
     }
 
     @Test
-    void scalarProductOfVectorWithXY1dAndXY1d() {
+    void scalarProductOfVectorWithXY1AndXY1() {
         Assertions.assertEquals(2d, new DoubleVector(1d).scalarProduct(new DoubleVector(1d)));
     }
 
     @Test
-    void scalarProductOfVectorWithXY2dAndX1dY2d() {
+    void scalarProductOfVectorWithXY2AndX1Y2() {
         Assertions.assertEquals(6d,
             new DoubleVector(2d).scalarProduct(new DoubleVector(1d, 2d))
         );
     }
 
     @Test
-    void angleBetweenX0dY1dAndX1dY0d() {
+    void angleBetweenX0Y1AndX1Y0() {
         Assertions.assertEquals(Math.PI / 2d,
             new DoubleVector(0d, 1d).angle(new DoubleVector(1d, 0d))
         );
     }
 
     @Test
-    void angleBetweenX0dY1dAndXY1d() {
+    void angleBetweenX0Y1AndXY1() {
         Assertions.assertEquals(Math.PI / 4d,
             new DoubleVector(0d, 1d)
                 .angle(new DoubleVector(1d, 1d)),
@@ -268,12 +268,12 @@ class DoubleVectorTest {
     }
 
     @Test
-    void isZeroVectorWithVectorWithXY1d() {
+    void isZeroVectorWithVectorWithXY1() {
         Assertions.assertFalse(new DoubleVector(1d).isZeroVector());
     }
 
     @Test
-    void asComplexOfVectorWithX1dY2d() {
+    void asComplexOfVectorWithX1Y2() {
         Complex<Double> complex = new DoubleComplex(1d, 2d);
         Assertions.assertEquals(complex,
             new DoubleVector(1d, 2d).asComplex()
@@ -298,7 +298,7 @@ class DoubleVectorTest {
     }
 
     @Test
-    void rotateOfVectorWithX1dY2dWithPiHalf() {
+    void rotateOfVectorWithX1Y2WithPiHalf() {
         GeometryAssertions.assertVector(
             new DoubleVector(1d, 2d).rotate(Math.PI / 2d),
             -2d, 1d
@@ -306,12 +306,12 @@ class DoubleVectorTest {
     }
 
     @Test
-    void rotateOfVectorWithX1dY2dWithPi() {
+    void rotateOfVectorWithX1Y2WithPi() {
         GeometryAssertions.assertVector(new DoubleVector(1d, 2d).rotate(Math.PI), -1d, -2d);
     }
 
     @Test
-    void rotateOfVectorWithX1dY2dWithPiThreeHalf() {
+    void rotateOfVectorWithX1Y2WithPiThreeHalf() {
         GeometryAssertions.assertVector(
             new DoubleVector(1d, 2d).rotate(Math.PI * 3d / 2d),
             2d, -1d
@@ -319,12 +319,12 @@ class DoubleVectorTest {
     }
 
     @Test
-    void rotateOfVectorWithX1dY2dWithTwoPi() {
+    void rotateOfVectorWithX1Y2WithTwoPi() {
         GeometryAssertions.assertVector(new DoubleVector(1d, 2d).rotate(Math.PI * 2d), 1d, 2d);
     }
 
     @Test
-    void copyOfVectorWithX2dY3d() {
+    void copyOfVectorWithX2Y3() {
         Vector<Double> vector = new DoubleVector(2d, 3d);
         Assertions.assertEquals(vector, vector.copy());
     }
@@ -334,7 +334,7 @@ class DoubleVectorTest {
     // region override
 
     @Test
-    void equalsOfVectorWithX2dY3d() {
+    void equalsOfVectorWithX2Y3() {
         Vector<Double> vector = new DoubleVector(2d, 3d);
         Assertions.assertEquals(
             vector,
@@ -347,7 +347,7 @@ class DoubleVectorTest {
     }
 
     @Test
-    void hashCodeOfVectorWithX2dY3d() {
+    void hashCodeOfVectorWithX2Y3() {
         Assertions.assertEquals(
             525249,
             new DoubleVector(2d, 3d).hashCode()
@@ -355,13 +355,13 @@ class DoubleVectorTest {
     }
 
     @Test
-    void toStringOfVectorWithX2dY3d() {
+    void toStringOfVectorWithX2Y3() {
         Vector<Double> vector = new DoubleVector(2d, 3d);
         Assertions.assertEquals("2.0:3.0", vector.toString());
     }
 
     @Test
-    void compareToOfVectorWithX2dY3d() {
+    void compareToOfVectorWithX2Y3() {
         Vector<Double> vector = new DoubleVector(2d, 3d);
         Assertions.assertEquals(
             0d, vector.compareTo(new DoubleVector(2d, 3d))

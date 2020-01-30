@@ -11,7 +11,7 @@ class DoubleTriangleTest {
     // region constructors, getter and setter
 
     @Test
-    void constructorWithA2dB3dC4d() {
+    void constructorWithA2B3C4() {
         GeometryAssertions.assertTriangle(
             new DoubleTriangle(new DoublePoint(2d), new DoublePoint(3d), new DoublePoint(4d)),
             new DoublePoint(2d), new DoublePoint(3d), new DoublePoint(4d)
@@ -71,7 +71,7 @@ class DoubleTriangleTest {
     // region edges and altitudes
 
     @Test
-    void edgesOfTriangleWithA00dB01dC11d() {
+    void edgesOfTriangleWithA00B01C11() {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(1d), new DoublePoint(2d)
         );
@@ -90,7 +90,7 @@ class DoubleTriangleTest {
     }
 
     @Test
-    void altitudesOfTriangleWithA00dB01dC11d() {
+    void altitudesOfTriangleWithA00B01C11() {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(),
             new DoublePoint(0d, 1d),
@@ -114,7 +114,7 @@ class DoubleTriangleTest {
     }
 
     @Test
-    void altitudesOfTriangleWithA00dB10dC11d() {
+    void altitudesOfTriangleWithA00B10C11() {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(),
             new DoublePoint(1d, 0d),
@@ -195,7 +195,7 @@ class DoubleTriangleTest {
     // region area and circumference
 
     @Test
-    void areaOfTriangleWithA00dB01dC11d() {
+    void areaOfTriangleWithA00B01C11() {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
@@ -207,7 +207,7 @@ class DoubleTriangleTest {
     }
 
     @Test
-    void circumferenceOfTriangleWithA00dB01dC11d() {
+    void circumferenceOfTriangleWithA00B01C11() {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
@@ -219,7 +219,7 @@ class DoubleTriangleTest {
     // region centroid and orthoCenter
 
     @Test
-    void centroidOfTriangleWithA00dB01dC11d() {
+    void centroidOfTriangleWithA00B01C11() {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
@@ -227,7 +227,7 @@ class DoubleTriangleTest {
     }
 
     @Test
-    void orthoCenterOfTriangleWithA00dB01dC11d() {
+    void orthoCenterOfTriangleWithA00B01C11() {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
@@ -239,7 +239,7 @@ class DoubleTriangleTest {
     // region circumCircle and inCircle
 
     @Test
-    void circumCircleOfTriangleWithA00dB01dC11d() {
+    void circumCircleOfTriangleWithA00B01C11() {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
@@ -251,7 +251,7 @@ class DoubleTriangleTest {
     }
 
     @Test
-    void inCircleOfTriangleWithA00dB01dC11d() {
+    void inCircleOfTriangleWithA00B01C11() {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
@@ -332,7 +332,7 @@ class DoubleTriangleTest {
     }
 
     @Test
-    void rotateOfTriangleWithA00dB01dC11dWithoutCenterWithPiHalf() {
+    void rotateOfTriangleWithA00B01C11WithoutCenterWithPiHalf() {
         GeometryAssertions.assertTriangle(
             new DoubleTriangle(
                 new DoublePoint(0d, 0d),
@@ -346,7 +346,7 @@ class DoubleTriangleTest {
     }
 
     @Test
-    void rotateOfTriangleWithA00dB01dC11dWithCenterXY1dWithPiHalf() {
+    void rotateOfTriangleWithA00B01C11WithCenterXY1WithPiHalf() {
         GeometryAssertions.assertTriangle(
             new DoubleTriangle(
                 new DoublePoint(0d, 0d),
@@ -360,7 +360,7 @@ class DoubleTriangleTest {
     }
 
     @Test
-    void copyOfTriangleWithA2dB3dC4d() {
+    void copyOfTriangleWithA2B3C4() {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(1d, 2d), new DoublePoint(3d, 4d), new DoublePoint(5d, 6d)
         );
@@ -372,7 +372,7 @@ class DoubleTriangleTest {
     // region override
 
     @Test
-    void equalsOfTriangleWithA2dB3dC4d() {
+    void equalsOfTriangleWithA2B3C4() {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(2d), new DoublePoint(3d), new DoublePoint(4d)
         );
@@ -387,7 +387,7 @@ class DoubleTriangleTest {
     }
 
     @Test
-    void hashCodeOfTriangleWithA2dB3dC4d() {
+    void hashCodeOfTriangleWithA2B3C4() {
         Assertions.assertEquals(
             554632192,
             new DoubleTriangle(
@@ -397,7 +397,7 @@ class DoubleTriangleTest {
     }
 
     @Test
-    void toStringOfTriangleWithA2dB3dC4d() {
+    void toStringOfTriangleWithA2B3C4() {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(2d), new DoublePoint(3d), new DoublePoint(4d)
         );
@@ -405,7 +405,7 @@ class DoubleTriangleTest {
     }
 
     @Test
-    void compareToOfTriangleWithA2dB3dC4d() {
+    void compareToOfTriangleWithA2B3C4() {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(0d), new DoublePoint(1d, 0d), new DoublePoint(1d)
         );

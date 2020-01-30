@@ -54,7 +54,7 @@ class DoubleLineTest {
     }
 
     @Test
-    void isHorizontalOfM1dB1dLine() {
+    void isHorizontalOfM1B1Line() {
         Assertions.assertFalse(new DoubleLine(1d, 1d).isHorizontal());
     }
 
@@ -69,7 +69,7 @@ class DoubleLineTest {
     }
 
     @Test
-    void isVerticalOfM1dB1dLine() {
+    void isVerticalOfM1B1Line() {
         Assertions.assertFalse(new DoubleLine(1d, 1d).isVertical());
     }
 
@@ -94,7 +94,7 @@ class DoubleLineTest {
     // region normal
 
     @Test
-    void normalM1dB0d() {
+    void normalM1B0() {
         GeometryAssertions.assertLine(new DoubleLine(1d, 0d).normal(), -1d, 0d);
     }
 
@@ -109,7 +109,7 @@ class DoubleLineTest {
     }
 
     @Test
-    void normalM1dB1dAndPointXY1d() {
+    void normalM1B1AndPointXY1() {
         GeometryAssertions.assertLine(
             new DoubleLine(1d, 1d).normal(new DoublePoint(1d)),
             -1d, 2d
@@ -117,7 +117,7 @@ class DoubleLineTest {
     }
 
     @Test
-    void normalM1dB0dAndPointXY1d() {
+    void normalM1B0AndPointXY1() {
         GeometryAssertions.assertLine(
             new DoubleLine(1d, 0d).normal(new DoublePoint(1d, 1d)),
             -1d, 2d
@@ -125,12 +125,12 @@ class DoubleLineTest {
     }
 
     @Test
-    void normalOfVerticalLineAndPointX0dY1d() {
+    void normalOfVerticalLineAndPointX0Y1() {
         GeometryAssertions.assertLine(new DoubleLine(0d).normal(new DoublePoint(0d, 1d)), 0d, 1d);
     }
 
     @Test
-    void normalOfHorizontalLineAndPointX1dY0d() {
+    void normalOfHorizontalLineAndPointX1Y0() {
         GeometryAssertions.assertLine(
             new DoubleLine(0d, 0d).normal(new DoublePoint(1d, 0d)),
             null, 1d
@@ -147,17 +147,17 @@ class DoubleLineTest {
     }
 
     @Test
-    void hasIntersectionWithLineM1dB2dAndM2dB1d() {
+    void hasIntersectionWithLineM1B2AndM2B1() {
         Assertions.assertTrue(new DoubleLine(1d, 2d).hasIntersection(new DoubleLine(2d, 1d)));
     }
 
     @Test
-    void hasIntersectionWithLineX1dAndX2d() {
+    void hasIntersectionWithLineX1AndX2() {
         Assertions.assertFalse(new DoubleLine(1d).hasIntersection(new DoubleLine(2d)));
     }
 
     @Test
-    void hasIntersectionWithLineM1dB2dAndX1d() {
+    void hasIntersectionWithLineM1B2AndX1() {
         Assertions.assertTrue(new DoubleLine(1d, 2d).hasIntersection(new DoubleLine(1d)));
     }
 
@@ -167,7 +167,7 @@ class DoubleLineTest {
     }
 
     @Test
-    void intersectionWithLineM1dB2dAndM2dB1d() {
+    void intersectionWithLineM1B2AndM2B1() {
         GeometryAssertions.assertPoint(
             new DoubleLine(1d, 2d).intersection(new DoubleLine(2d, 1d)),
             1d, 3d
@@ -175,12 +175,12 @@ class DoubleLineTest {
     }
 
     @Test
-    void intersectionWithLineX1dAndX2d() {
+    void intersectionWithLineX1AndX2() {
         Assertions.assertNull(new DoubleLine(1d).intersection(new DoubleLine(2d)));
     }
 
     @Test
-    void intersectionWithLineM1dB2dAndX1d() {
+    void intersectionWithLineM1B2AndX1() {
         GeometryAssertions.assertPoint(
             new DoubleLine(1d, 2d).intersection(new DoubleLine(1d)),
             1d, 3d
@@ -188,7 +188,7 @@ class DoubleLineTest {
     }
 
     @Test
-    void intersectionWithLineX1dAndM1dB2d() {
+    void intersectionWithLineX1AndM1B2() {
         GeometryAssertions.assertPoint(
             new DoubleLine(1d).intersection(new DoubleLine(1d, 2d)),
             1d, 3d
@@ -196,28 +196,28 @@ class DoubleLineTest {
     }
 
     @Test
-    void intersectionAngleWithLineM1dB2dAndM2dB1d() {
+    void intersectionAngleWithLineM1B2AndM2B1() {
         Assertions.assertEquals(0.3217505543966422d,
             new DoubleLine(1d, 2d).intersectionAngle(new DoubleLine(2d, 1d))
         );
     }
 
     @Test
-    void intersectionAngleWithLineX1dAndX2d() {
+    void intersectionAngleWithLineX1AndX2() {
         Assertions.assertNull(
             new DoubleLine(1d).intersectionAngle(new DoubleLine(2d))
         );
     }
 
     @Test
-    void intersectionAngleWithLineM1dB2dAndX1d() {
+    void intersectionAngleWithLineM1B2AndX1() {
         Assertions.assertEquals(0.7853981633974483d,
             new DoubleLine(1d, 2d).intersectionAngle(new DoubleLine(1d))
         );
     }
 
     @Test
-    void intersectionAngleWithLineX1dAndM1dB2d() {
+    void intersectionAngleWithLineX1AndM1B2() {
         Assertions.assertEquals(0.7853981633974483d,
             new DoubleLine(1d).intersectionAngle(new DoubleLine(1d, 2d))
         );
@@ -228,22 +228,22 @@ class DoubleLineTest {
     // region hasPoint
 
     @Test
-    void hasPointWithM1dB0dAndPointXY1d() {
+    void hasPointWithM1B0AndPointXY1() {
         Assertions.assertTrue(new DoubleLine(1d, 0d).hasPoint(new DoublePoint(1d)));
     }
 
     @Test
-    void hasPointWithM1dB1dAndPointXY1d() {
+    void hasPointWithM1B1AndPointXY1() {
         Assertions.assertFalse(new DoubleLine(1d, 1d).hasPoint(new DoublePoint(1d)));
     }
 
     @Test
-    void hasPointWithVerticalLine0dAndPointX0dY1d() {
+    void hasPointWithVerticalLine0AndPointX0Y1() {
         Assertions.assertTrue(new DoubleLine(0d).hasPoint(new DoublePoint(0d, 1d)));
     }
 
     @Test
-    void hasPointWithVerticalLine0dAndPointXY1d() {
+    void hasPointWithVerticalLine0AndPointXY1() {
         Assertions.assertFalse(new DoubleLine(0d).hasPoint(new DoublePoint(1d)));
     }
 
@@ -252,7 +252,7 @@ class DoubleLineTest {
     // region toLineSegment
 
     @Test
-    void toLineSegmentUsingXOfLineWithM0dB1d() {
+    void toLineSegmentUsingXOfLineWithM0B1() {
         GeometryAssertions.assertLineSegment(
             new DoubleLine(0d, 1d).toLineSegmentUsingX(0d, 1d),
             new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
@@ -260,7 +260,7 @@ class DoubleLineTest {
     }
 
     @Test
-    void toLineSegmentUsingXOfLineWithM1dB1d() {
+    void toLineSegmentUsingXOfLineWithM1B1() {
         GeometryAssertions.assertLineSegment(
             new DoubleLine(1d, 1d).toLineSegmentUsingX(0d, 1d),
             new DoublePoint(0d, 1d), new DoublePoint(1d, 2d)
@@ -268,7 +268,7 @@ class DoubleLineTest {
     }
 
     @Test
-    void toLineSegmentUsingYOfLineWithM1dB0d() {
+    void toLineSegmentUsingYOfLineWithM1B0() {
         GeometryAssertions.assertLineSegment(
             new DoubleLine(1d, 0d).toLineSegmentUsingY(0d, 1d),
             new DoublePoint(0d, 0d), new DoublePoint(1d, 1d)
@@ -276,7 +276,7 @@ class DoubleLineTest {
     }
 
     @Test
-    void toLineSegmentUsingYOfLineWithM1dB1d() {
+    void toLineSegmentUsingYOfLineWithM1B1() {
         GeometryAssertions.assertLineSegment(
             new DoubleLine(1d, 1d).toLineSegmentUsingY(0d, 1d),
             new DoublePoint(-1d, 0d), new DoublePoint(0d, 1d)

@@ -91,7 +91,7 @@ class DoubleLineSegmentTest {
     }
 
     @Test
-    void halvingPointOfLineSegmentWithPXY0dAndPXY1d() {
+    void halvingPointOfLineSegmentWithPXY0AndPXY1() {
         GeometryAssertions.assertPoint(
             new DoubleLineSegment(new DoublePoint(), new DoublePoint(1d)).halvingPoint(),
             0.5d, 0.5d
@@ -99,7 +99,7 @@ class DoubleLineSegmentTest {
     }
 
     @Test
-    void distributionPointComma25dOfLineSegmentWithPXY0dAndPXY1d() {
+    void distributionPointComma25OfLineSegmentWithPXY0AndPXY1() {
         GeometryAssertions.assertPoint(
             new DoubleLineSegment(new DoublePoint(), new DoublePoint(1d))
                 .distributionPoint(0.25d),
@@ -108,7 +108,7 @@ class DoubleLineSegmentTest {
     }
 
     @Test
-    void distributionPointComma5dOfLineSegmentWithPXY0dAndPXY1d() {
+    void distributionPointComma5OfLineSegmentWithPXY0AndPXY1() {
         GeometryAssertions.assertPoint(
             new DoubleLineSegment(new DoublePoint(), new DoublePoint(1d))
                 .distributionPoint(0.5d),
@@ -117,7 +117,7 @@ class DoubleLineSegmentTest {
     }
 
     @Test
-    void distributionPointComma75dOfLineSegmentWithPXY0dAndPXY1d() {
+    void distributionPointComma75OfLineSegmentWithPXY0AndPXY1() {
         GeometryAssertions.assertPoint(
             new DoubleLineSegment(new DoublePoint(), new DoublePoint(1d))
                 .distributionPoint(0.75d),
@@ -130,7 +130,7 @@ class DoubleLineSegmentTest {
     // region flip, toLine
 
     @Test
-    void flipWithAXY0dAndBXY1d() {
+    void flipWithAXY0AndBXY1() {
         GeometryAssertions.assertLineSegment(
             new DoubleLineSegment(new DoublePoint(0d), new DoublePoint(1d)).flip(),
             new DoublePoint(1d), new DoublePoint(0d)
@@ -138,7 +138,7 @@ class DoubleLineSegmentTest {
     }
 
     @Test
-    void toLineOfLineSegmentWithAXY0dAndBXY1d() {
+    void toLineOfLineSegmentWithAXY0AndBXY1() {
         GeometryAssertions.assertLine(
             new DoubleLineSegment(new DoublePoint(0d), new DoublePoint(1d)).toLine(),
             1d, 0d
@@ -146,7 +146,7 @@ class DoubleLineSegmentTest {
     }
 
     @Test
-    void toLineOfLineSegmentWithAXY1dAndBX1dY0d() {
+    void toLineOfLineSegmentWithAXY1AndBX1Y0() {
         GeometryAssertions.assertLine(
             new DoubleLineSegment(new DoublePoint(1d), new DoublePoint(1d, 0d)).toLine(),
             null, 1d
@@ -154,7 +154,7 @@ class DoubleLineSegmentTest {
     }
 
     @Test
-    void toLineOfLineSegmentWithAXY1dAndBX0dY1d() {
+    void toLineOfLineSegmentWithAXY1AndBX0Y1() {
         GeometryAssertions.assertLine(
             new DoubleLineSegment(new DoublePoint(1d), new DoublePoint(0d, 1d)).toLine(),
             -0d, 1d
@@ -162,7 +162,7 @@ class DoubleLineSegmentTest {
     }
 
     @Test
-    void toLineOfLineSegmentWithAXY1dAndBX2dY3d() {
+    void toLineOfLineSegmentWithAXY1AndBX2Y3() {
         GeometryAssertions.assertLine(
             new DoubleLineSegment(new DoublePoint(1d), new DoublePoint(2d, 3d)).toLine(),
             2d, -1d
@@ -214,7 +214,7 @@ class DoubleLineSegmentTest {
     }
 
     @Test
-    void rotateOfLineSegmentWithAXY0dAndBX1dY2dWithoutCenterWithPiHalf() {
+    void rotateOfLineSegmentWithAXY0AndBX1Y2WithoutCenterWithPiHalf() {
         GeometryAssertions.assertLineSegment(
             new DoubleLineSegment(new DoublePoint(0d, 0d), new DoublePoint(1d, 2d))
                 .rotate(Math.PI / 2d),
@@ -224,7 +224,7 @@ class DoubleLineSegmentTest {
     }
 
     @Test
-    void rotateOfLineSegmentWithAXY0dAndBX1dY2dWithCenterXY1dWithPiHalf() {
+    void rotateOfLineSegmentWithAXY0AndBX1Y2WithCenterXY1WithPiHalf() {
         GeometryAssertions.assertLineSegment(
             new DoubleLineSegment(new DoublePoint(0d, 0d), new DoublePoint(1d, 2d))
                 .rotate(new DoublePoint(1d), Math.PI / 2d),
