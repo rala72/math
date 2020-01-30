@@ -123,14 +123,14 @@ public class Circle implements Validatable, Movable<Circle>, Rotatable<Circle>,
     // region area and circumference
 
     /**
-     * @return {@code &pi;*r^2}
+     * @return &pi;{@code *r^2}
      */
     public double area() {
         return Math.PI * Math.pow(getRadius(), 2);
     }
 
     /**
-     * @return {@code 2*&pi;*r}
+     * @return {@code 2*}&pi;{@code *r}
      */
     public double circumference() {
         return 2 * Math.PI * getRadius();

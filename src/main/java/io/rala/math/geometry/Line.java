@@ -102,7 +102,7 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
      * calculates x value of provided y value
      *
      * @param y y value to get x value
-     * @return x=(y-b)/m
+     * @return {@code x=(y-b)/m}
      */
     public double calculateX(double y) {
         return (y - getB()) / getM();
@@ -112,7 +112,7 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
      * calculates y value of provided x value
      *
      * @param x x value to get y value
-     * @return y=m*x+b
+     * @return {@code y=m*x+b}
      */
     public double calculateY(double x) {
         return getM() * x + getB();
