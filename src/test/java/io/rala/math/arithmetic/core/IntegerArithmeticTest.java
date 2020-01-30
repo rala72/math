@@ -58,6 +58,32 @@ class IntegerArithmeticTest {
     }
 
     @Test
+    void min() {
+        Assertions.assertEquals(
+            1, arithmetic.min(1, 1)
+        );
+        Assertions.assertEquals(
+            1, arithmetic.min(1, 2)
+        );
+        Assertions.assertEquals(
+            1, arithmetic.min(2, 1)
+        );
+    }
+
+    @Test
+    void max() {
+        Assertions.assertEquals(
+            1, arithmetic.max(1, 1)
+        );
+        Assertions.assertEquals(
+            2, arithmetic.max(1, 2)
+        );
+        Assertions.assertEquals(
+            2, arithmetic.max(2, 1)
+        );
+    }
+
+    @Test
     void isZero() {
         Assertions.assertTrue(arithmetic.isZero(0));
         Assertions.assertTrue(arithmetic.isZero(-0));

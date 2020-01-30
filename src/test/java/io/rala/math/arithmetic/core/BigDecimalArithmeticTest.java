@@ -62,6 +62,32 @@ class BigDecimalArithmeticTest {
     }
 
     @Test
+    void min() {
+        Assertions.assertEquals(
+            BigDecimal.ONE, arithmetic.min(BigDecimal.ONE, BigDecimal.ONE)
+        );
+        Assertions.assertEquals(
+            BigDecimal.ONE, arithmetic.min(BigDecimal.ONE, BigDecimal.valueOf(2))
+        );
+        Assertions.assertEquals(
+            BigDecimal.ONE, arithmetic.min(BigDecimal.valueOf(2), BigDecimal.ONE)
+        );
+    }
+
+    @Test
+    void max() {
+        Assertions.assertEquals(
+            BigDecimal.ONE, arithmetic.max(BigDecimal.ONE, BigDecimal.ONE)
+        );
+        Assertions.assertEquals(
+            BigDecimal.valueOf(2), arithmetic.max(BigDecimal.ONE, BigDecimal.valueOf(2))
+        );
+        Assertions.assertEquals(
+            BigDecimal.valueOf(2), arithmetic.max(BigDecimal.valueOf(2), BigDecimal.ONE)
+        );
+    }
+
+    @Test
     void isZero() {
         Assertions.assertTrue(arithmetic.isZero(BigDecimal.ZERO));
         Assertions.assertTrue(arithmetic.isZero(BigDecimal.ZERO.negate()));

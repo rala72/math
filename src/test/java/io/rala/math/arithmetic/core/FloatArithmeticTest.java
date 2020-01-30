@@ -59,6 +59,32 @@ class FloatArithmeticTest {
     }
 
     @Test
+    void min() {
+        Assertions.assertEquals(
+            1, arithmetic.min(1f, 1f)
+        );
+        Assertions.assertEquals(
+            1, arithmetic.min(1f, 2f)
+        );
+        Assertions.assertEquals(
+            1, arithmetic.min(2f, 1f)
+        );
+    }
+
+    @Test
+    void max() {
+        Assertions.assertEquals(
+            1, arithmetic.max(1f, 1f)
+        );
+        Assertions.assertEquals(
+            2, arithmetic.max(1f, 2f)
+        );
+        Assertions.assertEquals(
+            2, arithmetic.max(2f, 1f)
+        );
+    }
+
+    @Test
     void isZero() {
         Assertions.assertTrue(arithmetic.isZero(0f));
         Assertions.assertTrue(arithmetic.isZero(-0f));

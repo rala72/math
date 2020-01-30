@@ -58,6 +58,32 @@ class LongArithmeticTest {
     }
 
     @Test
+    void min() {
+        Assertions.assertEquals(
+            1, arithmetic.min(1L, 1L)
+        );
+        Assertions.assertEquals(
+            1, arithmetic.min(1L, 2L)
+        );
+        Assertions.assertEquals(
+            1, arithmetic.min(2L, 1L)
+        );
+    }
+
+    @Test
+    void max() {
+        Assertions.assertEquals(
+            1, arithmetic.max(1L, 1L)
+        );
+        Assertions.assertEquals(
+            2, arithmetic.max(1L, 2L)
+        );
+        Assertions.assertEquals(
+            2, arithmetic.max(2L, 1L)
+        );
+    }
+
+    @Test
     void isZero() {
         Assertions.assertTrue(arithmetic.isZero(0L));
         Assertions.assertTrue(arithmetic.isZero(-0L));

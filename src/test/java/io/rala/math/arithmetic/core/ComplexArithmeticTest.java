@@ -61,6 +61,32 @@ class ComplexArithmeticTest {
     }
 
     @Test
+    void min() {
+        Assertions.assertEquals(
+            create(1, 1), arithmetic.min(create(1, 1), create(1, 1))
+        );
+        Assertions.assertEquals(
+            create(1, 1), arithmetic.min(create(1, 1), create(2, 2))
+        );
+        Assertions.assertEquals(
+            create(1, 1), arithmetic.min(create(2, 2), create(1, 1))
+        );
+    }
+
+    @Test
+    void max() {
+        Assertions.assertEquals(
+            create(1, 1), arithmetic.max(create(1, 1), create(1, 1))
+        );
+        Assertions.assertEquals(
+            create(2, 2), arithmetic.max(create(1, 1), create(2, 2))
+        );
+        Assertions.assertEquals(
+            create(2, 2), arithmetic.max(create(2, 2), create(1, 1))
+        );
+    }
+
+    @Test
     void isZero() {
         Assertions.assertTrue(arithmetic.isZero(create(0, 0)));
         Assertions.assertTrue(arithmetic.isZero(create(-0, -0)));

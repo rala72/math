@@ -69,6 +69,38 @@ class FractionArithmeticTest {
     }
 
     @Test
+    void min() {
+        Assertions.assertEquals(
+            new TestFraction(1, 1),
+            arithmetic.min(new TestFraction(1), new TestFraction(1))
+        );
+        Assertions.assertEquals(
+            new TestFraction(1),
+            arithmetic.min(new TestFraction(1), new TestFraction(2))
+        );
+        Assertions.assertEquals(
+            new TestFraction(1),
+            arithmetic.min(new TestFraction(2), new TestFraction(1))
+        );
+    }
+
+    @Test
+    void max() {
+        Assertions.assertEquals(
+            new TestFraction(1),
+            arithmetic.max(new TestFraction(1), new TestFraction(1))
+        );
+        Assertions.assertEquals(
+            new TestFraction(2),
+            arithmetic.max(new TestFraction(1), new TestFraction(2))
+        );
+        Assertions.assertEquals(
+            new TestFraction(2),
+            arithmetic.max(new TestFraction(2), new TestFraction(1))
+        );
+    }
+
+    @Test
     void isZero() {
         Assertions.assertTrue(arithmetic.isZero(new TestFraction(0)));
         Assertions.assertTrue(arithmetic.isZero(new TestFraction(-0)));

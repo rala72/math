@@ -59,6 +59,32 @@ class DoubleArithmeticTest {
     }
 
     @Test
+    void min() {
+        Assertions.assertEquals(
+            1, arithmetic.min(1d, 1d)
+        );
+        Assertions.assertEquals(
+            1, arithmetic.min(1d, 2d)
+        );
+        Assertions.assertEquals(
+            1, arithmetic.min(2d, 1d)
+        );
+    }
+
+    @Test
+    void max() {
+        Assertions.assertEquals(
+            1, arithmetic.max(1d, 1d)
+        );
+        Assertions.assertEquals(
+            2, arithmetic.max(1d, 2d)
+        );
+        Assertions.assertEquals(
+            2, arithmetic.max(2d, 1d)
+        );
+    }
+
+    @Test
     void isZero() {
         Assertions.assertTrue(arithmetic.isZero(0d));
         Assertions.assertTrue(arithmetic.isZero(-0d));

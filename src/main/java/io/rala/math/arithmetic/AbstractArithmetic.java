@@ -92,6 +92,26 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     }
 
     /**
+     * @param a first value of comparision
+     * @param b second value of comparision
+     * @return min value
+     * @implSpec {@link #compare(Number, Number)} {@code <= 0 ? a : b}
+     */
+    public T min(T a, T b) {
+        return compare(a, b) <= 0 ? a : b;
+    }
+
+    /**
+     * @param a first value of comparision
+     * @param b second value of comparision
+     * @return max value
+     * @implSpec {@link #compare(Number, Number)} {@code < 0 ? b : a}
+     */
+    public T max(T a, T b) {
+        return compare(a, b) < 0 ? b : a;
+    }
+
+    /**
      * @param a number to check
      * @return {@code true} if {@code abs(a)} is {@code 0}
      * @see #absolute(Number)

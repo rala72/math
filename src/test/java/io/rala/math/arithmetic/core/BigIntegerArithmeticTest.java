@@ -60,6 +60,32 @@ class BigIntegerArithmeticTest {
     }
 
     @Test
+    void min() {
+        Assertions.assertEquals(
+            BigInteger.ONE, arithmetic.min(BigInteger.ONE, BigInteger.ONE)
+        );
+        Assertions.assertEquals(
+            BigInteger.ONE, arithmetic.min(BigInteger.ONE, BigInteger.TWO)
+        );
+        Assertions.assertEquals(
+            BigInteger.ONE, arithmetic.min(BigInteger.TWO, BigInteger.ONE)
+        );
+    }
+
+    @Test
+    void max() {
+        Assertions.assertEquals(
+            BigInteger.ONE, arithmetic.max(BigInteger.ONE, BigInteger.ONE)
+        );
+        Assertions.assertEquals(
+            BigInteger.TWO, arithmetic.max(BigInteger.ONE, BigInteger.TWO)
+        );
+        Assertions.assertEquals(
+            BigInteger.TWO, arithmetic.max(BigInteger.TWO, BigInteger.ONE)
+        );
+    }
+
+    @Test
     void isZero() {
         Assertions.assertTrue(arithmetic.isZero(BigInteger.ZERO));
         Assertions.assertTrue(arithmetic.isZero(BigInteger.ZERO.negate()));
