@@ -669,11 +669,11 @@ public class Matrix<T extends Number>
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Matrix<?>)) return false;
-        Matrix<?> matrix1 = (Matrix<?>) o;
-        return getRows() == matrix1.getRows() &&
-            getCols() == matrix1.getCols() &&
-            Objects.equals(getMatrix(), matrix1.getMatrix()) &&
-            Objects.equals(getDefaultValue(), matrix1.getDefaultValue());
+        Matrix<?> matrix = (Matrix<?>) o;
+        return getRows() == matrix.getRows() &&
+            getCols() == matrix.getCols() &&
+            Objects.equals(getMatrix(), matrix.getMatrix()) &&
+            Objects.equals(getDefaultValue(), matrix.getDefaultValue());
     }
 
     @Override
