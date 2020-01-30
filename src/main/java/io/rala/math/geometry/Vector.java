@@ -71,7 +71,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
     /**
      * @return stored arithmetic
      */
-    protected AbstractArithmetic<T> getArithmetic() {
+    public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
     }
 

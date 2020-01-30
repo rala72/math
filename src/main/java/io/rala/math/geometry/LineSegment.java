@@ -61,7 +61,7 @@ public class LineSegment<T extends Number> implements Validatable,
     /**
      * @return stored arithmetic
      */
-    protected AbstractArithmetic<T> getArithmetic() {
+    public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
     }
 
