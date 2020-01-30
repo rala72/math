@@ -71,7 +71,7 @@ class FractionArithmeticTest {
     @Test
     void min() {
         Assertions.assertEquals(
-            new TestFraction(1, 1),
+            new TestFraction(1),
             arithmetic.min(new TestFraction(1), new TestFraction(1))
         );
         Assertions.assertEquals(
