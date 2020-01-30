@@ -99,7 +99,7 @@ public class Line<T extends Number> implements Validatable,
      * @return {@code true} if {@link #getM()} returns {@code 0}
      */
     public boolean isHorizontal() {
-        return getArithmetic().isZero(getM());
+        return !isVertical() && getArithmetic().isZero(getM());
     }
 
     /**
