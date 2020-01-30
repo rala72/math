@@ -5,12 +5,15 @@ import io.rala.math.geometry.*;
 import org.junit.jupiter.api.Assertions;
 import org.opentest4j.AssertionFailedError;
 
+import java.math.MathContext;
+
 /**
  * assertions for {@link io.rala.math.geometry} package
  */
 @SuppressWarnings("unused")
 public class GeometryAssertions {
     public static final double DELTA = 0.00001;
+    public static final MathContext CONTEXT = new MathContext(10);
 
     private GeometryAssertions() {
     }
