@@ -14,7 +14,6 @@ class DoubleRectTest {
         GeometryAssertions.assertRect(new DoubleRect(1d, 2d), 1d, 2d);
     }
 
-
     @Test
     void constructorWithPoint1AndSize() {
         GeometryAssertions.assertRect(
@@ -144,7 +143,6 @@ class DoubleRectTest {
     void areaOfRectWithHeight2AndWidth3() {
         Assertions.assertEquals(6d, new DoubleRect(2d, 3d).area());
     }
-
 
     @Test
     void circumferenceOfRectWithHeightAndWidth1() {

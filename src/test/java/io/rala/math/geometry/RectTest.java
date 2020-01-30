@@ -16,7 +16,6 @@ class RectTest {
         GeometryAssertions.assertRect(new TestRect(1, 2), 1, 2);
     }
 
-
     @Test
     void constructorWithPoint1AndSize() {
         GeometryAssertions.assertRect(
@@ -146,7 +145,6 @@ class RectTest {
     void areaOfRectWithHeight2AndWidth3() {
         Assertions.assertEquals(6d, new TestRect(2, 3).area());
     }
-
 
     @Test
     void circumferenceOfRectWithHeightAndWidth1() {
