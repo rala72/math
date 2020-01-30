@@ -800,7 +800,7 @@ public class Matrix<T extends Number>
         if (!isRowValid(row))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
         Matrix<T> copy = copy();
-        if (getArithmetic().zero().equals(n)) {
+        if (getArithmetic().isZero(n)) {
             for (int i = 0; i < getCols(); i++)
                 copy.setValue(row, i, getArithmetic().zero());
             return copy;
@@ -823,7 +823,7 @@ public class Matrix<T extends Number>
         if (!isColValid(col))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
         Matrix<T> copy = copy();
-        if (getArithmetic().zero().equals(n)) {
+        if (getArithmetic().isZero(n)) {
             for (int i = 0; i < getCols(); i++)
                 copy.setValue(i, col, getArithmetic().zero());
             return copy;
@@ -848,7 +848,7 @@ public class Matrix<T extends Number>
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row1);
         if (!isRowValid(row2))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row2);
-        if (getArithmetic().zero().equals(n))
+        if (getArithmetic().isZero(n))
             return copy();
         if (row1 == row2) return multiplyRow(row1, n);
         Matrix<T> copy = copy();
@@ -870,7 +870,7 @@ public class Matrix<T extends Number>
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col1);
         if (!isColValid(col2))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col2);
-        if (getArithmetic().zero().equals(n))
+        if (getArithmetic().isZero(n))
             return copy();
         if (col1 == col2) return multiplyCol(col1, n);
         Matrix<T> copy = copy();

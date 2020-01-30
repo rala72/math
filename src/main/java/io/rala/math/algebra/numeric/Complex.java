@@ -153,8 +153,8 @@ public class Complex<T extends Number> extends Number implements Validatable,
      * @return {@code 0} if z is zero otherwise {@code z/|z|}
      */
     public Complex<T> signum() {
-        if (getRe().equals(getArithmetic().zero()) &&
-            getIm().equals(getArithmetic().zero()))
+        if (getArithmetic().isZero(getRe()) &&
+            getArithmetic().isZero(getIm()))
             return new Complex<>(getArithmetic());
         return divide(absoluteValue());
     }
@@ -164,7 +164,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
      */
     public int complexSignum() {
         return (int) (
-            !getRe().equals(getArithmetic().zero()) ?
+            !getArithmetic().isZero(getRe()) ?
                 getArithmetic().signum(getRe()) : getArithmetic().signum(getIm())
         );
     }
