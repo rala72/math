@@ -33,7 +33,7 @@ class DoubleMatrixTest {
 
     @Test
     void constructorWithSize0() {
-        assertMatrix(new DoubleMatrix(0), 0);
+        assertMatrix(new DoubleMatrix(1), 1);
     }
 
     @Test
@@ -748,7 +748,7 @@ class DoubleMatrixTest {
     @Test
     void serializable() {
         SerializableAssertions.assertSerializable(
-            new DoubleMatrix(0),
+            new DoubleMatrix(1),
             DoubleMatrix.class
         );
     }

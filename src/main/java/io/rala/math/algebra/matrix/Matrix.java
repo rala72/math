@@ -72,8 +72,8 @@ public class Matrix<T extends Number>
      * @throws IllegalArgumentException if rows or cols is negative or size is to large
      */
     public Matrix(AbstractArithmetic<T> arithmetic, int rows, int cols, T defaultValue) {
-        if (rows < 0 || cols < 0)
-            throw new IllegalArgumentException("rows and cols have to be greater or equals to 0");
+        if (rows <= 0 || cols <= 0)
+            throw new IllegalArgumentException("rows and cols have to be greater than 0");
         this.arithmetic = arithmetic;
         this.rows = rows;
         this.cols = cols;

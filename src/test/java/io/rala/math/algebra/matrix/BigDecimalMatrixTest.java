@@ -35,7 +35,7 @@ class BigDecimalMatrixTest {
 
     @Test
     void constructorWithSize0() {
-        assertMatrix(new BigDecimalMatrix(0), 0);
+        assertMatrix(new BigDecimalMatrix(1), 1);
     }
 
     @Test
@@ -45,7 +45,7 @@ class BigDecimalMatrixTest {
 
     @Test
     void constructorWithSize0AndMathContext5() {
-        assertMatrix(new BigDecimalMatrix(0, new MathContext(5)), 0);
+        assertMatrix(new BigDecimalMatrix(1, new MathContext(5)), 1);
     }
 
     @Test
@@ -787,7 +787,7 @@ class BigDecimalMatrixTest {
     @Test
     void serializable() {
         SerializableAssertions.assertSerializable(
-            new BigDecimalMatrix(0),
+            new BigDecimalMatrix(1),
             BigDecimalMatrix.class
         );
     }

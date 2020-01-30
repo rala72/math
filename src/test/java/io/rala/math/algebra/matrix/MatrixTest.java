@@ -34,7 +34,7 @@ class MatrixTest {
 
     @Test
     void constructorWithSize0() {
-        assertMatrix(new TestMatrix(0), 0);
+        assertMatrix(new TestMatrix(1), 1);
     }
 
     @Test
@@ -764,7 +764,7 @@ class MatrixTest {
     @Test
     void serializable() {
         SerializableAssertions.assertSerializable(
-            new TestMatrix(0),
+            new TestMatrix(1),
             TestMatrix.class
         );
     }
@@ -796,8 +796,8 @@ class MatrixTest {
 
     @Test
     void subMatrixR0C0OfMatrixWithSize1() {
-        Assertions.assertEquals(0,
-            new TestMatrix(1).subMatrix(0, 0).size()
+        Assertions.assertEquals(1,
+            new TestMatrix(2).subMatrix(0, 0).size()
         );
     }
 
@@ -860,13 +860,6 @@ class MatrixTest {
         Assertions.assertThrows(IndexOutOfBoundsException.class,
             () -> new TestMatrix(1).coFactor(0, 1)
         ); // assert exception message?
-    }
-
-    @Test
-    void coFactorR0C0OfMatrixWithSize1() {
-        Assertions.assertEquals(0,
-            new TestMatrix(1).coFactor(0, 0)
-        );
     }
 
     @Test
