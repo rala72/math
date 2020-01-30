@@ -127,7 +127,10 @@ class LineTest {
 
     @Test
     void normalOfVerticalLineAndPointX0Y1() {
-        GeometryAssertions.assertLine(new TestLine(0).normal(new TestPoint(0, 1)), 0d, 1d);
+        GeometryAssertions.assertLine(
+            new TestLine(0).normal(new TestPoint(0, 1)),
+            0d, 1d
+        );
     }
 
     @Test

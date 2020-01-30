@@ -126,7 +126,10 @@ class DoubleLineTest {
 
     @Test
     void normalOfVerticalLineAndPointX0Y1() {
-        GeometryAssertions.assertLine(new DoubleLine(0d).normal(new DoublePoint(0d, 1d)), 0d, 1d);
+        GeometryAssertions.assertLine(
+            new DoubleLine(0d).normal(new DoublePoint(0d, 1d)),
+            0d, 1d
+        );
     }
 
     @Test
@@ -143,12 +146,16 @@ class DoubleLineTest {
 
     @Test
     void hasIntersectionWithEqualM() {
-        Assertions.assertFalse(new DoubleLine(1d, 2d).hasIntersection(new DoubleLine(1d, 0d)));
+        Assertions.assertFalse(
+            new DoubleLine(1d, 2d).hasIntersection(new DoubleLine(1d, 0d))
+        );
     }
 
     @Test
     void hasIntersectionWithLineM1B2AndM2B1() {
-        Assertions.assertTrue(new DoubleLine(1d, 2d).hasIntersection(new DoubleLine(2d, 1d)));
+        Assertions.assertTrue(
+            new DoubleLine(1d, 2d).hasIntersection(new DoubleLine(2d, 1d))
+        );
     }
 
     @Test
@@ -158,12 +165,16 @@ class DoubleLineTest {
 
     @Test
     void hasIntersectionWithLineM1B2AndX1() {
-        Assertions.assertTrue(new DoubleLine(1d, 2d).hasIntersection(new DoubleLine(1d)));
+        Assertions.assertTrue(
+            new DoubleLine(1d, 2d).hasIntersection(new DoubleLine(1d))
+        );
     }
 
     @Test
     void intersectionWithEqualM() {
-        Assertions.assertNull(new DoubleLine(1d, 2d).intersection(new DoubleLine(1d, 0d)));
+        Assertions.assertNull(
+            new DoubleLine(1d, 2d).intersection(new DoubleLine(1d, 0d))
+        );
     }
 
     @Test

@@ -133,7 +133,10 @@ class DoubleVectorTest {
 
     @Test
     void multiplyVectorWithMinus1() {
-        GeometryAssertions.assertVector(new DoubleVector(2d, 1d).multiply(-1d), -2d, -1d);
+        GeometryAssertions.assertVector(
+            new DoubleVector(2d, 1d).multiply(-1d),
+            -2d, -1d
+        );
     }
 
     // endregion
@@ -227,12 +230,16 @@ class DoubleVectorTest {
 
     @Test
     void scalarProductOfVectorWithoutParameterAndXY1() {
-        Assertions.assertEquals(0d, new DoubleVector().scalarProduct(new DoubleVector(1d)));
+        Assertions.assertEquals(0d,
+            new DoubleVector().scalarProduct(new DoubleVector(1d))
+        );
     }
 
     @Test
     void scalarProductOfVectorWithXY1AndXY1() {
-        Assertions.assertEquals(2d, new DoubleVector(1d).scalarProduct(new DoubleVector(1d)));
+        Assertions.assertEquals(2d,
+            new DoubleVector(1d).scalarProduct(new DoubleVector(1d))
+        );
     }
 
     @Test
@@ -307,7 +314,10 @@ class DoubleVectorTest {
 
     @Test
     void rotateOfVectorWithX1Y2WithPi() {
-        GeometryAssertions.assertVector(new DoubleVector(1d, 2d).rotate(Math.PI), -1d, -2d);
+        GeometryAssertions.assertVector(
+            new DoubleVector(1d, 2d).rotate(Math.PI),
+            -1d, -2d
+        );
     }
 
     @Test
@@ -320,7 +330,10 @@ class DoubleVectorTest {
 
     @Test
     void rotateOfVectorWithX1Y2WithTwoPi() {
-        GeometryAssertions.assertVector(new DoubleVector(1d, 2d).rotate(Math.PI * 2d), 1d, 2d);
+        GeometryAssertions.assertVector(
+            new DoubleVector(1d, 2d).rotate(Math.PI * 2d),
+            1d, 2d
+        );
     }
 
     @Test

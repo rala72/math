@@ -114,12 +114,16 @@ class DoubleCircleTest {
 
     @Test
     void circumferenceOfCircleWithRadius2() {
-        Assertions.assertEquals(12.566370614359172d, new DoubleCircle(2d).circumference());
+        Assertions.assertEquals(12.566370614359172d,
+            new DoubleCircle(2d).circumference()
+        );
     }
 
     @Test
     void circumferenceOfCircleWithRadius3() {
-        Assertions.assertEquals(18.84955592153876d, new DoubleCircle(3d).circumference());
+        Assertions.assertEquals(18.84955592153876d,
+            new DoubleCircle(3d).circumference()
+        );
     }
 
     // endregion
@@ -165,12 +169,18 @@ class DoubleCircleTest {
 
     @Test
     void moveOfCircleWithoutParameterWithXY() {
-        GeometryAssertions.assertCircle(new DoubleCircle().move(1d), new DoublePoint(1d));
+        GeometryAssertions.assertCircle(
+            new DoubleCircle().move(1d),
+            new DoublePoint(1d)
+        );
     }
 
     @Test
     void moveOfCircleWithoutParameterWithXAndY() {
-        GeometryAssertions.assertCircle(new DoubleCircle().move(1d, 1d), new DoublePoint(1d));
+        GeometryAssertions.assertCircle(
+            new DoubleCircle().move(1d, 1d),
+            new DoublePoint(1d)
+        );
     }
 
     @Test

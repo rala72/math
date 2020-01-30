@@ -27,7 +27,11 @@ class DoubleRectTest {
         Rect<Double> rect = new DoubleRect(0d, 0d);
         GeometryAssertions.assertRect(rect, 0d, 0d);
         rect.setA(new DoublePoint(1d));
-        GeometryAssertions.assertRect(rect, new DoublePoint(1d), new DoublePoint(0d), 0d);
+        GeometryAssertions.assertRect(rect,
+            new DoublePoint(1d),
+            new DoublePoint(0d),
+            0d
+        );
     }
 
     @Test
@@ -35,7 +39,11 @@ class DoubleRectTest {
         Rect<Double> rect = new DoubleRect(0d, 0d);
         GeometryAssertions.assertRect(rect, 0d, 0d);
         rect.setB(new DoublePoint(2d));
-        GeometryAssertions.assertRect(rect, new DoublePoint(0d), new DoublePoint(2d), 0d);
+        GeometryAssertions.assertRect(rect,
+            new DoublePoint(0d),
+            new DoublePoint(2d),
+            0d
+        );
     }
 
     @Test
@@ -61,7 +69,11 @@ class DoubleRectTest {
 
     @Test
     void vertexesOfRectWithPointsAndSize() {
-        Rect<Double> rect = new DoubleRect(new DoublePoint(1d, 1d), new DoublePoint(0d, 1d), 2d);
+        Rect<Double> rect = new DoubleRect(
+            new DoublePoint(1d, 1d),
+            new DoublePoint(0d, 1d),
+            2d
+        );
         GeometryAssertions.assertPoint(rect.vertexA(), 1d, 1d);
         GeometryAssertions.assertPoint(rect.vertexB(), 0d, 1d);
         GeometryAssertions.assertPoint(rect.vertexC(), 0d, 3d);

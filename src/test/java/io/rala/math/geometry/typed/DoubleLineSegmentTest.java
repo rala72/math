@@ -64,7 +64,10 @@ class DoubleLineSegmentTest {
     @Test
     void lengthOfLineSegmentWithTwoEqualPoints() {
         Assertions.assertEquals(0d,
-            new DoubleLineSegment(new DoublePoint(1d, 2d), new DoublePoint(1d, 2d)).length()
+            new DoubleLineSegment(
+                new DoublePoint(1d, 2d),
+                new DoublePoint(1d, 2d)
+            ).length()
         );
     }
 

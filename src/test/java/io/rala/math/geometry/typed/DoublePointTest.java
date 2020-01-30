@@ -82,17 +82,26 @@ class DoublePointTest {
 
     @Test
     void moveOfPointWithXYWithVector() {
-        GeometryAssertions.assertPoint(new DoublePoint().move(new DoubleVector(1d)), 1d, 1d);
+        GeometryAssertions.assertPoint(
+            new DoublePoint().move(new DoubleVector(1d)),
+            1d, 1d
+        );
     }
 
     @Test
     void rotateOfPointWithX1Y2WithoutCenterWithPiHalf() {
-        GeometryAssertions.assertPoint(new DoublePoint(1d, 2d).rotate(Math.PI / 2d), -2d, 1d);
+        GeometryAssertions.assertPoint(
+            new DoublePoint(1d, 2d).rotate(Math.PI / 2d),
+            -2d, 1d
+        );
     }
 
     @Test
     void rotateOfPointWithX1Y2WithoutCenterWithPi() {
-        GeometryAssertions.assertPoint(new DoublePoint(1d, 2d).rotate(Math.PI), -1d, -2d);
+        GeometryAssertions.assertPoint(
+            new DoublePoint(1d, 2d).rotate(Math.PI),
+            -1d, -2d
+        );
     }
 
     @Test
@@ -105,7 +114,10 @@ class DoublePointTest {
 
     @Test
     void rotateOfPointWithX1Y2WithoutCenterWithTwoPi() {
-        GeometryAssertions.assertPoint(new DoublePoint(1d, 2d).rotate(Math.PI * 2d), 1d, 2d);
+        GeometryAssertions.assertPoint(
+            new DoublePoint(1d, 2d).rotate(Math.PI * 2d),
+            1d, 2d
+        );
     }
 
     @Test

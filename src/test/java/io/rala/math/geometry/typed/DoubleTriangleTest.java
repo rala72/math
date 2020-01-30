@@ -13,7 +13,11 @@ class DoubleTriangleTest {
     @Test
     void constructorWithA2B3C4() {
         GeometryAssertions.assertTriangle(
-            new DoubleTriangle(new DoublePoint(2d), new DoublePoint(3d), new DoublePoint(4d)),
+            new DoubleTriangle(
+                new DoublePoint(2d),
+                new DoublePoint(3d),
+                new DoublePoint(4d)
+            ),
             new DoublePoint(2d), new DoublePoint(3d), new DoublePoint(4d)
         );
     }
@@ -307,8 +311,11 @@ class DoubleTriangleTest {
     @Test
     void moveOfTriangleWithXYWithXY() {
         GeometryAssertions.assertTriangle(
-            new DoubleTriangle(new DoublePoint(0d), new DoublePoint(1d, 0d), new DoublePoint(1d))
-                .move(1d),
+            new DoubleTriangle(
+                new DoublePoint(0d),
+                new DoublePoint(1d, 0d),
+                new DoublePoint(1d)
+            ).move(1d),
             new DoublePoint(1d), new DoublePoint(2d, 1d), new DoublePoint(2d)
         );
     }
@@ -316,8 +323,11 @@ class DoubleTriangleTest {
     @Test
     void moveOfTriangleWithXYWithXAndY() {
         GeometryAssertions.assertTriangle(
-            new DoubleTriangle(new DoublePoint(0d), new DoublePoint(1d, 0d), new DoublePoint(1d))
-                .move(1d, 1d),
+            new DoubleTriangle(
+                new DoublePoint(0d),
+                new DoublePoint(1d, 0d),
+                new DoublePoint(1d)
+            ).move(1d, 1d),
             new DoublePoint(1d), new DoublePoint(2d, 1d), new DoublePoint(2d)
         );
     }
@@ -325,8 +335,11 @@ class DoubleTriangleTest {
     @Test
     void moveOfTriangleWithXYWithVector() {
         GeometryAssertions.assertTriangle(
-            new DoubleTriangle(new DoublePoint(0d), new DoublePoint(1d, 0d), new DoublePoint(1d))
-                .move(new DoubleVector(1d)),
+            new DoubleTriangle(
+                new DoublePoint(0d),
+                new DoublePoint(1d, 0d),
+                new DoublePoint(1d)
+            ).move(new DoubleVector(1d)),
             new DoublePoint(1d), new DoublePoint(2d, 1d), new DoublePoint(2d)
         );
     }
@@ -374,15 +387,25 @@ class DoubleTriangleTest {
     @Test
     void equalsOfTriangleWithA2B3C4() {
         Triangle<Double> triangle = new DoubleTriangle(
-            new DoublePoint(2d), new DoublePoint(3d), new DoublePoint(4d)
+            new DoublePoint(2d),
+            new DoublePoint(3d),
+            new DoublePoint(4d)
         );
         Assertions.assertEquals(
             triangle,
-            new DoubleTriangle(new DoublePoint(2d), new DoublePoint(3d), new DoublePoint(4d))
+            new DoubleTriangle(
+                new DoublePoint(2d),
+                new DoublePoint(3d),
+                new DoublePoint(4d)
+            )
         );
         Assertions.assertNotEquals(
             triangle,
-            new DoubleTriangle(new DoublePoint(3d), new DoublePoint(2d), new DoublePoint(4d))
+            new DoubleTriangle(
+                new DoublePoint(3d),
+                new DoublePoint(2d),
+                new DoublePoint(4d)
+            )
         );
     }
 
