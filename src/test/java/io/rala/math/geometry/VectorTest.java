@@ -2,7 +2,6 @@ package io.rala.math.geometry;
 
 import io.rala.math.algebra.numeric.Complex;
 import io.rala.math.testUtils.algebra.TestComplex;
-import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
 import io.rala.math.testUtils.assertion.GeometryAssertions;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
 import io.rala.math.testUtils.geometry.TestVector;
@@ -278,7 +277,7 @@ class VectorTest {
     void asComplexOfVectorWithX1Y2() {
         Complex<Number> complex = new TestComplex(1, 2);
         Assertions.assertEquals(complex,
-            new Vector<>(new TestAbstractArithmetic(), 1, 2).asComplex()
+            new TestVector(1, 2).asComplex()
         );
     }
 
