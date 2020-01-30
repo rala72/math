@@ -8,7 +8,7 @@ public class TestAbstractArithmetic extends AbstractArithmetic<Number> {
 
     @Override
     public Number fromInt(int a) {
-        return a;
+        return fromDouble(a);
     }
 
     @Override
@@ -18,7 +18,7 @@ public class TestAbstractArithmetic extends AbstractArithmetic<Number> {
 
     @Override
     public double signum(Number a) {
-        return Math.signum(a.intValue());
+        return Math.signum(a.doubleValue());
     }
 
     // endregion
@@ -27,17 +27,17 @@ public class TestAbstractArithmetic extends AbstractArithmetic<Number> {
 
     @Override
     public Number sum(Number a, Number b) {
-        return a.intValue() + b.intValue();
+        return a.doubleValue() + b.doubleValue();
     }
 
     @Override
     public Number difference(Number a, Number b) {
-        return a.intValue() - b.intValue();
+        return a.doubleValue() - b.doubleValue();
     }
 
     @Override
     public Number product(Number a, Number b) {
-        return a.intValue() * b.intValue();
+        return a.doubleValue() * b.doubleValue();
     }
 
     @Override

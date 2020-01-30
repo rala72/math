@@ -26,27 +26,27 @@ class AbstractResultArithmeticTest {
 
     @Test
     void sum12() {
-        Assertions.assertEquals(3, arithmetic.sum(1, 2));
+        Assertions.assertEquals(3d, arithmetic.sum(1, 2));
     }
 
     @Test
     void sum123() {
-        Assertions.assertEquals(6, arithmetic.sum(1, 2, 3));
+        Assertions.assertEquals(6d, arithmetic.sum(1, 2, 3));
     }
 
     @Test
     void difference12() {
-        Assertions.assertEquals(-1, arithmetic.difference(1, 2));
+        Assertions.assertEquals(-1d, arithmetic.difference(1, 2));
     }
 
     @Test
     void product12() {
-        Assertions.assertEquals(2, arithmetic.product(1, 2));
+        Assertions.assertEquals(2d, arithmetic.product(1, 2));
     }
 
     @Test
     void product123() {
-        Assertions.assertEquals(6, arithmetic.product(1, 2, 3));
+        Assertions.assertEquals(6d, arithmetic.product(1, 2, 3));
     }
 
     @Test
@@ -56,7 +56,7 @@ class AbstractResultArithmeticTest {
 
     @Test
     void modulo12() {
-        Assertions.assertEquals(1, arithmetic.modulo(1, 2));
+        Assertions.assertEquals(0d, arithmetic.modulo(1, 2));
     }
 
     // endregion
@@ -112,7 +112,7 @@ class AbstractResultArithmeticTest {
 
     @Test
     void hashCodeOfAbstractResultArithmetic() {
-        Assertions.assertEquals(31745,
+        Assertions.assertEquals(-33522719,
             new TestAbstractResultArithmetic().hashCode()
         );
     }

@@ -381,9 +381,9 @@ class LongDoubleFractionTest {
 
     @Test
     void createFromArithmeticWithZeroDeParameter() {
-        TestFraction fraction = new TestFraction(1);
+        TestFraction fraction = new TestFraction(1d);
         Assertions.assertThrows(ArithmeticException.class,
-            () -> fraction.createFromArithmetic(1, 0)
+            () -> fraction.createFromArithmetic(1d, 0d)
         ); // assert exception message?
     }
 

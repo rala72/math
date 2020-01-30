@@ -19,7 +19,7 @@ class AbstractArithmeticTest {
 
     @Test
     void fromInt0() {
-        Assertions.assertEquals(0, arithmetic.fromInt(0));
+        Assertions.assertEquals(0d, arithmetic.fromInt(0));
     }
 
     @Test
@@ -38,12 +38,12 @@ class AbstractArithmeticTest {
 
     @Test
     void zero() {
-        Assertions.assertEquals(0, arithmetic.zero());
+        Assertions.assertEquals(0d, arithmetic.zero());
     }
 
     @Test
     void one() {
-        Assertions.assertEquals(1, arithmetic.one());
+        Assertions.assertEquals(1d, arithmetic.one());
     }
 
     // endregion
@@ -52,12 +52,12 @@ class AbstractArithmeticTest {
 
     @Test
     void absoluteM1() {
-        Assertions.assertEquals(1, arithmetic.absolute(-1));
+        Assertions.assertEquals(1d, arithmetic.absolute(-1));
     }
 
     @Test
     void negate1() {
-        Assertions.assertEquals(-1, arithmetic.negate(1));
+        Assertions.assertEquals(-1d, arithmetic.negate(1));
     }
 
     @Test
@@ -101,9 +101,9 @@ class AbstractArithmeticTest {
 
     @Test
     void isZero() {
-        Assertions.assertTrue(arithmetic.isZero(0));
-        Assertions.assertTrue(arithmetic.isZero(-0));
-        Assertions.assertFalse(arithmetic.isZero(1));
+        Assertions.assertTrue(arithmetic.isZero(0d));
+        Assertions.assertTrue(arithmetic.isZero(-0d));
+        Assertions.assertFalse(arithmetic.isZero(1d));
     }
 
     // endregion
@@ -112,27 +112,27 @@ class AbstractArithmeticTest {
 
     @Test
     void sum12() {
-        Assertions.assertEquals(3, arithmetic.sum(1, 2));
+        Assertions.assertEquals(3d, arithmetic.sum(1, 2));
     }
 
     @Test
     void sum123() {
-        Assertions.assertEquals(6, arithmetic.sum(1, 2, 3));
+        Assertions.assertEquals(6d, arithmetic.sum(1, 2, 3));
     }
 
     @Test
     void difference12() {
-        Assertions.assertEquals(-1, arithmetic.difference(1, 2));
+        Assertions.assertEquals(-1d, arithmetic.difference(1, 2));
     }
 
     @Test
     void product12() {
-        Assertions.assertEquals(2, arithmetic.product(1, 2));
+        Assertions.assertEquals(2d, arithmetic.product(1, 2));
     }
 
     @Test
     void product123() {
-        Assertions.assertEquals(6, arithmetic.product(1, 2, 3));
+        Assertions.assertEquals(6d, arithmetic.product(1, 2, 3));
     }
 
     @Test
@@ -142,7 +142,7 @@ class AbstractArithmeticTest {
 
     @Test
     void modulo12() {
-        Assertions.assertEquals(1, arithmetic.modulo(1, 2));
+        Assertions.assertEquals(0d, arithmetic.modulo(1, 2));
     }
 
     // endregion
@@ -283,7 +283,7 @@ class AbstractArithmeticTest {
 
     @Test
     void hashCodeOfAbstractArithmetic() {
-        Assertions.assertEquals(962,
+        Assertions.assertEquals(1072694209,
             new TestAbstractArithmetic().hashCode()
         );
     }

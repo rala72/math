@@ -39,12 +39,12 @@ class ComplexArithmeticTest {
 
     @Test
     void absoluteReM1Im0() {
-        Assertions.assertEquals(create(1, 0), arithmetic.absolute(create(-1, 0)));
+        Assertions.assertEquals(create(1d, -0d), arithmetic.absolute(create(-1, 0)));
     }
 
     @Test
     void negate() {
-        Assertions.assertEquals(create(-1, -1), arithmetic.negate(create(1, 1)));
+        Assertions.assertEquals(create(-1d, -1d), arithmetic.negate(create(1, 1)));
     }
 
     @Test
@@ -88,9 +88,9 @@ class ComplexArithmeticTest {
 
     @Test
     void isZero() {
-        Assertions.assertTrue(arithmetic.isZero(create(0, 0)));
-        Assertions.assertTrue(arithmetic.isZero(create(-0, -0)));
-        Assertions.assertFalse(arithmetic.isZero(create(1, 1)));
+        Assertions.assertTrue(arithmetic.isZero(create(0d, 0d)));
+        Assertions.assertTrue(arithmetic.isZero(create(-0d, -0d)));
+        Assertions.assertFalse(arithmetic.isZero(create(1d, 1d)));
     }
 
     // endregion
@@ -100,7 +100,7 @@ class ComplexArithmeticTest {
     @Test
     void sum12() {
         Assertions.assertEquals(
-            create(3, 3),
+            create(3d, 3d),
             arithmetic.sum(create(1, 1), create(2, 2))
         );
     }
@@ -108,7 +108,7 @@ class ComplexArithmeticTest {
     @Test
     void sum123() {
         Assertions.assertEquals(
-            create(6, 6),
+            create(6d, 6d),
             arithmetic.sum(
                 create(1, 1),
                 create(2, 2),
@@ -120,7 +120,7 @@ class ComplexArithmeticTest {
     @Test
     void difference12() {
         Assertions.assertEquals(
-            create(-1, -1),
+            create(-1d, -1d),
             arithmetic.difference(create(1, 1), create(2, 2))
         );
     }
@@ -128,7 +128,7 @@ class ComplexArithmeticTest {
     @Test
     void product12() {
         Assertions.assertEquals(
-            create(0, 4),
+            create(0d, 4d),
             arithmetic.product(create(1, 1), create(2, 2))
         );
     }
@@ -136,7 +136,7 @@ class ComplexArithmeticTest {
     @Test
     void product123() {
         Assertions.assertEquals(
-            create(-12, 12),
+            create(-12d, 12d),
             arithmetic.product(create(1, 1), create(2, 2), create(3, 3))
         );
     }
@@ -152,7 +152,7 @@ class ComplexArithmeticTest {
     @Test
     void modulo12() {
         Assertions.assertEquals(
-            create(1, 1),
+            create(0d, 0d),
             arithmetic.modulo(create(1, 1), create(2, 2))
         );
     }
@@ -164,7 +164,7 @@ class ComplexArithmeticTest {
     @Test
     void power12() {
         Assertions.assertEquals(
-            create(2, 0),
+            create(-3.216245299353273e-16, 2d),
             arithmetic.power(create(1, 1), 2)
         );
     }
@@ -172,7 +172,7 @@ class ComplexArithmeticTest {
     @Test
     void root21() {
         Assertions.assertEquals(
-            create(1, 0),
+            create(1.0986841134678098, 0.45508986056222733),
             arithmetic.root2(create(1, 1))
         );
     }
@@ -319,7 +319,7 @@ class ComplexArithmeticTest {
 
     @Test
     void hashCodeOfArithmetic() {
-        Assertions.assertEquals(32737,
+        Assertions.assertEquals(-33521727,
             new TestComplexArithmetic().hashCode()
         );
     }

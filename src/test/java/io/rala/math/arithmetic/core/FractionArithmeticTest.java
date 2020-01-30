@@ -21,7 +21,7 @@ class FractionArithmeticTest {
 
     @Test
     void fromInt1() {
-        Assertions.assertEquals(new TestFraction(1), arithmetic.fromInt(1));
+        Assertions.assertEquals(new TestFraction(1d), arithmetic.fromInt(1));
     }
 
     @Test
@@ -42,14 +42,14 @@ class FractionArithmeticTest {
 
     @Test
     void absoluteM1() {
-        Assertions.assertEquals(new TestFraction(1),
+        Assertions.assertEquals(new TestFraction(1d),
             arithmetic.absolute(new TestFraction(-1d))
         );
     }
 
     @Test
     void negate1() {
-        Assertions.assertEquals(new TestFraction(-1),
+        Assertions.assertEquals(new TestFraction(-1d),
             arithmetic.negate(new TestFraction(1d))
         );
     }
@@ -102,9 +102,9 @@ class FractionArithmeticTest {
 
     @Test
     void isZero() {
-        Assertions.assertTrue(arithmetic.isZero(new TestFraction(0)));
-        Assertions.assertTrue(arithmetic.isZero(new TestFraction(-0)));
-        Assertions.assertFalse(arithmetic.isZero(new TestFraction(1)));
+        Assertions.assertTrue(arithmetic.isZero(new TestFraction(0d)));
+        Assertions.assertTrue(arithmetic.isZero(new TestFraction(-0d)));
+        Assertions.assertFalse(arithmetic.isZero(new TestFraction(1d)));
     }
 
     // endregion
@@ -113,14 +113,14 @@ class FractionArithmeticTest {
 
     @Test
     void sum12() {
-        Assertions.assertEquals(new TestFraction(3, 1d),
+        Assertions.assertEquals(new TestFraction(3d, 1d),
             arithmetic.sum(new TestFraction(1d), new TestFraction(2d))
         );
     }
 
     @Test
     void sum123() {
-        Assertions.assertEquals(new TestFraction(6, 1d),
+        Assertions.assertEquals(new TestFraction(6d, 1d),
             arithmetic.sum(
                 new TestFraction(1d),
                 new TestFraction(2d),
@@ -131,21 +131,21 @@ class FractionArithmeticTest {
 
     @Test
     void difference12() {
-        Assertions.assertEquals(new TestFraction(-1, 1d),
+        Assertions.assertEquals(new TestFraction(-1d, 1d),
             arithmetic.difference(new TestFraction(1d), new TestFraction(2d))
         );
     }
 
     @Test
     void product12() {
-        Assertions.assertEquals(new TestFraction(2),
+        Assertions.assertEquals(new TestFraction(2d, 1d),
             arithmetic.product(new TestFraction(1d), new TestFraction(2d))
         );
     }
 
     @Test
     void product123() {
-        Assertions.assertEquals(new TestFraction(6),
+        Assertions.assertEquals(new TestFraction(6d, 1d),
             arithmetic.product(
                 new TestFraction(1d),
                 new TestFraction(2d),
@@ -155,14 +155,14 @@ class FractionArithmeticTest {
 
     @Test
     void quotient12() {
-        Assertions.assertEquals(new TestFraction(1, 2),
+        Assertions.assertEquals(new TestFraction(1d, 2d),
             arithmetic.quotient(new TestFraction(1d), new TestFraction(2d))
         );
     }
 
     @Test
     void modulo12() {
-        Assertions.assertEquals(new TestFraction(0, 1),
+        Assertions.assertEquals(new TestFraction(0d, 2d),
             arithmetic.modulo(new TestFraction(1d), new TestFraction(2d))
         );
     }
@@ -173,7 +173,7 @@ class FractionArithmeticTest {
 
     @Test
     void power12() {
-        Assertions.assertEquals(new TestFraction(1),
+        Assertions.assertEquals(new TestFraction(1, 1),
             arithmetic.power(new TestFraction(1d), 2)
         );
     }
@@ -239,7 +239,7 @@ class FractionArithmeticTest {
 
     @Test
     void hashCodeOfArithmetic() {
-        Assertions.assertEquals(63552,
+        Assertions.assertEquals(-1173293087,
             new TestFractionArithmetic().hashCode()
         );
     }
