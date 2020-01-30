@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+import java.util.stream.IntStream;
+
 class AbstractArithmeticTest {
     private AbstractArithmetic<Number> arithmetic;
 
@@ -121,6 +124,14 @@ class AbstractArithmeticTest {
     }
 
     @Test
+    void sumFrom1To9() {
+        Assertions.assertEquals(
+            IntStream.rangeClosed(1, 9).sum(),
+            arithmetic.sum(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9)).intValue()
+        );
+    }
+
+    @Test
     void difference12() {
         Assertions.assertEquals(-1d, arithmetic.difference(1, 2));
     }
@@ -133,6 +144,14 @@ class AbstractArithmeticTest {
     @Test
     void product123() {
         Assertions.assertEquals(6d, arithmetic.product(1, 2, 3));
+    }
+
+    @Test
+    void productFrom1To9() {
+        Assertions.assertEquals(
+            IntStream.rangeClosed(1, 9).reduce(1, (left, right) -> left * right),
+            arithmetic.product(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9)).intValue()
+        );
     }
 
     @Test

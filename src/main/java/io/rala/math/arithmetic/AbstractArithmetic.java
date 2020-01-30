@@ -3,6 +3,7 @@ package io.rala.math.arithmetic;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.stream.StreamSupport;
 
 /**
  * class which defines required arithmetic for calculations
@@ -146,6 +147,17 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     }
 
     /**
+     * @param iterable iterable to sum
+     * @return sum or {@link #zero()} if empty
+     * @implSpec default implementation iterates over all elements
+     * and starts with {@code 0}
+     */
+    public T sum(Iterable<T> iterable) {
+        return StreamSupport.stream(iterable.spliterator(), false)
+            .reduce(zero(), this::sum);
+    }
+
+    /**
      * @param a first value of difference
      * @param b second value of difference
      * @return {@code a-b}
@@ -172,6 +184,17 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      */
     public T product(T a, T b, T c) {
         return product(product(a, b), c);
+    }
+
+    /**
+     * @param iterable iterable to multiply
+     * @return product or {@link #one()} if empty
+     * @implSpec default implementation iterates over all elements
+     * and starts with {@code 1}
+     */
+    public T product(Iterable<T> iterable) {
+        return StreamSupport.stream(iterable.spliterator(), false)
+            .reduce(one(), this::product);
     }
 
     /**
