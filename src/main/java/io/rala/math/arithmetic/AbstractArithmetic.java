@@ -189,7 +189,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     /**
      * @param a value
      * @param b degree of root
-     * @return {@code sqrt(a)}
+     * @return {@code root(a, b)}
      * @throws NotImplementedException if operation is not implemented
      */
     public abstract T root(T a, int b);
