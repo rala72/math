@@ -5,6 +5,7 @@ import java.util.Objects;
 /**
  * class which supports solving {@link AbstractEquationSystem}s
  *
+ * @param <E> class of {@link AbstractEquationSystem}
  * @param <T> number class of {@link AbstractEquationSystem}
  */
 public abstract class AbstractSolver<E extends AbstractEquationSystem, T extends Number> {

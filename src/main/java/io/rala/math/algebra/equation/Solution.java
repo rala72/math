@@ -7,6 +7,7 @@ import java.util.Objects;
 /**
  * class which holds a solution of a {@link AbstractEquationSystem}
  *
+ * @param <E> class of {@link AbstractEquationSystem}
  * @param <T> number class
  */
 public class Solution<E extends AbstractEquationSystem, T extends Number> {

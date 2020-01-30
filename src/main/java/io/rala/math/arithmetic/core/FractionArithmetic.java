@@ -8,6 +8,9 @@ import java.util.Objects;
 
 /**
  * class which handles {@link Fraction} arithmetic
+ *
+ * @param <T> number class of values
+ * @param <R> number class of result of {@link Number} methods
  */
 public class FractionArithmetic<T extends Number, R extends Number>
     extends AbstractArithmetic<Fraction<T, R>> {
