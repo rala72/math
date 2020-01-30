@@ -1,5 +1,6 @@
 package io.rala.math.algebra.numeric;
 
+import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Vector;
 import io.rala.math.testUtils.assertion.NumericAssertions;
@@ -513,7 +514,7 @@ class BigDecimalComplexTest {
 
     // endregion
 
-    // region static of, asVector, static ofVector
+    // region static of and asVector
 
     @Test
     void ofAb3AndAr50() {
@@ -535,7 +536,10 @@ class BigDecimalComplexTest {
 
     @Test
     void asVectorOfComplexWithRe1Im2() {
-        Assertions.assertEquals(new Vector(1, 2),
+        Assertions.assertEquals(
+            new Vector<>(new BigDecimalArithmetic(),
+                BigDecimal.ONE, BigDecimal.valueOf(2)
+            ),
             new BigDecimalComplex(BigDecimal.ONE, BigDecimal.valueOf(2)).asVector()
         );
     }

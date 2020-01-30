@@ -1,5 +1,6 @@
 package io.rala.math.algebra.numeric;
 
+import io.rala.math.arithmetic.core.DoubleArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Vector;
 import io.rala.math.testUtils.assertion.NumericAssertions;
@@ -423,7 +424,7 @@ class DoubleComplexTest {
 
     // endregion
 
-    // region static of, asVector, static ofVector
+    // region static of and asVector
 
     @Test
     void ofAb3AndAr50() {
@@ -443,23 +444,10 @@ class DoubleComplexTest {
 
     @Test
     void asVectorOfComplexWithRe1Im2() {
-        Assertions.assertEquals(new Vector(1, 2),
+        Assertions.assertEquals(
+            new Vector<>(new DoubleArithmetic(), 1d, 2d),
             new DoubleComplex(1d, 2d).asVector()
         );
-    }
-
-    @Test
-    void ofVectorOfVectorWithX1Y2() {
-        Assertions.assertEquals(new DoubleComplex(1d, 2d),
-            Complex.ofVector(new Vector(1, 2))
-        );
-    }
-
-    @Test
-    void asAndOfVectorWithoutChangeAreSuperfluous() {
-        // better word than of superfluous?
-        Complex<Double> complex = new DoubleComplex(1d, 2d);
-        Assertions.assertEquals(complex, Complex.ofVector(complex.asVector()));
     }
 
     // endregion

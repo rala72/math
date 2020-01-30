@@ -1,5 +1,7 @@
 package io.rala.math.geometry;
 
+import io.rala.math.algebra.numeric.Complex;
+import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Rotatable;
 import io.rala.math.utils.Validatable;
@@ -9,48 +11,55 @@ import java.util.Objects;
 
 /**
  * class which holds a vector in a 2d area with x &amp; y
+ *
+ * @param <T> number class
  */
-public class Vector implements Validatable, Rotatable<Vector>,
-    Copyable<Vector>, Comparable<Vector>, Serializable {
+public class Vector<T extends Number> implements Validatable, Rotatable<T, Vector<T>>,
+    Copyable<Vector<T>>, Comparable<Vector<T>>, Serializable {
     // region attributes
 
-    private double x;
-    private double y;
+    private final AbstractArithmetic<T> arithmetic;
+    private T x;
+    private T y;
 
     // endregion
 
     // region constructors
 
     /**
-     * calls {@link #Vector(double)} with {@code 0}
+     * calls {@link #Vector(AbstractArithmetic, Number)} with {@code 0}
      *
-     * @see #Vector(double)
-     * @see #Vector(double, double)
+     * @param arithmetic arithmetic for calculations
+     * @see #Vector(AbstractArithmetic, Number)
+     * @see #Vector(AbstractArithmetic, Number, Number)
      */
-    public Vector() {
-        this(0);
+    public Vector(AbstractArithmetic<T> arithmetic) {
+        this(arithmetic, arithmetic.zero());
     }
 
     /**
-     * calls {@link #Vector(double, double)} with the value at x and y
+     * calls {@link #Vector(AbstractArithmetic, Number, Number)} with the value at x and y
      *
-     * @param xy value to be used in {@link #Vector(double, double)} at x and y
-     * @see #Vector()
-     * @see #Vector(double, double)
+     * @param arithmetic arithmetic for calculations
+     * @param xy         value to be used in {@link #Vector(AbstractArithmetic, Number, Number)} at x and y
+     * @see #Vector(AbstractArithmetic)
+     * @see #Vector(AbstractArithmetic, Number, Number)
      */
-    public Vector(double xy) {
-        this(xy, xy);
+    public Vector(AbstractArithmetic<T> arithmetic, T xy) {
+        this(arithmetic, xy, xy);
     }
 
     /**
      * creates a vector with given x and y values
      *
-     * @param x x value of vector
-     * @param y y value of vector
-     * @see #Vector()
-     * @see #Vector(double)
+     * @param arithmetic arithmetic for calculations
+     * @param x          x value of vector
+     * @param y          y value of vector
+     * @see #Vector(AbstractArithmetic)
+     * @see #Vector(AbstractArithmetic, Number)
      */
-    public Vector(double x, double y) {
+    public Vector(AbstractArithmetic<T> arithmetic, T x, T y) {
+        this.arithmetic = arithmetic;
         setX(x);
         setY(y);
     }
@@ -60,37 +69,44 @@ public class Vector implements Validatable, Rotatable<Vector>,
     // region getter and setter
 
     /**
+     * @return stored arithmetic
+     */
+    protected AbstractArithmetic<T> getArithmetic() {
+        return arithmetic;
+    }
+
+    /**
      * @return x value of vector
      */
-    public double getX() {
+    public T getX() {
         return x;
     }
 
     /**
      * @param x new x value of vector
      */
-    public void setX(double x) {
+    public void setX(T x) {
         this.x = x;
     }
 
     /**
      * @return y value of vector
      */
-    public double getY() {
+    public T getY() {
         return y;
     }
 
     /**
      * @param y new y value of vector
      */
-    public void setY(double y) {
+    public void setY(T y) {
         this.y = y;
     }
 
     /**
      * @param xy new x and y value of vector
      */
-    public void setXY(double xy) {
+    public void setXY(T xy) {
         setX(xy);
         setY(xy);
     }
@@ -102,19 +118,24 @@ public class Vector implements Validatable, Rotatable<Vector>,
     /**
      * @return length of vector based on pythagoras
      */
-    public double length() {
-        return Math.sqrt(Math.pow(getX(), 2) + Math.pow(getY(), 2));
+    public T length() {
+        return getArithmetic().root2(
+            getArithmetic().sum(
+                getArithmetic().power(getX(), 2),
+                getArithmetic().power(getY(), 2)
+            )
+        );
     }
 
     /**
-     * calls {@link #add(double, double)} with given value
+     * calls {@link #add(Number, Number)} with given value
      *
      * @param xy x and y value to add
      * @return new vector with sum of current and given parameters
-     * @see #add(double, double)
+     * @see #add(Number, Number)
      * @see #add(Vector)
      */
-    public Vector add(double xy) {
+    public Vector<T> add(T xy) {
         return add(xy, xy);
     }
 
@@ -124,32 +145,35 @@ public class Vector implements Validatable, Rotatable<Vector>,
      * @param x x value to add
      * @param y y value to add
      * @return new vector with sum of current and given parameters
-     * @see #add(double)
+     * @see #add(Number)
      * @see #add(Vector)
      */
-    public Vector add(double x, double y) {
-        return add(new Vector(x, y));
+    public Vector<T> add(T x, T y) {
+        return add(new Vector<>(getArithmetic(), x, y));
     }
 
     /**
      * @param vector vector value to add
      * @return new vector with sum of current and given vector
-     * @see #add(double)
-     * @see #add(double, double)
+     * @see #add(Number)
+     * @see #add(Number, Number)
      */
-    public Vector add(Vector vector) {
-        return new Vector(getX() + vector.getX(), getY() + vector.getY());
+    public Vector<T> add(Vector<T> vector) {
+        return new Vector<>(getArithmetic(),
+            getArithmetic().sum(getX(), vector.getX()),
+            getArithmetic().sum(getY(), vector.getY())
+        );
     }
 
     /**
-     * calls {@link #subtract(double, double)} with given value
+     * calls {@link #subtract(Number, Number)} with given value
      *
      * @param xy x and y value to subtract
      * @return new vector with difference of current and given parameters
-     * @see #subtract(double, double)
+     * @see #subtract(Number, Number)
      * @see #subtract(Vector)
      */
-    public Vector subtract(double xy) {
+    public Vector<T> subtract(T xy) {
         return subtract(xy, xy);
     }
 
@@ -159,20 +183,20 @@ public class Vector implements Validatable, Rotatable<Vector>,
      * @param x x value to subtract
      * @param y y value to subtract
      * @return new vector with difference of current and given parameters
-     * @see #subtract(double)
+     * @see #subtract(Number)
      * @see #subtract(Vector)
      */
-    public Vector subtract(double x, double y) {
-        return subtract(new Vector(x, y));
+    public Vector<T> subtract(T x, T y) {
+        return subtract(new Vector<>(getArithmetic(), x, y));
     }
 
     /**
      * @param vector vector value to subtract
      * @return new vector with difference of current and given vector
-     * @see #subtract(double)
-     * @see #subtract(double, double)
+     * @see #subtract(Number)
+     * @see #subtract(Number, Number)
      */
-    public Vector subtract(Vector vector) {
+    public Vector<T> subtract(Vector<T> vector) {
         return add(vector.inverse());
     }
 
@@ -180,8 +204,11 @@ public class Vector implements Validatable, Rotatable<Vector>,
      * @param i value to multiply with x &amp; y
      * @return new vector with multiplied x &amp; y values
      */
-    public Vector multiply(double i) {
-        return new Vector(getX() * i, getY() * i);
+    public Vector<T> multiply(T i) {
+        return new Vector<>(getArithmetic(),
+            getArithmetic().product(getX(), i),
+            getArithmetic().product(getY(), i)
+        );
     }
 
     // endregion
@@ -193,7 +220,7 @@ public class Vector implements Validatable, Rotatable<Vector>,
      * @see #inverseX()
      * @see #inverseY()
      */
-    public Vector inverse() {
+    public Vector<T> inverse() {
         return inverseX().inverseY();
     }
 
@@ -202,8 +229,8 @@ public class Vector implements Validatable, Rotatable<Vector>,
      * @see #inverse()
      * @see #inverseY()
      */
-    public Vector inverseX() {
-        return new Vector(-getX(), getY());
+    public Vector<T> inverseX() {
+        return new Vector<>(getArithmetic(), getArithmetic().negate(getX()), getY());
     }
 
     /**
@@ -211,33 +238,47 @@ public class Vector implements Validatable, Rotatable<Vector>,
      * @see #inverse()
      * @see #inverseX()
      */
-    public Vector inverseY() {
-        return new Vector(getX(), -getY());
+    public Vector<T> inverseY() {
+        return new Vector<>(getArithmetic(), getX(), getArithmetic().negate(getY()));
     }
 
     // endregion
 
-    // region normal and normalized
+    // region absolute, normal and normalized
+
+    /**
+     * @return new vector with absolute values
+     * @see Math#abs(double)
+     */
+    public Vector<T> absolute() {
+        return new Vector<>(getArithmetic(),
+            getArithmetic().absolute(getX()),
+            getArithmetic().absolute(getY())
+        );
+    }
 
     /**
      * @return new normal vector rotated left
      */
-    public Vector normalLeft() {
-        return new Vector(-getY(), getX());
+    public Vector<T> normalLeft() {
+        return new Vector<>(getArithmetic(), getArithmetic().negate(getY()), getX());
     }
 
     /**
      * @return new normal vector rotated right
      */
-    public Vector normalRight() {
-        return new Vector(getY(), -getX());
+    public Vector<T> normalRight() {
+        return new Vector<>(getArithmetic(), getY(), getArithmetic().negate(getX()));
     }
 
     /**
      * @return new normalized vector
      */
-    public Vector normalized() {
-        return new Vector(getX() / length(), getY() / length());
+    public Vector<T> normalized() {
+        return new Vector<>(getArithmetic(),
+            getArithmetic().quotient(getX(), length()),
+            getArithmetic().quotient(getY(), length())
+        );
     }
 
     // endregion
@@ -248,76 +289,44 @@ public class Vector implements Validatable, Rotatable<Vector>,
      * @param vector to calc scalar product
      * @return scalar product
      */
-    public double scalarProduct(Vector vector) {
-        return getX() * vector.getX() + getY() * vector.getY();
+    public T scalarProduct(Vector<T> vector) {
+        return getArithmetic().sum(
+            getArithmetic().product(getX(), vector.getX()),
+            getArithmetic().product(getY(), vector.getY())
+        );
     }
 
     /**
      * @param vector vector to calc angle between
      * @return angle in {@code rad} between vectors
      */
-    public double angle(Vector vector) {
-        return Math.acos(scalarProduct(vector) / (length() * vector.length()));
+    public T angle(Vector<T> vector) {
+        return getArithmetic().acos(
+            getArithmetic().quotient(
+                scalarProduct(vector),
+                getArithmetic().product(length(), vector.length())
+            )
+        );
     }
 
     // endregion
 
-    // region round
-
-    /**
-     * @return new vector with absolute values
-     * @see Math#abs(double)
-     */
-    public Vector absolute() {
-        return new Vector(Math.abs(getX()), Math.abs(getY()));
-    }
-
-    /**
-     * @return new vector with {@link Math#round(double)}-values
-     * @see #floor()
-     * @see #ceil()
-     */
-    public Vector round() {
-        return new Vector(Math.round(getX()), Math.round(getY()));
-    }
-
-    /**
-     * @return new vector with {@link Math#floor(double)}-values
-     * @see #round()
-     * @see #ceil()
-     */
-    public Vector floor() {
-        return new Vector(Math.floor(getX()), Math.floor(getY()));
-    }
-
-    /**
-     * @return new vector with {@link Math#ceil(double)}-values
-     * @see #round()
-     * @see #floor()
-     */
-    public Vector ceil() {
-        return new Vector(Math.ceil(getX()), Math.ceil(getY()));
-    }
-
-    /**
-     * @return new vector with truncated-values
-     * @see #round()
-     * @see #floor()
-     * @see #ceil()
-     */
-    public Vector truncate() {
-        return new Vector((long) getX(), (long) getY());
-    }
-
-    // endregion
-
-    // region isZeroVector
+    // region isZeroVector and asComplex
 
     /**
      * @return {@code true} if both params casted to {@code int} are zero
      */
     public boolean isZeroVector() {
-        return (int) getX() == 0 && (int) getY() == 0;
+        return getArithmetic().isZero(getX()) && getArithmetic().isFinite(getY());
+    }
+
+    /**
+     * @return new complex representing
+     * {@link #getX()} as {@code re} and
+     * {@link #getY()} as {@code im
+     */
+    public Complex<T> asComplex() {
+        return new Complex<>(getArithmetic(), getX(), getY());
     }
 
     // endregion
@@ -326,19 +335,32 @@ public class Vector implements Validatable, Rotatable<Vector>,
 
     @Override
     public boolean isValid() {
-        return Double.isFinite(getX()) && Double.isFinite(getY());
+        return getArithmetic().isFinite(getX()) && getArithmetic().isFinite(getY());
     }
 
     @Override
-    public Vector rotate(Point center, double phi) {
-        double newX = Math.cos(phi) * getX() - Math.sin(phi) * getY();
-        double newY = Math.sin(phi) * getX() + Math.cos(phi) * getY();
-        return new Vector(newX, newY);
+    public Vector<T> rotate(T phi) {
+        return rotate(new Point<>(getArithmetic()), phi);
     }
 
     @Override
-    public Vector copy() {
-        return new Vector(getX(), getY());
+    public Vector<T> rotate(Point<T> center, T phi) {
+        T cosPhi = getArithmetic().cos(phi);
+        T sinPhi = getArithmetic().sin(phi);
+        T newX = getArithmetic().difference(
+            getArithmetic().product(cosPhi, getX()),
+            getArithmetic().product(sinPhi, getY())
+        );
+        T newY = getArithmetic().sum(
+            getArithmetic().product(sinPhi, getX()),
+            getArithmetic().product(cosPhi, getY())
+        );
+        return new Vector<>(getArithmetic(), newX, newY);
+    }
+
+    @Override
+    public Vector<T> copy() {
+        return new Vector<>(getArithmetic(), getX(), getY());
     }
 
     // endregion
@@ -348,9 +370,10 @@ public class Vector implements Validatable, Rotatable<Vector>,
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Vector)) return false;
-        Vector vector = (Vector) o;
-        return getX() == vector.getX() && getY() == vector.getY();
+        if (!(o instanceof Vector<?>)) return false;
+        Vector<?> vector = (Vector<?>) o;
+        return Objects.equals(getX(), vector.getX()) &&
+            Objects.equals(getY(), vector.getY());
     }
 
     @Override
@@ -364,10 +387,10 @@ public class Vector implements Validatable, Rotatable<Vector>,
     }
 
     @Override
-    public int compareTo(Vector o) {
-        int diffX = (int) Math.ceil(getX() - o.getX());
+    public int compareTo(Vector<T> o) {
+        int diffX = getArithmetic().compare(getX(), o.getX());
         if (diffX != 0) return diffX;
-        return (int) Math.ceil(getY() - o.getY());
+        return getArithmetic().compare(getY(), o.getY());
     }
 
     // endregion

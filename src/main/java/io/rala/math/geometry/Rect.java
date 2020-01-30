@@ -1,5 +1,6 @@
 package io.rala.math.geometry;
 
+import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
@@ -11,40 +12,51 @@ import java.util.Objects;
 
 /**
  * class which holds a rect in 2d area with point a, b &amp; size
+ *
+ * @param <T> number class
  */
-public class Rect implements Validatable, Movable<Rect>, Rotatable<Rect>,
-    Copyable<Rect>, Comparable<Rect>, Serializable {
+public class Rect<T extends Number> implements Validatable,
+    Movable<T, Rect<T>>, Rotatable<T, Rect<T>>,
+    Copyable<Rect<T>>, Comparable<Rect<T>>, Serializable {
     // region attributes
 
-    private Point a;
-    private Point b;
-    private double size;
+    private final AbstractArithmetic<T> arithmetic;
+    private Point<T> a;
+    private Point<T> b;
+    private T size;
 
     // endregion
 
     // region constructors
 
     /**
-     * calls {@link #Rect(Point, Point, double)}
-     * with {@link Point#Point()}
-     * and {@link Point#Point(double, double)}
+     * calls {@link #Rect(AbstractArithmetic, Point, Point, Number)}
+     * with {@link Point#Point(AbstractArithmetic)}
+     * and {@link Point#Point(AbstractArithmetic, Number, Number)}
      * where {@code x=width} and {@code y=0}
      *
-     * @param height height of rect
-     * @param width  width of rect
+     * @param arithmetic arithmetic for calculations
+     * @param height     height of rect
+     * @param width      width of rect
      */
-    public Rect(double height, double width) {
-        this(new Point(), new Point(width, 0), height);
+    public Rect(AbstractArithmetic<T> arithmetic, T height, T width) {
+        this(arithmetic,
+            new Point<>(arithmetic),
+            new Point<>(arithmetic, width, arithmetic.zero()),
+            height
+        );
     }
 
     /**
      * creates rect with point a, b and size
      *
-     * @param a    a of rect
-     * @param b    b of rect
-     * @param size height of rect
+     * @param arithmetic arithmetic for calculations
+     * @param a          a of rect
+     * @param b          b of rect
+     * @param size       height of rect
      */
-    public Rect(Point a, Point b, double size) {
+    public Rect(AbstractArithmetic<T> arithmetic, Point<T> a, Point<T> b, T size) {
+        this.arithmetic = arithmetic;
         setA(a);
         setB(b);
         setSize(size);
@@ -55,44 +67,51 @@ public class Rect implements Validatable, Movable<Rect>, Rotatable<Rect>,
     // region getter and setter
 
     /**
+     * @return stored arithmetic
+     */
+    protected AbstractArithmetic<T> getArithmetic() {
+        return arithmetic;
+    }
+
+    /**
      * @return point of rect
      */
-    public Point getA() {
+    public Point<T> getA() {
         return a;
     }
 
     /**
      * @param a new point of rect
      */
-    public void setA(Point a) {
+    public void setA(Point<T> a) {
         this.a = a;
     }
 
     /**
      * @return b of rect
      */
-    public Point getB() {
+    public Point<T> getB() {
         return b;
     }
 
     /**
      * @param b new b of rect
      */
-    public void setB(Point b) {
+    public void setB(Point<T> b) {
         this.b = b;
     }
 
     /**
      * @return height of rect
      */
-    public double getSize() {
+    public T getSize() {
         return size;
     }
 
     /**
      * @param size new height of rect
      */
-    public void setSize(double size) {
+    public void setSize(T size) {
         this.size = size;
     }
 
@@ -103,29 +122,33 @@ public class Rect implements Validatable, Movable<Rect>, Rotatable<Rect>,
     /**
      * @return {@link #getA()}
      */
-    public Point vertexA() {
+    public Point<T> vertexA() {
         return getA();
     }
 
     /**
      * @return {@link #getB()}
      */
-    public Point vertexB() {
+    public Point<T> vertexB() {
         return getB();
     }
 
     /**
      * @return {@link #vertexB()}{@code +size}
      */
-    public Point vertexC() {
-        return new Point(vertexB().getX(), vertexB().getY() + getSize());
+    public Point<T> vertexC() {
+        return new Point<>(getArithmetic(), vertexB().getX(),
+            getArithmetic().sum(vertexB().getY(), getSize())
+        );
     }
 
     /**
      * @return {@link #vertexA()}{@code +size}
      */
-    public Point vertexD() {
-        return new Point(vertexA().getX(), vertexA().getY() + getSize());
+    public Point<T> vertexD() {
+        return new Point<>(getArithmetic(), vertexA().getX(),
+            getArithmetic().sum(vertexA().getY(), getSize())
+        );
     }
 
     // endregion
@@ -135,22 +158,29 @@ public class Rect implements Validatable, Movable<Rect>, Rotatable<Rect>,
     /**
      * @return lower length of the rect
      */
-    public double height() {
-        return Math.min(Math.abs(getSize()), new LineSegment(getA(), getB()).length());
+    public T height() {
+        return getArithmetic().min(getArithmetic().absolute(getSize()),
+            new LineSegment<>(getArithmetic(), getA(), getB()).length());
     }
 
     /**
      * @return larger length of the rect
      */
-    public double width() {
-        return Math.max(Math.abs(getSize()), new LineSegment(getA(), getB()).length());
+    public T width() {
+        return getArithmetic().max(getArithmetic().absolute(getSize()),
+            new LineSegment<>(getArithmetic(), getA(), getB()).length());
     }
 
     /**
      * @return {@code sqrt(w^2+h^2)}
      */
-    public double diagonale() {
-        return Math.sqrt(Math.pow(height(), 2) + Math.pow(width(), 2));
+    public T diagonale() {
+        return getArithmetic().root2(
+            getArithmetic().sum(
+                getArithmetic().power(height(), 2),
+                getArithmetic().power(width(), 2)
+            )
+        );
     }
 
     // endregion
@@ -160,15 +190,18 @@ public class Rect implements Validatable, Movable<Rect>, Rotatable<Rect>,
     /**
      * @return {@code h*w}
      */
-    public double area() {
-        return height() * width();
+    public T area() {
+        return getArithmetic().product(height(), width());
     }
 
     /**
      * @return {@code 2*(h+w)}
      */
-    public double circumference() {
-        return 2 * (height() + width());
+    public T circumference() {
+        return getArithmetic().product(
+            getArithmetic().fromInt(2),
+            getArithmetic().sum(height(), width())
+        );
     }
 
     // endregion
@@ -178,23 +211,23 @@ public class Rect implements Validatable, Movable<Rect>, Rotatable<Rect>,
     /**
      * @return circum circle of rect
      */
-    public Circle circumCircle() {
-        return new Circle(circumCirclePoint(), circumCircleRadius());
+    public Circle<T> circumCircle() {
+        return new Circle<>(getArithmetic(), circumCirclePoint(), circumCircleRadius());
     }
 
     /**
      * @return {@link #diagonale()}{@code /2}
      */
-    protected double circumCircleRadius() {
-        return diagonale() / 2;
+    protected T circumCircleRadius() {
+        return getArithmetic().quotient(diagonale(), getArithmetic().fromInt(2));
     }
 
     /**
      * @return intersection of AC and BD diagonals
      */
-    protected Point circumCirclePoint() {
-        LineSegment ac = new LineSegment(vertexA(), vertexC());
-        LineSegment bd = new LineSegment(vertexB(), vertexD());
+    protected Point<T> circumCirclePoint() {
+        LineSegment<T> ac = new LineSegment<>(getArithmetic(), vertexA(), vertexC());
+        LineSegment<T> bd = new LineSegment<>(getArithmetic(), vertexB(), vertexD());
         return ac.toLine().intersection(bd.toLine());
     }
 
@@ -206,7 +239,7 @@ public class Rect implements Validatable, Movable<Rect>, Rotatable<Rect>,
      * @return {@code true} if {@link #height()} and {@link #width()} are equal
      */
     public boolean isSquare() {
-        return height() == width();
+        return Objects.equals(height(), width());
     }
 
     // endregion
@@ -216,26 +249,36 @@ public class Rect implements Validatable, Movable<Rect>, Rotatable<Rect>,
     @Override
     public boolean isValid() {
         return getA().isValid() && getB().isValid() && !getA().equals(getB()) &&
-            Double.isFinite(getSize()) && getSize() != 0;
+            getArithmetic().isFinite(getSize()) && !getArithmetic().isZero(getSize());
     }
 
     @Override
-    public Rect move(Vector vector) {
-        return new Rect(getA().move(vector), getB().move(vector), getSize());
+    public Rect<T> move(T x, T y) {
+        return move(new Vector<>(getArithmetic(), x, y));
     }
 
     @Override
-    public Rect rotate(Point center, double phi) {
-        return new Rect(
-            getA().rotate(center, phi),
+    public Rect<T> move(Vector<T> vector) {
+        return new Rect<>(getArithmetic(), getA().move(vector), getB().move(vector), getSize());
+    }
+
+    @Override
+    public Rect<T> rotate(T phi) {
+        return rotate(new Point<>(getArithmetic()), phi);
+    }
+
+    @Override
+    public Rect<T> rotate(Point<T> center, T phi) {
+        return new Rect<>(
+            getArithmetic(), getA().rotate(center, phi),
             getB().rotate(center, phi),
             getSize()
         );
     }
 
     @Override
-    public Rect copy() {
-        return new Rect(getA().copy(), getB().copy(), getSize());
+    public Rect<T> copy() {
+        return new Rect<>(getArithmetic(), getA().copy(), getB().copy(), getSize());
     }
 
     // endregion
@@ -245,11 +288,11 @@ public class Rect implements Validatable, Movable<Rect>, Rotatable<Rect>,
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Rect rect = (Rect) o;
+        if (!(o instanceof Rect<?>)) return false;
+        Rect<?> rect = (Rect<?>) o;
         return Objects.equals(getA(), rect.getA()) &&
             Objects.equals(getB(), rect.getB()) &&
-            Double.compare(rect.getSize(), getSize()) == 0;
+            Objects.equals(getSize(), rect.getSize());
     }
 
     @Override
@@ -263,15 +306,19 @@ public class Rect implements Validatable, Movable<Rect>, Rotatable<Rect>,
     }
 
     @Override
-    public int compareTo(Rect o) {
-        int compare = Double.compare(getSize(), o.getSize());
+    public int compareTo(Rect<T> o) {
+        int compare = getArithmetic().compare(getSize(), o.getSize());
         if (compare != 0) return compare;
-        Point min = List.of(getA(), getB()).stream().min(Point::compareTo).orElse(getA());
-        Point minO = List.of(o.getA(), o.getB()).stream().min(Point::compareTo).orElse(o.getA());
+        Point<T> min = List.of(getA(), getB()).stream()
+            .min(Point::compareTo).orElse(getA());
+        Point<T> minO = List.of(o.getA(), o.getB()).stream()
+            .min(Point::compareTo).orElse(o.getA());
         int a = min.compareTo(minO);
         if (a != 0) return a;
-        Point max = List.of(getA(), getB()).stream().max(Point::compareTo).orElse(getB());
-        Point maxO = List.of(o.getA(), o.getB()).stream().max(Point::compareTo).orElse(o.getB());
+        Point<T> max = List.of(getA(), getB()).stream()
+            .max(Point::compareTo).orElse(getB());
+        Point<T> maxO = List.of(o.getA(), o.getB()).stream()
+            .max(Point::compareTo).orElse(o.getB());
         return max.compareTo(maxO);
     }
 

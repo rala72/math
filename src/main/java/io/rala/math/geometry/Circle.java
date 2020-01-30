@@ -1,5 +1,6 @@
 package io.rala.math.geometry;
 
+import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
@@ -10,61 +11,72 @@ import java.util.Objects;
 
 /**
  * class which holds a circle a in 2d area with center &amp; radius
+ *
+ * @param <T> number class
  */
-public class Circle implements Validatable, Movable<Circle>, Rotatable<Circle>,
-    Copyable<Circle>, Comparable<Circle>, Serializable {
+public class Circle<T extends Number> implements Validatable,
+    Movable<T, Circle<T>>, Rotatable<T, Circle<T>>,
+    Copyable<Circle<T>>, Comparable<Circle<T>>, Serializable {
     // region attributes
 
-    private Point center;
-    private double radius;
+    private final AbstractArithmetic<T> arithmetic;
+    private Point<T> center;
+    private T radius;
 
     // endregion
 
     // region constructors
 
     /**
-     * calls {@link #Circle(Point)} with {@link Point#Point()}
-     */
-    public Circle() {
-        this(new Point());
-    }
-
-    /**
-     * calls {@link #Circle(Point, double)} with radius {@code 1}
+     * calls {@link #Circle(AbstractArithmetic, Point)} with {@link Point#Point(AbstractArithmetic)}
      *
-     * @param center center point of circle
+     * @param arithmetic arithmetic for calculations
      */
-    public Circle(Point center) {
-        this(center, 1);
+    public Circle(AbstractArithmetic<T> arithmetic) {
+        this(arithmetic, new Point<>(arithmetic));
     }
 
     /**
-     * calls {@link #Circle(Point, double)} with {@link Point#Point()}
+     * calls {@link #Circle(AbstractArithmetic, Point, Number)} with radius {@code 1}
      *
-     * @param radius radius of circle
+     * @param arithmetic arithmetic for calculations
+     * @param center     center point of circle
      */
-    public Circle(double radius) {
-        this(new Point(), radius);
+    public Circle(AbstractArithmetic<T> arithmetic, Point<T> center) {
+        this(arithmetic, center, arithmetic.one());
     }
 
     /**
-     * calls {@link #Circle(Point, double)}
+     * calls {@link #Circle(AbstractArithmetic, Point, Number)} with {@link Point#Point(AbstractArithmetic)}
+     *
+     * @param arithmetic arithmetic for calculations
+     * @param radius     radius of circle
+     */
+    public Circle(AbstractArithmetic<T> arithmetic, T radius) {
+        this(arithmetic, new Point<>(arithmetic), radius);
+    }
+
+    /**
+     * calls {@link #Circle(AbstractArithmetic, Point, Number)}
      * with {@link LineSegment#length()} as radius
      *
-     * @param center center point of circle
-     * @param point  point on circle
+     * @param arithmetic arithmetic for calculations
+     * @param center     center point of circle
+     * @param point      point on circle
      */
-    public Circle(Point center, Point point) {
-        this(center, new LineSegment(center, point).length());
+    public Circle(AbstractArithmetic<T> arithmetic, Point<T> center, Point<T> point) {
+        this(arithmetic, center, new LineSegment<>(arithmetic, center, point).length());
     }
 
     /**
      * creates a new circle with given center and radius
      *
-     * @param center center point of circle
-     * @param radius radius of circle
+     * @param arithmetic arithmetic for calculations
+     * @param center     center point of circle
+     * @param radius     radius of circle
      */
-    public Circle(Point center, double radius) {
+    public Circle(AbstractArithmetic<T> arithmetic, Point<T> center, T radius) {
+        this.arithmetic = arithmetic;
         setCenter(center);
         setRadius(radius);
     }
@@ -74,48 +86,59 @@ public class Circle implements Validatable, Movable<Circle>, Rotatable<Circle>,
     // region getter and setter
 
     /**
+     * @return stored arithmetic
+     */
+    protected AbstractArithmetic<T> getArithmetic() {
+        return arithmetic;
+    }
+
+    /**
      * @return center of circle
      */
-    public Point getCenter() {
+    public Point<T> getCenter() {
         return center;
     }
 
     /**
      * @param center new center of circle
      */
-    public void setCenter(Point center) {
+    public void setCenter(Point<T> center) {
         this.center = center;
     }
 
     /**
      * @return radius of circle
      */
-    public double getRadius() {
+    public T getRadius() {
         return radius;
     }
 
     /**
      * @param radius new radius of circle
      */
-    public void setRadius(double radius) {
+    public void setRadius(T radius) {
         this.radius = radius;
     }
 
     /**
      * @return {@link #getRadius()}{@code *2}
      */
-    public double getDiameter() {
-        return getRadius() * 2;
+    public T getDiameter() {
+        return getArithmetic().product(
+            getRadius(), getArithmetic().fromInt(2)
+        );
     }
 
     /**
-     * calls {@link #setRadius(double)} with {@code diameter/2}
+     * calls {@link #setRadius(Number)} with {@code diameter/2}
      *
      * @param diameter new diameter of circle
-     * @see #setRadius(double)
+     * @see #setRadius(Number)
      */
-    public void setDiameter(double diameter) {
-        setRadius(diameter / 2);
+    public void setDiameter(T diameter) {
+        setRadius(getArithmetic().quotient(
+            diameter, getArithmetic().fromInt(2)
+        ));
     }
 
     // endregion
@@ -125,15 +148,22 @@ public class Circle implements Validatable, Movable<Circle>, Rotatable<Circle>,
     /**
      * @return &pi;{@code *r^2}
      */
-    public double area() {
-        return Math.PI * Math.pow(getRadius(), 2);
+    public T area() {
+        return getArithmetic().product(
+            getArithmetic().fromDouble(Math.PI),
+            getArithmetic().power(getRadius(), 2)
+        );
     }
 
     /**
      * @return {@code 2*}&pi;{@code *r}
      */
-    public double circumference() {
-        return 2 * Math.PI * getRadius();
+    public T circumference() {
+        return getArithmetic().product(
+            getArithmetic().fromInt(2),
+            getArithmetic().fromDouble(Math.PI),
+            getRadius()
+        );
     }
 
     // endregion
@@ -144,7 +174,7 @@ public class Circle implements Validatable, Movable<Circle>, Rotatable<Circle>,
      * @return {@code true} if {@link #getRadius()} is 1
      */
     public boolean isUnitCircle() {
-        return getRadius() == 1;
+        return getArithmetic().one().equals(getRadius());
     }
 
     // endregion
@@ -153,23 +183,33 @@ public class Circle implements Validatable, Movable<Circle>, Rotatable<Circle>,
 
     @Override
     public boolean isValid() {
-        return getCenter().isValid() && Double.isFinite(getRadius()) &&
-            0 <= getRadius();
+        return getCenter().isValid() && getArithmetic().isFinite(getRadius()) &&
+            getArithmetic().compare(getArithmetic().fromInt(0), getRadius()) <= 0;
     }
 
     @Override
-    public Circle move(Vector vector) {
-        return new Circle(getCenter().move(vector), getRadius());
+    public Circle<T> move(T x, T y) {
+        return move(new Vector<>(getArithmetic(), x, y));
     }
 
     @Override
-    public Circle rotate(Point center, double phi) {
-        return new Circle(getCenter().rotate(center, phi), getRadius());
+    public Circle<T> move(Vector<T> vector) {
+        return new Circle<>(getArithmetic(), getCenter().move(vector), getRadius());
     }
 
     @Override
-    public Circle copy() {
-        return new Circle(getCenter().copy(), getRadius());
+    public Circle<T> rotate(T phi) {
+        return rotate(new Point<>(getArithmetic()), phi);
+    }
+
+    @Override
+    public Circle<T> rotate(Point<T> center, T phi) {
+        return new Circle<>(getArithmetic(), getCenter().rotate(center, phi), getRadius());
+    }
+
+    @Override
+    public Circle<T> copy() {
+        return new Circle<>(getArithmetic(), getCenter().copy(), getRadius());
     }
 
     // endregion
@@ -179,10 +219,10 @@ public class Circle implements Validatable, Movable<Circle>, Rotatable<Circle>,
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Circle circle = (Circle) o;
-        return Double.compare(circle.getRadius(), getRadius()) == 0 &&
-            Objects.equals(getCenter(), circle.getCenter());
+        if (!(o instanceof Circle<?>)) return false;
+        Circle<?> circle = (Circle<?>) o;
+        return Objects.equals(getCenter(), circle.getCenter()) &&
+            Objects.equals(getRadius(), circle.getRadius());
     }
 
     @Override
@@ -196,8 +236,8 @@ public class Circle implements Validatable, Movable<Circle>, Rotatable<Circle>,
     }
 
     @Override
-    public int compareTo(Circle o) {
-        int compare = Double.compare(getRadius(), o.getRadius());
+    public int compareTo(Circle<T> o) {
+        int compare = getArithmetic().compare(getRadius(), o.getRadius());
         if (compare != 0) return compare;
         return getCenter().compareTo(o.getCenter());
     }
