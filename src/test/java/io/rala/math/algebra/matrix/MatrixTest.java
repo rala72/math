@@ -72,6 +72,11 @@ class MatrixTest {
     }
 
     @Test
+    void newInstanceOfMatrixWithSize1() {
+        assertMatrix(new TestMatrix(1).newInstance(1), 1);
+    }
+
+    @Test
     void newInstanceOfMatrixWithSize2() {
         assertMatrix(new TestMatrix(1).newInstance(2), 2);
     }
@@ -968,7 +973,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, (i + 1d) * (i / result.getCols() == 0 ? 0 : 1));
         }
-        Assertions.assertEquals(result, matrix.multiplyRow(0, 0));
+        Assertions.assertEquals(result, matrix.multiplyRow(0, 0d));
     }
 
     @Test
@@ -979,7 +984,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, (i + 1d) * (i / result.getCols() == 0 ? 1 : 1));
         }
-        Assertions.assertEquals(result, matrix.multiplyRow(0, 1));
+        Assertions.assertEquals(result, matrix.multiplyRow(0, 1d));
     }
 
     @Test
@@ -990,7 +995,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, (i + 1d) * (i / result.getCols() == 0 ? 2 : 1));
         }
-        Assertions.assertEquals(result, matrix.multiplyRow(0, 2));
+        Assertions.assertEquals(result, matrix.multiplyRow(0, 2d));
     }
 
     @Test
@@ -1009,7 +1014,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, (i + 1d) * (i % result.getCols() == 0 ? 0 : 1));
         }
-        Assertions.assertEquals(result, matrix.multiplyCol(0, 0));
+        Assertions.assertEquals(result, matrix.multiplyCol(0, 0d));
     }
 
     @Test
@@ -1020,7 +1025,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, (i + 1d) * (i % result.getCols() == 0 ? 1 : 1));
         }
-        Assertions.assertEquals(result, matrix.multiplyCol(0, 1));
+        Assertions.assertEquals(result, matrix.multiplyCol(0, 1d));
     }
 
     @Test
@@ -1031,7 +1036,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, (i + 1d) * (i % result.getCols() == 0 ? 2d : 1));
         }
-        Assertions.assertEquals(result, matrix.multiplyCol(0, 2));
+        Assertions.assertEquals(result, matrix.multiplyCol(0, 2d));
     }
 
     @Test
@@ -1070,7 +1075,9 @@ class MatrixTest {
             matrix.setValue(i, (double) value);
             result.setValue(i, (double) value);
         }
-        Assertions.assertEquals(result, matrix.addRowMultipleTimes(0, 1, 0));
+        Assertions.assertEquals(result,
+            matrix.addRowMultipleTimes(0, 1, 0d)
+        );
     }
 
     @Test
@@ -1080,9 +1087,13 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++) {
             int value = i / result.getCols() + 1;
             matrix.setValue(i, (double) value);
-            result.setValue(i, (double) value + (i / result.getCols() == 0 ? 2 : 0));
+            result.setValue(i,
+                (double) value + (i / result.getCols() == 0 ? 2 : 0)
+            );
         }
-        Assertions.assertEquals(result, matrix.addRowMultipleTimes(0, 1, 1));
+        Assertions.assertEquals(result,
+            matrix.addRowMultipleTimes(0, 1, 1d)
+        );
     }
 
     @Test
@@ -1092,9 +1103,13 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++) {
             int value = i / result.getCols() + 1;
             matrix.setValue(i, (double) value);
-            result.setValue(i, (double) value + (i / result.getCols() == 0 ? 4 : 0));
+            result.setValue(i,
+                (double) value + (i / result.getCols() == 0 ? 4 : 0)
+            );
         }
-        Assertions.assertEquals(result, matrix.addRowMultipleTimes(0, 1, 2));
+        Assertions.assertEquals(result,
+            matrix.addRowMultipleTimes(0, 1, 2d)
+        );
     }
 
     @Test
@@ -1133,7 +1148,7 @@ class MatrixTest {
             matrix.setValue(i, (double) value);
             result.setValue(i, (double) value);
         }
-        Assertions.assertEquals(result, matrix.addColMultipleTimes(0, 1, 0));
+        Assertions.assertEquals(result, matrix.addColMultipleTimes(0, 1, 0d));
     }
 
     @Test
@@ -1143,9 +1158,11 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++) {
             int value = i / result.getCols() + 1;
             matrix.setValue(i, (double) value);
-            result.setValue(i, (double) value + (i % result.getCols() == 0 ? value : 0));
+            result.setValue(i,
+                (double) value + (i % result.getCols() == 0 ? value : 0)
+            );
         }
-        Assertions.assertEquals(result, matrix.addColMultipleTimes(0, 1, 1));
+        Assertions.assertEquals(result, matrix.addColMultipleTimes(0, 1, 1d));
     }
 
     @Test
@@ -1155,9 +1172,11 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++) {
             int value = i / result.getCols() + 1;
             matrix.setValue(i, (double) value);
-            result.setValue(i, (double) value + (i % result.getCols() == 0 ? 2 * value : 0));
+            result.setValue(i,
+                (double) value + (i % result.getCols() == 0 ? 2 * value : 0)
+            );
         }
-        Assertions.assertEquals(result, matrix.addColMultipleTimes(0, 1, 2));
+        Assertions.assertEquals(result, matrix.addColMultipleTimes(0, 1, 2d));
     }
 
     // endregion

@@ -2,7 +2,7 @@ package io.rala.math.algebra.equation.linear.solver;
 
 import io.rala.math.algebra.equation.Solution;
 import io.rala.math.algebra.equation.linear.LinearEquationSystem;
-import io.rala.math.algebra.matrix.DoubleMatrix;
+import io.rala.math.algebra.matrix.typed.DoubleMatrix;
 import io.rala.math.testUtils.algebra.equation.TestGaussSolver;
 import io.rala.math.testUtils.arguments.LinearEquationArgumentsStreamFactory;
 import org.junit.jupiter.api.Assertions;

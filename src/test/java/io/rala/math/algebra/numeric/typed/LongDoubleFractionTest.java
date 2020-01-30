@@ -1,10 +1,10 @@
-package io.rala.math.algebra.numeric;
+package io.rala.math.algebra.numeric.typed;
 
+import io.rala.math.algebra.numeric.Fraction;
 import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.core.DoubleArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.arithmetic.core.LongArithmetic;
-import io.rala.math.testUtils.algebra.TestFraction;
 import io.rala.math.testUtils.assertion.NumericAssertions;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
@@ -359,40 +359,6 @@ class LongDoubleFractionTest {
             new LongDoubleFraction(2, 3),
             LongDoubleFraction.class
         );
-    }
-
-    // endregion
-
-    // region protected
-
-    @Test
-    void createFromArithmeticWithDifferentNuDeParameter() {
-        LongDoubleFraction fraction = new LongDoubleFraction(1);
-        assertFraction(fraction.createFromArithmetic(2L, 3L), 2, 3);
-    }
-
-    @Test
-    void createFromArithmeticWithNullNuParameter() {
-        TestFraction fraction = new TestFraction(1);
-        Assertions.assertThrows(IllegalArgumentException.class,
-            () -> fraction.createFromArithmetic(null, 1)
-        ); // assert exception message?
-    }
-
-    @Test
-    void createFromArithmeticWithZeroDeParameter() {
-        TestFraction fraction = new TestFraction(1d);
-        Assertions.assertThrows(ArithmeticException.class,
-            () -> fraction.createFromArithmetic(1d, 0d)
-        ); // assert exception message?
-    }
-
-    @Test
-    void simplifySignum() {
-        assertFraction(new LongDoubleFraction(1L, 1L), 1, 1);
-        assertFraction(new LongDoubleFraction(1L, -1L), -1, 1);
-        assertFraction(new LongDoubleFraction(-1L, 1L), -1, 1);
-        assertFraction(new LongDoubleFraction(-1L, -1L), 1, 1);
     }
 
     // endregion

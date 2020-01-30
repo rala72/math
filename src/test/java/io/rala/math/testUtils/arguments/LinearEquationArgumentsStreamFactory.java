@@ -2,7 +2,7 @@ package io.rala.math.testUtils.arguments;
 
 import io.rala.math.algebra.equation.Solution;
 import io.rala.math.algebra.equation.linear.LinearEquationSystem;
-import io.rala.math.algebra.matrix.DoubleMatrix;
+import io.rala.math.algebra.matrix.typed.DoubleMatrix;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.List;

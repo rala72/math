@@ -1,6 +1,8 @@
-package io.rala.math.algebra.matrix;
+package io.rala.math.algebra.matrix.typed;
 
+import io.rala.math.algebra.matrix.Matrix;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
+import io.rala.math.testUtils.algebra.TestMatrix;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -26,9 +28,6 @@ class DoubleMatrixTest {
 
         long expectedSize = (long) Integer.MAX_VALUE * Integer.MAX_VALUE;
         Assertions.assertEquals(expectedSize, matrix.size());
-
-        Assertions.assertTrue(matrix.isIndexValid(expectedSize - 1));
-        Assertions.assertFalse(matrix.isIndexValid(expectedSize));
     }
 
     @Test
@@ -54,16 +53,6 @@ class DoubleMatrixTest {
     @Test
     void constructorWithMatrix() {
         assertMatrix(new DoubleMatrix(new DoubleMatrix(1, 2)), 1, 2);
-    }
-
-    @Test
-    void newInstanceOfMatrixWithSize3() {
-        assertMatrix(new DoubleMatrix(1).newInstance(3), 3);
-    }
-
-    @Test
-    void newInstanceOfMatrixWithRows1Cols2() {
-        assertMatrix(new DoubleMatrix(2).newInstance(1, 2), 1, 2);
     }
 
     // endregion
@@ -523,9 +512,9 @@ class DoubleMatrixTest {
         DoubleMatrix result = new DoubleMatrix(2);
         for (int r = 0; r < matrix.getRows(); r++) {
             for (int c = 0; c < matrix.getCols(); c++) {
-                int i = (int) matrix.getIndexOfRowAndCol(r, c);
+                int i = (int) TestMatrix.getIndexOfRowAndCol(matrix, r, c);
                 matrix.setValue(i, i + 1d);
-                result.setValue(result.getIndexOfRowAndCol(c, r), i + 1d);
+                result.setValue(TestMatrix.getIndexOfRowAndCol(result, c, r), i + 1d);
             }
         }
         Assertions.assertEquals(result, matrix.transpose());
@@ -751,274 +740,6 @@ class DoubleMatrixTest {
             new DoubleMatrix(1),
             DoubleMatrix.class
         );
-    }
-
-    // endregion
-
-    // region protected: modify
-
-    @Test
-    void swapRowsOfMatrixWithSize2UsingInvalidRow1() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.swapRows(-1, 0)
-        ); // assert exception message?
-    }
-
-    @Test
-    void swapRowsOfMatrixWithSize2UsingInvalidRow2() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.swapRows(0, -1)
-        ); // assert exception message?
-    }
-
-    @Test
-    void swapRowsOfMatrixWithSize2() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        DoubleMatrix result = new DoubleMatrix(2);
-        for (int i = 0; i < matrix.size(); i++) {
-            matrix.setValue(i, i + 1d);
-            result.setValue((i + result.getCols()) % (int) result.size(), i + 1d);
-        }
-        Assertions.assertEquals(result, matrix.swapRows(0, 1));
-    }
-
-    @Test
-    void swapColsOfMatrixWithSize2UsingInvalidCol1() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.swapCols(-1, 0)
-        ); // assert exception message?
-    }
-
-    @Test
-    void swapColsOfMatrixWithSize2UsingInvalidCol2() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.swapCols(0, -1)
-        ); // assert exception message?
-    }
-
-    @Test
-    void swapColsOfMatrixWithSize2() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        DoubleMatrix result = new DoubleMatrix(2);
-        for (int i = 0; i < matrix.size(); i++) {
-            matrix.setValue(i, i + 1d);
-            result.setValue(i + (i % result.getCols() == 0 ? 1 : -1), i + 1d);
-        }
-        Assertions.assertEquals(result, matrix.swapCols(0, 1));
-    }
-
-    @Test
-    void multiplyRowOfMatrixWithSize2UsingInvalidRow() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.multiplyRow(-1, 0d)
-        ); // assert exception message?
-    }
-
-    @Test
-    void multiplyRowOfMatrixWithSize2Using0() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        DoubleMatrix result = new DoubleMatrix(2);
-        for (int i = 0; i < matrix.size(); i++) {
-            matrix.setValue(i, i + 1d);
-            result.setValue(i, (i + 1d) * (i / result.getCols() == 0 ? 0 : 1));
-        }
-        Assertions.assertEquals(result, matrix.multiplyRow(0, 0d));
-    }
-
-    @Test
-    void multiplyRowOfMatrixWithSize2Using1() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        DoubleMatrix result = new DoubleMatrix(2);
-        for (int i = 0; i < matrix.size(); i++) {
-            matrix.setValue(i, i + 1d);
-            result.setValue(i, (i + 1d) * (i / result.getCols() == 0 ? 1 : 1));
-        }
-        Assertions.assertEquals(result, matrix.multiplyRow(0, 1d));
-    }
-
-    @Test
-    void multiplyRowOfMatrixWithSize2Using2() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        DoubleMatrix result = new DoubleMatrix(2);
-        for (int i = 0; i < matrix.size(); i++) {
-            matrix.setValue(i, i + 1d);
-            result.setValue(i, (i + 1d) * (i / result.getCols() == 0 ? 2 : 1));
-        }
-        Assertions.assertEquals(result, matrix.multiplyRow(0, 2d));
-    }
-
-    @Test
-    void multiplyColOfMatrixWithSize2UsingInvalidCol() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.multiplyCol(-1, 0d)
-        ); // assert exception message?
-    }
-
-    @Test
-    void multiplyColOfMatrixWithSize2Using0() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        DoubleMatrix result = new DoubleMatrix(2);
-        for (int i = 0; i < matrix.size(); i++) {
-            matrix.setValue(i, i + 1d);
-            result.setValue(i, (i + 1d) * (i % result.getCols() == 0 ? 0 : 1));
-        }
-        Assertions.assertEquals(result, matrix.multiplyCol(0, 0d));
-    }
-
-    @Test
-    void multiplyColOfMatrixWithSize2Using1() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        DoubleMatrix result = new DoubleMatrix(2);
-        for (int i = 0; i < matrix.size(); i++) {
-            matrix.setValue(i, i + 1d);
-            result.setValue(i, (i + 1d) * (i % result.getCols() == 0 ? 1 : 1));
-        }
-        Assertions.assertEquals(result, matrix.multiplyCol(0, 1d));
-    }
-
-    @Test
-    void multiplyColOfMatrixWithSize2Using2() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        DoubleMatrix result = new DoubleMatrix(2);
-        for (int i = 0; i < matrix.size(); i++) {
-            matrix.setValue(i, i + 1d);
-            result.setValue(i, (i + 1d) * (i % result.getCols() == 0 ? 2 : 1));
-        }
-        Assertions.assertEquals(result, matrix.multiplyCol(0, 2d));
-    }
-
-    @Test
-    void addRowMultipleTimesOfMatrixWithSize2UsingInvalidRow1() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.addRowMultipleTimes(-1, 0, 0d)
-        ); // assert exception message?
-    }
-
-    @Test
-    void addRowMultipleTimesOfMatrixWithSize2UsingInvalidRow2() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.addRowMultipleTimes(0, -1, 0d)
-        ); // assert exception message?
-    }
-
-    @Test
-    void addRowMultipleTimesOfMatrixWithSize2ToSameRow() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        DoubleMatrix result = new DoubleMatrix(2);
-        for (int i = 0; i < matrix.size(); i++) {
-            matrix.setValue(i, i + 1d);
-            result.setValue(i, (i + 1d) * (i / result.getCols() == 0 ? 2 : 1));
-        }
-        Assertions.assertEquals(result, matrix.addRowMultipleTimes(0, 0, 2d));
-    }
-
-    @Test
-    void addRowMultipleTimesOfMatrixWithSize2Using0() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        DoubleMatrix result = new DoubleMatrix(2);
-        for (int i = 0; i < matrix.size(); i++) {
-            int value = i / result.getCols() + 1;
-            matrix.setValue(i, (double) value);
-            result.setValue(i, (double) value);
-        }
-        Assertions.assertEquals(result, matrix.addRowMultipleTimes(0, 1, 0d));
-    }
-
-    @Test
-    void addRowMultipleTimesOfMatrixWithSize2Using1() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        DoubleMatrix result = new DoubleMatrix(2);
-        for (int i = 0; i < matrix.size(); i++) {
-            int value = i / result.getCols() + 1;
-            matrix.setValue(i, (double) value);
-            result.setValue(i, value + (i / result.getCols() == 0 ? 2d : 0d));
-        }
-        Assertions.assertEquals(result, matrix.addRowMultipleTimes(0, 1, 1d));
-    }
-
-    @Test
-    void addRowMultipleTimesOfMatrixWithSize2Using2() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        DoubleMatrix result = new DoubleMatrix(2);
-        for (int i = 0; i < matrix.size(); i++) {
-            int value = i / result.getCols() + 1;
-            matrix.setValue(i, (double) value);
-            result.setValue(i, value + (i / result.getCols() == 0 ? 4d : 0d));
-        }
-        Assertions.assertEquals(result, matrix.addRowMultipleTimes(0, 1, 2d));
-    }
-
-    @Test
-    void addColMultipleTimesOfMatrixWithSize2UsingInvalidCol1() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.addColMultipleTimes(-1, 0, 1d)
-        ); // assert exception message?
-    }
-
-    @Test
-    void addColMultipleTimesOfMatrixWithSize2UsingInvalidCol2() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.addColMultipleTimes(0, -1, 0d)
-        ); // assert exception message?
-    }
-
-    @Test
-    void addColMultipleTimesOfMatrixWithSize2ToSameRow() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        DoubleMatrix result = new DoubleMatrix(2);
-        for (int i = 0; i < matrix.size(); i++) {
-            matrix.setValue(i, i + 1d);
-            result.setValue(i, (i + 1d) * (i % result.getCols() == 0 ? 2 : 1));
-        }
-        Assertions.assertEquals(result, matrix.addColMultipleTimes(0, 0, 2d));
-    }
-
-    @Test
-    void addColMultipleTimesOfMatrixWithSize2Using0() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        DoubleMatrix result = new DoubleMatrix(2);
-        for (int i = 0; i < matrix.size(); i++) {
-            int value = i / result.getCols() + 1;
-            matrix.setValue(i, (double) value);
-            result.setValue(i, (double) value);
-        }
-        Assertions.assertEquals(result, matrix.addColMultipleTimes(0, 1, 0d));
-    }
-
-    @Test
-    void addColMultipleTimesOfMatrixWithSize2Using1() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        DoubleMatrix result = new DoubleMatrix(2);
-        for (int i = 0; i < matrix.size(); i++) {
-            int value = i / result.getCols() + 1;
-            matrix.setValue(i, (double) value);
-            result.setValue(i, (double) value + (i % result.getCols() == 0 ? value : 0));
-        }
-        Assertions.assertEquals(result, matrix.addColMultipleTimes(0, 1, 1d));
-    }
-
-    @Test
-    void addColMultipleTimesOfMatrixWithSize2Using2() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        DoubleMatrix result = new DoubleMatrix(2);
-        for (int i = 0; i < matrix.size(); i++) {
-            int value = i / result.getCols() + 1;
-            matrix.setValue(i, (double) value);
-            result.setValue(i,
-                (double) value + (i % result.getCols() == 0 ?
-                    2 * value : 0));
-        }
-        Assertions.assertEquals(result, matrix.addColMultipleTimes(0, 1, 2d));
     }
 
     // endregion
