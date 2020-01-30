@@ -341,7 +341,7 @@ class DoubleTriangleTest {
             ).rotate(Math.PI / 2d),
             new DoublePoint(),
             new DoublePoint(-1d, 6.123233995736766e-17d),
-            new DoublePoint(-0.9999999999999999d, 1.0d)
+            new DoublePoint(-0.9999999999999999d, 1d)
         );
     }
 

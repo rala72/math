@@ -251,7 +251,7 @@ class DoubleRectTest {
         GeometryAssertions.assertRect(
             new DoubleRect(new DoublePoint(), new DoublePoint(0d, 1d), 2d)
                 .rotate(Math.PI / 2d),
-            new DoublePoint(), new DoublePoint(-1.0d, 6.123233995736766e-17d), 2d
+            new DoublePoint(), new DoublePoint(-1d, 6.123233995736766e-17d), 2d
         );
     }
 
