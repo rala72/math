@@ -67,6 +67,13 @@ public class Complex<T extends Number> extends Number implements Validatable,
     // region getter and setter
 
     /**
+     * @return stored {@link AbstractArithmetic}
+     */
+    protected AbstractArithmetic<T> getArithmetic() {
+        return arithmetic;
+    }
+
+    /**
      * @return real part of complex number
      */
     public T getRe() {
@@ -92,13 +99,6 @@ public class Complex<T extends Number> extends Number implements Validatable,
      */
     public void setIm(T im) {
         this.im = im;
-    }
-
-    /**
-     * @return stored {@link AbstractArithmetic}
-     */
-    protected AbstractArithmetic<T> getArithmetic() {
-        return arithmetic;
     }
 
     // endregion

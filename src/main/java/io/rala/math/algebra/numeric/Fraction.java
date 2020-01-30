@@ -72,6 +72,13 @@ public class Fraction<T extends Number, V extends Number> extends Number
     // region getter and setter
 
     /**
+     * @return stored {@link AbstractResultArithmetic}
+     */
+    protected AbstractResultArithmetic<T, V> getArithmetic() {
+        return arithmetic;
+    }
+
+    /**
      * @return numerator of fraction
      */
     public T getNumerator() {
@@ -105,13 +112,6 @@ public class Fraction<T extends Number, V extends Number> extends Number
         this.denominator = denominator;
 
         simplifySignum();
-    }
-
-    /**
-     * @return stored {@link AbstractResultArithmetic}
-     */
-    protected AbstractResultArithmetic<T, V> getArithmetic() {
-        return arithmetic;
     }
 
     // endregion
