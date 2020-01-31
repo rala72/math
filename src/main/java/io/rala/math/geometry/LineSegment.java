@@ -1,5 +1,6 @@
 package io.rala.math.geometry;
 
+import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
@@ -8,40 +9,49 @@ import io.rala.math.utils.Validatable;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * class which holds a line segment in a 2d area with points a &amp; b
+ *
+ * @param <T> number class
  */
-public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable<LineSegment>,
-    Copyable<LineSegment>, Comparable<LineSegment>, Serializable {
+public class LineSegment<T extends Number> implements Validatable,
+    Movable<T, LineSegment<T>>, Rotatable<T, LineSegment<T>>,
+    Copyable<LineSegment<T>>, Comparable<LineSegment<T>>, Serializable {
     // region attributes
 
-    private Point a;
-    private Point b;
+    private final AbstractArithmetic<T> arithmetic;
+    private Point<T> a;
+    private Point<T> b;
 
     // endregion
 
     // region constructors
 
     /**
-     * calls {@link #LineSegment(Point, Point)} with
-     * {@link Point#Point()} and the value at b
+     * calls {@link #LineSegment(AbstractArithmetic, Point, Point)} with
+     * {@link Point#Point(AbstractArithmetic)} and the value at b
      *
-     * @param b b value to be used in {@link #LineSegment(Point, Point)} at b
-     * @see #LineSegment(Point, Point)
+     * @param arithmetic arithmetic for calculations
+     * @param b          b value to be used in
+     *                   {@link #LineSegment(AbstractArithmetic, Point, Point)} at b
+     * @see #LineSegment(AbstractArithmetic, Point, Point)
      */
-    public LineSegment(Point b) {
-        this(new Point(), b);
+    public LineSegment(AbstractArithmetic<T> arithmetic, Point<T> b) {
+        this(arithmetic, new Point<>(arithmetic), b);
     }
 
     /**
      * creates a line segment with given a and b values
      *
-     * @param a a value of line segment
-     * @param b b value of line segment
-     * @see #LineSegment(Point)
+     * @param arithmetic arithmetic for calculations
+     * @param a          a value of line segment
+     * @param b          b value of line segment
+     * @see #LineSegment(AbstractArithmetic, Point)
      */
-    public LineSegment(Point a, Point b) {
+    public LineSegment(AbstractArithmetic<T> arithmetic, Point<T> a, Point<T> b) {
+        this.arithmetic = arithmetic;
         setA(a);
         setB(b);
     }
@@ -51,30 +61,37 @@ public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable
     // region getter and setter
 
     /**
+     * @return stored arithmetic
+     */
+    public AbstractArithmetic<T> getArithmetic() {
+        return arithmetic;
+    }
+
+    /**
      * @return a value of line segment
      */
-    public Point getA() {
+    public Point<T> getA() {
         return a;
     }
 
     /**
      * @param a new a value of line segment
      */
-    public void setA(Point a) {
+    public void setA(Point<T> a) {
         this.a = a;
     }
 
     /**
      * @return b value of line segment
      */
-    public Point getB() {
+    public Point<T> getB() {
         return b;
     }
 
     /**
      * @param b new b value of line segment
      */
-    public void setB(Point b) {
+    public void setB(Point<T> b) {
         this.b = b;
     }
 
@@ -85,20 +102,38 @@ public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable
     /**
      * @return length of line segment based on pythagoras
      */
-    public double length() {
-        return Math.sqrt(
-            Math.pow(getA().getX() - getB().getX(), 2) +
-                Math.pow(getA().getY() - getB().getY(), 2)
+    public T length() {
+        return getArithmetic().root2(
+            getArithmetic().sum(
+                getArithmetic().power(
+                    getArithmetic().difference(
+                        getA().getX(), getB().getX()
+                    ),
+                    2
+                ),
+                getArithmetic().power(
+                    getArithmetic().difference(
+                        getA().getY(), getB().getY()
+                    ),
+                    2
+                )
+            )
         );
     }
 
     /**
      * @return {@code (A+B)/2}
      */
-    public Point halvingPoint() {
-        return new Point(
-            (getA().getX() + getB().getX()) / 2,
-            (getA().getY() + getB().getY()) / 2
+    public Point<T> halvingPoint() {
+        return new Point<>(getArithmetic(),
+            getArithmetic().quotient(
+                getArithmetic().sum(getA().getX(), getB().getX()),
+                getArithmetic().fromInt(2)
+            ),
+            getArithmetic().quotient(
+                getArithmetic().sum(getA().getY(), getB().getY()),
+                getArithmetic().fromInt(2)
+            )
         );
     }
 
@@ -106,10 +141,17 @@ public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable
      * @param d proportion of distribution
      * @return {@code (1-d)*A+d*B}
      */
-    public Point distributionPoint(double d) {
-        return new Point(
-            (1d - d) * getA().getX() + d * getB().getX(),
-            (1d - d) * getA().getY() + d * getB().getY()
+    public Point<T> distributionPoint(T d) {
+        T dT = getArithmetic().difference(getArithmetic().one(), d);
+        return new Point<>(getArithmetic(),
+            getArithmetic().sum(
+                getArithmetic().product(dT, getA().getX()),
+                getArithmetic().product(d, getB().getX())
+            ),
+            getArithmetic().sum(
+                getArithmetic().product(dT, getA().getY()),
+                getArithmetic().product(d, getB().getY())
+            )
         );
     }
 
@@ -120,8 +162,8 @@ public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable
     /**
      * @return a new line segment with flipped points
      */
-    public LineSegment flip() {
-        return new LineSegment(getB(), getA());
+    public LineSegment<T> flip() {
+        return new LineSegment<>(getArithmetic(), getB(), getA());
     }
 
     /**
@@ -131,16 +173,45 @@ public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable
      *
      * @return new line instance
      */
-    public Line toLine() {
-        if (getA().getX() == getB().getX())
-            return new Line(Double.NaN, getA().getX());
-        double m = (getB().getY() - getA().getY()) / (getB().getX() - getA().getX());
-        return new Line(m, getA().getY() - (m * getA().getX()));
+    public Line<T> toLine() {
+        if (Objects.equals(getA().getX(), getB().getX()))
+            return new Line<>(getArithmetic(), null, getA().getX());
+        T m = getArithmetic().quotient(
+            getArithmetic().difference(
+                getB().getY(),
+                getA().getY()
+            ),
+            getArithmetic().difference(
+                getB().getX(),
+                getA().getX()
+            )
+        );
+        T b = getArithmetic().difference(
+            getA().getY(),
+            getArithmetic().product(m, getA().getX())
+        );
+        return new Line<>(getArithmetic(), m, b);
     }
 
     // endregion
 
-    // region isValid, move, rotate and copy
+    // region map, isValid, move, rotate and copy
+
+    /**
+     * @param arithmetic arithmetic for calculations
+     * @param map        mapping function to convert current values to new one
+     * @param <NT>       new number class
+     * @return mapped lineSegment
+     */
+    public <NT extends Number> LineSegment<NT> map(
+        AbstractArithmetic<NT> arithmetic, Function<T, NT> map
+    ) {
+        return new LineSegment<>(
+            arithmetic,
+            getA().map(arithmetic, map),
+            getB().map(arithmetic, map)
+        );
+    }
 
     @Override
     public boolean isValid() {
@@ -148,21 +219,33 @@ public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable
     }
 
     @Override
-    public LineSegment move(Vector vector) {
-        return new LineSegment(getA().move(vector), getB().move(vector));
+    public LineSegment<T> move(T x, T y) {
+        return move(new Vector<>(getArithmetic(), x, y));
     }
 
     @Override
-    public LineSegment rotate(Point center, double phi) {
-        return new LineSegment(
-            getA().rotate(center, phi),
+    public LineSegment<T> move(Vector<T> vector) {
+        return new LineSegment<>(getArithmetic(),
+            getA().move(vector), getB().move(vector)
+        );
+    }
+
+    @Override
+    public LineSegment<T> rotate(T phi) {
+        return rotate(new Point<>(getArithmetic()), phi);
+    }
+
+    @Override
+    public LineSegment<T> rotate(Point<T> center, T phi) {
+        return new LineSegment<>(
+            getArithmetic(), getA().rotate(center, phi),
             getB().rotate(center, phi)
         );
     }
 
     @Override
-    public LineSegment copy() {
-        return new LineSegment(getA().copy(), getB().copy());
+    public LineSegment<T> copy() {
+        return new LineSegment<>(getArithmetic(), getA().copy(), getB().copy());
     }
 
     // endregion
@@ -172,10 +255,10 @@ public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        LineSegment that = (LineSegment) o;
-        return Objects.equals(getA(), that.getA()) &&
-            Objects.equals(getB(), that.getB());
+        if (!(o instanceof LineSegment<?>)) return false;
+        LineSegment<?> lineSegment = (LineSegment<?>) o;
+        return Objects.equals(getA(), lineSegment.getA()) &&
+            Objects.equals(getB(), lineSegment.getB());
     }
 
     @Override
@@ -189,13 +272,13 @@ public class LineSegment implements Validatable, Movable<LineSegment>, Rotatable
     }
 
     @Override
-    public int compareTo(LineSegment o) {
-        Point min = List.of(a, b).stream().min(Point::compareTo).get();
-        Point minO = List.of(o.a, o.b).stream().min(Point::compareTo).get();
+    public int compareTo(LineSegment<T> o) {
+        Point<T> min = List.of(a, b).stream().min(Point::compareTo).get();
+        Point<T> minO = List.of(o.a, o.b).stream().min(Point::compareTo).get();
         int i = min.compareTo(minO);
         if (i != 0) return i;
-        Point max = List.of(a, b).stream().max(Point::compareTo).get();
-        Point maxO = List.of(o.a, o.b).stream().max(Point::compareTo).get();
+        Point<T> max = List.of(a, b).stream().max(Point::compareTo).get();
+        Point<T> maxO = List.of(o.a, o.b).stream().max(Point::compareTo).get();
         return max.compareTo(maxO);
     }
 

@@ -2,7 +2,6 @@ package io.rala.math.algebra.numeric;
 
 import io.rala.math.MathX;
 import io.rala.math.arithmetic.AbstractArithmetic;
-import io.rala.math.arithmetic.core.DoubleArithmetic;
 import io.rala.math.geometry.Vector;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Validatable;
@@ -69,7 +68,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
     /**
      * @return stored {@link AbstractArithmetic}
      */
-    protected AbstractArithmetic<T> getArithmetic() {
+    public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
     }
 
@@ -384,7 +383,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
 
     // endregion
 
-    // region static of, asVector, static ofVector
+    // region static of and asVector
 
     /**
      * @param arithmetic    arithmetic for calculations
@@ -413,23 +412,13 @@ public class Complex<T extends Number> extends Number implements Validatable,
      * {@link #getRe()} as {@code x} and
      * {@link #getIm()} as {@code y}
      */
-    public Vector asVector() {
-        return new Vector(getRe().doubleValue(), getIm().doubleValue());
-    }
-
-    /**
-     * @param vector vector to convert to {@link Complex}
-     * @return new complex using
-     * {@link Vector#getX()} as {@code re} and
-     * {@link Vector#getY()} as {@code im}
-     */
-    public static Complex<Double> ofVector(Vector vector) {
-        return new Complex<>(new DoubleArithmetic(), vector.getX(), vector.getY());
+    public Vector<T> asVector() {
+        return new Vector<>(getArithmetic(), getRe(), getIm());
     }
 
     // endregion
 
-    // region map
+    // region map, isValid and copy
 
     /**
      * @param arithmetic arithmetic for calculations
@@ -445,10 +434,6 @@ public class Complex<T extends Number> extends Number implements Validatable,
             map.apply(getIm())
         );
     }
-
-    // endregion
-
-    // region isValid and copy
 
     @Override
     public boolean isValid() {

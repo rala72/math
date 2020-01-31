@@ -46,8 +46,12 @@ public class LineArgumentsStreamFactory {
         Function<Double, Double> function
     ) {
         List<Arguments> list = new ArrayList<>();
-        for (double y = minValue; y < maxValue; y += steps)
-            list.add(Arguments.of(m, b, y, function.apply(y)));
+        for (double i = minValue; i < maxValue; i += steps) {
+            double expected = function.apply(i);
+            Double adapted = Double.isInfinite(expected) ? null :
+                Double.isNaN(expected) ? i : expected;
+            list.add(Arguments.of(m, b, i, adapted));
+        }
         return list.stream();
     }
 }

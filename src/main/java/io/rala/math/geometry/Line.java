@@ -1,22 +1,28 @@
 package io.rala.math.geometry;
 
+import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Validatable;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * class which holds a line in a 2d area with m &amp; b<br>
  * {@code y=m*x+b}<br>
- * if line is vertical m is considered to be {@link Double#NaN}<br>
+ * if line is vertical m is considered to be {@code null}<br>
  * {@code y=b}
+ *
+ * @param <T> number class
  */
-public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Serializable {
+public class Line<T extends Number> implements Validatable,
+    Copyable<Line<T>>, Comparable<Line<T>>, Serializable {
     // region attributes
 
-    private double m;
-    private double b;
+    private final AbstractArithmetic<T> arithmetic;
+    private T m;
+    private T b;
 
     // endregion
 
@@ -24,22 +30,25 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
 
     /**
      * creates a vertical line storing
-     * {@code m} as {@link Double#NaN} and
+     * {@code m} as {@code null} and
      * {@code b} as {@code x}
      *
-     * @param x x value of line
+     * @param arithmetic arithmetic for calculations
+     * @param x          x value of line
      */
-    public Line(double x) {
-        this(Double.NaN, x);
+    public Line(AbstractArithmetic<T> arithmetic, T x) {
+        this(arithmetic, null, x);
     }
 
     /**
      * creates a line with given slope/gradient and y-intercept
      *
-     * @param m slope/gradient of line
-     * @param b y-intercept of line
+     * @param arithmetic arithmetic for calculations
+     * @param m          slope/gradient of line
+     * @param b          y-intercept of line
      */
-    public Line(double m, double b) {
+    public Line(AbstractArithmetic<T> arithmetic, T m, T b) {
+        this.arithmetic = arithmetic;
         setM(m);
         setB(b);
     }
@@ -49,30 +58,37 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
     // region getter and setter
 
     /**
-     * @return m value of line
+     * @return stored arithmetic
      */
-    public double getM() {
+    public AbstractArithmetic<T> getArithmetic() {
+        return arithmetic;
+    }
+
+    /**
+     * @return m value of line - may return {@code null} if {@link #isVertical()}
+     */
+    public T getM() {
         return m;
     }
 
     /**
-     * @param m new m value of line
+     * @param m new m value of line - use {@code null} if {@link #isVertical()}
      */
-    public void setM(double m) {
-        this.m = m;
+    public void setM(T m) {
+        this.m = m != null && getArithmetic().isFinite(m) ? m : null;
     }
 
     /**
      * @return b value of line
      */
-    public double getB() {
+    public T getB() {
         return b;
     }
 
     /**
      * @param b new b value of line
      */
-    public void setB(double b) {
+    public void setB(T b) {
         this.b = b;
     }
 
@@ -84,14 +100,14 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
      * @return {@code true} if {@link #getM()} returns {@code 0}
      */
     public boolean isHorizontal() {
-        return getM() == 0;
+        return !isVertical() && getArithmetic().isZero(getM());
     }
 
     /**
-     * @return {@code true} if {@link #getM()} returns {@link Double#NaN}
+     * @return {@code true} if {@link #getM()} returns {@code null}
      */
     public boolean isVertical() {
-        return Double.isNaN(getM());
+        return getM() == null;
     }
 
     // endregion
@@ -102,20 +118,33 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
      * calculates x value of provided y value
      *
      * @param y y value to get x value
-     * @return {@code x=(y-b)/m}
+     * @return {@code x=(y-b)/m}, {@link #getB()} if {@link #isVertical()}
+     * or may return {@code null} if {@link #isHorizontal()}
+     * and {@code y} is not on line
      */
-    public double calculateX(double y) {
-        return (y - getB()) / getM();
+    public T calculateX(T y) {
+        return isVertical() ? getB() : isHorizontal() ?
+            getB().equals(y) ? getB() : null :
+            getArithmetic().quotient(
+                getArithmetic().difference(y, getB()), getM()
+            );
     }
 
     /**
      * calculates y value of provided x value
      *
      * @param x x value to get y value
-     * @return {@code y=m*x+b}
+     * @return {@code y=m*x+b}, {@link #getB()} if {@link #isHorizontal()}
+     * or may return {@code null} if {@link #isVertical()}
+     * and {@code x} is not on line
      */
-    public double calculateY(double x) {
-        return getM() * x + getB();
+    public T calculateY(T x) {
+        return isHorizontal() ? getB() : isVertical() ?
+            getB().equals(x) ? getB() : null :
+            getArithmetic().sum(
+                getArithmetic().product(getM(), x),
+                getB()
+            );
     }
 
     // endregion
@@ -125,11 +154,14 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
     /**
      * @return normal line without changing {@link #getB()}
      */
-    public Line normal() {
-        double m = isVertical() ? 0 :
-            isHorizontal() ? Double.NaN :
-                -1 / getM();
-        return new Line(m, getB());
+    public Line<T> normal() {
+        T m = isVertical() ? getArithmetic().zero() :
+            isHorizontal() ? null :
+                getArithmetic().quotient(
+                    getArithmetic().fromInt(-1),
+                    getM()
+                );
+        return new Line<>(getArithmetic(), m, getB());
     }
 
     /**
@@ -137,11 +169,14 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
      * @return normal line through given point
      * @see #normal()
      */
-    public Line normal(Point point) {
-        Line normal = normal();
+    public Line<T> normal(Point<T> point) {
+        Line<T> normal = normal();
         normal.setB(
             normal.isVertical() ? point.getX() :
-                point.getY() - normal.getM() * point.getX()
+                getArithmetic().difference(
+                    point.getY(),
+                    getArithmetic().product(normal.getM(), point.getX())
+                )
         );
         return normal;
     }
@@ -154,8 +189,9 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
      * @param line line to check if intersection exists
      * @return {@code true} if {@code m} is not equal
      */
-    public boolean hasIntersection(Line line) {
-        return (!isVertical() || !line.isVertical()) && getM() != line.getM();
+    public boolean hasIntersection(Line<T> line) {
+        return (!isVertical() || !line.isVertical()) &&
+            !Objects.equals(getM(), line.getM());
     }
 
     /**
@@ -163,30 +199,47 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
      * @return intersection or {@code null}
      * if {@link #hasIntersection(Line)} is {@code false}
      */
-    public Point intersection(Line line) {
+    public Point<T> intersection(Line<T> line) {
         if (!hasIntersection(line)) return null;
         if (isVertical())
-            return new Point(getB(), line.calculateY(getB()));
+            return new Point<>(getArithmetic(), getB(), line.calculateY(getB()));
         if (line.isVertical())
-            return new Point(line.getB(), calculateY(line.getB()));
-        double x = -(getB() - line.getB()) / (getM() - line.getM());
-        return new Point(x, calculateY(x));
+            return new Point<>(getArithmetic(), line.getB(), calculateY(line.getB()));
+        T x = getArithmetic().quotient(
+            getArithmetic().negate(
+                getArithmetic().difference(getB(), line.getB())
+            ),
+            getArithmetic().difference(getM(), line.getM())
+        );
+        return new Point<>(getArithmetic(), x, calculateY(x));
     }
 
     /**
      * @param line line to intersect
-     * @return intersection angle in {@code rad} or {@link Double#NaN}
+     * @return intersection angle in {@code rad} or {@code null}
      * if there is no intersection
      */
-    public double intersectionAngle(Line line) {
-        if (!hasIntersection(line)) return Double.NaN;
+    public T intersectionAngle(Line<T> line) {
+        if (!hasIntersection(line)) return null;
         if (isVertical() || line.isVertical()) {
             // calculated like y-axis
-            double m = isVertical() ? line.getM() : getM();
-            return Math.PI / 2 - Math.atan(Math.abs(m));
+            T m = isVertical() ? line.getM() : getM();
+            return getArithmetic().difference(
+                getArithmetic().quotient(
+                    getArithmetic().fromDouble(Math.PI),
+                    getArithmetic().fromInt(2)
+                ),
+                getArithmetic().atan(getArithmetic().absolute(m))
+            );
         }
-        double tan = (getM() - line.getM()) / (1 + getM() * line.getM());
-        return Math.atan(Math.abs(tan));
+        T tan = getArithmetic().quotient(
+            getArithmetic().difference(getM(), line.getM()),
+            getArithmetic().sum(
+                getArithmetic().one(),
+                getArithmetic().product(getM(), line.getM())
+            )
+        );
+        return getArithmetic().atan(getArithmetic().absolute(tan));
     }
 
     // endregion
@@ -197,10 +250,10 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
      * @param point point to check if on line
      * @return {@code true} if point is on line
      */
-    public boolean hasPoint(Point point) {
-        return isVertical() && getB() == point.getX() ||
-            calculateX(point.getY()) == point.getX() ||
-            calculateY(point.getX()) == point.getY();
+    public boolean hasPoint(Point<T> point) {
+        return isVertical() && Objects.equals(getB(), point.getX()) ||
+            Objects.equals(calculateX(point.getY()), point.getX()) ||
+            Objects.equals(calculateY(point.getX()), point.getY());
     }
 
     // endregion
@@ -211,12 +264,12 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
      * @param fromX starting index of line segment
      * @param toX   end index of line segment
      * @return new line segment instance in given boundaries
-     * @see #calculateY(double)
+     * @see #calculateY(Number)
      */
-    public LineSegment toLineSegmentUsingX(double fromX, double toX) {
-        return new LineSegment(
-            new Point(fromX, calculateY(fromX)),
-            new Point(toX, calculateY(toX))
+    public LineSegment<T> toLineSegmentUsingX(T fromX, T toX) {
+        return new LineSegment<>(
+            getArithmetic(), new Point<>(getArithmetic(), fromX, calculateY(fromX)),
+            new Point<>(getArithmetic(), toX, calculateY(toX))
         );
     }
 
@@ -224,27 +277,45 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
      * @param fromY starting index of line segment
      * @param toY   end index of line segment
      * @return new line segment instance in given boundaries
-     * @see #calculateX(double)
+     * @see #calculateX(Number)
      */
-    public LineSegment toLineSegmentUsingY(double fromY, double toY) {
-        return new LineSegment(
-            new Point(calculateX(fromY), fromY),
-            new Point(calculateX(toY), toY)
+    public LineSegment<T> toLineSegmentUsingY(T fromY, T toY) {
+        return new LineSegment<>(
+            getArithmetic(), new Point<>(getArithmetic(), calculateX(fromY), fromY),
+            new Point<>(getArithmetic(), calculateX(toY), toY)
         );
     }
 
     // endregion
 
-    // region isValid, copy
+    // region map, isValid, copy
 
-    @Override
-    public boolean isValid() {
-        return !Double.isInfinite(getM()) && Double.isFinite(getB());
+    /**
+     * @param arithmetic arithmetic for calculations
+     * @param map        mapping function to convert current values to new one
+     *                   - {@code null} handling already done for {@link #getM()}
+     * @param <NT>       new number class
+     * @return mapped point
+     */
+    public <NT extends Number> Line<NT> map(
+        AbstractArithmetic<NT> arithmetic, Function<T, NT> map
+    ) {
+        return new Line<>(
+            arithmetic,
+            getM() == null ? null : map.apply(getM()),
+            map.apply(getB())
+        );
     }
 
     @Override
-    public Line copy() {
-        return new Line(getM(), getB());
+    public boolean isValid() {
+        return (getM() == null || getArithmetic().isFinite(getM())) &&
+            getArithmetic().isFinite(getB());
+    }
+
+    @Override
+    public Line<T> copy() {
+        return new Line<>(getArithmetic(), getM(), getB());
     }
 
     // endregion
@@ -254,10 +325,10 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Line line = (Line) o;
-        return Double.compare(line.getM(), getM()) == 0 &&
-            Double.compare(line.getB(), getB()) == 0;
+        if (!(o instanceof Line<?>)) return false;
+        Line<?> line = (Line<?>) o;
+        return Objects.equals(getM(), line.getM()) &&
+            Objects.equals(getB(), line.getB());
     }
 
     @Override
@@ -268,15 +339,18 @@ public class Line implements Validatable, Copyable<Line>, Comparable<Line>, Seri
     @Override
     public String toString() {
         return "y=" + (isVertical() ? "" :
-            getM() + "*x" + (0 <= getB() ? "+" : "")
+            getM() + "*x" + (getArithmetic().compare(
+                getArithmetic().zero(), getB()) <= 0 ?
+                "+" : ""
+            )
         ) + getB();
     }
 
     @Override
-    public int compareTo(Line o) {
-        int compare = Double.compare(getM(), o.getM());
+    public int compareTo(Line<T> o) {
+        int compare = getArithmetic().compare(getM(), o.getM());
         if (compare != 0) return compare;
-        return Double.compare(getB(), o.getB());
+        return getArithmetic().compare(getB(), o.getB());
     }
 
     // endregion

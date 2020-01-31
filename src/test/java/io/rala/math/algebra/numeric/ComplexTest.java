@@ -431,7 +431,7 @@ class ComplexTest {
 
     // endregion
 
-    // region static of, asVector, static ofVector
+    // region static of and asVector
 
     @Test
     void ofAb3AndAr50() {
@@ -453,29 +453,21 @@ class ComplexTest {
 
     @Test
     void asVectorOfComplexWithRe1Im2() {
-        Assertions.assertEquals(new Vector(1, 2),
+        Assertions.assertEquals(new Vector<>(new TestAbstractArithmetic(), 1, 2),
             new TestComplex(1, 2).asVector()
         );
     }
 
     @Test
-    void ofVectorOfVectorWithX1Y2() {
-        Complex<Number> complex = new TestComplex(1d, 2d);
-        Assertions.assertEquals(complex,
-            Complex.ofVector(new Vector(1, 2))
-        );
-    }
-
-    @Test
-    void asAndOfVectorWithoutChangeAreSuperfluous() {
+    void asVectorAndAsComplexWithoutChangeAreSuperfluous() {
         // better word than of superfluous?
         Complex<Number> complex = new TestComplex(1d, 2d);
-        Assertions.assertEquals(complex, Complex.ofVector(complex.asVector()));
+        Assertions.assertEquals(complex, complex.asVector().asComplex());
     }
 
     // endregion
 
-    // region map
+    // region map, isValid and copy
 
     @Test
     void mapOfComplexWithR0_5Im1_5() {
@@ -486,10 +478,6 @@ class ComplexTest {
             complex.map(new IntegerArithmetic(), Number::intValue)
         );
     }
-
-    // endregion
-
-    // region isValid and copy
 
     @Test
     void isValidWithZero() {

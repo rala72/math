@@ -1,5 +1,7 @@
-package io.rala.math.algebra.numeric;
+package io.rala.math.algebra.numeric.typed;
 
+import io.rala.math.algebra.numeric.Complex;
+import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Vector;
 import io.rala.math.testUtils.assertion.NumericAssertions;
@@ -22,7 +24,7 @@ class BigDecimalComplexTest {
     }
 
     @Test
-    void constructorWithContext() {
+    void constructorWithMathContext5() {
         assertComplex(new BigDecimalComplex(new MathContext(5)));
     }
 
@@ -34,7 +36,7 @@ class BigDecimalComplexTest {
     }
 
     @Test
-    void constructorWithDifferentReImParameterAndContext() {
+    void constructorWithDifferentReImParameterAndMathContext5() {
         assertComplex(new BigDecimalComplex(
             BigDecimal.valueOf(2), BigDecimal.valueOf(3), new MathContext(5)
         ), BigDecimal.valueOf(2), BigDecimal.valueOf(3));
@@ -515,7 +517,7 @@ class BigDecimalComplexTest {
 
     // endregion
 
-    // region static of, asVector, static ofVector
+    // region static of and asVector
 
     @Test
     void ofAb3AndAr50() {
@@ -537,14 +539,17 @@ class BigDecimalComplexTest {
 
     @Test
     void asVectorOfComplexWithRe1Im2() {
-        Assertions.assertEquals(new Vector(1, 2),
+        Assertions.assertEquals(
+            new Vector<>(new BigDecimalArithmetic(),
+                BigDecimal.ONE, BigDecimal.valueOf(2)
+            ),
             new BigDecimalComplex(BigDecimal.ONE, BigDecimal.valueOf(2)).asVector()
         );
     }
 
     // endregion
 
-    // region map
+    // region map, isValid and copy
 
     @Test
     void mapOfComplexWithR0_5Im1_5() {
@@ -558,10 +563,6 @@ class BigDecimalComplexTest {
             complex.map(new IntegerArithmetic(), Number::intValue)
         );
     }
-
-    // endregion
-
-    // region isValid and copy
 
     @Test
     void isValidWithZero() {

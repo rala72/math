@@ -63,4 +63,14 @@ public class TestMatrix extends Matrix<Number> {
     }
 
     // endregion
+
+    /**
+     * implements a shortcut of {@link #getIndexOfRowAndCol(int, int)}
+     * but without exception handling for public test access
+     *
+     * @see Matrix#getIndexOfRowAndCol(int, int)
+     */
+    public static long getIndexOfRowAndCol(Matrix<?> matrix, int row, int col) {
+        return row * matrix.getCols() + col;
+    }
 }

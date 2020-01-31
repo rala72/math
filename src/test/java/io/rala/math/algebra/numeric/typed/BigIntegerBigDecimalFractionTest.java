@@ -1,5 +1,6 @@
-package io.rala.math.algebra.numeric;
+package io.rala.math.algebra.numeric.typed;
 
+import io.rala.math.algebra.numeric.Fraction;
 import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 import io.rala.math.arithmetic.core.BigIntegerArithmetic;
@@ -446,70 +447,6 @@ class BigIntegerBigDecimalFractionTest {
         SerializableAssertions.assertSerializable(
             new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.valueOf(3)),
             BigIntegerBigDecimalFraction.class
-        );
-    }
-
-    // endregion
-
-    // region protected
-
-    @Test
-    void createFromArithmeticWithDifferentNuDeParameter() {
-        BigIntegerBigDecimalFraction fraction =
-            new BigIntegerBigDecimalFraction(BigInteger.ONE);
-        assertFraction(
-            fraction.createFromArithmetic(
-                BigInteger.valueOf(2), BigInteger.valueOf(3)
-            ),
-            BigInteger.valueOf(2), BigInteger.valueOf(3)
-        );
-    }
-
-    @Test
-    void createFromArithmeticWithNullNuParameter() {
-        BigIntegerBigDecimalFraction fraction =
-            new BigIntegerBigDecimalFraction(BigInteger.ONE);
-        Assertions.assertThrows(IllegalArgumentException.class,
-            () -> fraction.createFromArithmetic(
-                null,
-                BigInteger.ONE
-            )
-        ); // assert exception message?
-    }
-
-    @Test
-    void createFromArithmeticWithZeroDeParameter() {
-        BigIntegerBigDecimalFraction fraction =
-            new BigIntegerBigDecimalFraction(BigInteger.ONE);
-        Assertions.assertThrows(ArithmeticException.class,
-            () -> fraction.createFromArithmetic(
-                BigInteger.ONE,
-                BigInteger.ZERO
-            )
-        ); // assert exception message?
-    }
-
-    @Test
-    void simplifySignum() {
-        assertFraction(new BigIntegerBigDecimalFraction(
-                BigInteger.ONE, BigInteger.ONE
-            ),
-            BigInteger.ONE, BigInteger.ONE
-        );
-        assertFraction(new BigIntegerBigDecimalFraction(
-                BigInteger.ONE, BigInteger.ONE.negate()
-            ),
-            BigInteger.ONE.negate(), BigInteger.ONE
-        );
-        assertFraction(new BigIntegerBigDecimalFraction(
-                BigInteger.ONE.negate(), BigInteger.ONE
-            ),
-            BigInteger.ONE.negate(), BigInteger.ONE
-        );
-        assertFraction(new BigIntegerBigDecimalFraction(
-                BigInteger.ONE.negate(), BigInteger.ONE.negate()
-            ),
-            BigInteger.ONE, BigInteger.ONE
         );
     }
 

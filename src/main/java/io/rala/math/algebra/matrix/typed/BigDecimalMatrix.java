@@ -1,5 +1,6 @@
-package io.rala.math.algebra.matrix;
+package io.rala.math.algebra.matrix.typed;
 
+import io.rala.math.algebra.matrix.Matrix;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 

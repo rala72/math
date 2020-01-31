@@ -1,5 +1,6 @@
 package io.rala.math.geometry;
 
+import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
@@ -8,18 +9,23 @@ import io.rala.math.utils.Validatable;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
  * class which holds a triangle in a 2d area with points a, b &amp; c
+ *
+ * @param <T> number class
  */
-public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Triangle>,
-    Copyable<Triangle>, Comparable<Triangle>, Serializable {
+public class Triangle<T extends Number> implements Validatable,
+    Movable<T, Triangle<T>>, Rotatable<T, Triangle<T>>,
+    Copyable<Triangle<T>>, Comparable<Triangle<T>>, Serializable {
     // region attributes
 
-    private Point a;
-    private Point b;
-    private Point c;
+    private final AbstractArithmetic<T> arithmetic;
+    private Point<T> a;
+    private Point<T> b;
+    private Point<T> c;
 
     // endregion
 
@@ -28,11 +34,15 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     /**
      * creates a new triangle with given a, b and c
      *
-     * @param a a of triangle
-     * @param b b of triangle
-     * @param c c of triangle
+     * @param arithmetic arithmetic for calculations
+     * @param a          a of triangle
+     * @param b          b of triangle
+     * @param c          c of triangle
      */
-    public Triangle(Point a, Point b, Point c) {
+    public Triangle(
+        AbstractArithmetic<T> arithmetic, Point<T> a, Point<T> b, Point<T> c
+    ) {
+        this.arithmetic = arithmetic;
         setA(a);
         setB(b);
         setC(c);
@@ -43,44 +53,51 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     // region getter and setter
 
     /**
+     * @return stored arithmetic
+     */
+    public AbstractArithmetic<T> getArithmetic() {
+        return arithmetic;
+    }
+
+    /**
      * @return a of triangle
      */
-    public Point getA() {
+    public Point<T> getA() {
         return a;
     }
 
     /**
      * @param a new a of triangle
      */
-    public void setA(Point a) {
+    public void setA(Point<T> a) {
         this.a = a;
     }
 
     /**
      * @return b of triangle
      */
-    public Point getB() {
+    public Point<T> getB() {
         return b;
     }
 
     /**
      * @param b new b of triangle
      */
-    public void setB(Point b) {
+    public void setB(Point<T> b) {
         this.b = b;
     }
 
     /**
      * @return c of triangle
      */
-    public Point getC() {
+    public Point<T> getC() {
         return c;
     }
 
     /**
      * @param c new c of triangle
      */
-    public void setC(Point c) {
+    public void setC(Point<T> c) {
         this.c = c;
     }
 
@@ -91,42 +108,42 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     /**
      * @return line segment from b to c
      */
-    public LineSegment edgeA() {
-        return new LineSegment(getB(), getC());
+    public LineSegment<T> edgeA() {
+        return new LineSegment<>(getArithmetic(), getB(), getC());
     }
 
     /**
      * @return line segment from a to c
      */
-    public LineSegment edgeB() {
-        return new LineSegment(getA(), getC());
+    public LineSegment<T> edgeB() {
+        return new LineSegment<>(getArithmetic(), getA(), getC());
     }
 
     /**
      * @return line segment from a to b
      */
-    public LineSegment edgeC() {
-        return new LineSegment(getA(), getB());
+    public LineSegment<T> edgeC() {
+        return new LineSegment<>(getArithmetic(), getA(), getB());
     }
 
     /**
      * @return line segment of altitude {@code a} starting at {@link #getA()}
      */
-    public LineSegment altitudeA() {
+    public LineSegment<T> altitudeA() {
         return getAltitude(edgeA().toLine(), getA());
     }
 
     /**
      * @return line segment of altitude {@code b} starting at {@link #getB()}
      */
-    public LineSegment altitudeB() {
+    public LineSegment<T> altitudeB() {
         return getAltitude(edgeB().toLine(), getB());
     }
 
     /**
      * @return line segment of altitude {@code c} starting at {@link #getC()}
      */
-    public LineSegment altitudeC() {
+    public LineSegment<T> altitudeC() {
         return getAltitude(edgeC().toLine(), getC());
     }
 
@@ -136,9 +153,11 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
      * @return altitude starting at {@code point} and
      * ending at intersection with {@code edge}
      */
-    protected LineSegment getAltitude(Line edge, Point point) {
-        Line altitudeLine = edge.normal(point);
-        return new LineSegment(point, altitudeLine.intersection(edge));
+    protected LineSegment<T> getAltitude(Line<T> edge, Point<T> point) {
+        Line<T> altitudeLine = edge.normal(point);
+        return new LineSegment<>(getArithmetic(),
+            point, altitudeLine.intersection(edge)
+        );
     }
 
     // endregion
@@ -150,12 +169,21 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
      *
      * @return angle in {@code rad} at point {@code A}
      */
-    public double angleAlpha() {
-        double dividend = Math.pow(edgeA().length(), 2) -
-            Math.pow(edgeB().length(), 2) -
-            Math.pow(edgeC().length(), 2);
-        double divisor = -2 * edgeB().length() * edgeC().length();
-        return Math.acos(dividend / divisor);
+    public T angleAlpha() {
+        T dividend = getArithmetic().difference(
+            getArithmetic().power(edgeA().length(), 2),
+            getArithmetic().sum(
+                getArithmetic().power(edgeB().length(), 2),
+                getArithmetic().power(edgeC().length(), 2)
+            )
+        );
+        T divisor = getArithmetic().product(
+            getArithmetic().fromInt(-2),
+            edgeB().length(), edgeC().length()
+        );
+        return getArithmetic().acos(
+            getArithmetic().quotient(dividend, divisor)
+        );
     }
 
     /**
@@ -163,12 +191,21 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
      *
      * @return angle in {@code rad} at point {@code B}
      */
-    public double angleBeta() {
-        double dividend = Math.pow(edgeB().length(), 2) -
-            Math.pow(edgeA().length(), 2) -
-            Math.pow(edgeC().length(), 2);
-        double divisor = -2 * edgeA().length() * edgeC().length();
-        return Math.acos(dividend / divisor);
+    public T angleBeta() {
+        T dividend = getArithmetic().difference(
+            getArithmetic().power(edgeB().length(), 2),
+            getArithmetic().sum(
+                getArithmetic().power(edgeA().length(), 2),
+                getArithmetic().power(edgeC().length(), 2)
+            )
+        );
+        T divisor = getArithmetic().product(
+            getArithmetic().fromInt(-2),
+            edgeA().length(), edgeC().length()
+        );
+        return getArithmetic().acos(
+            getArithmetic().quotient(dividend, divisor)
+        );
     }
 
     /**
@@ -176,12 +213,21 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
      *
      * @return angle in {@code rad} at point {@code C}
      */
-    public double angleGamma() {
-        double dividend = Math.pow(edgeC().length(), 2) -
-            Math.pow(edgeA().length(), 2) -
-            Math.pow(edgeB().length(), 2);
-        double divisor = -2 * edgeA().length() * edgeB().length();
-        return Math.acos(dividend / divisor);
+    public T angleGamma() {
+        T dividend = getArithmetic().difference(
+            getArithmetic().power(edgeC().length(), 2),
+            getArithmetic().sum(
+                getArithmetic().power(edgeA().length(), 2),
+                getArithmetic().power(edgeB().length(), 2)
+            )
+        );
+        T divisor = getArithmetic().product(
+            getArithmetic().fromInt(-2),
+            edgeA().length(), edgeB().length()
+        );
+        return getArithmetic().acos(
+            getArithmetic().quotient(dividend, divisor)
+        );
     }
 
     // endregion
@@ -191,22 +237,29 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     /**
      * @return {@code sqrt(s*(s-a)*(s-b)*(s-c))}
      */
-    public double area() {
-        final double s = circumference() / 2;
-        return Math.sqrt(s *
-            (s - edgeA().length()) *
-            (s - edgeB().length()) *
-            (s - edgeC().length())
+    public T area() {
+        T s = getArithmetic().quotient(
+            circumference(),
+            getArithmetic().fromInt(2)
+        );
+        return getArithmetic().root2(
+            getArithmetic().product(s,
+                getArithmetic().product(
+                    getArithmetic().difference(s, edgeA().length()),
+                    getArithmetic().difference(s, edgeB().length()),
+                    getArithmetic().difference(s, edgeC().length())
+                )
+            )
         );
     }
 
     /**
      * @return {@code a+b+c}
      */
-    public double circumference() {
-        return edgeA().length() +
-            edgeB().length() +
-            edgeC().length();
+    public T circumference() {
+        return getArithmetic().sum(
+            edgeA().length(), edgeB().length(), edgeC().length()
+        );
     }
 
     // endregion
@@ -216,10 +269,20 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     /**
      * @return {@code (A+B+C)/3}
      */
-    public Point centroid() {
-        return new Point(
-            (getA().getX() + getB().getX() + getC().getX()) / 3,
-            (getA().getY() + getB().getY() + getC().getY()) / 3
+    public Point<T> centroid() {
+        return new Point<>(getArithmetic(),
+            getArithmetic().quotient(
+                getArithmetic().sum(
+                    getA().getX(), getB().getX(), getC().getX()
+                ),
+                getArithmetic().fromInt(3)
+            ),
+            getArithmetic().quotient(
+                getArithmetic().sum(
+                    getA().getY(), getB().getY(), getC().getY()
+                ),
+                getArithmetic().fromInt(3)
+            )
         );
     }
 
@@ -227,7 +290,7 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
      * @return intersection from {@link #altitudeA()} and {@link #altitudeB()}
      * @see Line#intersection(Line)
      */
-    public Point orthoCenter() {
+    public Point<T> orthoCenter() {
         return altitudeA().toLine().intersection(altitudeB().toLine());
     }
 
@@ -238,24 +301,30 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     /**
      * @return circum circle of triangle
      */
-    public Circle circumCircle() {
-        return new Circle(circumCirclePoint(), circumCircleRadius());
+    public Circle<T> circumCircle() {
+        return new Circle<>(getArithmetic(), circumCirclePoint(), circumCircleRadius());
     }
 
     /**
      * @return in circle of triangle
      */
-    public Circle inCircle() {
-        return new Circle(inCirclePoint(), inCircleRadius());
+    public Circle<T> inCircle() {
+        return new Circle<>(getArithmetic(), inCirclePoint(), inCircleRadius());
     }
 
     /**
      * @return {@code (a*b*c)/A}
      */
-    protected double circumCircleRadius() {
-        return (edgeA().length() *
-            edgeB().length() *
-            edgeC().length()) / (4 * area());
+    protected T circumCircleRadius() {
+        return getArithmetic().quotient(
+            getArithmetic().product(
+                edgeA().length(),
+                edgeB().length(),
+                edgeC().length()
+            ), getArithmetic().product(
+                getArithmetic().fromInt(4), area()
+            )
+        );
     }
 
     /**
@@ -264,81 +333,167 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
      * where {@code N2=Nx^2+Ny^2} with {@code N in [ABC]}
      * and {@code d=Ax*(By-Cy)+Bx*(Cy-Ay)+Cx*(Ay-By)}
      */
-    protected Point circumCirclePoint() {
-        double d = 2 * (
-            getA().getX() * (getB().getY() - getC().getY()) +
-                getB().getX() * (getC().getY() - getA().getY()) +
-                getC().getX() * (getA().getY() - getB().getY())
+    protected Point<T> circumCirclePoint() {
+        T d = getArithmetic().product(getArithmetic().fromInt(2),
+            getArithmetic().sum(
+                getArithmetic().product(
+                    getA().getX(),
+                    getArithmetic().difference(getB().getY(), getC().getY())
+                ),
+                getArithmetic().product(
+                    getB().getX(),
+                    getArithmetic().difference(getC().getY(), getA().getY())
+                ),
+                getArithmetic().product(
+                    getC().getX(),
+                    getArithmetic().difference(getA().getY(), getB().getY())
+                )
+            )
         );
-        double a2 = (Math.pow(getA().getX(), 2) + Math.pow(getA().getY(), 2));
-        double b2 = (Math.pow(getB().getX(), 2) + Math.pow(getB().getY(), 2));
-        double c2 = (Math.pow(getC().getX(), 2) + Math.pow(getC().getY(), 2));
-        return new Point(
-            (a2 * (getB().getY() - getC().getY()) +
-                b2 * (getC().getY() - getA().getY()) +
-                c2 * (getA().getY() - getB().getY())
-            ) / d,
-            (a2 * (getB().getX() - getC().getX()) +
-                b2 * (getC().getX() - getA().getX()) +
-                c2 * (getA().getX() - getB().getX())
-            ) / d
+        T a2 = getArithmetic().sum(
+            getArithmetic().power(getA().getX(), 2),
+            getArithmetic().power(getA().getY(), 2)
+        );
+        T b2 = getArithmetic().sum(
+            getArithmetic().power(getB().getX(), 2),
+            getArithmetic().power(getB().getY(), 2)
+        );
+        T c2 = getArithmetic().sum(
+            getArithmetic().power(getC().getX(), 2),
+            getArithmetic().power(getC().getY(), 2)
+        );
+        return new Point<>(getArithmetic(),
+            getArithmetic().quotient(
+                getArithmetic().sum(
+                    getArithmetic().product(a2,
+                        getArithmetic().difference(getB().getY(), getC().getY())
+                    ),
+                    getArithmetic().product(b2,
+                        getArithmetic().difference(getC().getY(), getA().getY())
+                    ),
+                    getArithmetic().product(c2,
+                        getArithmetic().difference(getA().getY(), getB().getY())
+                    )
+                ), d
+            ),
+            getArithmetic().quotient(
+                getArithmetic().sum(
+                    getArithmetic().product(a2,
+                        getArithmetic().difference(getB().getX(), getC().getX())
+                    ),
+                    getArithmetic().product(b2,
+                        getArithmetic().difference(getC().getX(), getA().getX())
+                    ),
+                    getArithmetic().product(c2,
+                        getArithmetic().difference(getA().getX(), getB().getX())
+                    )
+                ), d
+            )
         );
     }
 
     /**
      * @return {@code A/(r/2)}
      */
-    protected double inCircleRadius() {
-        return area() / (circumference() / 2);
+    protected T inCircleRadius() {
+        return getArithmetic().quotient(area(),
+            getArithmetic().quotient(
+                circumference(),
+                getArithmetic().fromInt(2)
+            )
+        );
     }
 
     /**
      * @return {@code ( (a*xA+b*xB+c*xC)/p, (a*yA+b*yB+c*yC)/p )} where {@code p=a+b+c}
      */
-    protected Point inCirclePoint() {
-        double p = circumference();
-        return new Point(
-            (edgeA().length() * getA().getX() +
-                edgeB().length() * getB().getX() +
-                edgeC().length() * getC().getX()
-            ) / p,
-            (edgeA().length() * getA().getY() +
-                edgeB().length() * getB().getY() +
-                edgeC().length() * getC().getY()
-            ) / p
+    protected Point<T> inCirclePoint() {
+        T p = circumference();
+        return new Point<>(getArithmetic(),
+            getArithmetic().quotient(
+                getArithmetic().sum(
+                    getArithmetic().product(edgeA().length(), getA().getX()),
+                    getArithmetic().product(edgeB().length(), getB().getX()),
+                    getArithmetic().product(edgeC().length(), getC().getX())
+                ), p
+            ),
+            getArithmetic().quotient(
+                getArithmetic().sum(
+                    getArithmetic().product(edgeA().length(), getA().getY()),
+                    getArithmetic().product(edgeB().length(), getB().getY()),
+                    getArithmetic().product(edgeC().length(), getC().getY())
+                ), p
+            )
         );
     }
 
     // endregion
 
-    // region isValid, move, rotate and copy
+    // region map, isValid, move, rotate and copy
+
+    /**
+     * @param arithmetic arithmetic for calculations
+     * @param map        mapping function to convert current values to new one
+     * @param <NT>       new number class
+     * @return mapped triangle
+     */
+    public <NT extends Number> Triangle<NT> map(
+        AbstractArithmetic<NT> arithmetic, Function<T, NT> map
+    ) {
+        return new Triangle<>(
+            arithmetic,
+            getA().map(arithmetic, map),
+            getB().map(arithmetic, map),
+            getC().map(arithmetic, map)
+        );
+    }
 
     @Override
     public boolean isValid() {
         return getA().isValid() && getB().isValid() && getC().isValid() &&
-            edgeA().length() < edgeB().length() + edgeC().length() &&
-            edgeB().length() < edgeA().length() + edgeC().length() &&
-            edgeC().length() < edgeA().length() + edgeB().length();
+            getArithmetic().compare(edgeA().length(),
+                getArithmetic().sum(edgeB().length(), edgeC().length())
+            ) < 0 &&
+            getArithmetic().compare(edgeB().length(),
+                getArithmetic().sum(edgeA().length(), edgeC().length())
+            ) < 0 &&
+            getArithmetic().compare(edgeB().length(),
+                getArithmetic().sum(edgeA().length(), edgeB().length())
+            ) < 0;
     }
 
     @Override
-    public Triangle move(Vector vector) {
-        return new Triangle(getA().move(vector), getB()
-            .move(vector), getC().move(vector));
+    public Triangle<T> move(T x, T y) {
+        return move(new Vector<>(getArithmetic(), x, y));
     }
 
     @Override
-    public Triangle rotate(Point center, double phi) {
-        return new Triangle(
-            getA().rotate(center, phi),
+    public Triangle<T> move(Vector<T> vector) {
+        return new Triangle<>(getArithmetic(),
+            getA().move(vector), getB()
+            .move(vector), getC().move(vector)
+        );
+    }
+
+    @Override
+    public Triangle<T> rotate(T phi) {
+        return rotate(new Point<>(getArithmetic()), phi);
+    }
+
+    @Override
+    public Triangle<T> rotate(Point<T> center, T phi) {
+        return new Triangle<>(
+            getArithmetic(), getA().rotate(center, phi),
             getB().rotate(center, phi),
             getC().rotate(center, phi)
         );
     }
 
     @Override
-    public Triangle copy() {
-        return new Triangle(getA().copy(), getB().copy(), getC().copy());
+    public Triangle<T> copy() {
+        return new Triangle<>(getArithmetic(),
+            getA().copy(), getB().copy(), getC().copy()
+        );
     }
 
     // endregion
@@ -348,8 +503,8 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Triangle triangle = (Triangle) o;
+        if (!(o instanceof Triangle<?>)) return false;
+        Triangle<?> triangle = (Triangle<?>) o;
         return Objects.equals(getA(), triangle.getA()) &&
             Objects.equals(getB(), triangle.getB()) &&
             Objects.equals(getC(), triangle.getC());
@@ -366,16 +521,16 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     }
 
     @Override
-    public int compareTo(Triangle o) {
-        int compare = Double.compare(area(), o.area());
+    public int compareTo(Triangle<T> o) {
+        int compare = getArithmetic().compare(area(), o.area());
         if (compare != 0) return compare;
-        List<Point> s = List.of(getA(), getB(), getC())
+        List<Point<T>> s = List.of(getA(), getB(), getC())
             .stream().sorted().collect(Collectors.toList());
-        List<Point> sO = List.of(o.getA(), o.getB(), o.getC())
+        List<Point<T>> sO = List.of(o.getA(), o.getB(), o.getC())
             .stream().sorted().collect(Collectors.toList());
         for (int i = 0; i < s.size(); i++) {
-            Point p = s.get(i);
-            Point pO = sO.get(i);
+            Point<T> p = s.get(i);
+            Point<T> pO = sO.get(i);
             int c = p.compareTo(pO);
             if (c != 0) return c;
         }

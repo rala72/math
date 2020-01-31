@@ -1,5 +1,6 @@
-package io.rala.math.algebra.numeric;
+package io.rala.math.algebra.numeric.typed;
 
+import io.rala.math.algebra.numeric.Complex;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.core.DoubleArithmetic;
 

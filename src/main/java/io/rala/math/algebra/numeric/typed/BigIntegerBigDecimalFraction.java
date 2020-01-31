@@ -1,5 +1,6 @@
-package io.rala.math.algebra.numeric;
+package io.rala.math.algebra.numeric.typed;
 
+import io.rala.math.algebra.numeric.Fraction;
 import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.result.BigIntegerBigDecimalResultArithmetic;
 
