@@ -208,12 +208,7 @@ public class Circle<T extends Number> implements Validatable,
 
     @Override
     public Circle<T> move(T x, T y) {
-        return move(new Vector<>(getArithmetic(), x, y));
-    }
-
-    @Override
-    public Circle<T> move(Vector<T> vector) {
-        return new Circle<>(getArithmetic(), getCenter().move(vector), getRadius());
+        return new Circle<>(getArithmetic(), getCenter().move(x, y), getRadius());
     }
 
     @Override

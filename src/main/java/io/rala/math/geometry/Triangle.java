@@ -464,14 +464,9 @@ public class Triangle<T extends Number> implements Validatable,
 
     @Override
     public Triangle<T> move(T x, T y) {
-        return move(new Vector<>(getArithmetic(), x, y));
-    }
-
-    @Override
-    public Triangle<T> move(Vector<T> vector) {
         return new Triangle<>(getArithmetic(),
-            getA().move(vector), getB()
-            .move(vector), getC().move(vector)
+            getA().move(x, y), getB()
+            .move(x, y), getC().move(x, y)
         );
     }
 

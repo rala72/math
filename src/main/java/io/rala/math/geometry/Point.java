@@ -141,14 +141,9 @@ public class Point<T extends Number> implements Validatable,
 
     @Override
     public Point<T> move(T x, T y) {
-        return move(new Vector<>(getArithmetic(), x, y));
-    }
-
-    @Override
-    public Point<T> move(Vector<T> vector) {
         return new Point<>(getArithmetic(),
-            getArithmetic().sum(getX(), vector.getX()),
-            getArithmetic().sum(getY(), vector.getY())
+            getArithmetic().sum(getX(), x),
+            getArithmetic().sum(getY(), y)
         );
     }
 

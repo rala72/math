@@ -25,7 +25,6 @@ public interface Movable<N extends Number, T> {
      * @param x x value to use for movement
      * @param y y value to use for movement
      * @return a new instance moved by values
-     * @implSpec default implementation should call {@link #move(Vector)} with vector
      * @see #move(Number)
      * @see #move(Vector)
      */
@@ -34,8 +33,12 @@ public interface Movable<N extends Number, T> {
     /**
      * @param vector vector to use for movement
      * @return a new instance moved by given vector
+     * @implSpec default implementation calls
+     * {@link #move(Number, Number)} with vector attributes
      * @see #move(Number)
      * @see #move(Number, Number)
      */
-    T move(Vector<N> vector);
+    default T move(Vector<N> vector) {
+        return move(vector.getX(), vector.getY());
+    }
 }

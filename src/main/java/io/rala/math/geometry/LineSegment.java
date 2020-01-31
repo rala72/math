@@ -220,13 +220,8 @@ public class LineSegment<T extends Number> implements Validatable,
 
     @Override
     public LineSegment<T> move(T x, T y) {
-        return move(new Vector<>(getArithmetic(), x, y));
-    }
-
-    @Override
-    public LineSegment<T> move(Vector<T> vector) {
         return new LineSegment<>(getArithmetic(),
-            getA().move(vector), getB().move(vector)
+            getA().move(x, y), getB().move(x, y)
         );
     }
 
