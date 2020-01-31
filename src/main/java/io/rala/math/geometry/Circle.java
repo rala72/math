@@ -28,7 +28,8 @@ public class Circle<T extends Number> implements Validatable,
     // region constructors
 
     /**
-     * calls {@link #Circle(AbstractArithmetic, Point)} with {@link Point#Point(AbstractArithmetic)}
+     * calls {@link #Circle(AbstractArithmetic, Point)} with
+     * {@link Point#Point(AbstractArithmetic)}
      *
      * @param arithmetic arithmetic for calculations
      */
@@ -47,7 +48,8 @@ public class Circle<T extends Number> implements Validatable,
     }
 
     /**
-     * calls {@link #Circle(AbstractArithmetic, Point, Number)} with {@link Point#Point(AbstractArithmetic)}
+     * calls {@link #Circle(AbstractArithmetic, Point, Number)} with
+     * {@link Point#Point(AbstractArithmetic)}
      *
      * @param arithmetic arithmetic for calculations
      * @param radius     radius of circle
@@ -204,7 +206,9 @@ public class Circle<T extends Number> implements Validatable,
 
     @Override
     public Circle<T> rotate(Point<T> center, T phi) {
-        return new Circle<>(getArithmetic(), getCenter().rotate(center, phi), getRadius());
+        return new Circle<>(getArithmetic(),
+            getCenter().rotate(center, phi), getRadius()
+        );
     }
 
     @Override

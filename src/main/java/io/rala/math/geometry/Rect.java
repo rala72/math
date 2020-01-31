@@ -259,7 +259,9 @@ public class Rect<T extends Number> implements Validatable,
 
     @Override
     public Rect<T> move(Vector<T> vector) {
-        return new Rect<>(getArithmetic(), getA().move(vector), getB().move(vector), getSize());
+        return new Rect<>(getArithmetic(),
+            getA().move(vector), getB().move(vector), getSize()
+        );
     }
 
     @Override

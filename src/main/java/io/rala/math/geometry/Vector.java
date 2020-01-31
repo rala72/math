@@ -38,10 +38,13 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
     }
 
     /**
-     * calls {@link #Vector(AbstractArithmetic, Number, Number)} with the value at x and y
+     * calls {@link #Vector(AbstractArithmetic, Number, Number)}
+     * with the value at x and y
      *
      * @param arithmetic arithmetic for calculations
-     * @param xy         value to be used in {@link #Vector(AbstractArithmetic, Number, Number)} at x and y
+     * @param xy         value to be used in
+     *                   {@link #Vector(AbstractArithmetic, Number, Number)}
+     *                   at x and y
      * @see #Vector(AbstractArithmetic)
      * @see #Vector(AbstractArithmetic, Number, Number)
      */

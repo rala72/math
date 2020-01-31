@@ -181,7 +181,8 @@ public class Line<T extends Number> implements Validatable,
      * @return {@code true} if {@code m} is not equal
      */
     public boolean hasIntersection(Line<T> line) {
-        return (!isVertical() || !line.isVertical()) && !Objects.equals(getM(), line.getM());
+        return (!isVertical() || !line.isVertical()) &&
+            !Objects.equals(getM(), line.getM());
     }
 
     /**

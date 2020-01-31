@@ -20,7 +20,9 @@ public class BigDecimalTriangle extends Triangle<BigDecimal> {
      * @param c c of triangle
      * @see Triangle#Triangle(AbstractArithmetic, Point, Point, Point)
      */
-    public BigDecimalTriangle(Point<BigDecimal> a, Point<BigDecimal> b, Point<BigDecimal> c) {
+    public BigDecimalTriangle(
+        Point<BigDecimal> a, Point<BigDecimal> b, Point<BigDecimal> c
+    ) {
         super(new BigDecimalArithmetic(), a, b, c);
     }
 

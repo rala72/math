@@ -38,7 +38,9 @@ public class Triangle<T extends Number> implements Validatable,
      * @param b          b of triangle
      * @param c          c of triangle
      */
-    public Triangle(AbstractArithmetic<T> arithmetic, Point<T> a, Point<T> b, Point<T> c) {
+    public Triangle(
+        AbstractArithmetic<T> arithmetic, Point<T> a, Point<T> b, Point<T> c
+    ) {
         this.arithmetic = arithmetic;
         setA(a);
         setB(b);
@@ -147,11 +149,14 @@ public class Triangle<T extends Number> implements Validatable,
     /**
      * @param edge  edge to get altitude from
      * @param point point to get altitude from
-     * @return altitude starting at {@code point} and ending at intersection with {@code edge}
+     * @return altitude starting at {@code point} and
+     * ending at intersection with {@code edge}
      */
     protected LineSegment<T> getAltitude(Line<T> edge, Point<T> point) {
         Line<T> altitudeLine = edge.normal(point);
-        return new LineSegment<>(getArithmetic(), point, altitudeLine.intersection(edge));
+        return new LineSegment<>(getArithmetic(),
+            point, altitudeLine.intersection(edge)
+        );
     }
 
     // endregion
@@ -446,7 +451,9 @@ public class Triangle<T extends Number> implements Validatable,
 
     @Override
     public Triangle<T> move(Vector<T> vector) {
-        return new Triangle<>(getArithmetic(), getA().move(vector), getB().move(vector), getC().move(vector));
+        return new Triangle<>(getArithmetic(),
+            getA().move(vector), getB().move(vector), getC().move(vector)
+        );
     }
 
     @Override
@@ -465,7 +472,9 @@ public class Triangle<T extends Number> implements Validatable,
 
     @Override
     public Triangle<T> copy() {
-        return new Triangle<>(getArithmetic(), getA().copy(), getB().copy(), getC().copy());
+        return new Triangle<>(getArithmetic(),
+            getA().copy(), getB().copy(), getC().copy()
+        );
     }
 
     // endregion

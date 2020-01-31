@@ -15,7 +15,8 @@ public class BigDecimalLineSegment extends LineSegment<BigDecimal> {
     // region constructors
 
     /**
-     * @param b b value to be used in {@link LineSegment#LineSegment(AbstractArithmetic, Point, Point)} at b
+     * @param b b value to be used in
+     *          {@link LineSegment#LineSegment(AbstractArithmetic, Point, Point)} at b
      * @see LineSegment#LineSegment(AbstractArithmetic, Point)
      */
     public BigDecimalLineSegment(Point<BigDecimal> b) {

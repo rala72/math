@@ -33,7 +33,8 @@ public class LineSegment<T extends Number> implements Validatable,
      * {@link Point#Point(AbstractArithmetic)} and the value at b
      *
      * @param arithmetic arithmetic for calculations
-     * @param b          b value to be used in {@link #LineSegment(AbstractArithmetic, Point, Point)} at b
+     * @param b          b value to be used in
+     *                   {@link #LineSegment(AbstractArithmetic, Point, Point)} at b
      * @see #LineSegment(AbstractArithmetic, Point, Point)
      */
     public LineSegment(AbstractArithmetic<T> arithmetic, Point<T> b) {
@@ -207,7 +208,9 @@ public class LineSegment<T extends Number> implements Validatable,
 
     @Override
     public LineSegment<T> move(Vector<T> vector) {
-        return new LineSegment<>(getArithmetic(), getA().move(vector), getB().move(vector));
+        return new LineSegment<>(getArithmetic(),
+            getA().move(vector), getB().move(vector)
+        );
     }
 
     @Override
