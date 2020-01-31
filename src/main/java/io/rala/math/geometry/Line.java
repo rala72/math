@@ -6,6 +6,7 @@ import io.rala.math.utils.Validatable;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * class which holds a line in a 2d area with m &amp; b<br>
@@ -287,7 +288,24 @@ public class Line<T extends Number> implements Validatable,
 
     // endregion
 
-    // region isValid, copy
+    // region map, isValid, copy
+
+    /**
+     * @param arithmetic arithmetic for calculations
+     * @param map        mapping function to convert current values to new one
+     *                   - {@code null} handling already done for {@link #getM()}
+     * @param <NT>       new number class
+     * @return mapped point
+     */
+    public <NT extends Number> Line<NT> map(
+        AbstractArithmetic<NT> arithmetic, Function<T, NT> map
+    ) {
+        return new Line<>(
+            arithmetic,
+            getM() == null ? null : map.apply(getM()),
+            map.apply(getB())
+        );
+    }
 
     @Override
     public boolean isValid() {

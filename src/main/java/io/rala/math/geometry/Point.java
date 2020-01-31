@@ -8,6 +8,7 @@ import io.rala.math.utils.Validatable;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * class which holds a point in a 2d area with x &amp; y
@@ -115,7 +116,23 @@ public class Point<T extends Number> implements Validatable,
 
     // endregion
 
-    // region isValid, move, rotate and copy
+    // region map, isValid, move, rotate and copy
+
+    /**
+     * @param arithmetic arithmetic for calculations
+     * @param map        mapping function to convert current values to new one
+     * @param <NT>       new number class
+     * @return mapped point
+     */
+    public <NT extends Number> Point<NT> map(
+        AbstractArithmetic<NT> arithmetic, Function<T, NT> map
+    ) {
+        return new Point<>(
+            arithmetic,
+            map.apply(getX()),
+            map.apply(getY())
+        );
+    }
 
     @Override
     public boolean isValid() {

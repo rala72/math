@@ -1,6 +1,8 @@
 package io.rala.math.geometry.typed;
 
+import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Circle;
+import io.rala.math.geometry.Point;
 import io.rala.math.testUtils.assertion.GeometryAssertions;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
@@ -147,7 +149,19 @@ class DoubleCircleTest {
 
     // endregion
 
-    // region isValid, move, rotate and copy
+    // region map, isValid, move, rotate and copy
+
+    @Test
+    void mapOfCircleWithXY0_5R1_5() {
+        DoubleCircle circle = new DoubleCircle(new DoublePoint(0.5), 1.5);
+        IntegerArithmetic integerArithmetic = new IntegerArithmetic();
+        Circle<Integer> result = new Circle<>(integerArithmetic,
+            new Point<>(integerArithmetic, 0), 1
+        );
+        Assertions.assertEquals(result,
+            circle.map(new IntegerArithmetic(), Number::intValue)
+        );
+    }
 
     @Test
     void isValidWithZeroValues() {

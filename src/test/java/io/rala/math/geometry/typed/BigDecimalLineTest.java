@@ -1,5 +1,6 @@
 package io.rala.math.geometry.typed;
 
+import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Line;
 import io.rala.math.testUtils.arguments.LineArgumentsStreamFactory;
 import io.rala.math.testUtils.assertion.GeometryAssertions;
@@ -402,7 +403,18 @@ class BigDecimalLineTest {
 
     // endregion
 
-    // region isValid, copy
+    // region map, isValid, copy
+
+    @Test
+    void mapOfLineWithM0_5B1_5() {
+        BigDecimalLine line = new BigDecimalLine(
+            BigDecimal.valueOf(0.5), BigDecimal.valueOf(1.5)
+        );
+        Line<Integer> result = new Line<>(new IntegerArithmetic(), 0, 1);
+        Assertions.assertEquals(result,
+            line.map(new IntegerArithmetic(), Number::intValue)
+        );
+    }
 
     @Test
     void isValidWithZeroValues() {

@@ -9,6 +9,7 @@ import io.rala.math.utils.Validatable;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * class which holds a line segment in a 2d area with points a &amp; b
@@ -194,7 +195,23 @@ public class LineSegment<T extends Number> implements Validatable,
 
     // endregion
 
-    // region isValid, move, rotate and copy
+    // region map, isValid, move, rotate and copy
+
+    /**
+     * @param arithmetic arithmetic for calculations
+     * @param map        mapping function to convert current values to new one
+     * @param <NT>       new number class
+     * @return mapped lineSegment
+     */
+    public <NT extends Number> LineSegment<NT> map(
+        AbstractArithmetic<NT> arithmetic, Function<T, NT> map
+    ) {
+        return new LineSegment<>(
+            arithmetic,
+            getA().map(arithmetic, map),
+            getB().map(arithmetic, map)
+        );
+    }
 
     @Override
     public boolean isValid() {

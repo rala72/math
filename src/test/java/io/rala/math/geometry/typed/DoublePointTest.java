@@ -1,5 +1,6 @@
 package io.rala.math.geometry.typed;
 
+import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Point;
 import io.rala.math.testUtils.assertion.GeometryAssertions;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
@@ -55,7 +56,16 @@ class DoublePointTest {
 
     // endregion
 
-    // region isValid, move, rotate and copy
+    // region map, isValid, move, rotate and copy
+
+    @Test
+    void mapOfPointWithX0_5Y1_5() {
+        DoublePoint point = new DoublePoint(0.5, 1.5);
+        Point<Integer> result = new Point<>(new IntegerArithmetic(), 0, 1);
+        Assertions.assertEquals(result,
+            point.map(new IntegerArithmetic(), Number::intValue)
+        );
+    }
 
     @Test
     void isValidWithZeroValues() {

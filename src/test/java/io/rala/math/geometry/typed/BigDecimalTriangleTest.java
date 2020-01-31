@@ -1,6 +1,8 @@
 package io.rala.math.geometry.typed;
 
+import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.LineSegment;
+import io.rala.math.geometry.Point;
 import io.rala.math.geometry.Triangle;
 import io.rala.math.testUtils.assertion.GeometryAssertions;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
@@ -330,7 +332,25 @@ class BigDecimalTriangleTest {
 
     // endregion
 
-    // region isValid, move, rotate and copy
+    // region map, isValid, move, rotate and copy
+
+    @Test
+    void mapOfTriangleWithA0_5B1_5C2_5() {
+        BigDecimalTriangle triangle = new BigDecimalTriangle(
+            new BigDecimalPoint(BigDecimal.valueOf(0.5)),
+            new BigDecimalPoint(BigDecimal.valueOf(1.5)),
+            new BigDecimalPoint(BigDecimal.valueOf(2.5))
+        );
+        IntegerArithmetic integerArithmetic = new IntegerArithmetic();
+        Triangle<Integer> result = new Triangle<>(integerArithmetic,
+            new Point<>(integerArithmetic, 0),
+            new Point<>(integerArithmetic, 1),
+            new Point<>(integerArithmetic, 2)
+        );
+        Assertions.assertEquals(result,
+            triangle.map(new IntegerArithmetic(), Number::intValue)
+        );
+    }
 
     @Test
     void isValidWithPositiveValues() {

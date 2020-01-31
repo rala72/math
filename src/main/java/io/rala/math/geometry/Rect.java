@@ -9,6 +9,7 @@ import io.rala.math.utils.Validatable;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * class which holds a rect in 2d area with point a, b &amp; size
@@ -244,7 +245,24 @@ public class Rect<T extends Number> implements Validatable,
 
     // endregion
 
-    // region isValid, move, rotate and copy
+    // region map, isValid, move, rotate and copy
+
+    /**
+     * @param arithmetic arithmetic for calculations
+     * @param map        mapping function to convert current values to new one
+     * @param <NT>       new number class
+     * @return mapped rect
+     */
+    public <NT extends Number> Rect<NT> map(
+        AbstractArithmetic<NT> arithmetic, Function<T, NT> map
+    ) {
+        return new Rect<>(
+            arithmetic,
+            getA().map(arithmetic, map),
+            getB().map(arithmetic, map),
+            map.apply(getSize())
+        );
+    }
 
     @Override
     public boolean isValid() {

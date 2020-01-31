@@ -1,5 +1,6 @@
 package io.rala.math.geometry;
 
+import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.testUtils.assertion.GeometryAssertions;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
 import io.rala.math.testUtils.geometry.TestPoint;
@@ -205,7 +206,23 @@ class RectTest {
 
     // endregion
 
-    // region isValid, move, rotate and copy
+    // region map, isValid, move, rotate and copy
+
+    @Test
+    void mapOfRectWithA0_5B1_5S2_5() {
+        TestRect rect = new TestRect(
+            new TestPoint(0.5), new TestPoint(1.5), 2.5
+        );
+        IntegerArithmetic integerArithmetic = new IntegerArithmetic();
+        Rect<Integer> result = new Rect<>(integerArithmetic,
+            new Point<>(integerArithmetic, 0),
+            new Point<>(integerArithmetic, 1),
+            2
+        );
+        Assertions.assertEquals(result,
+            rect.map(new IntegerArithmetic(), Number::intValue)
+        );
+    }
 
     @Test
     void isValidWithPositiveValues() {

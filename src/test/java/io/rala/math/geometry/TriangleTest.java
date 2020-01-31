@@ -1,5 +1,6 @@
 package io.rala.math.geometry;
 
+import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.testUtils.assertion.GeometryAssertions;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
 import io.rala.math.testUtils.geometry.TestPoint;
@@ -309,7 +310,23 @@ class TriangleTest {
 
     // endregion
 
-    // region isValid, move, rotate and copy
+    // region map, isValid, move, rotate and copy
+
+    @Test
+    void mapOfTriangleWithA0_5B1_5C2_5() {
+        TestTriangle triangle = new TestTriangle(
+            new TestPoint(0.5), new TestPoint(1.5), new TestPoint(2.5)
+        );
+        IntegerArithmetic integerArithmetic = new IntegerArithmetic();
+        Triangle<Integer> result = new Triangle<>(integerArithmetic,
+            new Point<>(integerArithmetic, 0),
+            new Point<>(integerArithmetic, 1),
+            new Point<>(integerArithmetic, 2)
+        );
+        Assertions.assertEquals(result,
+            triangle.map(new IntegerArithmetic(), Number::intValue)
+        );
+    }
 
     @Test
     void isValidWithPositiveValues() {

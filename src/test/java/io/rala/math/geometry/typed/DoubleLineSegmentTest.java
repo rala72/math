@@ -1,6 +1,8 @@
 package io.rala.math.geometry.typed;
 
+import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.LineSegment;
+import io.rala.math.geometry.Point;
 import io.rala.math.testUtils.assertion.GeometryAssertions;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
@@ -174,7 +176,22 @@ class DoubleLineSegmentTest {
 
     // endregion
 
-    // region isValid, move, rotate and copy
+    // region map, isValid, move, rotate and copy
+
+    @Test
+    void mapOfLineSegmentWithA0_5B1_5() {
+        DoubleLineSegment lineSegment = new DoubleLineSegment(
+            new DoublePoint(0.5), new DoublePoint(1.5)
+        );
+        IntegerArithmetic integerArithmetic = new IntegerArithmetic();
+        LineSegment<Integer> result = new LineSegment<>(integerArithmetic,
+            new Point<>(integerArithmetic, 0),
+            new Point<>(integerArithmetic, 1)
+        );
+        Assertions.assertEquals(result,
+            lineSegment.map(new IntegerArithmetic(), Number::intValue)
+        );
+    }
 
     @Test
     void isValidWithZeroValues() {

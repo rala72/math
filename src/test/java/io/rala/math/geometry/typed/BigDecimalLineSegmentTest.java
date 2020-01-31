@@ -1,6 +1,8 @@
 package io.rala.math.geometry.typed;
 
+import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.LineSegment;
+import io.rala.math.geometry.Point;
 import io.rala.math.testUtils.assertion.GeometryAssertions;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Assertions;
@@ -246,7 +248,23 @@ class BigDecimalLineSegmentTest {
 
     // endregion
 
-    // region isValid, move, rotate and copy
+    // region map, isValid, move, rotate and copy
+
+    @Test
+    void mapOfLineSegmentWithA0_5B1_5() {
+        BigDecimalLineSegment lineSegment = new BigDecimalLineSegment(
+            new BigDecimalPoint(BigDecimal.valueOf(0.5)),
+            new BigDecimalPoint(BigDecimal.valueOf(1.5))
+        );
+        IntegerArithmetic integerArithmetic = new IntegerArithmetic();
+        LineSegment<Integer> result = new LineSegment<>(integerArithmetic,
+            new Point<>(integerArithmetic, 0),
+            new Point<>(integerArithmetic, 1)
+        );
+        Assertions.assertEquals(result,
+            lineSegment.map(new IntegerArithmetic(), Number::intValue)
+        );
+    }
 
     @Test
     void isValidWithZeroValues() {

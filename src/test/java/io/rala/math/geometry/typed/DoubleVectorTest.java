@@ -2,6 +2,7 @@ package io.rala.math.geometry.typed;
 
 import io.rala.math.algebra.numeric.Complex;
 import io.rala.math.algebra.numeric.typed.DoubleComplex;
+import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Vector;
 import io.rala.math.testUtils.assertion.GeometryAssertions;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
@@ -289,7 +290,16 @@ class DoubleVectorTest {
 
     // endregion
 
-    // region isValid rotate and copy
+    // region map, isValid rotate and copy
+
+    @Test
+    void mapOfVectorWithX0_5Y1_5() {
+        DoubleVector vector = new DoubleVector(0.5, 1.5);
+        Vector<Integer> result = new Vector<>(new IntegerArithmetic(), 0, 1);
+        Assertions.assertEquals(result,
+            vector.map(new IntegerArithmetic(), Number::intValue)
+        );
+    }
 
     @Test
     void isValidWithZeroValues() {

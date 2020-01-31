@@ -8,6 +8,7 @@ import io.rala.math.utils.Validatable;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * class which holds a circle a in 2d area with center &amp; radius
@@ -181,7 +182,23 @@ public class Circle<T extends Number> implements Validatable,
 
     // endregion
 
-    // region isValid, move, rotate and copy
+    // region map, isValid, move, rotate and copy
+
+    /**
+     * @param arithmetic arithmetic for calculations
+     * @param map        mapping function to convert current values to new one
+     * @param <NT>       new number class
+     * @return mapped circle
+     */
+    public <NT extends Number> Circle<NT> map(
+        AbstractArithmetic<NT> arithmetic, Function<T, NT> map
+    ) {
+        return new Circle<>(
+            arithmetic,
+            getCenter().map(arithmetic, map),
+            map.apply(getRadius())
+        );
+    }
 
     @Override
     public boolean isValid() {

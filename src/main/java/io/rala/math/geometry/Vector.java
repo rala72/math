@@ -8,6 +8,7 @@ import io.rala.math.utils.Validatable;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * class which holds a vector in a 2d area with x &amp; y
@@ -334,7 +335,23 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
 
     // endregion
 
-    // region isValid, rotate and copy
+    // region map, isValid, rotate and copy
+
+    /**
+     * @param arithmetic arithmetic for calculations
+     * @param map        mapping function to convert current values to new one
+     * @param <NT>       new number class
+     * @return mapped vector
+     */
+    public <NT extends Number> Vector<NT> map(
+        AbstractArithmetic<NT> arithmetic, Function<T, NT> map
+    ) {
+        return new Vector<>(
+            arithmetic,
+            map.apply(getX()),
+            map.apply(getY())
+        );
+    }
 
     @Override
     public boolean isValid() {

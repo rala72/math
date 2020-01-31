@@ -1,5 +1,6 @@
 package io.rala.math.geometry;
 
+import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.testUtils.assertion.GeometryAssertions;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
 import io.rala.math.testUtils.geometry.TestLineSegment;
@@ -173,7 +174,22 @@ class LineSegmentTest {
 
     // endregion
 
-    // region isValid, move, rotate and copy
+    // region map, isValid, move, rotate and copy
+
+    @Test
+    void mapOfLineSegmentWithA0_5B1_5() {
+        TestLineSegment lineSegment = new TestLineSegment(
+            new TestPoint(0.5), new TestPoint(1.5)
+        );
+        IntegerArithmetic integerArithmetic = new IntegerArithmetic();
+        LineSegment<Integer> result = new LineSegment<>(integerArithmetic,
+            new Point<>(integerArithmetic, 0),
+            new Point<>(integerArithmetic, 1)
+        );
+        Assertions.assertEquals(result,
+            lineSegment.map(new IntegerArithmetic(), Number::intValue)
+        );
+    }
 
     @Test
     void isValidWithZeroValues() {

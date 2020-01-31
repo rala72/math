@@ -1,5 +1,7 @@
 package io.rala.math.geometry.typed;
 
+import io.rala.math.arithmetic.core.IntegerArithmetic;
+import io.rala.math.geometry.Point;
 import io.rala.math.geometry.Rect;
 import io.rala.math.testUtils.assertion.GeometryAssertions;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
@@ -199,7 +201,23 @@ class DoubleRectTest {
 
     // endregion
 
-    // region isValid, move, rotate and copy
+    // region map, isValid, move, rotate and copy
+
+    @Test
+    void mapOfRectWithA0_5B1_5S2_5() {
+        DoubleRect rect = new DoubleRect(
+            new DoublePoint(0.5), new DoublePoint(1.5), 2.5
+        );
+        IntegerArithmetic integerArithmetic = new IntegerArithmetic();
+        Rect<Integer> result = new Rect<>(integerArithmetic,
+            new Point<>(integerArithmetic, 0),
+            new Point<>(integerArithmetic, 1),
+            2
+        );
+        Assertions.assertEquals(result,
+            rect.map(new IntegerArithmetic(), Number::intValue)
+        );
+    }
 
     @Test
     void isValidWithPositiveValues() {

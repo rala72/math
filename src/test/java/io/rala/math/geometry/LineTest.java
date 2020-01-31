@@ -1,5 +1,6 @@
 package io.rala.math.geometry;
 
+import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.testUtils.arguments.LineArgumentsStreamFactory;
 import io.rala.math.testUtils.assertion.GeometryAssertions;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
@@ -289,7 +290,16 @@ class LineTest {
 
     // endregion
 
-    // region isValid, copy
+    // region map, isValid, copy
+
+    @Test
+    void mapOfLineWithM0_5B1_5() {
+        TestLine line = new TestLine(0.5, 1.5);
+        Line<Integer> result = new Line<>(new IntegerArithmetic(), 0, 1);
+        Assertions.assertEquals(result,
+            line.map(new IntegerArithmetic(), Number::intValue)
+        );
+    }
 
     @Test
     void isValidWithZeroValues() {

@@ -9,6 +9,7 @@ import io.rala.math.utils.Validatable;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -428,7 +429,24 @@ public class Triangle<T extends Number> implements Validatable,
 
     // endregion
 
-    // region isValid, move, rotate and copy
+    // region map, isValid, move, rotate and copy
+
+    /**
+     * @param arithmetic arithmetic for calculations
+     * @param map        mapping function to convert current values to new one
+     * @param <NT>       new number class
+     * @return mapped triangle
+     */
+    public <NT extends Number> Triangle<NT> map(
+        AbstractArithmetic<NT> arithmetic, Function<T, NT> map
+    ) {
+        return new Triangle<>(
+            arithmetic,
+            getA().map(arithmetic, map),
+            getB().map(arithmetic, map),
+            getC().map(arithmetic, map)
+        );
+    }
 
     @Override
     public boolean isValid() {
