@@ -1172,8 +1172,7 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++) {
             int value = i / result.getCols() + 1;
             matrix.setValue(i, (double) value);
-            result.setValue(i,
-                (double) value +
+            result.setValue(i, (double) value +
                 (i % result.getCols() == 0 ? 2 * value : 0)
             );
         }

@@ -186,7 +186,7 @@ public class MathX {
      * @param a numbers of lcm
      * @return least common multiple
      * @throws ArithmeticException may be thrown for example by
-     * {@link Math#toIntExact(long)}
+     *                             {@link Math#toIntExact(long)}
      * @see #lcm(int, int)
      */
     public static int lcm(int... a) {
@@ -201,7 +201,7 @@ public class MathX {
      * @param a numbers of lcm
      * @return least common multiple
      * @throws ArithmeticException may be thrown for example by
-     * {@link BigInteger#longValueExact()}
+     *                             {@link BigInteger#longValueExact()}
      * @see #lcm(long, long)
      */
     public static long lcm(long... a) {
@@ -235,7 +235,7 @@ public class MathX {
      * @param b number2 of lcm
      * @return least common multiple
      * @throws ArithmeticException may be thrown for example by
-     * {@link Math#toIntExact(long)}
+     *                             {@link Math#toIntExact(long)}
      * @see #lcm(int...)
      */
     public static int lcm(int a, int b) {
@@ -249,7 +249,7 @@ public class MathX {
      * @param b number2 of lcm
      * @return least common multiple
      * @throws ArithmeticException may be thrown for example by
-     * {@link BigInteger#longValueExact()}
+     *                             {@link BigInteger#longValueExact()}
      * @see #lcm(long...)
      */
     public static long lcm(long a, long b) {
