@@ -11,6 +11,11 @@ import java.util.Objects;
  * @param <T> number class
  */
 public class Solution<E extends AbstractEquationSystem, T extends Number> {
+    /**
+     * describes the state of the solution of a {@link AbstractEquationSystem}
+     * which can either have a {@link #SINGLE} or {@link #INFINITE} solutions or
+     * is {@link #UNSOLVABLE}
+     */
     public enum State {SINGLE, UNSOLVABLE, INFINITE}
 
     // region attributes
