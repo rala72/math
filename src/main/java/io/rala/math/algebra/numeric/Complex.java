@@ -418,7 +418,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
 
     // endregion
 
-    // region map
+    // region map, isValid and copy
 
     /**
      * @param arithmetic arithmetic for calculations
@@ -434,10 +434,6 @@ public class Complex<T extends Number> extends Number implements Validatable,
             map.apply(getIm())
         );
     }
-
-    // endregion
-
-    // region isValid and copy
 
     @Override
     public boolean isValid() {

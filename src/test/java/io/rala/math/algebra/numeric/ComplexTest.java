@@ -467,7 +467,7 @@ class ComplexTest {
 
     // endregion
 
-    // region map
+    // region map, isValid and copy
 
     @Test
     void mapOfComplexWithR0_5Im1_5() {
@@ -478,10 +478,6 @@ class ComplexTest {
             complex.map(new IntegerArithmetic(), Number::intValue)
         );
     }
-
-    // endregion
-
-    // region isValid and copy
 
     @Test
     void isValidWithZero() {
