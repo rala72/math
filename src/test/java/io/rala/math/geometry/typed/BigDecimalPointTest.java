@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 class BigDecimalPointTest {
     // region constructors, getter and setter
@@ -17,9 +18,22 @@ class BigDecimalPointTest {
     }
 
     @Test
+    void constructorWithMathContext5() {
+        GeometryAssertions.assertPoint(new BigDecimalPoint(new MathContext(5)));
+    }
+
+    @Test
     void constructorWithXYParameter() {
         GeometryAssertions.assertPoint(
             new BigDecimalPoint(BigDecimal.ONE),
+            BigDecimal.ONE
+        );
+    }
+
+    @Test
+    void constructorWithXYParameterAndMathContext5() {
+        GeometryAssertions.assertPoint(
+            new BigDecimalPoint(BigDecimal.ONE, new MathContext(5)),
             BigDecimal.ONE
         );
     }
@@ -33,9 +47,31 @@ class BigDecimalPointTest {
     }
 
     @Test
+    void constructorWithEqualXYParameterAndMathContext5() {
+        GeometryAssertions.assertPoint(
+            new BigDecimalPoint(
+                BigDecimal.valueOf(2d), BigDecimal.valueOf(2d),
+                new MathContext(5)
+            ),
+            BigDecimal.valueOf(2d)
+        );
+    }
+
+    @Test
     void constructorWithDifferentXYParameter() {
         GeometryAssertions.assertPoint(
             new BigDecimalPoint(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)),
+            BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
+        );
+    }
+
+    @Test
+    void constructorWithDifferentXYParameterAndMathContext5() {
+        GeometryAssertions.assertPoint(
+            new BigDecimalPoint(
+                BigDecimal.valueOf(2d), BigDecimal.valueOf(3d),
+                new MathContext(5)
+            ),
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
     }

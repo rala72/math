@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 class BigDecimalVectorTest {
     // region constructors, getter and setter
@@ -19,9 +20,22 @@ class BigDecimalVectorTest {
     }
 
     @Test
+    void constructorWithMathContext5() {
+        GeometryAssertions.assertVector(new BigDecimalVector(new MathContext(5)));
+    }
+
+    @Test
     void constructorWithXYParameter() {
         GeometryAssertions.assertVector(
             new BigDecimalVector(BigDecimal.ONE), BigDecimal.ONE
+        );
+    }
+
+    @Test
+    void constructorWithXYParameterAndMathContext5() {
+        GeometryAssertions.assertVector(
+            new BigDecimalVector(BigDecimal.ONE, new MathContext(5)),
+            BigDecimal.ONE
         );
     }
 
@@ -34,10 +48,32 @@ class BigDecimalVectorTest {
     }
 
     @Test
+    void constructorWithEqualXYParameterAndMathContext5() {
+        GeometryAssertions.assertVector(
+            new BigDecimalVector(
+                BigDecimal.valueOf(2d), BigDecimal.valueOf(2d),
+                new MathContext(5)
+            ),
+            BigDecimal.valueOf(2d)
+        );
+    }
+
+    @Test
     void constructorWithDifferentXYParameter() {
         GeometryAssertions.assertVector(
             new BigDecimalVector(
                 BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
+            ),
+            BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
+        );
+    }
+
+    @Test
+    void constructorWithDifferentXYParameterAndMathContext5() {
+        GeometryAssertions.assertVector(
+            new BigDecimalVector(
+                BigDecimal.valueOf(2d), BigDecimal.valueOf(3d),
+                new MathContext(5)
             ),
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );

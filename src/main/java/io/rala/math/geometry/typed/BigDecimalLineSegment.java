@@ -6,6 +6,7 @@ import io.rala.math.geometry.LineSegment;
 import io.rala.math.geometry.Point;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 /**
  * class which holds a line segment in a 2d area with points a &amp; b
@@ -24,12 +25,35 @@ public class BigDecimalLineSegment extends LineSegment<BigDecimal> {
     }
 
     /**
+     * @param b       b value to be used in
+     *                {@link LineSegment#LineSegment(AbstractArithmetic, Point, Point)}
+     *                at b
+     * @param context context of {@link BigDecimalArithmetic}
+     * @see LineSegment#LineSegment(AbstractArithmetic, Point)
+     */
+    public BigDecimalLineSegment(Point<BigDecimal> b, MathContext context) {
+        super(new BigDecimalArithmetic(context), b);
+    }
+
+    /**
      * @param a a value of line segment
      * @param b b value of line segment
      * @see LineSegment#LineSegment(AbstractArithmetic, Point, Point)
      */
     public BigDecimalLineSegment(Point<BigDecimal> a, Point<BigDecimal> b) {
         super(new BigDecimalArithmetic(), a, b);
+    }
+
+    /**
+     * @param a       a value of line segment
+     * @param b       b value of line segment
+     * @param context context of {@link BigDecimalArithmetic}
+     * @see LineSegment#LineSegment(AbstractArithmetic, Point, Point)
+     */
+    public BigDecimalLineSegment(
+        Point<BigDecimal> a, Point<BigDecimal> b, MathContext context
+    ) {
+        super(new BigDecimalArithmetic(context), a, b);
     }
 
     // endregion

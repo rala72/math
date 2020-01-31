@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 class BigDecimalCircleTest {
     // region constructors, getter and setter
@@ -14,6 +15,11 @@ class BigDecimalCircleTest {
     @Test
     void constructorWithoutParameter() {
         GeometryAssertions.assertCircle(new BigDecimalCircle());
+    }
+
+    @Test
+    void constructorWithMathContext5() {
+        GeometryAssertions.assertCircle(new BigDecimalCircle(new MathContext(5)));
     }
 
     @Test
@@ -25,9 +31,31 @@ class BigDecimalCircleTest {
     }
 
     @Test
+    void constructorWithCenterAndMathContext5ButWithoutRadius() {
+        GeometryAssertions.assertCircle(
+            new BigDecimalCircle(
+                new BigDecimalPoint(BigDecimal.ONE),
+                new MathContext(5)
+            ),
+            new BigDecimalPoint(BigDecimal.ONE)
+        );
+    }
+
+    @Test
     void constructorWithRadiusButWithoutCenter() {
         GeometryAssertions.assertCircle(
             new BigDecimalCircle(BigDecimal.valueOf(2d)),
+            BigDecimal.valueOf(2d)
+        );
+    }
+
+    @Test
+    void constructorWithRadiusAndMathContext5ButWithoutCenter() {
+        GeometryAssertions.assertCircle(
+            new BigDecimalCircle(
+                BigDecimal.valueOf(2d),
+                new MathContext(5)
+            ),
             BigDecimal.valueOf(2d)
         );
     }
@@ -45,10 +73,36 @@ class BigDecimalCircleTest {
     }
 
     @Test
+    void constructorWithCenterAndPointAndMathContext5() {
+        GeometryAssertions.assertCircle(
+            new BigDecimalCircle(
+                new BigDecimalPoint(BigDecimal.valueOf(2d)),
+                new BigDecimalPoint(BigDecimal.ONE),
+                new MathContext(5)
+            ),
+            new BigDecimalPoint(BigDecimal.valueOf(2d)),
+            BigDecimal.valueOf(Math.sqrt(2d))
+        );
+    }
+
+    @Test
     void constructorWithCenterAndRadius() {
         GeometryAssertions.assertCircle(
             new BigDecimalCircle(
-                new BigDecimalPoint(BigDecimal.valueOf(2d)), BigDecimal.valueOf(3d)
+                new BigDecimalPoint(BigDecimal.valueOf(2d)),
+                BigDecimal.valueOf(3d)
+            ),
+            new BigDecimalPoint(BigDecimal.valueOf(2d)), BigDecimal.valueOf(3d)
+        );
+    }
+
+    @Test
+    void constructorWithCenterAndRadiusAndMathContext5() {
+        GeometryAssertions.assertCircle(
+            new BigDecimalCircle(
+                new BigDecimalPoint(BigDecimal.valueOf(2d)),
+                BigDecimal.valueOf(3d),
+                new MathContext(5)
             ),
             new BigDecimalPoint(BigDecimal.valueOf(2d)), BigDecimal.valueOf(3d)
         );

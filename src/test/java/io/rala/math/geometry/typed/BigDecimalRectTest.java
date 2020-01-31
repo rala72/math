@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 class BigDecimalRectTest {
     // region constructors, getter and setter
@@ -20,12 +21,38 @@ class BigDecimalRectTest {
     }
 
     @Test
+    void constructorWithHeightAndWidthAndMathContext5ButWithoutPoints() {
+        GeometryAssertions.assertRect(
+            new BigDecimalRect(
+                BigDecimal.ONE, BigDecimal.valueOf(2d),
+                new MathContext(5)
+            ),
+            BigDecimal.ONE, BigDecimal.valueOf(2d)
+        );
+    }
+
+    @Test
     void constructorWithPoint1AndSize() {
         GeometryAssertions.assertRect(
             new BigDecimalRect(
                 new BigDecimalPoint(BigDecimal.ZERO),
                 new BigDecimalPoint(BigDecimal.ONE),
                 BigDecimal.valueOf(2d)
+            ),
+            new BigDecimalPoint(),
+            new BigDecimalPoint(BigDecimal.ONE),
+            BigDecimal.valueOf(2d)
+        );
+    }
+
+    @Test
+    void constructorWithPoint1AndSizeAndMathContext5() {
+        GeometryAssertions.assertRect(
+            new BigDecimalRect(
+                new BigDecimalPoint(BigDecimal.ZERO),
+                new BigDecimalPoint(BigDecimal.ONE),
+                BigDecimal.valueOf(2d),
+                new MathContext(5)
             ),
             new BigDecimalPoint(),
             new BigDecimalPoint(BigDecimal.ONE),

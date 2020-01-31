@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 class BigDecimalLineSegmentTest {
     // region constructors, getter and setter
@@ -15,6 +16,17 @@ class BigDecimalLineSegmentTest {
     void constructorWithBParameter() {
         GeometryAssertions.assertLineSegment(
             new BigDecimalLineSegment(new BigDecimalPoint(BigDecimal.ONE)),
+            new BigDecimalPoint(BigDecimal.ONE)
+        );
+    }
+
+    @Test
+    void constructorWithBParameterAndMathContext5() {
+        GeometryAssertions.assertLineSegment(
+            new BigDecimalLineSegment(
+                new BigDecimalPoint(BigDecimal.ONE),
+                new MathContext(5)
+            ),
             new BigDecimalPoint(BigDecimal.ONE)
         );
     }
@@ -32,11 +44,37 @@ class BigDecimalLineSegmentTest {
     }
 
     @Test
+    void constructorWithEqualABParameterAndMathContext5() {
+        GeometryAssertions.assertLineSegment(
+            new BigDecimalLineSegment(
+                new BigDecimalPoint(BigDecimal.valueOf(2d)),
+                new BigDecimalPoint(BigDecimal.valueOf(2d)),
+                new MathContext(5)
+            ),
+            new BigDecimalPoint(BigDecimal.valueOf(2d)),
+            new BigDecimalPoint(BigDecimal.valueOf(2d))
+        );
+    }
+
+    @Test
     void constructorWithDifferentABParameter() {
         GeometryAssertions.assertLineSegment(
             new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.valueOf(2d), BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.valueOf(3d), BigDecimal.valueOf(3d))
+            ),
+            new BigDecimalPoint(BigDecimal.valueOf(2d)),
+            new BigDecimalPoint(BigDecimal.valueOf(3d))
+        );
+    }
+
+    @Test
+    void constructorWithDifferentABParameterAndMathContext5() {
+        GeometryAssertions.assertLineSegment(
+            new BigDecimalLineSegment(
+                new BigDecimalPoint(BigDecimal.valueOf(2d), BigDecimal.valueOf(2d)),
+                new BigDecimalPoint(BigDecimal.valueOf(3d), BigDecimal.valueOf(3d)),
+                new MathContext(5)
             ),
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             new BigDecimalPoint(BigDecimal.valueOf(3d))

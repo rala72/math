@@ -24,7 +24,7 @@ class BigDecimalComplexTest {
     }
 
     @Test
-    void constructorWithContext() {
+    void constructorWithMathContext5() {
         assertComplex(new BigDecimalComplex(new MathContext(5)));
     }
 
@@ -36,7 +36,7 @@ class BigDecimalComplexTest {
     }
 
     @Test
-    void constructorWithDifferentReImParameterAndContext() {
+    void constructorWithDifferentReImParameterAndMathContext5() {
         assertComplex(new BigDecimalComplex(
             BigDecimal.valueOf(2), BigDecimal.valueOf(3), new MathContext(5)
         ), BigDecimal.valueOf(2), BigDecimal.valueOf(3));

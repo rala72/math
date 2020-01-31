@@ -11,6 +11,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.stream.Stream;
 
 class BigDecimalLineTest {
@@ -25,9 +26,28 @@ class BigDecimalLineTest {
     }
 
     @Test
+    void constructorWithXAndMathContext5() {
+        GeometryAssertions.assertLine(
+            new BigDecimalLine(
+                BigDecimal.ONE,
+                new MathContext(5)
+            ), null, BigDecimal.ONE
+        );
+    }
+
+    @Test
     void constructorWithMB() {
         GeometryAssertions.assertLine(new BigDecimalLine(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
+        ), BigDecimal.valueOf(2d), BigDecimal.valueOf(3d));
+    }
+
+    @Test
+    void constructorWithMBAndMathContext5() {
+        GeometryAssertions.assertLine(new BigDecimalLine(
+            BigDecimal.valueOf(2d),
+            BigDecimal.valueOf(3d),
+            new MathContext(5)
         ), BigDecimal.valueOf(2d), BigDecimal.valueOf(3d));
     }
 

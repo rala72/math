@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 class BigDecimalTriangleTest {
     // region constructors, getter and setter
@@ -19,6 +20,21 @@ class BigDecimalTriangleTest {
                 new BigDecimalPoint(BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.valueOf(3d)),
                 new BigDecimalPoint(BigDecimal.valueOf(4d))
+            ),
+            new BigDecimalPoint(BigDecimal.valueOf(2d)),
+            new BigDecimalPoint(BigDecimal.valueOf(3d)),
+            new BigDecimalPoint(BigDecimal.valueOf(4d))
+        );
+    }
+
+    @Test
+    void constructorWithA2B3C4AndMathContext5() {
+        GeometryAssertions.assertTriangle(
+            new BigDecimalTriangle(
+                new BigDecimalPoint(BigDecimal.valueOf(2d)),
+                new BigDecimalPoint(BigDecimal.valueOf(3d)),
+                new BigDecimalPoint(BigDecimal.valueOf(4d)),
+                new MathContext(5)
             ),
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             new BigDecimalPoint(BigDecimal.valueOf(3d)),
