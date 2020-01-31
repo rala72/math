@@ -297,7 +297,9 @@ class AbstractArithmeticTest {
 
     @Test
     void equalsOfAbstractArithmetic() {
-        Assertions.assertEquals(new TestAbstractArithmetic(), new TestAbstractArithmetic());
+        Assertions.assertEquals(
+            new TestAbstractArithmetic(), new TestAbstractArithmetic()
+        );
     }
 
     @Test

@@ -424,7 +424,9 @@ class FractionTest {
         assertFraction(fraction, 1d, 1d);
     }
 
-    private static void assertFraction(Fraction<Number, Number> fraction, Number no, Number de) {
+    private static void assertFraction(
+        Fraction<Number, Number> fraction, Number no, Number de
+    ) {
         NumericAssertions.assertFraction(fraction, no, de);
     }
 

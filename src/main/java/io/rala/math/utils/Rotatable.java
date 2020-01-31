@@ -11,7 +11,8 @@ public interface Rotatable<T> {
     /**
      * @param phi angle in radiant
      * @return a new instance with rotated properties
-     * @implSpec default implementation calls {@link #rotate(Point, double)} with {@link Point#Point()}
+     * @implSpec default implementation calls
+     * {@link #rotate(Point, double)} with {@link Point#Point()}
      */
     default T rotate(double phi) {
         return rotate(new Point(), phi);

@@ -29,7 +29,8 @@ class LinearEquationSystemTest {
     void solveWithGaussOfLinearEquationSystem() {
         LinearEquationSystem<Number> equationSystem =
             new LinearEquationSystem<>(matrix);
-        Solution<LinearEquationSystem<Number>, Number> solution = equationSystem.solveWithGauss();
+        Solution<LinearEquationSystem<Number>, Number> solution =
+            equationSystem.solveWithGauss();
         Assertions.assertEquals(Solution.unsolvable(equationSystem), solution);
     }
 
@@ -73,7 +74,9 @@ class LinearEquationSystemTest {
         LinearEquationSystem.LinearEquationMatrix<Number> equationMatrix =
             new LinearEquationSystem.LinearEquationMatrix<>(matrix);
         Assertions.assertEquals(equationMatrix, matrix);
-        Assertions.assertTrue(equationMatrix.getArithmetic() instanceof TestAbstractArithmetic);
+        Assertions.assertTrue(
+            equationMatrix.getArithmetic() instanceof TestAbstractArithmetic
+        );
     }
 
     @Test

@@ -22,7 +22,9 @@ public class NumericAssertions {
     /**
      * asserts that fraction has expected values
      */
-    public static <T extends Number, R extends Number> void assertFraction(Fraction<T, R> fraction, T no, T de) {
+    public static <T extends Number, R extends Number> void assertFraction(
+        Fraction<T, R> fraction, T no, T de
+    ) {
         Assertions.assertEquals(no, fraction.getNumerator(), "no is invalid");
         Assertions.assertEquals(de, fraction.getDenominator(), "de is invalid");
     }

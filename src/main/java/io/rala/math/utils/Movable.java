@@ -11,7 +11,8 @@ public interface Movable<T> {
     /**
      * @param xy x and y value to use for movement
      * @return a new instance moved by given value
-     * @implSpec default implementation calls {@link #move(double, double)} with value at x and y
+     * @implSpec default implementation calls {@link #move(double, double)}
+     * with value at x and y
      * @see #move(double, double)
      * @see #move(Vector)
      */

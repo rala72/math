@@ -18,8 +18,12 @@ class AbstractResultArithmeticTest {
 
     @Test
     void getArithmetic() {
-        Assertions.assertTrue(arithmetic.getTArithmetic() instanceof TestAbstractArithmetic);
-        Assertions.assertTrue(arithmetic.getRArithmetic() instanceof TestAbstractArithmetic);
+        Assertions.assertTrue(
+            arithmetic.getTArithmetic() instanceof TestAbstractArithmetic
+        );
+        Assertions.assertTrue(
+            arithmetic.getRArithmetic() instanceof TestAbstractArithmetic
+        );
     }
 
     // region sum, difference, product, quotient and modulo
@@ -87,13 +91,18 @@ class AbstractResultArithmeticTest {
 
     @Test
     void of() {
-        AbstractResultArithmetic<Number, Number> ofArithmetic = AbstractResultArithmetic.of(
-            new TestAbstractArithmetic(),
-            new TestAbstractArithmetic(),
-            number -> number
+        AbstractResultArithmetic<Number, Number> ofArithmetic =
+            AbstractResultArithmetic.of(
+                new TestAbstractArithmetic(),
+                new TestAbstractArithmetic(),
+                number -> number
+            );
+        Assertions.assertTrue(
+            ofArithmetic.getTArithmetic() instanceof TestAbstractArithmetic
         );
-        Assertions.assertTrue(ofArithmetic.getTArithmetic() instanceof TestAbstractArithmetic);
-        Assertions.assertTrue(ofArithmetic.getRArithmetic() instanceof TestAbstractArithmetic);
+        Assertions.assertTrue(
+            ofArithmetic.getRArithmetic() instanceof TestAbstractArithmetic
+        );
         Assertions.assertEquals(0, ofArithmetic.fromT(0));
         Assertions.assertEquals(-0d, ofArithmetic.fromT(-0d));
     }

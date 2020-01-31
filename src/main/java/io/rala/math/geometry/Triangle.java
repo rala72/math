@@ -133,7 +133,8 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
     /**
      * @param edge  edge to get altitude from
      * @param point point to get altitude from
-     * @return altitude starting at {@code point} and ending at intersection with {@code edge}
+     * @return altitude starting at {@code point} and
+     * ending at intersection with {@code edge}
      */
     protected LineSegment getAltitude(Line edge, Point point) {
         Line altitudeLine = edge.normal(point);
@@ -322,7 +323,8 @@ public class Triangle implements Validatable, Movable<Triangle>, Rotatable<Trian
 
     @Override
     public Triangle move(Vector vector) {
-        return new Triangle(getA().move(vector), getB().move(vector), getC().move(vector));
+        return new Triangle(getA().move(vector), getB()
+            .move(vector), getC().move(vector));
     }
 
     @Override

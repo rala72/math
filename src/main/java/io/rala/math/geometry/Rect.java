@@ -266,12 +266,16 @@ public class Rect implements Validatable, Movable<Rect>, Rotatable<Rect>,
     public int compareTo(Rect o) {
         int compare = Double.compare(getSize(), o.getSize());
         if (compare != 0) return compare;
-        Point min = List.of(getA(), getB()).stream().min(Point::compareTo).orElse(getA());
-        Point minO = List.of(o.getA(), o.getB()).stream().min(Point::compareTo).orElse(o.getA());
+        Point min = List.of(getA(), getB()).stream()
+            .min(Point::compareTo).orElse(getA());
+        Point minO = List.of(o.getA(), o.getB()).stream()
+            .min(Point::compareTo).orElse(o.getA());
         int a = min.compareTo(minO);
         if (a != 0) return a;
-        Point max = List.of(getA(), getB()).stream().max(Point::compareTo).orElse(getB());
-        Point maxO = List.of(o.getA(), o.getB()).stream().max(Point::compareTo).orElse(o.getB());
+        Point max = List.of(getA(), getB()).stream()
+            .max(Point::compareTo).orElse(getB());
+        Point maxO = List.of(o.getA(), o.getB()).stream()
+            .max(Point::compareTo).orElse(o.getB());
         return max.compareTo(maxO);
     }
 

@@ -24,8 +24,11 @@ class BigIntegerBigDecimalResultArithmeticTest {
     void constructorWithMathContext() {
         BigIntegerBigDecimalResultArithmetic arithmetic =
             new BigIntegerBigDecimalResultArithmetic(new MathContext(5));
-        Assertions.assertTrue(arithmetic.getRArithmetic() instanceof BigDecimalArithmetic);
-        BigDecimalArithmetic rArithmetic = (BigDecimalArithmetic) arithmetic.getRArithmetic();
+        Assertions.assertTrue(
+            arithmetic.getRArithmetic() instanceof BigDecimalArithmetic
+        );
+        BigDecimalArithmetic rArithmetic =
+            (BigDecimalArithmetic) arithmetic.getRArithmetic();
         Assertions.assertEquals(5, rArithmetic.getMathContext().getPrecision());
     }
 
@@ -71,7 +74,11 @@ class BigIntegerBigDecimalResultArithmeticTest {
     @Test
     void product123() {
         Assertions.assertEquals(BigDecimal.valueOf(6),
-            arithmetic.product(BigInteger.ONE, BigInteger.valueOf(2), BigInteger.valueOf(3))
+            arithmetic.product(
+                BigInteger.ONE,
+                BigInteger.valueOf(2),
+                BigInteger.valueOf(3)
+            )
         );
     }
 

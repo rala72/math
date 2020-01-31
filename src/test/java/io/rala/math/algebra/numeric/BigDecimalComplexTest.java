@@ -183,7 +183,8 @@ class BigDecimalComplexTest {
     @Test
     void complexSignumOfComplexXMinus1Y0() {
         Assertions.assertEquals(-1,
-            new BigDecimalComplex(BigDecimal.ONE.negate(), BigDecimal.ZERO).complexSignum()
+            new BigDecimalComplex(BigDecimal.ONE.negate(), BigDecimal.ZERO)
+                .complexSignum()
         );
     }
 
@@ -197,7 +198,8 @@ class BigDecimalComplexTest {
     @Test
     void complexSignumOfComplexX0YMinus1() {
         Assertions.assertEquals(-1,
-            new BigDecimalComplex(BigDecimal.ZERO, BigDecimal.ONE.negate()).complexSignum()
+            new BigDecimalComplex(BigDecimal.ZERO, BigDecimal.ONE.negate())
+                .complexSignum()
         );
     }
 
@@ -653,7 +655,9 @@ class BigDecimalComplexTest {
         assertComplex(complex, BigDecimal.ZERO, BigDecimal.ZERO);
     }
 
-    private static void assertComplex(Complex<BigDecimal> complex, BigDecimal re, BigDecimal im) {
+    private static void assertComplex(
+        Complex<BigDecimal> complex, BigDecimal re, BigDecimal im
+    ) {
         NumericAssertions.assertComplex(complex, re, im);
     }
 

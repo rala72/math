@@ -234,7 +234,9 @@ class FractionArithmeticTest {
 
     @Test
     void equalsOfArithmetic() {
-        Assertions.assertEquals(new TestFractionArithmetic(), new TestFractionArithmetic());
+        Assertions.assertEquals(
+            new TestFractionArithmetic(), new TestFractionArithmetic()
+        );
     }
 
     @Test

@@ -26,7 +26,8 @@ public class EnumerativeCombinatoric {
     /**
      * @param n number of elements
      * @return {@code n!}
-     * @throws ArithmeticException may be thrown for example by {@link BigInteger#longValueExact()}
+     * @throws ArithmeticException may be thrown for example by
+     *                             {@link BigInteger#longValueExact()}
      * @see MathX#factorial(long)
      */
     public static long permutationsWithoutRepetition(long n) {
@@ -51,7 +52,9 @@ public class EnumerativeCombinatoric {
      * @see MathX#factorial(int)
      */
     public static long permutationsWithRepetition(int n, int... k) {
-        return permutationsWithRepetition(n, Arrays.stream(k).mapToLong(Long::valueOf).toArray());
+        return permutationsWithRepetition(n,
+            Arrays.stream(k).mapToLong(Long::valueOf).toArray()
+        );
     }
 
     /**
@@ -60,7 +63,8 @@ public class EnumerativeCombinatoric {
      * @param n number of elements
      * @param k sub number of elements
      * @return {@code n! / product(k)}
-     * @throws ArithmeticException may be thrown for example by {@link BigInteger#longValueExact()}
+     * @throws ArithmeticException may be thrown for example by
+     * {@link BigInteger#longValueExact()}
      * @see MathX#factorial(long)
      */
     public static long permutationsWithRepetition(long n, long... k) {
@@ -102,7 +106,8 @@ public class EnumerativeCombinatoric {
      * @param n number of elements
      * @param k sub number of elements
      * @return {@code nPr(n,k)}
-     * @throws ArithmeticException may be thrown for example by {@link BigInteger#longValueExact()}
+     * @throws ArithmeticException may be thrown for example by
+     * {@link BigInteger#longValueExact()}
      * @see MathX#factorial(long)
      */
     public static long variationsWithoutRepetition(long n, long k) {
@@ -135,7 +140,8 @@ public class EnumerativeCombinatoric {
      * @param n number of elements
      * @param k sub number of elements - has to be in {@link Integer} range
      * @return n^k
-     * @throws ArithmeticException may be thrown for example by {@link BigInteger#longValueExact()}
+     * @throws ArithmeticException may be thrown for example by
+     * {@link BigInteger#longValueExact()}
      * @see BigInteger#pow(int)
      */
     public static long variationsWithRepetition(long n, long k) {
@@ -148,7 +154,8 @@ public class EnumerativeCombinatoric {
      * @param n number of elements
      * @param k sub number of elements - has to be in {@link Integer} range
      * @return n^k
-     * @throws ArithmeticException may be thrown for example by {@link BigInteger#longValueExact()}
+     * @throws ArithmeticException may be thrown for example by
+     * {@link BigInteger#longValueExact()}
      * @see BigInteger#pow(int)
      */
     public static BigInteger variationsWithRepetition(BigInteger n, BigInteger k) {
@@ -173,7 +180,8 @@ public class EnumerativeCombinatoric {
      * @param n number of elements
      * @param k sub number of elements
      * @return {@code nCr(n,k)}
-     * @throws ArithmeticException may be thrown for example by {@link BigInteger#longValueExact()}
+     * @throws ArithmeticException may be thrown for example by
+     * {@link BigInteger#longValueExact()}
      * @see MathX#factorial(long)
      */
     public static long combinationsWithoutRepetition(long n, long k) {
@@ -190,7 +198,10 @@ public class EnumerativeCombinatoric {
      */
     public static BigInteger combinationsWithoutRepetition(BigInteger n, BigInteger k) {
         if (k.equals(BigInteger.ZERO) || n.equals(k)) return BigInteger.ONE;
-        return MathX.factorial(n).divide(MathX.factorial(n.subtract(k)).multiply(MathX.factorial(k)));
+        return MathX.factorial(n).divide(
+            MathX.factorial(n.subtract(k))
+                .multiply(MathX.factorial(k))
+        );
     }
 
     /**
@@ -207,11 +218,13 @@ public class EnumerativeCombinatoric {
      * @param n number of elements
      * @param k sub number of elements
      * @return {@code nCr(n+k-1,k)}
-     * @throws ArithmeticException may be thrown for example by {@link BigInteger#longValueExact()}
+     * @throws ArithmeticException may be thrown for example by
+     * {@link BigInteger#longValueExact()}
      * @see #combinationsWithoutRepetition(long, long)
      */
     public static long combinationsWithRepetition(long n, long k) {
-        return combinationsWithRepetition(BigInteger.valueOf(n), BigInteger.valueOf(k)).longValueExact();
+        return combinationsWithRepetition(BigInteger.valueOf(n), BigInteger.valueOf(k))
+            .longValueExact();
     }
 
     /**
