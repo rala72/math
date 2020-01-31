@@ -74,7 +74,7 @@ public class Line<T extends Number> implements Validatable,
      * @param m new m value of line - use {@code null} if {@link #isVertical()}
      */
     public void setM(T m) {
-        this.m = m;
+        this.m = m != null && getArithmetic().isFinite(m) ? m : null;
     }
 
     /**
