@@ -36,7 +36,9 @@ public class FractionArithmetic<T extends Number, R extends Number>
 
     @Override
     public Fraction<T, R> fromInt(int a) {
-        return new Fraction<>(getArithmetic(), getArithmetic().getTArithmetic().fromInt(a));
+        return new Fraction<>(getArithmetic(),
+            getArithmetic().getTArithmetic().fromInt(a)
+        );
     }
 
     @Override

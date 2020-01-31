@@ -370,7 +370,9 @@ class LongDoubleFractionTest {
         assertFraction(fraction, 1, 1);
     }
 
-    private static void assertFraction(Fraction<Long, Double> fraction, long no, long de) {
+    private static void assertFraction(
+        Fraction<Long, Double> fraction, long no, long de
+    ) {
         NumericAssertions.assertFraction(fraction, no, de);
     }
 

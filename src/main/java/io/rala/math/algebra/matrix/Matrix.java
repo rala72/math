@@ -251,7 +251,8 @@ public class Matrix<T extends Number>
         else {
             AtomicReference<T> previous = new AtomicReference<>(getDefaultValue());
             matrix.compute((int) (index / getCols()), (integer, integerTMap) -> {
-                Map<Integer, T> map = integerTMap == null ? new HashMap<>() : integerTMap;
+                Map<Integer, T> map = integerTMap == null ?
+                    new HashMap<>() : integerTMap;
                 T prev = map.put((int) (index % getCols()), value);
                 if (prev != null) previous.set(prev);
                 return map;
@@ -589,7 +590,9 @@ public class Matrix<T extends Number>
     ) {
         if (values.length % rows != 0)
             throw new IllegalArgumentException(EXCEPTION_ROWS_NOT_CONGRUENT_0);
-        Matrix<T> matrix = new Matrix<>(arithmetic, rows, values.length / rows, defaultValue);
+        Matrix<T> matrix = new Matrix<>(arithmetic,
+            rows, values.length / rows, defaultValue
+        );
         for (int i = 0; i < values.length; i++)
             matrix.setValue(i, values[i]);
         return matrix;

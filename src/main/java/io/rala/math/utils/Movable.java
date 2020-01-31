@@ -12,7 +12,8 @@ public interface Movable<N extends Number, T> {
     /**
      * @param xy x and y value to use for movement
      * @return a new instance moved by given value
-     * @implSpec default implementation calls {@link #move(Number, Number)} with value at x and y
+     * @implSpec default implementation calls {@link #move(Number, Number)}
+     * with value at x and y
      * @see #move(Number, Number)
      * @see #move(Vector)
      */

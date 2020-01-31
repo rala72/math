@@ -13,7 +13,8 @@ public interface Rotatable<N extends Number, T> {
     /**
      * @param phi angle in radiant
      * @return a new instance with rotated properties
-     * @implSpec default implementation should call {@link #rotate(Point, Number)}
+     * @implSpec default implementation should call
+     * {@link #rotate(Point, Number)}
      * with {@link Point#Point(AbstractArithmetic)}
      */
     T rotate(N phi);

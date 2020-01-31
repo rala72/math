@@ -70,7 +70,8 @@ class SolutionTest {
 
     @Test
     void createStaticUnsolvable() {
-        Solution<AbstractEquationSystem, Number> solution = Solution.unsolvable(equationSystem);
+        Solution<AbstractEquationSystem, Number> solution =
+            Solution.unsolvable(equationSystem);
         Assertions.assertEquals(equationSystem, solution.getEquationSystem());
         Assertions.assertTrue(solution.getSolution().isEmpty());
         Assertions.assertEquals(Solution.State.UNSOLVABLE, solution.getState());
@@ -78,7 +79,8 @@ class SolutionTest {
 
     @Test
     void createStaticInfinite() {
-        Solution<AbstractEquationSystem, Number> solution = Solution.infinite(equationSystem);
+        Solution<AbstractEquationSystem, Number> solution =
+            Solution.infinite(equationSystem);
         Assertions.assertEquals(equationSystem, solution.getEquationSystem());
         Assertions.assertTrue(solution.getSolution().isEmpty());
         Assertions.assertEquals(Solution.State.INFINITE, solution.getState());

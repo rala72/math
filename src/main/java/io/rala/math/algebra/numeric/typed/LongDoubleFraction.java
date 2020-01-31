@@ -1,6 +1,7 @@
 package io.rala.math.algebra.numeric.typed;
 
 import io.rala.math.algebra.numeric.Fraction;
+import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.result.LongDoubleResultArithmetic;
 
 /**
@@ -25,7 +26,7 @@ public class LongDoubleFraction extends Fraction<Long, Double> {
      *
      * @param numerator   numerator of fraction
      * @param denominator denominator of fraction
-     * @see Fraction#Fraction(io.rala.math.arithmetic.AbstractResultArithmetic, Number, Number)
+     * @see Fraction#Fraction(AbstractResultArithmetic, Number, Number)
      */
     public LongDoubleFraction(long numerator, long denominator) {
         super(new LongDoubleResultArithmetic(), numerator, denominator);

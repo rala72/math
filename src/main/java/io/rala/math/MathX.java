@@ -29,18 +29,22 @@ public class MathX {
     /**
      * @param a numbers of gcd
      * @return greatest common divisor
-     * @throws ArithmeticException may be thrown for example by {@link Math#toIntExact(long)}
+     * @throws ArithmeticException may be thrown for example by
+     *                             {@link Math#toIntExact(long)}
      * @see #gcd(int, int)
      * @see BigInteger#gcd(BigInteger)
      */
     public static int gcd(int... a) {
-        return Math.toIntExact(gcd(Arrays.stream(a).mapToLong(value -> value).toArray()));
+        return Math.toIntExact(
+            gcd(Arrays.stream(a).mapToLong(value -> value).toArray())
+        );
     }
 
     /**
      * @param a numbers of gcd
      * @return greatest common divisor
-     * @throws ArithmeticException may be thrown for example by {@link BigInteger#longValueExact()}
+     * @throws ArithmeticException may be thrown for example by
+     *                             {@link BigInteger#longValueExact()}
      * @see #gcd(long, long)
      * @see BigInteger#gcd(BigInteger)
      */
@@ -71,7 +75,8 @@ public class MathX {
      * @param a number1 of gcd
      * @param b number2 of gcd
      * @return greatest common divisor
-     * @throws ArithmeticException may be thrown for example by {@link Math#toIntExact(long)}
+     * @throws ArithmeticException may be thrown for example by
+     *                             {@link Math#toIntExact(long)}
      * @see #gcd(int...)
      * @see BigInteger#gcd(BigInteger)
      */
@@ -83,7 +88,8 @@ public class MathX {
      * @param a number1 of gcd
      * @param b number2 of gcd
      * @return greatest common divisor
-     * @throws ArithmeticException may be thrown for example by {@link BigInteger#longValueExact()}
+     * @throws ArithmeticException may be thrown for example by
+     *                             {@link BigInteger#longValueExact()}
      * @see #gcd(long...)
      * @see BigInteger#gcd(BigInteger)
      */
@@ -151,7 +157,8 @@ public class MathX {
      *
      * @param a number
      * @return factorial
-     * @throws ArithmeticException may be thrown for example by {@link BigInteger#longValueExact()}
+     * @throws ArithmeticException may be thrown for example by
+     *                             {@link BigInteger#longValueExact()}
      */
     public static long factorial(long a) {
         return factorial(BigInteger.valueOf(a)).longValueExact();
@@ -178,11 +185,14 @@ public class MathX {
      *
      * @param a numbers of lcm
      * @return least common multiple
-     * @throws ArithmeticException may be thrown for example by {@link Math#toIntExact(long)}
+     * @throws ArithmeticException may be thrown for example by
+     * {@link Math#toIntExact(long)}
      * @see #lcm(int, int)
      */
     public static int lcm(int... a) {
-        return Math.toIntExact(lcm(Arrays.stream(a).mapToLong(value -> value).toArray()));
+        return Math.toIntExact(
+            lcm(Arrays.stream(a).mapToLong(value -> value).toArray())
+        );
     }
 
     /**
@@ -190,7 +200,8 @@ public class MathX {
      *
      * @param a numbers of lcm
      * @return least common multiple
-     * @throws ArithmeticException may be thrown for example by {@link BigInteger#longValueExact()}
+     * @throws ArithmeticException may be thrown for example by
+     * {@link BigInteger#longValueExact()}
      * @see #lcm(long, long)
      */
     public static long lcm(long... a) {
@@ -223,7 +234,8 @@ public class MathX {
      * @param a number1 of lcm
      * @param b number2 of lcm
      * @return least common multiple
-     * @throws ArithmeticException may be thrown for example by {@link Math#toIntExact(long)}
+     * @throws ArithmeticException may be thrown for example by
+     * {@link Math#toIntExact(long)}
      * @see #lcm(int...)
      */
     public static int lcm(int a, int b) {
@@ -236,7 +248,8 @@ public class MathX {
      * @param a number1 of lcm
      * @param b number2 of lcm
      * @return least common multiple
-     * @throws ArithmeticException may be thrown for example by {@link BigInteger#longValueExact()}
+     * @throws ArithmeticException may be thrown for example by
+     * {@link BigInteger#longValueExact()}
      * @see #lcm(long...)
      */
     public static long lcm(long a, long b) {

@@ -12,37 +12,49 @@ class EnumerativeCombinatoricTest {
     @ParameterizedTest
     @MethodSource("getPermutationsWithoutRepetitionArguments")
     void permutationsWithoutRepetition(int n, long expected) {
-        Assertions.assertEquals(expected, EnumerativeCombinatoric.permutationsWithoutRepetition(n));
+        Assertions.assertEquals(expected,
+            EnumerativeCombinatoric.permutationsWithoutRepetition(n)
+        );
     }
 
     @ParameterizedTest
     @MethodSource("getPermutationsWithRepetitionArguments")
     void permutationsWithRepetition(long expected, int n, int... k) {
-        Assertions.assertEquals(expected, EnumerativeCombinatoric.permutationsWithRepetition(n, k));
+        Assertions.assertEquals(expected,
+            EnumerativeCombinatoric.permutationsWithRepetition(n, k)
+        );
     }
 
     @ParameterizedTest
     @MethodSource("getVariationsWithoutRepetitionArguments")
     void variationsWithoutRepetition(int n, int k, long expected) {
-        Assertions.assertEquals(expected, EnumerativeCombinatoric.variationsWithoutRepetition(n, k));
+        Assertions.assertEquals(expected,
+            EnumerativeCombinatoric.variationsWithoutRepetition(n, k)
+        );
     }
 
     @ParameterizedTest
     @MethodSource("getVariationsWithRepetitionArguments")
     void variationsWithRepetition(int n, int k, long expected) {
-        Assertions.assertEquals(expected, EnumerativeCombinatoric.variationsWithRepetition(n, k));
+        Assertions.assertEquals(expected,
+            EnumerativeCombinatoric.variationsWithRepetition(n, k)
+        );
     }
 
     @ParameterizedTest
     @MethodSource("getCombinationsWithoutRepetitionArguments")
     void combinationsWithoutRepetition(int n, int k, long expected) {
-        Assertions.assertEquals(expected, EnumerativeCombinatoric.combinationsWithoutRepetition(n, k));
+        Assertions.assertEquals(expected,
+            EnumerativeCombinatoric.combinationsWithoutRepetition(n, k)
+        );
     }
 
     @ParameterizedTest
     @MethodSource("getCombinationsWithRepetitionArguments")
     void combinationsWithRepetition(int n, int k, long expected) {
-        Assertions.assertEquals(expected, EnumerativeCombinatoric.combinationsWithRepetition(n, k));
+        Assertions.assertEquals(expected,
+            EnumerativeCombinatoric.combinationsWithRepetition(n, k)
+        );
     }
 
     // region argument streams

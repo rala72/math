@@ -1,6 +1,7 @@
 package io.rala.math.algebra.numeric.typed;
 
 import io.rala.math.algebra.numeric.Fraction;
+import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.result.BigIntegerBigDecimalResultArithmetic;
 
 import java.math.BigDecimal;
@@ -28,7 +29,7 @@ public class BigIntegerBigDecimalFraction extends Fraction<BigInteger, BigDecima
      *
      * @param numerator   numerator of fraction
      * @param denominator denominator of fraction
-     * @see Fraction#Fraction(io.rala.math.arithmetic.AbstractResultArithmetic, Number, Number)
+     * @see Fraction#Fraction(AbstractResultArithmetic, Number, Number)
      */
     public BigIntegerBigDecimalFraction(BigInteger numerator, BigInteger denominator) {
         super(new BigIntegerBigDecimalResultArithmetic(), numerator, denominator);

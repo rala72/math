@@ -40,12 +40,16 @@ class BigDecimalArithmeticTest {
 
     @Test
     void absoluteM1() {
-        Assertions.assertEquals(BigDecimal.ONE, arithmetic.absolute(BigDecimal.ONE.negate()));
+        Assertions.assertEquals(BigDecimal.ONE,
+            arithmetic.absolute(BigDecimal.ONE.negate())
+        );
     }
 
     @Test
     void negate1() {
-        Assertions.assertEquals(BigDecimal.ONE.negate(), arithmetic.negate(BigDecimal.ONE));
+        Assertions.assertEquals(BigDecimal.ONE.negate(),
+            arithmetic.negate(BigDecimal.ONE)
+        );
     }
 
     @Test
@@ -129,7 +133,11 @@ class BigDecimalArithmeticTest {
     @Test
     void product123() {
         Assertions.assertEquals(BigDecimal.valueOf(6),
-            arithmetic.product(BigDecimal.ONE, BigDecimal.valueOf(2), BigDecimal.valueOf(3))
+            arithmetic.product(
+                BigDecimal.ONE,
+                BigDecimal.valueOf(2),
+                BigDecimal.valueOf(3)
+            )
         );
     }
 

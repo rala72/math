@@ -38,12 +38,16 @@ class BigIntegerArithmeticTest {
 
     @Test
     void absoluteM1() {
-        Assertions.assertEquals(BigInteger.ONE, arithmetic.absolute(BigInteger.ONE.negate()));
+        Assertions.assertEquals(BigInteger.ONE,
+            arithmetic.absolute(BigInteger.ONE.negate())
+        );
     }
 
     @Test
     void negate1() {
-        Assertions.assertEquals(BigInteger.ONE.negate(), arithmetic.negate(BigInteger.ONE));
+        Assertions.assertEquals(BigInteger.ONE.negate(),
+            arithmetic.negate(BigInteger.ONE)
+        );
     }
 
     @Test

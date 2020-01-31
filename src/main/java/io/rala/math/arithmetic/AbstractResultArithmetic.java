@@ -174,7 +174,9 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @return {@link AbstractResultArithmetic} with given values
      */
     public static <T extends Number, R extends Number> AbstractResultArithmetic<T, R> of(
-        AbstractArithmetic<T> tArithmetic, AbstractArithmetic<R> rArithmetic, Function<T, R> map
+        AbstractArithmetic<T> tArithmetic,
+        AbstractArithmetic<R> rArithmetic,
+        Function<T, R> map
     ) {
         return new AbstractResultArithmetic<>(tArithmetic, rArithmetic) {
             @Override

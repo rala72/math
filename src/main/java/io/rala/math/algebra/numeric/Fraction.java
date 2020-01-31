@@ -31,7 +31,8 @@ public class Fraction<T extends Number, V extends Number> extends Number
     // region constructors
 
     /**
-     * calls {@link #Fraction(AbstractResultArithmetic, Number, Number)} with given numerator and {@code null}
+     * calls {@link #Fraction(AbstractResultArithmetic, Number, Number)}
+     * with given numerator and {@code null}
      *
      * @param arithmetic arithmetic for calculations
      * @param numerator  numerator of fraction
@@ -48,7 +49,9 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @param numerator   numerator of fraction
      * @param denominator denominator of fraction
      */
-    public Fraction(AbstractResultArithmetic<T, V> arithmetic, T numerator, T denominator) {
+    public Fraction(
+        AbstractResultArithmetic<T, V> arithmetic, T numerator, T denominator
+    ) {
         this.arithmetic = arithmetic;
         setNumerator(numerator);
         setDenominator(denominator);
@@ -64,7 +67,9 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @param fraction fraction to copy
      */
     protected Fraction(Fraction<T, V> fraction) {
-        this(fraction.getArithmetic(), fraction.getNumerator(), fraction.getDenominator());
+        this(fraction.getArithmetic(),
+            fraction.getNumerator(), fraction.getDenominator()
+        );
     }
 
     // endregion

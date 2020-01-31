@@ -25,7 +25,8 @@ public class SerializableUtils {
     public static <T extends Serializable> byte[] serialize(T t)
         throws IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
+        ObjectOutputStream objectOutputStream =
+            new ObjectOutputStream(byteArrayOutputStream);
         objectOutputStream.writeObject(t);
         objectOutputStream.close();
         return byteArrayOutputStream.toByteArray();
@@ -47,7 +48,8 @@ public class SerializableUtils {
         throws IOException, ClassNotFoundException {
 
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
-        ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+        ObjectInputStream objectInputStream =
+            new ObjectInputStream(byteArrayInputStream);
         Object object = objectInputStream.readObject();
         return tClass.cast(object);
     }

@@ -314,7 +314,9 @@ class ComplexArithmeticTest {
 
     @Test
     void equalsOfArithmetic() {
-        Assertions.assertEquals(new TestComplexArithmetic(), new TestComplexArithmetic());
+        Assertions.assertEquals(
+            new TestComplexArithmetic(), new TestComplexArithmetic()
+        );
     }
 
     @Test

@@ -22,7 +22,9 @@ public class MatrixAssertions {
     /**
      * asserts that matrix has expected values
      */
-    public static <T extends Number> void assertMatrix(Matrix<T> matrix, int rows, int cols) {
+    public static <T extends Number> void assertMatrix(
+        Matrix<T> matrix, int rows, int cols
+    ) {
         Assertions.assertEquals(rows, matrix.getRows(), "rows is invalid");
         Assertions.assertEquals(cols, matrix.getCols(), "cols is invalid");
     }

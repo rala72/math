@@ -1173,7 +1173,8 @@ class MatrixTest {
             int value = i / result.getCols() + 1;
             matrix.setValue(i, (double) value);
             result.setValue(i,
-                (double) value + (i % result.getCols() == 0 ? 2 * value : 0)
+                (double) value +
+                (i % result.getCols() == 0 ? 2 * value : 0)
             );
         }
         Assertions.assertEquals(result, matrix.addColMultipleTimes(0, 1, 2d));

@@ -42,7 +42,8 @@ public class LineArgumentsStreamFactory {
     }
 
     private static Stream<Arguments> createCalculateArguments(
-        double m, double b, double minValue, double maxValue, double steps, Function<Double, Double> function
+        double m, double b, double minValue, double maxValue, double steps,
+        Function<Double, Double> function
     ) {
         List<Arguments> list = new ArrayList<>();
         for (double y = minValue; y < maxValue; y += steps)
