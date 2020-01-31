@@ -327,7 +327,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
     /**
      * @return new complex representing
      * {@link #getX()} as {@code re} and
-     * {@link #getY()} as {@code im
+     * {@link #getY()} as {@code im}
      */
     public Complex<T> asComplex() {
         return new Complex<>(getArithmetic(), getX(), getY());
