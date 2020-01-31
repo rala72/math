@@ -79,13 +79,13 @@ class DoubleLineTest {
 
     @ParameterizedTest
     @MethodSource("getCalculateXArguments")
-    void calculateX(double m, double b, double y, double expected) {
+    void calculateX(double m, double b, double y, Double expected) {
         Assertions.assertEquals(expected, new DoubleLine(m, b).calculateX(y));
     }
 
     @ParameterizedTest
     @MethodSource("getCalculateYArguments")
-    void calculateY(double m, double b, double x, double expected) {
+    void calculateY(double m, double b, double x, Double expected) {
         Assertions.assertEquals(expected, new DoubleLine(m, b).calculateY(x));
     }
 

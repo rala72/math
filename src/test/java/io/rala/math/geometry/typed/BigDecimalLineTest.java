@@ -113,44 +113,24 @@ class BigDecimalLineTest {
 
     @ParameterizedTest
     @MethodSource("getCalculateXArguments")
-    void calculateX(double m, double b, double y, double expected) {
-        BigDecimal bigDecimal = Double.isFinite(expected) ?
-            new BigDecimal(
-                BigDecimal.valueOf(expected)
-                    .stripTrailingZeros().toPlainString()
-            ) : null;
-        if (bigDecimal == null)
-            Assertions.assertThrows(ArithmeticException.class,
-                () -> new BigDecimalLine(BigDecimal.valueOf(m), BigDecimal.valueOf(b))
-                    .calculateX(BigDecimal.valueOf(y))
-            ); // assert exception message?
-        else
-            Assertions.assertEquals(
-                bigDecimal,
-                new BigDecimalLine(BigDecimal.valueOf(m), BigDecimal.valueOf(b))
-                    .calculateX(BigDecimal.valueOf(y))
-            );
+    void calculateX(double m, double b, double y, Double expected) {
+        Assertions.assertEquals(convertDoubleToBigDecimal(expected),
+            new BigDecimalLine(
+                convertDoubleToBigDecimal(m),
+                convertDoubleToBigDecimal(b)
+            ).calculateX(convertDoubleToBigDecimal(y))
+        );
     }
 
     @ParameterizedTest
     @MethodSource("getCalculateYArguments")
-    void calculateY(double m, double b, double x, double expected) {
-        BigDecimal bigDecimal = Double.isFinite(expected) ?
-            new BigDecimal(
-                BigDecimal.valueOf(expected)
-                    .stripTrailingZeros().toPlainString()
-            ) : null;
-        if (bigDecimal == null)
-            Assertions.assertThrows(ArithmeticException.class,
-                () -> new BigDecimalLine(BigDecimal.valueOf(m), BigDecimal.valueOf(b))
-                    .calculateY(BigDecimal.valueOf(x))
-            ); // assert exception message?
-        else
-            Assertions.assertEquals(
-                bigDecimal,
-                new BigDecimalLine(BigDecimal.valueOf(m), BigDecimal.valueOf(b))
-                    .calculateY(BigDecimal.valueOf(x))
-            );
+    void calculateY(double m, double b, double x, Double expected) {
+        Assertions.assertEquals(convertDoubleToBigDecimal(expected),
+            new BigDecimalLine(
+                convertDoubleToBigDecimal(m),
+                convertDoubleToBigDecimal(b)
+            ).calculateY(convertDoubleToBigDecimal(x))
+        );
     }
 
     // endregion
@@ -521,6 +501,12 @@ class BigDecimalLineTest {
 
     private static Stream<Arguments> getCalculateYArguments() {
         return LineArgumentsStreamFactory.calculateY();
+    }
+
+    private static BigDecimal convertDoubleToBigDecimal(Double d) {
+        return d == null ? null : new BigDecimal(
+            BigDecimal.valueOf(d).stripTrailingZeros().toPlainString()
+        );
     }
 
     // endregion

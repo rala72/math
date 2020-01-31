@@ -117,25 +117,33 @@ public class Line<T extends Number> implements Validatable,
      * calculates x value of provided y value
      *
      * @param y y value to get x value
-     * @return {@code x=(y-b)/m} or {@link #getB()} if {@link #isVertical()}
+     * @return {@code x=(y-b)/m}, {@link #getB()} if {@link #isVertical()}
+     * or may return {@code null} if {@link #isHorizontal()}
+     * and {@code y} is not on line
      */
     public T calculateX(T y) {
-        return isVertical() ? getB() : getArithmetic().quotient(
-            getArithmetic().difference(y, getB()), getM()
-        );
+        return isVertical() ? getB() : isHorizontal() ?
+            getB().equals(y) ? getB() : null :
+            getArithmetic().quotient(
+                getArithmetic().difference(y, getB()), getM()
+            );
     }
 
     /**
      * calculates y value of provided x value
      *
      * @param x x value to get y value
-     * @return {@code y=m*x+b} or {@code null} if {@link #isVertical()}
+     * @return {@code y=m*x+b}, {@link #getB()} if {@link #isHorizontal()}
+     * or may return {@code null} if {@link #isVertical()}
+     * and {@code x} is not on line
      */
     public T calculateY(T x) {
-        return isVertical() ? null : getArithmetic().sum(
-            getArithmetic().product(getM(), x),
-            getB()
-        );
+        return isHorizontal() ? getB() : isVertical() ?
+            getB().equals(x) ? getB() : null :
+            getArithmetic().sum(
+                getArithmetic().product(getM(), x),
+                getB()
+            );
     }
 
     // endregion
