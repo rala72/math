@@ -138,7 +138,7 @@ public class Vector<T extends Number> {
 
     // endregion
 
-    // region getter and setter
+    // region getter, setter and size
 
     /**
      * @return stored arithmetic
@@ -154,11 +154,15 @@ public class Vector<T extends Number> {
         return vector;
     }
 
+    protected int getSize(){
+        return size;
+    }
+
     /**
      * @return size of vector
      */
-    protected int getSize() {
-        return size;
+    public int size() {
+        return getSize();
     }
 
     /**
@@ -189,7 +193,7 @@ public class Vector<T extends Number> {
     // region validation
 
     protected boolean isValidIndex(int index) {
-        return 0 <= index && index <= getSize();
+        return 0 <= index && index <= size();
     }
 
     // endregion
