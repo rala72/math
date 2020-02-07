@@ -19,7 +19,6 @@ public class Vector<T extends Number> {
     // endregion
 
     // region constructors and newInstance
-    // Todo: Constructor using HashMap as values
 
     /**
      * calls {@link #Vector(AbstractArithmetic, int, Number, Type)}
@@ -82,6 +81,37 @@ public class Vector<T extends Number> {
         for (int i = 0; i < size; i++) {
             vector.put(i, values.get(i));
         }
+        this.setType(type);
+    }
+
+    /**
+     * calls {@link #Vector(AbstractArithmetic, List, Number, Type)}
+     * with Type.COLUMN as default type
+     *
+     * @param arithmetic   arithmetic for calculations
+     * @param values       values of vector entries
+     * @param defaultValue default value for non-existing values
+     * @throws IllegalArgumentException if values is null or its size is zero
+     */
+    public Vector(AbstractArithmetic<T> arithmetic, Map<Integer, T> values, T defaultValue) {
+        this(arithmetic, values, defaultValue, Type.COLUMN);
+    }
+
+    /**
+     * creates a new vector with given values as entries
+     *
+     * @param arithmetic   arithmetic for calculation
+     * @param values       values of vector entries
+     * @param defaultValue default value for non-existing values
+     * @param type         type of vector
+     * @throws IllegalArgumentException if values is null or its size is zero
+     */
+    public Vector(AbstractArithmetic<T> arithmetic, Map<Integer, T> values, T defaultValue, Type type) {
+        if (values == null || values.size() == 0) throw new IllegalArgumentException();
+        this.arithmetic = arithmetic;
+        this.size = values.size();
+        this.defaultValue = defaultValue;
+        values.forEach(vector::put);
         this.setType(type);
     }
 
