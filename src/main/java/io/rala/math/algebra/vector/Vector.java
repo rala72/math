@@ -186,5 +186,13 @@ public class Vector<T extends Number> {
 
     // endregion
 
+    // region validation
+
+    protected boolean isValidIndex(int index) {
+        return 0 <= index && index <= getSize();
+    }
+
+    // endregion
+
     private enum Type {ROW, COLUMN}
 }
