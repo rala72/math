@@ -1,5 +1,6 @@
 package io.rala.math.algebra.vector;
 
+import io.rala.math.algebra.matrix.Matrix;
 import io.rala.math.arithmetic.AbstractArithmetic;
 
 import java.util.HashMap;
@@ -225,7 +226,7 @@ public class Vector<T extends Number> {
      * @return old value if existed or {@link #getDefaultValue()}
      * @throws IndexOutOfBoundsException if index is invalid
      */
-    public T removeValue(int index){
+    public T removeValue(int index) {
         if (!isValidIndex(index)) throw new IndexOutOfBoundsException();
         T old = getVector().put(index, null);
         return old == null ? getDefaultValue() : old;
@@ -241,6 +242,19 @@ public class Vector<T extends Number> {
      */
     protected boolean isValidIndex(int index) {
         return 0 <= index && index <= size();
+    }
+
+    // endregion
+
+    // region Matrix
+
+    /**
+     * @return matrix equivalent to vector
+     */
+    public Matrix<T> toMatrix() {
+        Matrix<T> matrix = new Matrix<>(getArithmetic(), getSize(), 1, getDefaultValue());
+        getVector().forEach(matrix::setValue);
+        return getType().equals(Type.COLUMN) ? matrix : matrix.transpose();
     }
 
     // endregion
