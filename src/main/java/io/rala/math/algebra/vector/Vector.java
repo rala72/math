@@ -72,10 +72,10 @@ public class Vector<T extends Number> {
      * @param values       values of vector entries
      * @param defaultValue default value for non-existing values
      * @param type         type of vector
-     * @throws IllegalArgumentException if values is null or empty
+     * @throws IllegalArgumentException if values is null or its size is 0
      */
     public Vector(AbstractArithmetic<T> arithmetic, List<T> values, T defaultValue, Type type) {
-        if (values == null || values.isEmpty()) throw new IllegalArgumentException();
+        if (values == null || values.size() == 0) throw new IllegalArgumentException();
         this.arithmetic = arithmetic;
         this.size = values.size();
         this.defaultValue = defaultValue;
