@@ -143,35 +143,35 @@ public class Vector<T extends Number> {
     /**
      * @return stored arithmetic
      */
-    public AbstractArithmetic<T> getArithmetic() {
+    protected AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
     }
 
     /**
      * @return vector map using index as key
      */
-    public Map<Integer, T> getVector() {
+    protected Map<Integer, T> getVector() {
         return vector;
     }
 
     /**
      * @return size of vector
      */
-    public int getSize() {
+    protected int getSize() {
         return size;
     }
 
     /**
      * @return default value for non-existing values
      */
-    public T getDefaultValue() {
+    protected T getDefaultValue() {
         return defaultValue;
     }
 
     /**
      * @return type of vector
      */
-    public Type getType() {
+    protected Type getType() {
         return type;
     }
 
@@ -180,7 +180,7 @@ public class Vector<T extends Number> {
      *
      * @param type type of vector
      */
-    public void setType(Type type) {
+    protected void setType(Type type) {
         this.type = type;
     }
 
