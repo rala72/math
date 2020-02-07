@@ -154,7 +154,7 @@ public class Vector<T extends Number> {
         return vector;
     }
 
-    protected int getSize(){
+    protected int getSize() {
         return size;
     }
 
@@ -186,6 +186,46 @@ public class Vector<T extends Number> {
      */
     protected void setType(Type type) {
         this.type = type;
+    }
+
+    // endregion
+
+    // region value
+
+    /**
+     * @param index where value should be stored
+     * @param value to be stored
+     * @return old value if existed or {@link #getDefaultValue()}
+     * @throws IndexOutOfBoundsException if index is invalid
+     */
+    public T setValue(int index, T value) {
+        if (!isValidIndex(index)) throw new IndexOutOfBoundsException();
+        if (value == null && getDefaultValue() == null
+            || value != null && value.equals(getDefaultValue()))
+            return removeValue(index);
+        T old = getVector().put(index, value);
+        return old == null ? getDefaultValue() : old;
+    }
+
+    /**
+     * @param index of requested value
+     * @return value at index if exists or {@link #getDefaultValue()}
+     * @throws IndexOutOfBoundsException if index is invalid
+     */
+    public T getValue(int index) {
+        if (!isValidIndex(index)) throw new IndexOutOfBoundsException();
+        return getVector().getOrDefault(index, getDefaultValue());
+    }
+
+    /**
+     * @param index of value to be deleted
+     * @return old value if existed or {@link #getDefaultValue()}
+     * @throws IndexOutOfBoundsException if index is invalid
+     */
+    public T removeValue(int index){
+        if (!isValidIndex(index)) throw new IndexOutOfBoundsException();
+        T old = getVector().put(index, null);
+        return old == null ? getDefaultValue() : old;
     }
 
     // endregion
