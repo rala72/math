@@ -59,7 +59,7 @@ public class Vector<T extends Number> {
      * @param arithmetic   arithmetic for calculations
      * @param values       values of vector entries
      * @param defaultValue default value for non-existing values
-     * @throws IllegalArgumentException if values is null or empty
+     * @throws IllegalArgumentException if values is null or its size is zero
      */
     public Vector(AbstractArithmetic<T> arithmetic, List<T> values, T defaultValue) {
         this(arithmetic, values, defaultValue, Type.COLUMN);
@@ -72,7 +72,7 @@ public class Vector<T extends Number> {
      * @param values       values of vector entries
      * @param defaultValue default value for non-existing values
      * @param type         type of vector
-     * @throws IllegalArgumentException if values is null or its size is 0
+     * @throws IllegalArgumentException if values is null or its size is zero
      */
     public Vector(AbstractArithmetic<T> arithmetic, List<T> values, T defaultValue, Type type) {
         if (values == null || values.size() == 0) throw new IllegalArgumentException();
