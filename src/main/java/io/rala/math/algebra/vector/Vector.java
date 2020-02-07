@@ -85,7 +85,7 @@ public class Vector<T extends Number> {
     }
 
     /**
-     * calls {@link #Vector(AbstractArithmetic, List, Number, Type)}
+     * calls {@link #Vector(AbstractArithmetic, Map, Number, Type)}
      * with Type.COLUMN as default type
      *
      * @param arithmetic   arithmetic for calculations
