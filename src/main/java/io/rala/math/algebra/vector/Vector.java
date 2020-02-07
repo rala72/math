@@ -154,6 +154,9 @@ public class Vector<T extends Number> {
         return vector;
     }
 
+    /**
+     * @return size of vector
+     */
     protected int getSize() {
         return size;
     }
@@ -232,6 +235,10 @@ public class Vector<T extends Number> {
 
     // region validation
 
+    /**
+     * @param index to be validated
+     * @return {@code true} if value is valid
+     */
     protected boolean isValidIndex(int index) {
         return 0 <= index && index <= size();
     }
