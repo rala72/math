@@ -18,6 +18,7 @@ import java.util.function.Function;
 public class Point<T extends Number> implements Validatable,
     Movable<T, Point<T>>, Rotatable<T, Point<T>>,
     Copyable<Point<T>>, Comparable<Point<T>>, Serializable {
+
     // region attributes
 
     private final AbstractArithmetic<T> arithmetic;

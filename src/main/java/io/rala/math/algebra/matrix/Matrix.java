@@ -19,6 +19,7 @@ import java.util.stream.StreamSupport;
  */
 public class Matrix<T extends Number>
     implements Copyable<Matrix<T>>, StreamIterable<Matrix<T>.Field>, Serializable {
+
     // region protected exception messages
     protected static final String EXCEPTION_SIZE_PREFIX = "size: ";
     protected static final String EXCEPTION_ROW_PREFIX = "row: ";

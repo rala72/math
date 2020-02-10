@@ -19,6 +19,7 @@ import java.util.function.Function;
 public class LineSegment<T extends Number> implements Validatable,
     Movable<T, LineSegment<T>>, Rotatable<T, LineSegment<T>>,
     Copyable<LineSegment<T>>, Comparable<LineSegment<T>>, Serializable {
+
     // region attributes
 
     private final AbstractArithmetic<T> arithmetic;

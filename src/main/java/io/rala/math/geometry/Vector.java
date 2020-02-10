@@ -17,6 +17,7 @@ import java.util.function.Function;
  */
 public class Vector<T extends Number> implements Validatable, Rotatable<T, Vector<T>>,
     Copyable<Vector<T>>, Comparable<Vector<T>>, Serializable {
+
     // region attributes
 
     private final AbstractArithmetic<T> arithmetic;

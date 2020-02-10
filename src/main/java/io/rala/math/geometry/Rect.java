@@ -19,6 +19,7 @@ import java.util.function.Function;
 public class Rect<T extends Number> implements Validatable,
     Movable<T, Rect<T>>, Rotatable<T, Rect<T>>,
     Copyable<Rect<T>>, Comparable<Rect<T>>, Serializable {
+
     // region attributes
 
     private final AbstractArithmetic<T> arithmetic;

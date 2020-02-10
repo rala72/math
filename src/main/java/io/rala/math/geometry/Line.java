@@ -18,6 +18,7 @@ import java.util.function.Function;
  */
 public class Line<T extends Number> implements Validatable,
     Copyable<Line<T>>, Comparable<Line<T>>, Serializable {
+
     // region attributes
 
     private final AbstractArithmetic<T> arithmetic;
