@@ -2,12 +2,13 @@ package io.rala.math.algebra.vector;
 
 import io.rala.math.algebra.matrix.Matrix;
 import io.rala.math.arithmetic.AbstractArithmetic;
+import io.rala.math.utils.Copyable;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Vector<T extends Number> {
+public class Vector<T extends Number> implements Copyable<Vector<T>> {
 
     public enum Type {ROW, COLUMN}
 
@@ -244,6 +245,15 @@ public class Vector<T extends Number> {
         Matrix<T> matrix = new Matrix<>(getArithmetic(), getSize(), 1, getDefaultValue());
         getVector().forEach(matrix::setValue);
         return getType().equals(Type.COLUMN) ? matrix : matrix.transpose();
+    }
+
+    // endregion
+
+    // region copy
+
+    @Override
+    public Vector<T> copy() {
+        return new Vector<>(this);
     }
 
     // endregion
