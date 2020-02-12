@@ -9,8 +9,9 @@ import java.util.Map;
 
 public class Vector<T extends Number> {
 
-    // region attributes
+    public enum Type {ROW, COLUMN}
 
+    // region attributes
     private final AbstractArithmetic<T> arithmetic;
     private final Map<Integer, T> vector = new HashMap<>();
     private final int size;
@@ -258,6 +259,4 @@ public class Vector<T extends Number> {
     }
 
     // endregion
-
-    private enum Type {ROW, COLUMN}
 }
