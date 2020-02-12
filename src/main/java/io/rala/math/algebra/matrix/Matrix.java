@@ -327,17 +327,11 @@ public class Matrix<T extends Number>
             throw new IllegalArgumentException("cols have to be equal");
         Matrix<T> result = copy();
         for (int r = 0; r < getRows(); r++)
-            result.getMatrix().merge(r,
-                matrix.getMatrix().getOrDefault(r, Collections.emptyMap()),
-                (integerTMap1, integerTMap2) -> {
-                    for (int c = 0; c < getCols(); c++)
-                        integerTMap1.merge(c,
-                            integerTMap2.getOrDefault(c, getDefaultValue()),
-                            getArithmetic()::sum
-                        );
-                    return integerTMap1;
-                }
-            );
+            for (int c = 0; c < getCols(); c++)
+                result.setValue(r, c, getArithmetic().sum(
+                    getValue(r, c),
+                    matrix.getValue(r, c)
+                ));
         result.removeDefaultValues();
         return result;
     }
@@ -349,13 +343,10 @@ public class Matrix<T extends Number>
     public Matrix<T> multiply(T t) {
         Matrix<T> result = copy();
         for (int r = 0; r < getRows(); r++)
-            result.getMatrix().computeIfPresent(r, (index, integerTMap) -> {
-                for (int c = 0; c < getCols(); c++)
-                    integerTMap.computeIfPresent(c,
-                        (integer, value) -> getArithmetic().product(value, t)
-                    );
-                return integerTMap;
-            });
+            for (int c = 0; c < getCols(); c++)
+                result.setValue(r, c, getArithmetic().product(
+                    getValue(r, c), t
+                ));
         result.removeDefaultValues();
         return result;
     }
