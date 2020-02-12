@@ -930,13 +930,12 @@ public class Matrix<T extends Number>
 
     private void removeDefaultValues() {
         getMatrix().entrySet().removeIf(integerMapEntry -> {
-                if (integerMapEntry.getValue() == null) return true;
-                integerMapEntry.getValue().entrySet().removeIf(integerTEntry ->
-                    isDefaultValue(integerTEntry.getValue())
-                );
-                return integerMapEntry.getValue().isEmpty();
-            }
-        );
+            if (integerMapEntry.getValue() == null) return true;
+            integerMapEntry.getValue().entrySet().removeIf(integerTEntry ->
+                isDefaultValue(integerTEntry.getValue())
+            );
+            return integerMapEntry.getValue().isEmpty();
+        });
     }
 
     private static <T extends Number> Map.Entry<Integer, List<Matrix<T>.Field>>
