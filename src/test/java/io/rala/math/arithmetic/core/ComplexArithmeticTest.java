@@ -93,6 +93,22 @@ class ComplexArithmeticTest {
         Assertions.assertFalse(arithmetic.isZero(create(1d, 1d)));
     }
 
+    @Test
+    void isEqual() {
+        Assertions.assertTrue(
+            arithmetic.isEqual(create(0d, 0d), create(0d, 0d))
+        );
+        Assertions.assertTrue(
+            arithmetic.isEqual(create(-0d, -0d), create(0d, 0d))
+        );
+        Assertions.assertTrue(
+            arithmetic.isEqual(create(-0d, -0d), create(-0d, -0d))
+        );
+        Assertions.assertFalse(
+            arithmetic.isEqual(create(1d, 1d), create(0d, 0d))
+        );
+    }
+
     // endregion
 
     // region sum, difference, product, quotient and modulo

@@ -121,6 +121,18 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
         return zero().equals(absolute(a));
     }
 
+    /**
+     * @param a first value of comparision
+     * @param b second value of comparision
+     * @return {@code true} if both values are equal
+     */
+    public boolean isEqual(T a, T b) {
+        return a == null && b == null ||
+            a != null && a.equals(b) ||
+            a != null && b != null &&
+                isZero(a) && isZero(b);
+    }
+
     // endregion
 
     // region sum, difference, product, quotient and modulo

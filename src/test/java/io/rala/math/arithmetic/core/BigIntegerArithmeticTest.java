@@ -96,6 +96,22 @@ class BigIntegerArithmeticTest {
         Assertions.assertFalse(arithmetic.isZero(BigInteger.ONE));
     }
 
+    @Test
+    void isEqual() {
+        Assertions.assertTrue(
+            arithmetic.isEqual(BigInteger.ZERO, BigInteger.ZERO)
+        );
+        Assertions.assertTrue(
+            arithmetic.isEqual(BigInteger.ZERO.negate(), BigInteger.ZERO)
+        );
+        Assertions.assertTrue(
+            arithmetic.isEqual(BigInteger.ZERO.negate(), BigInteger.ZERO.negate())
+        );
+        Assertions.assertFalse(
+            arithmetic.isEqual(BigInteger.ONE, BigInteger.ZERO)
+        );
+    }
+
     // endregion
 
     // region sum, difference, product, quotient and modulo

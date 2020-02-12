@@ -90,6 +90,14 @@ class IntegerArithmeticTest {
         Assertions.assertFalse(arithmetic.isZero(1));
     }
 
+    @Test
+    void isEqual() {
+        Assertions.assertTrue(arithmetic.isEqual(0, 0));
+        Assertions.assertTrue(arithmetic.isEqual(-0, 0));
+        Assertions.assertTrue(arithmetic.isEqual(-0, -0));
+        Assertions.assertFalse(arithmetic.isEqual(1, 0));
+    }
+
     // endregion
 
     // region sum, difference, product, quotient and modulo

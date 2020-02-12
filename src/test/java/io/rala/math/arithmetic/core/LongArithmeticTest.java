@@ -90,6 +90,14 @@ class LongArithmeticTest {
         Assertions.assertFalse(arithmetic.isZero(1L));
     }
 
+    @Test
+    void isEqual() {
+        Assertions.assertTrue(arithmetic.isEqual(0L, 0L));
+        Assertions.assertTrue(arithmetic.isEqual(-0L, 0L));
+        Assertions.assertTrue(arithmetic.isEqual(-0L, -0L));
+        Assertions.assertFalse(arithmetic.isEqual(1L, 0L));
+    }
+
     // endregion
 
     // region sum, difference, product, quotient and modulo
