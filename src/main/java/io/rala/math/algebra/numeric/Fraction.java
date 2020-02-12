@@ -56,7 +56,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
         setNumerator(numerator);
         setDenominator(denominator);
 
-        if (getNumerator().equals(arithmetic.getTArithmetic().zero()) &&
+        if (arithmetic.getTArithmetic().isZero(getNumerator()) &&
             !getDenominator().equals(arithmetic.getTArithmetic().one()))
             setDenominator(arithmetic.getTArithmetic().one());
     }
@@ -112,7 +112,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
     public void setDenominator(T denominator) {
         if (denominator == null)
             denominator = getArithmetic().getTArithmetic().one();
-        if (denominator.equals(getArithmetic().getTArithmetic().zero()))
+        if (getArithmetic().getTArithmetic().isZero(denominator))
             throw new IllegalArgumentException(EXCEPTION_DENOMINATOR_NOT_ZERO);
         this.denominator = denominator;
 
