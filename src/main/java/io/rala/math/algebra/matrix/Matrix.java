@@ -46,7 +46,7 @@ public class Matrix<T extends Number>
 
     // endregion
 
-    // region constructor and newInstance
+    // region constructor
 
     /**
      * calls {@link #Matrix(AbstractArithmetic, int, int, Number)}
@@ -95,30 +95,6 @@ public class Matrix<T extends Number>
         matrix.getMatrix().forEach(
             (key, value) -> getMatrix().put(key, new HashMap<>(value))
         );
-    }
-
-    /**
-     * calls {@link #newInstance(int, int)} with size as rows and cols
-     *
-     * @param size size of new matrix
-     * @return new matrix instance
-     * @throws IllegalArgumentException if rows or cols is negative or size is to large
-     * @see #newInstance(int, int)
-     */
-    protected final Matrix<T> newInstance(int size) {
-        return newInstance(size, size);
-    }
-
-    /**
-     * creates a new instance of a matrix of current type
-     *
-     * @param rows rows of new matrix
-     * @param cols cols of new matrix
-     * @return new matrix instance
-     * @throws IllegalArgumentException if rows or cols is negative or size is to large
-     */
-    protected final Matrix<T> newInstance(int rows, int cols) {
-        return new Matrix<>(getArithmetic(), rows, cols, getDefaultValue());
     }
 
     // endregion
@@ -388,7 +364,9 @@ public class Matrix<T extends Number>
     public Matrix<T> multiply(Matrix<T> matrix) {
         if (getCols() != matrix.getRows())
             throw new IllegalArgumentException(EXCEPTION_COLS_EQUALS_PARAM_ROWS);
-        Matrix<T> result = newInstance(getRows(), matrix.getCols());
+        Matrix<T> result = new Matrix<>(getArithmetic(),
+            getRows(), matrix.getCols(), getDefaultValue()
+        );
         for (int r = 0; r < result.getRows(); r++)
             for (int c = 0; c < result.getCols(); c++) {
                 T d = getDefaultValue();
@@ -432,7 +410,9 @@ public class Matrix<T extends Number>
         if (determinante == null || isDefaultValue(determinante))
             return null;
         T k = getArithmetic().quotient(getArithmetic().fromInt(1), determinante);
-        Matrix<T> minorMatrix = newInstance(getRows(), getCols());
+        Matrix<T> minorMatrix = new Matrix<>(getArithmetic(),
+            getRows(), getCols(), getDefaultValue()
+        );
         for (int r = 0; r < minorMatrix.getRows(); r++) {
             for (int c = 0; c < minorMatrix.getCols(); c++) {
                 T value = getArithmetic().product(
@@ -449,7 +429,9 @@ public class Matrix<T extends Number>
      * @return new transposed matrix
      */
     public Matrix<T> transpose() {
-        Matrix<T> result = newInstance(getCols(), getRows());
+        Matrix<T> result = new Matrix<>(getArithmetic(),
+            getCols(), getRows(), getDefaultValue()
+        );
         for (int r = 0; r < getRows(); r++)
             for (int c = 0; c < getCols(); c++)
                 result.setValue(c, r, getValue(getIndexOfRowAndCol(r, c)));
@@ -707,7 +689,9 @@ public class Matrix<T extends Number>
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
         if (!isColValid(col))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
-        Matrix<T> subMatrix = newInstance(getRows() - 1, getCols() - 1);
+        Matrix<T> subMatrix = new Matrix<>(getArithmetic(),
+            getRows() - 1, getCols() - 1, getDefaultValue()
+        );
         for (int r = 0; r < subMatrix.getRows(); r++) {
             int ar = r < row ? r : r + 1;
             for (int c = 0; c < subMatrix.getCols(); c++) {

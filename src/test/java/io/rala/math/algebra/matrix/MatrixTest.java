@@ -12,7 +12,7 @@ import java.util.List;
 import static io.rala.math.testUtils.assertion.MatrixAssertions.assertMatrix;
 
 class MatrixTest {
-    // region constructors and newInstance
+    // region constructors
 
     @Test
     void constructorWithNegativeSize() {
@@ -69,21 +69,6 @@ class MatrixTest {
     @Test
     void constructorWithMatrix() {
         assertMatrix(new TestMatrix(new TestMatrix(1, 2)), 1, 2);
-    }
-
-    @Test
-    void newInstanceOfMatrixWithSize1() {
-        assertMatrix(new TestMatrix(1).newInstance(1), 1);
-    }
-
-    @Test
-    void newInstanceOfMatrixWithSize2() {
-        assertMatrix(new TestMatrix(1).newInstance(2), 2);
-    }
-
-    @Test
-    void newInstanceOfMatrixWithRows1Cols2() {
-        assertMatrix(new TestMatrix(2).newInstance(1, 2), 1, 2);
     }
 
     // endregion
