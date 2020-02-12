@@ -256,6 +256,15 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
         return new Vector<>(this);
     }
 
+    /**
+     * remove
+     */
+    private void removeDefaultValues() {
+        getVector().forEach((key, value) -> {
+            if (value.equals(getDefaultValue())) removeValue(key);
+        });
+    }
+
     // endregion
 
     // region validation
