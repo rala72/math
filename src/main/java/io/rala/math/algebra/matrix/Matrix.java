@@ -484,8 +484,8 @@ public class Matrix<T extends Number>
         if (size() == 0 || !isSquare()) return getDefaultValue();
         boolean isRowMode = true;
         int index = 0;
-        List<Field> zeros = StreamSupport.stream(spliterator(), true)
-            .filter(field -> field.getValue().equals(0d))
+        List<Field> zeros = parallelStream()
+            .filter(field -> getArithmetic().isZero(field.getValue()))
             .collect(Collectors.toList());
         if (!zeros.isEmpty()) {
             Map.Entry<Integer, List<Field>> bestRow = getBestEntry(zeros, true);
