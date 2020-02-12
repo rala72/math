@@ -331,7 +331,10 @@ public class Matrix<T extends Number>
                 matrix.getMatrix().getOrDefault(r, Collections.emptyMap()),
                 (integerTMap1, integerTMap2) -> {
                     for (int c = 0; c < getCols(); c++)
-                        integerTMap1.merge(c, integerTMap2.get(c), getArithmetic()::sum);
+                        integerTMap1.merge(c,
+                            integerTMap2.getOrDefault(c, getDefaultValue()),
+                            getArithmetic()::sum
+                        );
                     return integerTMap1;
                 }
             );
