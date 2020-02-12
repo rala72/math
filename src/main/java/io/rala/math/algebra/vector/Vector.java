@@ -249,6 +249,26 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
 
     // endregion
 
+    // region arithmetic
+
+    /**
+     * @param vector vector to add
+     * @return new vector with calculated values
+     */
+    public Vector<T> add(Vector<T> vector) {
+        if (vector == null || getSize() != vector.getSize())
+            throw new IllegalArgumentException("size has to be equal");
+        if (getType() != vector.getType())
+            throw new IllegalArgumentException("vectors have to be either both row or both column");
+        Vector<T> result = new Vector<>(getArithmetic(), getSize(), getDefaultValue());
+        vector.getVector().forEach((key, value) ->
+            result.getVector().put(key, getArithmetic().sum(getValue(key), vector.getValue(key))));
+        result.removeDefaultValues();
+        return result;
+    }
+
+    // endregion
+
     // region copy
 
     @Override
