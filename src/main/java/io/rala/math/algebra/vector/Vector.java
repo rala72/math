@@ -24,7 +24,7 @@ public class Vector<T extends Number> {
 
     /**
      * calls {@link #Vector(AbstractArithmetic, int, Number, Type)}
-     * Type.COLUMN as default type
+     * {@link Type#COLUMN} as default type
      *
      * @param arithmetic   arithmetic for calculations
      * @param size         size of vector
@@ -55,7 +55,7 @@ public class Vector<T extends Number> {
 
     /**
      * calls {@link #Vector(AbstractArithmetic, List, Number, Type)}
-     * with Type.COLUMN as default type
+     * with {@link Type#COLUMN} as default type
      *
      * @param arithmetic   arithmetic for calculations
      * @param values       values of vector entries
@@ -88,7 +88,7 @@ public class Vector<T extends Number> {
 
     /**
      * calls {@link #Vector(AbstractArithmetic, Map, Number, Type)}
-     * with Type.COLUMN as default type
+     * with {@link Type#COLUMN} as default type
      *
      * @param arithmetic   arithmetic for calculations
      * @param values       values of vector entries
