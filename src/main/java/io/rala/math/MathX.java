@@ -59,10 +59,12 @@ public class MathX {
     /**
      * @param a numbers of gcd
      * @return greatest common divisor
+     * or {@code null} if parameter is {@code null}
      * @see #gcd(BigInteger, BigInteger)
      * @see BigInteger#gcd(BigInteger)
      */
     public static BigInteger gcd(BigInteger... a) {
+        if (a == null) return null;
         if (a.length == 0) return BigInteger.ZERO;
         if (a.length == 1) return a[0];
         BigInteger current = a[0];
@@ -101,11 +103,12 @@ public class MathX {
      * @param a number1 of gcd
      * @param b number2 of gcd
      * @return greatest common divisor
+     * or {@code null} if parameter is {@code null}
      * @see #gcd(BigInteger...)
      * @see BigInteger#gcd(BigInteger)
      */
     public static BigInteger gcd(BigInteger a, BigInteger b) {
-        return a.gcd(b);
+        return a == null || b == null ? null : a.gcd(b);
     }
 
     // endregion
@@ -169,11 +172,13 @@ public class MathX {
      *
      * @param a number
      * @return factorial
+     * or {@code null} if parameter is {@code null}
      */
     public static BigInteger factorial(BigInteger a) {
-        return a.compareTo(BigInteger.ZERO) < 0 ? BigInteger.ZERO :
-            a.equals(BigInteger.ZERO) ? BigInteger.ONE :
-                a.multiply(factorial(a.subtract(BigInteger.ONE)));
+        return a == null ? null :
+            a.compareTo(BigInteger.ZERO) < 0 ? BigInteger.ZERO :
+                a.equals(BigInteger.ZERO) ? BigInteger.ONE :
+                    a.multiply(factorial(a.subtract(BigInteger.ONE)));
     }
 
     // endregion
@@ -217,9 +222,11 @@ public class MathX {
      *
      * @param a numbers of lcm
      * @return least common multiple
+     * or {@code null} if parameter is {@code null}
      * @see #lcm(BigInteger, BigInteger)
      */
     public static BigInteger lcm(BigInteger... a) {
+        if (a == null) return null;
         if (a.length == 0) return BigInteger.ZERO;
         if (a.length == 1) return a[0];
         BigInteger current = a[0];
@@ -262,10 +269,12 @@ public class MathX {
      * @param a number1 of lcm
      * @param b number2 of lcm
      * @return least common multiple
+     * or {@code null} if parameter is {@code null}
      * @see #lcm(BigInteger...)
      */
     public static BigInteger lcm(BigInteger a, BigInteger b) {
-        return a.multiply(b).abs().divide(gcd(a, b));
+        return a == null || b == null ? null :
+            a.multiply(b).abs().divide(gcd(a, b));
     }
 
     // endregion
@@ -308,9 +317,11 @@ public class MathX {
      * @param n       number of root
      * @param context context to use
      * @return calculated root
+     * or {@code null} if parameter is {@code null}
      */
     public static BigDecimal root(BigDecimal a, int n, MathContext context) {
         // https://stackoverflow.com/a/34074999/2715720
+        if (a == null || context == null) return null;
         if (a.compareTo(BigDecimal.ZERO) < 0)
             throw new IllegalArgumentException(ILLEGAL_ARGUMENT__NUMBER_HAS_TO_BE_POSITIVE);
         if (a.equals(BigDecimal.ZERO)) return BigDecimal.ZERO;
