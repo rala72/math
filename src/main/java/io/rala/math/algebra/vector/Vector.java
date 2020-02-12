@@ -230,7 +230,7 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
      */
     public T removeValue(int index) {
         if (!isValidIndex(index)) throw new IndexOutOfBoundsException();
-        T old = getVector().put(index, null);
+        T old = getVector().remove(index);
         return old == null ? getDefaultValue() : old;
     }
 
