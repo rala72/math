@@ -57,7 +57,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
         setDenominator(denominator);
 
         if (arithmetic.getTArithmetic().isZero(getNumerator()) &&
-            !getDenominator().equals(arithmetic.getTArithmetic().one()))
+            !arithmetic.getTArithmetic().one().equals(getDenominator()))
             setDenominator(arithmetic.getTArithmetic().one());
     }
 

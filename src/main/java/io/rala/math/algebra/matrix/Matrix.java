@@ -222,8 +222,7 @@ public class Matrix<T extends Number>
     public T setValue(long index, T value) {
         if (!isIndexValid(index))
             throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
-        if (value == null && getDefaultValue() == null ||
-            value != null && value.equals(getDefaultValue()))
+        if (isDefaultValue(value))
             return removeValue(index);
         else {
             AtomicReference<T> previous = new AtomicReference<>(getDefaultValue());
@@ -890,8 +889,7 @@ public class Matrix<T extends Number>
      * @return {@code true} if t is equal to {@link #getDefaultValue()}
      */
     protected final boolean isDefaultValue(T t) {
-        return getDefaultValue() == null && t == null ||
-            t != null && t.equals(getDefaultValue());
+        return getArithmetic().isEqual(getDefaultValue(), t);
     }
 
     /**
