@@ -235,18 +235,6 @@ public class Vector<T extends Number> {
 
     // endregion
 
-    // region validation
-
-    /**
-     * @param index to be validated
-     * @return {@code true} if value is valid
-     */
-    protected boolean isValidIndex(int index) {
-        return 0 <= index && index <= size();
-    }
-
-    // endregion
-
     // region Matrix
 
     /**
@@ -256,6 +244,18 @@ public class Vector<T extends Number> {
         Matrix<T> matrix = new Matrix<>(getArithmetic(), getSize(), 1, getDefaultValue());
         getVector().forEach(matrix::setValue);
         return getType().equals(Type.COLUMN) ? matrix : matrix.transpose();
+    }
+
+    // endregion
+
+    // region validation
+
+    /**
+     * @param index to be validated
+     * @return {@code true} if value is valid
+     */
+    protected boolean isValidIndex(int index) {
+        return 0 <= index && index <= size();
     }
 
     // endregion
