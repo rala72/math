@@ -175,7 +175,7 @@ public class LineSegment<T extends Number> implements Validatable,
      * @return new line instance
      */
     public Line<T> toLine() {
-        if (Objects.equals(getA().getX(), getB().getX()))
+        if (getArithmetic().isEqual(getA().getX(), getB().getX()))
             return new Line<>(getArithmetic(), null, getA().getX());
         T m = getArithmetic().quotient(
             getArithmetic().difference(

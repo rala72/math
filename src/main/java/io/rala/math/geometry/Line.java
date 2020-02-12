@@ -125,7 +125,7 @@ public class Line<T extends Number> implements Validatable,
      */
     public T calculateX(T y) {
         return isVertical() ? getB() : isHorizontal() ?
-            getB().equals(y) ? getB() : null :
+            getArithmetic().isEqual(getB(), y) ? getB() : null :
             getArithmetic().quotient(
                 getArithmetic().difference(y, getB()), getM()
             );
@@ -141,7 +141,7 @@ public class Line<T extends Number> implements Validatable,
      */
     public T calculateY(T x) {
         return isHorizontal() ? getB() : isVertical() ?
-            getB().equals(x) ? getB() : null :
+            getArithmetic().isEqual(getB(), x) ? getB() : null :
             getArithmetic().sum(
                 getArithmetic().product(getM(), x),
                 getB()
@@ -192,7 +192,7 @@ public class Line<T extends Number> implements Validatable,
      */
     public boolean hasIntersection(Line<T> line) {
         return (!isVertical() || !line.isVertical()) &&
-            !Objects.equals(getM(), line.getM());
+            !getArithmetic().isEqual(getM(), line.getM());
     }
 
     /**
@@ -252,9 +252,9 @@ public class Line<T extends Number> implements Validatable,
      * @return {@code true} if point is on line
      */
     public boolean hasPoint(Point<T> point) {
-        return isVertical() && Objects.equals(getB(), point.getX()) ||
-            Objects.equals(calculateX(point.getY()), point.getX()) ||
-            Objects.equals(calculateY(point.getX()), point.getY());
+        return isVertical() && getArithmetic().isEqual(getB(), point.getX()) ||
+            getArithmetic().isEqual(calculateX(point.getY()), point.getX()) ||
+            getArithmetic().isEqual(calculateY(point.getX()), point.getY());
     }
 
     // endregion

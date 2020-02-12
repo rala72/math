@@ -241,7 +241,7 @@ public class Rect<T extends Number> implements Validatable,
      * @return {@code true} if {@link #height()} and {@link #width()} are equal
      */
     public boolean isSquare() {
-        return Objects.equals(height(), width());
+        return getArithmetic().isEqual(height(), width());
     }
 
     // endregion
