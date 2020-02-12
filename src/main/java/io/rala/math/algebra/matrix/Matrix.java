@@ -1002,12 +1002,20 @@ public class Matrix<T extends Number>
             return value;
         }
 
+        /**
+         * @return Matrix instance of field
+         */
+        protected Matrix<T> getMatrix() {
+            return Matrix.this;
+        }
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Matrix<?>.Field field = (Matrix<?>.Field) o;
-            return getIndex() == field.getIndex() &&
+            return Objects.equals(getMatrix(), field.getMatrix()) &&
+                getIndex() == field.getIndex() &&
                 Objects.equals(getValue(), field.getValue());
         }
 

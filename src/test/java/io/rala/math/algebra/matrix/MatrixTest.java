@@ -1232,6 +1232,7 @@ class MatrixTest {
             Assertions.assertEquals(index, field.getIndex());
             Assertions.assertEquals(index / matrix.getCols(), field.getRow());
             Assertions.assertEquals(index % matrix.getCols(), field.getCol());
+            Assertions.assertEquals(matrix, field.getMatrix());
             index++;
         }
     }
