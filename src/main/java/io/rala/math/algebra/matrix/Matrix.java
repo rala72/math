@@ -56,7 +56,7 @@ public class Matrix<T extends Number>
      * @param arithmetic   arithmetic for calculations
      * @param size         size of matrix
      * @param defaultValue default value of non-existing values
-     * @throws IllegalArgumentException if rows or cols is negative or size is to large
+     * @throws IllegalArgumentException if rows or cols is less than {@code 1}
      */
     public Matrix(AbstractArithmetic<T> arithmetic, int size, T defaultValue) {
         this(arithmetic, size, size, defaultValue);
@@ -70,7 +70,7 @@ public class Matrix<T extends Number>
      * @param rows         rows of matrix
      * @param cols         cols of matrix
      * @param defaultValue default value of non-existing values
-     * @throws IllegalArgumentException if rows or cols is negative or size is to large
+     * @throws IllegalArgumentException if rows or cols is less than {@code 1}
      */
     public Matrix(AbstractArithmetic<T> arithmetic, int rows, int cols, T defaultValue) {
         if (rows <= 0 || cols <= 0)
@@ -524,6 +524,7 @@ public class Matrix<T extends Number>
      * @param defaultValue default value of non-existing values
      * @param <T>          number class
      * @return new created matrix
+     * @throws IllegalArgumentException if rows or cols is less than {@code 1}
      */
     public static <T extends Number> Matrix<T> identity(
         AbstractArithmetic<T> arithmetic, int size, T defaultValue
@@ -540,6 +541,7 @@ public class Matrix<T extends Number>
      * @param values       diagonal values of matrix
      * @param <T>          number class
      * @return new created matrix
+     * @throws IllegalArgumentException if rows or cols is less than {@code 1}
      */
     @SafeVarargs
     public static <T extends Number> Matrix<T> diagonal(
@@ -566,6 +568,7 @@ public class Matrix<T extends Number>
      * @return new created matrix
      * @throws IllegalArgumentException if rows modulo {@code values.length}
      *                                  is not congruent {@code 0}
+     * @throws IllegalArgumentException if rows or cols is less than {@code 1}
      */
     @SafeVarargs
     public static <T extends Number> Matrix<T> ofValuesByRows(
@@ -592,6 +595,7 @@ public class Matrix<T extends Number>
      * @return new created matrix
      * @throws IllegalArgumentException if cols modulo {@code values.length}
      *                                  is not congruent {@code 0}
+     * @throws IllegalArgumentException if rows or cols is less than {@code 1}
      */
     @SafeVarargs
     public static <T extends Number> Matrix<T> ofValuesByCols(
