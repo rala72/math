@@ -260,6 +260,16 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
 
     // endregion
 
+    // region norm
+
+    public T euclideanNorm() {
+        Map<Integer, T> squares = new HashMap<>();
+        getVector().forEach((key, value) -> squares.put(key, arithmetic.power(value, 2)));
+        return arithmetic.root2(squares.values().stream().reduce(arithmetic::sum).orElse(arithmetic.zero()));
+    }
+
+    // endregion
+
     // region copy
 
     @Override
