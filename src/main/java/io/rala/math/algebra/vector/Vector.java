@@ -178,8 +178,10 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
      * set type of vector
      *
      * @param type type of vector
+     * @throws IllegalArgumentException if type is null
      */
     protected void setType(Type type) {
+        if (type == null) throw new IllegalArgumentException("Type of vector may not be null");
         this.type = type;
     }
 
