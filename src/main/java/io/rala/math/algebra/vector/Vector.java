@@ -128,17 +128,6 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
         vector.getVector().forEach((key, value) -> getVector().put(key, value));
     }
 
-    /**
-     * creates a new instance of a vector of current type
-     *
-     * @param size size of new vector
-     * @return new vector instance
-     * @throws IllegalArgumentException if size is negative or zero
-     */
-    public Vector<T> newInstance(int size) {
-        return new Vector<>(getArithmetic(), size, getDefaultValue());
-    }
-
     // endregion
 
     // region getter, setter and size
