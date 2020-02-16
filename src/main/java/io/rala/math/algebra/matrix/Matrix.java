@@ -549,6 +549,16 @@ public class Matrix<T extends Number>
         throw new IllegalStateException("Matrix has to have one row and/or one column");
     }
 
+    /**
+     * @return only entry of 1x1 matrix
+     * @throws IllegalStateException if matrix is not 1x1
+     */
+    public T toParam() {
+        if (getRows() == 1 && getCols() == 1)
+            return getValue(0, 0);
+        throw new IllegalStateException("Matrix has to contain only one value");
+    }
+
     // endregion
 
     // region static: identity and diagonal
