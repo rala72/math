@@ -1,5 +1,6 @@
 package io.rala.math.algebra.matrix;
 
+import io.rala.math.algebra.vector.Vector;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.StreamIterable;
@@ -529,6 +530,23 @@ public class Matrix<T extends Number>
             t = getArithmetic().sum(t, coFactor(row, col));
         }
         return t;
+    }
+
+    // endregion
+
+    // region to
+
+    /**
+     * @return new vector from matrix row/column
+     * prefers column vector if rows and columns are equal to one
+     * @throws IllegalStateException if columns and rows are more than one
+     */
+    public Vector<T> toVector() {
+        if (getCols() == 1)
+            return new Vector<>(getArithmetic(), getCol(0), getDefaultValue(), Vector.Type.COLUMN);
+        if (getRows() == 1)
+            return new Vector<>(getArithmetic(), getRow(0), getDefaultValue(), Vector.Type.ROW);
+        throw new IllegalStateException("Matrix has to have one row and/or one column");
     }
 
     // endregion
