@@ -258,6 +258,17 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
         return result;
     }
 
+    /**
+     * @param scalar to multiply entries with
+     * @return new vector with calculated values
+     */
+    public Vector<T> multiply(T scalar) {
+        Vector<T> result = new Vector<>(this);
+        result.getVector().forEach(
+            (key, value) -> result.setValue(key, arithmetic.product(value, scalar)));
+        return result;
+    }
+
     // endregion
 
     // region norm
