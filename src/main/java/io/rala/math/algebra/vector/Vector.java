@@ -262,16 +262,27 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
 
     // region norm
 
+    /**
+     * @return euclidean norm of the vector
+     */
     public T euclideanNorm() {
         return pNorm(2);
     }
 
+    /**
+     * @return max-Norm of the vector, equal to the entry with highest absolute value
+     */
     public T maxNorm() {
         return getVector().values().stream().max(
             (a, b) -> arithmetic.difference(arithmetic.absolute(a), arithmetic.absolute(b)).intValue())
             .orElse(arithmetic.zero());
     }
 
+    /**
+     * @param p degree of the norm
+     * @return p-norm of the vector
+     * @throws IllegalArgumentException if p is less than 1
+     */
     public T pNorm(int p) {
         if (p <= 0) throw new IllegalArgumentException("May only calculate positive p-norm");
         Map<Integer, T> squares = new HashMap<>();
