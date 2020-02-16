@@ -240,6 +240,21 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
 
     // endregion
 
+    // region transpose
+
+    /**
+     * changes row vector to column vector and vice versa
+     */
+    public void transpose() {
+        if (getType().equals(Type.COLUMN)) {
+            setType(Type.ROW);
+        } else {
+            setType(Type.COLUMN);
+        }
+    }
+
+    // endregion
+
     // region arithmetic
 
     /**
