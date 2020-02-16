@@ -21,7 +21,7 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
 
     // endregion
 
-    // region constructors and newInstance
+    // region constructors
 
     /**
      * calls {@link #Vector(AbstractArithmetic, int, Number, Type)}
