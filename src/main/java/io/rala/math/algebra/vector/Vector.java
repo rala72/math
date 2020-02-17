@@ -356,15 +356,15 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
         Vector<?> vector1 = (Vector<?>) o;
 
         if (getSize() != vector1.getSize()) return false;
-        if (getVector() != null ? !getVector().equals(vector1.getVector()) : vector1.getVector() != null) return false;
+        if (!getVector().equals(vector1.getVector())) return false;
         return getType() == vector1.getType();
     }
 
     @Override
     public int hashCode() {
-        int result = getVector() != null ? getVector().hashCode() : 0;
+        int result = getVector().hashCode();
         result = 31 * result + getSize();
-        result = 31 * result + (getType() != null ? getType().hashCode() : 0);
+        result = 31 * result + getType().hashCode();
         return result;
     }
 
