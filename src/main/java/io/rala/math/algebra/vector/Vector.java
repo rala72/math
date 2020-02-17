@@ -282,6 +282,11 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
         return result;
     }
 
+    /**
+     * @param vector to compute dot product
+     * @return dot product
+     * @throws IllegalArgumentException if sizes don't match
+     */
     public T dotProduct(Vector<T> vector) {
         Vector<T> v1 = new Vector<>(getType() == Type.ROW ? this : transpose());
         Vector<T> v2 = new Vector<>(vector.getType() == Type.COLUMN ? vector : vector.transpose());
