@@ -283,9 +283,18 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
     }
 
     /**
+     * @param vector to multiply with
+     * @return product of matrix multiplication
+     * @throws IllegalArgumentException if dimensions do not match
+     */
+    public Matrix<T> multiply(Vector<T> vector) {
+        return toMatrix().multiply(vector.toMatrix());
+    }
+
+    /**
      * @param vector to compute dot product
      * @return dot product
-     * @throws IllegalArgumentException if sizes don't match
+     * @throws IllegalArgumentException if sizes do not match
      */
     public T dotProduct(Vector<T> vector) {
         Vector<T> v1 = new Vector<>(getType() == Type.ROW ? this : transpose());
