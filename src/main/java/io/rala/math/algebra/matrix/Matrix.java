@@ -362,8 +362,8 @@ public class Matrix<T extends Number>
         );
         for (int r = 0; r < result.getRows(); r++)
             for (int c = 0; c < result.getCols(); c++) {
-                T d = getDefaultValue();
-                for (int i = 0; i < getRows(); i++)
+                T d = getArithmetic().zero();
+                for (int i = 0; i < getCols(); i++)
                     d = getArithmetic().sum(d,
                         getArithmetic().product(getValue(r, i), matrix.getValue(i, c))
                     );
