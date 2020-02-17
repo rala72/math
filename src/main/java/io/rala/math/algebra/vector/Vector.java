@@ -236,10 +236,10 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
 
     // endregion
 
-    // region transpose
+    // region transpose and invert
 
     /**
-     * changes row vector to column vector and vice versa
+     * @return new vector with opposite type
      */
     public Vector<T> transpose() {
         Vector<T> temp = new Vector<>(this);
@@ -249,6 +249,13 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
             temp.setType(Type.COLUMN);
         }
         return temp;
+    }
+
+    /**
+     * @return new vector with inverted sign
+     */
+    public Vector<T> invert() {
+        return multiply(getArithmetic().negate(getArithmetic().one()));
     }
 
     // endregion
