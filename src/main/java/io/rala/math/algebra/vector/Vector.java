@@ -280,7 +280,7 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
     public Vector<T> multiply(T scalar) {
         Vector<T> result = new Vector<>(this);
         result.getVector().forEach(
-            (key, value) -> result.setValue(key, arithmetic.product(value, scalar)));
+            (key, value) -> result.setValue(key, getArithmetic().product(value, scalar)));
         return result;
     }
 
@@ -300,8 +300,8 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
      */
     public T maxNorm() {
         return getVector().values().stream().max(
-            (a, b) -> arithmetic.difference(arithmetic.absolute(a), arithmetic.absolute(b)).intValue())
-            .orElse(arithmetic.zero());
+            (a, b) -> getArithmetic().difference(getArithmetic().absolute(a), getArithmetic().absolute(b)).intValue())
+            .orElse(getArithmetic().zero());
     }
 
     /**
@@ -312,10 +312,10 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
     public T pNorm(int p) {
         if (p <= 0) throw new IllegalArgumentException("May only calculate positive p-norm");
         Map<Integer, T> squares = new HashMap<>();
-        getVector().forEach((key, value) -> squares.put(key, arithmetic.power(value, p)));
-        return arithmetic.root(squares.values().stream().reduce(
-            (a, b) -> arithmetic.sum(arithmetic.absolute(a), arithmetic.absolute(b)))
-            .orElse(arithmetic.zero()), p);
+        getVector().forEach((key, value) -> squares.put(key, getArithmetic().power(value, p)));
+        return getArithmetic().root(squares.values().stream().reduce(
+            (a, b) -> getArithmetic().sum(getArithmetic().absolute(a), getArithmetic().absolute(b)))
+            .orElse(getArithmetic().zero()), p);
     }
 
     // endregion
