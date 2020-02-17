@@ -277,8 +277,9 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
      */
     public Vector<T> multiply(T scalar) {
         Vector<T> result = new Vector<>(this);
-        result.getVector().forEach(
-            (key, value) -> result.setValue(key, getArithmetic().product(value, scalar)));
+        for (int i = 0; i < size(); i++) {
+            result.setValue(i, result.getArithmetic().product(result.getValue(i), scalar));
+        }
         return result;
     }
 
