@@ -282,6 +282,12 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
         return result;
     }
 
+    public T dotProduct(Vector<T> vector) {
+        Vector<T> v1 = new Vector<>(getType() == Type.ROW ? this : transpose());
+        Vector<T> v2 = new Vector<>(vector.getType() == Type.COLUMN ? vector : vector.transpose());
+        return v1.toMatrix().multiply(v2.toMatrix()).toParam();
+    }
+
     // endregion
 
     // region norm
