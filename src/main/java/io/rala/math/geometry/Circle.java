@@ -18,6 +18,7 @@ import java.util.function.Function;
 public class Circle<T extends Number> implements Validatable,
     Movable<T, Circle<T>>, Rotatable<T, Circle<T>>,
     Copyable<Circle<T>>, Comparable<Circle<T>>, Serializable {
+
     // region attributes
 
     private final AbstractArithmetic<T> arithmetic;

@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 public class Triangle<T extends Number> implements Validatable,
     Movable<T, Triangle<T>>, Rotatable<T, Triangle<T>>,
     Copyable<Triangle<T>>, Comparable<Triangle<T>>, Serializable {
+
     // region attributes
 
     private final AbstractArithmetic<T> arithmetic;

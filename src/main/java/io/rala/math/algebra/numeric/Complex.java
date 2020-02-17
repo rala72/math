@@ -18,6 +18,7 @@ import java.util.function.Function;
  */
 public class Complex<T extends Number> extends Number implements Validatable,
     Copyable<Complex<T>>, Comparable<Complex<T>> {
+
     // region attributes
 
     private final AbstractArithmetic<T> arithmetic;

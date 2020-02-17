@@ -4,7 +4,6 @@ package io.rala.math.utils;
  * collection of unit conversion functions
  */
 public class Units {
-    // TO DO: move to root package?
     private Units() {
     }
 

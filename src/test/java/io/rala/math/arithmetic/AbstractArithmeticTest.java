@@ -109,6 +109,15 @@ class AbstractArithmeticTest {
         Assertions.assertFalse(arithmetic.isZero(1d));
     }
 
+    @Test
+    void isEqual() {
+        Assertions.assertTrue(arithmetic.isEqual(0d, 0d));
+        Assertions.assertTrue(arithmetic.isEqual(-0d, 0d));
+        Assertions.assertTrue(arithmetic.isEqual(-0d, -0d));
+        Assertions.assertFalse(arithmetic.isEqual(0, 0d));
+        Assertions.assertFalse(arithmetic.isEqual(1d, 0d));
+    }
+
     // endregion
 
     // region sum, difference, product, quotient and modulo

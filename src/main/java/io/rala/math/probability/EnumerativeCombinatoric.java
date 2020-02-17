@@ -159,7 +159,7 @@ public class EnumerativeCombinatoric {
      * @see BigInteger#pow(int)
      */
     public static BigInteger variationsWithRepetition(BigInteger n, BigInteger k) {
-        return n.pow(k.intValueExact());
+        return n == null || k == null ? null : n.pow(k.intValueExact());
     }
 
     // endregion
@@ -197,6 +197,7 @@ public class EnumerativeCombinatoric {
      * @see MathX#factorial(BigInteger)
      */
     public static BigInteger combinationsWithoutRepetition(BigInteger n, BigInteger k) {
+        if (n == null || k == null) return null;
         if (k.equals(BigInteger.ZERO) || n.equals(k)) return BigInteger.ONE;
         return MathX.factorial(n).divide(
             MathX.factorial(n.subtract(k))
@@ -234,7 +235,8 @@ public class EnumerativeCombinatoric {
      * @see #combinationsWithoutRepetition(BigInteger, BigInteger)
      */
     public static BigInteger combinationsWithRepetition(BigInteger n, BigInteger k) {
-        return combinationsWithoutRepetition(n.add(k).subtract(BigInteger.ONE), k);
+        return n == null || k == null ? null :
+            combinationsWithoutRepetition(n.add(k).subtract(BigInteger.ONE), k);
     }
 
     // endregion

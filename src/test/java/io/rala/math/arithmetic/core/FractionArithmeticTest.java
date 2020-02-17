@@ -107,6 +107,34 @@ class FractionArithmeticTest {
         Assertions.assertFalse(arithmetic.isZero(new TestFraction(1d)));
     }
 
+    @Test
+    void isEqual() {
+        Assertions.assertTrue(
+            arithmetic.isEqual(
+                new TestFraction(0d),
+                new TestFraction(0d)
+            )
+        );
+        Assertions.assertTrue(
+            arithmetic.isEqual(
+                new TestFraction(-0d),
+                new TestFraction(0d)
+            )
+        );
+        Assertions.assertTrue(
+            arithmetic.isEqual(
+                new TestFraction(-0d),
+                new TestFraction(-0d)
+            )
+        );
+        Assertions.assertFalse(
+            arithmetic.isEqual(
+                new TestFraction(1d),
+                new TestFraction(0d)
+            )
+        );
+    }
+
     // endregion
 
     // region sum, difference, product, quotient and modulo

@@ -91,6 +91,14 @@ class FloatArithmeticTest {
         Assertions.assertFalse(arithmetic.isZero(1f));
     }
 
+    @Test
+    void isEqual() {
+        Assertions.assertTrue(arithmetic.isEqual(0f, 0f));
+        Assertions.assertTrue(arithmetic.isEqual(-0f, 0f));
+        Assertions.assertTrue(arithmetic.isEqual(-0f, -0f));
+        Assertions.assertFalse(arithmetic.isEqual(1f, 0f));
+    }
+
     // endregion
 
     // region sum, difference, product, quotient and modulo
