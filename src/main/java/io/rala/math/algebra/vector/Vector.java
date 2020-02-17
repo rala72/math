@@ -279,6 +279,14 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
     }
 
     /**
+     * @param vector vector to subtract
+     * @return new vector with calculated values
+     */
+    public Vector<T> subtract(Vector<T> vector) {
+        return add(vector.invert());
+    }
+
+    /**
      * @param scalar to multiply entries with
      * @return new vector with calculated values
      */
