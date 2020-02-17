@@ -68,7 +68,7 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
     }
 
     /**
-     * creates a new vector with given values as entries
+     * calls {@link #Vector(AbstractArithmetic, int, Number, Type)}
      *
      * @param arithmetic   arithmetic for calculations
      * @param values       values of vector entries
@@ -77,10 +77,8 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
      * @throws IllegalArgumentException if values is null or its size is zero
      */
     public Vector(AbstractArithmetic<T> arithmetic, List<T> values, T defaultValue, Type type) {
-        if (values == null || values.size() == 0) throw new IllegalArgumentException();
-        this.arithmetic = arithmetic;
-        this.size = values.size();
-        this.defaultValue = defaultValue;
+        this(arithmetic, values == null ? -1 : values.size(), defaultValue, type);
+        if (getSize() == 0) throw new IllegalArgumentException();
         for (int i = 0; i < size; i++) {
             vector.put(i, values.get(i));
         }
@@ -101,7 +99,7 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
     }
 
     /**
-     * creates a new vector with given values as entries
+     * calls {@link #Vector(AbstractArithmetic, int, Number, Type)}
      *
      * @param arithmetic   arithmetic for calculation
      * @param values       values of vector entries
@@ -110,10 +108,8 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
      * @throws IllegalArgumentException if values is null or its size is zero
      */
     public Vector(AbstractArithmetic<T> arithmetic, Map<Integer, T> values, T defaultValue, Type type) {
-        if (values == null || values.size() == 0) throw new IllegalArgumentException();
-        this.arithmetic = arithmetic;
-        this.size = values.size();
-        this.defaultValue = defaultValue;
+        this(arithmetic, values == null ? -1 : values.size(), defaultValue, type);
+        if (getSize() == 0) throw new IllegalArgumentException();
         values.forEach(vector::put);
         this.setType(type);
     }
