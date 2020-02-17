@@ -241,12 +241,14 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
     /**
      * changes row vector to column vector and vice versa
      */
-    public void transpose() {
-        if (getType().equals(Type.COLUMN)) {
-            setType(Type.ROW);
+    public Vector<T> transpose() {
+        Vector<T> temp = new Vector<>(this);
+        if (temp.getType().equals(Type.COLUMN)) {
+            temp.setType(Type.ROW);
         } else {
-            setType(Type.COLUMN);
+            temp.setType(Type.COLUMN);
         }
+        return temp;
     }
 
     // endregion
