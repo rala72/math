@@ -1,5 +1,6 @@
 package io.rala.math.algebra.matrix;
 
+import io.rala.math.algebra.matrix.typed.BigDecimalMatrix;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.testUtils.algebra.TestMatrix;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
@@ -721,6 +722,22 @@ class MatrixTest {
         Assertions.assertNotEquals(
             matrix,
             new TestMatrix(3, 2)
+        );
+    }
+
+    @Test
+    void equalsOfTestMatrixWithDifferentDefaults() {
+        TestMatrix default0 = new TestMatrix(2);
+        default0.forEach(field -> default0.setValue(field.getIndex(), 1d));
+        Assertions.assertNotEquals(default0, new TestMatrix(2));
+        Assertions.assertEquals(default0, new TestMatrix(2, 1d));
+    }
+
+    @Test
+    void equalsOfTestMatrixAndBigDecimalMatrix() {
+        Assertions.assertNotEquals(
+            new TestMatrix(2),
+            new BigDecimalMatrix(2)
         );
     }
 
