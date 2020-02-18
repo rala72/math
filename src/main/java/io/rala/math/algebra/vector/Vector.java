@@ -17,7 +17,7 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
     private final Map<Integer, T> vector = new HashMap<>();
     private final int size;
     private final T defaultValue;
-    private Type type;
+    private final Type type;
 
     // endregion
 
@@ -51,7 +51,7 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
         this.arithmetic = arithmetic;
         this.size = size;
         this.defaultValue = defaultValue;
-        this.setType(type);
+        this.type = type;
     }
 
     /**
@@ -82,7 +82,6 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
         for (int i = 0; i < size; i++) {
             vector.put(i, values.get(i));
         }
-        this.setType(type);
     }
 
     /**
@@ -111,7 +110,6 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
         this(arithmetic, values == null ? -1 : values.size(), defaultValue, type);
         if (getSize() == 0) throw new IllegalArgumentException();
         values.forEach(vector::put);
-        this.setType(type);
     }
 
     /**
@@ -168,17 +166,6 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
      */
     protected Type getType() {
         return type;
-    }
-
-    /**
-     * set type of vector
-     *
-     * @param type type of vector
-     * @throws IllegalArgumentException if type is null
-     */
-    protected void setType(Type type) {
-        if (type == null) throw new IllegalArgumentException("Type of vector may not be null");
-        this.type = type;
     }
 
     // endregion
