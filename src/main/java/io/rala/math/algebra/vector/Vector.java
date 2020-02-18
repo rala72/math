@@ -242,13 +242,8 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
      * @return new vector with opposite type
      */
     public Vector<T> transpose() {
-        Vector<T> temp = new Vector<>(this);
-        if (temp.getType().equals(Type.COLUMN)) {
-            temp.setType(Type.ROW);
-        } else {
-            temp.setType(Type.COLUMN);
-        }
-        return temp;
+        return new Vector<>(getArithmetic(), getVector(), getDefaultValue(),
+            getType().equals(Type.COLUMN) ? Type.ROW : Type.COLUMN);
     }
 
     /**
