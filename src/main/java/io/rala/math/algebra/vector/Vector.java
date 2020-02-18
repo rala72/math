@@ -13,6 +13,7 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
     public enum Type {ROW, COLUMN}
 
     // region attributes
+
     private final AbstractArithmetic<T> arithmetic;
     private final Map<Integer, T> vector = new HashMap<>();
     private final int size;
@@ -182,8 +183,7 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
      */
     public T setValue(int index, T value) {
         if (!isValidIndex(index)) throw new IndexOutOfBoundsException();
-        if (value == null && getDefaultValue() == null
-            || value != null && value.equals(getDefaultValue()))
+        if (getArithmetic().isEqual(value, getDefaultValue()))
             return removeValue(index);
         T old = getVector().put(index, value);
         return old == null ? getDefaultValue() : old;
