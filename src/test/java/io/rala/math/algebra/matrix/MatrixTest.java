@@ -373,7 +373,7 @@ class MatrixTest {
         TestMatrix result = new TestMatrix(2);
         for (int i = 0; i < matrix.size(); i++) {
             matrix.setValue(i, i + 1d);
-            result.setValue(i, (double) 2 * (i + 1));
+            result.setValue(i, 2 * (i + 1d));
         }
         Assertions.assertEquals(result, matrix.add(matrix));
     }
@@ -391,7 +391,7 @@ class MatrixTest {
         TestMatrix result = new TestMatrix(2);
         for (int i = 0; i < result.size(); i++) {
             matrix.setValue(i, (i + 1));
-            result.setValue(i, (double) (i + 1) * 2);
+            result.setValue(i, (i + 1d) * 2);
         }
         Assertions.assertEquals(result, matrix.multiply(2));
     }
