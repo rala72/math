@@ -48,7 +48,7 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
      * @throws IllegalArgumentException if size is negative or zero
      */
     public Vector(AbstractArithmetic<T> arithmetic, int size, T defaultValue, Type type) {
-        if (size <= 0) throw new IllegalArgumentException("Size has to be greater than 0");
+        if (size < 0) throw new IllegalArgumentException("Size has to be greater than 0");
         this.arithmetic = arithmetic;
         this.size = size;
         this.defaultValue = defaultValue;
@@ -79,7 +79,6 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
      */
     public Vector(AbstractArithmetic<T> arithmetic, List<T> values, T defaultValue, Type type) {
         this(arithmetic, values == null ? -1 : values.size(), defaultValue, type);
-        if (getSize() == 0) throw new IllegalArgumentException();
         assert values != null;
         for (int i = 0; i < size; i++) {
             vector.put(i, values.get(i));
@@ -110,7 +109,6 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
      */
     public Vector(AbstractArithmetic<T> arithmetic, Map<Integer, T> values, T defaultValue, Type type) {
         this(arithmetic, values == null ? -1 : values.size(), defaultValue, type);
-        if (getSize() == 0) throw new IllegalArgumentException();
         assert values != null;
         vector.putAll(values);
     }
@@ -365,7 +363,7 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
      * @return {@code true} if value is valid
      */
     protected boolean isValidIndex(int index) {
-        return 0 <= index && index <= size();
+        return 0 <= index && index < size();
     }
 
     // endregion
