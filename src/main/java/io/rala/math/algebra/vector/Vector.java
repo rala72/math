@@ -79,6 +79,7 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
     public Vector(AbstractArithmetic<T> arithmetic, List<T> values, T defaultValue, Type type) {
         this(arithmetic, values == null ? -1 : values.size(), defaultValue, type);
         if (getSize() == 0) throw new IllegalArgumentException();
+        assert values != null;
         for (int i = 0; i < size; i++) {
             vector.put(i, values.get(i));
         }
@@ -109,7 +110,8 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
     public Vector(AbstractArithmetic<T> arithmetic, Map<Integer, T> values, T defaultValue, Type type) {
         this(arithmetic, values == null ? -1 : values.size(), defaultValue, type);
         if (getSize() == 0) throw new IllegalArgumentException();
-        values.forEach(vector::put);
+        assert values != null;
+        vector.putAll(values);
     }
 
     /**
