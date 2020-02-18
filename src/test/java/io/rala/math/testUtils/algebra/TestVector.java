@@ -22,6 +22,14 @@ public class TestVector extends Vector<Number> {
         }
     }
 
+    public TestVector(int size, double defaultValue) {
+        super(new TestAbstractArithmetic(), size, defaultValue);
+    }
+
+    public TestVector(TestVector vector) {
+        super(vector);
+    }
+
     // endregion
 
 }
