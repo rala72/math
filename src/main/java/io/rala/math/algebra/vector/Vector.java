@@ -231,8 +231,10 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
      * @return new vector with opposite type
      */
     public Vector<T> transpose() {
-        return new Vector<>(getArithmetic(), getVector(), getDefaultValue(),
+        Vector<T> flipped = new Vector<>(getArithmetic(), getSize(), getDefaultValue(),
             getType().equals(Type.COLUMN) ? Type.ROW : Type.COLUMN);
+        getVector().forEach(flipped::setValue);
+        return flipped;
     }
 
     /**
