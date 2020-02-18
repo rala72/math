@@ -515,13 +515,12 @@ class MatrixTest {
     void transposeOfMatrixWithSize2() {
         TestMatrix matrix = new TestMatrix(2);
         TestMatrix result = new TestMatrix(2);
-        for (int r = 0; r < matrix.getRows(); r++) {
+        for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++) {
                 int i = (int) matrix.getIndexOfRowAndCol(r, c);
                 matrix.setValue(i, i + 1d);
                 result.setValue(result.getIndexOfRowAndCol(c, r), i + 1d);
             }
-        }
         Assertions.assertEquals(result, matrix.transpose());
     }
 

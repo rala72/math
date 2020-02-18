@@ -498,13 +498,12 @@ class DoubleMatrixTest {
     void transposeOfMatrixWithSize2() {
         DoubleMatrix matrix = new DoubleMatrix(2);
         DoubleMatrix result = new DoubleMatrix(2);
-        for (int r = 0; r < matrix.getRows(); r++) {
+        for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++) {
                 int i = (int) TestMatrix.getIndexOfRowAndCol(matrix, r, c);
                 matrix.setValue(i, i + 1d);
                 result.setValue(TestMatrix.getIndexOfRowAndCol(result, c, r), i + 1d);
             }
-        }
         Assertions.assertEquals(result, matrix.transpose());
     }
 

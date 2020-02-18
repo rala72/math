@@ -535,7 +535,7 @@ class BigDecimalMatrixTest {
     void transposeOfMatrixWithSize2() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         BigDecimalMatrix result = new BigDecimalMatrix(2);
-        for (int r = 0; r < matrix.getRows(); r++) {
+        for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++) {
                 int i = (int) TestMatrix.getIndexOfRowAndCol(matrix, r, c);
                 matrix.setValue(i, BigDecimal.valueOf(i).add(BigDecimal.ONE));
@@ -543,7 +543,6 @@ class BigDecimalMatrixTest {
                     BigDecimal.valueOf(i).add(BigDecimal.ONE)
                 );
             }
-        }
         Assertions.assertEquals(result, matrix.transpose());
     }
 
