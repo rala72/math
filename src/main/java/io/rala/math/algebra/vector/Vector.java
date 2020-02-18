@@ -47,7 +47,7 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
      * @throws IllegalArgumentException if size is negative or zero
      */
     public Vector(AbstractArithmetic<T> arithmetic, int size, T defaultValue, Type type) {
-        if (size <= 0) throw new IllegalArgumentException("Size has to be grater than 0");
+        if (size <= 0) throw new IllegalArgumentException("Size has to be greater than 0");
         this.arithmetic = arithmetic;
         this.size = size;
         this.defaultValue = defaultValue;
