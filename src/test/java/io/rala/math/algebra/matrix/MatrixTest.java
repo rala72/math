@@ -367,9 +367,28 @@ class MatrixTest {
     }
 
     @Test
-    void addOfMatrixWithSize2ToItself() {
+    void addOfEmptyMatrixWithSize2AndDefault0AndEmptyMatrixWithSize2AndDefault1() {
+        TestMatrix matrix1 = new TestMatrix(2);
+        TestMatrix matrix2 = new TestMatrix(2, 1d);
+        TestMatrix result = new TestMatrix(2, 1d);
+        Assertions.assertEquals(result, matrix1.add(matrix2));
+    }
+
+    @Test
+    void addOfMatrixWithSize2AndDefault0ToItself() {
         TestMatrix matrix = new TestMatrix(2);
         TestMatrix result = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++) {
+            matrix.setValue(i, i + 1d);
+            result.setValue(i, 2 * (i + 1d));
+        }
+        Assertions.assertEquals(result, matrix.add(matrix));
+    }
+
+    @Test
+    void addOfMatrixWithSize2AndDefault2ToItself() {
+        TestMatrix matrix = new TestMatrix(2, 2d);
+        TestMatrix result = new TestMatrix(2, 2d);
         for (int i = 0; i < matrix.size(); i++) {
             matrix.setValue(i, i + 1d);
             result.setValue(i, 2 * (i + 1d));
@@ -385,9 +404,20 @@ class MatrixTest {
     }
 
     @Test
-    void multiplyMatrixWithSize2With2() {
+    void multiplyMatrixWithSize2AndDefault0With2() {
         TestMatrix matrix = new TestMatrix(2);
         TestMatrix result = new TestMatrix(2);
+        for (int i = 0; i < result.size(); i++) {
+            matrix.setValue(i, (i + 1));
+            result.setValue(i, (i + 1d) * 2);
+        }
+        Assertions.assertEquals(result, matrix.multiply(2));
+    }
+
+    @Test
+    void multiplyMatrixWithSize2AndDefault2With2() {
+        TestMatrix matrix = new TestMatrix(2, 2d);
+        TestMatrix result = new TestMatrix(2, 2d);
         for (int i = 0; i < result.size(); i++) {
             matrix.setValue(i, (i + 1));
             result.setValue(i, (i + 1d) * 2);
