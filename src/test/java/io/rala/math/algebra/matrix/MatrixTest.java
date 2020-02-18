@@ -362,8 +362,6 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(2);
         TestMatrix matrix2 = new TestMatrix(2);
         TestMatrix result = new TestMatrix(2);
-        for (int i = 0; i < result.size(); i++)
-            result.setValue(i, 0d);
         Assertions.assertEquals(result, matrix1.add(matrix2));
     }
 
@@ -401,8 +399,6 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(2);
         TestMatrix matrix2 = new TestMatrix(2);
         TestMatrix result = new TestMatrix(2);
-        for (int i = 0; i < result.size(); i++)
-            result.setValue(i, 0d);
         Assertions.assertEquals(result, matrix1.multiply(matrix2));
     }
 
@@ -411,8 +407,6 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(1, 2);
         TestMatrix matrix2 = new TestMatrix(2, 3);
         TestMatrix result = new TestMatrix(1, 3);
-        for (int i = 0; i < result.size(); i++)
-            result.setValue(i, 0d);
         Assertions.assertEquals(result, matrix1.multiply(matrix2));
     }
 
@@ -440,8 +434,6 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(1, 2);
         TestMatrix matrix2 = new TestMatrix(2, 3);
         TestMatrix result = new TestMatrix(1, 3);
-        for (int i = 0; i < result.size(); i++)
-            result.setValue(i, 0d);
         Assertions.assertEquals(result, matrix1.multiplyTolerant(matrix2));
     }
 
@@ -450,8 +442,6 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(2, 3);
         TestMatrix matrix2 = new TestMatrix(1, 2);
         TestMatrix result = new TestMatrix(1, 3);
-        for (int i = 0; i < result.size(); i++)
-            result.setValue(i, 0d);
         Assertions.assertEquals(result, matrix1.multiplyTolerant(matrix2));
     }
 
@@ -518,8 +508,6 @@ class MatrixTest {
     @Test
     void transposeOfEmptyMatrixWithSize2() {
         TestMatrix result = new TestMatrix(2);
-        for (int i = 0; i < result.size(); i++)
-            result.setValue(i, 0d);
         Assertions.assertEquals(result, new TestMatrix(2).transpose());
     }
 
