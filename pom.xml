@@ -93,6 +93,9 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <!-- remove if plugin handles no module names correctly -->
+                    <!-- https://stackoverflow.com/a/52603413/2715720 -->
+                    <additionalJOption>--no-module-directories</additionalJOption>
                     <!-- remove if plugin supports it out of the box -->
                     <!-- https://stackoverflow.com/a/38708383/2715720 -->
                     <tags>
