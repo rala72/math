@@ -7,6 +7,8 @@ import io.rala.math.arithmetic.AbstractArithmetic;
  * class which handles {@link Long} arithmetic
  */
 public class LongArithmetic extends AbstractArithmetic<Long> {
+    // region singleton
+
     private static LongArithmetic instance;
 
     /**
@@ -16,6 +18,8 @@ public class LongArithmetic extends AbstractArithmetic<Long> {
         if (instance == null) instance = new LongArithmetic();
         return instance;
     }
+
+    // endregion
 
     // region fromInt, fromDouble and signum
 

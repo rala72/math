@@ -13,6 +13,8 @@ import java.math.MathContext;
  * which calculates {@link BigInteger} to {@link BigDecimal}
  */
 public class BigIntegerBigDecimalResultArithmetic extends AbstractResultArithmetic<BigInteger, BigDecimal> {
+    // region singleton
+
     private static BigIntegerBigDecimalResultArithmetic instance;
 
     /**
@@ -22,6 +24,8 @@ public class BigIntegerBigDecimalResultArithmetic extends AbstractResultArithmet
         if (instance == null) instance = new BigIntegerBigDecimalResultArithmetic();
         return instance;
     }
+
+    // endregion
 
     /**
      * creates a new {@link AbstractResultArithmetic} with

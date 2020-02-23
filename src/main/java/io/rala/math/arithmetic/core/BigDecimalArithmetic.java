@@ -11,6 +11,8 @@ import java.util.Objects;
  * class which handles {@link BigDecimal} arithmetic
  */
 public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
+    // region singleton
+
     private static BigDecimalArithmetic instance;
 
     /**
@@ -20,6 +22,8 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
         if (instance == null) instance = new BigDecimalArithmetic();
         return instance;
     }
+
+    // endregion
 
     private final MathContext mathContext;
 
