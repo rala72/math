@@ -7,6 +7,16 @@ import io.rala.math.arithmetic.AbstractArithmetic;
  * class which handles {@link Integer} arithmetic
  */
 public class IntegerArithmetic extends AbstractArithmetic<Integer> {
+    private static IntegerArithmetic instance;
+
+    /**
+     * @return default instance
+     */
+    public static IntegerArithmetic getInstance() {
+        if (instance == null) instance = new IntegerArithmetic();
+        return instance;
+    }
+
     // region fromInt, fromDouble and signum
 
     @Override

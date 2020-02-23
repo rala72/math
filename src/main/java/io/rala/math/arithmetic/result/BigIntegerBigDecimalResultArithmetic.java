@@ -13,6 +13,16 @@ import java.math.MathContext;
  * which calculates {@link BigInteger} to {@link BigDecimal}
  */
 public class BigIntegerBigDecimalResultArithmetic extends AbstractResultArithmetic<BigInteger, BigDecimal> {
+    private static BigIntegerBigDecimalResultArithmetic instance;
+
+    /**
+     * @return default instance
+     */
+    public static BigIntegerBigDecimalResultArithmetic getInstance() {
+        if (instance == null) instance = new BigIntegerBigDecimalResultArithmetic();
+        return instance;
+    }
+
     /**
      * creates a new {@link AbstractResultArithmetic} with
      * {@link BigIntegerArithmetic} and {@link BigDecimalArithmetic}
@@ -20,7 +30,7 @@ public class BigIntegerBigDecimalResultArithmetic extends AbstractResultArithmet
      * @see BigDecimalArithmetic#BigDecimalArithmetic()
      */
     public BigIntegerBigDecimalResultArithmetic() {
-        super(new BigIntegerArithmetic(), new BigDecimalArithmetic());
+        super(BigIntegerArithmetic.getInstance(), BigDecimalArithmetic.getInstance());
     }
 
     /**
@@ -31,7 +41,7 @@ public class BigIntegerBigDecimalResultArithmetic extends AbstractResultArithmet
      * @see BigDecimalArithmetic#BigDecimalArithmetic(MathContext)
      */
     public BigIntegerBigDecimalResultArithmetic(MathContext context) {
-        super(new BigIntegerArithmetic(), new BigDecimalArithmetic(context));
+        super(BigIntegerArithmetic.getInstance(), new BigDecimalArithmetic(context));
     }
 
     @Override

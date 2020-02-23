@@ -14,6 +14,11 @@ class DoubleArithmeticTest {
         arithmetic = new DoubleArithmetic();
     }
 
+    @Test
+    void getInstance() {
+        Assertions.assertEquals(arithmetic, DoubleArithmetic.getInstance());
+    }
+
     // region fromInt, fromDouble and signum
 
     @Test

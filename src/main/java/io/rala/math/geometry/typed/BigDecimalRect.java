@@ -21,7 +21,7 @@ public class BigDecimalRect extends Rect<BigDecimal> {
      * @see Rect#Rect(AbstractArithmetic, Number, Number)
      */
     public BigDecimalRect(BigDecimal height, BigDecimal width) {
-        super(new BigDecimalArithmetic(), height, width);
+        super(BigDecimalArithmetic.getInstance(), height, width);
     }
 
     /**
@@ -41,7 +41,7 @@ public class BigDecimalRect extends Rect<BigDecimal> {
      * @see Rect#Rect(AbstractArithmetic, Point, Point, Number)
      */
     public BigDecimalRect(Point<BigDecimal> a, Point<BigDecimal> b, BigDecimal size) {
-        super(new BigDecimalArithmetic(), a, b, size);
+        super(BigDecimalArithmetic.getInstance(), a, b, size);
     }
 
     /**

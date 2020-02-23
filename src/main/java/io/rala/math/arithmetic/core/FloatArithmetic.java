@@ -7,6 +7,16 @@ import io.rala.math.arithmetic.AbstractArithmetic;
  * class which handles {@link Float} arithmetic
  */
 public class FloatArithmetic extends AbstractArithmetic<Float> {
+    private static FloatArithmetic instance;
+
+    /**
+     * @return default instance
+     */
+    public static FloatArithmetic getInstance() {
+        if (instance == null) instance = new FloatArithmetic();
+        return instance;
+    }
+
     // region fromInt, fromDouble and signum
 
     @Override

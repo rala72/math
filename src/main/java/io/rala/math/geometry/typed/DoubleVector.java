@@ -15,7 +15,7 @@ public class DoubleVector extends Vector<Double> {
      * @see Vector#Vector(AbstractArithmetic)
      */
     public DoubleVector() {
-        super(new DoubleArithmetic());
+        super(DoubleArithmetic.getInstance());
     }
 
     /**
@@ -24,7 +24,7 @@ public class DoubleVector extends Vector<Double> {
      * @see Vector#Vector(AbstractArithmetic, Number)
      */
     public DoubleVector(double xy) {
-        super(new DoubleArithmetic(), xy);
+        super(DoubleArithmetic.getInstance(), xy);
     }
 
     /**
@@ -33,7 +33,7 @@ public class DoubleVector extends Vector<Double> {
      * @see Vector#Vector(AbstractArithmetic, Number, Number)
      */
     public DoubleVector(double x, double y) {
-        super(new DoubleArithmetic(), x, y);
+        super(DoubleArithmetic.getInstance(), x, y);
     }
 
     // endregion

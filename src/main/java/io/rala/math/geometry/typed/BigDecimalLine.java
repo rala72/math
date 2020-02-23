@@ -22,7 +22,7 @@ public class BigDecimalLine extends Line<BigDecimal> {
      * @see Line#Line(AbstractArithmetic, Number)
      */
     public BigDecimalLine(BigDecimal x) {
-        super(new BigDecimalArithmetic(), x);
+        super(BigDecimalArithmetic.getInstance(), x);
     }
 
     /**
@@ -40,7 +40,7 @@ public class BigDecimalLine extends Line<BigDecimal> {
      * @see Line#Line(AbstractArithmetic, Number, Number)
      */
     public BigDecimalLine(BigDecimal m, BigDecimal b) {
-        super(new BigDecimalArithmetic(), m, b);
+        super(BigDecimalArithmetic.getInstance(), m, b);
     }
 
     /**

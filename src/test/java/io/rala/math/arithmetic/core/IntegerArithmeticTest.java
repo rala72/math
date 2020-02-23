@@ -13,6 +13,11 @@ class IntegerArithmeticTest {
         arithmetic = new IntegerArithmetic();
     }
 
+    @Test
+    void getInstance() {
+        Assertions.assertEquals(arithmetic, IntegerArithmetic.getInstance());
+    }
+
     // region fromInt, fromDouble and signum
 
     @Test

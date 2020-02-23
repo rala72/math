@@ -7,6 +7,16 @@ import io.rala.math.arithmetic.AbstractArithmetic;
  * class which handles {@link Long} arithmetic
  */
 public class LongArithmetic extends AbstractArithmetic<Long> {
+    private static LongArithmetic instance;
+
+    /**
+     * @return default instance
+     */
+    public static LongArithmetic getInstance() {
+        if (instance == null) instance = new LongArithmetic();
+        return instance;
+    }
+
     // region fromInt, fromDouble and signum
 
     @Override

@@ -21,7 +21,7 @@ public class BigDecimalLineSegment extends LineSegment<BigDecimal> {
      * @see LineSegment#LineSegment(AbstractArithmetic, Point)
      */
     public BigDecimalLineSegment(Point<BigDecimal> b) {
-        super(new BigDecimalArithmetic(), b);
+        super(BigDecimalArithmetic.getInstance(), b);
     }
 
     /**
@@ -41,7 +41,7 @@ public class BigDecimalLineSegment extends LineSegment<BigDecimal> {
      * @see LineSegment#LineSegment(AbstractArithmetic, Point, Point)
      */
     public BigDecimalLineSegment(Point<BigDecimal> a, Point<BigDecimal> b) {
-        super(new BigDecimalArithmetic(), a, b);
+        super(BigDecimalArithmetic.getInstance(), a, b);
     }
 
     /**

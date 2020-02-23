@@ -15,6 +15,13 @@ class LongDoubleResultArithmeticTest {
         arithmetic = new LongDoubleResultArithmetic();
     }
 
+    @Test
+    void getInstance() {
+        Assertions.assertEquals(arithmetic,
+            LongDoubleResultArithmetic.getInstance()
+        );
+    }
+
     // region fromT
 
     @Test

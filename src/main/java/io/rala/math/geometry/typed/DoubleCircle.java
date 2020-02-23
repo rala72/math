@@ -16,7 +16,7 @@ public class DoubleCircle extends Circle<Double> {
      * @see Circle#Circle(AbstractArithmetic)
      */
     public DoubleCircle() {
-        super(new DoubleArithmetic());
+        super(DoubleArithmetic.getInstance());
     }
 
     /**
@@ -24,7 +24,7 @@ public class DoubleCircle extends Circle<Double> {
      * @see Circle#Circle(AbstractArithmetic, Point)
      */
     public DoubleCircle(Point<Double> center) {
-        super(new DoubleArithmetic(), center);
+        super(DoubleArithmetic.getInstance(), center);
     }
 
     /**
@@ -32,7 +32,7 @@ public class DoubleCircle extends Circle<Double> {
      * @see Circle#Circle(AbstractArithmetic, Number)
      */
     public DoubleCircle(double radius) {
-        super(new DoubleArithmetic(), radius);
+        super(DoubleArithmetic.getInstance(), radius);
     }
 
     /**
@@ -41,7 +41,7 @@ public class DoubleCircle extends Circle<Double> {
      * @see Circle#Circle(AbstractArithmetic, Point, Point)
      */
     public DoubleCircle(Point<Double> center, Point<Double> point) {
-        super(new DoubleArithmetic(), center, point);
+        super(DoubleArithmetic.getInstance(), center, point);
     }
 
     /**
@@ -50,7 +50,7 @@ public class DoubleCircle extends Circle<Double> {
      * @see Circle#Circle(AbstractArithmetic, Point, Number)
      */
     public DoubleCircle(Point<Double> center, double radius) {
-        super(new DoubleArithmetic(), center, radius);
+        super(DoubleArithmetic.getInstance(), center, radius);
     }
 
     // endregion

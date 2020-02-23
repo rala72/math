@@ -14,6 +14,11 @@ class FloatArithmeticTest {
         arithmetic = new FloatArithmetic();
     }
 
+    @Test
+    void getInstance() {
+        Assertions.assertEquals(arithmetic, FloatArithmetic.getInstance());
+    }
+
     // region fromInt, fromDouble and signum
 
     @Test

@@ -17,6 +17,11 @@ class BigDecimalArithmeticTest {
         arithmetic = new BigDecimalArithmetic();
     }
 
+    @Test
+    void getInstance() {
+        Assertions.assertEquals(arithmetic, BigDecimalArithmetic.getInstance());
+    }
+
     // region fromInt, fromDouble and signum
 
     @Test

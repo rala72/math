@@ -15,7 +15,7 @@ public class DoublePoint extends Point<Double> {
      * @see Point#Point(AbstractArithmetic)
      */
     public DoublePoint() {
-        super(new DoubleArithmetic());
+        super(DoubleArithmetic.getInstance());
     }
 
     /**
@@ -24,7 +24,7 @@ public class DoublePoint extends Point<Double> {
      * @see Point#Point(AbstractArithmetic, Number)
      */
     public DoublePoint(double xy) {
-        super(new DoubleArithmetic(), xy);
+        super(DoubleArithmetic.getInstance(), xy);
     }
 
     /**
@@ -33,7 +33,7 @@ public class DoublePoint extends Point<Double> {
      * @see Point#Point(AbstractArithmetic, Number, Number)
      */
     public DoublePoint(double x, double y) {
-        super(new DoubleArithmetic(), x, y);
+        super(DoubleArithmetic.getInstance(), x, y);
     }
 
     // endregion
