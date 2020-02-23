@@ -50,6 +50,18 @@ public class Matrix<T extends Number>
     // region constructor
 
     /**
+     * calls {@link #Matrix(AbstractArithmetic, int, int)}
+     *
+     * @param arithmetic arithmetic for calculations
+     * @param size       size of matrix
+     * @throws IllegalArgumentException if rows or cols is less than {@code 1}
+     * @see #Matrix(AbstractArithmetic, int, int)
+     */
+    public Matrix(AbstractArithmetic<T> arithmetic, int size) {
+        this(arithmetic, size, size);
+    }
+
+    /**
      * calls {@link #Matrix(AbstractArithmetic, int, int, Number)}
      * with size as rows and cols and
      * given default value for non-existing values
@@ -58,22 +70,44 @@ public class Matrix<T extends Number>
      * @param size         size of matrix
      * @param defaultValue default value of non-existing values
      * @throws IllegalArgumentException if rows or cols is less than {@code 1}
+     * @implSpec default value should be {@code 0}
+     * - other values may not be handled correctly
+     * <i>(in {@link #equals(Object)}, ...)</i>
+     * @see #Matrix(AbstractArithmetic, int, Number)
      */
-    public Matrix(AbstractArithmetic<T> arithmetic, int size, T defaultValue) {
+    protected Matrix(AbstractArithmetic<T> arithmetic, int size, T defaultValue) {
         this(arithmetic, size, size, defaultValue);
     }
 
     /**
+     * calls {@link #Matrix(AbstractArithmetic, int, int, Number)}
+     * with given rows and cols using
+     * {@link AbstractArithmetic#zero()} as {@code defaultValue}
+     *
+     * @param arithmetic arithmetic for calculations
+     * @param rows       rows of matrix
+     * @param cols       cols of matrix
+     * @throws IllegalArgumentException if rows or cols is less than {@code 1}
+     * @see #Matrix(AbstractArithmetic, int, int)
+     */
+    public Matrix(AbstractArithmetic<T> arithmetic, int rows, int cols) {
+        this(arithmetic, rows, cols, arithmetic.zero());
+    }
+
+    /**
      * creates a new matrix with given rows and cols
-     * which uses given default value for non-existing values
+     * using given default value for non-existing values
      *
      * @param arithmetic   arithmetic for calculations
      * @param rows         rows of matrix
      * @param cols         cols of matrix
      * @param defaultValue default value of non-existing values
      * @throws IllegalArgumentException if rows or cols is less than {@code 1}
+     * @implSpec default value should be {@code 0}
+     * - other values may not be handled correctly
+     * <i>(in {@link #equals(Object)}, ...)</i>
      */
-    public Matrix(AbstractArithmetic<T> arithmetic, int rows, int cols, T defaultValue) {
+    protected Matrix(AbstractArithmetic<T> arithmetic, int rows, int cols, T defaultValue) {
         if (rows <= 0 || cols <= 0)
             throw new IllegalArgumentException("rows and cols have to be greater than 0");
         this.arithmetic = arithmetic;

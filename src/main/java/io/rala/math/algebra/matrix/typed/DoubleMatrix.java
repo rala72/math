@@ -21,29 +21,24 @@ public class DoubleMatrix extends Matrix<Double> {
     // region constructor
 
     /**
-     * default value is {@code 0}
-     *
      * @param size size of matrix
-     * @see Matrix#Matrix(AbstractArithmetic, int, Number)
+     * @see Matrix#Matrix(AbstractArithmetic, int)
      */
     public DoubleMatrix(int size) {
-        super(new DoubleArithmetic(), size, DEFAULT_VALUE);
+        super(new DoubleArithmetic(), size);
     }
 
     /**
-     * default value is {@code 0}
-     *
      * @param rows rows of matrix
      * @param cols cols of matrix
-     * @see Matrix#Matrix(AbstractArithmetic, int, int, Number)
+     * @see Matrix#Matrix(AbstractArithmetic, int, int)
      */
     public DoubleMatrix(int rows, int cols) {
-        super(new DoubleArithmetic(), rows, cols, DEFAULT_VALUE);
+        super(new DoubleArithmetic(), rows, cols);
     }
 
     /**
-     * creates a new matrix based on given one<br>
-     * default value is {@code 0}
+     * creates a new matrix based on given one
      *
      * @param matrix matrix to copy
      */

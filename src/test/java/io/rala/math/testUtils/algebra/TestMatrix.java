@@ -10,12 +10,12 @@ public class TestMatrix extends Matrix<Number> {
         super(new TestAbstractArithmetic(), size, 0d);
     }
 
-    public TestMatrix(int rows, int cols) {
-        super(new TestAbstractArithmetic(), rows, cols, 0d);
-    }
-
     public TestMatrix(int size, Number defaultValue) {
         super(new TestAbstractArithmetic(), size, defaultValue);
+    }
+
+    public TestMatrix(int rows, int cols) {
+        super(new TestAbstractArithmetic(), rows, cols, 0d);
     }
 
     public TestMatrix(int rows, int cols, Number defaultValue) {

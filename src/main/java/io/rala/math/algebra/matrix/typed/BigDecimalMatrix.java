@@ -22,52 +22,43 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
     // region constructor
 
     /**
-     * default value is {@code 0}
-     *
      * @param size size of matrix
-     * @see Matrix#Matrix(AbstractArithmetic, int, Number)
+     * @see Matrix#Matrix(AbstractArithmetic, int)
      */
     public BigDecimalMatrix(int size) {
-        super(new BigDecimalArithmetic(), size, DEFAULT_VALUE);
+        super(new BigDecimalArithmetic(), size);
     }
 
     /**
-     * default value is {@code 0}
-     *
      * @param size    size of matrix
      * @param context context of {@link BigDecimalArithmetic}
-     * @see Matrix#Matrix(AbstractArithmetic, int, Number)
+     * @see Matrix#Matrix(AbstractArithmetic, int)
      */
     public BigDecimalMatrix(int size, MathContext context) {
-        super(new BigDecimalArithmetic(context), size, DEFAULT_VALUE);
+        super(new BigDecimalArithmetic(context), size);
     }
 
     /**
-     * default value is {@code 0}
-     *
      * @param rows rows of matrix
      * @param cols cols of matrix
-     * @see Matrix#Matrix(AbstractArithmetic, int, int, Number)
+     * @see Matrix#Matrix(AbstractArithmetic, int, int)
      */
     public BigDecimalMatrix(int rows, int cols) {
-        super(new BigDecimalArithmetic(), rows, cols, DEFAULT_VALUE);
+        super(new BigDecimalArithmetic(), rows, cols);
     }
 
     /**
-     * default value is {@code 0}
-     *
      * @param rows    rows of matrix
      * @param cols    cols of matrix
      * @param context context of {@link BigDecimalArithmetic}
-     * @see Matrix#Matrix(AbstractArithmetic, int, int, Number)
+     * @see Matrix#Matrix(AbstractArithmetic, int, int)
      */
     public BigDecimalMatrix(int rows, int cols, MathContext context) {
-        super(new BigDecimalArithmetic(context), rows, cols, DEFAULT_VALUE);
+        super(new BigDecimalArithmetic(context), rows, cols);
     }
 
     /**
-     * creates a new matrix based on given one<br>
-     * default value is {@code 0}
+     * creates a new matrix based on given one
      *
      * @param matrix matrix to copy
      */
