@@ -5,6 +5,7 @@ import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 import io.rala.math.arithmetic.core.FractionArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.arithmetic.result.BigIntegerBigDecimalResultArithmetic;
+import io.rala.math.testUtils.algebra.TestMatrix;
 import io.rala.math.testUtils.algebra.TestVector;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
 import org.junit.jupiter.api.Assertions;
@@ -114,6 +115,44 @@ public class VectorTest {
 
     // endregion
 
+    // region Matrix
+
+    @Test
+    void emptyColumnVectorToMatrix() {
+        Assertions.assertEquals(new TestMatrix(3, 1), new TestVector(3).toMatrix());
+    }
+
+    @Test
+    void emptyRowVectorToMatrix() {
+        Assertions.assertEquals(new TestMatrix(1, 3), new TestVector(3, Vector.Type.ROW).toMatrix());
+    }
+
+    @Test
+    void nonEmptyVectorOfSizeOneToMatrix() {
+        Assertions.assertEquals(new TestMatrix(1, 1d), new TestVector(1, 1d).toMatrix());
+    }
+
+    @Test
+    void nonEmptyColumnVectorToMatrix() {
+        TestMatrix expected = new TestMatrix(4, 1);
+        expected.setValue(0, 0, 1d);
+        expected.setValue(1, 0, -4d);
+        expected.setValue(2, 0, 9d);
+        expected.setValue(3, 0, -16d);
+        Assertions.assertEquals(expected, new TestVector(4, false).toMatrix());
+    }
+
+    @Test
+    void nonEmptyRowVectorToMatrix() {
+        TestMatrix expected = new TestMatrix(1, 4);
+        expected.setValue(0, 0, 1d);
+        expected.setValue(0, 1, -4d);
+        expected.setValue(0, 2, 9d);
+        expected.setValue(0, 3, -16d);
+        Assertions.assertEquals(expected, new TestVector(4, Vector.Type.ROW, false).toMatrix());
+    }
+
+    // endregion
 
     // region temp (to be deleted, when proper tests exist)
     @Test
