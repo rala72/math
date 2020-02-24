@@ -21,7 +21,7 @@ public class BigIntegerBigDecimalFraction extends Fraction<BigInteger, BigDecima
      * @see Fraction#Fraction(io.rala.math.arithmetic.AbstractResultArithmetic, Number)
      */
     public BigIntegerBigDecimalFraction(BigInteger numerator) {
-        super(new BigIntegerBigDecimalResultArithmetic(), numerator);
+        super(BigIntegerBigDecimalResultArithmetic.getInstance(), numerator);
     }
 
     /**
@@ -32,7 +32,7 @@ public class BigIntegerBigDecimalFraction extends Fraction<BigInteger, BigDecima
      * @see Fraction#Fraction(AbstractResultArithmetic, Number, Number)
      */
     public BigIntegerBigDecimalFraction(BigInteger numerator, BigInteger denominator) {
-        super(new BigIntegerBigDecimalResultArithmetic(), numerator, denominator);
+        super(BigIntegerBigDecimalResultArithmetic.getInstance(), numerator, denominator);
     }
 
     /**

@@ -18,7 +18,7 @@ public class DoubleLineSegment extends LineSegment<Double> {
      * @see LineSegment#LineSegment(AbstractArithmetic, Point)
      */
     public DoubleLineSegment(Point<Double> b) {
-        super(new DoubleArithmetic(), b);
+        super(DoubleArithmetic.getInstance(), b);
     }
 
     /**
@@ -27,7 +27,7 @@ public class DoubleLineSegment extends LineSegment<Double> {
      * @see LineSegment#LineSegment(AbstractArithmetic, Point, Point)
      */
     public DoubleLineSegment(Point<Double> a, Point<Double> b) {
-        super(new DoubleArithmetic(), a, b);
+        super(DoubleArithmetic.getInstance(), a, b);
     }
 
     // endregion

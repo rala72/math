@@ -18,7 +18,7 @@ public class BigDecimalComplex extends Complex<BigDecimal> {
      * @see Complex#Complex(AbstractArithmetic)
      */
     public BigDecimalComplex() {
-        super(new BigDecimalArithmetic());
+        super(BigDecimalArithmetic.getInstance());
     }
 
     /**
@@ -37,7 +37,7 @@ public class BigDecimalComplex extends Complex<BigDecimal> {
      * @see Complex#Complex(AbstractArithmetic, Number, Number)
      */
     public BigDecimalComplex(BigDecimal re, BigDecimal im) {
-        super(new BigDecimalArithmetic(), re, im);
+        super(BigDecimalArithmetic.getInstance(), re, im);
     }
 
     /**
@@ -73,7 +73,7 @@ public class BigDecimalComplex extends Complex<BigDecimal> {
      */
     public static BigDecimalComplex of(BigDecimal absoluteValue, BigDecimal argument) {
         return new BigDecimalComplex(
-            Complex.of(new BigDecimalArithmetic(), absoluteValue, argument)
+            Complex.of(BigDecimalArithmetic.getInstance(), absoluteValue, argument)
         );
     }
 

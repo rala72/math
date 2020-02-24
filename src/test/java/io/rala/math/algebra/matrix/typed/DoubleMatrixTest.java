@@ -345,8 +345,6 @@ class DoubleMatrixTest {
         DoubleMatrix matrix1 = new DoubleMatrix(2);
         DoubleMatrix matrix2 = new DoubleMatrix(2);
         DoubleMatrix result = new DoubleMatrix(2);
-        for (int i = 0; i < result.size(); i++)
-            result.setValue(i, 0d);
         Assertions.assertEquals(result, matrix1.add(matrix2));
     }
 
@@ -384,8 +382,6 @@ class DoubleMatrixTest {
         DoubleMatrix matrix1 = new DoubleMatrix(2);
         DoubleMatrix matrix2 = new DoubleMatrix(2);
         DoubleMatrix result = new DoubleMatrix(2);
-        for (int i = 0; i < result.size(); i++)
-            result.setValue(i, 0d);
         Assertions.assertEquals(result, matrix1.multiply(matrix2));
     }
 
@@ -394,8 +390,6 @@ class DoubleMatrixTest {
         DoubleMatrix matrix1 = new DoubleMatrix(1, 2);
         DoubleMatrix matrix2 = new DoubleMatrix(2, 3);
         DoubleMatrix result = new DoubleMatrix(1, 3);
-        for (int i = 0; i < result.size(); i++)
-            result.setValue(i, 0d);
         Assertions.assertEquals(result, matrix1.multiply(matrix2));
     }
 
@@ -423,8 +417,6 @@ class DoubleMatrixTest {
         DoubleMatrix matrix1 = new DoubleMatrix(1, 2);
         DoubleMatrix matrix2 = new DoubleMatrix(2, 3);
         DoubleMatrix result = new DoubleMatrix(1, 3);
-        for (int i = 0; i < result.size(); i++)
-            result.setValue(i, 0d);
         Assertions.assertEquals(result, matrix1.multiplyTolerant(matrix2));
     }
 
@@ -433,8 +425,6 @@ class DoubleMatrixTest {
         DoubleMatrix matrix1 = new DoubleMatrix(2, 3);
         DoubleMatrix matrix2 = new DoubleMatrix(1, 2);
         DoubleMatrix result = new DoubleMatrix(1, 3);
-        for (int i = 0; i < result.size(); i++)
-            result.setValue(i, 0d);
         Assertions.assertEquals(result, matrix1.multiplyTolerant(matrix2));
     }
 
@@ -501,8 +491,6 @@ class DoubleMatrixTest {
     @Test
     void transposeOfEmptyMatrixWithSize2() {
         DoubleMatrix result = new DoubleMatrix(2);
-        for (int i = 0; i < result.size(); i++)
-            result.setValue(i, 0d);
         Assertions.assertEquals(result, new DoubleMatrix(2).transpose());
     }
 
@@ -510,13 +498,12 @@ class DoubleMatrixTest {
     void transposeOfMatrixWithSize2() {
         DoubleMatrix matrix = new DoubleMatrix(2);
         DoubleMatrix result = new DoubleMatrix(2);
-        for (int r = 0; r < matrix.getRows(); r++) {
+        for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++) {
                 int i = (int) TestMatrix.getIndexOfRowAndCol(matrix, r, c);
                 matrix.setValue(i, i + 1d);
                 result.setValue(TestMatrix.getIndexOfRowAndCol(result, c, r), i + 1d);
             }
-        }
         Assertions.assertEquals(result, matrix.transpose());
     }
 

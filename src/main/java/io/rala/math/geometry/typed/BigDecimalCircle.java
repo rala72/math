@@ -19,7 +19,7 @@ public class BigDecimalCircle extends Circle<BigDecimal> {
      * @see Circle#Circle(AbstractArithmetic)
      */
     public BigDecimalCircle() {
-        super(new BigDecimalArithmetic());
+        super(BigDecimalArithmetic.getInstance());
     }
 
     /**
@@ -35,7 +35,7 @@ public class BigDecimalCircle extends Circle<BigDecimal> {
      * @see Circle#Circle(AbstractArithmetic, Point)
      */
     public BigDecimalCircle(Point<BigDecimal> center) {
-        super(new BigDecimalArithmetic(), center);
+        super(BigDecimalArithmetic.getInstance(), center);
     }
 
     /**
@@ -52,7 +52,7 @@ public class BigDecimalCircle extends Circle<BigDecimal> {
      * @see Circle#Circle(AbstractArithmetic, Number)
      */
     public BigDecimalCircle(BigDecimal radius) {
-        super(new BigDecimalArithmetic(), radius);
+        super(BigDecimalArithmetic.getInstance(), radius);
     }
 
     /**
@@ -70,7 +70,7 @@ public class BigDecimalCircle extends Circle<BigDecimal> {
      * @see Circle#Circle(AbstractArithmetic, Point, Point)
      */
     public BigDecimalCircle(Point<BigDecimal> center, Point<BigDecimal> point) {
-        super(new BigDecimalArithmetic(), center, point);
+        super(BigDecimalArithmetic.getInstance(), center, point);
     }
 
     /**
@@ -82,7 +82,7 @@ public class BigDecimalCircle extends Circle<BigDecimal> {
     public BigDecimalCircle(
         Point<BigDecimal> center, Point<BigDecimal> point, MathContext context
     ) {
-        super(new BigDecimalArithmetic(), center, point);
+        super(BigDecimalArithmetic.getInstance(), center, point);
     }
 
     /**
@@ -91,7 +91,7 @@ public class BigDecimalCircle extends Circle<BigDecimal> {
      * @see Circle#Circle(AbstractArithmetic, Point, Number)
      */
     public BigDecimalCircle(Point<BigDecimal> center, BigDecimal radius) {
-        super(new BigDecimalArithmetic(), center, radius);
+        super(BigDecimalArithmetic.getInstance(), center, radius);
     }
 
     /**

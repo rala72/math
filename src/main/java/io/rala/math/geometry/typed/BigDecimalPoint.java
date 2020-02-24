@@ -18,7 +18,7 @@ public class BigDecimalPoint extends Point<BigDecimal> {
      * @see Point#Point(AbstractArithmetic)
      */
     public BigDecimalPoint() {
-        super(new BigDecimalArithmetic());
+        super(BigDecimalArithmetic.getInstance());
     }
 
     /**
@@ -35,7 +35,7 @@ public class BigDecimalPoint extends Point<BigDecimal> {
      * @see Point#Point(AbstractArithmetic, Number)
      */
     public BigDecimalPoint(BigDecimal xy) {
-        super(new BigDecimalArithmetic(), xy);
+        super(BigDecimalArithmetic.getInstance(), xy);
     }
 
     /**
@@ -54,7 +54,7 @@ public class BigDecimalPoint extends Point<BigDecimal> {
      * @see Point#Point(AbstractArithmetic, Number, Number)
      */
     public BigDecimalPoint(BigDecimal x, BigDecimal y) {
-        super(new BigDecimalArithmetic(), x, y);
+        super(BigDecimalArithmetic.getInstance(), x, y);
     }
 
     /**

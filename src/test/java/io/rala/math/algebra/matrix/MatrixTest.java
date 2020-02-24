@@ -362,8 +362,6 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(2);
         TestMatrix matrix2 = new TestMatrix(2);
         TestMatrix result = new TestMatrix(2);
-        for (int i = 0; i < result.size(); i++)
-            result.setValue(i, 0d);
         Assertions.assertEquals(result, matrix1.add(matrix2));
     }
 
@@ -373,7 +371,7 @@ class MatrixTest {
         TestMatrix result = new TestMatrix(2);
         for (int i = 0; i < matrix.size(); i++) {
             matrix.setValue(i, i + 1d);
-            result.setValue(i, (double) 2 * (i + 1));
+            result.setValue(i, 2 * (i + 1d));
         }
         Assertions.assertEquals(result, matrix.add(matrix));
     }
@@ -391,7 +389,7 @@ class MatrixTest {
         TestMatrix result = new TestMatrix(2);
         for (int i = 0; i < result.size(); i++) {
             matrix.setValue(i, (i + 1));
-            result.setValue(i, (double) (i + 1) * 2);
+            result.setValue(i, (i + 1d) * 2);
         }
         Assertions.assertEquals(result, matrix.multiply(2));
     }
@@ -401,8 +399,6 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(2);
         TestMatrix matrix2 = new TestMatrix(2);
         TestMatrix result = new TestMatrix(2);
-        for (int i = 0; i < result.size(); i++)
-            result.setValue(i, 0d);
         Assertions.assertEquals(result, matrix1.multiply(matrix2));
     }
 
@@ -411,8 +407,6 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(1, 2);
         TestMatrix matrix2 = new TestMatrix(2, 3);
         TestMatrix result = new TestMatrix(1, 3);
-        for (int i = 0; i < result.size(); i++)
-            result.setValue(i, 0d);
         Assertions.assertEquals(result, matrix1.multiply(matrix2));
     }
 
@@ -440,8 +434,6 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(1, 2);
         TestMatrix matrix2 = new TestMatrix(2, 3);
         TestMatrix result = new TestMatrix(1, 3);
-        for (int i = 0; i < result.size(); i++)
-            result.setValue(i, 0d);
         Assertions.assertEquals(result, matrix1.multiplyTolerant(matrix2));
     }
 
@@ -450,8 +442,6 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(2, 3);
         TestMatrix matrix2 = new TestMatrix(1, 2);
         TestMatrix result = new TestMatrix(1, 3);
-        for (int i = 0; i < result.size(); i++)
-            result.setValue(i, 0d);
         Assertions.assertEquals(result, matrix1.multiplyTolerant(matrix2));
     }
 
@@ -518,8 +508,6 @@ class MatrixTest {
     @Test
     void transposeOfEmptyMatrixWithSize2() {
         TestMatrix result = new TestMatrix(2);
-        for (int i = 0; i < result.size(); i++)
-            result.setValue(i, 0d);
         Assertions.assertEquals(result, new TestMatrix(2).transpose());
     }
 
@@ -527,13 +515,12 @@ class MatrixTest {
     void transposeOfMatrixWithSize2() {
         TestMatrix matrix = new TestMatrix(2);
         TestMatrix result = new TestMatrix(2);
-        for (int r = 0; r < matrix.getRows(); r++) {
+        for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++) {
                 int i = (int) matrix.getIndexOfRowAndCol(r, c);
                 matrix.setValue(i, i + 1d);
                 result.setValue(result.getIndexOfRowAndCol(c, r), i + 1d);
             }
-        }
         Assertions.assertEquals(result, matrix.transpose());
     }
 

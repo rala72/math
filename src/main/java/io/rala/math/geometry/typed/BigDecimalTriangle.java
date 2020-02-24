@@ -24,7 +24,7 @@ public class BigDecimalTriangle extends Triangle<BigDecimal> {
     public BigDecimalTriangle(
         Point<BigDecimal> a, Point<BigDecimal> b, Point<BigDecimal> c
     ) {
-        super(new BigDecimalArithmetic(), a, b, c);
+        super(BigDecimalArithmetic.getInstance(), a, b, c);
     }
 
     /**

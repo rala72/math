@@ -15,6 +15,11 @@ class BigIntegerArithmeticTest {
         arithmetic = new BigIntegerArithmetic();
     }
 
+    @Test
+    void getInstance() {
+        Assertions.assertEquals(arithmetic, BigIntegerArithmetic.getInstance());
+    }
+
     // region fromInt, fromDouble and signum
 
     @Test

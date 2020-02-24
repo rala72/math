@@ -16,7 +16,7 @@ public class DoubleMatrix extends Matrix<Double> {
      *
      * @see Matrix#getDefaultValue()
      */
-    public static final Double DEFAULT_VALUE = 0d;
+    public static final Double DEFAULT_VALUE = DoubleArithmetic.getInstance().zero();
 
     // region constructor
 
@@ -27,7 +27,7 @@ public class DoubleMatrix extends Matrix<Double> {
      * @see Matrix#Matrix(AbstractArithmetic, int, Number)
      */
     public DoubleMatrix(int size) {
-        super(new DoubleArithmetic(), size, DEFAULT_VALUE);
+        super(DoubleArithmetic.getInstance(), size, DEFAULT_VALUE);
     }
 
     /**
@@ -38,7 +38,7 @@ public class DoubleMatrix extends Matrix<Double> {
      * @see Matrix#Matrix(AbstractArithmetic, int, int, Number)
      */
     public DoubleMatrix(int rows, int cols) {
-        super(new DoubleArithmetic(), rows, cols, DEFAULT_VALUE);
+        super(DoubleArithmetic.getInstance(), rows, cols, DEFAULT_VALUE);
     }
 
     /**
@@ -62,7 +62,7 @@ public class DoubleMatrix extends Matrix<Double> {
      */
     public static DoubleMatrix identity(int size) {
         return new DoubleMatrix(
-            Matrix.identity(new DoubleArithmetic(), size, DEFAULT_VALUE)
+            Matrix.identity(DoubleArithmetic.getInstance(), size, DEFAULT_VALUE)
         );
     }
 
@@ -74,7 +74,7 @@ public class DoubleMatrix extends Matrix<Double> {
     public static DoubleMatrix diagonal(double... values) {
         Double[] boxed = Arrays.stream(values).boxed().toArray(Double[]::new);
         return new DoubleMatrix(
-            Matrix.diagonal(new DoubleArithmetic(), DEFAULT_VALUE, boxed)
+            Matrix.diagonal(DoubleArithmetic.getInstance(), DEFAULT_VALUE, boxed)
         );
     }
 
@@ -95,7 +95,7 @@ public class DoubleMatrix extends Matrix<Double> {
     public static DoubleMatrix ofValuesByRows(int rows, double... values) {
         Double[] boxed = Arrays.stream(values).boxed().toArray(Double[]::new);
         return new DoubleMatrix(
-            Matrix.ofValuesByRows(new DoubleArithmetic(),
+            Matrix.ofValuesByRows(DoubleArithmetic.getInstance(),
                 DEFAULT_VALUE, rows, boxed
             )
         );
@@ -114,7 +114,7 @@ public class DoubleMatrix extends Matrix<Double> {
     public static DoubleMatrix ofValuesByCols(int cols, double... values) {
         Double[] boxed = Arrays.stream(values).boxed().toArray(Double[]::new);
         return new DoubleMatrix(
-            Matrix.ofValuesByCols(new DoubleArithmetic(),
+            Matrix.ofValuesByCols(DoubleArithmetic.getInstance(),
                 DEFAULT_VALUE, cols, boxed
             )
         );

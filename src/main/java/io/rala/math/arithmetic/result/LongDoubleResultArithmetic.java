@@ -9,12 +9,26 @@ import io.rala.math.arithmetic.core.LongArithmetic;
  * which calculates {@link Long} to {@link Double}
  */
 public class LongDoubleResultArithmetic extends AbstractResultArithmetic<Long, Double> {
+    // region singleton
+
+    private static LongDoubleResultArithmetic instance;
+
+    /**
+     * @return default instance
+     */
+    public static LongDoubleResultArithmetic getInstance() {
+        if (instance == null) instance = new LongDoubleResultArithmetic();
+        return instance;
+    }
+
+    // endregion
+
     /**
      * creates a new {@link AbstractResultArithmetic} with
      * {@link LongArithmetic} and {@link DoubleArithmetic}
      */
     public LongDoubleResultArithmetic() {
-        super(new LongArithmetic(), new DoubleArithmetic());
+        super(LongArithmetic.getInstance(), DoubleArithmetic.getInstance());
     }
 
     @Override

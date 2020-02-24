@@ -18,7 +18,7 @@ public class BigDecimalVector extends Vector<BigDecimal> {
      * @see Vector#Vector(AbstractArithmetic)
      */
     public BigDecimalVector() {
-        super(new BigDecimalArithmetic());
+        super(BigDecimalArithmetic.getInstance());
     }
 
     /**
@@ -35,7 +35,7 @@ public class BigDecimalVector extends Vector<BigDecimal> {
      * @see Vector#Vector(AbstractArithmetic, Number)
      */
     public BigDecimalVector(BigDecimal xy) {
-        super(new BigDecimalArithmetic(), xy);
+        super(BigDecimalArithmetic.getInstance(), xy);
     }
 
     /**
@@ -55,7 +55,7 @@ public class BigDecimalVector extends Vector<BigDecimal> {
      * @see Vector#Vector(AbstractArithmetic, Number, Number)
      */
     public BigDecimalVector(BigDecimal x, BigDecimal y) {
-        super(new BigDecimalArithmetic(), x, y);
+        super(BigDecimalArithmetic.getInstance(), x, y);
     }
 
     /**

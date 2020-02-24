@@ -7,6 +7,20 @@ import io.rala.math.arithmetic.AbstractArithmetic;
  * class which handles {@link Double} arithmetic
  */
 public class DoubleArithmetic extends AbstractArithmetic<Double> {
+    // region singleton
+
+    private static DoubleArithmetic instance;
+
+    /**
+     * @return default instance
+     */
+    public static DoubleArithmetic getInstance() {
+        if (instance == null) instance = new DoubleArithmetic();
+        return instance;
+    }
+
+    // endregion
+
     // region fromInt, fromDouble and signum
 
     @Override

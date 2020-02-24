@@ -18,7 +18,7 @@ public class DoubleRect extends Rect<Double> {
      * @see Rect#Rect(AbstractArithmetic, Number, Number)
      */
     public DoubleRect(double height, double width) {
-        super(new DoubleArithmetic(), height, width);
+        super(DoubleArithmetic.getInstance(), height, width);
     }
 
     /**
@@ -28,7 +28,7 @@ public class DoubleRect extends Rect<Double> {
      * @see Rect#Rect(AbstractArithmetic, Point, Point, Number)
      */
     public DoubleRect(Point<Double> a, Point<Double> b, double size) {
-        super(new DoubleArithmetic(), a, b, size);
+        super(DoubleArithmetic.getInstance(), a, b, size);
     }
 
     // endregion

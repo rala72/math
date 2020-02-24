@@ -19,7 +19,7 @@ public class DoubleLine extends Line<Double> {
      * @see Line#Line(AbstractArithmetic, Number)
      */
     public DoubleLine(double x) {
-        super(new DoubleArithmetic(), x);
+        super(DoubleArithmetic.getInstance(), x);
     }
 
     /**
@@ -28,7 +28,7 @@ public class DoubleLine extends Line<Double> {
      * @see Line#Line(AbstractArithmetic, Number, Number)
      */
     public DoubleLine(Double m, double b) {
-        super(new DoubleArithmetic(), m, b);
+        super(DoubleArithmetic.getInstance(), m, b);
     }
 
     // endregion
