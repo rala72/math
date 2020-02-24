@@ -52,8 +52,14 @@ public class VectorTest {
 
     @Test
     void constructorWithVector() {
-        Assertions.assertEquals(1, new TestVector(new TestVector(1, 2d)).size());
-        Assertions.assertEquals(2d, new TestVector(new TestVector(1, 2d)).getDefaultValue());
+        Assertions.assertEquals(
+            1,
+            new TestVector(new TestVector(1, 2d)).size()
+        );
+        Assertions.assertEquals(
+            2d,
+            new TestVector(new TestVector(1, 2d)).getDefaultValue()
+        );
     }
 
     // endregion
@@ -119,17 +125,26 @@ public class VectorTest {
 
     @Test
     void emptyColumnVectorToMatrix() {
-        Assertions.assertEquals(new TestMatrix(3, 1), new TestVector(3).toMatrix());
+        Assertions.assertEquals(
+            new TestMatrix(3, 1),
+            new TestVector(3).toMatrix()
+        );
     }
 
     @Test
     void emptyRowVectorToMatrix() {
-        Assertions.assertEquals(new TestMatrix(1, 3), new TestVector(3, Vector.Type.ROW).toMatrix());
+        Assertions.assertEquals(
+            new TestMatrix(1, 3),
+            new TestVector(3, Vector.Type.ROW).toMatrix()
+        );
     }
 
     @Test
     void nonEmptyVectorOfSizeOneToMatrix() {
-        Assertions.assertEquals(new TestMatrix(1, 1d), new TestVector(1, 1d).toMatrix());
+        Assertions.assertEquals(
+            new TestMatrix(1, 1d),
+            new TestVector(1, 1d).toMatrix()
+        );
     }
 
     @Test
@@ -139,7 +154,10 @@ public class VectorTest {
         expected.setValue(1, 0, -4d);
         expected.setValue(2, 0, 9d);
         expected.setValue(3, 0, -16d);
-        Assertions.assertEquals(expected, new TestVector(4, false).toMatrix());
+        Assertions.assertEquals(
+            expected,
+            new TestVector(4, false).toMatrix()
+        );
     }
 
     @Test
@@ -149,7 +167,10 @@ public class VectorTest {
         expected.setValue(0, 1, -4d);
         expected.setValue(0, 2, 9d);
         expected.setValue(0, 3, -16d);
-        Assertions.assertEquals(expected, new TestVector(4, Vector.Type.ROW, false).toMatrix());
+        Assertions.assertEquals(
+            expected,
+            new TestVector(4, Vector.Type.ROW, false).toMatrix()
+        );
     }
 
     // endregion
