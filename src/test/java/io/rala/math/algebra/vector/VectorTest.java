@@ -175,6 +175,66 @@ public class VectorTest {
 
     // endregion
 
+    // region transpose and invert
+
+    @Test
+    void transposeEmptyColumnVector() {
+        Assertions.assertEquals(
+            new TestVector(3, Vector.Type.ROW),
+            new TestVector(3).transpose()
+        );
+    }
+
+    @Test
+    void transposeEmptyRowVector() {
+        Assertions.assertEquals(
+            new TestVector(3),
+            new TestVector(3, Vector.Type.ROW).transpose()
+        );
+    }
+
+    @Test
+    void transposeNonEmptyColumnVector() {
+        Assertions.assertEquals(
+            new TestVector(3, Vector.Type.ROW, false),
+            new TestVector(3, false).transpose()
+        );
+    }
+
+    @Test
+    void transposeNonEmptyRowVector() {
+        Assertions.assertEquals(
+            new TestVector(3, false),
+            new TestVector(3, Vector.Type.ROW, false).transpose()
+        );
+    }
+
+    @Test
+    void invertEmptyVector() {
+        TestVector expected = new TestVector(3);
+        for (int i = 0; i < 3; i++) {
+            expected.setValue(i, -0d);
+        }
+        Assertions.assertEquals(
+            expected,
+            new TestVector(3).invert()
+        );
+    }
+
+    @Test
+    void invertNonEmptyVector() {
+        TestVector expected = new TestVector(3);
+        expected.setValue(0, -1d);
+        expected.setValue(1, 4d);
+        expected.setValue(2, -9d);
+        Assertions.assertEquals(
+            expected,
+            new TestVector(3, false).invert()
+        );
+    }
+
+    // endregion
+
     // region temp (to be deleted, when proper tests exist)
     @Test
     void times2() {
