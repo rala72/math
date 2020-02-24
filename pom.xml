@@ -5,7 +5,7 @@
 
     <groupId>io.rala</groupId>
     <artifactId>math</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.8.0-beta</version>
 
     <packaging>jar</packaging>
     <name>math.jar</name>
@@ -93,6 +93,9 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <!-- remove if plugin handles no module names correctly -->
+                    <!-- https://stackoverflow.com/a/52603413/2715720 -->
+                    <additionalJOption>--no-module-directories</additionalJOption>
                     <!-- remove if plugin supports it out of the box -->
                     <!-- https://stackoverflow.com/a/38708383/2715720 -->
                     <tags>

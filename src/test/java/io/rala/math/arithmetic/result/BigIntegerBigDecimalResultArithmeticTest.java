@@ -21,6 +21,13 @@ class BigIntegerBigDecimalResultArithmeticTest {
     }
 
     @Test
+    void getInstance() {
+        Assertions.assertEquals(arithmetic,
+            BigIntegerBigDecimalResultArithmetic.getInstance()
+        );
+    }
+
+    @Test
     void constructorWithMathContext() {
         BigIntegerBigDecimalResultArithmetic arithmetic =
             new BigIntegerBigDecimalResultArithmetic(new MathContext(5));

@@ -13,6 +13,11 @@ class LongArithmeticTest {
         arithmetic = new LongArithmetic();
     }
 
+    @Test
+    void getInstance() {
+        Assertions.assertEquals(arithmetic, LongArithmetic.getInstance());
+    }
+
     // region fromInt, fromDouble and signum
 
     @Test

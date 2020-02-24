@@ -3,11 +3,10 @@ package io.rala.math.arithmetic.core;
 import io.rala.math.algebra.numeric.Complex;
 import io.rala.math.arithmetic.AbstractArithmetic;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * class which handles {@link BigDecimal} arithmetic
+ * class which handles {@link Complex} arithmetic
  *
  * @param <T> number class
  */

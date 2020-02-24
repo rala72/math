@@ -18,7 +18,7 @@ public class LongDoubleFraction extends Fraction<Long, Double> {
      * @see Fraction#Fraction(io.rala.math.arithmetic.AbstractResultArithmetic, Number)
      */
     public LongDoubleFraction(long numerator) {
-        super(new LongDoubleResultArithmetic(), numerator);
+        super(LongDoubleResultArithmetic.getInstance(), numerator);
     }
 
     /**
@@ -29,7 +29,7 @@ public class LongDoubleFraction extends Fraction<Long, Double> {
      * @see Fraction#Fraction(AbstractResultArithmetic, Number, Number)
      */
     public LongDoubleFraction(long numerator, long denominator) {
-        super(new LongDoubleResultArithmetic(), numerator, denominator);
+        super(LongDoubleResultArithmetic.getInstance(), numerator, denominator);
     }
 
     /**

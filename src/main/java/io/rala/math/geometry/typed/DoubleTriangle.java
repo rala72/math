@@ -19,7 +19,7 @@ public class DoubleTriangle extends Triangle<Double> {
      * @see Triangle#Triangle(AbstractArithmetic, Point, Point, Point)
      */
     public DoubleTriangle(Point<Double> a, Point<Double> b, Point<Double> c) {
-        super(new DoubleArithmetic(), a, b, c);
+        super(DoubleArithmetic.getInstance(), a, b, c);
     }
 
     // endregion

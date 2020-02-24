@@ -26,7 +26,7 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      * @see Matrix#Matrix(AbstractArithmetic, int)
      */
     public BigDecimalMatrix(int size) {
-        super(new BigDecimalArithmetic(), size);
+        super(BigDecimalArithmetic.getInstance(), size);
     }
 
     /**
@@ -44,7 +44,7 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      * @see Matrix#Matrix(AbstractArithmetic, int, int)
      */
     public BigDecimalMatrix(int rows, int cols) {
-        super(new BigDecimalArithmetic(), rows, cols);
+        super(BigDecimalArithmetic.getInstance(), rows, cols);
     }
 
     /**
@@ -77,7 +77,7 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      */
     public static BigDecimalMatrix identity(int size) {
         return new BigDecimalMatrix(
-            Matrix.identity(new BigDecimalArithmetic(), size, DEFAULT_VALUE)
+            Matrix.identity(BigDecimalArithmetic.getInstance(), size, DEFAULT_VALUE)
         );
     }
 
@@ -88,7 +88,7 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      */
     public static BigDecimalMatrix diagonal(BigDecimal... values) {
         return new BigDecimalMatrix(
-            Matrix.diagonal(new BigDecimalArithmetic(), DEFAULT_VALUE, values)
+            Matrix.diagonal(BigDecimalArithmetic.getInstance(), DEFAULT_VALUE, values)
         );
     }
 
@@ -108,7 +108,7 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      */
     public static BigDecimalMatrix ofValuesByRows(int rows, BigDecimal... values) {
         return new BigDecimalMatrix(
-            Matrix.ofValuesByRows(new BigDecimalArithmetic(),
+            Matrix.ofValuesByRows(BigDecimalArithmetic.getInstance(),
                 DEFAULT_VALUE, rows, values
             )
         );
@@ -126,7 +126,7 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      */
     public static BigDecimalMatrix ofValuesByCols(int cols, BigDecimal... values) {
         return new BigDecimalMatrix(
-            Matrix.ofValuesByCols(new BigDecimalArithmetic(),
+            Matrix.ofValuesByCols(BigDecimalArithmetic.getInstance(),
                 DEFAULT_VALUE, cols, values
             )
         );

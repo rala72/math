@@ -15,7 +15,7 @@ public class DoubleComplex extends Complex<Double> {
      * @see Complex#Complex(AbstractArithmetic)
      */
     public DoubleComplex() {
-        super(new DoubleArithmetic());
+        super(DoubleArithmetic.getInstance());
     }
 
     /**
@@ -26,7 +26,7 @@ public class DoubleComplex extends Complex<Double> {
      * @see Complex#Complex(AbstractArithmetic, Number, Number)
      */
     public DoubleComplex(Double re, Double im) {
-        super(new DoubleArithmetic(), re, im);
+        super(DoubleArithmetic.getInstance(), re, im);
     }
 
     /**
@@ -50,7 +50,7 @@ public class DoubleComplex extends Complex<Double> {
      */
     public static DoubleComplex of(double absoluteValue, double argument) {
         return new DoubleComplex(
-            Complex.of(new DoubleArithmetic(), absoluteValue, argument)
+            Complex.of(DoubleArithmetic.getInstance(), absoluteValue, argument)
         );
     }
 
