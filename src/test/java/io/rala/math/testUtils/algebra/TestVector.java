@@ -27,7 +27,7 @@ public class TestVector extends Vector<Number> {
     }
 
     public TestVector(int size, Type type, boolean empty) {
-        super(new TestAbstractArithmetic(), size, 0d);
+        super(new TestAbstractArithmetic(), size, 0d, type);
         if (!empty) {
             for (int i = 0; i < size(); i++) {
                 setValue(i, getArithmetic().product(
