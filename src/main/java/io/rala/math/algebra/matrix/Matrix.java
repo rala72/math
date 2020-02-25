@@ -734,6 +734,7 @@ public class Matrix<T extends Number>
      * @return mapped matrix
      */
     protected Matrix<T> mapDefaultValue(T newDefaultValue) {
+        if (isDefaultValue(newDefaultValue)) return copy();
         Matrix<T> mapped = new Matrix<>(
             getArithmetic(), getRows(), getCols(), newDefaultValue
         );
