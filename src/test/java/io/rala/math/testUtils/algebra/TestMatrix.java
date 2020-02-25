@@ -32,13 +32,13 @@ public class TestMatrix extends Matrix<Number> {
 
     public static TestMatrix identity(int size) {
         return new TestMatrix(
-            Matrix.identity(new TestAbstractArithmetic(), size, 0d)
+            Matrix.identity(new TestAbstractArithmetic(), size)
         );
     }
 
     public static TestMatrix diagonal(Number... values) {
         return new TestMatrix(
-            Matrix.diagonal(new TestAbstractArithmetic(), 0d, values)
+            Matrix.diagonal(new TestAbstractArithmetic(), values)
         );
     }
 

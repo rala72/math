@@ -547,6 +547,22 @@ public class Matrix<T extends Number>
     // region static: identity and diagonal
 
     /**
+     * calls {@link #identity(AbstractArithmetic, int, Number)}
+     * using {@link AbstractArithmetic#zero()} as {@code defaultValue}
+     *
+     * @param arithmetic arithmetic for calculations
+     * @param size       size of matrix
+     * @param <T>        number class
+     * @return new created matrix
+     * @throws IllegalArgumentException if rows or cols is less than {@code 1}
+     */
+    public static <T extends Number> Matrix<T> identity(
+        AbstractArithmetic<T> arithmetic, int size
+    ) {
+        return identity(arithmetic, size, arithmetic.zero());
+    }
+
+    /**
      * @param arithmetic   arithmetic for calculations
      * @param size         size of matrix
      * @param defaultValue default value of non-existing values
@@ -554,13 +570,30 @@ public class Matrix<T extends Number>
      * @return new created matrix
      * @throws IllegalArgumentException if rows or cols is less than {@code 1}
      */
-    public static <T extends Number> Matrix<T> identity(
+    protected static <T extends Number> Matrix<T> identity(
         AbstractArithmetic<T> arithmetic, int size, T defaultValue
     ) {
         Matrix<T> matrix = new Matrix<>(arithmetic, size, defaultValue);
         for (int i = 0; i < size; i++)
             matrix.setValue(i, i, arithmetic.one());
         return matrix;
+    }
+
+    /**
+     * calls {@link #diagonal(AbstractArithmetic, Number, Number[])}
+     * using {@link AbstractArithmetic#zero()} as {@code defaultValue}
+     *
+     * @param arithmetic arithmetic for calculations
+     * @param values     diagonal values of matrix
+     * @param <T>        number class
+     * @return new created matrix
+     * @throws IllegalArgumentException if rows or cols is less than {@code 1}
+     */
+    @SafeVarargs
+    public static <T extends Number> Matrix<T> diagonal(
+        AbstractArithmetic<T> arithmetic, T... values
+    ) {
+        return diagonal(arithmetic, arithmetic.zero(), values);
     }
 
     /**
@@ -572,7 +605,7 @@ public class Matrix<T extends Number>
      * @throws IllegalArgumentException if rows or cols is less than {@code 1}
      */
     @SafeVarargs
-    public static <T extends Number> Matrix<T> diagonal(
+    protected static <T extends Number> Matrix<T> diagonal(
         AbstractArithmetic<T> arithmetic, T defaultValue, T... values
     ) {
         Matrix<T> matrix = new Matrix<>(arithmetic, values.length, defaultValue);
@@ -584,6 +617,26 @@ public class Matrix<T extends Number>
     // endregion
 
     // region static: of
+
+    /**
+     * calls {@link #ofValuesByRows(AbstractArithmetic, Number, int, Number[])}
+     * using {@link AbstractArithmetic#zero()} as {@code defaultValue}
+     *
+     * @param arithmetic arithmetic for calculations
+     * @param rows       rows of matrix
+     * @param values     row based values of matrix
+     * @param <T>        number class
+     * @return new created matrix
+     * @throws IllegalArgumentException if rows modulo {@code values.length}
+     *                                  is not congruent {@code 0}
+     * @throws IllegalArgumentException if rows or cols is less than {@code 1}
+     */
+    @SafeVarargs
+    public static <T extends Number> Matrix<T> ofValuesByRows(
+        AbstractArithmetic<T> arithmetic, int rows, T... values
+    ) {
+        return ofValuesByRows(arithmetic, arithmetic.zero(), rows, values);
+    }
 
     /**
      * creates a new matrix containing all provided values
@@ -599,7 +652,7 @@ public class Matrix<T extends Number>
      * @throws IllegalArgumentException if rows or cols is less than {@code 1}
      */
     @SafeVarargs
-    public static <T extends Number> Matrix<T> ofValuesByRows(
+    protected static <T extends Number> Matrix<T> ofValuesByRows(
         AbstractArithmetic<T> arithmetic, T defaultValue, int rows, T... values
     ) {
         if (values.length % rows != 0)
@@ -610,6 +663,26 @@ public class Matrix<T extends Number>
         for (int i = 0; i < values.length; i++)
             matrix.setValue(i, values[i]);
         return matrix;
+    }
+
+    /**
+     * calls {@link #ofValuesByCols(AbstractArithmetic, Number, int, Number[])}
+     * using {@link AbstractArithmetic#zero()} as {@code defaultValue}
+     *
+     * @param arithmetic arithmetic for calculations
+     * @param cols       cols of matrix
+     * @param values     column based values of matrix
+     * @param <T>        number class
+     * @return new created matrix
+     * @throws IllegalArgumentException if cols modulo {@code values.length}
+     *                                  is not congruent {@code 0}
+     * @throws IllegalArgumentException if rows or cols is less than {@code 1}
+     */
+    @SafeVarargs
+    public static <T extends Number> Matrix<T> ofValuesByCols(
+        AbstractArithmetic<T> arithmetic, int cols, T... values
+    ) {
+        return ofValuesByCols(arithmetic, arithmetic.zero(), cols, values);
     }
 
     /**
@@ -626,7 +699,7 @@ public class Matrix<T extends Number>
      * @throws IllegalArgumentException if rows or cols is less than {@code 1}
      */
     @SafeVarargs
-    public static <T extends Number> Matrix<T> ofValuesByCols(
+    protected static <T extends Number> Matrix<T> ofValuesByCols(
         AbstractArithmetic<T> arithmetic, T defaultValue, int cols, T... values
     ) {
         if (values.length % cols != 0)
