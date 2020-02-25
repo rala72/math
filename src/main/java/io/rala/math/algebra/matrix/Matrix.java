@@ -729,6 +729,19 @@ public class Matrix<T extends Number>
         return matrix;
     }
 
+    /**
+     * @param newDefaultValue new default value for matrix
+     * @return mapped matrix
+     */
+    protected Matrix<T> mapDefaultValue(T newDefaultValue) {
+        Matrix<T> mapped = new Matrix<>(
+            getArithmetic(), getRows(), getCols(), newDefaultValue
+        );
+        LongStream.range(0, size())
+            .forEach(i -> mapped.setValue(i, getValue(i)));
+        return mapped;
+    }
+
     @Override
     public Matrix<T> copy() {
         return new Matrix<>(this);

@@ -710,6 +710,60 @@ class MatrixTest {
     }
 
     @Test
+    void mapDefaultValueOfIdentityMatrixWithSize2() {
+        TestMatrix matrix = TestMatrix.identity(2);
+        Matrix<Number> mapped = matrix.mapDefaultValue(1d);
+        Assertions.assertEquals(matrix, mapped);
+        matrix.forEach(field -> {
+            if (field.getRow() == field.getCol()) {
+                Assertions.assertTrue(
+                    matrix.getMatrix().get(field.getRow())
+                        .containsKey(field.getCol())
+                );
+                Assertions.assertFalse(
+                    mapped.getMatrix().get(field.getRow())
+                        .containsKey(field.getCol())
+                );
+            } else {
+                Assertions.assertFalse(
+                    matrix.getMatrix().get(field.getRow())
+                        .containsKey(field.getCol())
+                );
+                Assertions.assertTrue(
+                    mapped.getMatrix().get(field.getRow())
+                        .containsKey(field.getCol())
+                );
+            }
+        });
+    }
+
+    @Test
+    void mapDefaultValueOfMatrixBy2Rows() {
+        TestMatrix matrix = TestMatrix.ofValuesByRows(2, 0d, 0d, 2d, 2d);
+        Matrix<Number> mapped = matrix.mapDefaultValue(2d);
+        Assertions.assertEquals(matrix, mapped);
+        matrix.forEach(field -> {
+            if (field.getRow() == 0) {
+                Assertions.assertFalse(
+                    matrix.getMatrix().containsKey(field.getRow())
+                );
+                Assertions.assertTrue(
+                    mapped.getMatrix().get(field.getRow())
+                        .containsKey(field.getCol())
+                );
+            } else {
+                Assertions.assertTrue(
+                    matrix.getMatrix().get(field.getRow())
+                        .containsKey(field.getCol())
+                );
+                Assertions.assertFalse(
+                    mapped.getMatrix().containsKey(field.getRow())
+                );
+            }
+        });
+    }
+
+    @Test
     void copyOfMatrixWithSize2() {
         TestMatrix matrix = new TestMatrix(2);
         Assertions.assertEquals(matrix, matrix.copy());
