@@ -267,6 +267,8 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
      * @return new vector with calculated values
      */
     public Vector<T> subtract(Vector<T> vector) {
+        if (vector == null)
+            throw new IllegalArgumentException("vector may not be null");
         return add(vector.invert());
     }
 
