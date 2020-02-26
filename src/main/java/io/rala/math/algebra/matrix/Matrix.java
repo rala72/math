@@ -381,11 +381,9 @@ public class Matrix<T extends Number>
         if (getCols() != matrix.getCols())
             throw new IllegalArgumentException("cols have to be equal");
         Matrix<T> result = copy();
-        stream().forEach(field -> result.setValue(field.getIndex(),
-            getArithmetic().sum(
-                field.getValue(),
-                matrix.getValue(field.getIndex())
-            )
+        forEach(field -> result.compute(field.getIndex(),
+            matrix.getValue(field.getIndex()),
+            getArithmetic()::sum
         ));
         result.removeDefaultValues();
         return result;
@@ -397,8 +395,8 @@ public class Matrix<T extends Number>
      */
     public Matrix<T> multiply(T t) {
         Matrix<T> result = copy();
-        stream().forEach(field -> result.setValue(field.getIndex(),
-            getArithmetic().product(field.getValue(), t)
+        forEach(field -> result.compute(field.getIndex(),
+            t, getArithmetic()::product
         ));
         result.removeDefaultValues();
         return result;
@@ -414,7 +412,7 @@ public class Matrix<T extends Number>
         Matrix<T> result = new Matrix<>(getArithmetic(),
             getRows(), matrix.getCols(), getDefaultValue()
         );
-        stream().forEach(field -> {
+        forEach(field -> result.compute(field.getIndex(), value -> {
             T d = getArithmetic().zero();
             for (int i = 0; i < getCols(); i++)
                 d = getArithmetic().sum(d,
@@ -423,8 +421,8 @@ public class Matrix<T extends Number>
                         matrix.getValue(i, field.getCol())
                     )
                 );
-            result.setValue(field.getRow(), field.getCol(), d);
-        });
+            return d;
+        }));
         return result;
     }
 
@@ -462,15 +460,14 @@ public class Matrix<T extends Number>
         Matrix<T> minorMatrix = new Matrix<>(getArithmetic(),
             getRows(), getCols(), getDefaultValue()
         );
-        stream().forEach(field -> {
-            T value = getArithmetic().product(
+        forEach(field -> minorMatrix.compute(field.getIndex(), value ->
+            getArithmetic().product(
                 getArithmetic().fromInt(
                     signumFactor(field.getRow(), field.getCol())
                 ),
                 subMatrix(field.getRow(), field.getCol()).determinante()
-            );
-            minorMatrix.setValue(field.getIndex(), value);
-        });
+            )
+        ));
         return minorMatrix.transpose().multiply(k);
     }
 
@@ -481,7 +478,7 @@ public class Matrix<T extends Number>
         Matrix<T> result = new Matrix<>(getArithmetic(),
             getCols(), getRows(), getDefaultValue()
         );
-        stream().forEach(field -> result.setValue(
+        forEach(field -> result.setValue(
             field.getCol(), field.getRow(),
             getValue(getIndexOfRowAndCol(field.getRow(), field.getCol()))
         ));
@@ -850,9 +847,7 @@ public class Matrix<T extends Number>
         if (getArithmetic().one().equals(n))
             return copy;
         for (int c = 0; c < getCols(); c++)
-            copy.setValue(row, c,
-                getArithmetic().product(getValue(row, c), n)
-            );
+            copy.compute(row, c, n, getArithmetic()::product);
         return copy;
     }
 
@@ -873,9 +868,7 @@ public class Matrix<T extends Number>
         if (getArithmetic().one().equals(n))
             return copy;
         for (int r = 0; r < getRows(); r++)
-            copy.setValue(r, col,
-                getArithmetic().product(getValue(r, col), n)
-            );
+            copy.compute(r, col, n, getArithmetic()::product);
         return copy;
     }
 
@@ -895,9 +888,10 @@ public class Matrix<T extends Number>
         if (row1 == row2) return multiplyRow(row1, n);
         Matrix<T> copy = copy();
         for (int c = 0; c < getCols(); c++)
-            copy.setValue(row1, c, getArithmetic().sum(getValue(row1, c),
-                getArithmetic().product(getValue(row2, c), n)
-            ));
+            copy.compute(row1, c,
+                getArithmetic().product(getValue(row2, c), n),
+                getArithmetic()::sum
+            );
         return copy;
     }
 
@@ -917,9 +911,10 @@ public class Matrix<T extends Number>
         if (col1 == col2) return multiplyCol(col1, n);
         Matrix<T> copy = copy();
         for (int r = 0; r < getRows(); r++)
-            copy.setValue(r, col1, getArithmetic().sum(getValue(r, col1),
-                getArithmetic().product(getValue(r, col2), n)
-            ));
+            copy.compute(r, col1,
+                getArithmetic().product(getValue(r, col2), n),
+                getArithmetic()::sum
+            );
         return copy;
     }
 
