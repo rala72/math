@@ -273,8 +273,6 @@ public class VectorTest {
 
     @Test
     void addEmptyVectorToNonEmptyVector() {
-        TestVector expected = new TestVector(3, false);
-        Vector actual = new TestVector(3, false).add(new TestVector(3));
         assertEquals(
             new TestVector(3, false),
             new TestVector(3, false).add(new TestVector(3))
