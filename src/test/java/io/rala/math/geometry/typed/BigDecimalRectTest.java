@@ -4,19 +4,21 @@ import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Point;
 import io.rala.math.geometry.Rect;
 import io.rala.math.testUtils.assertion.GeometryAssertions;
-import io.rala.math.testUtils.assertion.SerializableAssertions;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+
+import static io.rala.math.testUtils.assertion.GeometryAssertions.*;
+import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BigDecimalRectTest {
     // region constructors, getter and setter
 
     @Test
     void constructorWithHeightAndWidthButWithoutPoints() {
-        GeometryAssertions.assertRect(
+        assertRect(
             new BigDecimalRect(BigDecimal.ONE, BigDecimal.valueOf(2d)),
             BigDecimal.ONE, BigDecimal.valueOf(2d)
         );
@@ -24,7 +26,7 @@ class BigDecimalRectTest {
 
     @Test
     void constructorWithHeightAndWidthAndMathContext5ButWithoutPoints() {
-        GeometryAssertions.assertRect(
+        assertRect(
             new BigDecimalRect(
                 BigDecimal.ONE, BigDecimal.valueOf(2d),
                 new MathContext(5)
@@ -35,7 +37,7 @@ class BigDecimalRectTest {
 
     @Test
     void constructorWithPoint1AndSize() {
-        GeometryAssertions.assertRect(
+        assertRect(
             new BigDecimalRect(
                 new BigDecimalPoint(BigDecimal.ZERO),
                 new BigDecimalPoint(BigDecimal.ONE),
@@ -49,7 +51,7 @@ class BigDecimalRectTest {
 
     @Test
     void constructorWithPoint1AndSizeAndMathContext5() {
-        GeometryAssertions.assertRect(
+        assertRect(
             new BigDecimalRect(
                 new BigDecimalPoint(BigDecimal.ZERO),
                 new BigDecimalPoint(BigDecimal.ONE),
@@ -65,9 +67,9 @@ class BigDecimalRectTest {
     @Test
     void createAndSetA() {
         Rect<BigDecimal> rect = new BigDecimalRect(BigDecimal.ZERO, BigDecimal.ZERO);
-        GeometryAssertions.assertRect(rect, BigDecimal.ZERO, BigDecimal.ZERO);
+        assertRect(rect, BigDecimal.ZERO, BigDecimal.ZERO);
         rect.setA(new BigDecimalPoint(BigDecimal.ONE));
-        GeometryAssertions.assertRect(rect,
+        assertRect(rect,
             new BigDecimalPoint(BigDecimal.ONE),
             new BigDecimalPoint(BigDecimal.ZERO),
             BigDecimal.ZERO
@@ -77,9 +79,9 @@ class BigDecimalRectTest {
     @Test
     void createAndSetB() {
         Rect<BigDecimal> rect = new BigDecimalRect(BigDecimal.ZERO, BigDecimal.ZERO);
-        GeometryAssertions.assertRect(rect, BigDecimal.ZERO, BigDecimal.ZERO);
+        assertRect(rect, BigDecimal.ZERO, BigDecimal.ZERO);
         rect.setB(new BigDecimalPoint(BigDecimal.valueOf(2d)));
-        GeometryAssertions.assertRect(rect,
+        assertRect(rect,
             new BigDecimalPoint(BigDecimal.ZERO),
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             BigDecimal.ZERO);
@@ -88,9 +90,9 @@ class BigDecimalRectTest {
     @Test
     void createAndSetSize() {
         Rect<BigDecimal> rect = new BigDecimalRect(BigDecimal.ZERO, BigDecimal.ZERO);
-        GeometryAssertions.assertRect(rect, BigDecimal.ZERO, BigDecimal.ZERO);
+        assertRect(rect, BigDecimal.ZERO, BigDecimal.ZERO);
         rect.setSize(BigDecimal.valueOf(2d));
-        GeometryAssertions.assertRect(rect, BigDecimal.valueOf(2d), BigDecimal.ZERO);
+        assertRect(rect, BigDecimal.valueOf(2d), BigDecimal.ZERO);
     }
 
     // endregion
@@ -102,16 +104,16 @@ class BigDecimalRectTest {
         Rect<BigDecimal> rect = new BigDecimalRect(
             BigDecimal.ONE, BigDecimal.valueOf(2d)
         );
-        GeometryAssertions.assertPoint(rect.vertexA(),
+        assertPoint(rect.vertexA(),
             BigDecimal.ZERO, BigDecimal.ZERO
         );
-        GeometryAssertions.assertPoint(rect.vertexB(),
+        assertPoint(rect.vertexB(),
             BigDecimal.valueOf(2d), BigDecimal.ZERO
         );
-        GeometryAssertions.assertPoint(rect.vertexC(),
+        assertPoint(rect.vertexC(),
             BigDecimal.valueOf(2d), BigDecimal.ONE
         );
-        GeometryAssertions.assertPoint(rect.vertexD(),
+        assertPoint(rect.vertexD(),
             BigDecimal.ZERO, BigDecimal.ONE
         );
     }
@@ -123,16 +125,16 @@ class BigDecimalRectTest {
             new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE),
             BigDecimal.valueOf(2d)
         );
-        GeometryAssertions.assertPoint(rect.vertexA(),
+        assertPoint(rect.vertexA(),
             BigDecimal.ONE, BigDecimal.ONE
         );
-        GeometryAssertions.assertPoint(rect.vertexB(),
+        assertPoint(rect.vertexB(),
             BigDecimal.ZERO, BigDecimal.ONE
         );
-        GeometryAssertions.assertPoint(rect.vertexC(),
+        assertPoint(rect.vertexC(),
             BigDecimal.ZERO, BigDecimal.valueOf(3d)
         );
-        GeometryAssertions.assertPoint(rect.vertexD(),
+        assertPoint(rect.vertexD(),
             BigDecimal.ONE, BigDecimal.valueOf(3d)
         );
     }
@@ -143,7 +145,7 @@ class BigDecimalRectTest {
 
     @Test
     void heightOfRectWithPointsAndPositiveSize() {
-        Assertions.assertEquals(BigDecimal.ONE,
+        assertEquals(BigDecimal.ONE,
             new BigDecimalRect(
                 new BigDecimalPoint(),
                 new BigDecimalPoint(BigDecimal.ONE),
@@ -154,7 +156,7 @@ class BigDecimalRectTest {
 
     @Test
     void heightOfRectWithPointsAndNegativeSize() {
-        Assertions.assertEquals(BigDecimal.ONE,
+        assertEquals(BigDecimal.ONE,
             new BigDecimalRect(
                 new BigDecimalPoint(),
                 new BigDecimalPoint(BigDecimal.ONE),
@@ -165,7 +167,7 @@ class BigDecimalRectTest {
 
     @Test
     void heightOfRectWithHeight1AndWidth0() {
-        Assertions.assertEquals(BigDecimal.ZERO,
+        assertEquals(BigDecimal.ZERO,
             new BigDecimalRect(
                 BigDecimal.ONE,
                 BigDecimal.ZERO
@@ -175,7 +177,7 @@ class BigDecimalRectTest {
 
     @Test
     void widthOfRectWithPointsAndPositiveSize() {
-        Assertions.assertEquals(
+        assertEquals(
             BigDecimal.valueOf(Math.sqrt(2d)).round(GeometryAssertions.CONTEXT),
             new BigDecimalRect(
                 new BigDecimalPoint(),
@@ -187,7 +189,7 @@ class BigDecimalRectTest {
 
     @Test
     void widthOfRectWithPointsAndNegativeSize() {
-        Assertions.assertEquals(
+        assertEquals(
             BigDecimal.valueOf(Math.sqrt(2d)).round(GeometryAssertions.CONTEXT),
             new BigDecimalRect(
                 new BigDecimalPoint(),
@@ -199,7 +201,7 @@ class BigDecimalRectTest {
 
     @Test
     void widthOfRectWithHeight1AndWidth0() {
-        Assertions.assertEquals(BigDecimal.ONE,
+        assertEquals(BigDecimal.ONE,
             new BigDecimalRect(
                 BigDecimal.ONE,
                 BigDecimal.ZERO
@@ -209,7 +211,7 @@ class BigDecimalRectTest {
 
     @Test
     void diagonaleOfRectWithHeightAndWidth1() {
-        Assertions.assertEquals(
+        assertEquals(
             BigDecimal.valueOf(Math.sqrt(2d)).round(GeometryAssertions.CONTEXT),
             new BigDecimalRect(
                 BigDecimal.ONE,
@@ -220,7 +222,7 @@ class BigDecimalRectTest {
 
     @Test
     void diagonaleOfRectWithHeight1AndWidth2() {
-        Assertions.assertEquals(
+        assertEquals(
             BigDecimal.valueOf(Math.sqrt(5d)).round(GeometryAssertions.CONTEXT),
             new BigDecimalRect(
                 BigDecimal.ONE,
@@ -231,7 +233,7 @@ class BigDecimalRectTest {
 
     @Test
     void diagonaleOfRectWithHeight2AndWidth3() {
-        Assertions.assertEquals(
+        assertEquals(
             BigDecimal.valueOf(Math.sqrt(13d)).round(GeometryAssertions.CONTEXT),
             new BigDecimalRect(
                 BigDecimal.valueOf(2d),
@@ -246,7 +248,7 @@ class BigDecimalRectTest {
 
     @Test
     void areaOfRectWithHeightAndWidth1() {
-        Assertions.assertEquals(BigDecimal.ONE,
+        assertEquals(BigDecimal.ONE,
             new BigDecimalRect(
                 BigDecimal.ONE,
                 BigDecimal.ONE
@@ -256,7 +258,7 @@ class BigDecimalRectTest {
 
     @Test
     void areaOfRectWithHeight1AndWidth2() {
-        Assertions.assertEquals(BigDecimal.valueOf(2),
+        assertEquals(BigDecimal.valueOf(2),
             new BigDecimalRect(
                 BigDecimal.ONE,
                 BigDecimal.valueOf(2d)
@@ -266,7 +268,7 @@ class BigDecimalRectTest {
 
     @Test
     void areaOfRectWithHeight2AndWidth3() {
-        Assertions.assertEquals(BigDecimal.valueOf(6),
+        assertEquals(BigDecimal.valueOf(6),
             new BigDecimalRect(
                 BigDecimal.valueOf(2d),
                 BigDecimal.valueOf(3d)
@@ -276,7 +278,7 @@ class BigDecimalRectTest {
 
     @Test
     void circumferenceOfRectWithHeightAndWidth1() {
-        Assertions.assertEquals(BigDecimal.valueOf(4),
+        assertEquals(BigDecimal.valueOf(4),
             new BigDecimalRect(
                 BigDecimal.ONE,
                 BigDecimal.ONE
@@ -286,7 +288,7 @@ class BigDecimalRectTest {
 
     @Test
     void circumferenceOfRectWithHeight1AndWidth2() {
-        Assertions.assertEquals(BigDecimal.valueOf(6),
+        assertEquals(BigDecimal.valueOf(6),
             new BigDecimalRect(
                 BigDecimal.ONE,
                 BigDecimal.valueOf(2d)
@@ -296,7 +298,7 @@ class BigDecimalRectTest {
 
     @Test
     void circumferenceOfRectWithHeight2AndWidth3() {
-        Assertions.assertEquals(BigDecimal.valueOf(10),
+        assertEquals(BigDecimal.valueOf(10),
             new BigDecimalRect(
                 BigDecimal.valueOf(2d),
                 BigDecimal.valueOf(3d)
@@ -310,7 +312,7 @@ class BigDecimalRectTest {
 
     @Test
     void circumCircleOfRectWithHeightAndWidth1() {
-        GeometryAssertions.assertCircle(
+        assertCircle(
             new BigDecimalRect(BigDecimal.ONE, BigDecimal.ONE).circumCircle(),
             new BigDecimalPoint(BigDecimal.valueOf(0.5d), BigDecimal.valueOf(0.5d)),
             BigDecimal.valueOf(Math.sqrt(2d) / 2d)
@@ -323,14 +325,14 @@ class BigDecimalRectTest {
 
     @Test
     void isSquareWithEqualHeightAndWidth() {
-        Assertions.assertTrue(
+        assertTrue(
             new BigDecimalRect(BigDecimal.ONE, BigDecimal.ONE).isSquare()
         );
     }
 
     @Test
     void isSquareWithUnequalHeightAndWidth() {
-        Assertions.assertFalse(
+        assertFalse(
             new BigDecimalRect(BigDecimal.ONE, BigDecimal.valueOf(2d)).isSquare()
         );
     }
@@ -352,42 +354,42 @@ class BigDecimalRectTest {
             new Point<>(integerArithmetic, 1),
             2
         );
-        Assertions.assertEquals(result,
+        assertEquals(result,
             rect.map(new IntegerArithmetic(), Number::intValue)
         );
     }
 
     @Test
     void isValidWithPositiveValues() {
-        Assertions.assertTrue(
+        assertTrue(
             new BigDecimalRect(BigDecimal.ONE, BigDecimal.ONE).isValid()
         );
     }
 
     @Test
     void isValidWithZeroValues() {
-        Assertions.assertFalse(
+        assertFalse(
             new BigDecimalRect(BigDecimal.ZERO, BigDecimal.ZERO).isValid()
         );
     }
 
     @Test
     void isValidWithZeroHeight() {
-        Assertions.assertFalse(
+        assertFalse(
             new BigDecimalRect(BigDecimal.ZERO, BigDecimal.ONE).isValid()
         );
     }
 
     @Test
     void isValidWithZeroWidth() {
-        Assertions.assertFalse(
+        assertFalse(
             new BigDecimalRect(BigDecimal.ONE, BigDecimal.ZERO).isValid()
         );
     }
 
     @Test
     void isValidWithNegativeValues() {
-        Assertions.assertTrue(
+        assertTrue(
             new BigDecimalRect(
                 BigDecimal.ONE.negate(), BigDecimal.ONE.negate()
             ).isValid()
@@ -396,7 +398,7 @@ class BigDecimalRectTest {
 
     @Test
     void moveOfRectWithXYWithXY() {
-        GeometryAssertions.assertRect(
+        assertRect(
             new BigDecimalRect(
                 BigDecimal.ONE,
                 BigDecimal.valueOf(2d)
@@ -409,7 +411,7 @@ class BigDecimalRectTest {
 
     @Test
     void moveOfRectWithXYWithXAndY() {
-        GeometryAssertions.assertRect(
+        assertRect(
             new BigDecimalRect(BigDecimal.ONE, BigDecimal.valueOf(2d))
                 .move(BigDecimal.ONE, BigDecimal.ONE),
             new BigDecimalPoint(BigDecimal.ONE),
@@ -420,7 +422,7 @@ class BigDecimalRectTest {
 
     @Test
     void moveOfRectWithXYWithVector() {
-        GeometryAssertions.assertRect(
+        assertRect(
             new BigDecimalRect(BigDecimal.ONE, BigDecimal.valueOf(2d))
                 .move(new BigDecimalVector(BigDecimal.ONE)),
             new BigDecimalPoint(BigDecimal.ONE),
@@ -431,7 +433,7 @@ class BigDecimalRectTest {
 
     @Test
     void rotateOfRectWidthHeight1AndWidth2WithoutCenterWithPiHalf() {
-        GeometryAssertions.assertRect(
+        assertRect(
             new BigDecimalRect(new BigDecimalPoint(),
                 new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE),
                 BigDecimal.valueOf(2d)
@@ -447,7 +449,7 @@ class BigDecimalRectTest {
 
     @Test
     void rotateOfRectWithHeight1AndWidth2WithCenterXY1WithPiHalf() {
-        GeometryAssertions.assertRect(
+        assertRect(
             new BigDecimalRect(new BigDecimalPoint(),
                 new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE),
                 BigDecimal.valueOf(2d)
@@ -471,7 +473,7 @@ class BigDecimalRectTest {
             new BigDecimalPoint(BigDecimal.valueOf(3d)),
             BigDecimal.valueOf(4d)
         );
-        Assertions.assertEquals(rect, rect.copy());
+        assertEquals(rect, rect.copy());
     }
 
     // endregion
@@ -485,15 +487,13 @@ class BigDecimalRectTest {
             new BigDecimalPoint(BigDecimal.valueOf(3d)),
             BigDecimal.valueOf(4d)
         );
-        Assertions.assertEquals(
-            rect,
+        assertEquals(rect,
             new BigDecimalRect(new BigDecimalPoint(
                 BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.valueOf(3d)),
                 BigDecimal.valueOf(4d))
         );
-        Assertions.assertNotEquals(
-            rect,
+        assertNotEquals(rect,
             new BigDecimalRect(new BigDecimalPoint(
                 BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.valueOf(4d)),
@@ -504,8 +504,7 @@ class BigDecimalRectTest {
 
     @Test
     void hashCodeOfRectWithPointHeightAndWidth() {
-        Assertions.assertEquals(
-            21004888,
+        assertEquals(21004888,
             new BigDecimalRect(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.valueOf(3d)),
@@ -521,7 +520,7 @@ class BigDecimalRectTest {
             new BigDecimalPoint(BigDecimal.valueOf(3d)),
             BigDecimal.valueOf(4d)
         );
-        Assertions.assertEquals("2.0|2.0 3.0|3.0 4.0", rect.toString());
+        assertEquals("2.0|2.0 3.0|3.0 4.0", rect.toString());
     }
 
     @Test
@@ -529,18 +528,18 @@ class BigDecimalRectTest {
         Rect<BigDecimal> rect = new BigDecimalRect(
             BigDecimal.ONE, BigDecimal.valueOf(2d)
         );
-        Assertions.assertEquals(
-            0, rect.compareTo(new BigDecimalRect(
+        assertEquals(0,
+            rect.compareTo(new BigDecimalRect(
                 BigDecimal.ONE, BigDecimal.valueOf(2d)
             ))
         );
-        Assertions.assertEquals(
-            -1, rect.compareTo(new BigDecimalRect(
+        assertEquals(-1,
+            rect.compareTo(new BigDecimalRect(
                 BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
             ))
         );
-        Assertions.assertEquals(
-            1, rect.compareTo(new BigDecimalRect(
+        assertEquals(1,
+            rect.compareTo(new BigDecimalRect(
                 BigDecimal.ONE, BigDecimal.ONE
             ))
         );
@@ -548,9 +547,9 @@ class BigDecimalRectTest {
 
     @Test
     void serializable() {
-        SerializableAssertions.assertSerializable(
+        assertSerializable(
             new BigDecimalRect(BigDecimal.ZERO, BigDecimal.ZERO),
-            Rect.class
+            BigDecimalRect.class
         );
     }
 

@@ -1,10 +1,11 @@
 package io.rala.math.arithmetic.core;
 
 import io.rala.math.arithmetic.AbstractArithmetic;
-import io.rala.math.testUtils.assertion.SerializableAssertions;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static org.junit.jupiter.api.Assertions.*;
 
 class FloatArithmeticTest {
     private static FloatArithmetic arithmetic;
@@ -16,24 +17,24 @@ class FloatArithmeticTest {
 
     @Test
     void getInstance() {
-        Assertions.assertEquals(arithmetic, FloatArithmetic.getInstance());
+        assertEquals(arithmetic, FloatArithmetic.getInstance());
     }
 
     // region fromInt, fromDouble and signum
 
     @Test
     void fromInt1() {
-        Assertions.assertEquals(1, arithmetic.fromInt(1));
+        assertEquals(1, arithmetic.fromInt(1));
     }
 
     @Test
     void fromDouble1_1() {
-        Assertions.assertEquals(1.1f, arithmetic.fromDouble(1.1));
+        assertEquals(1.1f, arithmetic.fromDouble(1.1));
     }
 
     @Test
     void signum1() {
-        Assertions.assertEquals(1, arithmetic.signum(1f));
+        assertEquals(1, arithmetic.signum(1f));
     }
 
     // endregion
@@ -42,66 +43,48 @@ class FloatArithmeticTest {
 
     @Test
     void absoluteM1() {
-        Assertions.assertEquals(1, arithmetic.absolute(-1f));
+        assertEquals(1, arithmetic.absolute(-1f));
     }
 
     @Test
     void negate1() {
-        Assertions.assertEquals(-1, arithmetic.negate(1f));
+        assertEquals(-1, arithmetic.negate(1f));
     }
 
     @Test
     void compare() {
-        Assertions.assertEquals(
-            0, arithmetic.compare(1f, 1f)
-        );
-        Assertions.assertEquals(
-            -1, arithmetic.compare(1f, 2f)
-        );
-        Assertions.assertEquals(
-            1, arithmetic.compare(2f, 1f)
-        );
+        assertEquals(0, arithmetic.compare(1f, 1f));
+        assertEquals(-1, arithmetic.compare(1f, 2f));
+        assertEquals(1, arithmetic.compare(2f, 1f));
     }
 
     @Test
     void min() {
-        Assertions.assertEquals(
-            1, arithmetic.min(1f, 1f)
-        );
-        Assertions.assertEquals(
-            1, arithmetic.min(1f, 2f)
-        );
-        Assertions.assertEquals(
-            1, arithmetic.min(2f, 1f)
-        );
+        assertEquals(1, arithmetic.min(1f, 1f));
+        assertEquals(1, arithmetic.min(1f, 2f));
+        assertEquals(1, arithmetic.min(2f, 1f));
     }
 
     @Test
     void max() {
-        Assertions.assertEquals(
-            1, arithmetic.max(1f, 1f)
-        );
-        Assertions.assertEquals(
-            2, arithmetic.max(1f, 2f)
-        );
-        Assertions.assertEquals(
-            2, arithmetic.max(2f, 1f)
-        );
+        assertEquals(1, arithmetic.max(1f, 1f));
+        assertEquals(2, arithmetic.max(1f, 2f));
+        assertEquals(2, arithmetic.max(2f, 1f));
     }
 
     @Test
     void isZero() {
-        Assertions.assertTrue(arithmetic.isZero(0f));
-        Assertions.assertTrue(arithmetic.isZero(-0f));
-        Assertions.assertFalse(arithmetic.isZero(1f));
+        assertTrue(arithmetic.isZero(0f));
+        assertTrue(arithmetic.isZero(-0f));
+        assertFalse(arithmetic.isZero(1f));
     }
 
     @Test
     void isEqual() {
-        Assertions.assertTrue(arithmetic.isEqual(0f, 0f));
-        Assertions.assertTrue(arithmetic.isEqual(-0f, 0f));
-        Assertions.assertTrue(arithmetic.isEqual(-0f, -0f));
-        Assertions.assertFalse(arithmetic.isEqual(1f, 0f));
+        assertTrue(arithmetic.isEqual(0f, 0f));
+        assertTrue(arithmetic.isEqual(-0f, 0f));
+        assertTrue(arithmetic.isEqual(-0f, -0f));
+        assertFalse(arithmetic.isEqual(1f, 0f));
     }
 
     // endregion
@@ -110,37 +93,37 @@ class FloatArithmeticTest {
 
     @Test
     void sum12() {
-        Assertions.assertEquals(3, arithmetic.sum(1f, 2f));
+        assertEquals(3, arithmetic.sum(1f, 2f));
     }
 
     @Test
     void sum123() {
-        Assertions.assertEquals(6, arithmetic.sum(1f, 2f, 3f));
+        assertEquals(6, arithmetic.sum(1f, 2f, 3f));
     }
 
     @Test
     void difference12() {
-        Assertions.assertEquals(-1, arithmetic.difference(1f, 2f));
+        assertEquals(-1, arithmetic.difference(1f, 2f));
     }
 
     @Test
     void product12() {
-        Assertions.assertEquals(2, arithmetic.product(1f, 2f));
+        assertEquals(2, arithmetic.product(1f, 2f));
     }
 
     @Test
     void product123() {
-        Assertions.assertEquals(6, arithmetic.product(1f, 2f, 3f));
+        assertEquals(6, arithmetic.product(1f, 2f, 3f));
     }
 
     @Test
     void quotient12() {
-        Assertions.assertEquals(0.5f, arithmetic.quotient(1f, 2f));
+        assertEquals(0.5f, arithmetic.quotient(1f, 2f));
     }
 
     @Test
     void modulo12() {
-        Assertions.assertEquals(1, arithmetic.modulo(1f, 2f));
+        assertEquals(1, arithmetic.modulo(1f, 2f));
     }
 
     // endregion
@@ -149,15 +132,12 @@ class FloatArithmeticTest {
 
     @Test
     void power12() {
-        Assertions.assertEquals(1, arithmetic.power(1f, 2));
+        assertEquals(1, arithmetic.power(1f, 2));
     }
 
     @Test
     void root21() {
-        Assertions.assertEquals(
-            (float) Math.sqrt(1),
-            arithmetic.root2(1f)
-        );
+        assertEquals((float) Math.sqrt(1), arithmetic.root2(1f));
     }
 
     // endregion
@@ -166,14 +146,14 @@ class FloatArithmeticTest {
 
     @Test
     void gcd() {
-        Assertions.assertThrows(AbstractArithmetic.NotImplementedException.class,
+        assertThrows(AbstractArithmetic.NotImplementedException.class,
             () -> arithmetic.gcd(3f, 4f)
         ); // assert exception message?
     }
 
     @Test
     void lcm() {
-        Assertions.assertThrows(AbstractArithmetic.NotImplementedException.class,
+        assertThrows(AbstractArithmetic.NotImplementedException.class,
             () -> arithmetic.lcm(3f, 4f)
         ); // assert exception message?
     }
@@ -184,29 +164,22 @@ class FloatArithmeticTest {
 
     @Test
     void equalsOfArithmetic() {
-        Assertions.assertEquals(new FloatArithmetic(), new FloatArithmetic());
+        assertEquals(new FloatArithmetic(), new FloatArithmetic());
     }
 
     @Test
     void hashCodeOfArithmetic() {
-        Assertions.assertEquals(1065354177,
-            new FloatArithmetic().hashCode()
-        );
+        assertEquals(1065354177, new FloatArithmetic().hashCode());
     }
 
     @Test
     void toStringOfArithmetic() {
-        Assertions.assertEquals("FloatArithmetic",
-            new FloatArithmetic().toString()
-        );
+        assertEquals("FloatArithmetic", new FloatArithmetic().toString());
     }
 
     @Test
     void serializable() {
-        SerializableAssertions.assertSerializable(
-            new FloatArithmetic(),
-            FloatArithmetic.class
-        );
+        assertSerializable(new FloatArithmetic(), FloatArithmetic.class);
     }
 
     // endregion

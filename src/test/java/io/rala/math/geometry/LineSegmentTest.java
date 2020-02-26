@@ -1,20 +1,21 @@
 package io.rala.math.geometry;
 
 import io.rala.math.arithmetic.core.IntegerArithmetic;
-import io.rala.math.testUtils.assertion.GeometryAssertions;
-import io.rala.math.testUtils.assertion.SerializableAssertions;
 import io.rala.math.testUtils.geometry.TestLineSegment;
 import io.rala.math.testUtils.geometry.TestPoint;
 import io.rala.math.testUtils.geometry.TestVector;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static io.rala.math.testUtils.assertion.GeometryAssertions.*;
+import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static org.junit.jupiter.api.Assertions.*;
 
 class LineSegmentTest {
     // region constructors, getter and setter
 
     @Test
     void constructorWithBParameter() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new TestLineSegment(new TestPoint(1)),
             new TestPoint(1)
         );
@@ -22,7 +23,7 @@ class LineSegmentTest {
 
     @Test
     void constructorWithEqualABParameter() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new TestLineSegment(new TestPoint(2), new TestPoint(2)),
             new TestPoint(2), new TestPoint(2)
         );
@@ -30,7 +31,7 @@ class LineSegmentTest {
 
     @Test
     void constructorWithDifferentABParameter() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new TestLineSegment(
                 new TestPoint(2, 2), new TestPoint(3, 3)
             ),
@@ -41,10 +42,9 @@ class LineSegmentTest {
     @Test
     void createAndSetA() {
         LineSegment<Number> lineSegment = new TestLineSegment(new TestPoint());
-        GeometryAssertions.assertLineSegment(lineSegment, new TestPoint());
+        assertLineSegment(lineSegment, new TestPoint());
         lineSegment.setA(new TestPoint(1));
-        GeometryAssertions.assertLineSegment(
-            lineSegment,
+        assertLineSegment(lineSegment,
             new TestPoint(1), new TestPoint()
         );
     }
@@ -52,10 +52,9 @@ class LineSegmentTest {
     @Test
     void createAndSetB() {
         LineSegment<Number> lineSegment = new TestLineSegment(new TestPoint());
-        GeometryAssertions.assertLineSegment(lineSegment, new TestPoint());
+        assertLineSegment(lineSegment, new TestPoint());
         lineSegment.setB(new TestPoint(2));
-        GeometryAssertions.assertLineSegment(
-            lineSegment,
+        assertLineSegment(lineSegment,
             new TestPoint(), new TestPoint(2)
         );
     }
@@ -66,14 +65,14 @@ class LineSegmentTest {
 
     @Test
     void lengthOfLineSegmentWithTwoEqualPoints() {
-        Assertions.assertEquals(0d,
+        assertEquals(0d,
             new TestLineSegment(new TestPoint(1, 2), new TestPoint(1, 2)).length()
         );
     }
 
     @Test
     void lengthOfLineSegmentWithInverseParameters() {
-        Assertions.assertEquals(
+        assertEquals(
             Math.sqrt(2),
             new TestLineSegment(
                 new TestPoint(1, 2),
@@ -84,7 +83,7 @@ class LineSegmentTest {
 
     @Test
     void lengthOfLineSegmentWithTwoDifferenceEach() {
-        Assertions.assertEquals(
+        assertEquals(
             2 * Math.sqrt(2),
             new TestLineSegment(
                 new TestPoint(3, 4),
@@ -95,7 +94,7 @@ class LineSegmentTest {
 
     @Test
     void halvingPointOfLineSegmentWithPXY0AndPXY1() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new TestLineSegment(new TestPoint(), new TestPoint(1)).halvingPoint(),
             0.5, 0.5
         );
@@ -103,7 +102,7 @@ class LineSegmentTest {
 
     @Test
     void distributionPointComma25OfLineSegmentWithPXY0AndPXY1() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new TestLineSegment(new TestPoint(), new TestPoint(1))
                 .distributionPoint(0.25),
             0.25, 0.25
@@ -112,7 +111,7 @@ class LineSegmentTest {
 
     @Test
     void distributionPointComma5OfLineSegmentWithPXY0AndPXY1() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new TestLineSegment(new TestPoint(), new TestPoint(1))
                 .distributionPoint(0.5),
             0.5, 0.5
@@ -121,7 +120,7 @@ class LineSegmentTest {
 
     @Test
     void distributionPointComma75OfLineSegmentWithPXY0AndPXY1() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new TestLineSegment(new TestPoint(), new TestPoint(1))
                 .distributionPoint(0.75),
             0.75, 0.75
@@ -134,7 +133,7 @@ class LineSegmentTest {
 
     @Test
     void flipWithAXY0AndBXY1() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new TestLineSegment(new TestPoint(0), new TestPoint(1)).flip(),
             new TestPoint(1), new TestPoint(0)
         );
@@ -142,7 +141,7 @@ class LineSegmentTest {
 
     @Test
     void toLineOfLineSegmentWithAXY0AndBXY1() {
-        GeometryAssertions.assertLine(
+        assertLine(
             new TestLineSegment(new TestPoint(0), new TestPoint(1)).toLine(),
             1d, 0d
         );
@@ -150,7 +149,7 @@ class LineSegmentTest {
 
     @Test
     void toLineOfLineSegmentWithAXY1AndBX1Y0() {
-        GeometryAssertions.assertLine(
+        assertLine(
             new TestLineSegment(new TestPoint(1), new TestPoint(1, 0)).toLine(),
             null, 1
         );
@@ -158,7 +157,7 @@ class LineSegmentTest {
 
     @Test
     void toLineOfLineSegmentWithAXY1AndBX0Y1() {
-        GeometryAssertions.assertLine(
+        assertLine(
             new TestLineSegment(new TestPoint(1), new TestPoint(0, 1)).toLine(),
             -0d, 1d
         );
@@ -166,7 +165,7 @@ class LineSegmentTest {
 
     @Test
     void toLineOfLineSegmentWithAXY1AndBX2Y3() {
-        GeometryAssertions.assertLine(
+        assertLine(
             new TestLineSegment(new TestPoint(1), new TestPoint(2, 3)).toLine(),
             2d, -1d
         );
@@ -186,19 +185,19 @@ class LineSegmentTest {
             new Point<>(integerArithmetic, 0),
             new Point<>(integerArithmetic, 1)
         );
-        Assertions.assertEquals(result,
+        assertEquals(result,
             lineSegment.map(new IntegerArithmetic(), Number::intValue)
         );
     }
 
     @Test
     void isValidWithZeroValues() {
-        Assertions.assertTrue(new TestLineSegment(new TestPoint()).isValid());
+        assertTrue(new TestLineSegment(new TestPoint()).isValid());
     }
 
     @Test
     void isValidWithInfValues() {
-        Assertions.assertFalse(
+        assertFalse(
             new TestLineSegment(
                 new TestPoint(Double.POSITIVE_INFINITY),
                 new TestPoint(Double.POSITIVE_INFINITY)
@@ -208,7 +207,7 @@ class LineSegmentTest {
 
     @Test
     void moveOfLineSegmentWithAndBWithXY() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new TestLineSegment(new TestPoint(), new TestPoint(1)).move(1),
             new TestPoint(1), new TestPoint(2)
         );
@@ -216,7 +215,7 @@ class LineSegmentTest {
 
     @Test
     void moveOfLineSegmentWithAndBWithXAndY() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new TestLineSegment(new TestPoint(), new TestPoint(1)).move(1, 1),
             new TestPoint(1), new TestPoint(2)
         );
@@ -224,7 +223,7 @@ class LineSegmentTest {
 
     @Test
     void moveOfLineSegmentWithAndBWithVector() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new TestLineSegment(new TestPoint(), new TestPoint(1))
                 .move(new TestVector(1)),
             new TestPoint(1), new TestPoint(2)
@@ -233,7 +232,7 @@ class LineSegmentTest {
 
     @Test
     void rotateOfLineSegmentWithAXY0AndBX1Y2WithoutCenterWithPiHalf() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new TestLineSegment(new TestPoint(0, 0), new TestPoint(1, 2))
                 .rotate(Math.PI / 2),
             new TestPoint(),
@@ -243,7 +242,7 @@ class LineSegmentTest {
 
     @Test
     void rotateOfLineSegmentWithAXY0AndBX1Y2WithCenterXY1WithPiHalf() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new TestLineSegment(new TestPoint(0, 0), new TestPoint(1, 2))
                 .rotate(new TestPoint(1), Math.PI / 2),
             new TestPoint(2, 0),
@@ -256,7 +255,7 @@ class LineSegmentTest {
         LineSegment<Number> lineSegment = new TestLineSegment(
             new TestPoint(1, 2), new TestPoint(3, 4)
         );
-        Assertions.assertEquals(lineSegment, lineSegment.copy());
+        assertEquals(lineSegment, lineSegment.copy());
     }
 
     // endregion
@@ -268,20 +267,17 @@ class LineSegmentTest {
         LineSegment<Number> lineSegment = new TestLineSegment(
             new TestPoint(2), new TestPoint(3)
         );
-        Assertions.assertEquals(
-            lineSegment,
+        assertEquals(lineSegment,
             new TestLineSegment(new TestPoint(2), new TestPoint(3))
         );
-        Assertions.assertNotEquals(
-            lineSegment,
+        assertNotEquals(lineSegment,
             new TestLineSegment(new TestPoint(3), new TestPoint(2))
         );
     }
 
     @Test
     void hashCodeOfLineSegmentWithTwoPoints() {
-        Assertions.assertEquals(
-            33793,
+        assertEquals(33793,
             new TestLineSegment(new TestPoint(2), new TestPoint(3)).hashCode()
         );
     }
@@ -291,7 +287,7 @@ class LineSegmentTest {
         LineSegment<Number> lineSegment = new TestLineSegment(
             new TestPoint(2d), new TestPoint(3d)
         );
-        Assertions.assertEquals("2.0|2.0 3.0|3.0", lineSegment.toString());
+        assertEquals("2.0|2.0 3.0|3.0", lineSegment.toString());
     }
 
     @Test
@@ -299,17 +295,17 @@ class LineSegmentTest {
         LineSegment<Number> lineSegment = new TestLineSegment(
             new TestPoint(2), new TestPoint(3)
         );
-        Assertions.assertEquals(0,
+        assertEquals(0,
             lineSegment.compareTo(new TestLineSegment(
                 new TestPoint(2), new TestPoint(3)
             ))
         );
-        Assertions.assertEquals(-1,
+        assertEquals(-1,
             lineSegment.compareTo(new TestLineSegment(
                 new TestPoint(3), new TestPoint(4)
             ))
         );
-        Assertions.assertEquals(1,
+        assertEquals(1,
             lineSegment.compareTo(new TestLineSegment(
                 new TestPoint(1), new TestPoint(1)
             ))
@@ -318,9 +314,9 @@ class LineSegmentTest {
 
     @Test
     void serializable() {
-        SerializableAssertions.assertSerializable(
+        assertSerializable(
             new TestLineSegment(new TestPoint()),
-            LineSegment.class
+            TestLineSegment.class
         );
     }
 
