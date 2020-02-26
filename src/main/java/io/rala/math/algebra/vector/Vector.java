@@ -7,6 +7,7 @@ import io.rala.math.utils.Copyable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 public class Vector<T extends Number> implements Copyable<Vector<T>> {
 
@@ -256,8 +257,11 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
         if (getType() != vector.getType())
             throw new IllegalArgumentException("vectors have to be either both row or both column");
         Vector<T> result = new Vector<>(getArithmetic(), getSize(), getDefaultValue());
-        vector.getVector().forEach((key, value) ->
-            result.setValue(key, getArithmetic().sum(getValue(key), vector.getValue(key))));
+        IntStream.range(0, getSize())
+            .forEach(index -> result.setValue(
+                index,
+                getArithmetic().sum(getValue(index), vector.getValue(index))
+            ));
         result.removeDefaultValues();
         return result;
     }
