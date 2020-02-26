@@ -671,7 +671,9 @@ public class Matrix<T extends Number>
         Matrix<NT> matrix = new Matrix<>(
             arithmetic, getRows(), getCols(), map.apply(getDefaultValue())
         );
-        forEach(field -> matrix.setValue(field.index, map.apply(field.value)));
+        forEach(field -> matrix.setValue(
+            field.getIndex(), map.apply(field.getValue())
+        ));
         return matrix;
     }
 
