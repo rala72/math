@@ -350,22 +350,19 @@ public class Matrix<T extends Number>
 
     /**
      * @param operator operator to apply on all fields
+     * @see #setValue(long, Number)
      */
     public void computeAll(Function<Field, T> operator) {
         forEach(field -> setValue(field.getIndex(), operator.apply(field)));
     }
 
     /**
-     * calls {@link #compute(long, Number, BinaryOperator)} with
-     * {@link Field#getIndex()},
-     * new {@code value} from {@link Function} and
-     * given {@link BinaryOperator}
-     *
      * @param value    function returning new value to use in computation
      * @param operator operator to apply on old and new value
+     * @see #computeAll(Function)
      */
     public void computeAll(Function<Field, T> value, BinaryOperator<T> operator) {
-        forEach(field -> compute(field.getIndex(), value.apply(field), operator));
+        computeAll(field -> operator.apply(field.getValue(), value.apply(field)));
     }
 
     // endregion
