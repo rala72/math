@@ -9,7 +9,6 @@ import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -18,6 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class VectorTest {
+
+    private final TestAbstractArithmetic testAbstractArithmetic = new TestAbstractArithmetic();
 
     // region constructors
 
@@ -355,16 +356,37 @@ public class VectorTest {
         );
     }
 
+    @Test
+    void multiplyNonEmptyVectorByZero() {
+        assertEquals(
+            new TestVector(3),
+            new TestVector(3, false).multiply(testAbstractArithmetic.zero())
+        );
+    }
+
+    @Test
+    void multiplyNonEmptyVectorByOne() {
+        assertEquals(
+            new TestVector(3, false),
+            new TestVector(3, false).multiply(testAbstractArithmetic.one())
+        );
+    }
+
+    @Test
+    void multiplyNonEmptyVectorByFive() {
+        TestVector expected = new TestVector(3);
+        expected.setValue(0, 5d);
+        expected.setValue(1, -20d);
+        expected.setValue(2, 45d);
+        assertEquals(
+            expected,
+            new TestVector(3, false).multiply(testAbstractArithmetic.fromInt(5))
+        );
+    }
+
     // endregion
 
     // region temp (to be deleted, when proper tests exist)
-    @Test
-    void times2() {
-        TestVector vector = new TestVector(5, false);
-        Vector result = vector.multiply(vector.getArithmetic().fromInt(2));
-        assertEquals(new Vector<>(new TestAbstractArithmetic(), Arrays.asList(2d, -8d, 18d, -32d, 50d), 0d), result);
-    }
-
     @Test
     void dotProduct() {
         AbstractArithmetic arithmetic = new IntegerArithmetic();
