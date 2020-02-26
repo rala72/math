@@ -324,12 +324,12 @@ public class Matrix<T extends Number>
         if (getCols() != matrix.getCols())
             throw new IllegalArgumentException("cols have to be equal");
         Matrix<T> result = copy();
-        for (int r = 0; r < getRows(); r++)
-            for (int c = 0; c < getCols(); c++)
-                result.setValue(r, c, getArithmetic().sum(
-                    getValue(r, c),
-                    matrix.getValue(r, c)
-                ));
+        stream().forEach(field -> result.setValue(field.getIndex(),
+            getArithmetic().sum(
+                field.getValue(),
+                matrix.getValue(field.getIndex())
+            )
+        ));
         result.removeDefaultValues();
         return result;
     }
@@ -340,11 +340,9 @@ public class Matrix<T extends Number>
      */
     public Matrix<T> multiply(T t) {
         Matrix<T> result = copy();
-        for (int r = 0; r < getRows(); r++)
-            for (int c = 0; c < getCols(); c++)
-                result.setValue(r, c, getArithmetic().product(
-                    getValue(r, c), t
-                ));
+        stream().forEach(field -> result.setValue(field.getIndex(),
+            getArithmetic().product(field.getValue(), t)
+        ));
         result.removeDefaultValues();
         return result;
     }
@@ -359,15 +357,17 @@ public class Matrix<T extends Number>
         Matrix<T> result = new Matrix<>(getArithmetic(),
             getRows(), matrix.getCols(), getDefaultValue()
         );
-        for (int r = 0; r < result.getRows(); r++)
-            for (int c = 0; c < result.getCols(); c++) {
-                T d = getArithmetic().zero();
-                for (int i = 0; i < getCols(); i++)
-                    d = getArithmetic().sum(d,
-                        getArithmetic().product(getValue(r, i), matrix.getValue(i, c))
-                    );
-                result.setValue(r, c, d);
-            }
+        stream().forEach(field -> {
+            T d = getArithmetic().zero();
+            for (int i = 0; i < getCols(); i++)
+                d = getArithmetic().sum(d,
+                    getArithmetic().product(
+                        getValue(field.getRow(), i),
+                        matrix.getValue(i, field.getCol())
+                    )
+                );
+            result.setValue(field.getRow(), field.getCol(), d);
+        });
         return result;
     }
 
@@ -405,15 +405,15 @@ public class Matrix<T extends Number>
         Matrix<T> minorMatrix = new Matrix<>(getArithmetic(),
             getRows(), getCols(), getDefaultValue()
         );
-        for (int r = 0; r < minorMatrix.getRows(); r++) {
-            for (int c = 0; c < minorMatrix.getCols(); c++) {
-                T value = getArithmetic().product(
-                    getArithmetic().fromInt(signumFactor(r, c)),
-                    subMatrix(r, c).determinante()
-                );
-                minorMatrix.setValue(r, c, value);
-            }
-        }
+        stream().forEach(field -> {
+            T value = getArithmetic().product(
+                getArithmetic().fromInt(
+                    signumFactor(field.getRow(), field.getCol())
+                ),
+                subMatrix(field.getRow(), field.getCol()).determinante()
+            );
+            minorMatrix.setValue(field.getIndex(), value);
+        });
         return minorMatrix.transpose().multiply(k);
     }
 
@@ -424,9 +424,10 @@ public class Matrix<T extends Number>
         Matrix<T> result = new Matrix<>(getArithmetic(),
             getCols(), getRows(), getDefaultValue()
         );
-        for (int r = 0; r < getRows(); r++)
-            for (int c = 0; c < getCols(); c++)
-                result.setValue(c, r, getValue(getIndexOfRowAndCol(r, c)));
+        stream().forEach(field -> result.setValue(
+            field.getCol(), field.getRow(),
+            getValue(getIndexOfRowAndCol(field.getRow(), field.getCol()))
+        ));
         return result;
     }
 
