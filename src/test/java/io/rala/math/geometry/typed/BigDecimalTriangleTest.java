@@ -51,13 +51,11 @@ class BigDecimalTriangleTest {
         Triangle<BigDecimal> triangle = new BigDecimalTriangle(
             new BigDecimalPoint(), new BigDecimalPoint(), new BigDecimalPoint()
         );
-        assertTriangle(
-            triangle,
+        assertTriangle(triangle,
             new BigDecimalPoint(), new BigDecimalPoint(), new BigDecimalPoint()
         );
         triangle.setA(new BigDecimalPoint(BigDecimal.ONE));
-        assertTriangle(
-            triangle,
+        assertTriangle(triangle,
             new BigDecimalPoint(BigDecimal.ONE),
             new BigDecimalPoint(),
             new BigDecimalPoint()
@@ -69,13 +67,11 @@ class BigDecimalTriangleTest {
         Triangle<BigDecimal> triangle = new BigDecimalTriangle(
             new BigDecimalPoint(), new BigDecimalPoint(), new BigDecimalPoint()
         );
-        assertTriangle(
-            triangle,
+        assertTriangle(triangle,
             new BigDecimalPoint(), new BigDecimalPoint(), new BigDecimalPoint()
         );
         triangle.setB(new BigDecimalPoint(BigDecimal.valueOf(2d)));
-        assertTriangle(
-            triangle,
+        assertTriangle(triangle,
             new BigDecimalPoint(),
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             new BigDecimalPoint()
@@ -87,13 +83,11 @@ class BigDecimalTriangleTest {
         Triangle<BigDecimal> triangle = new BigDecimalTriangle(
             new BigDecimalPoint(), new BigDecimalPoint(), new BigDecimalPoint()
         );
-        assertTriangle(
-            triangle,
+        assertTriangle(triangle,
             new BigDecimalPoint(), new BigDecimalPoint(), new BigDecimalPoint()
         );
         triangle.setC(new BigDecimalPoint(BigDecimal.valueOf(3d)));
-        assertTriangle(
-            triangle,
+        assertTriangle(triangle,
             new BigDecimalPoint(),
             new BigDecimalPoint(),
             new BigDecimalPoint(BigDecimal.valueOf(3d))
@@ -487,16 +481,14 @@ class BigDecimalTriangleTest {
             new BigDecimalPoint(BigDecimal.valueOf(3d)),
             new BigDecimalPoint(BigDecimal.valueOf(4d))
         );
-        assertEquals(
-            triangle,
+        assertEquals(triangle,
             new BigDecimalTriangle(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.valueOf(3d)),
                 new BigDecimalPoint(BigDecimal.valueOf(4d))
             )
         );
-        assertNotEquals(
-            triangle,
+        assertNotEquals(triangle,
             new BigDecimalTriangle(
                 new BigDecimalPoint(BigDecimal.valueOf(3d)),
                 new BigDecimalPoint(BigDecimal.valueOf(2d)),
@@ -507,8 +499,7 @@ class BigDecimalTriangleTest {
 
     @Test
     void hashCodeOfTriangleWithA2B3C4() {
-        assertEquals(
-            21044320,
+        assertEquals(21044320,
             new BigDecimalTriangle(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.valueOf(3d)),
@@ -534,22 +525,22 @@ class BigDecimalTriangleTest {
             new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ZERO),
             new BigDecimalPoint(BigDecimal.ONE)
         );
-        assertEquals(
-            0, triangle.compareTo(new BigDecimalTriangle(
+        assertEquals(0,
+            triangle.compareTo(new BigDecimalTriangle(
                 new BigDecimalPoint(BigDecimal.ZERO),
                 new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ZERO),
                 new BigDecimalPoint(BigDecimal.ONE)
             ))
         );
-        assertEquals(
-            -1, triangle.compareTo(new BigDecimalTriangle(
+        assertEquals(-1,
+            triangle.compareTo(new BigDecimalTriangle(
                 new BigDecimalPoint(BigDecimal.ONE.negate()),
                 new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ZERO),
                 new BigDecimalPoint(BigDecimal.ONE)
             ))
         );
-        assertEquals(
-            1, triangle.compareTo(new BigDecimalTriangle(
+        assertEquals(1,
+            triangle.compareTo(new BigDecimalTriangle(
                 new BigDecimalPoint(BigDecimal.valueOf(0.5d), BigDecimal.ONE),
                 new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(0.5d)),
                 new BigDecimalPoint(BigDecimal.ONE)
@@ -565,7 +556,7 @@ class BigDecimalTriangleTest {
                 new BigDecimalPoint(),
                 new BigDecimalPoint()
             ),
-            Triangle.class
+            BigDecimalTriangle.class
         );
     }
 

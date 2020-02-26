@@ -335,22 +335,13 @@ class DoubleLineTest {
     @Test
     void equalsOfLineWithMB() {
         Line<Double> line = new DoubleLine(2d, 3d);
-        assertEquals(
-            line,
-            new DoubleLine(2d, 3d)
-        );
-        assertNotEquals(
-            line,
-            new DoubleLine(3d, 2d)
-        );
+        assertEquals(line, new DoubleLine(2d, 3d));
+        assertNotEquals(line, new DoubleLine(3d, 2d));
     }
 
     @Test
     void hashCodeOfLineWithMB() {
-        assertEquals(
-            525249,
-            new DoubleLine(2d, 3d).hashCode()
-        );
+        assertEquals(525249, new DoubleLine(2d, 3d).hashCode());
     }
 
     @Test
@@ -368,20 +359,14 @@ class DoubleLineTest {
     @Test
     void compareToOfLineWithMB() {
         Line<Double> line = new DoubleLine(2d, 3d);
-        assertEquals(
-            0d, line.compareTo(new DoubleLine(2d, 3d))
-        );
-        assertEquals(
-            -1d, line.compareTo(new DoubleLine(3d, 1d))
-        );
-        assertEquals(
-            1d, line.compareTo(new DoubleLine(2d, 1d))
-        );
+        assertEquals(0d, line.compareTo(new DoubleLine(2d, 3d)));
+        assertEquals(-1d, line.compareTo(new DoubleLine(3d, 1d)));
+        assertEquals(1d, line.compareTo(new DoubleLine(2d, 1d)));
     }
 
     @Test
     void serializable() {
-        assertSerializable(new DoubleLine(0d), Line.class);
+        assertSerializable(new DoubleLine(0d), DoubleLine.class);
     }
 
     // endregion

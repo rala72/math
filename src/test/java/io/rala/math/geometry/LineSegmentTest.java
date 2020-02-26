@@ -44,8 +44,7 @@ class LineSegmentTest {
         LineSegment<Number> lineSegment = new TestLineSegment(new TestPoint());
         assertLineSegment(lineSegment, new TestPoint());
         lineSegment.setA(new TestPoint(1));
-        assertLineSegment(
-            lineSegment,
+        assertLineSegment(lineSegment,
             new TestPoint(1), new TestPoint()
         );
     }
@@ -55,8 +54,7 @@ class LineSegmentTest {
         LineSegment<Number> lineSegment = new TestLineSegment(new TestPoint());
         assertLineSegment(lineSegment, new TestPoint());
         lineSegment.setB(new TestPoint(2));
-        assertLineSegment(
-            lineSegment,
+        assertLineSegment(lineSegment,
             new TestPoint(), new TestPoint(2)
         );
     }
@@ -269,20 +267,17 @@ class LineSegmentTest {
         LineSegment<Number> lineSegment = new TestLineSegment(
             new TestPoint(2), new TestPoint(3)
         );
-        assertEquals(
-            lineSegment,
+        assertEquals(lineSegment,
             new TestLineSegment(new TestPoint(2), new TestPoint(3))
         );
-        assertNotEquals(
-            lineSegment,
+        assertNotEquals(lineSegment,
             new TestLineSegment(new TestPoint(3), new TestPoint(2))
         );
     }
 
     @Test
     void hashCodeOfLineSegmentWithTwoPoints() {
-        assertEquals(
-            33793,
+        assertEquals(33793,
             new TestLineSegment(new TestPoint(2), new TestPoint(3)).hashCode()
         );
     }
@@ -321,7 +316,7 @@ class LineSegmentTest {
     void serializable() {
         assertSerializable(
             new TestLineSegment(new TestPoint()),
-            LineSegment.class
+            TestLineSegment.class
         );
     }
 

@@ -322,15 +322,13 @@ class BigDecimalCircleTest {
         Circle<BigDecimal> circle = new BigDecimalCircle(
             new BigDecimalPoint(BigDecimal.valueOf(2d)), BigDecimal.valueOf(3d)
         );
-        assertEquals(
-            circle,
+        assertEquals(circle,
             new BigDecimalCircle(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)),
                 BigDecimal.valueOf(3d)
             )
         );
-        assertNotEquals(
-            circle,
+        assertNotEquals(circle,
             new BigDecimalCircle(
                 new BigDecimalPoint(BigDecimal.valueOf(3d)),
                 BigDecimal.valueOf(2d)
@@ -340,8 +338,7 @@ class BigDecimalCircleTest {
 
     @Test
     void hashCodeOfCircleWithPointAndRadius() {
-        assertEquals(
-            647715,
+        assertEquals(647715,
             new BigDecimalCircle(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)),
                 BigDecimal.valueOf(3d)
@@ -364,18 +361,18 @@ class BigDecimalCircleTest {
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             BigDecimal.valueOf(3d)
         );
-        assertEquals(
-            0, circle.compareTo(new BigDecimalCircle(
+        assertEquals(0,
+            circle.compareTo(new BigDecimalCircle(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)), BigDecimal.valueOf(3d)
             ))
         );
-        assertEquals(
-            -1, circle.compareTo(new BigDecimalCircle(
+        assertEquals(-1,
+            circle.compareTo(new BigDecimalCircle(
                 new BigDecimalPoint(BigDecimal.valueOf(3d)), BigDecimal.valueOf(3d)
             ))
         );
-        assertEquals(
-            1, circle.compareTo(new BigDecimalCircle(
+        assertEquals(1,
+            circle.compareTo(new BigDecimalCircle(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)), BigDecimal.ONE
             ))
         );
@@ -383,7 +380,7 @@ class BigDecimalCircleTest {
 
     @Test
     void serializable() {
-        assertSerializable(new BigDecimalCircle(), Circle.class);
+        assertSerializable(new BigDecimalCircle(), BigDecimalCircle.class);
     }
 
     // endregion

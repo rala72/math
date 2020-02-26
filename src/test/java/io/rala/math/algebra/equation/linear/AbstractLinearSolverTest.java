@@ -45,9 +45,7 @@ class AbstractLinearSolverTest {
     void toSingleSolutionOfAbstractLinearSolverWithNull() {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);
-        assertThrows(NullPointerException.class,
-            solver::toSingleSolution
-        );
+        assertThrows(NullPointerException.class, solver::toSingleSolution);
     }
 
     @Test

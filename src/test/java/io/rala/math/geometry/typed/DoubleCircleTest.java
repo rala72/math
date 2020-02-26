@@ -236,20 +236,17 @@ class DoubleCircleTest {
     @Test
     void equalsOfCircleWithPointAndRadius() {
         Circle<Double> circle = new DoubleCircle(new DoublePoint(2d), 3d);
-        assertEquals(
-            circle,
+        assertEquals(circle,
             new DoubleCircle(new DoublePoint(2d), 3d)
         );
-        assertNotEquals(
-            circle,
+        assertNotEquals(circle,
             new DoubleCircle(new DoublePoint(3d), 2d)
         );
     }
 
     @Test
     void hashCodeOfCircleWithPointAndRadius() {
-        assertEquals(
-            1074296864,
+        assertEquals(1074296864,
             new DoubleCircle(new DoublePoint(2d), 3d).hashCode()
         );
     }
@@ -263,20 +260,20 @@ class DoubleCircleTest {
     @Test
     void compareToOfCircleWithCenterAndRadius() {
         Circle<Double> circle = new DoubleCircle(new DoublePoint(2d), 3d);
-        assertEquals(
-            0d, circle.compareTo(new DoubleCircle(new DoublePoint(2d), 3d))
+        assertEquals(0d,
+            circle.compareTo(new DoubleCircle(new DoublePoint(2d), 3d))
         );
-        assertEquals(
-            -1d, circle.compareTo(new DoubleCircle(new DoublePoint(3d), 3d))
+        assertEquals(-1d,
+            circle.compareTo(new DoubleCircle(new DoublePoint(3d), 3d))
         );
-        assertEquals(
-            1d, circle.compareTo(new DoubleCircle(new DoublePoint(2d), 1d))
+        assertEquals(1d,
+            circle.compareTo(new DoubleCircle(new DoublePoint(2d), 1d))
         );
     }
 
     @Test
     void serializable() {
-        assertSerializable(new DoubleCircle(), Circle.class);
+        assertSerializable(new DoubleCircle(), DoubleCircle.class);
     }
 
     // endregion

@@ -104,10 +104,7 @@ class BigDecimalComplexTest {
 
     @Test
     void absoluteValueOfComplexWithoutParameter() {
-        assertEquals(
-            BigDecimal.ZERO,
-            new BigDecimalComplex().absoluteValue()
-        );
+        assertEquals(BigDecimal.ZERO, new BigDecimalComplex().absoluteValue());
     }
 
     @Test
@@ -587,20 +584,17 @@ class BigDecimalComplexTest {
         Complex<BigDecimal> complex = new BigDecimalComplex(
             BigDecimal.valueOf(2), BigDecimal.valueOf(3)
         );
-        assertEquals(
-            complex,
+        assertEquals(complex,
             new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.valueOf(3))
         );
-        assertNotEquals(
-            complex,
+        assertNotEquals(complex,
             new BigDecimalComplex(BigDecimal.valueOf(3), BigDecimal.valueOf(2))
         );
     }
 
     @Test
     void hashCodeOfComplexWithReIm() {
-        assertEquals(
-            2976,
+        assertEquals(2976,
             new BigDecimalComplex(
                 BigDecimal.valueOf(2), BigDecimal.valueOf(3)
             ).hashCode()
@@ -612,10 +606,7 @@ class BigDecimalComplexTest {
         Complex<BigDecimal> complex = new BigDecimalComplex(
             BigDecimal.valueOf(2), BigDecimal.valueOf(3)
         );
-        assertEquals(
-            "2+3*i",
-            complex.toString()
-        );
+        assertEquals("2+3*i", complex.toString());
     }
 
     @Test
@@ -623,18 +614,18 @@ class BigDecimalComplexTest {
         Complex<BigDecimal> complex = new BigDecimalComplex(
             BigDecimal.valueOf(2), BigDecimal.valueOf(3)
         );
-        assertEquals(
-            0, complex.compareTo(new BigDecimalComplex(
+        assertEquals(0,
+            complex.compareTo(new BigDecimalComplex(
                 BigDecimal.valueOf(2), BigDecimal.valueOf(3)
             ))
         );
-        assertEquals(
-            -1, complex.compareTo(new BigDecimalComplex(
+        assertEquals(-1,
+            complex.compareTo(new BigDecimalComplex(
                 BigDecimal.valueOf(3), BigDecimal.ONE
             ))
         );
-        assertEquals(
-            1, complex.compareTo(new BigDecimalComplex(
+        assertEquals(1,
+            complex.compareTo(new BigDecimalComplex(
                 BigDecimal.valueOf(2), BigDecimal.ONE
             ))
         );
@@ -642,10 +633,7 @@ class BigDecimalComplexTest {
 
     @Test
     void serializable() {
-        assertSerializable(
-            new BigDecimalComplex(),
-            BigDecimalComplex.class
-        );
+        assertSerializable(new BigDecimalComplex(), BigDecimalComplex.class);
     }
 
     // endregion

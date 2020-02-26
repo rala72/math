@@ -54,14 +54,8 @@ class AbstractSolverTest {
     @Test
     void equalsOfTestAbstractSolver() {
         TestAbstractSolver solver = new TestAbstractSolver(equationSystem);
-        assertEquals(
-            solver,
-            new TestAbstractSolver(equationSystem)
-        );
-        assertNotEquals(
-            solver,
-            new TestAbstractSolver(null)
-        );
+        assertEquals(solver, new TestAbstractSolver(equationSystem));
+        assertNotEquals(solver, new TestAbstractSolver(null));
     }
 
     @Test

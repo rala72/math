@@ -313,20 +313,17 @@ class RectTest {
     @Test
     void equalsOfRectWithPointHeightAndWidth() {
         Rect<Number> rect = new TestRect(new TestPoint(2), new TestPoint(3), 4);
-        assertEquals(
-            rect,
+        assertEquals(rect,
             new TestRect(new TestPoint(2), new TestPoint(3), 4)
         );
-        assertNotEquals(
-            rect,
+        assertNotEquals(rect,
             new TestRect(new TestPoint(2), new TestPoint(4), 3)
         );
     }
 
     @Test
     void hashCodeOfRectWithPointHeightAndWidth() {
-        assertEquals(
-            1047587,
+        assertEquals(1047587,
             new TestRect(new TestPoint(2), new TestPoint(3), 4).hashCode()
         );
     }
@@ -340,20 +337,14 @@ class RectTest {
     @Test
     void compareToOfRectWithPointHeightAndWidth() {
         Rect<Number> rect = new TestRect(1, 2);
-        assertEquals(
-            0, rect.compareTo(new TestRect(1, 2))
-        );
-        assertEquals(
-            -1, rect.compareTo(new TestRect(2, 3))
-        );
-        assertEquals(
-            1, rect.compareTo(new TestRect(1, 1))
-        );
+        assertEquals(0, rect.compareTo(new TestRect(1, 2)));
+        assertEquals(-1, rect.compareTo(new TestRect(2, 3)));
+        assertEquals(1, rect.compareTo(new TestRect(1, 1)));
     }
 
     @Test
     void serializable() {
-        assertSerializable(new TestRect(0, 0), Rect.class);
+        assertSerializable(new TestRect(0, 0), TestRect.class);
     }
 
     // endregion

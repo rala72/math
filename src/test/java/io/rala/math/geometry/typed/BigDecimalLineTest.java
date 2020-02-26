@@ -441,21 +441,20 @@ class BigDecimalLineTest {
         Line<BigDecimal> line = new BigDecimalLine(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        assertEquals(
-            line,
+        assertEquals(line,
             new BigDecimalLine(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d))
         );
-        assertNotEquals(
-            line,
+        assertNotEquals(line,
             new BigDecimalLine(BigDecimal.valueOf(3d), BigDecimal.valueOf(2d))
         );
     }
 
     @Test
     void hashCodeOfLineWithMB() {
-        assertEquals(
-            21143,
-            new BigDecimalLine(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)).hashCode()
+        assertEquals(21143,
+            new BigDecimalLine(
+                BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
+            ).hashCode()
         );
     }
 
@@ -478,18 +477,18 @@ class BigDecimalLineTest {
         Line<BigDecimal> line = new BigDecimalLine(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        assertEquals(
-            0, line.compareTo(new BigDecimalLine(
+        assertEquals(0,
+            line.compareTo(new BigDecimalLine(
                 BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
             ))
         );
-        assertEquals(
-            -1, line.compareTo(new BigDecimalLine(
+        assertEquals(-1,
+            line.compareTo(new BigDecimalLine(
                 BigDecimal.valueOf(3d), BigDecimal.ONE
             ))
         );
-        assertEquals(
-            1, line.compareTo(new BigDecimalLine(
+        assertEquals(1,
+            line.compareTo(new BigDecimalLine(
                 BigDecimal.valueOf(2d), BigDecimal.ONE
             ))
         );
@@ -499,7 +498,7 @@ class BigDecimalLineTest {
     void serializable() {
         assertSerializable(
             new BigDecimalLine(BigDecimal.ZERO),
-            Line.class
+            BigDecimalLine.class
         );
     }
 

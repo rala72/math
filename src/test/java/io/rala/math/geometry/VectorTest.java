@@ -213,8 +213,7 @@ class VectorTest {
     @Test
     void normalizedOfVectorWithX1Y2() {
         Vector<Number> vector = new TestVector(1d, 2d).normalized();
-        assertVector(
-            vector,
+        assertVector(vector,
             0.4472135954999579, 0.8944271909999159
         );
         assertEquals(
@@ -349,22 +348,13 @@ class VectorTest {
     @Test
     void equalsOfVectorWithX2Y3() {
         Vector<Number> vector = new TestVector(2, 3);
-        assertEquals(
-            vector,
-            new TestVector(2, 3)
-        );
-        assertNotEquals(
-            vector,
-            new TestVector(3, 2)
-        );
+        assertEquals(vector, new TestVector(2, 3));
+        assertNotEquals(vector, new TestVector(3, 2));
     }
 
     @Test
     void hashCodeOfVectorWithX2Y3() {
-        assertEquals(
-            1026,
-            new TestVector(2, 3).hashCode()
-        );
+        assertEquals(1026, new TestVector(2, 3).hashCode());
     }
 
     @Test
@@ -376,20 +366,14 @@ class VectorTest {
     @Test
     void compareToOfVectorWithX2Y3() {
         Vector<Number> vector = new TestVector(2, 3);
-        assertEquals(
-            0, vector.compareTo(new TestVector(2, 3))
-        );
-        assertEquals(
-            -1, vector.compareTo(new TestVector(3, 1))
-        );
-        assertEquals(
-            1, vector.compareTo(new TestVector(1, 0))
-        );
+        assertEquals(0, vector.compareTo(new TestVector(2, 3)));
+        assertEquals(-1, vector.compareTo(new TestVector(3, 1)));
+        assertEquals(1, vector.compareTo(new TestVector(1, 0)));
     }
 
     @Test
     void serializable() {
-        assertSerializable(new TestVector(), Vector.class);
+        assertSerializable(new TestVector(), TestVector.class);
     }
 
     // endregion

@@ -165,22 +165,13 @@ class PointTest {
     @Test
     void equalsOfPointWithXY() {
         Point<Number> point = new TestPoint(2, 3);
-        assertEquals(
-            point,
-            new TestPoint(2, 3)
-        );
-        assertNotEquals(
-            point,
-            new TestPoint(3, 2)
-        );
+        assertEquals(point, new TestPoint(2, 3));
+        assertNotEquals(point, new TestPoint(3, 2));
     }
 
     @Test
     void hashCodeOfPointWithXY() {
-        assertEquals(
-            1026,
-            new TestPoint(2, 3).hashCode()
-        );
+        assertEquals(1026, new TestPoint(2, 3).hashCode());
     }
 
     @Test
@@ -192,20 +183,14 @@ class PointTest {
     @Test
     void compareToOfPointWithXY() {
         Point<Number> point = new TestPoint(2, 3);
-        assertEquals(
-            0, point.compareTo(new TestPoint(2, 3))
-        );
-        assertEquals(
-            -1, point.compareTo(new TestPoint(3, 1))
-        );
-        assertEquals(
-            1, point.compareTo(new TestPoint(2, 2))
-        );
+        assertEquals(0, point.compareTo(new TestPoint(2, 3)));
+        assertEquals(-1, point.compareTo(new TestPoint(3, 1)));
+        assertEquals(1, point.compareTo(new TestPoint(2, 2)));
     }
 
     @Test
     void serializable() {
-        assertSerializable(new TestPoint(), Point.class);
+        assertSerializable(new TestPoint(), TestPoint.class);
     }
 
     // endregion

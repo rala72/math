@@ -395,20 +395,17 @@ class BigIntegerBigDecimalFractionTest {
     void equalsOfFractionWithNuDe() {
         BigIntegerBigDecimalFraction complex =
             new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.valueOf(3));
-        assertEquals(
-            complex,
+        assertEquals(complex,
             new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.valueOf(3))
         );
-        assertNotEquals(
-            complex,
+        assertNotEquals(complex,
             new BigIntegerBigDecimalFraction(BigInteger.valueOf(3), BigInteger.TWO)
         );
     }
 
     @Test
     void hashCodeOfFractionWithNuDe() {
-        assertEquals(
-            1026,
+        assertEquals(1026,
             new BigIntegerBigDecimalFraction(
                 BigInteger.TWO, BigInteger.valueOf(3)
             ).hashCode()
@@ -426,18 +423,18 @@ class BigIntegerBigDecimalFractionTest {
     void compareToOfFractionWithNuDe() {
         BigIntegerBigDecimalFraction complex =
             new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.valueOf(3));
-        assertEquals(
-            0, complex.compareTo(new BigIntegerBigDecimalFraction(
+        assertEquals(0,
+            complex.compareTo(new BigIntegerBigDecimalFraction(
                 BigInteger.TWO, BigInteger.valueOf(3)
             ))
         );
-        assertEquals(
-            -1, complex.compareTo(new BigIntegerBigDecimalFraction(
+        assertEquals(-1,
+            complex.compareTo(new BigIntegerBigDecimalFraction(
                 BigInteger.valueOf(3), BigInteger.ONE
             ))
         );
-        assertEquals(
-            1, complex.compareTo(new BigIntegerBigDecimalFraction(
+        assertEquals(1,
+            complex.compareTo(new BigIntegerBigDecimalFraction(
                 BigInteger.ONE, BigInteger.valueOf(3)
             ))
         );

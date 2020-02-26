@@ -53,41 +53,23 @@ class FloatArithmeticTest {
 
     @Test
     void compare() {
-        assertEquals(
-            0, arithmetic.compare(1f, 1f)
-        );
-        assertEquals(
-            -1, arithmetic.compare(1f, 2f)
-        );
-        assertEquals(
-            1, arithmetic.compare(2f, 1f)
-        );
+        assertEquals(0, arithmetic.compare(1f, 1f));
+        assertEquals(-1, arithmetic.compare(1f, 2f));
+        assertEquals(1, arithmetic.compare(2f, 1f));
     }
 
     @Test
     void min() {
-        assertEquals(
-            1, arithmetic.min(1f, 1f)
-        );
-        assertEquals(
-            1, arithmetic.min(1f, 2f)
-        );
-        assertEquals(
-            1, arithmetic.min(2f, 1f)
-        );
+        assertEquals(1, arithmetic.min(1f, 1f));
+        assertEquals(1, arithmetic.min(1f, 2f));
+        assertEquals(1, arithmetic.min(2f, 1f));
     }
 
     @Test
     void max() {
-        assertEquals(
-            1, arithmetic.max(1f, 1f)
-        );
-        assertEquals(
-            2, arithmetic.max(1f, 2f)
-        );
-        assertEquals(
-            2, arithmetic.max(2f, 1f)
-        );
+        assertEquals(1, arithmetic.max(1f, 1f));
+        assertEquals(2, arithmetic.max(1f, 2f));
+        assertEquals(2, arithmetic.max(2f, 1f));
     }
 
     @Test
@@ -155,10 +137,7 @@ class FloatArithmeticTest {
 
     @Test
     void root21() {
-        assertEquals(
-            (float) Math.sqrt(1),
-            arithmetic.root2(1f)
-        );
+        assertEquals((float) Math.sqrt(1), arithmetic.root2(1f));
     }
 
     // endregion
@@ -190,24 +169,17 @@ class FloatArithmeticTest {
 
     @Test
     void hashCodeOfArithmetic() {
-        assertEquals(1065354177,
-            new FloatArithmetic().hashCode()
-        );
+        assertEquals(1065354177, new FloatArithmetic().hashCode());
     }
 
     @Test
     void toStringOfArithmetic() {
-        assertEquals("FloatArithmetic",
-            new FloatArithmetic().toString()
-        );
+        assertEquals("FloatArithmetic", new FloatArithmetic().toString());
     }
 
     @Test
     void serializable() {
-        assertSerializable(
-            new FloatArithmetic(),
-            FloatArithmetic.class
-        );
+        assertSerializable(new FloatArithmetic(), FloatArithmetic.class);
     }
 
     // endregion

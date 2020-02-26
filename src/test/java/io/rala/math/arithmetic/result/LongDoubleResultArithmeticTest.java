@@ -110,9 +110,7 @@ class LongDoubleResultArithmeticTest {
 
     @Test
     void hashCodeOfAbstractResultArithmetic() {
-        assertEquals(1072724992,
-            new LongDoubleResultArithmetic().hashCode()
-        );
+        assertEquals(1072724992, new LongDoubleResultArithmetic().hashCode());
     }
 
     @Test

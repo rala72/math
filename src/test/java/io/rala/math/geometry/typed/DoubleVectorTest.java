@@ -216,8 +216,7 @@ class DoubleVectorTest {
     @Test
     void normalizedOfVectorWithX1Y2() {
         Vector<Double> vector = new DoubleVector(1d, 2d).normalized();
-        assertVector(
-            vector,
+        assertVector(vector,
             0.4472135954999579d, 0.8944271909999159d
         );
         assertEquals(
@@ -361,22 +360,13 @@ class DoubleVectorTest {
     @Test
     void equalsOfVectorWithX2Y3() {
         Vector<Double> vector = new DoubleVector(2d, 3d);
-        assertEquals(
-            vector,
-            new DoubleVector(2d, 3d)
-        );
-        assertNotEquals(
-            vector,
-            new DoubleVector(3d, 2d)
-        );
+        assertEquals(vector, new DoubleVector(2d, 3d));
+        assertNotEquals(vector, new DoubleVector(3d, 2d));
     }
 
     @Test
     void hashCodeOfVectorWithX2Y3() {
-        assertEquals(
-            525249,
-            new DoubleVector(2d, 3d).hashCode()
-        );
+        assertEquals(525249, new DoubleVector(2d, 3d).hashCode());
     }
 
     @Test
@@ -388,20 +378,14 @@ class DoubleVectorTest {
     @Test
     void compareToOfVectorWithX2Y3() {
         Vector<Double> vector = new DoubleVector(2d, 3d);
-        assertEquals(
-            0d, vector.compareTo(new DoubleVector(2d, 3d))
-        );
-        assertEquals(
-            -1d, vector.compareTo(new DoubleVector(3d, 1d))
-        );
-        assertEquals(
-            1d, vector.compareTo(new DoubleVector(1d, 0d))
-        );
+        assertEquals(0d, vector.compareTo(new DoubleVector(2d, 3d)));
+        assertEquals(-1d, vector.compareTo(new DoubleVector(3d, 1d)));
+        assertEquals(1d, vector.compareTo(new DoubleVector(1d, 0d)));
     }
 
     @Test
     void serializable() {
-        assertSerializable(new DoubleVector(), Vector.class);
+        assertSerializable(new DoubleVector(), DoubleVector.class);
     }
 
     // endregion

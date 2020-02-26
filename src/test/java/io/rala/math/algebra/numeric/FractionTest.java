@@ -336,22 +336,13 @@ class FractionTest {
     @Test
     void equalsOfFractionWithNuDe() {
         TestFraction complex = new TestFraction(2, 3);
-        assertEquals(
-            complex,
-            new TestFraction(2, 3)
-        );
-        assertNotEquals(
-            complex,
-            new TestFraction(3, 2)
-        );
+        assertEquals(complex, new TestFraction(2, 3));
+        assertNotEquals(complex, new TestFraction(3, 2));
     }
 
     @Test
     void hashCodeOfFractionWithNuDe() {
-        assertEquals(
-            1026,
-            new TestFraction(2, 3).hashCode()
-        );
+        assertEquals(1026, new TestFraction(2, 3).hashCode());
     }
 
     @Test
@@ -363,23 +354,14 @@ class FractionTest {
     @Test
     void compareToOfFractionWithNuDe() {
         TestFraction complex = new TestFraction(2, 3);
-        assertEquals(
-            0, complex.compareTo(new TestFraction(2, 3))
-        );
-        assertEquals(
-            -1, complex.compareTo(new TestFraction(3, 1))
-        );
-        assertEquals(
-            1, complex.compareTo(new TestFraction(1, 2))
-        );
+        assertEquals(0, complex.compareTo(new TestFraction(2, 3)));
+        assertEquals(-1, complex.compareTo(new TestFraction(3, 1)));
+        assertEquals(1, complex.compareTo(new TestFraction(1, 2)));
     }
 
     @Test
     void serializable() {
-        assertSerializable(
-            new TestFraction(2, 3),
-            TestFraction.class
-        );
+        assertSerializable(new TestFraction(2, 3), TestFraction.class);
     }
 
     // endregion

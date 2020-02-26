@@ -31,13 +31,11 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(), new DoublePoint()
         );
-        assertTriangle(
-            triangle,
+        assertTriangle(triangle,
             new DoublePoint(), new DoublePoint(), new DoublePoint()
         );
         triangle.setA(new DoublePoint(1d));
-        assertTriangle(
-            triangle,
+        assertTriangle(triangle,
             new DoublePoint(1d), new DoublePoint(), new DoublePoint()
         );
     }
@@ -47,13 +45,11 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(), new DoublePoint()
         );
-        assertTriangle(
-            triangle,
+        assertTriangle(triangle,
             new DoublePoint(), new DoublePoint(), new DoublePoint()
         );
         triangle.setB(new DoublePoint(2d));
-        assertTriangle(
-            triangle,
+        assertTriangle(triangle,
             new DoublePoint(), new DoublePoint(2d), new DoublePoint()
         );
     }
@@ -63,13 +59,11 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(), new DoublePoint()
         );
-        assertTriangle(
-            triangle,
+        assertTriangle(triangle,
             new DoublePoint(), new DoublePoint(), new DoublePoint()
         );
         triangle.setC(new DoublePoint(3d));
-        assertTriangle(
-            triangle,
+        assertTriangle(triangle,
             new DoublePoint(), new DoublePoint(), new DoublePoint(3d)
         );
     }
@@ -411,16 +405,14 @@ class DoubleTriangleTest {
             new DoublePoint(3d),
             new DoublePoint(4d)
         );
-        assertEquals(
-            triangle,
+        assertEquals(triangle,
             new DoubleTriangle(
                 new DoublePoint(2d),
                 new DoublePoint(3d),
                 new DoublePoint(4d)
             )
         );
-        assertNotEquals(
-            triangle,
+        assertNotEquals(triangle,
             new DoubleTriangle(
                 new DoublePoint(3d),
                 new DoublePoint(2d),
@@ -431,8 +423,7 @@ class DoubleTriangleTest {
 
     @Test
     void hashCodeOfTriangleWithA2B3C4() {
-        assertEquals(
-            554632192,
+        assertEquals(554632192,
             new DoubleTriangle(
                 new DoublePoint(2d), new DoublePoint(3d), new DoublePoint(4d)
             ).hashCode()
@@ -452,18 +443,18 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(0d), new DoublePoint(1d, 0d), new DoublePoint(1d)
         );
-        assertEquals(
-            0d, triangle.compareTo(new DoubleTriangle(
+        assertEquals(0d,
+            triangle.compareTo(new DoubleTriangle(
                 new DoublePoint(0d), new DoublePoint(1d, 0d), new DoublePoint(1d)
             ))
         );
-        assertEquals(
-            -1d, triangle.compareTo(new DoubleTriangle(
+        assertEquals(-1d,
+            triangle.compareTo(new DoubleTriangle(
                 new DoublePoint(-1d), new DoublePoint(1d, 0d), new DoublePoint(1d)
             ))
         );
-        assertEquals(
-            1d, triangle.compareTo(new DoubleTriangle(
+        assertEquals(1d,
+            triangle.compareTo(new DoubleTriangle(
                 new DoublePoint(0.5d, 1d), new DoublePoint(1d, 0.5d), new DoublePoint(1d)
             ))
         );
@@ -473,7 +464,7 @@ class DoubleTriangleTest {
     void serializable() {
         assertSerializable(
             new DoubleTriangle(new DoublePoint(), new DoublePoint(), new DoublePoint()),
-            Triangle.class
+            DoubleTriangle.class
         );
     }
 

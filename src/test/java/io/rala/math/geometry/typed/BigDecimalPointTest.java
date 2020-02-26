@@ -2,13 +2,13 @@ package io.rala.math.geometry.typed;
 
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Point;
-import io.rala.math.testUtils.assertion.SerializableAssertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 
 import static io.rala.math.testUtils.assertion.GeometryAssertions.assertPoint;
+import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BigDecimalPointTest {
@@ -245,20 +245,17 @@ class BigDecimalPointTest {
         Point<BigDecimal> point = new BigDecimalPoint(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        assertEquals(
-            point,
+        assertEquals(point,
             new BigDecimalPoint(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d))
         );
-        assertNotEquals(
-            point,
+        assertNotEquals(point,
             new BigDecimalPoint(BigDecimal.valueOf(3d), BigDecimal.valueOf(2d))
         );
     }
 
     @Test
     void hashCodeOfPointWithXY() {
-        assertEquals(
-            21143,
+        assertEquals(21143,
             new BigDecimalPoint(
                 BigDecimal.valueOf(2d),
                 BigDecimal.valueOf(3d)
@@ -279,18 +276,18 @@ class BigDecimalPointTest {
         Point<BigDecimal> point = new BigDecimalPoint(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        assertEquals(
-            0, point.compareTo(new BigDecimalPoint(
+        assertEquals(0,
+            point.compareTo(new BigDecimalPoint(
                 BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
             ))
         );
-        assertEquals(
-            -1, point.compareTo(new BigDecimalPoint(
+        assertEquals(-1,
+            point.compareTo(new BigDecimalPoint(
                 BigDecimal.valueOf(3d), BigDecimal.ONE
             ))
         );
-        assertEquals(
-            1, point.compareTo(new BigDecimalPoint(
+        assertEquals(1,
+            point.compareTo(new BigDecimalPoint(
                 BigDecimal.valueOf(2d), BigDecimal.valueOf(2d)
             ))
         );
@@ -298,7 +295,7 @@ class BigDecimalPointTest {
 
     @Test
     void serializable() {
-        SerializableAssertions.assertSerializable(new BigDecimalPoint(), Point.class);
+        assertSerializable(new BigDecimalPoint(), BigDecimalPoint.class);
     }
 
     // endregion

@@ -58,40 +58,40 @@ class BigIntegerArithmeticTest {
 
     @Test
     void compare() {
-        assertEquals(
-            0, arithmetic.compare(BigInteger.ONE, BigInteger.ONE)
+        assertEquals(0,
+            arithmetic.compare(BigInteger.ONE, BigInteger.ONE)
         );
-        assertEquals(
-            -1, arithmetic.compare(BigInteger.ONE, BigInteger.TWO)
+        assertEquals(-1,
+            arithmetic.compare(BigInteger.ONE, BigInteger.TWO)
         );
-        assertEquals(
-            1, arithmetic.compare(BigInteger.TWO, BigInteger.ONE)
+        assertEquals(1,
+            arithmetic.compare(BigInteger.TWO, BigInteger.ONE)
         );
     }
 
     @Test
     void min() {
-        assertEquals(
-            BigInteger.ONE, arithmetic.min(BigInteger.ONE, BigInteger.ONE)
+        assertEquals(BigInteger.ONE,
+            arithmetic.min(BigInteger.ONE, BigInteger.ONE)
         );
-        assertEquals(
-            BigInteger.ONE, arithmetic.min(BigInteger.ONE, BigInteger.TWO)
+        assertEquals(BigInteger.ONE,
+            arithmetic.min(BigInteger.ONE, BigInteger.TWO)
         );
-        assertEquals(
-            BigInteger.ONE, arithmetic.min(BigInteger.TWO, BigInteger.ONE)
+        assertEquals(BigInteger.ONE,
+            arithmetic.min(BigInteger.TWO, BigInteger.ONE)
         );
     }
 
     @Test
     void max() {
-        assertEquals(
-            BigInteger.ONE, arithmetic.max(BigInteger.ONE, BigInteger.ONE)
+        assertEquals(BigInteger.ONE,
+            arithmetic.max(BigInteger.ONE, BigInteger.ONE)
         );
-        assertEquals(
-            BigInteger.TWO, arithmetic.max(BigInteger.ONE, BigInteger.TWO)
+        assertEquals(BigInteger.TWO,
+            arithmetic.max(BigInteger.ONE, BigInteger.TWO)
         );
-        assertEquals(
-            BigInteger.TWO, arithmetic.max(BigInteger.TWO, BigInteger.ONE)
+        assertEquals(BigInteger.TWO,
+            arithmetic.max(BigInteger.TWO, BigInteger.ONE)
         );
     }
 
@@ -182,10 +182,7 @@ class BigIntegerArithmeticTest {
 
     @Test
     void root21() {
-        assertEquals(
-            BigInteger.ONE.sqrt(),
-            arithmetic.root2(BigInteger.ONE)
-        );
+        assertEquals(BigInteger.ONE.sqrt(), arithmetic.root2(BigInteger.ONE));
     }
 
     // endregion
@@ -217,9 +214,7 @@ class BigIntegerArithmeticTest {
 
     @Test
     void hashCodeOfArithmetic() {
-        assertEquals(962,
-            new BigIntegerArithmetic().hashCode()
-        );
+        assertEquals(962, new BigIntegerArithmetic().hashCode());
     }
 
     @Test

@@ -123,9 +123,7 @@ class AbstractResultArithmeticTest {
 
     @Test
     void hashCodeOfAbstractResultArithmetic() {
-        assertEquals(-33522719,
-            new TestAbstractResultArithmetic().hashCode()
-        );
+        assertEquals(-33522719, new TestAbstractResultArithmetic().hashCode());
     }
 
     @Test

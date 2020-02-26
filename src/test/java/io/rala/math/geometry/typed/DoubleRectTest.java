@@ -308,20 +308,17 @@ class DoubleRectTest {
     @Test
     void equalsOfRectWithPointHeightAndWidth() {
         Rect<Double> rect = new DoubleRect(new DoublePoint(2d), new DoublePoint(3d), 4d);
-        assertEquals(
-            rect,
+        assertEquals(rect,
             new DoubleRect(new DoublePoint(2d), new DoublePoint(3d), 4d)
         );
-        assertNotEquals(
-            rect,
+        assertNotEquals(rect,
             new DoubleRect(new DoublePoint(2d), new DoublePoint(4d), 3d)
         );
     }
 
     @Test
     void hashCodeOfRectWithPointHeightAndWidth() {
-        assertEquals(
-            1595867199,
+        assertEquals(1595867199,
             new DoubleRect(new DoublePoint(2d), new DoublePoint(3d), 4d).hashCode()
         );
     }
@@ -335,20 +332,14 @@ class DoubleRectTest {
     @Test
     void compareToOfRectWithPointHeightAndWidth() {
         Rect<Double> rect = new DoubleRect(1d, 2d);
-        assertEquals(
-            0d, rect.compareTo(new DoubleRect(1d, 2d))
-        );
-        assertEquals(
-            -1d, rect.compareTo(new DoubleRect(2d, 3d))
-        );
-        assertEquals(
-            1d, rect.compareTo(new DoubleRect(1d, 1d))
-        );
+        assertEquals(0d, rect.compareTo(new DoubleRect(1d, 2d)));
+        assertEquals(-1d, rect.compareTo(new DoubleRect(2d, 3d)));
+        assertEquals(1d, rect.compareTo(new DoubleRect(1d, 1d)));
     }
 
     @Test
     void serializable() {
-        assertSerializable(new DoubleRect(0d, 0d), Rect.class);
+        assertSerializable(new DoubleRect(0d, 0d), DoubleRect.class);
     }
 
     // endregion

@@ -21,10 +21,7 @@ class CircleTest {
 
     @Test
     void constructorWithCenterButWithoutRadius() {
-        assertCircle(
-            new TestCircle(new TestPoint(1)),
-            new TestPoint(1)
-        );
+        assertCircle(new TestCircle(new TestPoint(1)), new TestPoint(1));
     }
 
     @Test
@@ -227,22 +224,13 @@ class CircleTest {
     @Test
     void equalsOfCircleWithPointAndRadius() {
         Circle<Number> circle = new TestCircle(new TestPoint(2), 3);
-        assertEquals(
-            circle,
-            new TestCircle(new TestPoint(2), 3)
-        );
-        assertNotEquals(
-            circle,
-            new TestCircle(new TestPoint(3), 2)
-        );
+        assertEquals(circle, new TestCircle(new TestPoint(2), 3));
+        assertNotEquals(circle, new TestCircle(new TestPoint(3), 2));
     }
 
     @Test
     void hashCodeOfCircleWithPointAndRadius() {
-        assertEquals(
-            32739,
-            new TestCircle(new TestPoint(2), 3).hashCode()
-        );
+        assertEquals(32739, new TestCircle(new TestPoint(2), 3).hashCode());
     }
 
     @Test
@@ -254,20 +242,20 @@ class CircleTest {
     @Test
     void compareToOfCircleWithCenterAndRadius() {
         Circle<Number> circle = new TestCircle(new TestPoint(2), 3);
-        assertEquals(
-            0, circle.compareTo(new TestCircle(new TestPoint(2), 3))
+        assertEquals(0,
+            circle.compareTo(new TestCircle(new TestPoint(2), 3))
         );
-        assertEquals(
-            -1, circle.compareTo(new TestCircle(new TestPoint(3), 3))
+        assertEquals(-1,
+            circle.compareTo(new TestCircle(new TestPoint(3), 3))
         );
-        assertEquals(
-            1, circle.compareTo(new TestCircle(new TestPoint(2), 1))
+        assertEquals(1,
+            circle.compareTo(new TestCircle(new TestPoint(2), 1))
         );
     }
 
     @Test
     void serializable() {
-        assertSerializable(new TestCircle(), Circle.class);
+        assertSerializable(new TestCircle(), TestCircle.class);
     }
 
     // endregion

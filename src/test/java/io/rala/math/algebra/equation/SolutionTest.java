@@ -29,14 +29,8 @@ class SolutionTest {
     void equalsOfTestAbstractSolver() {
         Solution<AbstractEquationSystem, Number> solution =
             Solution.unsolvable(equationSystem);
-        assertEquals(
-            solution,
-            Solution.unsolvable(equationSystem)
-        );
-        assertNotEquals(
-            solution,
-            Solution.infinite(equationSystem)
-        );
+        assertEquals(solution, Solution.unsolvable(equationSystem));
+        assertNotEquals(solution, Solution.infinite(equationSystem));
     }
 
     @Test

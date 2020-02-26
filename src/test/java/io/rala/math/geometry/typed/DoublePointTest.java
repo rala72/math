@@ -176,22 +176,13 @@ class DoublePointTest {
     @Test
     void equalsOfPointWithXY() {
         Point<Double> point = new DoublePoint(2d, 3d);
-        assertEquals(
-            point,
-            new DoublePoint(2d, 3d)
-        );
-        assertNotEquals(
-            point,
-            new DoublePoint(3d, 2d)
-        );
+        assertEquals(point, new DoublePoint(2d, 3d));
+        assertNotEquals(point, new DoublePoint(3d, 2d));
     }
 
     @Test
     void hashCodeOfPointWithXY() {
-        assertEquals(
-            525249,
-            new DoublePoint(2d, 3d).hashCode()
-        );
+        assertEquals(525249, new DoublePoint(2d, 3d).hashCode());
     }
 
     @Test
@@ -203,20 +194,14 @@ class DoublePointTest {
     @Test
     void compareToOfPointWithXY() {
         Point<Double> point = new DoublePoint(2d, 3d);
-        assertEquals(
-            0d, point.compareTo(new DoublePoint(2d, 3d))
-        );
-        assertEquals(
-            -1d, point.compareTo(new DoublePoint(3d, 1d))
-        );
-        assertEquals(
-            1d, point.compareTo(new DoublePoint(2d, 2d))
-        );
+        assertEquals(0d, point.compareTo(new DoublePoint(2d, 3d)));
+        assertEquals(-1d, point.compareTo(new DoublePoint(3d, 1d)));
+        assertEquals(1d, point.compareTo(new DoublePoint(2d, 2d)));
     }
 
     @Test
     void serializable() {
-        assertSerializable(new DoublePoint(), Point.class);
+        assertSerializable(new DoublePoint(), DoublePoint.class);
     }
 
     // endregion

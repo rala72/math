@@ -66,41 +66,23 @@ class AbstractArithmeticTest {
 
     @Test
     void compare() {
-        assertEquals(
-            0, arithmetic.compare(1, 1)
-        );
-        assertEquals(
-            -1, arithmetic.compare(1, 2)
-        );
-        assertEquals(
-            1, arithmetic.compare(2, 1)
-        );
+        assertEquals(0, arithmetic.compare(1, 1));
+        assertEquals(-1, arithmetic.compare(1, 2));
+        assertEquals(1, arithmetic.compare(2, 1));
     }
 
     @Test
     void min() {
-        assertEquals(
-            1, arithmetic.min(1, 1)
-        );
-        assertEquals(
-            1, arithmetic.min(1, 2)
-        );
-        assertEquals(
-            1, arithmetic.min(2, 1)
-        );
+        assertEquals(1, arithmetic.min(1, 1));
+        assertEquals(1, arithmetic.min(1, 2));
+        assertEquals(1, arithmetic.min(2, 1));
     }
 
     @Test
     void max() {
-        assertEquals(
-            1, arithmetic.max(1, 1)
-        );
-        assertEquals(
-            2, arithmetic.max(1, 2)
-        );
-        assertEquals(
-            2, arithmetic.max(2, 1)
-        );
+        assertEquals(1, arithmetic.max(1, 1));
+        assertEquals(2, arithmetic.max(1, 2));
+        assertEquals(2, arithmetic.max(2, 1));
     }
 
     @Test
@@ -308,15 +290,14 @@ class AbstractArithmeticTest {
     @Test
     void equalsOfAbstractArithmetic() {
         assertEquals(
-            new TestAbstractArithmetic(), new TestAbstractArithmetic()
+            new TestAbstractArithmetic(),
+            new TestAbstractArithmetic()
         );
     }
 
     @Test
     void hashCodeOfAbstractArithmetic() {
-        assertEquals(1072694209,
-            new TestAbstractArithmetic().hashCode()
-        );
+        assertEquals(1072694209, new TestAbstractArithmetic().hashCode());
     }
 
     @Test

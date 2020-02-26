@@ -494,22 +494,13 @@ class DoubleComplexTest {
     @Test
     void equalsOfComplexWithReIm() {
         Complex<Double> complex = new DoubleComplex(2d, 3d);
-        assertEquals(
-            complex,
-            new DoubleComplex(2d, 3d)
-        );
-        assertNotEquals(
-            complex,
-            new DoubleComplex(3d, 2d)
-        );
+        assertEquals(complex, new DoubleComplex(2d, 3d));
+        assertNotEquals(complex, new DoubleComplex(3d, 2d));
     }
 
     @Test
     void hashCodeOfComplexWithReIm() {
-        assertEquals(
-            525249,
-            new DoubleComplex(2d, 3d).hashCode()
-        );
+        assertEquals(525249, new DoubleComplex(2d, 3d).hashCode());
     }
 
     @Test
@@ -521,23 +512,14 @@ class DoubleComplexTest {
     @Test
     void compareToOfComplexWithReIm() {
         Complex<Double> complex = new DoubleComplex(2d, 3d);
-        assertEquals(
-            0, complex.compareTo(new DoubleComplex(2d, 3d))
-        );
-        assertEquals(
-            -1, complex.compareTo(new DoubleComplex(3d, 1d))
-        );
-        assertEquals(
-            1, complex.compareTo(new DoubleComplex(2d, 1d))
-        );
+        assertEquals(0, complex.compareTo(new DoubleComplex(2d, 3d)));
+        assertEquals(-1, complex.compareTo(new DoubleComplex(3d, 1d)));
+        assertEquals(1, complex.compareTo(new DoubleComplex(2d, 1d)));
     }
 
     @Test
     void serializable() {
-        assertSerializable(
-            new DoubleComplex(),
-            DoubleComplex.class
-        );
+        assertSerializable(new DoubleComplex(), DoubleComplex.class);
     }
 
     // endregion

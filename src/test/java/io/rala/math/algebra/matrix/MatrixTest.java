@@ -344,8 +344,7 @@ class MatrixTest {
     @Test
     void addOfEmptyMatrixWithSize1AndEmptyMatrixWithRows2Cols1() {
         assertThrows(IllegalArgumentException.class,
-            () -> new TestMatrix(1)
-                .add(new TestMatrix(2, 1))
+            () -> new TestMatrix(1).add(new TestMatrix(2, 1))
         ); // assert exception message?
     }
 
@@ -633,11 +632,7 @@ class MatrixTest {
     void ofValuesByRows2WithValidParamCount() {
         TestMatrix matrix = TestMatrix.ofValuesByRows(2, 1, 2);
         for (int i = 0; i < matrix.size(); i++)
-            assertEquals(
-                i + 1,
-                matrix.getValue(i),
-                "index: " + i
-            );
+            assertEquals(i + 1, matrix.getValue(i), "index: " + i);
     }
 
     @Test
@@ -651,11 +646,7 @@ class MatrixTest {
     void ofValuesByCols2WithValidParamCount() {
         TestMatrix matrix = TestMatrix.ofValuesByCols(2, 1, 2);
         for (int i = 0; i < matrix.size(); i++)
-            assertEquals(
-                i + 1,
-                matrix.getValue(i),
-                "index: " + i
-            );
+            assertEquals(i + 1, matrix.getValue(i), "index: " + i);
     }
 
     // endregion
@@ -714,22 +705,13 @@ class MatrixTest {
     @Test
     void equalsOfTestMatrixWithRow2Col3() {
         TestMatrix matrix = new TestMatrix(2, 3);
-        assertEquals(
-            matrix,
-            new TestMatrix(2, 3)
-        );
-        assertNotEquals(
-            matrix,
-            new TestMatrix(3, 2)
-        );
+        assertEquals(matrix, new TestMatrix(2, 3));
+        assertNotEquals(matrix, new TestMatrix(3, 2));
     }
 
     @Test
     void hashCodeOfTestMatrixWithRow2Col3() {
-        assertEquals(
-            925536,
-            new TestMatrix(2, 3).hashCode()
-        );
+        assertEquals(925536, new TestMatrix(2, 3).hashCode());
     }
 
     @Test
@@ -740,10 +722,7 @@ class MatrixTest {
 
     @Test
     void serializable() {
-        assertSerializable(
-            new TestMatrix(1),
-            TestMatrix.class
-        );
+        assertSerializable(new TestMatrix(1), TestMatrix.class);
     }
 
     // endregion
@@ -773,9 +752,7 @@ class MatrixTest {
 
     @Test
     void subMatrixR0C0OfMatrixWithSize1() {
-        assertEquals(1,
-            new TestMatrix(2).subMatrix(0, 0).size()
-        );
+        assertEquals(1, new TestMatrix(2).subMatrix(0, 0).size());
     }
 
     @Test
@@ -1047,9 +1024,7 @@ class MatrixTest {
             matrix.setValue(i, (double) value);
             result.setValue(i, (double) value);
         }
-        assertEquals(result,
-            matrix.addRowMultipleTimes(0, 1, 0d)
-        );
+        assertEquals(result, matrix.addRowMultipleTimes(0, 1, 0d));
     }
 
     @Test
@@ -1063,9 +1038,7 @@ class MatrixTest {
                 (double) value + (i / result.getCols() == 0 ? 2 : 0)
             );
         }
-        assertEquals(result,
-            matrix.addRowMultipleTimes(0, 1, 1d)
-        );
+        assertEquals(result, matrix.addRowMultipleTimes(0, 1, 1d));
     }
 
     @Test
@@ -1079,9 +1052,7 @@ class MatrixTest {
                 (double) value + (i / result.getCols() == 0 ? 4 : 0)
             );
         }
-        assertEquals(result,
-            matrix.addRowMultipleTimes(0, 1, 2d)
-        );
+        assertEquals(result, matrix.addRowMultipleTimes(0, 1, 2d));
     }
 
     @Test

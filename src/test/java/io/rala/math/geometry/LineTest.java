@@ -328,22 +328,13 @@ class LineTest {
     @Test
     void equalsOfLineWithMB() {
         Line<Number> line = new TestLine(2, 3);
-        assertEquals(
-            line,
-            new TestLine(2, 3)
-        );
-        assertNotEquals(
-            line,
-            new TestLine(3, 2)
-        );
+        assertEquals(line, new TestLine(2, 3));
+        assertNotEquals(line, new TestLine(3, 2));
     }
 
     @Test
     void hashCodeOfLineWithMB() {
-        assertEquals(
-            1026,
-            new TestLine(2, 3).hashCode()
-        );
+        assertEquals(1026, new TestLine(2, 3).hashCode());
     }
 
     @Test
@@ -361,20 +352,14 @@ class LineTest {
     @Test
     void compareToOfLineWithMB() {
         Line<Number> line = new TestLine(2, 3);
-        assertEquals(
-            0, line.compareTo(new TestLine(2, 3))
-        );
-        assertEquals(
-            -1, line.compareTo(new TestLine(3, 1))
-        );
-        assertEquals(
-            1, line.compareTo(new TestLine(2, 1))
-        );
+        assertEquals(0, line.compareTo(new TestLine(2, 3)));
+        assertEquals(-1, line.compareTo(new TestLine(3, 1)));
+        assertEquals(1, line.compareTo(new TestLine(2, 1)));
     }
 
     @Test
     void serializable() {
-        assertSerializable(new TestLine(0), Line.class);
+        assertSerializable(new TestLine(0), TestLine.class);
     }
 
     // endregion

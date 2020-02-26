@@ -430,10 +430,13 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, BigDecimal.valueOf(i).add(BigDecimal.ONE));
-        assertEquals(BigDecimalMatrix.ofValuesByRows(2,
-            BigDecimal.valueOf(7), BigDecimal.TEN,
-            BigDecimal.valueOf(15), BigDecimal.valueOf(22)
-        ), matrix.multiply(matrix));
+        assertEquals(
+            BigDecimalMatrix.ofValuesByRows(2,
+                BigDecimal.valueOf(7), BigDecimal.TEN,
+                BigDecimal.valueOf(15), BigDecimal.valueOf(22)
+            ),
+            matrix.multiply(matrix)
+        );
     }
 
     @Test
@@ -748,22 +751,13 @@ class BigDecimalMatrixTest {
     @Test
     void equalsOfBigDecimalMatrixWithRow2Col3() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2, 3);
-        assertEquals(
-            matrix,
-            new BigDecimalMatrix(2, 3)
-        );
-        assertNotEquals(
-            matrix,
-            new BigDecimalMatrix(3, 2)
-        );
+        assertEquals(matrix, new BigDecimalMatrix(2, 3));
+        assertNotEquals(matrix, new BigDecimalMatrix(3, 2));
     }
 
     @Test
     void hashCodeOfBigDecimalMatrixWithRow2Col3() {
-        assertEquals(
-            925536,
-            new BigDecimalMatrix(2, 3).hashCode()
-        );
+        assertEquals(925536, new BigDecimalMatrix(2, 3).hashCode());
     }
 
     @Test
@@ -774,10 +768,7 @@ class BigDecimalMatrixTest {
 
     @Test
     void serializable() {
-        assertSerializable(
-            new BigDecimalMatrix(1),
-            BigDecimalMatrix.class
-        );
+        assertSerializable(new BigDecimalMatrix(1), BigDecimalMatrix.class);
     }
 
     // endregion

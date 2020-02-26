@@ -91,8 +91,7 @@ class BigDecimalLineSegmentTest {
             new BigDecimalLineSegment(new BigDecimalPoint());
         assertLineSegment(lineSegment, new BigDecimalPoint());
         lineSegment.setA(new BigDecimalPoint(BigDecimal.ONE));
-        assertLineSegment(
-            lineSegment,
+        assertLineSegment(lineSegment,
             new BigDecimalPoint(BigDecimal.ONE), new BigDecimalPoint()
         );
     }
@@ -103,8 +102,7 @@ class BigDecimalLineSegmentTest {
             new BigDecimalLineSegment(new BigDecimalPoint());
         assertLineSegment(lineSegment, new BigDecimalPoint());
         lineSegment.setB(new BigDecimalPoint(BigDecimal.valueOf(2d)));
-        assertLineSegment(
-            lineSegment,
+        assertLineSegment(lineSegment,
             new BigDecimalPoint(), new BigDecimalPoint(BigDecimal.valueOf(2d))
         );
     }
@@ -162,8 +160,7 @@ class BigDecimalLineSegmentTest {
             new BigDecimalLineSegment(
                 new BigDecimalPoint(),
                 new BigDecimalPoint(BigDecimal.ONE)
-            )
-                .distributionPoint(BigDecimal.valueOf(0.25d)),
+            ).distributionPoint(BigDecimal.valueOf(0.25d)),
             BigDecimal.valueOf(0.25d), BigDecimal.valueOf(0.25d)
         );
     }
@@ -303,7 +300,8 @@ class BigDecimalLineSegmentTest {
     void moveOfLineSegmentWithAndBWithVector() {
         assertLineSegment(
             new BigDecimalLineSegment(
-                new BigDecimalPoint(), new BigDecimalPoint(BigDecimal.ONE)
+                new BigDecimalPoint(),
+                new BigDecimalPoint(BigDecimal.ONE)
             ).move(new BigDecimalVector(BigDecimal.ONE)),
             new BigDecimalPoint(BigDecimal.ONE),
             new BigDecimalPoint(BigDecimal.valueOf(2d))
@@ -359,13 +357,11 @@ class BigDecimalLineSegmentTest {
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             new BigDecimalPoint(BigDecimal.valueOf(3d))
         );
-        assertEquals(
-            lineSegment,
+        assertEquals(lineSegment,
             new BigDecimalLineSegment(new BigDecimalPoint(BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.valueOf(3d)))
         );
-        assertNotEquals(
-            lineSegment,
+        assertNotEquals(lineSegment,
             new BigDecimalLineSegment(new BigDecimalPoint(BigDecimal.valueOf(3d)),
                 new BigDecimalPoint(BigDecimal.valueOf(2d)))
         );
@@ -373,8 +369,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void hashCodeOfLineSegmentWithTwoPoints() {
-        assertEquals(
-            677537,
+        assertEquals(677537,
             new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.valueOf(3d))
@@ -421,7 +416,7 @@ class BigDecimalLineSegmentTest {
     void serializable() {
         assertSerializable(
             new BigDecimalLineSegment(new BigDecimalPoint()),
-            LineSegment.class
+            BigDecimalLineSegment.class
         );
     }
 

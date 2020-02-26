@@ -303,16 +303,12 @@ class DoubleMatrixTest {
 
     @Test
     void isDiagonalOfMatrixOfValidValues() {
-        assertTrue(
-            DoubleMatrix.ofValuesByRows(2, 1, 0, 0, 4).isDiagonal()
-        );
+        assertTrue(DoubleMatrix.ofValuesByRows(2, 1, 0, 0, 4).isDiagonal());
     }
 
     @Test
     void isDiagonalOfMatrixOfInvalidValues() {
-        assertFalse(
-            DoubleMatrix.ofValuesByRows(2, 1, 2, 3, 4).isDiagonal()
-        );
+        assertFalse(DoubleMatrix.ofValuesByRows(2, 1, 2, 3, 4).isDiagonal());
     }
 
     @Test
@@ -407,9 +403,12 @@ class DoubleMatrixTest {
         DoubleMatrix matrix = new DoubleMatrix(2);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i + 1d);
-        assertEquals(DoubleMatrix.ofValuesByRows(2,
-            7, 10, 15, 22
-        ), matrix.multiply(matrix));
+        assertEquals(
+            DoubleMatrix.ofValuesByRows(2,
+                7, 10, 15, 22
+            ),
+            matrix.multiply(matrix)
+        );
     }
 
     @Test
@@ -616,11 +615,7 @@ class DoubleMatrixTest {
     void ofValuesByRows2WithValidParamCount() {
         DoubleMatrix matrix = DoubleMatrix.ofValuesByRows(2, 1, 2);
         for (int i = 0; i < matrix.size(); i++)
-            assertEquals(
-                i + 1,
-                matrix.getValue(i),
-                "index: " + i
-            );
+            assertEquals(i + 1, matrix.getValue(i), "index: " + i);
     }
 
     @Test
@@ -634,11 +629,7 @@ class DoubleMatrixTest {
     void ofValuesByCols2WithValidParamCount() {
         DoubleMatrix matrix = DoubleMatrix.ofValuesByCols(2, 1, 2);
         for (int i = 0; i < matrix.size(); i++)
-            assertEquals(
-                i + 1d,
-                matrix.getValue(i),
-                "index: " + i
-            );
+            assertEquals(i + 1d, matrix.getValue(i), "index: " + i);
     }
 
     // endregion
@@ -697,22 +688,13 @@ class DoubleMatrixTest {
     @Test
     void equalsOfDoubleMatrixWithRow2Col3() {
         DoubleMatrix matrix = new DoubleMatrix(2, 3);
-        assertEquals(
-            matrix,
-            new DoubleMatrix(2, 3)
-        );
-        assertNotEquals(
-            matrix,
-            new DoubleMatrix(3, 2)
-        );
+        assertEquals(matrix, new DoubleMatrix(2, 3));
+        assertNotEquals(matrix, new DoubleMatrix(3, 2));
     }
 
     @Test
     void hashCodeOfDoubleMatrixWithRow2Col3() {
-        assertEquals(
-            925536,
-            new DoubleMatrix(2, 3).hashCode()
-        );
+        assertEquals(925536, new DoubleMatrix(2, 3).hashCode());
     }
 
     @Test
@@ -723,10 +705,7 @@ class DoubleMatrixTest {
 
     @Test
     void serializable() {
-        assertSerializable(
-            new DoubleMatrix(1),
-            DoubleMatrix.class
-        );
+        assertSerializable(new DoubleMatrix(1), DoubleMatrix.class);
     }
 
     // endregion

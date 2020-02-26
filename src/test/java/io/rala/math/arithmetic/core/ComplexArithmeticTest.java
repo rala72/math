@@ -50,40 +50,40 @@ class ComplexArithmeticTest {
 
     @Test
     void compare() {
-        assertEquals(
-            0, arithmetic.compare(create(1, 1), create(1, 1))
+        assertEquals(0,
+            arithmetic.compare(create(1, 1), create(1, 1))
         );
-        assertEquals(
-            -1, arithmetic.compare(create(1, 1), create(2, 2))
+        assertEquals(-1,
+            arithmetic.compare(create(1, 1), create(2, 2))
         );
-        assertEquals(
-            1, arithmetic.compare(create(2, 2), create(1, 1))
+        assertEquals(1,
+            arithmetic.compare(create(2, 2), create(1, 1))
         );
     }
 
     @Test
     void min() {
-        assertEquals(
-            create(1, 1), arithmetic.min(create(1, 1), create(1, 1))
+        assertEquals(create(1, 1),
+            arithmetic.min(create(1, 1), create(1, 1))
         );
-        assertEquals(
-            create(1, 1), arithmetic.min(create(1, 1), create(2, 2))
+        assertEquals(create(1, 1),
+            arithmetic.min(create(1, 1), create(2, 2))
         );
-        assertEquals(
-            create(1, 1), arithmetic.min(create(2, 2), create(1, 1))
+        assertEquals(create(1, 1),
+            arithmetic.min(create(2, 2), create(1, 1))
         );
     }
 
     @Test
     void max() {
-        assertEquals(
-            create(1, 1), arithmetic.max(create(1, 1), create(1, 1))
+        assertEquals(create(1, 1),
+            arithmetic.max(create(1, 1), create(1, 1))
         );
-        assertEquals(
-            create(2, 2), arithmetic.max(create(1, 1), create(2, 2))
+        assertEquals(create(2, 2),
+            arithmetic.max(create(1, 1), create(2, 2))
         );
-        assertEquals(
-            create(2, 2), arithmetic.max(create(2, 2), create(1, 1))
+        assertEquals(create(2, 2),
+            arithmetic.max(create(2, 2), create(1, 1))
         );
     }
 
@@ -331,16 +331,12 @@ class ComplexArithmeticTest {
 
     @Test
     void equalsOfArithmetic() {
-        assertEquals(
-            new TestComplexArithmetic(), new TestComplexArithmetic()
-        );
+        assertEquals(new TestComplexArithmetic(), new TestComplexArithmetic());
     }
 
     @Test
     void hashCodeOfArithmetic() {
-        assertEquals(-33521727,
-            new TestComplexArithmetic().hashCode()
-        );
+        assertEquals(-33521727, new TestComplexArithmetic().hashCode());
     }
 
     @Test

@@ -316,22 +316,13 @@ class LongDoubleFractionTest {
     @Test
     void equalsOfFractionWithNuDe() {
         LongDoubleFraction complex = new LongDoubleFraction(2, 3);
-        assertEquals(
-            complex,
-            new LongDoubleFraction(2, 3)
-        );
-        assertNotEquals(
-            complex,
-            new LongDoubleFraction(3, 2)
-        );
+        assertEquals(complex, new LongDoubleFraction(2, 3));
+        assertNotEquals(complex, new LongDoubleFraction(3, 2));
     }
 
     @Test
     void hashCodeOfFractionWithNuDe() {
-        assertEquals(
-            1026,
-            new LongDoubleFraction(2, 3).hashCode()
-        );
+        assertEquals(1026, new LongDoubleFraction(2, 3).hashCode());
     }
 
     @Test
@@ -343,15 +334,9 @@ class LongDoubleFractionTest {
     @Test
     void compareToOfFractionWithNuDe() {
         LongDoubleFraction complex = new LongDoubleFraction(2, 3);
-        assertEquals(
-            0, complex.compareTo(new LongDoubleFraction(2, 3))
-        );
-        assertEquals(
-            -1, complex.compareTo(new LongDoubleFraction(3, 1))
-        );
-        assertEquals(
-            1, complex.compareTo(new LongDoubleFraction(1, 2))
-        );
+        assertEquals(0, complex.compareTo(new LongDoubleFraction(2, 3)));
+        assertEquals(-1, complex.compareTo(new LongDoubleFraction(3, 1)));
+        assertEquals(1, complex.compareTo(new LongDoubleFraction(1, 2)));
     }
 
     @Test

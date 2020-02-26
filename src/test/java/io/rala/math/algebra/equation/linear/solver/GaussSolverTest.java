@@ -35,10 +35,7 @@ class GaussSolverTest {
                 0, 1)
         );
         GaussSolver<Double> solver = new GaussSolver<>(equationSystem);
-        assertEquals(
-            Solution.unsolvable(equationSystem),
-            solver.solve()
-        );
+        assertEquals(Solution.unsolvable(equationSystem), solver.solve());
     }
 
     @Test
@@ -49,10 +46,7 @@ class GaussSolverTest {
             )
         );
         GaussSolver<Double> solver = new GaussSolver<>(equationSystem);
-        assertEquals(
-            Solution.infinite(equationSystem),
-            solver.solve()
-        );
+        assertEquals(Solution.infinite(equationSystem), solver.solve());
     }
 
     @Test
@@ -65,10 +59,7 @@ class GaussSolverTest {
             )
         );
         GaussSolver<Double> solver = new GaussSolver<>(equationSystem);
-        assertEquals(
-            Solution.infinite(equationSystem),
-            solver.solve()
-        );
+        assertEquals(Solution.infinite(equationSystem), solver.solve());
     }
 
     // endregion
@@ -538,22 +529,13 @@ class GaussSolverTest {
     @Test
     void equalsOfTestAbstractSolver() {
         GaussSolver.ColPair pair = new GaussSolver.ColPair(0, 1);
-        assertEquals(
-            pair,
-            new GaussSolver.ColPair(0, 1)
-        );
-        assertNotEquals(
-            pair,
-            new GaussSolver.ColPair(1, 0)
-        );
+        assertEquals(pair, new GaussSolver.ColPair(0, 1));
+        assertNotEquals(pair, new GaussSolver.ColPair(1, 0));
     }
 
     @Test
     void hashCodeOfTestAbstractSolver() {
-        // hashCode of State changing after every start
-        assertEquals(962,
-            new GaussSolver.ColPair(0, 1).hashCode()
-        );
+        assertEquals(962, new GaussSolver.ColPair(0, 1).hashCode());
     }
 
     @Test

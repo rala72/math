@@ -43,8 +43,7 @@ class DoubleLineSegmentTest {
         LineSegment<Double> lineSegment = new DoubleLineSegment(new DoublePoint());
         assertLineSegment(lineSegment, new DoublePoint());
         lineSegment.setA(new DoublePoint(1d));
-        assertLineSegment(
-            lineSegment,
+        assertLineSegment(lineSegment,
             new DoublePoint(1d), new DoublePoint()
         );
     }
@@ -54,8 +53,7 @@ class DoubleLineSegmentTest {
         LineSegment<Double> lineSegment = new DoubleLineSegment(new DoublePoint());
         assertLineSegment(lineSegment, new DoublePoint());
         lineSegment.setB(new DoublePoint(2d));
-        assertLineSegment(
-            lineSegment,
+        assertLineSegment(lineSegment,
             new DoublePoint(), new DoublePoint(2d)
         );
     }
@@ -271,20 +269,17 @@ class DoubleLineSegmentTest {
         LineSegment<Double> lineSegment = new DoubleLineSegment(
             new DoublePoint(2d), new DoublePoint(3d)
         );
-        assertEquals(
-            lineSegment,
+        assertEquals(lineSegment,
             new DoubleLineSegment(new DoublePoint(2d), new DoublePoint(3d))
         );
-        assertNotEquals(
-            lineSegment,
+        assertNotEquals(lineSegment,
             new DoubleLineSegment(new DoublePoint(3d), new DoublePoint(2d))
         );
     }
 
     @Test
     void hashCodeOfLineSegmentWithTwoPoints() {
-        assertEquals(
-            16808929,
+        assertEquals(16808929,
             new DoubleLineSegment(new DoublePoint(2d), new DoublePoint(3d)).hashCode()
         );
     }
@@ -323,7 +318,7 @@ class DoubleLineSegmentTest {
     void serializable() {
         assertSerializable(
             new DoubleLineSegment(new DoublePoint()),
-            LineSegment.class
+            DoubleLineSegment.class
         );
     }
 

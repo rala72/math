@@ -321,8 +321,7 @@ class BigDecimalVectorTest {
         Vector<BigDecimal> vector = new BigDecimalVector(
             BigDecimal.ONE, BigDecimal.valueOf(2d)
         ).normalized();
-        assertVector(
-            vector,
+        assertVector(vector,
             BigDecimal.valueOf(0.4472135954999579d),
             BigDecimal.valueOf(0.8944271909999159d)
         );
@@ -475,20 +474,17 @@ class BigDecimalVectorTest {
         Vector<BigDecimal> vector = new BigDecimalVector(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        assertEquals(
-            vector,
+        assertEquals(vector,
             new BigDecimalVector(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d))
         );
-        assertNotEquals(
-            vector,
+        assertNotEquals(vector,
             new BigDecimalVector(BigDecimal.valueOf(3d), BigDecimal.valueOf(2d))
         );
     }
 
     @Test
     void hashCodeOfVectorWithX2Y3() {
-        assertEquals(
-            21143,
+        assertEquals(21143,
             new BigDecimalVector(
                 BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
             ).hashCode()
@@ -508,18 +504,18 @@ class BigDecimalVectorTest {
         Vector<BigDecimal> vector = new BigDecimalVector(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        assertEquals(
-            0, vector.compareTo(
+        assertEquals(0,
+            vector.compareTo(
                 new BigDecimalVector(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d))
             )
         );
-        assertEquals(
-            -1, vector.compareTo(
+        assertEquals(-1,
+            vector.compareTo(
                 new BigDecimalVector(BigDecimal.valueOf(3d), BigDecimal.ONE)
             )
         );
-        assertEquals(
-            1, vector.compareTo(
+        assertEquals(1,
+            vector.compareTo(
                 new BigDecimalVector(BigDecimal.ONE, BigDecimal.ZERO)
             )
         );
@@ -527,7 +523,7 @@ class BigDecimalVectorTest {
 
     @Test
     void serializable() {
-        assertSerializable(new BigDecimalVector(), Vector.class);
+        assertSerializable(new BigDecimalVector(), BigDecimalVector.class);
     }
 
     // endregion

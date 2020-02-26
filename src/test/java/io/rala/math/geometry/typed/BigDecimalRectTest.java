@@ -487,15 +487,13 @@ class BigDecimalRectTest {
             new BigDecimalPoint(BigDecimal.valueOf(3d)),
             BigDecimal.valueOf(4d)
         );
-        assertEquals(
-            rect,
+        assertEquals(rect,
             new BigDecimalRect(new BigDecimalPoint(
                 BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.valueOf(3d)),
                 BigDecimal.valueOf(4d))
         );
-        assertNotEquals(
-            rect,
+        assertNotEquals(rect,
             new BigDecimalRect(new BigDecimalPoint(
                 BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.valueOf(4d)),
@@ -506,8 +504,7 @@ class BigDecimalRectTest {
 
     @Test
     void hashCodeOfRectWithPointHeightAndWidth() {
-        assertEquals(
-            21004888,
+        assertEquals(21004888,
             new BigDecimalRect(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.valueOf(3d)),
@@ -531,18 +528,18 @@ class BigDecimalRectTest {
         Rect<BigDecimal> rect = new BigDecimalRect(
             BigDecimal.ONE, BigDecimal.valueOf(2d)
         );
-        assertEquals(
-            0, rect.compareTo(new BigDecimalRect(
+        assertEquals(0,
+            rect.compareTo(new BigDecimalRect(
                 BigDecimal.ONE, BigDecimal.valueOf(2d)
             ))
         );
-        assertEquals(
-            -1, rect.compareTo(new BigDecimalRect(
+        assertEquals(-1,
+            rect.compareTo(new BigDecimalRect(
                 BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
             ))
         );
-        assertEquals(
-            1, rect.compareTo(new BigDecimalRect(
+        assertEquals(1,
+            rect.compareTo(new BigDecimalRect(
                 BigDecimal.ONE, BigDecimal.ONE
             ))
         );
@@ -552,7 +549,7 @@ class BigDecimalRectTest {
     void serializable() {
         assertSerializable(
             new BigDecimalRect(BigDecimal.ZERO, BigDecimal.ZERO),
-            Rect.class
+            BigDecimalRect.class
         );
     }
 

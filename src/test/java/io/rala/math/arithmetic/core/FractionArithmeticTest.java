@@ -58,45 +58,39 @@ class FractionArithmeticTest {
     @Test
     void compare() {
         TestFraction complex = new TestFraction(2, 3);
-        assertEquals(
-            0, arithmetic.compare(complex, new TestFraction(2, 3))
+        assertEquals(0,
+            arithmetic.compare(complex, new TestFraction(2, 3))
         );
-        assertEquals(
-            -1, arithmetic.compare(complex, new TestFraction(3, 1))
+        assertEquals(-1,
+            arithmetic.compare(complex, new TestFraction(3, 1))
         );
-        assertEquals(
-            1, arithmetic.compare(complex, new TestFraction(1, 2))
+        assertEquals(1,
+            arithmetic.compare(complex, new TestFraction(1, 2))
         );
     }
 
     @Test
     void min() {
-        assertEquals(
-            new TestFraction(1),
+        assertEquals(new TestFraction(1),
             arithmetic.min(new TestFraction(1), new TestFraction(1))
         );
-        assertEquals(
-            new TestFraction(1),
+        assertEquals(new TestFraction(1),
             arithmetic.min(new TestFraction(1), new TestFraction(2))
         );
-        assertEquals(
-            new TestFraction(1),
+        assertEquals(new TestFraction(1),
             arithmetic.min(new TestFraction(2), new TestFraction(1))
         );
     }
 
     @Test
     void max() {
-        assertEquals(
-            new TestFraction(1),
+        assertEquals(new TestFraction(1),
             arithmetic.max(new TestFraction(1), new TestFraction(1))
         );
-        assertEquals(
-            new TestFraction(2),
+        assertEquals(new TestFraction(2),
             arithmetic.max(new TestFraction(1), new TestFraction(2))
         );
-        assertEquals(
-            new TestFraction(2),
+        assertEquals(new TestFraction(2),
             arithmetic.max(new TestFraction(2), new TestFraction(1))
         );
     }
@@ -264,15 +258,14 @@ class FractionArithmeticTest {
     @Test
     void equalsOfArithmetic() {
         assertEquals(
-            new TestFractionArithmetic(), new TestFractionArithmetic()
+            new TestFractionArithmetic(),
+            new TestFractionArithmetic()
         );
     }
 
     @Test
     void hashCodeOfArithmetic() {
-        assertEquals(-1173293087,
-            new TestFractionArithmetic().hashCode()
-        );
+        assertEquals(-1173293087, new TestFractionArithmetic().hashCode());
     }
 
     @Test

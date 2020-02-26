@@ -52,41 +52,23 @@ class IntegerArithmeticTest {
 
     @Test
     void compare() {
-        assertEquals(
-            0, arithmetic.compare(1, 1)
-        );
-        assertEquals(
-            -1, arithmetic.compare(1, 2)
-        );
-        assertEquals(
-            1, arithmetic.compare(2, 1)
-        );
+        assertEquals(0, arithmetic.compare(1, 1));
+        assertEquals(-1, arithmetic.compare(1, 2));
+        assertEquals(1, arithmetic.compare(2, 1));
     }
 
     @Test
     void min() {
-        assertEquals(
-            1, arithmetic.min(1, 1)
-        );
-        assertEquals(
-            1, arithmetic.min(1, 2)
-        );
-        assertEquals(
-            1, arithmetic.min(2, 1)
-        );
+        assertEquals(1, arithmetic.min(1, 1));
+        assertEquals(1, arithmetic.min(1, 2));
+        assertEquals(1, arithmetic.min(2, 1));
     }
 
     @Test
     void max() {
-        assertEquals(
-            1, arithmetic.max(1, 1)
-        );
-        assertEquals(
-            2, arithmetic.max(1, 2)
-        );
-        assertEquals(
-            2, arithmetic.max(2, 1)
-        );
+        assertEquals(1, arithmetic.max(1, 1));
+        assertEquals(2, arithmetic.max(1, 2));
+        assertEquals(2, arithmetic.max(2, 1));
     }
 
     @Test
@@ -154,10 +136,7 @@ class IntegerArithmeticTest {
 
     @Test
     void root21() {
-        assertEquals(
-            (int) Math.sqrt(1),
-            arithmetic.root2(1)
-        );
+        assertEquals((int) Math.sqrt(1), arithmetic.root2(1));
     }
 
     // endregion
@@ -185,24 +164,17 @@ class IntegerArithmeticTest {
 
     @Test
     void hashCodeOfArithmetic() {
-        assertEquals(962,
-            new IntegerArithmetic().hashCode()
-        );
+        assertEquals(962, new IntegerArithmetic().hashCode());
     }
 
     @Test
     void toStringOfArithmetic() {
-        assertEquals("IntegerArithmetic",
-            new IntegerArithmetic().toString()
-        );
+        assertEquals("IntegerArithmetic", new IntegerArithmetic().toString());
     }
 
     @Test
     void serializable() {
-        assertSerializable(
-            new IntegerArithmetic(),
-            IntegerArithmetic.class
-        );
+        assertSerializable(new IntegerArithmetic(), IntegerArithmetic.class);
     }
 
     // endregion

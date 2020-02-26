@@ -27,13 +27,11 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(), new TestPoint(), new TestPoint()
         );
-        assertTriangle(
-            triangle,
+        assertTriangle(triangle,
             new TestPoint(), new TestPoint(), new TestPoint()
         );
         triangle.setA(new TestPoint(1));
-        assertTriangle(
-            triangle,
+        assertTriangle(triangle,
             new TestPoint(1), new TestPoint(), new TestPoint()
         );
     }
@@ -43,13 +41,11 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(), new TestPoint(), new TestPoint()
         );
-        assertTriangle(
-            triangle,
+        assertTriangle(triangle,
             new TestPoint(), new TestPoint(), new TestPoint()
         );
         triangle.setB(new TestPoint(2));
-        assertTriangle(
-            triangle,
+        assertTriangle(triangle,
             new TestPoint(), new TestPoint(2), new TestPoint()
         );
     }
@@ -59,13 +55,11 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(), new TestPoint(), new TestPoint()
         );
-        assertTriangle(
-            triangle,
+        assertTriangle(triangle,
             new TestPoint(), new TestPoint(), new TestPoint()
         );
         triangle.setC(new TestPoint(3));
-        assertTriangle(
-            triangle,
+        assertTriangle(triangle,
             new TestPoint(), new TestPoint(), new TestPoint(3)
         );
     }
@@ -440,20 +434,17 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(2), new TestPoint(3), new TestPoint(4)
         );
-        assertEquals(
-            triangle,
+        assertEquals(triangle,
             new TestTriangle(new TestPoint(2), new TestPoint(3), new TestPoint(4))
         );
-        assertNotEquals(
-            triangle,
+        assertNotEquals(triangle,
             new TestTriangle(new TestPoint(3), new TestPoint(2), new TestPoint(4))
         );
     }
 
     @Test
     void hashCodeOfTriangleWithA2B3C4() {
-        assertEquals(
-            1048672,
+        assertEquals(1048672,
             new TestTriangle(
                 new TestPoint(2), new TestPoint(3), new TestPoint(4)
             ).hashCode()
@@ -473,18 +464,18 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(0), new TestPoint(1, 0), new TestPoint(1)
         );
-        assertEquals(
-            0, triangle.compareTo(new TestTriangle(
+        assertEquals(0,
+            triangle.compareTo(new TestTriangle(
                 new TestPoint(0), new TestPoint(1, 0), new TestPoint(1)
             ))
         );
-        assertEquals(
-            -1, triangle.compareTo(new TestTriangle(
+        assertEquals(-1,
+            triangle.compareTo(new TestTriangle(
                 new TestPoint(-1), new TestPoint(1, 0), new TestPoint(1)
             ))
         );
-        assertEquals(
-            1, triangle.compareTo(new TestTriangle(
+        assertEquals(1,
+            triangle.compareTo(new TestTriangle(
                 new TestPoint(0.5, 1), new TestPoint(1, 0.5), new TestPoint(1)
             ))
         );
@@ -494,7 +485,7 @@ class TriangleTest {
     void serializable() {
         assertSerializable(
             new TestTriangle(new TestPoint(), new TestPoint(), new TestPoint()),
-            Triangle.class
+            TestTriangle.class
         );
     }
 

@@ -53,41 +53,23 @@ class DoubleArithmeticTest {
 
     @Test
     void compare() {
-        assertEquals(
-            0, arithmetic.compare(1d, 1d)
-        );
-        assertEquals(
-            -1, arithmetic.compare(1d, 2d)
-        );
-        assertEquals(
-            1, arithmetic.compare(2d, 1d)
-        );
+        assertEquals(0, arithmetic.compare(1d, 1d));
+        assertEquals(-1, arithmetic.compare(1d, 2d));
+        assertEquals(1, arithmetic.compare(2d, 1d));
     }
 
     @Test
     void min() {
-        assertEquals(
-            1, arithmetic.min(1d, 1d)
-        );
-        assertEquals(
-            1, arithmetic.min(1d, 2d)
-        );
-        assertEquals(
-            1, arithmetic.min(2d, 1d)
-        );
+        assertEquals(1, arithmetic.min(1d, 1d));
+        assertEquals(1, arithmetic.min(1d, 2d));
+        assertEquals(1, arithmetic.min(2d, 1d));
     }
 
     @Test
     void max() {
-        assertEquals(
-            1, arithmetic.max(1d, 1d)
-        );
-        assertEquals(
-            2, arithmetic.max(1d, 2d)
-        );
-        assertEquals(
-            2, arithmetic.max(2d, 1d)
-        );
+        assertEquals(1, arithmetic.max(1d, 1d));
+        assertEquals(2, arithmetic.max(1d, 2d));
+        assertEquals(2, arithmetic.max(2d, 1d));
     }
 
     @Test
@@ -155,10 +137,7 @@ class DoubleArithmeticTest {
 
     @Test
     void root21() {
-        assertEquals(
-            Math.sqrt(1),
-            arithmetic.root2(1d)
-        );
+        assertEquals(Math.sqrt(1), arithmetic.root2(1d));
     }
 
     // endregion
@@ -190,24 +169,17 @@ class DoubleArithmeticTest {
 
     @Test
     void hashCodeOfArithmetic() {
-        assertEquals(1072694209,
-            new DoubleArithmetic().hashCode()
-        );
+        assertEquals(1072694209, new DoubleArithmetic().hashCode());
     }
 
     @Test
     void toStringOfArithmetic() {
-        assertEquals("DoubleArithmetic",
-            new DoubleArithmetic().toString()
-        );
+        assertEquals("DoubleArithmetic", new DoubleArithmetic().toString());
     }
 
     @Test
     void serializable() {
-        assertSerializable(
-            new DoubleArithmetic(),
-            DoubleArithmetic.class
-        );
+        assertSerializable(new DoubleArithmetic(), DoubleArithmetic.class);
     }
 
     // endregion

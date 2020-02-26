@@ -506,22 +506,13 @@ class ComplexTest {
     @Test
     void equalsOfComplexWithReIm() {
         TestComplex complex = new TestComplex(2, 3);
-        assertEquals(
-            complex,
-            new TestComplex(2, 3)
-        );
-        assertNotEquals(
-            complex,
-            new TestComplex(3, 2)
-        );
+        assertEquals(complex, new TestComplex(2, 3));
+        assertNotEquals(complex, new TestComplex(3, 2));
     }
 
     @Test
     void hashCodeOfComplexWithReIm() {
-        assertEquals(
-            1026,
-            new TestComplex(2, 3).hashCode()
-        );
+        assertEquals(1026, new TestComplex(2, 3).hashCode());
     }
 
     @Test
@@ -533,23 +524,14 @@ class ComplexTest {
     @Test
     void compareToOfComplexWithReIm() {
         TestComplex complex = new TestComplex(2, 3);
-        assertEquals(
-            0, complex.compareTo(new TestComplex(2, 3))
-        );
-        assertEquals(
-            -1, complex.compareTo(new TestComplex(3, 1))
-        );
-        assertEquals(
-            1, complex.compareTo(new TestComplex(2, 1))
-        );
+        assertEquals(0, complex.compareTo(new TestComplex(2, 3)));
+        assertEquals(-1, complex.compareTo(new TestComplex(3, 1)));
+        assertEquals(1, complex.compareTo(new TestComplex(2, 1)));
     }
 
     @Test
     void serializable() {
-        assertSerializable(
-            new TestComplex(),
-            TestComplex.class
-        );
+        assertSerializable(new TestComplex(), TestComplex.class);
     }
 
     // endregion

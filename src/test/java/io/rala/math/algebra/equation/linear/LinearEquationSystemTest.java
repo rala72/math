@@ -41,21 +41,13 @@ class LinearEquationSystemTest {
     void equalsOfTestAbstractSolver() {
         LinearEquationSystem<Number> equationSystem =
             new LinearEquationSystem<>(matrix);
-        assertEquals(
-            equationSystem,
-            new LinearEquationSystem<>(matrix)
-        );
-        assertNotEquals(
-            equationSystem,
-            new LinearEquationSystem<>(null)
-        );
+        assertEquals(equationSystem, new LinearEquationSystem<>(matrix));
+        assertNotEquals(equationSystem, new LinearEquationSystem<>(null));
     }
 
     @Test
     void hashCodeOfTestAbstractSolver() {
-        assertEquals(1312819,
-            new LinearEquationSystem<>(matrix).hashCode()
-        );
+        assertEquals(1312819, new LinearEquationSystem<>(matrix).hashCode());
     }
 
     @Test

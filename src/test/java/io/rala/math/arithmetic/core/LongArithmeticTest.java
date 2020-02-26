@@ -52,41 +52,23 @@ class LongArithmeticTest {
 
     @Test
     void compare() {
-        assertEquals(
-            0, arithmetic.compare(1L, 1L)
-        );
-        assertEquals(
-            -1, arithmetic.compare(1L, 2L)
-        );
-        assertEquals(
-            1, arithmetic.compare(2L, 1L)
-        );
+        assertEquals(0, arithmetic.compare(1L, 1L));
+        assertEquals(-1, arithmetic.compare(1L, 2L));
+        assertEquals(1, arithmetic.compare(2L, 1L));
     }
 
     @Test
     void min() {
-        assertEquals(
-            1, arithmetic.min(1L, 1L)
-        );
-        assertEquals(
-            1, arithmetic.min(1L, 2L)
-        );
-        assertEquals(
-            1, arithmetic.min(2L, 1L)
-        );
+        assertEquals(1, arithmetic.min(1L, 1L));
+        assertEquals(1, arithmetic.min(1L, 2L));
+        assertEquals(1, arithmetic.min(2L, 1L));
     }
 
     @Test
     void max() {
-        assertEquals(
-            1, arithmetic.max(1L, 1L)
-        );
-        assertEquals(
-            2, arithmetic.max(1L, 2L)
-        );
-        assertEquals(
-            2, arithmetic.max(2L, 1L)
-        );
+        assertEquals(1, arithmetic.max(1L, 1L));
+        assertEquals(2, arithmetic.max(1L, 2L));
+        assertEquals(2, arithmetic.max(2L, 1L));
     }
 
     @Test
@@ -154,10 +136,7 @@ class LongArithmeticTest {
 
     @Test
     void root21() {
-        assertEquals(
-            (long) Math.sqrt(1),
-            arithmetic.root2(1L)
-        );
+        assertEquals((long) Math.sqrt(1), arithmetic.root2(1L));
     }
 
     // endregion
@@ -185,24 +164,17 @@ class LongArithmeticTest {
 
     @Test
     void hashCodeOfArithmetic() {
-        assertEquals(962,
-            new LongArithmetic().hashCode()
-        );
+        assertEquals(962, new LongArithmetic().hashCode());
     }
 
     @Test
     void toStringOfArithmetic() {
-        assertEquals("LongArithmetic",
-            new LongArithmetic().toString()
-        );
+        assertEquals("LongArithmetic", new LongArithmetic().toString());
     }
 
     @Test
     void serializable() {
-        assertSerializable(
-            new LongArithmetic(),
-            LongArithmetic.class
-        );
+        assertSerializable(new LongArithmetic(), LongArithmetic.class);
     }
 
     // endregion
