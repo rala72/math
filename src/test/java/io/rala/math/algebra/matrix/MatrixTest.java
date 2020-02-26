@@ -181,7 +181,7 @@ class MatrixTest {
     }
 
     @Test
-    void setValueByIndex0WhichWasEmpty() {
+    void setValueByIndex0WhichWasUnset() {
         TestMatrix matrix = new TestMatrix(2);
         assertEquals(0d, matrix.setValue(0, 1));
         assertEquals(1, matrix.getValue(0));
@@ -190,7 +190,7 @@ class MatrixTest {
     }
 
     @Test
-    void setValueByIndex3WhichWasEmpty() {
+    void setValueByIndex3WhichWasUnset() {
         TestMatrix matrix = new TestMatrix(2);
         assertEquals(0d, matrix.setValue(3, 1));
         assertEquals(1, matrix.getValue(3));
@@ -215,7 +215,7 @@ class MatrixTest {
     }
 
     @Test
-    void setValueByRow0Col0WhichWasEmpty() {
+    void setValueByRow0Col0WhichWasUnset() {
         TestMatrix matrix = new TestMatrix(2);
         assertEquals(0d, matrix.setValue(0, 0, 1));
         assertEquals(1, matrix.getValue(0));
@@ -224,7 +224,7 @@ class MatrixTest {
     }
 
     @Test
-    void setValueByRow1Col0WhichWasEmpty() {
+    void setValueByRow1Col0WhichWasUnset() {
         TestMatrix matrix = new TestMatrix(2);
         assertEquals(0d, matrix.setValue(1, 0, 1));
         assertEquals(1, matrix.getValue(1, 0));
@@ -265,7 +265,7 @@ class MatrixTest {
     }
 
     @Test
-    void removeValueByIndex0WhichWasEmpty() {
+    void removeValueByIndex0WhichWasUnset() {
         TestMatrix matrix = new TestMatrix(2);
         assertEquals(0d, matrix.removeValue(0));
     }
@@ -287,16 +287,96 @@ class MatrixTest {
     }
 
     @Test
-    void removeValueByRow0Col0WhichWasEmpty() {
+    void removeValueByRow0Col0WhichWasUnset() {
         TestMatrix matrix = new TestMatrix(2);
         assertEquals(0d, matrix.removeValue(0, 0));
     }
 
     @Test
-    void removeValueByIndex2WhichWasNonEmpty() {
+    void removeValueByIndex2WhichWasSet() {
         TestMatrix matrix = new TestMatrix(2);
         matrix.setValue(2, 1);
         assertEquals(1, matrix.removeValue(2));
+    }
+
+    // endregion
+
+    // region compute
+
+    @Test
+    void computeWithUnaryOperatorByIndex0WhichWasUnset() {
+        TestMatrix matrix = new TestMatrix(2);
+        assertEquals(0d, matrix.compute(0, number -> 1));
+        assertEquals(1, matrix.getValue(0));
+        assertEquals(1, matrix.getValue(0, 0));
+    }
+
+    @Test
+    void computeWithUnaryOperatorByIndex3WhichWasUnset() {
+        TestMatrix matrix = new TestMatrix(2);
+        assertEquals(0d, matrix.compute(3, number -> 1));
+        assertEquals(1, matrix.getValue(3));
+        assertEquals(1, matrix.getValue(1, 1));
+    }
+
+    @Test
+    void computeWithUnaryOperatorByRow0Col0WhichWasUnset() {
+        TestMatrix matrix = new TestMatrix(2);
+        assertEquals(0d, matrix.compute(0, 0, number -> 1));
+        assertEquals(1, matrix.getValue(0));
+        assertEquals(1, matrix.getValue(0, 0));
+        // assert all other are unset
+    }
+
+    @Test
+    void computeWithUnaryOperatorByRow1Col1WhichWasUnset() {
+        TestMatrix matrix = new TestMatrix(2);
+        assertEquals(0d, matrix.compute(1, 0, number -> 1));
+        assertEquals(1, matrix.getValue(1, 0));
+        assertEquals(1, matrix.getValue(2));
+        // assert all other are unset
+    }
+
+    @Test
+    void computeWithBinaryOperatorByIndex0WhichWasUnset() {
+        TestMatrix matrix = new TestMatrix(2);
+        assertEquals(0d, matrix.compute(0,
+            1d, matrix.getArithmetic()::sum
+        ));
+        assertEquals(1d, matrix.getValue(0));
+        assertEquals(1d, matrix.getValue(0, 0));
+    }
+
+    @Test
+    void computeWithBinaryOperatorByIndex3WhichWasUnset() {
+        TestMatrix matrix = new TestMatrix(2);
+        assertEquals(0d, matrix.compute(3,
+            1d, matrix.getArithmetic()::sum
+        ));
+        assertEquals(1d, matrix.getValue(3));
+        assertEquals(1d, matrix.getValue(1, 1));
+    }
+
+    @Test
+    void computeWithBinaryOperatorByRow0Col0WhichWasUnset() {
+        TestMatrix matrix = new TestMatrix(2);
+        assertEquals(0d, matrix.compute(0, 0,
+            1d, matrix.getArithmetic()::sum
+        ));
+        assertEquals(1d, matrix.getValue(0));
+        assertEquals(1d, matrix.getValue(0, 0));
+        // assert all other are unset
+    }
+
+    @Test
+    void computeWithBinaryOperatorByRow1Col1WhichWasUnset() {
+        TestMatrix matrix = new TestMatrix(2);
+        assertEquals(0d, matrix.compute(1, 0,
+            1d, matrix.getArithmetic()::sum
+        ));
+        assertEquals(1d, matrix.getValue(1, 0));
+        assertEquals(1d, matrix.getValue(2));
+        // assert all other are unset
     }
 
     // endregion

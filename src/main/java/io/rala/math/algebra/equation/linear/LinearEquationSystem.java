@@ -4,7 +4,6 @@ import io.rala.math.algebra.equation.AbstractEquationSystem;
 import io.rala.math.algebra.equation.Solution;
 import io.rala.math.algebra.equation.linear.solver.GaussSolver;
 import io.rala.math.algebra.matrix.Matrix;
-import io.rala.math.arithmetic.AbstractArithmetic;
 
 import java.util.Objects;
 
@@ -90,15 +89,6 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
          */
         public LinearEquationMatrix(Matrix<T> matrix) {
             super(matrix);
-        }
-
-        /**
-         * @return {@link Matrix#getArithmetic()}
-         * @implSpec overridden so solver methods
-         * have access to {@link Matrix#getArithmetic()}
-         */
-        protected AbstractArithmetic<T> getArithmetic() {
-            return super.getArithmetic();
         }
 
         // region override matrix modify
