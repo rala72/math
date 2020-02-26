@@ -370,7 +370,7 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(2);
         TestMatrix matrix2 = new TestMatrix(2, 1d);
         TestMatrix result = new TestMatrix(2, 1d);
-        Assertions.assertEquals(result, matrix1.add(matrix2));
+        assertEquals(result, matrix1.add(matrix2));
     }
 
     @Test
@@ -392,7 +392,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, 2 * (i + 1d));
         }
-        Assertions.assertEquals(result, matrix.add(matrix));
+        assertEquals(result, matrix.add(matrix));
     }
 
     @Test
@@ -421,7 +421,7 @@ class MatrixTest {
             matrix.setValue(i, (i + 1));
             result.setValue(i, (i + 1d) * 2);
         }
-        Assertions.assertEquals(result, matrix.multiply(2));
+        assertEquals(result, matrix.multiply(2));
     }
 
     @Test
@@ -704,23 +704,23 @@ class MatrixTest {
     void mapDefaultValueOfIdentityMatrixWithSize2() {
         TestMatrix matrix = TestMatrix.identity(2);
         Matrix<Number> mapped = matrix.mapDefaultValue(1d);
-        Assertions.assertEquals(matrix, mapped);
+        assertEquals(matrix, mapped);
         matrix.forEach(field -> {
             if (field.getRow() == field.getCol()) {
-                Assertions.assertTrue(
+                assertTrue(
                     matrix.getMatrix().get(field.getRow())
                         .containsKey(field.getCol())
                 );
-                Assertions.assertFalse(
+                assertFalse(
                     mapped.getMatrix().get(field.getRow())
                         .containsKey(field.getCol())
                 );
             } else {
-                Assertions.assertFalse(
+                assertFalse(
                     matrix.getMatrix().get(field.getRow())
                         .containsKey(field.getCol())
                 );
-                Assertions.assertTrue(
+                assertTrue(
                     mapped.getMatrix().get(field.getRow())
                         .containsKey(field.getCol())
                 );
@@ -732,22 +732,22 @@ class MatrixTest {
     void mapDefaultValueOfMatrixBy2Rows() {
         TestMatrix matrix = TestMatrix.ofValuesByRows(2, 0d, 0d, 2d, 2d);
         Matrix<Number> mapped = matrix.mapDefaultValue(2d);
-        Assertions.assertEquals(matrix, mapped);
+        assertEquals(matrix, mapped);
         matrix.forEach(field -> {
             if (field.getRow() == 0) {
-                Assertions.assertFalse(
+                assertFalse(
                     matrix.getMatrix().containsKey(field.getRow())
                 );
-                Assertions.assertTrue(
+                assertTrue(
                     mapped.getMatrix().get(field.getRow())
                         .containsKey(field.getCol())
                 );
             } else {
-                Assertions.assertTrue(
+                assertTrue(
                     matrix.getMatrix().get(field.getRow())
                         .containsKey(field.getCol())
                 );
-                Assertions.assertFalse(
+                assertFalse(
                     mapped.getMatrix().containsKey(field.getRow())
                 );
             }
@@ -798,16 +798,13 @@ class MatrixTest {
     void equalsOfTestMatrixWithDifferentDefaults() {
         TestMatrix default0 = new TestMatrix(2);
         default0.forEach(field -> default0.setValue(field.getIndex(), 1d));
-        Assertions.assertNotEquals(default0, new TestMatrix(2));
-        Assertions.assertEquals(default0, new TestMatrix(2, 1d));
+        assertNotEquals(default0, new TestMatrix(2));
+        assertEquals(default0, new TestMatrix(2, 1d));
     }
 
     @Test
     void equalsOfTestMatrixAndBigDecimalMatrix() {
-        Assertions.assertNotEquals(
-            new TestMatrix(2),
-            new BigDecimalMatrix(2)
-        );
+        assertNotEquals(new TestMatrix(2), new BigDecimalMatrix(2));
     }
 
     @Test
