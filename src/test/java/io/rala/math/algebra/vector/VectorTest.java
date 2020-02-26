@@ -2,9 +2,7 @@ package io.rala.math.algebra.vector;
 
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.core.BigDecimalArithmetic;
-import io.rala.math.arithmetic.core.FractionArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
-import io.rala.math.arithmetic.result.BigIntegerBigDecimalResultArithmetic;
 import io.rala.math.testUtils.algebra.TestMatrix;
 import io.rala.math.testUtils.algebra.TestVector;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
@@ -239,21 +237,134 @@ public class VectorTest {
 
     // endregion
 
+    // region arithmetic
+
+    @Test
+    void addNullVector() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new TestVector(2).add(null)
+        );
+    }
+
+    @Test
+    void addVectorDifferentSize() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new TestVector(2).add(new TestVector(3))
+        );
+    }
+
+    @Test
+    void addVectorDifferentType() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new TestVector(2).add(new TestVector(2).transpose())
+        );
+    }
+
+    @Test
+    void addEmptyVectorToEmptyVector() {
+        assertEquals(
+            new TestVector(3),
+            new TestVector(3).add(new TestVector(3))
+        );
+    }
+
+    @Test
+    void addEmptyVectorToNonEmptyVector() {
+        TestVector expected = new TestVector(3, false);
+        Vector actual = new TestVector(3, false).add(new TestVector(3));
+        assertEquals(
+            new TestVector(3, false),
+            new TestVector(3, false).add(new TestVector(3))
+        );
+    }
+
+    @Test
+    void addNonEmptyVectorToEmptyVector() {
+        assertEquals(
+            new TestVector(3, false),
+            new TestVector(3).add(new TestVector(3, false))
+        );
+    }
+
+    @Test
+    void addNonEmptyVectorToNonEmptyVector() {
+        TestVector expected = new TestVector(3);
+        expected.setValue(0, 2d);
+        expected.setValue(1, -8d);
+        expected.setValue(2, 18d);
+        assertEquals(
+            expected,
+            new TestVector(3, false).add(new TestVector(3, false))
+        );
+    }
+
+    @Test
+    void subtractNullVector() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new TestVector(2).subtract(null)
+        );
+    }
+
+    @Test
+    void subtractVectorDifferentSize() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new TestVector(2).subtract(new TestVector(3))
+        );
+    }
+
+    @Test
+    void subtractVectorDifferentType() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new TestVector(2).subtract(new TestVector(2).transpose())
+        );
+    }
+
+    @Test
+    void subtractEmptyVectorFromEmptyVector() {
+        assertEquals(
+            new TestVector(3),
+            new TestVector(3).subtract(new TestVector(3))
+        );
+    }
+
+    @Test
+    void subtractEmptyVectorFromNonEmptyVector() {
+        assertEquals(
+            new TestVector(3, false),
+            new TestVector(3, false).subtract(new TestVector(3))
+        );
+    }
+
+    @Test
+    void subtractNonEmptyVectorFromEmptyVector() {
+        assertEquals(
+            new TestVector(3, false).invert(),
+            new TestVector(3).subtract(new TestVector(3, false))
+        );
+    }
+
+    @Test
+    void subtractNonEmptyVectorFromNonEmptyVector() {
+        assertEquals(
+            new TestVector(3),
+            new TestVector(3, false).subtract(new TestVector(3, false))
+        );
+    }
+
+    // endregion
+
     // region temp (to be deleted, when proper tests exist)
     @Test
     void times2() {
         TestVector vector = new TestVector(5, false);
         Vector result = vector.multiply(vector.getArithmetic().fromInt(2));
         assertEquals(new Vector<>(new TestAbstractArithmetic(), Arrays.asList(2d, -8d, 18d, -32d, 50d), 0d), result);
-    }
-
-    @Test
-    void add() {
-        AbstractArithmetic arithmetic = new FractionArithmetic(new BigIntegerBigDecimalResultArithmetic());
-        Vector v1 = new Vector(arithmetic, 3, 1);
-        Vector v2 = new Vector(arithmetic, 3, 2);
-        Vector res = new Vector(arithmetic, 3, 3);
-        assertEquals(res, v1.add(v2));
     }
 
     @Test
