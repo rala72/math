@@ -378,6 +378,26 @@ class MatrixTest {
         // assert all other are unset
     }
 
+    @Test
+    void computeAllWithFunctionOfEmptyMatrix() {
+        TestMatrix matrix = new TestMatrix(2);
+        matrix.computeAll(field ->
+            matrix.getArithmetic().sum(field.getValue(), 1)
+        );
+        assertTrue(matrix.stream().allMatch(field ->
+            matrix.getArithmetic().isEqual(field.getValue(), 1d)
+        ));
+    }
+
+    @Test
+    void computeAllWithFunctionAndBinaryOperatorOfEmptyMatrix() {
+        TestMatrix matrix = new TestMatrix(2);
+        matrix.computeAll(field -> 1, matrix.getArithmetic()::sum);
+        assertTrue(matrix.stream().allMatch(field ->
+            matrix.getArithmetic().isEqual(field.getValue(), 1d)
+        ));
+    }
+
     // endregion
 
     // region isSquare and isDiagonal

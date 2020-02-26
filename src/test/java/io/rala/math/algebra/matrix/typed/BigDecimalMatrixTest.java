@@ -382,6 +382,26 @@ class BigDecimalMatrixTest {
         // assert all other are unset
     }
 
+    @Test
+    void computeAllWithFunctionOfEmptyMatrix() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        matrix.computeAll(field ->
+            matrix.getArithmetic().sum(field.getValue(), BigDecimal.ONE)
+        );
+        assertTrue(matrix.stream().allMatch(field ->
+            matrix.getArithmetic().isEqual(field.getValue(), BigDecimal.ONE)
+        ));
+    }
+
+    @Test
+    void computeAllWithFunctionAndBinaryOperatorOfEmptyMatrix() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        matrix.computeAll(field -> BigDecimal.ONE, matrix.getArithmetic()::sum);
+        assertTrue(matrix.stream().allMatch(field ->
+            matrix.getArithmetic().isEqual(field.getValue(), BigDecimal.ONE)
+        ));
+    }
+
     // endregion
 
     // region isSquare and isDiagonal

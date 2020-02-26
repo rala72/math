@@ -362,6 +362,26 @@ class DoubleMatrixTest {
         // assert all other are unset
     }
 
+    @Test
+    void computeAllWithFunctionOfEmptyMatrix() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        matrix.computeAll(field ->
+            matrix.getArithmetic().sum(field.getValue(), 1d)
+        );
+        assertTrue(matrix.stream().allMatch(field ->
+            matrix.getArithmetic().isEqual(field.getValue(), 1d)
+        ));
+    }
+
+    @Test
+    void computeAllWithFunctionAndBinaryOperatorOfEmptyMatrix() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        matrix.computeAll(field -> 1d, matrix.getArithmetic()::sum);
+        assertTrue(matrix.stream().allMatch(field ->
+            matrix.getArithmetic().isEqual(field.getValue(), 1d)
+        ));
+    }
+
     // endregion
 
     // region isSquare and isDiagonal

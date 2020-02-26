@@ -322,27 +322,47 @@ public class Matrix<T extends Number>
     /**
      * @param row      row where new value is computed
      * @param col      col where new value is computed
-     * @param t        value to use in computation
+     * @param value    new value to use in computation
      * @param operator operator to apply on old and new value
      * @return old value if existed or {@link #getDefaultValue()}
      * @see #compute(long, Number, BinaryOperator)
      * @see #setValue(int, int, Number)
      * @see #getValue(int, int)
      */
-    public T compute(int row, int col, T t, BinaryOperator<T> operator) {
-        return compute(getIndexOfRowAndCol(row, col), t, operator);
+    public T compute(int row, int col, T value, BinaryOperator<T> operator) {
+        return compute(getIndexOfRowAndCol(row, col), value, operator);
     }
 
     /**
      * @param index    index where new value is computed
-     * @param t        value to use in computation
+     * @param value    new value to use in computation
      * @param operator operator to apply on old and new value
      * @return old value if existed or {@link #getDefaultValue()}
      * @see #setValue(long, Number)
      * @see #getValue(long)
      */
-    public T compute(long index, T t, BinaryOperator<T> operator) {
-        return setValue(index, operator.apply(getValue(index), t));
+    public T compute(long index, T value, BinaryOperator<T> operator) {
+        return setValue(index, operator.apply(getValue(index), value));
+    }
+
+    /**
+     * @param operator operator to apply on all fields
+     */
+    public void computeAll(Function<Field, T> operator) {
+        forEach(field -> setValue(field.getIndex(), operator.apply(field)));
+    }
+
+    /**
+     * calls {@link #compute(long, Number, BinaryOperator)} with
+     * {@link Field#getIndex()},
+     * new {@code value} from {@link Function} and
+     * given {@link BinaryOperator}
+     *
+     * @param value    function returning new value to use in computation
+     * @param operator operator to apply on old and new value
+     */
+    public void computeAll(Function<Field, T> value, BinaryOperator<T> operator) {
+        forEach(field -> compute(field.getIndex(), value.apply(field), operator));
     }
 
     // endregion
@@ -381,10 +401,10 @@ public class Matrix<T extends Number>
         if (getCols() != matrix.getCols())
             throw new IllegalArgumentException("cols have to be equal");
         Matrix<T> result = copy();
-        forEach(field -> result.compute(field.getIndex(),
-            matrix.getValue(field.getIndex()),
+        result.computeAll(
+            field -> matrix.getValue(field.getIndex()),
             getArithmetic()::sum
-        ));
+        );
         result.removeDefaultValues();
         return result;
     }
@@ -395,9 +415,7 @@ public class Matrix<T extends Number>
      */
     public Matrix<T> multiply(T t) {
         Matrix<T> result = copy();
-        forEach(field -> result.compute(field.getIndex(),
-            t, getArithmetic()::product
-        ));
+        result.computeAll(field -> t, getArithmetic()::product);
         result.removeDefaultValues();
         return result;
     }
@@ -412,7 +430,7 @@ public class Matrix<T extends Number>
         Matrix<T> result = new Matrix<>(getArithmetic(),
             getRows(), matrix.getCols(), getDefaultValue()
         );
-        forEach(field -> result.compute(field.getIndex(), value -> {
+        result.computeAll(field -> {
             T d = getArithmetic().zero();
             for (int i = 0; i < getCols(); i++)
                 d = getArithmetic().sum(d,
@@ -422,7 +440,7 @@ public class Matrix<T extends Number>
                     )
                 );
             return d;
-        }));
+        });
         return result;
     }
 
@@ -460,14 +478,14 @@ public class Matrix<T extends Number>
         Matrix<T> minorMatrix = new Matrix<>(getArithmetic(),
             getRows(), getCols(), getDefaultValue()
         );
-        forEach(field -> minorMatrix.compute(field.getIndex(), value ->
+        minorMatrix.computeAll(field ->
             getArithmetic().product(
                 getArithmetic().fromInt(
                     signumFactor(field.getRow(), field.getCol())
                 ),
                 subMatrix(field.getRow(), field.getCol()).determinante()
             )
-        ));
+        );
         return minorMatrix.transpose().multiply(k);
     }
 
