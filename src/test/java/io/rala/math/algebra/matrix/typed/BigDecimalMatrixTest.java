@@ -176,7 +176,7 @@ class BigDecimalMatrixTest {
     }
 
     @Test
-    void setValueByIndex0WhichWasEmpty() {
+    void setValueByIndex0WhichWasUnset() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertEquals(BigDecimal.ZERO, matrix.setValue(0, BigDecimal.ONE));
         assertEquals(BigDecimal.ONE, matrix.getValue(0));
@@ -185,7 +185,7 @@ class BigDecimalMatrixTest {
     }
 
     @Test
-    void setValueByIndex3WhichWasEmpty() {
+    void setValueByIndex3WhichWasUnset() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertEquals(BigDecimal.ZERO, matrix.setValue(3, BigDecimal.ONE));
         assertEquals(BigDecimal.ONE, matrix.getValue(3));
@@ -210,7 +210,7 @@ class BigDecimalMatrixTest {
     }
 
     @Test
-    void setValueByRow0Col0WhichWasEmpty() {
+    void setValueByRow0Col0WhichWasUnset() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertEquals(BigDecimal.ZERO, matrix.setValue(0, 0, BigDecimal.ONE));
         assertEquals(BigDecimal.ONE, matrix.getValue(0));
@@ -219,7 +219,7 @@ class BigDecimalMatrixTest {
     }
 
     @Test
-    void setValueByRow1Col0WhichWasEmpty() {
+    void setValueByRow1Col0WhichWasUnset() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertEquals(BigDecimal.ZERO, matrix.setValue(1, 0, BigDecimal.ONE));
         assertEquals(BigDecimal.ONE, matrix.getValue(1, 0));
@@ -260,7 +260,7 @@ class BigDecimalMatrixTest {
     }
 
     @Test
-    void removeValueByIndex0WhichWasEmpty() {
+    void removeValueByIndex0WhichWasUnset() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertEquals(BigDecimal.ZERO, matrix.removeValue(0));
     }
@@ -282,13 +282,13 @@ class BigDecimalMatrixTest {
     }
 
     @Test
-    void removeValueByRow0Col0WhichWasEmpty() {
+    void removeValueByRow0Col0WhichWasUnset() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertEquals(BigDecimal.ZERO, matrix.removeValue(0, 0));
     }
 
     @Test
-    void removeValueByIndex2WhichWasNonEmpty() {
+    void removeValueByIndex2WhichWasSet() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         matrix.setValue(2, BigDecimal.ONE);
         assertEquals(BigDecimal.ONE, matrix.removeValue(2));

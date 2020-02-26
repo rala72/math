@@ -180,7 +180,7 @@ class MatrixTest {
     }
 
     @Test
-    void setValueByIndex0WhichWasEmpty() {
+    void setValueByIndex0WhichWasUnset() {
         TestMatrix matrix = new TestMatrix(2);
         assertEquals(0d, matrix.setValue(0, 1));
         assertEquals(1, matrix.getValue(0));
@@ -189,7 +189,7 @@ class MatrixTest {
     }
 
     @Test
-    void setValueByIndex3WhichWasEmpty() {
+    void setValueByIndex3WhichWasUnset() {
         TestMatrix matrix = new TestMatrix(2);
         assertEquals(0d, matrix.setValue(3, 1));
         assertEquals(1, matrix.getValue(3));
@@ -214,7 +214,7 @@ class MatrixTest {
     }
 
     @Test
-    void setValueByRow0Col0WhichWasEmpty() {
+    void setValueByRow0Col0WhichWasUnset() {
         TestMatrix matrix = new TestMatrix(2);
         assertEquals(0d, matrix.setValue(0, 0, 1));
         assertEquals(1, matrix.getValue(0));
@@ -223,7 +223,7 @@ class MatrixTest {
     }
 
     @Test
-    void setValueByRow1Col0WhichWasEmpty() {
+    void setValueByRow1Col0WhichWasUnset() {
         TestMatrix matrix = new TestMatrix(2);
         assertEquals(0d, matrix.setValue(1, 0, 1));
         assertEquals(1, matrix.getValue(1, 0));
@@ -264,7 +264,7 @@ class MatrixTest {
     }
 
     @Test
-    void removeValueByIndex0WhichWasEmpty() {
+    void removeValueByIndex0WhichWasUnset() {
         TestMatrix matrix = new TestMatrix(2);
         assertEquals(0d, matrix.removeValue(0));
     }
@@ -286,13 +286,13 @@ class MatrixTest {
     }
 
     @Test
-    void removeValueByRow0Col0WhichWasEmpty() {
+    void removeValueByRow0Col0WhichWasUnset() {
         TestMatrix matrix = new TestMatrix(2);
         assertEquals(0d, matrix.removeValue(0, 0));
     }
 
     @Test
-    void removeValueByIndex2WhichWasNonEmpty() {
+    void removeValueByIndex2WhichWasSet() {
         TestMatrix matrix = new TestMatrix(2);
         matrix.setValue(2, 1);
         assertEquals(1, matrix.removeValue(2));
