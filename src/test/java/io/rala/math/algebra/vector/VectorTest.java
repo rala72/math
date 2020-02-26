@@ -8,7 +8,6 @@ import io.rala.math.arithmetic.result.BigIntegerBigDecimalResultArithmetic;
 import io.rala.math.testUtils.algebra.TestMatrix;
 import io.rala.math.testUtils.algebra.TestVector;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -17,13 +16,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class VectorTest {
 
     // region constructors
 
     @Test
     void constructorWithNegativeSize() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(
+            IllegalArgumentException.class,
             () -> new TestVector(-1)
         ); // assert exception message?
     }
@@ -32,14 +35,15 @@ public class VectorTest {
     void constructorWithPositiveSize() {
         int expectedSize = 1;
         TestVector vector = new TestVector(expectedSize);
-        Assertions.assertEquals(expectedSize, vector.size());
+        assertEquals(expectedSize, vector.size());
     }
 
     @Test
     void constructorWithSizeZero() {
         TestVector vector = new TestVector(0);
-        Assertions.assertEquals(0, vector.size());
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertEquals(0, vector.size());
+        assertThrows(
+            IndexOutOfBoundsException.class,
             () -> new TestVector(0).getValue(0)
         ); // assert exception message?
     }
@@ -47,16 +51,16 @@ public class VectorTest {
     @Test
     void constructorWithSizeTenAndDefaultValue() {
         TestVector vector = new TestVector(10, 2d);
-        Assertions.assertEquals(2d, vector.getDefaultValue());
+        assertEquals(2d, vector.getDefaultValue());
     }
 
     @Test
     void constructorWithVector() {
-        Assertions.assertEquals(
+        assertEquals(
             1,
             new TestVector(new TestVector(1, 2d)).size()
         );
-        Assertions.assertEquals(
+        assertEquals(
             2d,
             new TestVector(new TestVector(1, 2d)).getDefaultValue()
         );
@@ -70,7 +74,7 @@ public class VectorTest {
     void defaultZeroAllDefault() {
         TestVector vector = new TestVector(3);
         for (int i = 0; i < 3; i++) {
-            Assertions.assertEquals(0d, vector.getValue(i));
+            assertEquals(0d, vector.getValue(i));
         }
     }
 
@@ -78,7 +82,7 @@ public class VectorTest {
     void defaultOneAllDefault() {
         TestVector vector = new TestVector(3, 1d);
         for (int i = 0; i < 3; i++) {
-            Assertions.assertEquals(1d, vector.getValue(i));
+            assertEquals(1d, vector.getValue(i));
         }
     }
 
@@ -87,9 +91,9 @@ public class VectorTest {
         TestVector vector = new TestVector(3);
         vector.setValue(2, 3d);
         for (int i = 0; i < 2; i++) {
-            Assertions.assertEquals(0d, vector.getValue(i));
+            assertEquals(0d, vector.getValue(i));
         }
-        Assertions.assertEquals(3d, vector.getValue(2));
+        assertEquals(3d, vector.getValue(2));
     }
 
     @Test
@@ -97,26 +101,26 @@ public class VectorTest {
         TestVector vector = new TestVector(3, 1d);
         vector.setValue(2, 3d);
         for (int i = 0; i < 2; i++) {
-            Assertions.assertEquals(1d, vector.getValue(i));
+            assertEquals(1d, vector.getValue(i));
         }
-        Assertions.assertEquals(3d, vector.getValue(2));
+        assertEquals(3d, vector.getValue(2));
     }
 
     @Test
     void defaultZeroNoneDefault() {
         TestVector vector = new TestVector(3, false);
-        Assertions.assertEquals(1d, vector.getValue(0));
-        Assertions.assertEquals(-4d, vector.getValue(1));
-        Assertions.assertEquals(9d, vector.getValue(2));
+        assertEquals(1d, vector.getValue(0));
+        assertEquals(-4d, vector.getValue(1));
+        assertEquals(9d, vector.getValue(2));
     }
 
     @Test
     void defaultOneNoneDefault() {
         TestVector vector = new TestVector(3, false);
         vector.setValue(0, 7d);
-        Assertions.assertEquals(7d, vector.getValue(0));
-        Assertions.assertEquals(-4d, vector.getValue(1));
-        Assertions.assertEquals(9d, vector.getValue(2));
+        assertEquals(7d, vector.getValue(0));
+        assertEquals(-4d, vector.getValue(1));
+        assertEquals(9d, vector.getValue(2));
     }
 
     // endregion
@@ -125,7 +129,7 @@ public class VectorTest {
 
     @Test
     void emptyColumnVectorToMatrix() {
-        Assertions.assertEquals(
+        assertEquals(
             new TestMatrix(3, 1),
             new TestVector(3).toMatrix()
         );
@@ -133,7 +137,7 @@ public class VectorTest {
 
     @Test
     void emptyRowVectorToMatrix() {
-        Assertions.assertEquals(
+        assertEquals(
             new TestMatrix(1, 3),
             new TestVector(3, Vector.Type.ROW).toMatrix()
         );
@@ -141,7 +145,7 @@ public class VectorTest {
 
     @Test
     void nonEmptyVectorOfSizeOneToMatrix() {
-        Assertions.assertEquals(
+        assertEquals(
             new TestMatrix(1, 1d),
             new TestVector(1, 1d).toMatrix()
         );
@@ -154,7 +158,7 @@ public class VectorTest {
         expected.setValue(1, 0, -4d);
         expected.setValue(2, 0, 9d);
         expected.setValue(3, 0, -16d);
-        Assertions.assertEquals(
+        assertEquals(
             expected,
             new TestVector(4, false).toMatrix()
         );
@@ -167,7 +171,7 @@ public class VectorTest {
         expected.setValue(0, 1, -4d);
         expected.setValue(0, 2, 9d);
         expected.setValue(0, 3, -16d);
-        Assertions.assertEquals(
+        assertEquals(
             expected,
             new TestVector(4, Vector.Type.ROW, false).toMatrix()
         );
@@ -179,7 +183,7 @@ public class VectorTest {
 
     @Test
     void transposeEmptyColumnVector() {
-        Assertions.assertEquals(
+        assertEquals(
             new TestVector(3, Vector.Type.ROW),
             new TestVector(3).transpose()
         );
@@ -187,7 +191,7 @@ public class VectorTest {
 
     @Test
     void transposeEmptyRowVector() {
-        Assertions.assertEquals(
+        assertEquals(
             new TestVector(3),
             new TestVector(3, Vector.Type.ROW).transpose()
         );
@@ -195,7 +199,7 @@ public class VectorTest {
 
     @Test
     void transposeNonEmptyColumnVector() {
-        Assertions.assertEquals(
+        assertEquals(
             new TestVector(3, Vector.Type.ROW, false),
             new TestVector(3, false).transpose()
         );
@@ -203,7 +207,7 @@ public class VectorTest {
 
     @Test
     void transposeNonEmptyRowVector() {
-        Assertions.assertEquals(
+        assertEquals(
             new TestVector(3, false),
             new TestVector(3, Vector.Type.ROW, false).transpose()
         );
@@ -215,7 +219,7 @@ public class VectorTest {
         for (int i = 0; i < 3; i++) {
             expected.setValue(i, -0d);
         }
-        Assertions.assertEquals(
+        assertEquals(
             expected,
             new TestVector(3).invert()
         );
@@ -227,7 +231,7 @@ public class VectorTest {
         expected.setValue(0, -1d);
         expected.setValue(1, 4d);
         expected.setValue(2, -9d);
-        Assertions.assertEquals(
+        assertEquals(
             expected,
             new TestVector(3, false).invert()
         );
@@ -240,7 +244,7 @@ public class VectorTest {
     void times2() {
         TestVector vector = new TestVector(5, false);
         Vector result = vector.multiply(vector.getArithmetic().fromInt(2));
-        Assertions.assertEquals(new Vector<>(new TestAbstractArithmetic(), Arrays.asList(2d, -8d, 18d, -32d, 50d), 0d), result);
+        assertEquals(new Vector<>(new TestAbstractArithmetic(), Arrays.asList(2d, -8d, 18d, -32d, 50d), 0d), result);
     }
 
     @Test
@@ -249,7 +253,7 @@ public class VectorTest {
         Vector v1 = new Vector(arithmetic, 3, 1);
         Vector v2 = new Vector(arithmetic, 3, 2);
         Vector res = new Vector(arithmetic, 3, 3);
-        Assertions.assertEquals(res, v1.add(v2));
+        assertEquals(res, v1.add(v2));
     }
 
     @Test
@@ -258,7 +262,7 @@ public class VectorTest {
         Vector v1 = new Vector(arithmetic, 3, 1);
         Vector v2 = new Vector(arithmetic, 3, 2);
         Integer res = 6;
-        Assertions.assertEquals(res, v1.dotProduct(v2));
+        assertEquals(res, v1.dotProduct(v2));
     }
 
     @Test
@@ -267,7 +271,7 @@ public class VectorTest {
         List<BigDecimal> values = Stream.of(1, 0, 1, 0).map(arithmetic::fromInt).collect(Collectors.toList());
         Vector<BigDecimal> vector = new Vector<BigDecimal>(arithmetic, values, arithmetic.fromInt(2));
         BigDecimal result = arithmetic.root2(arithmetic.fromInt(2));
-        Assertions.assertEquals(result, vector.euclideanNorm());
+        assertEquals(result, vector.euclideanNorm());
     }
     // endregion
 
