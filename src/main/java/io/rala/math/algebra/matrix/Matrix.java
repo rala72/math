@@ -10,7 +10,6 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.StreamSupport;
 
 /**
  * class which holds a matrix with {@code rows} and {@code cols}
@@ -304,7 +303,7 @@ public class Matrix<T extends Number>
      * @return {@code true} if only the diagonal has values
      */
     public final boolean isDiagonal() {
-        return isSquare() && StreamSupport.stream(spliterator(), true)
+        return isSquare() && stream()
             .allMatch(field -> field.getRow() == field.getCol() ||
                 field.getValue() == null ||
                 field.getValue().doubleValue() == 0d
