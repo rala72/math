@@ -998,7 +998,7 @@ public class Matrix<T extends Number>
     // endregion
 
     /**
-     * class which holds a field of a matrix
+     * class which holds a field of a matrix with immutable attributes
      */
     public class Field {
         private final long index;
