@@ -79,7 +79,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
     /**
      * @return stored {@link AbstractResultArithmetic}
      */
-    protected AbstractResultArithmetic<T, V> getArithmetic() {
+    public AbstractResultArithmetic<T, V> getArithmetic() {
         return arithmetic;
     }
 

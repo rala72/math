@@ -103,7 +103,7 @@ public class Matrix<T extends Number>
     /**
      * @return stored arithmetic
      */
-    protected AbstractArithmetic<T> getArithmetic() {
+    public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
     }
 
