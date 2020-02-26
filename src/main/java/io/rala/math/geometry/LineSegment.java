@@ -264,17 +264,17 @@ public class LineSegment<T extends Number> implements Validatable,
 
     @Override
     public String toString() {
-        return a + " " + b;
+        return getA() + " " + getB();
     }
 
     @Override
     public int compareTo(LineSegment<T> o) {
-        Point<T> min = List.of(a, b).stream().min(Point::compareTo).get();
-        Point<T> minO = List.of(o.a, o.b).stream().min(Point::compareTo).get();
+        Point<T> min = List.of(getA(), getB()).stream().min(Point::compareTo).get();
+        Point<T> minO = List.of(o.getA(), o.getB()).stream().min(Point::compareTo).get();
         int i = min.compareTo(minO);
         if (i != 0) return i;
-        Point<T> max = List.of(a, b).stream().max(Point::compareTo).get();
-        Point<T> maxO = List.of(o.a, o.b).stream().max(Point::compareTo).get();
+        Point<T> max = List.of(getA(), getB()).stream().max(Point::compareTo).get();
+        Point<T> maxO = List.of(o.getA(), o.getB()).stream().max(Point::compareTo).get();
         return max.compareTo(maxO);
     }
 

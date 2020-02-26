@@ -227,13 +227,15 @@ public class Matrix<T extends Number>
             return removeValue(index);
         else {
             AtomicReference<T> previous = new AtomicReference<>(getDefaultValue());
-            matrix.compute((int) (index / getCols()), (integer, integerTMap) -> {
-                Map<Integer, T> map = integerTMap == null ?
-                    new HashMap<>() : integerTMap;
-                T prev = map.put((int) (index % getCols()), value);
-                if (prev != null) previous.set(prev);
-                return map;
-            });
+            getMatrix().compute((int) (index / getCols()),
+                (integer, integerTMap) -> {
+                    Map<Integer, T> map = integerTMap == null ?
+                        new HashMap<>() : integerTMap;
+                    T prev = map.put((int) (index % getCols()), value);
+                    if (prev != null) previous.set(prev);
+                    return map;
+                }
+            );
             return previous.get();
         }
     }
@@ -257,7 +259,8 @@ public class Matrix<T extends Number>
     public T getValue(long index) {
         if (!isIndexValid(index))
             throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
-        return matrix.getOrDefault((int) (index / getCols()), Collections.emptyMap())
+        return getMatrix()
+            .getOrDefault((int) (index / getCols()), Collections.emptyMap())
             .getOrDefault((int) (index % getCols()), getDefaultValue());
     }
 
