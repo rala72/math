@@ -2,10 +2,12 @@ package io.rala.math.arithmetic.result;
 
 import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
-import io.rala.math.testUtils.assertion.SerializableAssertions;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class LongDoubleResultArithmeticTest {
     private static LongDoubleResultArithmetic arithmetic;
@@ -17,7 +19,7 @@ class LongDoubleResultArithmeticTest {
 
     @Test
     void getInstance() {
-        Assertions.assertEquals(arithmetic,
+        assertEquals(arithmetic,
             LongDoubleResultArithmetic.getInstance()
         );
     }
@@ -26,7 +28,7 @@ class LongDoubleResultArithmeticTest {
 
     @Test
     void fromT1() {
-        Assertions.assertEquals(1, arithmetic.fromT(1L));
+        assertEquals(1, arithmetic.fromT(1L));
     }
 
     // endregion
@@ -35,37 +37,37 @@ class LongDoubleResultArithmeticTest {
 
     @Test
     void sum12() {
-        Assertions.assertEquals(3, arithmetic.sum(1L, 2L));
+        assertEquals(3, arithmetic.sum(1L, 2L));
     }
 
     @Test
     void sum123() {
-        Assertions.assertEquals(6, arithmetic.sum(1L, 2L, 3L));
+        assertEquals(6, arithmetic.sum(1L, 2L, 3L));
     }
 
     @Test
     void difference12() {
-        Assertions.assertEquals(-1, arithmetic.difference(1L, 2L));
+        assertEquals(-1, arithmetic.difference(1L, 2L));
     }
 
     @Test
     void product12() {
-        Assertions.assertEquals(2, arithmetic.product(1L, 2L));
+        assertEquals(2, arithmetic.product(1L, 2L));
     }
 
     @Test
     void product123() {
-        Assertions.assertEquals(6, arithmetic.product(1L, 2L, 3L));
+        assertEquals(6, arithmetic.product(1L, 2L, 3L));
     }
 
     @Test
     void quotient12() {
-        Assertions.assertEquals(0.5, arithmetic.quotient(1L, 2L));
+        assertEquals(0.5, arithmetic.quotient(1L, 2L));
     }
 
     @Test
     void modulo12() {
-        Assertions.assertEquals(1, arithmetic.modulo(1L, 2L));
+        assertEquals(1, arithmetic.modulo(1L, 2L));
     }
 
     // endregion
@@ -76,11 +78,11 @@ class LongDoubleResultArithmeticTest {
     void mapToInteger() {
         AbstractResultArithmetic<Integer, Double> mapped =
             arithmetic.map(new IntegerArithmetic(), Number::doubleValue);
-        Assertions.assertTrue(mapped.getTArithmetic() instanceof IntegerArithmetic);
-        Assertions.assertEquals(0.5,
+        assertTrue(mapped.getTArithmetic() instanceof IntegerArithmetic);
+        assertEquals(0.5,
             arithmetic.quotient(1L, 2L)
         );
-        Assertions.assertEquals(0.5,
+        assertEquals(0.5,
             mapped.quotient(1, 2)
         );
     }
@@ -89,9 +91,9 @@ class LongDoubleResultArithmeticTest {
     void mapResultToInteger() {
         AbstractResultArithmetic<Long, Integer> mapped =
             arithmetic.mapResult(new IntegerArithmetic(), Long::intValue);
-        Assertions.assertTrue(mapped.getRArithmetic() instanceof IntegerArithmetic);
-        Assertions.assertEquals(0.5, arithmetic.quotient(1L, 2L));
-        Assertions.assertEquals(0, mapped.quotient(1L, 2L));
+        assertTrue(mapped.getRArithmetic() instanceof IntegerArithmetic);
+        assertEquals(0.5, arithmetic.quotient(1L, 2L));
+        assertEquals(0, mapped.quotient(1L, 2L));
     }
 
     // endregion
@@ -100,7 +102,7 @@ class LongDoubleResultArithmeticTest {
 
     @Test
     void equalsOfAbstractResultArithmetic() {
-        Assertions.assertEquals(
+        assertEquals(
             new LongDoubleResultArithmetic(),
             new LongDoubleResultArithmetic()
         );
@@ -108,7 +110,7 @@ class LongDoubleResultArithmeticTest {
 
     @Test
     void hashCodeOfAbstractResultArithmetic() {
-        Assertions.assertEquals(1072724992,
+        assertEquals(1072724992,
             new LongDoubleResultArithmetic().hashCode()
         );
     }
@@ -118,14 +120,14 @@ class LongDoubleResultArithmeticTest {
         String toString = "LongDoubleResultArithmetic{" +
             "tArithmetic=LongArithmetic, " +
             "rArithmetic=DoubleArithmetic}";
-        Assertions.assertEquals(toString,
+        assertEquals(toString,
             new LongDoubleResultArithmetic().toString()
         );
     }
 
     @Test
     void serializable() {
-        SerializableAssertions.assertSerializable(
+        assertSerializable(
             new LongDoubleResultArithmetic(),
             LongDoubleResultArithmetic.class
         );

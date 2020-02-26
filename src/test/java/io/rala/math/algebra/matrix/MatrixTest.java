@@ -2,21 +2,21 @@ package io.rala.math.algebra.matrix;
 
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.testUtils.algebra.TestMatrix;
-import io.rala.math.testUtils.assertion.SerializableAssertions;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static io.rala.math.testUtils.assertion.MatrixAssertions.assertMatrix;
+import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MatrixTest {
     // region constructors
 
     @Test
     void constructorWithNegativeSize() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new TestMatrix(-1)
         ); // assert exception message?
     }
@@ -26,10 +26,10 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(Integer.MAX_VALUE);
 
         long expectedSize = (long) Integer.MAX_VALUE * Integer.MAX_VALUE;
-        Assertions.assertEquals(expectedSize, matrix.size());
+        assertEquals(expectedSize, matrix.size());
 
-        Assertions.assertTrue(matrix.isIndexValid(expectedSize - 1));
-        Assertions.assertFalse(matrix.isIndexValid(expectedSize));
+        assertTrue(matrix.isIndexValid(expectedSize - 1));
+        assertFalse(matrix.isIndexValid(expectedSize));
     }
 
     @Test
@@ -46,7 +46,7 @@ class MatrixTest {
     void constructorWithSize2AndDefaultValue() {
         TestMatrix matrix = new TestMatrix(2, 2d);
         assertMatrix(matrix, 2);
-        Assertions.assertEquals(2d, matrix.getDefaultValue());
+        assertEquals(2d, matrix.getDefaultValue());
     }
 
     @Test
@@ -63,7 +63,7 @@ class MatrixTest {
     void constructorWithRows1Cols2AndDefaultValue() {
         TestMatrix matrix = new TestMatrix(1, 2, -2d);
         assertMatrix(matrix, 1, 2);
-        Assertions.assertEquals(-2d, matrix.getDefaultValue());
+        assertEquals(-2d, matrix.getDefaultValue());
     }
 
     @Test
@@ -77,22 +77,22 @@ class MatrixTest {
 
     @Test
     void createWithSize1AndAssertSizeEquals1() {
-        Assertions.assertEquals(1, new TestMatrix(1).size());
+        assertEquals(1, new TestMatrix(1).size());
     }
 
     @Test
     void createWithSize2AndAssertSizeEquals4() {
-        Assertions.assertEquals(4, new TestMatrix(2).size());
+        assertEquals(4, new TestMatrix(2).size());
     }
 
     @Test
     void createWithRow1Col2AndAssertSizeEquals2() {
-        Assertions.assertEquals(2, new TestMatrix(1, 2).size());
+        assertEquals(2, new TestMatrix(1, 2).size());
     }
 
     @Test
     void createWithRow2Col3AndAssertSizeEquals6() {
-        Assertions.assertEquals(6, new TestMatrix(2, 3).size());
+        assertEquals(6, new TestMatrix(2, 3).size());
     }
 
     // endregion
@@ -102,7 +102,7 @@ class MatrixTest {
     @Test
     void getRowFieldsM1OfMatrix() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.getRowFields(-1)
         ); // assert exception message?
     }
@@ -113,12 +113,12 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i);
         List<Matrix<Number>.Field> row0 = matrix.getRowFields(0);
-        Assertions.assertEquals(2, row0.size());
+        assertEquals(2, row0.size());
         for (int i = 0; i < row0.size(); i++) {
             Matrix<Number>.Field field = row0.get(i);
-            Assertions.assertEquals(0, field.getRow());
-            Assertions.assertEquals(i, field.getCol());
-            Assertions.assertEquals(i, field.getValue());
+            assertEquals(0, field.getRow());
+            assertEquals(i, field.getCol());
+            assertEquals(i, field.getValue());
         }
     }
 
@@ -128,15 +128,15 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i);
         List<Number> row0 = matrix.getRow(0);
-        Assertions.assertEquals(2, row0.size());
+        assertEquals(2, row0.size());
         for (int i = 0; i < row0.size(); i++)
-            Assertions.assertEquals(i, row0.get(i));
+            assertEquals(i, row0.get(i));
     }
 
     @Test
     void getColFieldsM1OfMatrix() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.getColFields(-1)
         ); // assert exception message?
     }
@@ -147,12 +147,12 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i);
         List<Matrix<Number>.Field> col0 = matrix.getColFields(0);
-        Assertions.assertEquals(2, col0.size());
+        assertEquals(2, col0.size());
         for (int i = 0; i < col0.size(); i++) {
             Matrix<Number>.Field field = col0.get(i);
-            Assertions.assertEquals(0, field.getCol());
-            Assertions.assertEquals(i, field.getRow());
-            Assertions.assertEquals(i * 2, field.getValue());
+            assertEquals(0, field.getCol());
+            assertEquals(i, field.getRow());
+            assertEquals(i * 2, field.getValue());
         }
     }
 
@@ -162,9 +162,9 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i);
         List<Number> col0 = matrix.getCol(0);
-        Assertions.assertEquals(2, col0.size());
+        assertEquals(2, col0.size());
         for (int i = 0; i < col0.size(); i++)
-            Assertions.assertEquals(i * 2, col0.get(i));
+            assertEquals(i * 2, col0.get(i));
     }
 
     // endregion
@@ -174,7 +174,7 @@ class MatrixTest {
     @Test
     void setValueByIndexMinus1() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.setValue(-1, 0d)
         ); // assert exception message?
     }
@@ -182,25 +182,25 @@ class MatrixTest {
     @Test
     void setValueByIndex0WhichWasEmpty() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertEquals(0d, matrix.setValue(0, 1));
-        Assertions.assertEquals(1, matrix.getValue(0));
-        Assertions.assertEquals(1, matrix.getValue(0, 0));
+        assertEquals(0d, matrix.setValue(0, 1));
+        assertEquals(1, matrix.getValue(0));
+        assertEquals(1, matrix.getValue(0, 0));
         // assert all other are unset
     }
 
     @Test
     void setValueByIndex3WhichWasEmpty() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertEquals(0d, matrix.setValue(3, 1));
-        Assertions.assertEquals(1, matrix.getValue(3));
-        Assertions.assertEquals(1, matrix.getValue(1, 1));
+        assertEquals(0d, matrix.setValue(3, 1));
+        assertEquals(1, matrix.getValue(3));
+        assertEquals(1, matrix.getValue(1, 1));
         // assert all other are unset
     }
 
     @Test
     void setValueByRowMinus1Col0() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.setValue(-1, 0, 0d)
         ); // assert exception message?
     }
@@ -208,7 +208,7 @@ class MatrixTest {
     @Test
     void setValueByRow0ColMinus1() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.setValue(0, -1, 0d)
         ); // assert exception message?
     }
@@ -216,25 +216,25 @@ class MatrixTest {
     @Test
     void setValueByRow0Col0WhichWasEmpty() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertEquals(0d, matrix.setValue(0, 0, 1));
-        Assertions.assertEquals(1, matrix.getValue(0));
-        Assertions.assertEquals(1, matrix.getValue(0, 0));
+        assertEquals(0d, matrix.setValue(0, 0, 1));
+        assertEquals(1, matrix.getValue(0));
+        assertEquals(1, matrix.getValue(0, 0));
         // assert all other are unset
     }
 
     @Test
     void setValueByRow1Col0WhichWasEmpty() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertEquals(0d, matrix.setValue(1, 0, 1));
-        Assertions.assertEquals(1, matrix.getValue(1, 0));
-        Assertions.assertEquals(1, matrix.getValue(2));
+        assertEquals(0d, matrix.setValue(1, 0, 1));
+        assertEquals(1, matrix.getValue(1, 0));
+        assertEquals(1, matrix.getValue(2));
         // assert all other are unset
     }
 
     @Test
     void getValueByIndexMinus1() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.getValue(-1)
         ); // assert exception message?
     }
@@ -242,7 +242,7 @@ class MatrixTest {
     @Test
     void getValueByRowMinus1Col0() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.getValue(-1, 0)
         ); // assert exception message?
     }
@@ -250,7 +250,7 @@ class MatrixTest {
     @Test
     void getValueByRow0ColMinus1() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.getValue(0, -1)
         ); // assert exception message?
     }
@@ -258,7 +258,7 @@ class MatrixTest {
     @Test
     void removeValueByIndexMinus1() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.removeValue(-1)
         ); // assert exception message?
     }
@@ -266,13 +266,13 @@ class MatrixTest {
     @Test
     void removeValueByIndex0WhichWasEmpty() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertEquals(0d, matrix.removeValue(0));
+        assertEquals(0d, matrix.removeValue(0));
     }
 
     @Test
     void removeValueByRowMinus1Col0() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.removeValue(-1, 0)
         ); // assert exception message?
     }
@@ -280,7 +280,7 @@ class MatrixTest {
     @Test
     void removeValueByRow0ColMinus1() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.removeValue(0, -1)
         ); // assert exception message?
     }
@@ -288,14 +288,14 @@ class MatrixTest {
     @Test
     void removeValueByRow0Col0WhichWasEmpty() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertEquals(0d, matrix.removeValue(0, 0));
+        assertEquals(0d, matrix.removeValue(0, 0));
     }
 
     @Test
     void removeValueByIndex2WhichWasNonEmpty() {
         TestMatrix matrix = new TestMatrix(2);
         matrix.setValue(2, 1);
-        Assertions.assertEquals(1, matrix.removeValue(2));
+        assertEquals(1, matrix.removeValue(2));
     }
 
     // endregion
@@ -304,17 +304,17 @@ class MatrixTest {
 
     @Test
     void isSquareOfMatrixWithRow1Col2() {
-        Assertions.assertFalse(new TestMatrix(1, 2).isDiagonal());
+        assertFalse(new TestMatrix(1, 2).isDiagonal());
     }
 
     @Test
     void isSquareOfMatrixWithSize2() {
-        Assertions.assertTrue(new TestMatrix(2).isDiagonal());
+        assertTrue(new TestMatrix(2).isDiagonal());
     }
 
     @Test
     void isDiagonalOfMatrixWithRow1Col2() {
-        Assertions.assertFalse(new TestMatrix(1, 2).isDiagonal());
+        assertFalse(new TestMatrix(1, 2).isDiagonal());
     }
 
     @Test
@@ -324,7 +324,7 @@ class MatrixTest {
         matrix.setValue(1, 0);
         matrix.setValue(2, 0);
         matrix.setValue(3, 4);
-        Assertions.assertTrue(matrix.isDiagonal());
+        assertTrue(matrix.isDiagonal());
     }
 
     @Test
@@ -334,7 +334,7 @@ class MatrixTest {
         matrix.setValue(1, 2);
         matrix.setValue(2, 3);
         matrix.setValue(3, 4);
-        Assertions.assertFalse(matrix.isDiagonal());
+        assertFalse(matrix.isDiagonal());
     }
 
     // endregion
@@ -343,7 +343,7 @@ class MatrixTest {
 
     @Test
     void addOfEmptyMatrixWithSize1AndEmptyMatrixWithRows2Cols1() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new TestMatrix(1)
                 .add(new TestMatrix(2, 1))
         ); // assert exception message?
@@ -351,7 +351,7 @@ class MatrixTest {
 
     @Test
     void addOfEmptyMatrixWithSize1AndEmptyMatrixWithRows1Cols2() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new TestMatrix(1)
                 .add(new TestMatrix(1, 2))
         ); // assert exception message?
@@ -362,7 +362,7 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(2);
         TestMatrix matrix2 = new TestMatrix(2);
         TestMatrix result = new TestMatrix(2);
-        Assertions.assertEquals(result, matrix1.add(matrix2));
+        assertEquals(result, matrix1.add(matrix2));
     }
 
     @Test
@@ -373,14 +373,14 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, 2 * (i + 1d));
         }
-        Assertions.assertEquals(result, matrix.add(matrix));
+        assertEquals(result, matrix.add(matrix));
     }
 
     @Test
     void multiplyOfEmptyMatrixWithSize2With2() {
         TestMatrix matrix = new TestMatrix(2);
         TestMatrix result = new TestMatrix(2);
-        Assertions.assertEquals(result, matrix.multiply(2));
+        assertEquals(result, matrix.multiply(2));
     }
 
     @Test
@@ -391,7 +391,7 @@ class MatrixTest {
             matrix.setValue(i, (i + 1));
             result.setValue(i, (i + 1d) * 2);
         }
-        Assertions.assertEquals(result, matrix.multiply(2));
+        assertEquals(result, matrix.multiply(2));
     }
 
     @Test
@@ -399,7 +399,7 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(2);
         TestMatrix matrix2 = new TestMatrix(2);
         TestMatrix result = new TestMatrix(2);
-        Assertions.assertEquals(result, matrix1.multiply(matrix2));
+        assertEquals(result, matrix1.multiply(matrix2));
     }
 
     @Test
@@ -407,14 +407,14 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(1, 2);
         TestMatrix matrix2 = new TestMatrix(2, 3);
         TestMatrix result = new TestMatrix(1, 3);
-        Assertions.assertEquals(result, matrix1.multiply(matrix2));
+        assertEquals(result, matrix1.multiply(matrix2));
     }
 
     @Test
     void multiplyOfEmptyMatrixWithRow2Col3AndEmptyMatrixWithRow1Col2() {
         TestMatrix matrix1 = new TestMatrix(2, 3);
         TestMatrix matrix2 = new TestMatrix(1, 2);
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> matrix1.multiply(matrix2)
         ); // assert exception message?
     }
@@ -424,7 +424,7 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(2);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i + 1d);
-        Assertions.assertEquals(TestMatrix.ofValuesByRows(2,
+        assertEquals(TestMatrix.ofValuesByRows(2,
             7d, 10d, 15d, 22d
         ), matrix.multiply(matrix));
     }
@@ -434,7 +434,7 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(1, 2);
         TestMatrix matrix2 = new TestMatrix(2, 3);
         TestMatrix result = new TestMatrix(1, 3);
-        Assertions.assertEquals(result, matrix1.multiplyTolerant(matrix2));
+        assertEquals(result, matrix1.multiplyTolerant(matrix2));
     }
 
     @Test
@@ -442,14 +442,14 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(2, 3);
         TestMatrix matrix2 = new TestMatrix(1, 2);
         TestMatrix result = new TestMatrix(1, 3);
-        Assertions.assertEquals(result, matrix1.multiplyTolerant(matrix2));
+        assertEquals(result, matrix1.multiplyTolerant(matrix2));
     }
 
     @Test
     void multiplyTolerantOfEmptyMatrixWithRow1Col2AndEmptyMatrixWithRow3Col4() {
         TestMatrix matrix1 = new TestMatrix(1, 2);
         TestMatrix matrix2 = new TestMatrix(3, 4);
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> matrix1.multiplyTolerant(matrix2)
         );
     }
@@ -459,7 +459,7 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(2);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i + 1d);
-        Assertions.assertEquals(
+        assertEquals(
             TestMatrix.ofValuesByRows(2,
                 7d, 10d, 15d, 22d
             ),
@@ -473,14 +473,14 @@ class MatrixTest {
 
     @Test
     void inverseOfEmptyMatrixWichIsNoSquare() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new TestMatrix(1, 2).inverse()
         ); // assert exception message?
     }
 
     @Test
     void inverseOfEmptyMatrixWithSize2() {
-        Assertions.assertNull(new TestMatrix(2, 0d).inverse());
+        assertNull(new TestMatrix(2, 0d).inverse());
     }
 
     @Test
@@ -491,7 +491,7 @@ class MatrixTest {
         TestMatrix result = TestMatrix.ofValuesByRows(2,
             3d, -5d, -1d, 2d
         );
-        Assertions.assertEquals(result, matrix.inverse());
+        assertEquals(result, matrix.inverse());
     }
 
     @Test
@@ -502,13 +502,13 @@ class MatrixTest {
         TestMatrix result = TestMatrix.ofValuesByRows(3,
             2d, 8d, -21d, -1d, -5d, 13d, 0d, 1d, -2d
         );
-        Assertions.assertEquals(result, matrix.inverse());
+        assertEquals(result, matrix.inverse());
     }
 
     @Test
     void transposeOfEmptyMatrixWithSize2() {
         TestMatrix result = new TestMatrix(2);
-        Assertions.assertEquals(result, new TestMatrix(2).transpose());
+        assertEquals(result, new TestMatrix(2).transpose());
     }
 
     @Test
@@ -521,13 +521,13 @@ class MatrixTest {
                 matrix.setValue(i, i + 1d);
                 result.setValue(result.getIndexOfRowAndCol(c, r), i + 1d);
             }
-        Assertions.assertEquals(result, matrix.transpose());
+        assertEquals(result, matrix.transpose());
     }
 
     @Test
     void determinanteOfEmptyMatrixWithSize2() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertEquals(0d, matrix.determinante());
+        assertEquals(0d, matrix.determinante());
     }
 
     @Test
@@ -535,7 +535,7 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(2);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i + 1d);
-        Assertions.assertEquals(-2d, matrix.determinante());
+        assertEquals(-2d, matrix.determinante());
     }
 
     @Test
@@ -543,7 +543,7 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(3);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i + 1d);
-        Assertions.assertEquals(0d, matrix.determinante());
+        assertEquals(0d, matrix.determinante());
     }
 
     @Test
@@ -552,7 +552,7 @@ class MatrixTest {
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, r == c ? 2d : 1d);
-        Assertions.assertEquals(4d, matrix.determinante());
+        assertEquals(4d, matrix.determinante());
     }
 
     @Test
@@ -561,7 +561,7 @@ class MatrixTest {
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, r == c ? 2d : 1d);
-        Assertions.assertEquals(5d, matrix.determinante());
+        assertEquals(5d, matrix.determinante());
     }
 
     @Test
@@ -570,7 +570,7 @@ class MatrixTest {
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, c != 0 && (r == c || r == 0) ? 0d : 1d);
-        Assertions.assertEquals(2d, matrix.determinante());
+        assertEquals(2d, matrix.determinante());
     }
 
     @Test
@@ -579,7 +579,7 @@ class MatrixTest {
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, r != 0 && (r == c || c == 0) ? 0d : 1d);
-        Assertions.assertEquals(2d, matrix.determinante());
+        assertEquals(2d, matrix.determinante());
     }
 
     // endregion
@@ -589,33 +589,33 @@ class MatrixTest {
     @Test
     void identityOfSize1() {
         TestMatrix matrix = TestMatrix.identity(1);
-        Assertions.assertEquals(1, matrix.size());
+        assertEquals(1, matrix.size());
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
-            Assertions.assertEquals(1d, matrix.getValue(i, i), String.valueOf(i));
+            assertEquals(1d, matrix.getValue(i, i), String.valueOf(i));
     }
 
     @Test
     void identityOfSize2() {
         TestMatrix matrix = TestMatrix.identity(2);
-        Assertions.assertEquals(2 * 2, matrix.size());
+        assertEquals(2 * 2, matrix.size());
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
-            Assertions.assertEquals(1d, matrix.getValue(i, i), String.valueOf(i));
+            assertEquals(1d, matrix.getValue(i, i), String.valueOf(i));
     }
 
     @Test
     void diagonalOfSize1() {
         TestMatrix matrix = TestMatrix.diagonal(1);
-        Assertions.assertEquals(1, matrix.size());
+        assertEquals(1, matrix.size());
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
-            Assertions.assertEquals(1, matrix.getValue(i, i));
+            assertEquals(1, matrix.getValue(i, i));
     }
 
     @Test
     void diagonalOfSize2() {
         TestMatrix matrix = TestMatrix.diagonal(2, 2);
-        Assertions.assertEquals(2 * 2, matrix.size());
+        assertEquals(2 * 2, matrix.size());
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
-            Assertions.assertEquals(2, matrix.getValue(i, i));
+            assertEquals(2, matrix.getValue(i, i));
     }
 
     // endregion
@@ -624,7 +624,7 @@ class MatrixTest {
 
     @Test
     void ofValuesByRows2WithInvalidParamCount() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> TestMatrix.ofValuesByRows(2, 1)
         );
     }
@@ -633,7 +633,7 @@ class MatrixTest {
     void ofValuesByRows2WithValidParamCount() {
         TestMatrix matrix = TestMatrix.ofValuesByRows(2, 1, 2);
         for (int i = 0; i < matrix.size(); i++)
-            Assertions.assertEquals(
+            assertEquals(
                 i + 1,
                 matrix.getValue(i),
                 "index: " + i
@@ -642,7 +642,7 @@ class MatrixTest {
 
     @Test
     void ofValuesByCols2WithInvalidParamCount() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> TestMatrix.ofValuesByCols(2, 1)
         );
     }
@@ -651,7 +651,7 @@ class MatrixTest {
     void ofValuesByCols2WithValidParamCount() {
         TestMatrix matrix = TestMatrix.ofValuesByCols(2, 1, 2);
         for (int i = 0; i < matrix.size(); i++)
-            Assertions.assertEquals(
+            assertEquals(
                 i + 1,
                 matrix.getValue(i),
                 "index: " + i
@@ -673,7 +673,7 @@ class MatrixTest {
                 result.setValue(r, c, r + c);
             }
 
-        Assertions.assertEquals(result,
+        assertEquals(result,
             matrix.map(new IntegerArithmetic(), Number::intValue)
         );
     }
@@ -681,7 +681,7 @@ class MatrixTest {
     @Test
     void copyOfMatrixWithSize2() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertEquals(matrix, matrix.copy());
+        assertEquals(matrix, matrix.copy());
     }
 
     // endregion
@@ -694,31 +694,31 @@ class MatrixTest {
         List<TestMatrix.Field> values = new ArrayList<>();
         for (TestMatrix.Field d : matrix) {
             values.add(d);
-            Assertions.assertEquals(0d, d.getValue());
+            assertEquals(0d, d.getValue());
         }
-        Assertions.assertEquals(matrix.size(), values.size());
+        assertEquals(matrix.size(), values.size());
     }
 
     @Test
     void streamOfEmptyMatrix() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertEquals(4, matrix.stream().count());
+        assertEquals(4, matrix.stream().count());
     }
 
     @Test
     void parallelStreamOfEmptyMatrix() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertEquals(4, matrix.parallelStream().count());
+        assertEquals(4, matrix.parallelStream().count());
     }
 
     @Test
     void equalsOfTestMatrixWithRow2Col3() {
         TestMatrix matrix = new TestMatrix(2, 3);
-        Assertions.assertEquals(
+        assertEquals(
             matrix,
             new TestMatrix(2, 3)
         );
-        Assertions.assertNotEquals(
+        assertNotEquals(
             matrix,
             new TestMatrix(3, 2)
         );
@@ -726,7 +726,7 @@ class MatrixTest {
 
     @Test
     void hashCodeOfTestMatrixWithRow2Col3() {
-        Assertions.assertEquals(
+        assertEquals(
             925536,
             new TestMatrix(2, 3).hashCode()
         );
@@ -735,12 +735,12 @@ class MatrixTest {
     @Test
     void toStringOfTestMatrixWithRow2Col3() {
         TestMatrix matrix = new TestMatrix(2, 3);
-        Assertions.assertEquals("2 3: []", matrix.toString());
+        assertEquals("2 3: []", matrix.toString());
     }
 
     @Test
     void serializable() {
-        SerializableAssertions.assertSerializable(
+        assertSerializable(
             new TestMatrix(1),
             TestMatrix.class
         );
@@ -752,28 +752,28 @@ class MatrixTest {
 
     @Test
     void subMatrixR0C0OfMatrixWithR1C2WichIsNoSquare() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new TestMatrix(1, 2).subMatrix(0, 0)
         ); // assert exception message?
     }
 
     @Test
     void subMatrixR1C0OfMatrixWithSize1UsingInvalidRow1() {
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> new TestMatrix(1).subMatrix(1, 0)
         ); // assert exception message?
     }
 
     @Test
     void subMatrixR0C1OfMatrixWithSize1UsingInvalidCol1() {
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> new TestMatrix(1).subMatrix(0, 1)
         ); // assert exception message?
     }
 
     @Test
     void subMatrixR0C0OfMatrixWithSize1() {
-        Assertions.assertEquals(1,
+        assertEquals(1,
             new TestMatrix(2).subMatrix(0, 0).size()
         );
     }
@@ -784,8 +784,8 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i);
         Matrix<Number> subMatrix = matrix.subMatrix(0, 0);
-        Assertions.assertEquals(1, subMatrix.size());
-        Assertions.assertEquals(3, subMatrix.getValue(0));
+        assertEquals(1, subMatrix.size());
+        assertEquals(3, subMatrix.getValue(0));
     }
 
     @Test
@@ -794,8 +794,8 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i);
         Matrix<Number> subMatrix = matrix.subMatrix(0, 1);
-        Assertions.assertEquals(1, subMatrix.size());
-        Assertions.assertEquals(2, subMatrix.getValue(0));
+        assertEquals(1, subMatrix.size());
+        assertEquals(2, subMatrix.getValue(0));
     }
 
     @Test
@@ -804,8 +804,8 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i);
         Matrix<Number> subMatrix = matrix.subMatrix(1, 0);
-        Assertions.assertEquals(1, subMatrix.size());
-        Assertions.assertEquals(1, subMatrix.getValue(0));
+        assertEquals(1, subMatrix.size());
+        assertEquals(1, subMatrix.getValue(0));
     }
 
     @Test
@@ -814,27 +814,27 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i);
         Matrix<Number> subMatrix = matrix.subMatrix(1, 1);
-        Assertions.assertEquals(1, subMatrix.size());
-        Assertions.assertEquals(0, subMatrix.getValue(0));
+        assertEquals(1, subMatrix.size());
+        assertEquals(0, subMatrix.getValue(0));
     }
 
     @Test
     void coFactorR0C0OfMatrixWithR1C2WichIsNoSquare() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new TestMatrix(1, 2).coFactor(0, 0)
         ); // assert exception message?
     }
 
     @Test
     void coFactorR1C0OfMatrixWithSize1UsingInvalidRow1() {
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> new TestMatrix(1).coFactor(1, 0)
         ); // assert exception message?
     }
 
     @Test
     void coFactorR0C1OfMatrixWithSize1UsingInvalidCol1() {
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> new TestMatrix(1).coFactor(0, 1)
         ); // assert exception message?
     }
@@ -845,30 +845,30 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, (double) i);
 
-        Assertions.assertEquals(0d, matrix.coFactor(0, 0));
-        Assertions.assertEquals(-2d, matrix.coFactor(0, 1));
-        Assertions.assertEquals(-2d, matrix.coFactor(1, 0));
-        Assertions.assertEquals(0d, matrix.coFactor(1, 1));
+        assertEquals(0d, matrix.coFactor(0, 0));
+        assertEquals(-2d, matrix.coFactor(0, 1));
+        assertEquals(-2d, matrix.coFactor(1, 0));
+        assertEquals(0d, matrix.coFactor(1, 1));
     }
 
     @Test
     void signumFactorOfR0C0() {
-        Assertions.assertEquals(1, Matrix.signumFactor(0, 0));
+        assertEquals(1, Matrix.signumFactor(0, 0));
     }
 
     @Test
     void signumFactorOfR0C1() {
-        Assertions.assertEquals(-1, Matrix.signumFactor(0, 1));
+        assertEquals(-1, Matrix.signumFactor(0, 1));
     }
 
     @Test
     void signumFactorOfR1C0() {
-        Assertions.assertEquals(-1, Matrix.signumFactor(1, 0));
+        assertEquals(-1, Matrix.signumFactor(1, 0));
     }
 
     @Test
     void signumFactorOfR1C1() {
-        Assertions.assertEquals(1, Matrix.signumFactor(1, 1));
+        assertEquals(1, Matrix.signumFactor(1, 1));
     }
 
     // endregion
@@ -878,7 +878,7 @@ class MatrixTest {
     @Test
     void swapRowsOfMatrixWithSize2UsingInvalidRow1() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.swapRows(-1, 0)
         ); // assert exception message?
     }
@@ -886,7 +886,7 @@ class MatrixTest {
     @Test
     void swapRowsOfMatrixWithSize2UsingInvalidRow2() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.swapRows(0, -1)
         ); // assert exception message?
     }
@@ -899,13 +899,13 @@ class MatrixTest {
             matrix.setValue(i, i + 1);
             result.setValue((i + result.getCols()) % (int) result.size(), i + 1);
         }
-        Assertions.assertEquals(result, matrix.swapRows(0, 1));
+        assertEquals(result, matrix.swapRows(0, 1));
     }
 
     @Test
     void swapColsOfMatrixWithSize2UsingInvalidCol1() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.swapCols(-1, 0)
         ); // assert exception message?
     }
@@ -913,7 +913,7 @@ class MatrixTest {
     @Test
     void swapColsOfMatrixWithSize2UsingInvalidCol2() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.swapCols(0, -1)
         ); // assert exception message?
     }
@@ -926,13 +926,13 @@ class MatrixTest {
             matrix.setValue(i, i + 1);
             result.setValue(i + (i % result.getCols() == 0 ? 1 : -1), i + 1);
         }
-        Assertions.assertEquals(result, matrix.swapCols(0, 1));
+        assertEquals(result, matrix.swapCols(0, 1));
     }
 
     @Test
     void multiplyRowOfMatrixWithSize2UsingInvalidRow() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.multiplyRow(-1, 0)
         ); // assert exception message?
     }
@@ -945,7 +945,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, (i + 1d) * (i / result.getCols() == 0 ? 0 : 1));
         }
-        Assertions.assertEquals(result, matrix.multiplyRow(0, 0d));
+        assertEquals(result, matrix.multiplyRow(0, 0d));
     }
 
     @Test
@@ -956,7 +956,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, (i + 1d) * (i / result.getCols() == 0 ? 1 : 1));
         }
-        Assertions.assertEquals(result, matrix.multiplyRow(0, 1d));
+        assertEquals(result, matrix.multiplyRow(0, 1d));
     }
 
     @Test
@@ -967,13 +967,13 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, (i + 1d) * (i / result.getCols() == 0 ? 2 : 1));
         }
-        Assertions.assertEquals(result, matrix.multiplyRow(0, 2d));
+        assertEquals(result, matrix.multiplyRow(0, 2d));
     }
 
     @Test
     void multiplyColOfMatrixWithSize2UsingInvalidCol() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.multiplyCol(-1, 0)
         ); // assert exception message?
     }
@@ -986,7 +986,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, (i + 1d) * (i % result.getCols() == 0 ? 0 : 1));
         }
-        Assertions.assertEquals(result, matrix.multiplyCol(0, 0d));
+        assertEquals(result, matrix.multiplyCol(0, 0d));
     }
 
     @Test
@@ -997,7 +997,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, (i + 1d) * (i % result.getCols() == 0 ? 1 : 1));
         }
-        Assertions.assertEquals(result, matrix.multiplyCol(0, 1d));
+        assertEquals(result, matrix.multiplyCol(0, 1d));
     }
 
     @Test
@@ -1008,13 +1008,13 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, (i + 1d) * (i % result.getCols() == 0 ? 2d : 1));
         }
-        Assertions.assertEquals(result, matrix.multiplyCol(0, 2d));
+        assertEquals(result, matrix.multiplyCol(0, 2d));
     }
 
     @Test
     void addRowMultipleTimesOfMatrixWithSize2UsingInvalidRow1() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.addRowMultipleTimes(-1, 0, 0)
         ); // assert exception message?
     }
@@ -1022,7 +1022,7 @@ class MatrixTest {
     @Test
     void addRowMultipleTimesOfMatrixWithSize2UsingInvalidRow2() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.addRowMultipleTimes(0, -1, 0)
         ); // assert exception message?
     }
@@ -1035,7 +1035,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, (i + 1d) * (i / result.getCols() == 0 ? 2 : 1));
         }
-        Assertions.assertEquals(result, matrix.addRowMultipleTimes(0, 0, 2));
+        assertEquals(result, matrix.addRowMultipleTimes(0, 0, 2));
     }
 
     @Test
@@ -1047,7 +1047,7 @@ class MatrixTest {
             matrix.setValue(i, (double) value);
             result.setValue(i, (double) value);
         }
-        Assertions.assertEquals(result,
+        assertEquals(result,
             matrix.addRowMultipleTimes(0, 1, 0d)
         );
     }
@@ -1063,7 +1063,7 @@ class MatrixTest {
                 (double) value + (i / result.getCols() == 0 ? 2 : 0)
             );
         }
-        Assertions.assertEquals(result,
+        assertEquals(result,
             matrix.addRowMultipleTimes(0, 1, 1d)
         );
     }
@@ -1079,7 +1079,7 @@ class MatrixTest {
                 (double) value + (i / result.getCols() == 0 ? 4 : 0)
             );
         }
-        Assertions.assertEquals(result,
+        assertEquals(result,
             matrix.addRowMultipleTimes(0, 1, 2d)
         );
     }
@@ -1087,7 +1087,7 @@ class MatrixTest {
     @Test
     void addColMultipleTimesOfMatrixWithSize2UsingInvalidCol1() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.addColMultipleTimes(-1, 0, 1)
         ); // assert exception message?
     }
@@ -1095,7 +1095,7 @@ class MatrixTest {
     @Test
     void addColMultipleTimesOfMatrixWithSize2UsingInvalidCol2() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.addColMultipleTimes(0, -1, 0)
         ); // assert exception message?
     }
@@ -1108,7 +1108,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, (i + 1d) * (i % result.getCols() == 0 ? 2 : 1));
         }
-        Assertions.assertEquals(result, matrix.addColMultipleTimes(0, 0, 2));
+        assertEquals(result, matrix.addColMultipleTimes(0, 0, 2));
     }
 
     @Test
@@ -1120,7 +1120,7 @@ class MatrixTest {
             matrix.setValue(i, (double) value);
             result.setValue(i, (double) value);
         }
-        Assertions.assertEquals(result, matrix.addColMultipleTimes(0, 1, 0d));
+        assertEquals(result, matrix.addColMultipleTimes(0, 1, 0d));
     }
 
     @Test
@@ -1134,7 +1134,7 @@ class MatrixTest {
                 (double) value + (i % result.getCols() == 0 ? value : 0)
             );
         }
-        Assertions.assertEquals(result, matrix.addColMultipleTimes(0, 1, 1d));
+        assertEquals(result, matrix.addColMultipleTimes(0, 1, 1d));
     }
 
     @Test
@@ -1148,7 +1148,7 @@ class MatrixTest {
                 (i % result.getCols() == 0 ? 2 * value : 0)
             );
         }
-        Assertions.assertEquals(result, matrix.addColMultipleTimes(0, 1, 2d));
+        assertEquals(result, matrix.addColMultipleTimes(0, 1, 2d));
     }
 
     // endregion
@@ -1161,50 +1161,50 @@ class MatrixTest {
         int index = 0;
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
-                Assertions.assertEquals(index++, matrix.getIndexOfRowAndCol(r, c));
+                assertEquals(index++, matrix.getIndexOfRowAndCol(r, c));
     }
 
     @Test
     void isDefaultValueOfMatrixWithDefaultValueNull() {
         TestMatrix matrix = new TestMatrix(1, null);
-        Assertions.assertTrue(matrix.isDefaultValue(null));
-        Assertions.assertFalse(matrix.isDefaultValue(0));
-        Assertions.assertFalse(matrix.isDefaultValue(1));
+        assertTrue(matrix.isDefaultValue(null));
+        assertFalse(matrix.isDefaultValue(0));
+        assertFalse(matrix.isDefaultValue(1));
     }
 
     @Test
     void isDefaultValueOfMatrixWithDefaultValue1() {
         TestMatrix matrix = new TestMatrix(1, 1d);
-        Assertions.assertFalse(matrix.isDefaultValue(null));
-        Assertions.assertFalse(matrix.isDefaultValue(0));
-        Assertions.assertTrue(matrix.isDefaultValue(1d));
+        assertFalse(matrix.isDefaultValue(null));
+        assertFalse(matrix.isDefaultValue(0));
+        assertTrue(matrix.isDefaultValue(1d));
     }
 
     @Test
     void isIndexValidOfMatrixWithSize2() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertFalse(matrix.isIndexValid(-1));
+        assertFalse(matrix.isIndexValid(-1));
         for (int i = 0; i < matrix.size(); i++)
-            Assertions.assertTrue(matrix.isIndexValid(i));
-        Assertions.assertFalse(matrix.isIndexValid((int) matrix.size()));
+            assertTrue(matrix.isIndexValid(i));
+        assertFalse(matrix.isIndexValid((int) matrix.size()));
     }
 
     @Test
     void isRowValidOfMatrixWithSize2() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertFalse(matrix.isRowValid(-1));
+        assertFalse(matrix.isRowValid(-1));
         for (int i = 0; i < matrix.getRows(); i++)
-            Assertions.assertTrue(matrix.isRowValid(i));
-        Assertions.assertFalse(matrix.isRowValid(matrix.getRows()));
+            assertTrue(matrix.isRowValid(i));
+        assertFalse(matrix.isRowValid(matrix.getRows()));
     }
 
     @Test
     void isColValidOfMatrixWithSize2() {
         TestMatrix matrix = new TestMatrix(2);
-        Assertions.assertFalse(matrix.isColValid(-1));
+        assertFalse(matrix.isColValid(-1));
         for (int i = 0; i < matrix.getCols(); i++)
-            Assertions.assertTrue(matrix.isColValid(i));
-        Assertions.assertFalse(matrix.isColValid(matrix.getCols()));
+            assertTrue(matrix.isColValid(i));
+        assertFalse(matrix.isColValid(matrix.getCols()));
     }
 
     // endregion
@@ -1216,10 +1216,10 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(2);
         int index = 0;
         for (Matrix<Number>.Field field : matrix) {
-            Assertions.assertEquals(index, field.getIndex());
-            Assertions.assertEquals(index / matrix.getCols(), field.getRow());
-            Assertions.assertEquals(index % matrix.getCols(), field.getCol());
-            Assertions.assertEquals(matrix, field.getMatrix());
+            assertEquals(index, field.getIndex());
+            assertEquals(index / matrix.getCols(), field.getRow());
+            assertEquals(index % matrix.getCols(), field.getCol());
+            assertEquals(matrix, field.getMatrix());
             index++;
         }
     }
@@ -1229,20 +1229,20 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(2);
         Matrix<Number>.Field previous = null;
         for (Matrix<Number>.Field field : matrix) {
-            if (previous != null) Assertions.assertNotEquals(previous, field);
-            else Assertions.assertEquals(
+            if (previous != null) assertNotEquals(previous, field);
+            else assertEquals(
                 matrix.new Field(field.getIndex(), field.getValue()),
                 field
             );
-            Assertions.assertTrue(0 < field.hashCode());
-            Assertions.assertEquals(
+            assertTrue(0 < field.hashCode());
+            assertEquals(
                 field.getIndex() + ": " + field.getValue(),
                 field.toString()
             );
             previous = field;
         }
 
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.new Field((int) matrix.size(), 0)
         ); // assert exception message?
     }

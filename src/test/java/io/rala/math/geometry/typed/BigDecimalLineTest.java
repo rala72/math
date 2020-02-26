@@ -3,9 +3,6 @@ package io.rala.math.geometry.typed;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Line;
 import io.rala.math.testUtils.arguments.LineArgumentsStreamFactory;
-import io.rala.math.testUtils.assertion.GeometryAssertions;
-import io.rala.math.testUtils.assertion.SerializableAssertions;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -15,12 +12,16 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.stream.Stream;
 
+import static io.rala.math.testUtils.assertion.GeometryAssertions.*;
+import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static org.junit.jupiter.api.Assertions.*;
+
 class BigDecimalLineTest {
     // region constructors, getter and setter
 
     @Test
     void constructorWithX() {
-        GeometryAssertions.assertLine(
+        assertLine(
             new BigDecimalLine(BigDecimal.ONE),
             null, BigDecimal.ONE
         );
@@ -28,7 +29,7 @@ class BigDecimalLineTest {
 
     @Test
     void constructorWithXAndMathContext5() {
-        GeometryAssertions.assertLine(
+        assertLine(
             new BigDecimalLine(
                 BigDecimal.ONE,
                 new MathContext(5)
@@ -38,14 +39,14 @@ class BigDecimalLineTest {
 
     @Test
     void constructorWithMB() {
-        GeometryAssertions.assertLine(new BigDecimalLine(
+        assertLine(new BigDecimalLine(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         ), BigDecimal.valueOf(2d), BigDecimal.valueOf(3d));
     }
 
     @Test
     void constructorWithMBAndMathContext5() {
-        GeometryAssertions.assertLine(new BigDecimalLine(
+        assertLine(new BigDecimalLine(
             BigDecimal.valueOf(2d),
             BigDecimal.valueOf(3d),
             new MathContext(5)
@@ -56,14 +57,14 @@ class BigDecimalLineTest {
     void createAndSetM() {
         Line<BigDecimal> line = new BigDecimalLine(BigDecimal.ZERO, BigDecimal.ZERO);
         line.setM(BigDecimal.ONE);
-        GeometryAssertions.assertLine(line, BigDecimal.ONE, BigDecimal.ZERO);
+        assertLine(line, BigDecimal.ONE, BigDecimal.ZERO);
     }
 
     @Test
     void createAndSetB() {
         Line<BigDecimal> line = new BigDecimalLine(BigDecimal.ZERO, BigDecimal.ZERO);
         line.setB(BigDecimal.valueOf(2d));
-        GeometryAssertions.assertLine(line, BigDecimal.ZERO, BigDecimal.valueOf(2d));
+        assertLine(line, BigDecimal.ZERO, BigDecimal.valueOf(2d));
     }
 
     // endregion
@@ -72,38 +73,38 @@ class BigDecimalLineTest {
 
     @Test
     void isHorizontalOfHorizontalLine() {
-        Assertions.assertTrue(
+        assertTrue(
             new BigDecimalLine(BigDecimal.ZERO, BigDecimal.ONE).isHorizontal()
         );
     }
 
     @Test
     void isHorizontalOfVerticalLine() {
-        Assertions.assertFalse(new BigDecimalLine(null, BigDecimal.ONE).isHorizontal());
+        assertFalse(new BigDecimalLine(null, BigDecimal.ONE).isHorizontal());
     }
 
     @Test
     void isHorizontalOfM1B1Line() {
-        Assertions.assertFalse(
+        assertFalse(
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.ONE).isHorizontal()
         );
     }
 
     @Test
     void isVerticalOfHorizontalLine() {
-        Assertions.assertFalse(
+        assertFalse(
             new BigDecimalLine(BigDecimal.ZERO, BigDecimal.ONE).isVertical()
         );
     }
 
     @Test
     void isVerticalOfVerticalLine() {
-        Assertions.assertTrue(new BigDecimalLine(null, BigDecimal.ONE).isVertical());
+        assertTrue(new BigDecimalLine(null, BigDecimal.ONE).isVertical());
     }
 
     @Test
     void isVerticalOfM1B1Line() {
-        Assertions.assertFalse(
+        assertFalse(
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.ONE).isVertical()
         );
     }
@@ -115,7 +116,7 @@ class BigDecimalLineTest {
     @ParameterizedTest
     @MethodSource("getCalculateXArguments")
     void calculateX(double m, double b, double y, Double expected) {
-        Assertions.assertEquals(convertDoubleToBigDecimal(expected),
+        assertEquals(convertDoubleToBigDecimal(expected),
             new BigDecimalLine(
                 convertDoubleToBigDecimal(m),
                 convertDoubleToBigDecimal(b)
@@ -126,7 +127,7 @@ class BigDecimalLineTest {
     @ParameterizedTest
     @MethodSource("getCalculateYArguments")
     void calculateY(double m, double b, double x, Double expected) {
-        Assertions.assertEquals(convertDoubleToBigDecimal(expected),
+        assertEquals(convertDoubleToBigDecimal(expected),
             new BigDecimalLine(
                 convertDoubleToBigDecimal(m),
                 convertDoubleToBigDecimal(b)
@@ -140,7 +141,7 @@ class BigDecimalLineTest {
 
     @Test
     void normalM1B0() {
-        GeometryAssertions.assertLine(
+        assertLine(
             new BigDecimalLine(
                 BigDecimal.ONE, BigDecimal.ZERO
             ).normal(),
@@ -150,7 +151,7 @@ class BigDecimalLineTest {
 
     @Test
     void normalOfVerticalLine() {
-        GeometryAssertions.assertLine(
+        assertLine(
             new BigDecimalLine(BigDecimal.ZERO).normal(),
             BigDecimal.ZERO, BigDecimal.ZERO
         );
@@ -158,7 +159,7 @@ class BigDecimalLineTest {
 
     @Test
     void normalOfHorizontalLine() {
-        GeometryAssertions.assertLine(
+        assertLine(
             new BigDecimalLine(BigDecimal.ZERO, BigDecimal.ZERO).normal(),
             null, BigDecimal.ZERO
         );
@@ -166,7 +167,7 @@ class BigDecimalLineTest {
 
     @Test
     void normalM1B1AndPointXY1() {
-        GeometryAssertions.assertLine(
+        assertLine(
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.ONE)
                 .normal(new BigDecimalPoint(BigDecimal.ONE)),
             BigDecimal.ONE.negate(), BigDecimal.valueOf(2)
@@ -175,7 +176,7 @@ class BigDecimalLineTest {
 
     @Test
     void normalM1B0AndPointXY1() {
-        GeometryAssertions.assertLine(
+        assertLine(
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.ZERO)
                 .normal(new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ONE)),
             BigDecimal.ONE.negate(), BigDecimal.valueOf(2)
@@ -184,7 +185,7 @@ class BigDecimalLineTest {
 
     @Test
     void normalOfVerticalLineAndPointX0Y1() {
-        GeometryAssertions.assertLine(
+        assertLine(
             new BigDecimalLine(BigDecimal.ZERO)
                 .normal(new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE)),
             BigDecimal.ZERO, BigDecimal.ONE
@@ -193,7 +194,7 @@ class BigDecimalLineTest {
 
     @Test
     void normalOfHorizontalLineAndPointX1Y0() {
-        GeometryAssertions.assertLine(
+        assertLine(
             new BigDecimalLine(BigDecimal.ZERO, BigDecimal.ZERO)
                 .normal(new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ZERO)),
             null, BigDecimal.ONE
@@ -206,7 +207,7 @@ class BigDecimalLineTest {
 
     @Test
     void hasIntersectionWithEqualM() {
-        Assertions.assertFalse(
+        assertFalse(
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))
                 .hasIntersection(new BigDecimalLine(BigDecimal.ONE, BigDecimal.ZERO))
         );
@@ -214,7 +215,7 @@ class BigDecimalLineTest {
 
     @Test
     void hasIntersectionWithLineM1B2AndM2B1() {
-        Assertions.assertTrue(
+        assertTrue(
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))
                 .hasIntersection(
                     new BigDecimalLine(BigDecimal.valueOf(2d), BigDecimal.ONE)
@@ -224,7 +225,7 @@ class BigDecimalLineTest {
 
     @Test
     void hasIntersectionWithLineX1AndX2() {
-        Assertions.assertFalse(
+        assertFalse(
             new BigDecimalLine(BigDecimal.ONE)
                 .hasIntersection(new BigDecimalLine(BigDecimal.valueOf(2d)))
         );
@@ -232,7 +233,7 @@ class BigDecimalLineTest {
 
     @Test
     void hasIntersectionWithLineM1B2AndX1() {
-        Assertions.assertTrue(
+        assertTrue(
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))
                 .hasIntersection(new BigDecimalLine(BigDecimal.ONE))
         );
@@ -240,7 +241,7 @@ class BigDecimalLineTest {
 
     @Test
     void intersectionWithEqualM() {
-        Assertions.assertNull(
+        assertNull(
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))
                 .intersection(new BigDecimalLine(BigDecimal.ONE, BigDecimal.ZERO))
         );
@@ -248,7 +249,7 @@ class BigDecimalLineTest {
 
     @Test
     void intersectionWithLineM1B2AndM2B1() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))
                 .intersection(
                     new BigDecimalLine(BigDecimal.valueOf(2d), BigDecimal.ONE)
@@ -259,7 +260,7 @@ class BigDecimalLineTest {
 
     @Test
     void intersectionWithLineX1AndX2() {
-        Assertions.assertNull(
+        assertNull(
             new BigDecimalLine(BigDecimal.ONE)
                 .intersection(new BigDecimalLine(BigDecimal.valueOf(2d)))
         );
@@ -267,7 +268,7 @@ class BigDecimalLineTest {
 
     @Test
     void intersectionWithLineM1B2AndX1() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))
                 .intersection(new BigDecimalLine(BigDecimal.ONE)),
             BigDecimal.ONE, BigDecimal.valueOf(3d)
@@ -276,7 +277,7 @@ class BigDecimalLineTest {
 
     @Test
     void intersectionWithLineX1AndM1B2() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalLine(BigDecimal.ONE)
                 .intersection(
                     new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))
@@ -287,7 +288,7 @@ class BigDecimalLineTest {
 
     @Test
     void intersectionAngleWithLineM1B2AndM2B1() {
-        Assertions.assertEquals(BigDecimal.valueOf(0.3217505544),
+        assertEquals(BigDecimal.valueOf(0.3217505544),
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))
                 .intersectionAngle(
                     new BigDecimalLine(BigDecimal.valueOf(2d), BigDecimal.ONE)
@@ -297,7 +298,7 @@ class BigDecimalLineTest {
 
     @Test
     void intersectionAngleWithLineX1AndX2() {
-        Assertions.assertNull(
+        assertNull(
             new BigDecimalLine(BigDecimal.ONE)
                 .intersectionAngle(new BigDecimalLine(BigDecimal.valueOf(2d)))
         );
@@ -305,7 +306,7 @@ class BigDecimalLineTest {
 
     @Test
     void intersectionAngleWithLineM1B2AndX1() {
-        Assertions.assertEquals(BigDecimal.valueOf(0.7853981636),
+        assertEquals(BigDecimal.valueOf(0.7853981636),
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))
                 .intersectionAngle(new BigDecimalLine(BigDecimal.ONE))
         );
@@ -313,7 +314,7 @@ class BigDecimalLineTest {
 
     @Test
     void intersectionAngleWithLineX1AndM1B2() {
-        Assertions.assertEquals(BigDecimal.valueOf(0.7853981636),
+        assertEquals(BigDecimal.valueOf(0.7853981636),
             new BigDecimalLine(BigDecimal.ONE)
                 .intersectionAngle(
                     new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))
@@ -327,7 +328,7 @@ class BigDecimalLineTest {
 
     @Test
     void hasPointWithM1B0AndPointXY1() {
-        Assertions.assertTrue(
+        assertTrue(
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.ZERO)
                 .hasPoint(new BigDecimalPoint(BigDecimal.ONE))
         );
@@ -335,7 +336,7 @@ class BigDecimalLineTest {
 
     @Test
     void hasPointWithM1B1AndPointXY1() {
-        Assertions.assertFalse(
+        assertFalse(
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.ONE)
                 .hasPoint(new BigDecimalPoint(BigDecimal.ONE))
         );
@@ -343,7 +344,7 @@ class BigDecimalLineTest {
 
     @Test
     void hasPointWithVerticalLine0AndPointX0Y1() {
-        Assertions.assertTrue(
+        assertTrue(
             new BigDecimalLine(BigDecimal.ZERO)
                 .hasPoint(new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE))
         );
@@ -351,7 +352,7 @@ class BigDecimalLineTest {
 
     @Test
     void hasPointWithVerticalLine0AndPointXY1() {
-        Assertions.assertFalse(
+        assertFalse(
             new BigDecimalLine(BigDecimal.ZERO)
                 .hasPoint(new BigDecimalPoint(BigDecimal.ONE))
         );
@@ -363,7 +364,7 @@ class BigDecimalLineTest {
 
     @Test
     void toLineSegmentUsingXOfLineWithM0B1() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new BigDecimalLine(BigDecimal.ZERO, BigDecimal.ONE)
                 .toLineSegmentUsingX(BigDecimal.ZERO, BigDecimal.ONE),
             new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE),
@@ -373,7 +374,7 @@ class BigDecimalLineTest {
 
     @Test
     void toLineSegmentUsingXOfLineWithM1B1() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.ONE)
                 .toLineSegmentUsingX(BigDecimal.ZERO, BigDecimal.ONE),
             new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE),
@@ -383,7 +384,7 @@ class BigDecimalLineTest {
 
     @Test
     void toLineSegmentUsingYOfLineWithM1B0() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.ZERO)
                 .toLineSegmentUsingY(BigDecimal.ZERO, BigDecimal.ONE),
             new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ZERO),
@@ -393,7 +394,7 @@ class BigDecimalLineTest {
 
     @Test
     void toLineSegmentUsingYOfLineWithM1B1() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.ONE)
                 .toLineSegmentUsingY(BigDecimal.ZERO, BigDecimal.ONE),
             new BigDecimalPoint(BigDecimal.ONE.negate(), BigDecimal.ZERO),
@@ -411,14 +412,14 @@ class BigDecimalLineTest {
             BigDecimal.valueOf(0.5), BigDecimal.valueOf(1.5)
         );
         Line<Integer> result = new Line<>(new IntegerArithmetic(), 0, 1);
-        Assertions.assertEquals(result,
+        assertEquals(result,
             line.map(new IntegerArithmetic(), Number::intValue)
         );
     }
 
     @Test
     void isValidWithZeroValues() {
-        Assertions.assertTrue(
+        assertTrue(
             new BigDecimalLine(BigDecimal.ZERO, BigDecimal.ZERO).isValid()
         );
     }
@@ -428,7 +429,7 @@ class BigDecimalLineTest {
         Line<BigDecimal> line = new BigDecimalLine(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        Assertions.assertEquals(line, line.copy());
+        assertEquals(line, line.copy());
     }
 
     // endregion
@@ -440,11 +441,11 @@ class BigDecimalLineTest {
         Line<BigDecimal> line = new BigDecimalLine(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        Assertions.assertEquals(
+        assertEquals(
             line,
             new BigDecimalLine(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d))
         );
-        Assertions.assertNotEquals(
+        assertNotEquals(
             line,
             new BigDecimalLine(BigDecimal.valueOf(3d), BigDecimal.valueOf(2d))
         );
@@ -452,7 +453,7 @@ class BigDecimalLineTest {
 
     @Test
     void hashCodeOfLineWithMB() {
-        Assertions.assertEquals(
+        assertEquals(
             21143,
             new BigDecimalLine(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)).hashCode()
         );
@@ -463,13 +464,13 @@ class BigDecimalLineTest {
         Line<BigDecimal> line = new BigDecimalLine(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        Assertions.assertEquals("y=2.0*x+3.0", line.toString());
+        assertEquals("y=2.0*x+3.0", line.toString());
     }
 
     @Test
     void toStringOfVerticalLine() {
         Line<BigDecimal> line = new BigDecimalLine(BigDecimal.ONE);
-        Assertions.assertEquals("y=1", line.toString());
+        assertEquals("y=1", line.toString());
     }
 
     @Test
@@ -477,17 +478,17 @@ class BigDecimalLineTest {
         Line<BigDecimal> line = new BigDecimalLine(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        Assertions.assertEquals(
+        assertEquals(
             0, line.compareTo(new BigDecimalLine(
                 BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
             ))
         );
-        Assertions.assertEquals(
+        assertEquals(
             -1, line.compareTo(new BigDecimalLine(
                 BigDecimal.valueOf(3d), BigDecimal.ONE
             ))
         );
-        Assertions.assertEquals(
+        assertEquals(
             1, line.compareTo(new BigDecimalLine(
                 BigDecimal.valueOf(2d), BigDecimal.ONE
             ))
@@ -496,7 +497,7 @@ class BigDecimalLineTest {
 
     @Test
     void serializable() {
-        SerializableAssertions.assertSerializable(
+        assertSerializable(
             new BigDecimalLine(BigDecimal.ZERO),
             Line.class
         );

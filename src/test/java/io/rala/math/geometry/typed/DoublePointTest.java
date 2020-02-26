@@ -2,56 +2,57 @@ package io.rala.math.geometry.typed;
 
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Point;
-import io.rala.math.testUtils.assertion.GeometryAssertions;
-import io.rala.math.testUtils.assertion.SerializableAssertions;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static io.rala.math.testUtils.assertion.GeometryAssertions.assertPoint;
+import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static org.junit.jupiter.api.Assertions.*;
 
 class DoublePointTest {
     // region constructors, getter and setter
 
     @Test
     void constructorWithoutParameter() {
-        GeometryAssertions.assertPoint(new DoublePoint());
+        assertPoint(new DoublePoint());
     }
 
     @Test
     void constructorWithXYParameter() {
-        GeometryAssertions.assertPoint(new DoublePoint(1d), 1d);
+        assertPoint(new DoublePoint(1d), 1d);
     }
 
     @Test
     void constructorWithEqualXYParameter() {
-        GeometryAssertions.assertPoint(new DoublePoint(2d, 2d), 2d);
+        assertPoint(new DoublePoint(2d, 2d), 2d);
     }
 
     @Test
     void constructorWithDifferentXYParameter() {
-        GeometryAssertions.assertPoint(new DoublePoint(2d, 3d), 2d, 3d);
+        assertPoint(new DoublePoint(2d, 3d), 2d, 3d);
     }
 
     @Test
     void createAndSetX() {
         Point<Double> point = new DoublePoint();
-        GeometryAssertions.assertPoint(point);
+        assertPoint(point);
         point.setX(1d);
-        GeometryAssertions.assertPoint(point, 1d, 0d);
+        assertPoint(point, 1d, 0d);
     }
 
     @Test
     void createAndSetY() {
         Point<Double> point = new DoublePoint();
-        GeometryAssertions.assertPoint(point);
+        assertPoint(point);
         point.setY(2d);
-        GeometryAssertions.assertPoint(point, 0d, 2d);
+        assertPoint(point, 0d, 2d);
     }
 
     @Test
     void createAndSetXY() {
         Point<Double> point = new DoublePoint();
-        GeometryAssertions.assertPoint(point);
+        assertPoint(point);
         point.setXY(3d);
-        GeometryAssertions.assertPoint(point, 3d, 3d);
+        assertPoint(point, 3d, 3d);
     }
 
     // endregion
@@ -62,19 +63,19 @@ class DoublePointTest {
     void mapOfPointWithX0_5Y1_5() {
         DoublePoint point = new DoublePoint(0.5, 1.5);
         Point<Integer> result = new Point<>(new IntegerArithmetic(), 0, 1);
-        Assertions.assertEquals(result,
+        assertEquals(result,
             point.map(new IntegerArithmetic(), Number::intValue)
         );
     }
 
     @Test
     void isValidWithZeroValues() {
-        Assertions.assertTrue(new DoublePoint().isValid());
+        assertTrue(new DoublePoint().isValid());
     }
 
     @Test
     void isValidWithInfValues() {
-        Assertions.assertFalse(
+        assertFalse(
             new DoublePoint(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
                 .isValid()
         );
@@ -82,17 +83,17 @@ class DoublePointTest {
 
     @Test
     void moveOfPointWithXYWithXY() {
-        GeometryAssertions.assertPoint(new DoublePoint().move(1d), 1d, 1d);
+        assertPoint(new DoublePoint().move(1d), 1d, 1d);
     }
 
     @Test
     void moveOfPointWithXYWithXAndY() {
-        GeometryAssertions.assertPoint(new DoublePoint().move(1d, 1d), 1d, 1d);
+        assertPoint(new DoublePoint().move(1d, 1d), 1d, 1d);
     }
 
     @Test
     void moveOfPointWithXYWithVector() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new DoublePoint().move(new DoubleVector(1d)),
             1d, 1d
         );
@@ -100,7 +101,7 @@ class DoublePointTest {
 
     @Test
     void rotateOfPointWithX1Y2WithoutCenterWithPiHalf() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new DoublePoint(1d, 2d).rotate(Math.PI / 2d),
             -2d, 1d
         );
@@ -108,7 +109,7 @@ class DoublePointTest {
 
     @Test
     void rotateOfPointWithX1Y2WithoutCenterWithPi() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new DoublePoint(1d, 2d).rotate(Math.PI),
             -1d, -2d
         );
@@ -116,7 +117,7 @@ class DoublePointTest {
 
     @Test
     void rotateOfPointWithX1Y2WithoutCenterWithPiThreeHalf() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new DoublePoint(1d, 2d).rotate(Math.PI * 3d / 2d),
             2d, -1d
         );
@@ -124,7 +125,7 @@ class DoublePointTest {
 
     @Test
     void rotateOfPointWithX1Y2WithoutCenterWithTwoPi() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new DoublePoint(1d, 2d).rotate(Math.PI * 2d),
             1d, 2d
         );
@@ -132,7 +133,7 @@ class DoublePointTest {
 
     @Test
     void rotateOfPointWithX1Y2WithCenterXY1WithPiHalf() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new DoublePoint(1d, 2d).rotate(new DoublePoint(1d), Math.PI / 2d),
             0d, 1d
         );
@@ -140,7 +141,7 @@ class DoublePointTest {
 
     @Test
     void rotateOfPointWithX1Y2WithCenterXY1WithPi() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new DoublePoint(1d, 2d).rotate(new DoublePoint(1d), Math.PI),
             1d, 0d
         );
@@ -148,7 +149,7 @@ class DoublePointTest {
 
     @Test
     void rotateOfPointWithX1Y2WithCenterXY1WithPiThreeHalf() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new DoublePoint(1d, 2d).rotate(new DoublePoint(1d), Math.PI * 3d / 2d),
             2d, 1d
         );
@@ -156,7 +157,7 @@ class DoublePointTest {
 
     @Test
     void rotateOfPointWithX1Y2WithCenterXY1WithTwoPi() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new DoublePoint(1d, 2d).rotate(new DoublePoint(1d), Math.PI * 2d),
             1d, 2d
         );
@@ -165,7 +166,7 @@ class DoublePointTest {
     @Test
     void copyOfPointWithXY() {
         Point<Double> point = new DoublePoint(2d, 3d);
-        Assertions.assertEquals(point, point.copy());
+        assertEquals(point, point.copy());
     }
 
     // endregion
@@ -175,11 +176,11 @@ class DoublePointTest {
     @Test
     void equalsOfPointWithXY() {
         Point<Double> point = new DoublePoint(2d, 3d);
-        Assertions.assertEquals(
+        assertEquals(
             point,
             new DoublePoint(2d, 3d)
         );
-        Assertions.assertNotEquals(
+        assertNotEquals(
             point,
             new DoublePoint(3d, 2d)
         );
@@ -187,7 +188,7 @@ class DoublePointTest {
 
     @Test
     void hashCodeOfPointWithXY() {
-        Assertions.assertEquals(
+        assertEquals(
             525249,
             new DoublePoint(2d, 3d).hashCode()
         );
@@ -196,26 +197,26 @@ class DoublePointTest {
     @Test
     void toStringOfPointWithXY() {
         Point<Double> point = new DoublePoint(2d, 3d);
-        Assertions.assertEquals("2.0|3.0", point.toString());
+        assertEquals("2.0|3.0", point.toString());
     }
 
     @Test
     void compareToOfPointWithXY() {
         Point<Double> point = new DoublePoint(2d, 3d);
-        Assertions.assertEquals(
+        assertEquals(
             0d, point.compareTo(new DoublePoint(2d, 3d))
         );
-        Assertions.assertEquals(
+        assertEquals(
             -1d, point.compareTo(new DoublePoint(3d, 1d))
         );
-        Assertions.assertEquals(
+        assertEquals(
             1d, point.compareTo(new DoublePoint(2d, 2d))
         );
     }
 
     @Test
     void serializable() {
-        SerializableAssertions.assertSerializable(new DoublePoint(), Point.class);
+        assertSerializable(new DoublePoint(), Point.class);
     }
 
     // endregion

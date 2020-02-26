@@ -6,12 +6,13 @@ import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 import io.rala.math.arithmetic.core.BigIntegerArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.testUtils.assertion.NumericAssertions;
-import io.rala.math.testUtils.assertion.SerializableAssertions;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+
+import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BigIntegerBigDecimalFractionTest {
     // region constructors, getter and setter
@@ -31,14 +32,14 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void constructorWithNullNuParameter() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new BigIntegerBigDecimalFraction((BigInteger) null)
         ); // assert exception message?
     }
 
     @Test
     void constructorWithZeroDeParameter() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.ZERO)
         ); // assert exception message?
     }
@@ -65,7 +66,7 @@ class BigIntegerBigDecimalFractionTest {
         BigIntegerBigDecimalFraction complex =
             new BigIntegerBigDecimalFraction(BigInteger.ONE);
         assertFraction(complex);
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> complex.setNumerator(null)
         ); // assert exception message?
     }
@@ -84,7 +85,7 @@ class BigIntegerBigDecimalFractionTest {
         BigIntegerBigDecimalFraction complex =
             new BigIntegerBigDecimalFraction(BigInteger.ONE);
         assertFraction(complex);
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> complex.setDenominator(BigInteger.ZERO)
         ); // assert exception message?
     }
@@ -104,7 +105,7 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void valueOf1_2() {
-        Assertions.assertEquals(BigDecimal.valueOf(0.5),
+        assertEquals(BigDecimal.valueOf(0.5),
             new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO)
                 .value()
         );
@@ -112,7 +113,7 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void intValueOf1_2() {
-        Assertions.assertEquals(0,
+        assertEquals(0,
             new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO)
                 .intValue()
         );
@@ -120,7 +121,7 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void longValueOf1_2() {
-        Assertions.assertEquals(0,
+        assertEquals(0,
             new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO)
                 .longValue()
         );
@@ -128,7 +129,7 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void floatValueOf1_2() {
-        Assertions.assertEquals(0.5,
+        assertEquals(0.5,
             new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO)
                 .floatValue()
         );
@@ -136,7 +137,7 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void doubleValueOf1_2() {
-        Assertions.assertEquals(0.5,
+        assertEquals(0.5,
             new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO)
                 .doubleValue()
         );
@@ -174,7 +175,7 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void addWithNumerator() {
-        Assertions.assertEquals(
+        assertEquals(
             new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.ONE),
             new BigIntegerBigDecimalFraction(BigInteger.ONE)
                 .add(BigInteger.ONE, BigInteger.ONE)
@@ -183,7 +184,7 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void addWithXAndY() {
-        Assertions.assertEquals(
+        assertEquals(
             new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.ONE),
             new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.ONE)
                 .add(BigInteger.ONE, BigInteger.ONE)
@@ -192,7 +193,7 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void addWithFraction() {
-        Assertions.assertEquals(
+        assertEquals(
             new BigIntegerBigDecimalFraction(BigInteger.valueOf(3), BigInteger.TWO),
             new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.ONE).add(
                 new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO)
@@ -202,7 +203,7 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void subtractWithNumerator() {
-        Assertions.assertEquals(
+        assertEquals(
             new BigIntegerBigDecimalFraction(BigInteger.ZERO, BigInteger.ONE),
             new BigIntegerBigDecimalFraction(BigInteger.TWO)
                 .subtract(BigInteger.TWO, BigInteger.ONE)
@@ -211,7 +212,7 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void subtractWithXAndY() {
-        Assertions.assertEquals(
+        assertEquals(
             new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.ONE),
             new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.ONE)
                 .subtract(BigInteger.ONE, BigInteger.ONE)
@@ -220,7 +221,7 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void subtractWithFraction() {
-        Assertions.assertEquals(new BigIntegerBigDecimalFraction(
+        assertEquals(new BigIntegerBigDecimalFraction(
                 BigInteger.valueOf(3), BigInteger.TWO
             ),
             new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.ONE).subtract(
@@ -235,7 +236,7 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void multiplyWithNumerator() {
-        Assertions.assertEquals(
+        assertEquals(
             new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.ONE),
             new BigIntegerBigDecimalFraction(BigInteger.ONE).multiply(BigInteger.TWO)
         );
@@ -243,7 +244,7 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void multiplyWithXAndY() {
-        Assertions.assertEquals(
+        assertEquals(
             new BigIntegerBigDecimalFraction(
                 BigInteger.valueOf(3), BigInteger.valueOf(8)
             ),
@@ -254,7 +255,7 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void multiplyWithFraction() {
-        Assertions.assertEquals(new BigIntegerBigDecimalFraction(
+        assertEquals(new BigIntegerBigDecimalFraction(
                 BigInteger.valueOf(4), BigInteger.valueOf(6)
             ),
             new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO)
@@ -266,7 +267,7 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void divideWithNumerator() {
-        Assertions.assertEquals(
+        assertEquals(
             new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO),
             new BigIntegerBigDecimalFraction(BigInteger.ONE).divide(BigInteger.TWO)
         );
@@ -274,7 +275,7 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void divideWithXAndY() {
-        Assertions.assertEquals(
+        assertEquals(
             new BigIntegerBigDecimalFraction(
                 BigInteger.valueOf(4), BigInteger.valueOf(6)
             ),
@@ -285,7 +286,7 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void divideWithFraction() {
-        Assertions.assertEquals(new BigIntegerBigDecimalFraction(
+        assertEquals(new BigIntegerBigDecimalFraction(
                 BigInteger.valueOf(3), BigInteger.valueOf(8)
             ),
             new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO)
@@ -330,7 +331,7 @@ class BigIntegerBigDecimalFractionTest {
         Fraction<Integer, Integer> result = new Fraction<>(
             new IntegerArithmetic().toResultArithmetic(), 0, 1
         );
-        Assertions.assertEquals(result, fraction.map(
+        assertEquals(result, fraction.map(
             new IntegerArithmetic().toResultArithmetic(), Number::intValue
         ));
     }
@@ -344,7 +345,7 @@ class BigIntegerBigDecimalFractionTest {
                 new IntegerArithmetic(), new BigDecimalArithmetic(), BigDecimal::valueOf
             ), 0, 1
         );
-        Assertions.assertEquals(result, fraction.mapValues(
+        assertEquals(result, fraction.mapValues(
             new IntegerArithmetic(), BigInteger::intValue, BigDecimal::valueOf
         ));
     }
@@ -358,7 +359,7 @@ class BigIntegerBigDecimalFractionTest {
                 new IntegerArithmetic(), new BigDecimalArithmetic(), BigDecimal::valueOf
             ), 0, 1
         );
-        Assertions.assertEquals(result, fraction.mapValues(
+        assertEquals(result, fraction.mapValues(
             AbstractResultArithmetic.of(
                 new IntegerArithmetic(), new BigDecimalArithmetic(), BigDecimal::valueOf
             ), Number::intValue
@@ -374,7 +375,7 @@ class BigIntegerBigDecimalFractionTest {
                 new BigIntegerArithmetic(), new IntegerArithmetic(), BigInteger::intValue
             ), BigInteger.ZERO, BigInteger.ONE
         );
-        Assertions.assertEquals(result, fraction.mapValue(
+        assertEquals(result, fraction.mapValue(
             new IntegerArithmetic(), Number::intValue
         ));
     }
@@ -383,7 +384,7 @@ class BigIntegerBigDecimalFractionTest {
     void copyOfFractionWithNuDe() {
         BigIntegerBigDecimalFraction complex =
             new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.valueOf(3));
-        Assertions.assertEquals(complex, complex.copy());
+        assertEquals(complex, complex.copy());
     }
 
     // endregion
@@ -394,11 +395,11 @@ class BigIntegerBigDecimalFractionTest {
     void equalsOfFractionWithNuDe() {
         BigIntegerBigDecimalFraction complex =
             new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.valueOf(3));
-        Assertions.assertEquals(
+        assertEquals(
             complex,
             new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.valueOf(3))
         );
-        Assertions.assertNotEquals(
+        assertNotEquals(
             complex,
             new BigIntegerBigDecimalFraction(BigInteger.valueOf(3), BigInteger.TWO)
         );
@@ -406,7 +407,7 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void hashCodeOfFractionWithNuDe() {
-        Assertions.assertEquals(
+        assertEquals(
             1026,
             new BigIntegerBigDecimalFraction(
                 BigInteger.TWO, BigInteger.valueOf(3)
@@ -418,24 +419,24 @@ class BigIntegerBigDecimalFractionTest {
     void toStringOfFractionWithNuDe() {
         BigIntegerBigDecimalFraction complex =
             new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.valueOf(3));
-        Assertions.assertEquals("2/3", complex.toString());
+        assertEquals("2/3", complex.toString());
     }
 
     @Test
     void compareToOfFractionWithNuDe() {
         BigIntegerBigDecimalFraction complex =
             new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.valueOf(3));
-        Assertions.assertEquals(
+        assertEquals(
             0, complex.compareTo(new BigIntegerBigDecimalFraction(
                 BigInteger.TWO, BigInteger.valueOf(3)
             ))
         );
-        Assertions.assertEquals(
+        assertEquals(
             -1, complex.compareTo(new BigIntegerBigDecimalFraction(
                 BigInteger.valueOf(3), BigInteger.ONE
             ))
         );
-        Assertions.assertEquals(
+        assertEquals(
             1, complex.compareTo(new BigIntegerBigDecimalFraction(
                 BigInteger.ONE, BigInteger.valueOf(3)
             ))
@@ -444,7 +445,7 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void serializable() {
-        SerializableAssertions.assertSerializable(
+        assertSerializable(
             new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.valueOf(3)),
             BigIntegerBigDecimalFraction.class
         );

@@ -4,9 +4,10 @@ import io.rala.math.algebra.equation.Solution;
 import io.rala.math.algebra.matrix.Matrix;
 import io.rala.math.testUtils.algebra.TestMatrix;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class LinearEquationSystemTest {
     private static Matrix<Number> matrix;
@@ -22,7 +23,7 @@ class LinearEquationSystemTest {
     void getMatrixOfLinearEquationSystem() {
         LinearEquationSystem<Number> equationSystem =
             new LinearEquationSystem<>(matrix);
-        Assertions.assertEquals(matrix, equationSystem.getMatrix());
+        assertEquals(matrix, equationSystem.getMatrix());
     }
 
     @Test
@@ -31,7 +32,7 @@ class LinearEquationSystemTest {
             new LinearEquationSystem<>(matrix);
         Solution<LinearEquationSystem<Number>, Number> solution =
             equationSystem.solveWithGauss();
-        Assertions.assertEquals(Solution.unsolvable(equationSystem), solution);
+        assertEquals(Solution.unsolvable(equationSystem), solution);
     }
 
     // region override
@@ -40,11 +41,11 @@ class LinearEquationSystemTest {
     void equalsOfTestAbstractSolver() {
         LinearEquationSystem<Number> equationSystem =
             new LinearEquationSystem<>(matrix);
-        Assertions.assertEquals(
+        assertEquals(
             equationSystem,
             new LinearEquationSystem<>(matrix)
         );
-        Assertions.assertNotEquals(
+        assertNotEquals(
             equationSystem,
             new LinearEquationSystem<>(null)
         );
@@ -52,7 +53,7 @@ class LinearEquationSystemTest {
 
     @Test
     void hashCodeOfTestAbstractSolver() {
-        Assertions.assertEquals(1312819,
+        assertEquals(1312819,
             new LinearEquationSystem<>(matrix).hashCode()
         );
     }
@@ -62,7 +63,7 @@ class LinearEquationSystemTest {
         LinearEquationSystem<Number> equationSystem =
             new LinearEquationSystem<>(matrix);
         String toString = "2 2: [0={0=1, 1=2}, 1={0=3, 1=4}]";
-        Assertions.assertEquals(toString, equationSystem.toString());
+        assertEquals(toString, equationSystem.toString());
     }
 
     // endregion
@@ -73,8 +74,8 @@ class LinearEquationSystemTest {
     void createLinearEquationMatrix() {
         LinearEquationSystem.LinearEquationMatrix<Number> equationMatrix =
             new LinearEquationSystem.LinearEquationMatrix<>(matrix);
-        Assertions.assertEquals(equationMatrix, matrix);
-        Assertions.assertTrue(
+        assertEquals(equationMatrix, matrix);
+        assertTrue(
             equationMatrix.getArithmetic() instanceof TestAbstractArithmetic
         );
     }
@@ -84,12 +85,12 @@ class LinearEquationSystemTest {
         LinearEquationSystem.LinearEquationMatrix<Number> equationMatrix =
             new LinearEquationSystem.LinearEquationMatrix<>(matrix);
         // asserting, that implementation has not changed to matrix during overriding
-        Assertions.assertNotNull(equationMatrix.swapRows(0, 0));
-        Assertions.assertNotNull(equationMatrix.swapCols(0, 0));
-        Assertions.assertNotNull(equationMatrix.multiplyRow(0, 0));
-        Assertions.assertNotNull(equationMatrix.multiplyCol(0, 0));
-        Assertions.assertNotNull(equationMatrix.addRowMultipleTimes(0, 0, 0));
-        Assertions.assertNotNull(equationMatrix.addColMultipleTimes(0, 0, 0));
+        assertNotNull(equationMatrix.swapRows(0, 0));
+        assertNotNull(equationMatrix.swapCols(0, 0));
+        assertNotNull(equationMatrix.multiplyRow(0, 0));
+        assertNotNull(equationMatrix.multiplyCol(0, 0));
+        assertNotNull(equationMatrix.addRowMultipleTimes(0, 0, 0));
+        assertNotNull(equationMatrix.addColMultipleTimes(0, 0, 0));
     }
 
     // endregion

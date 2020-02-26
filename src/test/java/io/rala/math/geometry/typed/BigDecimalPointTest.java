@@ -2,30 +2,31 @@ package io.rala.math.geometry.typed;
 
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Point;
-import io.rala.math.testUtils.assertion.GeometryAssertions;
 import io.rala.math.testUtils.assertion.SerializableAssertions;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+
+import static io.rala.math.testUtils.assertion.GeometryAssertions.assertPoint;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BigDecimalPointTest {
     // region constructors, getter and setter
 
     @Test
     void constructorWithoutParameter() {
-        GeometryAssertions.assertPoint(new BigDecimalPoint());
+        assertPoint(new BigDecimalPoint());
     }
 
     @Test
     void constructorWithMathContext5() {
-        GeometryAssertions.assertPoint(new BigDecimalPoint(new MathContext(5)));
+        assertPoint(new BigDecimalPoint(new MathContext(5)));
     }
 
     @Test
     void constructorWithXYParameter() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalPoint(BigDecimal.ONE),
             BigDecimal.ONE
         );
@@ -33,7 +34,7 @@ class BigDecimalPointTest {
 
     @Test
     void constructorWithXYParameterAndMathContext5() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalPoint(BigDecimal.ONE, new MathContext(5)),
             BigDecimal.ONE
         );
@@ -41,7 +42,7 @@ class BigDecimalPointTest {
 
     @Test
     void constructorWithEqualXYParameter() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalPoint(BigDecimal.valueOf(2d), BigDecimal.valueOf(2d)),
             BigDecimal.valueOf(2d)
         );
@@ -49,7 +50,7 @@ class BigDecimalPointTest {
 
     @Test
     void constructorWithEqualXYParameterAndMathContext5() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalPoint(
                 BigDecimal.valueOf(2d), BigDecimal.valueOf(2d),
                 new MathContext(5)
@@ -60,7 +61,7 @@ class BigDecimalPointTest {
 
     @Test
     void constructorWithDifferentXYParameter() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalPoint(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)),
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
@@ -68,7 +69,7 @@ class BigDecimalPointTest {
 
     @Test
     void constructorWithDifferentXYParameterAndMathContext5() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalPoint(
                 BigDecimal.valueOf(2d), BigDecimal.valueOf(3d),
                 new MathContext(5)
@@ -80,25 +81,25 @@ class BigDecimalPointTest {
     @Test
     void createAndSetX() {
         Point<BigDecimal> point = new BigDecimalPoint();
-        GeometryAssertions.assertPoint(point);
+        assertPoint(point);
         point.setX(BigDecimal.ONE);
-        GeometryAssertions.assertPoint(point, BigDecimal.ONE, BigDecimal.ZERO);
+        assertPoint(point, BigDecimal.ONE, BigDecimal.ZERO);
     }
 
     @Test
     void createAndSetY() {
         Point<BigDecimal> point = new BigDecimalPoint();
-        GeometryAssertions.assertPoint(point);
+        assertPoint(point);
         point.setY(BigDecimal.valueOf(2d));
-        GeometryAssertions.assertPoint(point, BigDecimal.ZERO, BigDecimal.valueOf(2d));
+        assertPoint(point, BigDecimal.ZERO, BigDecimal.valueOf(2d));
     }
 
     @Test
     void createAndSetXY() {
         Point<BigDecimal> point = new BigDecimalPoint();
-        GeometryAssertions.assertPoint(point);
+        assertPoint(point);
         point.setXY(BigDecimal.valueOf(3d));
-        GeometryAssertions.assertPoint(point,
+        assertPoint(point,
             BigDecimal.valueOf(3d), BigDecimal.valueOf(3d)
         );
     }
@@ -113,19 +114,19 @@ class BigDecimalPointTest {
             BigDecimal.valueOf(0.5), BigDecimal.valueOf(1.5)
         );
         Point<Integer> result = new Point<>(new IntegerArithmetic(), 0, 1);
-        Assertions.assertEquals(result,
+        assertEquals(result,
             point.map(new IntegerArithmetic(), Number::intValue)
         );
     }
 
     @Test
     void isValidWithZeroValues() {
-        Assertions.assertTrue(new BigDecimalPoint().isValid());
+        assertTrue(new BigDecimalPoint().isValid());
     }
 
     @Test
     void moveOfPointWithXYWithXY() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalPoint().move(BigDecimal.ONE),
             BigDecimal.ONE, BigDecimal.ONE
         );
@@ -133,7 +134,7 @@ class BigDecimalPointTest {
 
     @Test
     void moveOfPointWithXYWithXAndY() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalPoint().move(BigDecimal.ONE, BigDecimal.ONE),
             BigDecimal.ONE, BigDecimal.ONE
         );
@@ -141,7 +142,7 @@ class BigDecimalPointTest {
 
     @Test
     void moveOfPointWithXYWithVector() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalPoint().move(new BigDecimalVector(BigDecimal.ONE)),
             BigDecimal.ONE, BigDecimal.ONE
         );
@@ -149,7 +150,7 @@ class BigDecimalPointTest {
 
     @Test
     void rotateOfPointWithX1Y2WithoutCenterWithPiHalf() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d))
                 .rotate(BigDecimal.valueOf(Math.PI / 2d)),
             BigDecimal.valueOf(-2d), BigDecimal.ONE
@@ -158,7 +159,7 @@ class BigDecimalPointTest {
 
     @Test
     void rotateOfPointWithX1Y2WithoutCenterWithPi() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d))
                 .rotate(BigDecimal.valueOf(Math.PI)),
             BigDecimal.ONE.negate(), BigDecimal.valueOf(-2d)
@@ -167,7 +168,7 @@ class BigDecimalPointTest {
 
     @Test
     void rotateOfPointWithX1Y2WithoutCenterWithPiThreeHalf() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d))
                 .rotate(BigDecimal.valueOf(Math.PI * 3d / 2d)),
             BigDecimal.valueOf(2d), BigDecimal.ONE.negate()
@@ -176,7 +177,7 @@ class BigDecimalPointTest {
 
     @Test
     void rotateOfPointWithX1Y2WithoutCenterWithTwoPi() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d))
                 .rotate(BigDecimal.valueOf(Math.PI * 2d)),
             BigDecimal.ONE, BigDecimal.valueOf(2d)
@@ -185,7 +186,7 @@ class BigDecimalPointTest {
 
     @Test
     void rotateOfPointWithX1Y2WithCenterXY1WithPiHalf() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d)).rotate(
                 new BigDecimalPoint(BigDecimal.ONE),
                 BigDecimal.valueOf(Math.PI / 2d)
@@ -196,7 +197,7 @@ class BigDecimalPointTest {
 
     @Test
     void rotateOfPointWithX1Y2WithCenterXY1WithPi() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d)).rotate(
                 new BigDecimalPoint(BigDecimal.ONE),
                 BigDecimal.valueOf(Math.PI)
@@ -207,7 +208,7 @@ class BigDecimalPointTest {
 
     @Test
     void rotateOfPointWithX1Y2WithCenterXY1WithPiThreeHalf() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d)).rotate(
                 new BigDecimalPoint(BigDecimal.ONE),
                 BigDecimal.valueOf(Math.PI * 3d / 2d)
@@ -218,7 +219,7 @@ class BigDecimalPointTest {
 
     @Test
     void rotateOfPointWithX1Y2WithCenterXY1WithTwoPi() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d)).rotate(
                 new BigDecimalPoint(BigDecimal.ONE),
                 BigDecimal.valueOf(Math.PI * 2d)
@@ -232,7 +233,7 @@ class BigDecimalPointTest {
         Point<BigDecimal> point = new BigDecimalPoint(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        Assertions.assertEquals(point, point.copy());
+        assertEquals(point, point.copy());
     }
 
     // endregion
@@ -244,11 +245,11 @@ class BigDecimalPointTest {
         Point<BigDecimal> point = new BigDecimalPoint(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        Assertions.assertEquals(
+        assertEquals(
             point,
             new BigDecimalPoint(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d))
         );
-        Assertions.assertNotEquals(
+        assertNotEquals(
             point,
             new BigDecimalPoint(BigDecimal.valueOf(3d), BigDecimal.valueOf(2d))
         );
@@ -256,7 +257,7 @@ class BigDecimalPointTest {
 
     @Test
     void hashCodeOfPointWithXY() {
-        Assertions.assertEquals(
+        assertEquals(
             21143,
             new BigDecimalPoint(
                 BigDecimal.valueOf(2d),
@@ -270,7 +271,7 @@ class BigDecimalPointTest {
         Point<BigDecimal> point = new BigDecimalPoint(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        Assertions.assertEquals("2.0|3.0", point.toString());
+        assertEquals("2.0|3.0", point.toString());
     }
 
     @Test
@@ -278,17 +279,17 @@ class BigDecimalPointTest {
         Point<BigDecimal> point = new BigDecimalPoint(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        Assertions.assertEquals(
+        assertEquals(
             0, point.compareTo(new BigDecimalPoint(
                 BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
             ))
         );
-        Assertions.assertEquals(
+        assertEquals(
             -1, point.compareTo(new BigDecimalPoint(
                 BigDecimal.valueOf(3d), BigDecimal.ONE
             ))
         );
-        Assertions.assertEquals(
+        assertEquals(
             1, point.compareTo(new BigDecimalPoint(
                 BigDecimal.valueOf(2d), BigDecimal.valueOf(2d)
             ))

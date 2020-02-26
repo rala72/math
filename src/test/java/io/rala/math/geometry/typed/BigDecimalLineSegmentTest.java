@@ -4,19 +4,21 @@ import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.LineSegment;
 import io.rala.math.geometry.Point;
 import io.rala.math.testUtils.assertion.GeometryAssertions;
-import io.rala.math.testUtils.assertion.SerializableAssertions;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+
+import static io.rala.math.testUtils.assertion.GeometryAssertions.*;
+import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BigDecimalLineSegmentTest {
     // region constructors, getter and setter
 
     @Test
     void constructorWithBParameter() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new BigDecimalLineSegment(new BigDecimalPoint(BigDecimal.ONE)),
             new BigDecimalPoint(BigDecimal.ONE)
         );
@@ -24,7 +26,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void constructorWithBParameterAndMathContext5() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.ONE),
                 new MathContext(5)
@@ -35,7 +37,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void constructorWithEqualABParameter() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.valueOf(2d))
@@ -47,7 +49,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void constructorWithEqualABParameterAndMathContext5() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.valueOf(2d)),
@@ -60,7 +62,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void constructorWithDifferentABParameter() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.valueOf(2d), BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.valueOf(3d), BigDecimal.valueOf(3d))
@@ -72,7 +74,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void constructorWithDifferentABParameterAndMathContext5() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.valueOf(2d), BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.valueOf(3d), BigDecimal.valueOf(3d)),
@@ -87,9 +89,9 @@ class BigDecimalLineSegmentTest {
     void createAndSetA() {
         LineSegment<BigDecimal> lineSegment =
             new BigDecimalLineSegment(new BigDecimalPoint());
-        GeometryAssertions.assertLineSegment(lineSegment, new BigDecimalPoint());
+        assertLineSegment(lineSegment, new BigDecimalPoint());
         lineSegment.setA(new BigDecimalPoint(BigDecimal.ONE));
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             lineSegment,
             new BigDecimalPoint(BigDecimal.ONE), new BigDecimalPoint()
         );
@@ -99,9 +101,9 @@ class BigDecimalLineSegmentTest {
     void createAndSetB() {
         LineSegment<BigDecimal> lineSegment =
             new BigDecimalLineSegment(new BigDecimalPoint());
-        GeometryAssertions.assertLineSegment(lineSegment, new BigDecimalPoint());
+        assertLineSegment(lineSegment, new BigDecimalPoint());
         lineSegment.setB(new BigDecimalPoint(BigDecimal.valueOf(2d)));
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             lineSegment,
             new BigDecimalPoint(), new BigDecimalPoint(BigDecimal.valueOf(2d))
         );
@@ -113,7 +115,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void lengthOfLineSegmentWithTwoEqualPoints() {
-        Assertions.assertEquals(BigDecimal.ZERO,
+        assertEquals(BigDecimal.ZERO,
             new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d))
@@ -123,7 +125,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void lengthOfLineSegmentWithInverseParameters() {
-        Assertions.assertEquals(
+        assertEquals(
             BigDecimal.valueOf(Math.sqrt(2d)).round(GeometryAssertions.CONTEXT),
             new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d)),
@@ -134,7 +136,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void lengthOfLineSegmentWithTwoDifferenceEach() {
-        Assertions.assertEquals(
+        assertEquals(
             BigDecimal.valueOf(2d * Math.sqrt(2d)).round(GeometryAssertions.CONTEXT),
             new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.valueOf(3d), BigDecimal.valueOf(4d)),
@@ -145,7 +147,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void halvingPointOfLineSegmentWithPXY0AndPXY1() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalLineSegment(
                 new BigDecimalPoint(),
                 new BigDecimalPoint(BigDecimal.ONE)
@@ -156,7 +158,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void distributionPointComma25OfLineSegmentWithPXY0AndPXY1() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalLineSegment(
                 new BigDecimalPoint(),
                 new BigDecimalPoint(BigDecimal.ONE)
@@ -168,7 +170,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void distributionPointComma5OfLineSegmentWithPXY0AndPXY1() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalLineSegment(
                 new BigDecimalPoint(),
                 new BigDecimalPoint(BigDecimal.ONE)
@@ -179,7 +181,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void distributionPointComma75OfLineSegmentWithPXY0AndPXY1() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new BigDecimalLineSegment(
                 new BigDecimalPoint(), new BigDecimalPoint(BigDecimal.ONE)
             ).distributionPoint(BigDecimal.valueOf(0.75d)),
@@ -193,7 +195,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void flipWithAXY0AndBXY1() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.ZERO),
                 new BigDecimalPoint(BigDecimal.ONE)
@@ -204,7 +206,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void toLineOfLineSegmentWithAXY0AndBXY1() {
-        GeometryAssertions.assertLine(
+        assertLine(
             new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.ZERO),
                 new BigDecimalPoint(BigDecimal.ONE)
@@ -215,7 +217,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void toLineOfLineSegmentWithAXY1AndBX1Y0() {
-        GeometryAssertions.assertLine(
+        assertLine(
             new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.ONE),
                 new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ZERO)
@@ -226,7 +228,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void toLineOfLineSegmentWithAXY1AndBX0Y1() {
-        GeometryAssertions.assertLine(
+        assertLine(
             new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.ONE),
                 new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE)
@@ -237,7 +239,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void toLineOfLineSegmentWithAXY1AndBX2Y3() {
-        GeometryAssertions.assertLine(
+        assertLine(
             new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.ONE),
                 new BigDecimalPoint(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d))
@@ -261,21 +263,21 @@ class BigDecimalLineSegmentTest {
             new Point<>(integerArithmetic, 0),
             new Point<>(integerArithmetic, 1)
         );
-        Assertions.assertEquals(result,
+        assertEquals(result,
             lineSegment.map(new IntegerArithmetic(), Number::intValue)
         );
     }
 
     @Test
     void isValidWithZeroValues() {
-        Assertions.assertTrue(
+        assertTrue(
             new BigDecimalLineSegment(new BigDecimalPoint()).isValid()
         );
     }
 
     @Test
     void moveOfLineSegmentWithAndBWithXY() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new BigDecimalLineSegment(
                 new BigDecimalPoint(),
                 new BigDecimalPoint(BigDecimal.ONE)
@@ -287,7 +289,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void moveOfLineSegmentWithAndBWithXAndY() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new BigDecimalLineSegment(
                 new BigDecimalPoint(),
                 new BigDecimalPoint(BigDecimal.ONE)
@@ -299,7 +301,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void moveOfLineSegmentWithAndBWithVector() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new BigDecimalLineSegment(
                 new BigDecimalPoint(), new BigDecimalPoint(BigDecimal.ONE)
             ).move(new BigDecimalVector(BigDecimal.ONE)),
@@ -310,7 +312,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void rotateOfLineSegmentWithAXY0AndBX1Y2WithoutCenterWithPiHalf() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ZERO),
                 new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d))
@@ -325,7 +327,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void rotateOfLineSegmentWithAXY0AndBX1Y2WithCenterXY1WithPiHalf() {
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ZERO),
                 new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d))
@@ -344,7 +346,7 @@ class BigDecimalLineSegmentTest {
             new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d)),
             new BigDecimalPoint(BigDecimal.valueOf(3d), BigDecimal.valueOf(4d))
         );
-        Assertions.assertEquals(lineSegment, lineSegment.copy());
+        assertEquals(lineSegment, lineSegment.copy());
     }
 
     // endregion
@@ -357,12 +359,12 @@ class BigDecimalLineSegmentTest {
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             new BigDecimalPoint(BigDecimal.valueOf(3d))
         );
-        Assertions.assertEquals(
+        assertEquals(
             lineSegment,
             new BigDecimalLineSegment(new BigDecimalPoint(BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.valueOf(3d)))
         );
-        Assertions.assertNotEquals(
+        assertNotEquals(
             lineSegment,
             new BigDecimalLineSegment(new BigDecimalPoint(BigDecimal.valueOf(3d)),
                 new BigDecimalPoint(BigDecimal.valueOf(2d)))
@@ -371,7 +373,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void hashCodeOfLineSegmentWithTwoPoints() {
-        Assertions.assertEquals(
+        assertEquals(
             677537,
             new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)),
@@ -386,7 +388,7 @@ class BigDecimalLineSegmentTest {
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             new BigDecimalPoint(BigDecimal.valueOf(3d))
         );
-        Assertions.assertEquals("2.0|2.0 3.0|3.0", lineSegment.toString());
+        assertEquals("2.0|2.0 3.0|3.0", lineSegment.toString());
     }
 
     @Test
@@ -395,19 +397,19 @@ class BigDecimalLineSegmentTest {
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             new BigDecimalPoint(BigDecimal.valueOf(3d))
         );
-        Assertions.assertEquals(0,
+        assertEquals(0,
             lineSegment.compareTo(new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.valueOf(3d))
             ))
         );
-        Assertions.assertEquals(-1,
+        assertEquals(-1,
             lineSegment.compareTo(new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.valueOf(3d)),
                 new BigDecimalPoint(BigDecimal.valueOf(4d))
             ))
         );
-        Assertions.assertEquals(1,
+        assertEquals(1,
             lineSegment.compareTo(new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.ONE),
                 new BigDecimalPoint(BigDecimal.ONE)
@@ -417,7 +419,7 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void serializable() {
-        SerializableAssertions.assertSerializable(
+        assertSerializable(
             new BigDecimalLineSegment(new BigDecimalPoint()),
             LineSegment.class
         );

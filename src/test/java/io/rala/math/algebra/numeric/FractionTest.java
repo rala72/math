@@ -6,9 +6,10 @@ import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.testUtils.algebra.TestFraction;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
 import io.rala.math.testUtils.assertion.NumericAssertions;
-import io.rala.math.testUtils.assertion.SerializableAssertions;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static org.junit.jupiter.api.Assertions.*;
 
 class FractionTest {
     // region constructors, getter and setter
@@ -25,14 +26,14 @@ class FractionTest {
 
     @Test
     void constructorWithNullNuParameter() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new TestFraction((Number) null)
         ); // assert exception message?
     }
 
     @Test
     void constructorWithZeroDeParameter() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new TestFraction(1d, 0d)
         ); // assert exception message?
     }
@@ -54,7 +55,7 @@ class FractionTest {
     void createAndSetNumeratorNull() {
         TestFraction complex = new TestFraction(1d);
         assertFraction(complex);
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> complex.setNumerator(null)
         ); // assert exception message?
     }
@@ -71,7 +72,7 @@ class FractionTest {
     void createAndSetDenominatorZero() {
         TestFraction complex = new TestFraction(1);
         assertFraction(complex, 1, 1d);
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> complex.setDenominator(0d)
         ); // assert exception message?
     }
@@ -90,27 +91,27 @@ class FractionTest {
 
     @Test
     void valueOf1_2() {
-        Assertions.assertEquals(0.5, new TestFraction(1, 2).value());
+        assertEquals(0.5, new TestFraction(1, 2).value());
     }
 
     @Test
     void intValueOf1_2() {
-        Assertions.assertEquals(0, new TestFraction(1, 2).intValue());
+        assertEquals(0, new TestFraction(1, 2).intValue());
     }
 
     @Test
     void longValueOf1_2() {
-        Assertions.assertEquals(0, new TestFraction(1, 2).longValue());
+        assertEquals(0, new TestFraction(1, 2).longValue());
     }
 
     @Test
     void floatValueOf1_2() {
-        Assertions.assertEquals(0.5, new TestFraction(1, 2).floatValue());
+        assertEquals(0.5, new TestFraction(1, 2).floatValue());
     }
 
     @Test
     void doubleValueOf1_2() {
-        Assertions.assertEquals(0.5, new TestFraction(1, 2).doubleValue());
+        assertEquals(0.5, new TestFraction(1, 2).doubleValue());
     }
 
     // endregion
@@ -137,7 +138,7 @@ class FractionTest {
         Fraction<Double, Double> fraction = new Fraction<>(
             new DoubleArithmetic().toResultArithmetic(), 2d, 4d
         );
-        Assertions.assertEquals(fraction, fraction.simplify());
+        assertEquals(fraction, fraction.simplify());
     }
 
     // endregion
@@ -146,7 +147,7 @@ class FractionTest {
 
     @Test
     void addWithNumerator() {
-        Assertions.assertEquals(
+        assertEquals(
             new TestFraction(2d, 1d),
             new TestFraction(1).add(1, 1)
         );
@@ -154,7 +155,7 @@ class FractionTest {
 
     @Test
     void addWithXAndY() {
-        Assertions.assertEquals(
+        assertEquals(
             new TestFraction(2d, 1d),
             new TestFraction(1, 1).add(1, 1)
         );
@@ -162,7 +163,7 @@ class FractionTest {
 
     @Test
     void addWithFraction() {
-        Assertions.assertEquals(new TestFraction(3d, 2d),
+        assertEquals(new TestFraction(3d, 2d),
             new TestFraction(1, 1).add(new TestFraction(1, 2))
         );
     }
@@ -171,7 +172,7 @@ class FractionTest {
     void addWithDoubleFraction() {
         AbstractResultArithmetic<Double, Double> arithmetic =
             new DoubleArithmetic().toResultArithmetic();
-        Assertions.assertEquals(new Fraction<>(arithmetic, 3d, 2d),
+        assertEquals(new Fraction<>(arithmetic, 3d, 2d),
             new Fraction<>(arithmetic, 1d, 1d)
                 .add(new Fraction<>(arithmetic, 1d, 2d))
         );
@@ -179,7 +180,7 @@ class FractionTest {
 
     @Test
     void subtractWithNumerator() {
-        Assertions.assertEquals(
+        assertEquals(
             new TestFraction(0d, 1d),
             new TestFraction(2).subtract(2, 1)
         );
@@ -187,7 +188,7 @@ class FractionTest {
 
     @Test
     void subtractWithXAndY() {
-        Assertions.assertEquals(
+        assertEquals(
             new TestFraction(1d, 1d),
             new TestFraction(2, 1).subtract(1, 1)
         );
@@ -195,7 +196,7 @@ class FractionTest {
 
     @Test
     void subtractWithFraction() {
-        Assertions.assertEquals(new TestFraction(3d, 2d),
+        assertEquals(new TestFraction(3d, 2d),
             new TestFraction(2, 1).subtract(new TestFraction(1, 2))
         );
     }
@@ -206,7 +207,7 @@ class FractionTest {
 
     @Test
     void multiplyWithNumerator() {
-        Assertions.assertEquals(
+        assertEquals(
             new TestFraction(2d, 1d),
             new TestFraction(1).multiply(2)
         );
@@ -214,7 +215,7 @@ class FractionTest {
 
     @Test
     void multiplyWithXAndY() {
-        Assertions.assertEquals(
+        assertEquals(
             new TestFraction(3d, 8d),
             new TestFraction(1, 2).multiply(3, 4)
         );
@@ -222,7 +223,7 @@ class FractionTest {
 
     @Test
     void multiplyWithFraction() {
-        Assertions.assertEquals(new TestFraction(4d, 6d),
+        assertEquals(new TestFraction(4d, 6d),
             new TestFraction(1, 2)
                 .multiply(new TestFraction(4, 3))
         );
@@ -230,7 +231,7 @@ class FractionTest {
 
     @Test
     void divideWithNumerator() {
-        Assertions.assertEquals(
+        assertEquals(
             new TestFraction(1d, 2d),
             new TestFraction(1).divide(2)
         );
@@ -238,7 +239,7 @@ class FractionTest {
 
     @Test
     void divideWithXAndY() {
-        Assertions.assertEquals(
+        assertEquals(
             new TestFraction(4d, 6d),
             new TestFraction(1, 2).divide(3, 4)
         );
@@ -246,7 +247,7 @@ class FractionTest {
 
     @Test
     void divideWithFraction() {
-        Assertions.assertEquals(new TestFraction(3d, 8d),
+        assertEquals(new TestFraction(3d, 8d),
             new TestFraction(1, 2)
                 .divide(new TestFraction(4, 3))
         );
@@ -276,7 +277,7 @@ class FractionTest {
         Fraction<Integer, Integer> result = new Fraction<>(
             new IntegerArithmetic().toResultArithmetic(), 0, 1
         );
-        Assertions.assertEquals(result, fraction.map(
+        assertEquals(result, fraction.map(
             new IntegerArithmetic().toResultArithmetic(), Number::intValue
         ));
     }
@@ -289,7 +290,7 @@ class FractionTest {
                 new IntegerArithmetic(), new TestAbstractArithmetic(), Number::intValue
             ), 0, 1
         );
-        Assertions.assertEquals(result, fraction.mapValues(
+        assertEquals(result, fraction.mapValues(
             new IntegerArithmetic(), Number::intValue, Integer::intValue
         ));
     }
@@ -302,7 +303,7 @@ class FractionTest {
                 new IntegerArithmetic(), new TestAbstractArithmetic(), Number::intValue
             ), 0, 1
         );
-        Assertions.assertEquals(result, fraction.mapValues(
+        assertEquals(result, fraction.mapValues(
             AbstractResultArithmetic.of(
                 new IntegerArithmetic(), new TestAbstractArithmetic(), Number::intValue
             ), Number::intValue
@@ -317,7 +318,7 @@ class FractionTest {
                 new TestAbstractArithmetic(), new IntegerArithmetic(), Number::intValue
             ), 0.5, 1.5
         );
-        Assertions.assertEquals(result, fraction.mapValue(
+        assertEquals(result, fraction.mapValue(
             new IntegerArithmetic(), Number::intValue
         ));
     }
@@ -325,7 +326,7 @@ class FractionTest {
     @Test
     void copyOfFractionWithNuDe() {
         TestFraction complex = new TestFraction(2, 3);
-        Assertions.assertEquals(complex, complex.copy());
+        assertEquals(complex, complex.copy());
     }
 
     // endregion
@@ -335,11 +336,11 @@ class FractionTest {
     @Test
     void equalsOfFractionWithNuDe() {
         TestFraction complex = new TestFraction(2, 3);
-        Assertions.assertEquals(
+        assertEquals(
             complex,
             new TestFraction(2, 3)
         );
-        Assertions.assertNotEquals(
+        assertNotEquals(
             complex,
             new TestFraction(3, 2)
         );
@@ -347,7 +348,7 @@ class FractionTest {
 
     @Test
     void hashCodeOfFractionWithNuDe() {
-        Assertions.assertEquals(
+        assertEquals(
             1026,
             new TestFraction(2, 3).hashCode()
         );
@@ -356,26 +357,26 @@ class FractionTest {
     @Test
     void toStringOfFractionWithNuDe() {
         TestFraction complex = new TestFraction(2, 3);
-        Assertions.assertEquals("2/3", complex.toString());
+        assertEquals("2/3", complex.toString());
     }
 
     @Test
     void compareToOfFractionWithNuDe() {
         TestFraction complex = new TestFraction(2, 3);
-        Assertions.assertEquals(
+        assertEquals(
             0, complex.compareTo(new TestFraction(2, 3))
         );
-        Assertions.assertEquals(
+        assertEquals(
             -1, complex.compareTo(new TestFraction(3, 1))
         );
-        Assertions.assertEquals(
+        assertEquals(
             1, complex.compareTo(new TestFraction(1, 2))
         );
     }
 
     @Test
     void serializable() {
-        SerializableAssertions.assertSerializable(
+        assertSerializable(
             new TestFraction(2, 3),
             TestFraction.class
         );
@@ -394,7 +395,7 @@ class FractionTest {
     @Test
     void createFromArithmeticWithNullNuParameter() {
         TestFraction fraction = new TestFraction(1);
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> fraction.createFromArithmetic(null, 1)
         ); // assert exception message?
     }
@@ -402,7 +403,7 @@ class FractionTest {
     @Test
     void createFromArithmeticWithZeroDeParameter() {
         TestFraction fraction = new TestFraction(1);
-        Assertions.assertThrows(ArithmeticException.class,
+        assertThrows(ArithmeticException.class,
             () -> fraction.createFromArithmetic(1d, 0d)
         ); // assert exception message?
     }

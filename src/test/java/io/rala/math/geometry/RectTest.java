@@ -1,25 +1,26 @@
 package io.rala.math.geometry;
 
 import io.rala.math.arithmetic.core.IntegerArithmetic;
-import io.rala.math.testUtils.assertion.GeometryAssertions;
-import io.rala.math.testUtils.assertion.SerializableAssertions;
 import io.rala.math.testUtils.geometry.TestPoint;
 import io.rala.math.testUtils.geometry.TestRect;
 import io.rala.math.testUtils.geometry.TestVector;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static io.rala.math.testUtils.assertion.GeometryAssertions.*;
+import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static org.junit.jupiter.api.Assertions.*;
 
 class RectTest {
     // region constructors, getter and setter
 
     @Test
     void constructorWithHeightAndWidthButWithoutPoints() {
-        GeometryAssertions.assertRect(new TestRect(1, 2), 1, 2);
+        assertRect(new TestRect(1, 2), 1, 2);
     }
 
     @Test
     void constructorWithPoint1AndSize() {
-        GeometryAssertions.assertRect(
+        assertRect(
             new TestRect(new TestPoint(0), new TestPoint(1), 2),
             new TestPoint(), new TestPoint(1), 2
         );
@@ -28,25 +29,25 @@ class RectTest {
     @Test
     void createAndSetA() {
         Rect<Number> rect = new TestRect(0, 0);
-        GeometryAssertions.assertRect(rect, 0, 0);
+        assertRect(rect, 0, 0);
         rect.setA(new TestPoint(1));
-        GeometryAssertions.assertRect(rect, new TestPoint(1), new TestPoint(0), 0);
+        assertRect(rect, new TestPoint(1), new TestPoint(0), 0);
     }
 
     @Test
     void createAndSetB() {
         Rect<Number> rect = new TestRect(0, 0);
-        GeometryAssertions.assertRect(rect, 0, 0);
+        assertRect(rect, 0, 0);
         rect.setB(new TestPoint(2));
-        GeometryAssertions.assertRect(rect, new TestPoint(0), new TestPoint(2), 0);
+        assertRect(rect, new TestPoint(0), new TestPoint(2), 0);
     }
 
     @Test
     void createAndSetSize() {
         Rect<Number> rect = new TestRect(0, 0);
-        GeometryAssertions.assertRect(rect, 0, 0);
+        assertRect(rect, 0, 0);
         rect.setSize(2);
-        GeometryAssertions.assertRect(rect, 2, 0);
+        assertRect(rect, 2, 0);
     }
 
     // endregion
@@ -56,19 +57,19 @@ class RectTest {
     @Test
     void vertexesOfRectWithHeight1AndWidth2() {
         Rect<Number> rect = new TestRect(1, 2);
-        GeometryAssertions.assertPoint(rect.vertexA(), 0, 0);
-        GeometryAssertions.assertPoint(rect.vertexB(), 2, 0);
-        GeometryAssertions.assertPoint(rect.vertexC(), 2, 1);
-        GeometryAssertions.assertPoint(rect.vertexD(), 0, 1);
+        assertPoint(rect.vertexA(), 0, 0);
+        assertPoint(rect.vertexB(), 2, 0);
+        assertPoint(rect.vertexC(), 2, 1);
+        assertPoint(rect.vertexD(), 0, 1);
     }
 
     @Test
     void vertexesOfRectWithPointsAndSize() {
         Rect<Number> rect = new TestRect(new TestPoint(1, 1), new TestPoint(0, 1), 2);
-        GeometryAssertions.assertPoint(rect.vertexA(), 1, 1);
-        GeometryAssertions.assertPoint(rect.vertexB(), 0, 1);
-        GeometryAssertions.assertPoint(rect.vertexC(), 0, 3);
-        GeometryAssertions.assertPoint(rect.vertexD(), 1, 3);
+        assertPoint(rect.vertexA(), 1, 1);
+        assertPoint(rect.vertexB(), 0, 1);
+        assertPoint(rect.vertexC(), 0, 3);
+        assertPoint(rect.vertexD(), 1, 3);
     }
 
     // endregion
@@ -77,55 +78,55 @@ class RectTest {
 
     @Test
     void heightOfRectWithPointsAndPositiveSize() {
-        Assertions.assertEquals(1,
+        assertEquals(1,
             new TestRect(new TestPoint(), new TestPoint(1), 1).height()
         );
     }
 
     @Test
     void heightOfRectWithPointsAndNegativeSize() {
-        Assertions.assertEquals(1d,
+        assertEquals(1d,
             new TestRect(new TestPoint(), new TestPoint(1), -1).height()
         );
     }
 
     @Test
     void heightOfRectWithHeight1AndWidth0() {
-        Assertions.assertEquals(0d, new TestRect(1, 0).height());
+        assertEquals(0d, new TestRect(1, 0).height());
     }
 
     @Test
     void widthOfRectWithPointsAndPositiveSize() {
-        Assertions.assertEquals(Math.sqrt(2),
+        assertEquals(Math.sqrt(2),
             new TestRect(new TestPoint(), new TestPoint(1), 1).width()
         );
     }
 
     @Test
     void widthOfRectWithPointsAndNegativeSize() {
-        Assertions.assertEquals(Math.sqrt(2),
+        assertEquals(Math.sqrt(2),
             new TestRect(new TestPoint(), new TestPoint(1), -1).width()
         );
     }
 
     @Test
     void widthOfRectWithHeight1AndWidth0() {
-        Assertions.assertEquals(1, new TestRect(1, 0).width());
+        assertEquals(1, new TestRect(1, 0).width());
     }
 
     @Test
     void diagonaleOfRectWithHeightAndWidth1() {
-        Assertions.assertEquals(Math.sqrt(2), new TestRect(1, 1).diagonale());
+        assertEquals(Math.sqrt(2), new TestRect(1, 1).diagonale());
     }
 
     @Test
     void diagonaleOfRectWithHeight1AndWidth2() {
-        Assertions.assertEquals(Math.sqrt(5), new TestRect(1, 2).diagonale());
+        assertEquals(Math.sqrt(5), new TestRect(1, 2).diagonale());
     }
 
     @Test
     void diagonaleOfRectWithHeight2AndWidth3() {
-        Assertions.assertEquals(Math.sqrt(13), new TestRect(2, 3).diagonale());
+        assertEquals(Math.sqrt(13), new TestRect(2, 3).diagonale());
     }
 
     // endregion
@@ -134,32 +135,32 @@ class RectTest {
 
     @Test
     void areaOfRectWithHeightAndWidth1() {
-        Assertions.assertEquals(1d, new TestRect(1, 1).area());
+        assertEquals(1d, new TestRect(1, 1).area());
     }
 
     @Test
     void areaOfRectWithHeight1AndWidth2() {
-        Assertions.assertEquals(2d, new TestRect(1, 2).area());
+        assertEquals(2d, new TestRect(1, 2).area());
     }
 
     @Test
     void areaOfRectWithHeight2AndWidth3() {
-        Assertions.assertEquals(6d, new TestRect(2, 3).area());
+        assertEquals(6d, new TestRect(2, 3).area());
     }
 
     @Test
     void circumferenceOfRectWithHeightAndWidth1() {
-        Assertions.assertEquals(4d, new TestRect(1, 1).circumference());
+        assertEquals(4d, new TestRect(1, 1).circumference());
     }
 
     @Test
     void circumferenceOfRectWithHeight1AndWidth2() {
-        Assertions.assertEquals(6d, new TestRect(1, 2).circumference());
+        assertEquals(6d, new TestRect(1, 2).circumference());
     }
 
     @Test
     void circumferenceOfRectWithHeight2AndWidth3() {
-        Assertions.assertEquals(10d, new TestRect(2, 3).circumference());
+        assertEquals(10d, new TestRect(2, 3).circumference());
     }
 
     // endregion
@@ -168,7 +169,7 @@ class RectTest {
 
     @Test
     void circumCircleOfRectWithHeightAndWidth1() {
-        GeometryAssertions.assertCircle(
+        assertCircle(
             new TestRect(1, 1).circumCircle(),
             new TestPoint(0.5, 0.5), Math.sqrt(2) / 2
         );
@@ -176,7 +177,7 @@ class RectTest {
 
     @Test
     void circumCircleRadiusOfRectWithHeightAndWidth1() {
-        Assertions.assertEquals(
+        assertEquals(
             Math.sqrt(2) / 2,
             new TestRect(1, 1).circumCircleRadius()
         );
@@ -184,7 +185,7 @@ class RectTest {
 
     @Test
     void circumCirclePointOfRectWithHeightAndWidth1() {
-        GeometryAssertions.assertPoint(
+        assertPoint(
             new TestRect(1, 1).circumCirclePoint(),
             0.5, 0.5
         );
@@ -196,12 +197,12 @@ class RectTest {
 
     @Test
     void isSquareWithEqualHeightAndWidth() {
-        Assertions.assertTrue(new TestRect(1, 1).isSquare());
+        assertTrue(new TestRect(1, 1).isSquare());
     }
 
     @Test
     void isSquareWithUnequalHeightAndWidth() {
-        Assertions.assertFalse(new TestRect(1, 2).isSquare());
+        assertFalse(new TestRect(1, 2).isSquare());
     }
 
     // endregion
@@ -219,39 +220,39 @@ class RectTest {
             new Point<>(integerArithmetic, 1),
             2
         );
-        Assertions.assertEquals(result,
+        assertEquals(result,
             rect.map(new IntegerArithmetic(), Number::intValue)
         );
     }
 
     @Test
     void isValidWithPositiveValues() {
-        Assertions.assertTrue(new TestRect(1, 1).isValid());
+        assertTrue(new TestRect(1, 1).isValid());
     }
 
     @Test
     void isValidWithZeroValues() {
-        Assertions.assertFalse(new TestRect(0d, 0d).isValid());
+        assertFalse(new TestRect(0d, 0d).isValid());
     }
 
     @Test
     void isValidWithZeroHeight() {
-        Assertions.assertFalse(new TestRect(0d, 1d).isValid());
+        assertFalse(new TestRect(0d, 1d).isValid());
     }
 
     @Test
     void isValidWithZeroWidth() {
-        Assertions.assertFalse(new TestRect(1d, 0d).isValid());
+        assertFalse(new TestRect(1d, 0d).isValid());
     }
 
     @Test
     void isValidWithNegativeValues() {
-        Assertions.assertTrue(new TestRect(-1, -1).isValid());
+        assertTrue(new TestRect(-1, -1).isValid());
     }
 
     @Test
     void isValidWithInfValues() {
-        Assertions.assertFalse(
+        assertFalse(
             new TestRect(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
                 .isValid()
         );
@@ -259,7 +260,7 @@ class RectTest {
 
     @Test
     void moveOfRectWithXYWithXY() {
-        GeometryAssertions.assertRect(
+        assertRect(
             new TestRect(1, 2).move(1),
             new TestPoint(1), new TestPoint(3, 1), 1
         );
@@ -267,7 +268,7 @@ class RectTest {
 
     @Test
     void moveOfRectWithXYWithXAndY() {
-        GeometryAssertions.assertRect(
+        assertRect(
             new TestRect(1, 2).move(1, 1),
             new TestPoint(1), new TestPoint(3, 1), 1
         );
@@ -275,7 +276,7 @@ class RectTest {
 
     @Test
     void moveOfRectWithXYWithVector() {
-        GeometryAssertions.assertRect(
+        assertRect(
             new TestRect(1, 2).move(new TestVector(1)),
             new TestPoint(1), new TestPoint(3, 1), 1
         );
@@ -283,7 +284,7 @@ class RectTest {
 
     @Test
     void rotateOfRectWidthHeight1AndWidth2WithoutCenterWithPiHalf() {
-        GeometryAssertions.assertRect(
+        assertRect(
             new TestRect(new TestPoint(), new TestPoint(0, 1), 2)
                 .rotate(Math.PI / 2),
             new TestPoint(), new TestPoint(-1.0, 6.123233995736766E-17), 2
@@ -292,7 +293,7 @@ class RectTest {
 
     @Test
     void rotateOfRectWithHeight1AndWidth2WithCenterXY1WithPiHalf() {
-        GeometryAssertions.assertRect(
+        assertRect(
             new TestRect(new TestPoint(), new TestPoint(0, 1), 2)
                 .rotate(new TestPoint(1), Math.PI / 2),
             new TestPoint(2, 0), new TestPoint(0.9999999999999999, 0), 2
@@ -302,7 +303,7 @@ class RectTest {
     @Test
     void copyOfRectWithPointHeightAndWidth() {
         Rect<Number> rect = new TestRect(new TestPoint(2), new TestPoint(3), 4);
-        Assertions.assertEquals(rect, rect.copy());
+        assertEquals(rect, rect.copy());
     }
 
     // endregion
@@ -312,11 +313,11 @@ class RectTest {
     @Test
     void equalsOfRectWithPointHeightAndWidth() {
         Rect<Number> rect = new TestRect(new TestPoint(2), new TestPoint(3), 4);
-        Assertions.assertEquals(
+        assertEquals(
             rect,
             new TestRect(new TestPoint(2), new TestPoint(3), 4)
         );
-        Assertions.assertNotEquals(
+        assertNotEquals(
             rect,
             new TestRect(new TestPoint(2), new TestPoint(4), 3)
         );
@@ -324,7 +325,7 @@ class RectTest {
 
     @Test
     void hashCodeOfRectWithPointHeightAndWidth() {
-        Assertions.assertEquals(
+        assertEquals(
             1047587,
             new TestRect(new TestPoint(2), new TestPoint(3), 4).hashCode()
         );
@@ -333,26 +334,26 @@ class RectTest {
     @Test
     void toStringOfRectWithPointHeightAndWidth() {
         Rect<Number> rect = new TestRect(new TestPoint(2d), new TestPoint(3d), 4d);
-        Assertions.assertEquals("2.0|2.0 3.0|3.0 4.0", rect.toString());
+        assertEquals("2.0|2.0 3.0|3.0 4.0", rect.toString());
     }
 
     @Test
     void compareToOfRectWithPointHeightAndWidth() {
         Rect<Number> rect = new TestRect(1, 2);
-        Assertions.assertEquals(
+        assertEquals(
             0, rect.compareTo(new TestRect(1, 2))
         );
-        Assertions.assertEquals(
+        assertEquals(
             -1, rect.compareTo(new TestRect(2, 3))
         );
-        Assertions.assertEquals(
+        assertEquals(
             1, rect.compareTo(new TestRect(1, 1))
         );
     }
 
     @Test
     void serializable() {
-        SerializableAssertions.assertSerializable(new TestRect(0, 0), Rect.class);
+        assertSerializable(new TestRect(0, 0), Rect.class);
     }
 
     // endregion

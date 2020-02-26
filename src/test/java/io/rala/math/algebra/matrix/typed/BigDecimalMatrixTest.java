@@ -3,8 +3,6 @@ package io.rala.math.algebra.matrix.typed;
 import io.rala.math.algebra.matrix.Matrix;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.testUtils.algebra.TestMatrix;
-import io.rala.math.testUtils.assertion.SerializableAssertions;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -13,13 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static io.rala.math.testUtils.assertion.MatrixAssertions.assertMatrix;
+import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BigDecimalMatrixTest {
     // region constructors
 
     @Test
     void constructorWithNegativeSize() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new BigDecimalMatrix(-1)
         ); // assert exception message?
     }
@@ -29,7 +29,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = new BigDecimalMatrix(Integer.MAX_VALUE);
 
         long expectedSize = (long) Integer.MAX_VALUE * Integer.MAX_VALUE;
-        Assertions.assertEquals(expectedSize, matrix.size());
+        assertEquals(expectedSize, matrix.size());
     }
 
     @Test
@@ -73,22 +73,22 @@ class BigDecimalMatrixTest {
 
     @Test
     void createWithSize1AndAssertSizeEquals1() {
-        Assertions.assertEquals(1, new BigDecimalMatrix(1).size());
+        assertEquals(1, new BigDecimalMatrix(1).size());
     }
 
     @Test
     void createWithSize2AndAssertSizeEquals4() {
-        Assertions.assertEquals(4, new BigDecimalMatrix(2).size());
+        assertEquals(4, new BigDecimalMatrix(2).size());
     }
 
     @Test
     void createWithRow1Col2AndAssertSizeEquals2() {
-        Assertions.assertEquals(2, new BigDecimalMatrix(1, 2).size());
+        assertEquals(2, new BigDecimalMatrix(1, 2).size());
     }
 
     @Test
     void createWithRow2Col3AndAssertSizeEquals6() {
-        Assertions.assertEquals(6, new BigDecimalMatrix(2, 3).size());
+        assertEquals(6, new BigDecimalMatrix(2, 3).size());
     }
 
     // endregion
@@ -98,7 +98,7 @@ class BigDecimalMatrixTest {
     @Test
     void getRowFieldsM1OfMatrix() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.getRowFields(-1)
         ); // assert exception message?
     }
@@ -109,12 +109,12 @@ class BigDecimalMatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, BigDecimal.valueOf(i));
         List<Matrix<BigDecimal>.Field> row0 = matrix.getRowFields(0);
-        Assertions.assertEquals(2, row0.size());
+        assertEquals(2, row0.size());
         for (int i = 0; i < row0.size(); i++) {
             Matrix<BigDecimal>.Field field = row0.get(i);
-            Assertions.assertEquals(0, field.getRow());
-            Assertions.assertEquals(i, field.getCol());
-            Assertions.assertEquals(BigDecimal.valueOf(i), field.getValue());
+            assertEquals(0, field.getRow());
+            assertEquals(i, field.getCol());
+            assertEquals(BigDecimal.valueOf(i), field.getValue());
         }
     }
 
@@ -124,15 +124,15 @@ class BigDecimalMatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, BigDecimal.valueOf(i));
         List<BigDecimal> row0 = matrix.getRow(0);
-        Assertions.assertEquals(2, row0.size());
+        assertEquals(2, row0.size());
         for (int i = 0; i < row0.size(); i++)
-            Assertions.assertEquals(BigDecimal.valueOf(i), row0.get(i));
+            assertEquals(BigDecimal.valueOf(i), row0.get(i));
     }
 
     @Test
     void getColFieldsM1OfMatrix() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.getColFields(-1)
         ); // assert exception message?
     }
@@ -143,12 +143,12 @@ class BigDecimalMatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, BigDecimal.valueOf(i));
         List<Matrix<BigDecimal>.Field> col0 = matrix.getColFields(0);
-        Assertions.assertEquals(2, col0.size());
+        assertEquals(2, col0.size());
         for (int i = 0; i < col0.size(); i++) {
             Matrix<BigDecimal>.Field field = col0.get(i);
-            Assertions.assertEquals(0, field.getCol());
-            Assertions.assertEquals(i, field.getRow());
-            Assertions.assertEquals(BigDecimal.valueOf(i * 2), field.getValue());
+            assertEquals(0, field.getCol());
+            assertEquals(i, field.getRow());
+            assertEquals(BigDecimal.valueOf(i * 2), field.getValue());
         }
     }
 
@@ -158,9 +158,9 @@ class BigDecimalMatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, BigDecimal.valueOf(i));
         List<BigDecimal> col0 = matrix.getCol(0);
-        Assertions.assertEquals(2, col0.size());
+        assertEquals(2, col0.size());
         for (int i = 0; i < col0.size(); i++)
-            Assertions.assertEquals(BigDecimal.valueOf(i * 2), col0.get(i));
+            assertEquals(BigDecimal.valueOf(i * 2), col0.get(i));
     }
 
     // endregion
@@ -170,7 +170,7 @@ class BigDecimalMatrixTest {
     @Test
     void setValueByIndexMinus1() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.setValue(-1, BigDecimal.ZERO)
         ); // assert exception message?
     }
@@ -178,25 +178,25 @@ class BigDecimalMatrixTest {
     @Test
     void setValueByIndex0WhichWasEmpty() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertEquals(BigDecimal.ZERO, matrix.setValue(0, BigDecimal.ONE));
-        Assertions.assertEquals(BigDecimal.ONE, matrix.getValue(0));
-        Assertions.assertEquals(BigDecimal.ONE, matrix.getValue(0, 0));
+        assertEquals(BigDecimal.ZERO, matrix.setValue(0, BigDecimal.ONE));
+        assertEquals(BigDecimal.ONE, matrix.getValue(0));
+        assertEquals(BigDecimal.ONE, matrix.getValue(0, 0));
         // assert all other are unset
     }
 
     @Test
     void setValueByIndex3WhichWasEmpty() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertEquals(BigDecimal.ZERO, matrix.setValue(3, BigDecimal.ONE));
-        Assertions.assertEquals(BigDecimal.ONE, matrix.getValue(3));
-        Assertions.assertEquals(BigDecimal.ONE, matrix.getValue(1, 1));
+        assertEquals(BigDecimal.ZERO, matrix.setValue(3, BigDecimal.ONE));
+        assertEquals(BigDecimal.ONE, matrix.getValue(3));
+        assertEquals(BigDecimal.ONE, matrix.getValue(1, 1));
         // assert all other are unset
     }
 
     @Test
     void setValueByRowMinus1Col0() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.setValue(-1, 0, BigDecimal.ZERO)
         ); // assert exception message?
     }
@@ -204,7 +204,7 @@ class BigDecimalMatrixTest {
     @Test
     void setValueByRow0ColMinus1() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.setValue(0, -1, BigDecimal.ZERO)
         ); // assert exception message?
     }
@@ -212,25 +212,25 @@ class BigDecimalMatrixTest {
     @Test
     void setValueByRow0Col0WhichWasEmpty() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertEquals(BigDecimal.ZERO, matrix.setValue(0, 0, BigDecimal.ONE));
-        Assertions.assertEquals(BigDecimal.ONE, matrix.getValue(0));
-        Assertions.assertEquals(BigDecimal.ONE, matrix.getValue(0, 0));
+        assertEquals(BigDecimal.ZERO, matrix.setValue(0, 0, BigDecimal.ONE));
+        assertEquals(BigDecimal.ONE, matrix.getValue(0));
+        assertEquals(BigDecimal.ONE, matrix.getValue(0, 0));
         // assert all other are unset
     }
 
     @Test
     void setValueByRow1Col0WhichWasEmpty() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertEquals(BigDecimal.ZERO, matrix.setValue(1, 0, BigDecimal.ONE));
-        Assertions.assertEquals(BigDecimal.ONE, matrix.getValue(1, 0));
-        Assertions.assertEquals(BigDecimal.ONE, matrix.getValue(2));
+        assertEquals(BigDecimal.ZERO, matrix.setValue(1, 0, BigDecimal.ONE));
+        assertEquals(BigDecimal.ONE, matrix.getValue(1, 0));
+        assertEquals(BigDecimal.ONE, matrix.getValue(2));
         // assert all other are unset
     }
 
     @Test
     void getValueByIndexMinus1() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.getValue(-1)
         ); // assert exception message?
     }
@@ -238,7 +238,7 @@ class BigDecimalMatrixTest {
     @Test
     void getValueByRowMinus1Col0() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.getValue(-1, 0)
         ); // assert exception message?
     }
@@ -246,7 +246,7 @@ class BigDecimalMatrixTest {
     @Test
     void getValueByRow0ColMinus1() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.getValue(0, -1)
         ); // assert exception message?
     }
@@ -254,7 +254,7 @@ class BigDecimalMatrixTest {
     @Test
     void removeValueByIndexMinus1() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.removeValue(-1)
         ); // assert exception message?
     }
@@ -262,13 +262,13 @@ class BigDecimalMatrixTest {
     @Test
     void removeValueByIndex0WhichWasEmpty() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertEquals(BigDecimal.ZERO, matrix.removeValue(0));
+        assertEquals(BigDecimal.ZERO, matrix.removeValue(0));
     }
 
     @Test
     void removeValueByRowMinus1Col0() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.removeValue(-1, 0)
         ); // assert exception message?
     }
@@ -276,7 +276,7 @@ class BigDecimalMatrixTest {
     @Test
     void removeValueByRow0ColMinus1() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> matrix.removeValue(0, -1)
         ); // assert exception message?
     }
@@ -284,14 +284,14 @@ class BigDecimalMatrixTest {
     @Test
     void removeValueByRow0Col0WhichWasEmpty() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertEquals(BigDecimal.ZERO, matrix.removeValue(0, 0));
+        assertEquals(BigDecimal.ZERO, matrix.removeValue(0, 0));
     }
 
     @Test
     void removeValueByIndex2WhichWasNonEmpty() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         matrix.setValue(2, BigDecimal.ONE);
-        Assertions.assertEquals(BigDecimal.ONE, matrix.removeValue(2));
+        assertEquals(BigDecimal.ONE, matrix.removeValue(2));
     }
 
     // endregion
@@ -300,29 +300,29 @@ class BigDecimalMatrixTest {
 
     @Test
     void isSquareOfMatrixWithRow1Col2() {
-        Assertions.assertFalse(new BigDecimalMatrix(1, 2).isDiagonal());
+        assertFalse(new BigDecimalMatrix(1, 2).isDiagonal());
     }
 
     @Test
     void isSquareOfMatrixWithSize2() {
-        Assertions.assertTrue(new BigDecimalMatrix(2).isDiagonal());
+        assertTrue(new BigDecimalMatrix(2).isDiagonal());
     }
 
     @Test
     void isDiagonalOfMatrixWithRow1Col2() {
-        Assertions.assertFalse(new BigDecimalMatrix(1, 2).isDiagonal());
+        assertFalse(new BigDecimalMatrix(1, 2).isDiagonal());
     }
 
     @Test
     void isDiagonalOfMatrixOfValidValues() {
-        Assertions.assertTrue(BigDecimalMatrix.ofValuesByRows(2,
+        assertTrue(BigDecimalMatrix.ofValuesByRows(2,
             BigDecimal.ONE, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(4)
         ).isDiagonal());
     }
 
     @Test
     void isDiagonalOfMatrixOfInvalidValues() {
-        Assertions.assertFalse(BigDecimalMatrix.ofValuesByRows(2,
+        assertFalse(BigDecimalMatrix.ofValuesByRows(2,
             BigDecimal.ONE, BigDecimal.valueOf(2),
             BigDecimal.valueOf(3), BigDecimal.valueOf(4)
         ).isDiagonal());
@@ -330,7 +330,7 @@ class BigDecimalMatrixTest {
 
     @Test
     void isDiagonalOfDiagonalMatrix() {
-        Assertions.assertTrue(BigDecimalMatrix.diagonal(
+        assertTrue(BigDecimalMatrix.diagonal(
             BigDecimal.ONE, BigDecimal.valueOf(2), BigDecimal.valueOf(3)
         ).isDiagonal());
     }
@@ -341,7 +341,7 @@ class BigDecimalMatrixTest {
 
     @Test
     void addOfEmptyMatrixWithSize1AndEmptyMatrixWithRows2Cols1() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new BigDecimalMatrix(1)
                 .add(new BigDecimalMatrix(2, 1))
         ); // assert exception message?
@@ -349,7 +349,7 @@ class BigDecimalMatrixTest {
 
     @Test
     void addOfEmptyMatrixWithSize1AndEmptyMatrixWithRows1Cols2() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new BigDecimalMatrix(1)
                 .add(new BigDecimalMatrix(1, 2))
         ); // assert exception message?
@@ -362,7 +362,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix result = new BigDecimalMatrix(2);
         for (int i = 0; i < result.size(); i++)
             result.setValue(i, BigDecimal.ZERO);
-        Assertions.assertEquals(result, matrix1.add(matrix2));
+        assertEquals(result, matrix1.add(matrix2));
     }
 
     @Test
@@ -375,14 +375,14 @@ class BigDecimalMatrixTest {
                 .multiply((BigDecimal.valueOf(i).add(BigDecimal.ONE)))
             );
         }
-        Assertions.assertEquals(result, matrix.add(matrix));
+        assertEquals(result, matrix.add(matrix));
     }
 
     @Test
     void multiplyOfEmptyMatrixWithSize2With2() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         BigDecimalMatrix result = new BigDecimalMatrix(2);
-        Assertions.assertEquals(result, matrix.multiply(BigDecimal.valueOf(2)));
+        assertEquals(result, matrix.multiply(BigDecimal.valueOf(2)));
     }
 
     @Test
@@ -393,7 +393,7 @@ class BigDecimalMatrixTest {
             matrix.setValue(i, BigDecimal.valueOf(i + 1));
             result.setValue(i, BigDecimal.valueOf((i + 1) * 2));
         }
-        Assertions.assertEquals(result, matrix.multiply(BigDecimal.valueOf(2)));
+        assertEquals(result, matrix.multiply(BigDecimal.valueOf(2)));
     }
 
     @Test
@@ -403,7 +403,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix result = new BigDecimalMatrix(2);
         for (int i = 0; i < result.size(); i++)
             result.setValue(i, BigDecimal.ZERO);
-        Assertions.assertEquals(result, matrix1.multiply(matrix2));
+        assertEquals(result, matrix1.multiply(matrix2));
     }
 
     @Test
@@ -413,14 +413,14 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix result = new BigDecimalMatrix(1, 3);
         for (int i = 0; i < result.size(); i++)
             result.setValue(i, BigDecimal.ZERO);
-        Assertions.assertEquals(result, matrix1.multiply(matrix2));
+        assertEquals(result, matrix1.multiply(matrix2));
     }
 
     @Test
     void multiplyOfEmptyMatrixWithRow2Col3AndEmptyMatrixWithRow1Col2() {
         BigDecimalMatrix matrix1 = new BigDecimalMatrix(2, 3);
         BigDecimalMatrix matrix2 = new BigDecimalMatrix(1, 2);
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> matrix1.multiply(matrix2)
         ); // assert exception message?
     }
@@ -430,7 +430,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, BigDecimal.valueOf(i).add(BigDecimal.ONE));
-        Assertions.assertEquals(BigDecimalMatrix.ofValuesByRows(2,
+        assertEquals(BigDecimalMatrix.ofValuesByRows(2,
             BigDecimal.valueOf(7), BigDecimal.TEN,
             BigDecimal.valueOf(15), BigDecimal.valueOf(22)
         ), matrix.multiply(matrix));
@@ -443,7 +443,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix result = new BigDecimalMatrix(1, 3);
         for (int i = 0; i < result.size(); i++)
             result.setValue(i, BigDecimal.ZERO);
-        Assertions.assertEquals(result, matrix1.multiplyTolerant(matrix2));
+        assertEquals(result, matrix1.multiplyTolerant(matrix2));
     }
 
     @Test
@@ -453,14 +453,14 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix result = new BigDecimalMatrix(1, 3);
         for (int i = 0; i < result.size(); i++)
             result.setValue(i, BigDecimal.ZERO);
-        Assertions.assertEquals(result, matrix1.multiplyTolerant(matrix2));
+        assertEquals(result, matrix1.multiplyTolerant(matrix2));
     }
 
     @Test
     void multiplyTolerantOfEmptyMatrixWithRow1Col2AndEmptyMatrixWithRow3Col4() {
         BigDecimalMatrix matrix1 = new BigDecimalMatrix(1, 2);
         BigDecimalMatrix matrix2 = new BigDecimalMatrix(3, 4);
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> matrix1.multiplyTolerant(matrix2)
         );
     }
@@ -470,7 +470,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, BigDecimal.valueOf(i).add(BigDecimal.ONE));
-        Assertions.assertEquals(
+        assertEquals(
             BigDecimalMatrix.ofValuesByRows(2,
                 BigDecimal.valueOf(7), BigDecimal.TEN,
                 BigDecimal.valueOf(15), BigDecimal.valueOf(22)
@@ -485,14 +485,14 @@ class BigDecimalMatrixTest {
 
     @Test
     void inverseOfEmptyMatrixWichIsNoSquare() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new BigDecimalMatrix(1, 2).inverse()
         ); // assert exception message?
     }
 
     @Test
     void inverseOfEmptyMatrixWithSize2() {
-        Assertions.assertNull(new BigDecimalMatrix(2).inverse());
+        assertNull(new BigDecimalMatrix(2).inverse());
     }
 
     @Test
@@ -505,7 +505,7 @@ class BigDecimalMatrixTest {
             BigDecimal.valueOf(3), BigDecimal.valueOf(5).negate(),
             BigDecimal.ONE.negate(), BigDecimal.valueOf(2)
         );
-        Assertions.assertEquals(result, matrix.inverse());
+        assertEquals(result, matrix.inverse());
     }
 
     @Test
@@ -520,7 +520,7 @@ class BigDecimalMatrixTest {
             BigDecimal.ONE.negate(), BigDecimal.valueOf(5).negate(), BigDecimal.valueOf(13),
             BigDecimal.ZERO, BigDecimal.valueOf(1), BigDecimal.valueOf(2).negate()
         );
-        Assertions.assertEquals(result, matrix.inverse());
+        assertEquals(result, matrix.inverse());
     }
 
     @Test
@@ -528,7 +528,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix result = new BigDecimalMatrix(2);
         for (int i = 0; i < result.size(); i++)
             result.setValue(i, BigDecimal.ZERO);
-        Assertions.assertEquals(result, new BigDecimalMatrix(2).transpose());
+        assertEquals(result, new BigDecimalMatrix(2).transpose());
     }
 
     @Test
@@ -543,13 +543,13 @@ class BigDecimalMatrixTest {
                     BigDecimal.valueOf(i).add(BigDecimal.ONE)
                 );
             }
-        Assertions.assertEquals(result, matrix.transpose());
+        assertEquals(result, matrix.transpose());
     }
 
     @Test
     void determinanteOfEmptyMatrixWithSize2() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertEquals(BigDecimal.ZERO, matrix.determinante());
+        assertEquals(BigDecimal.ZERO, matrix.determinante());
     }
 
     @Test
@@ -557,7 +557,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, BigDecimal.valueOf(i).add(BigDecimal.ONE));
-        Assertions.assertEquals(BigDecimal.valueOf(-2), matrix.determinante());
+        assertEquals(BigDecimal.valueOf(-2), matrix.determinante());
     }
 
     @Test
@@ -565,7 +565,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = new BigDecimalMatrix(3);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, BigDecimal.valueOf(i).add(BigDecimal.ONE));
-        Assertions.assertEquals(BigDecimal.ZERO, matrix.determinante());
+        assertEquals(BigDecimal.ZERO, matrix.determinante());
     }
 
     @Test
@@ -574,7 +574,7 @@ class BigDecimalMatrixTest {
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, r == c ? BigDecimal.valueOf(2) : BigDecimal.ONE);
-        Assertions.assertEquals(BigDecimal.valueOf(4), matrix.determinante());
+        assertEquals(BigDecimal.valueOf(4), matrix.determinante());
     }
 
     @Test
@@ -583,7 +583,7 @@ class BigDecimalMatrixTest {
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, r == c ? BigDecimal.valueOf(2) : BigDecimal.ONE);
-        Assertions.assertEquals(BigDecimal.valueOf(5), matrix.determinante());
+        assertEquals(BigDecimal.valueOf(5), matrix.determinante());
     }
 
     @Test
@@ -595,7 +595,7 @@ class BigDecimalMatrixTest {
                     c != 0 && (r == c || r == 0) ?
                         BigDecimal.ZERO : BigDecimal.ONE
                 );
-        Assertions.assertEquals(BigDecimal.valueOf(2), matrix.determinante());
+        assertEquals(BigDecimal.valueOf(2), matrix.determinante());
     }
 
     @Test
@@ -607,7 +607,7 @@ class BigDecimalMatrixTest {
                     r != 0 && (r == c || c == 0) ?
                         BigDecimal.ZERO : BigDecimal.ONE
                 );
-        Assertions.assertEquals(BigDecimal.valueOf(2), matrix.determinante());
+        assertEquals(BigDecimal.valueOf(2), matrix.determinante());
     }
 
     // endregion
@@ -617,25 +617,25 @@ class BigDecimalMatrixTest {
     @Test
     void identityOfSize1() {
         BigDecimalMatrix matrix = BigDecimalMatrix.identity(1);
-        Assertions.assertEquals(1, matrix.size());
+        assertEquals(1, matrix.size());
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
-            Assertions.assertEquals(BigDecimal.ONE, matrix.getValue(i, i));
+            assertEquals(BigDecimal.ONE, matrix.getValue(i, i));
     }
 
     @Test
     void identityOfSize2() {
         BigDecimalMatrix matrix = BigDecimalMatrix.identity(2);
-        Assertions.assertEquals(2 * 2, matrix.size());
+        assertEquals(2 * 2, matrix.size());
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
-            Assertions.assertEquals(BigDecimal.ONE, matrix.getValue(i, i));
+            assertEquals(BigDecimal.ONE, matrix.getValue(i, i));
     }
 
     @Test
     void diagonalOfSize1() {
         BigDecimalMatrix matrix = BigDecimalMatrix.diagonal(BigDecimal.ONE);
-        Assertions.assertEquals(1, matrix.size());
+        assertEquals(1, matrix.size());
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
-            Assertions.assertEquals(BigDecimal.ONE, matrix.getValue(i, i));
+            assertEquals(BigDecimal.ONE, matrix.getValue(i, i));
     }
 
     @Test
@@ -643,9 +643,9 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = BigDecimalMatrix.diagonal(
             BigDecimal.valueOf(2), BigDecimal.valueOf(2)
         );
-        Assertions.assertEquals(2 * 2, matrix.size());
+        assertEquals(2 * 2, matrix.size());
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
-            Assertions.assertEquals(BigDecimal.valueOf(2), matrix.getValue(i, i));
+            assertEquals(BigDecimal.valueOf(2), matrix.getValue(i, i));
     }
 
     // endregion
@@ -654,7 +654,7 @@ class BigDecimalMatrixTest {
 
     @Test
     void ofValuesByRows2WithInvalidParamCount() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> BigDecimalMatrix.ofValuesByRows(2, BigDecimal.ONE)
         );
     }
@@ -665,7 +665,7 @@ class BigDecimalMatrixTest {
             BigDecimal.ONE, BigDecimal.valueOf(2)
         );
         for (int i = 0; i < matrix.size(); i++)
-            Assertions.assertEquals(
+            assertEquals(
                 BigDecimal.valueOf(i).add(BigDecimal.ONE),
                 matrix.getValue(i),
                 "index: " + i
@@ -674,7 +674,7 @@ class BigDecimalMatrixTest {
 
     @Test
     void ofValuesByCols2WithInvalidParamCount() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> BigDecimalMatrix.ofValuesByCols(2, BigDecimal.ONE)
         );
     }
@@ -685,7 +685,7 @@ class BigDecimalMatrixTest {
             BigDecimal.ONE, BigDecimal.valueOf(2)
         );
         for (int i = 0; i < matrix.size(); i++)
-            Assertions.assertEquals(
+            assertEquals(
                 BigDecimal.valueOf(i).add(BigDecimal.ONE),
                 matrix.getValue(i),
                 "index: " + i
@@ -707,7 +707,7 @@ class BigDecimalMatrixTest {
                 result.setValue(r, c, r + c);
             }
 
-        Assertions.assertEquals(result,
+        assertEquals(result,
             matrix.map(new IntegerArithmetic(), Number::intValue)
         );
     }
@@ -715,7 +715,7 @@ class BigDecimalMatrixTest {
     @Test
     void copyOfMatrixWithSize2() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertEquals(matrix, matrix.copy());
+        assertEquals(matrix, matrix.copy());
     }
 
     // endregion
@@ -728,31 +728,31 @@ class BigDecimalMatrixTest {
         List<BigDecimalMatrix.Field> values = new ArrayList<>();
         for (BigDecimalMatrix.Field d : matrix) {
             values.add(d);
-            Assertions.assertEquals(BigDecimal.ZERO, d.getValue());
+            assertEquals(BigDecimal.ZERO, d.getValue());
         }
-        Assertions.assertEquals(matrix.size(), values.size());
+        assertEquals(matrix.size(), values.size());
     }
 
     @Test
     void streamOfEmptyMatrix() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertEquals(4, matrix.stream().count());
+        assertEquals(4, matrix.stream().count());
     }
 
     @Test
     void parallelStreamOfEmptyMatrix() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        Assertions.assertEquals(4, matrix.parallelStream().count());
+        assertEquals(4, matrix.parallelStream().count());
     }
 
     @Test
     void equalsOfBigDecimalMatrixWithRow2Col3() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2, 3);
-        Assertions.assertEquals(
+        assertEquals(
             matrix,
             new BigDecimalMatrix(2, 3)
         );
-        Assertions.assertNotEquals(
+        assertNotEquals(
             matrix,
             new BigDecimalMatrix(3, 2)
         );
@@ -760,7 +760,7 @@ class BigDecimalMatrixTest {
 
     @Test
     void hashCodeOfBigDecimalMatrixWithRow2Col3() {
-        Assertions.assertEquals(
+        assertEquals(
             925536,
             new BigDecimalMatrix(2, 3).hashCode()
         );
@@ -769,12 +769,12 @@ class BigDecimalMatrixTest {
     @Test
     void toStringOfBigDecimalMatrixWithRow2Col3() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2, 3);
-        Assertions.assertEquals("2 3: []", matrix.toString());
+        assertEquals("2 3: []", matrix.toString());
     }
 
     @Test
     void serializable() {
-        SerializableAssertions.assertSerializable(
+        assertSerializable(
             new BigDecimalMatrix(1),
             BigDecimalMatrix.class
         );

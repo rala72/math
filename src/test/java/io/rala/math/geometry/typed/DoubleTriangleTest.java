@@ -5,16 +5,18 @@ import io.rala.math.geometry.LineSegment;
 import io.rala.math.geometry.Point;
 import io.rala.math.geometry.Triangle;
 import io.rala.math.testUtils.assertion.GeometryAssertions;
-import io.rala.math.testUtils.assertion.SerializableAssertions;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static io.rala.math.testUtils.assertion.GeometryAssertions.*;
+import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static org.junit.jupiter.api.Assertions.*;
 
 class DoubleTriangleTest {
     // region constructors, getter and setter
 
     @Test
     void constructorWithA2B3C4() {
-        GeometryAssertions.assertTriangle(
+        assertTriangle(
             new DoubleTriangle(
                 new DoublePoint(2d),
                 new DoublePoint(3d),
@@ -29,12 +31,12 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(), new DoublePoint()
         );
-        GeometryAssertions.assertTriangle(
+        assertTriangle(
             triangle,
             new DoublePoint(), new DoublePoint(), new DoublePoint()
         );
         triangle.setA(new DoublePoint(1d));
-        GeometryAssertions.assertTriangle(
+        assertTriangle(
             triangle,
             new DoublePoint(1d), new DoublePoint(), new DoublePoint()
         );
@@ -45,12 +47,12 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(), new DoublePoint()
         );
-        GeometryAssertions.assertTriangle(
+        assertTriangle(
             triangle,
             new DoublePoint(), new DoublePoint(), new DoublePoint()
         );
         triangle.setB(new DoublePoint(2d));
-        GeometryAssertions.assertTriangle(
+        assertTriangle(
             triangle,
             new DoublePoint(), new DoublePoint(2d), new DoublePoint()
         );
@@ -61,12 +63,12 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(), new DoublePoint()
         );
-        GeometryAssertions.assertTriangle(
+        assertTriangle(
             triangle,
             new DoublePoint(), new DoublePoint(), new DoublePoint()
         );
         triangle.setC(new DoublePoint(3d));
-        GeometryAssertions.assertTriangle(
+        assertTriangle(
             triangle,
             new DoublePoint(), new DoublePoint(), new DoublePoint(3d)
         );
@@ -81,15 +83,15 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(1d), new DoublePoint(2d)
         );
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             triangle.edgeA(),
             new DoublePoint(1d), new DoublePoint(2d)
         );
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             triangle.edgeB(),
             new DoublePoint(), new DoublePoint(2d)
         );
-        GeometryAssertions.assertLineSegment(
+        assertLineSegment(
             triangle.edgeC(),
             new DoublePoint(), new DoublePoint(1d)
         );
@@ -104,19 +106,19 @@ class DoubleTriangleTest {
         );
 
         LineSegment<Double> altitudeA = triangle.altitudeA();
-        Assertions.assertEquals(1d, altitudeA.length());
-        Assertions.assertEquals(triangle.getA(), altitudeA.getA());
-        Assertions.assertEquals(triangle.getB(), altitudeA.getB());
+        assertEquals(1d, altitudeA.length());
+        assertEquals(triangle.getA(), altitudeA.getA());
+        assertEquals(triangle.getB(), altitudeA.getB());
 
         LineSegment<Double> altitudeB = triangle.altitudeB();
-        Assertions.assertEquals(Math.sqrt(2d) / 2d, altitudeB.length());
-        Assertions.assertEquals(triangle.getB(), altitudeB.getA());
-        Assertions.assertEquals(triangle.edgeB().halvingPoint(), altitudeB.getB());
+        assertEquals(Math.sqrt(2d) / 2d, altitudeB.length());
+        assertEquals(triangle.getB(), altitudeB.getA());
+        assertEquals(triangle.edgeB().halvingPoint(), altitudeB.getB());
 
         LineSegment<Double> altitudeC = triangle.altitudeC();
-        Assertions.assertEquals(1d, altitudeC.length());
-        Assertions.assertEquals(triangle.getC(), altitudeC.getA());
-        Assertions.assertEquals(triangle.getB(), altitudeC.getB());
+        assertEquals(1d, altitudeC.length());
+        assertEquals(triangle.getC(), altitudeC.getA());
+        assertEquals(triangle.getB(), altitudeC.getB());
     }
 
     @Test
@@ -128,19 +130,19 @@ class DoubleTriangleTest {
         );
 
         LineSegment<Double> altitudeA = triangle.altitudeA();
-        Assertions.assertEquals(1d, altitudeA.length());
-        Assertions.assertEquals(triangle.getA(), altitudeA.getA());
-        Assertions.assertEquals(triangle.getB(), altitudeA.getB());
+        assertEquals(1d, altitudeA.length());
+        assertEquals(triangle.getA(), altitudeA.getA());
+        assertEquals(triangle.getB(), altitudeA.getB());
 
         LineSegment<Double> altitudeB = triangle.altitudeB();
-        Assertions.assertEquals(Math.sqrt(2d) / 2d, altitudeB.length());
-        Assertions.assertEquals(triangle.getB(), altitudeB.getA());
-        Assertions.assertEquals(triangle.edgeB().halvingPoint(), altitudeB.getB());
+        assertEquals(Math.sqrt(2d) / 2d, altitudeB.length());
+        assertEquals(triangle.getB(), altitudeB.getA());
+        assertEquals(triangle.edgeB().halvingPoint(), altitudeB.getB());
 
         LineSegment<Double> altitudeC = triangle.altitudeC();
-        Assertions.assertEquals(1d, altitudeC.length());
-        Assertions.assertEquals(triangle.getC(), altitudeC.getA());
-        Assertions.assertEquals(triangle.getB(), altitudeC.getB());
+        assertEquals(1d, altitudeC.length());
+        assertEquals(triangle.getC(), altitudeC.getA());
+        assertEquals(triangle.getB(), altitudeC.getB());
     }
 
     // endregion
@@ -152,7 +154,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(0d, 0d), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
-        Assertions.assertEquals(
+        assertEquals(
             Math.PI / 4d,
             triangle.angleAlpha(),
             GeometryAssertions.DELTA
@@ -164,7 +166,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(0d, 0d), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
-        Assertions.assertEquals(
+        assertEquals(
             Math.PI / 2d,
             triangle.angleBeta(),
             GeometryAssertions.DELTA
@@ -176,7 +178,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(0d, 0d), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
-        Assertions.assertEquals(
+        assertEquals(
             Math.PI / 4d,
             triangle.angleGamma(),
             GeometryAssertions.DELTA
@@ -188,7 +190,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(0d, 0d), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
-        Assertions.assertEquals(
+        assertEquals(
             Math.PI,
             triangle.angleAlpha() +
                 triangle.angleBeta() +
@@ -205,7 +207,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
-        Assertions.assertEquals(
+        assertEquals(
             0.5d,
             triangle.area(),
             GeometryAssertions.DELTA
@@ -217,7 +219,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
-        Assertions.assertEquals(2d + Math.sqrt(2d), triangle.circumference());
+        assertEquals(2d + Math.sqrt(2d), triangle.circumference());
     }
 
     // endregion
@@ -229,7 +231,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
-        GeometryAssertions.assertPoint(triangle.centroid(), 1d / 3d, 2d / 3d);
+        assertPoint(triangle.centroid(), 1d / 3d, 2d / 3d);
     }
 
     @Test
@@ -237,7 +239,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
-        Assertions.assertEquals(triangle.getB(), triangle.orthoCenter());
+        assertEquals(triangle.getB(), triangle.orthoCenter());
     }
 
     // endregion
@@ -249,7 +251,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
-        GeometryAssertions.assertCircle(
+        assertCircle(
             triangle.circumCircle(),
             new DoublePoint(0.5d, -0.5d),
             Math.sqrt(2d) / 2d
@@ -261,7 +263,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
-        GeometryAssertions.assertCircle(
+        assertCircle(
             triangle.inCircle(),
             new DoublePoint(1d - Math.sqrt(2d) / 2d, Math.sqrt(2d) / 2d),
             1d - Math.sqrt(2d) / 2d
@@ -283,14 +285,14 @@ class DoubleTriangleTest {
             new Point<>(integerArithmetic, 1),
             new Point<>(integerArithmetic, 2)
         );
-        Assertions.assertEquals(result,
+        assertEquals(result,
             triangle.map(new IntegerArithmetic(), Number::intValue)
         );
     }
 
     @Test
     void isValidWithPositiveValues() {
-        Assertions.assertTrue(
+        assertTrue(
             new DoubleTriangle(
                 new DoublePoint(1d), new DoublePoint(1d, 2d), new DoublePoint(2d)
             ).isValid()
@@ -299,7 +301,7 @@ class DoubleTriangleTest {
 
     @Test
     void isValidWithLineValues() {
-        Assertions.assertFalse(
+        assertFalse(
             new DoubleTriangle(
                 new DoublePoint(0d), new DoublePoint(1d), new DoublePoint(2d)
             ).isValid()
@@ -308,7 +310,7 @@ class DoubleTriangleTest {
 
     @Test
     void isValidWithZeroValues() {
-        Assertions.assertFalse(
+        assertFalse(
             new DoubleTriangle(
                 new DoublePoint(0d), new DoublePoint(0d), new DoublePoint(0d)
             ).isValid()
@@ -317,7 +319,7 @@ class DoubleTriangleTest {
 
     @Test
     void isValidWithInfValues() {
-        Assertions.assertFalse(
+        assertFalse(
             new DoubleTriangle(
                 new DoublePoint(Double.POSITIVE_INFINITY),
                 new DoublePoint(Double.POSITIVE_INFINITY),
@@ -328,7 +330,7 @@ class DoubleTriangleTest {
 
     @Test
     void moveOfTriangleWithXYWithXY() {
-        GeometryAssertions.assertTriangle(
+        assertTriangle(
             new DoubleTriangle(
                 new DoublePoint(0d),
                 new DoublePoint(1d, 0d),
@@ -340,7 +342,7 @@ class DoubleTriangleTest {
 
     @Test
     void moveOfTriangleWithXYWithXAndY() {
-        GeometryAssertions.assertTriangle(
+        assertTriangle(
             new DoubleTriangle(
                 new DoublePoint(0d),
                 new DoublePoint(1d, 0d),
@@ -352,7 +354,7 @@ class DoubleTriangleTest {
 
     @Test
     void moveOfTriangleWithXYWithVector() {
-        GeometryAssertions.assertTriangle(
+        assertTriangle(
             new DoubleTriangle(
                 new DoublePoint(0d),
                 new DoublePoint(1d, 0d),
@@ -364,7 +366,7 @@ class DoubleTriangleTest {
 
     @Test
     void rotateOfTriangleWithA00B01C11WithoutCenterWithPiHalf() {
-        GeometryAssertions.assertTriangle(
+        assertTriangle(
             new DoubleTriangle(
                 new DoublePoint(0d, 0d),
                 new DoublePoint(0d, 1d),
@@ -378,7 +380,7 @@ class DoubleTriangleTest {
 
     @Test
     void rotateOfTriangleWithA00B01C11WithCenterXY1WithPiHalf() {
-        GeometryAssertions.assertTriangle(
+        assertTriangle(
             new DoubleTriangle(
                 new DoublePoint(0d, 0d),
                 new DoublePoint(0d, 1d),
@@ -395,7 +397,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(1d, 2d), new DoublePoint(3d, 4d), new DoublePoint(5d, 6d)
         );
-        Assertions.assertEquals(triangle, triangle.copy());
+        assertEquals(triangle, triangle.copy());
     }
 
     // endregion
@@ -409,7 +411,7 @@ class DoubleTriangleTest {
             new DoublePoint(3d),
             new DoublePoint(4d)
         );
-        Assertions.assertEquals(
+        assertEquals(
             triangle,
             new DoubleTriangle(
                 new DoublePoint(2d),
@@ -417,7 +419,7 @@ class DoubleTriangleTest {
                 new DoublePoint(4d)
             )
         );
-        Assertions.assertNotEquals(
+        assertNotEquals(
             triangle,
             new DoubleTriangle(
                 new DoublePoint(3d),
@@ -429,7 +431,7 @@ class DoubleTriangleTest {
 
     @Test
     void hashCodeOfTriangleWithA2B3C4() {
-        Assertions.assertEquals(
+        assertEquals(
             554632192,
             new DoubleTriangle(
                 new DoublePoint(2d), new DoublePoint(3d), new DoublePoint(4d)
@@ -442,7 +444,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(2d), new DoublePoint(3d), new DoublePoint(4d)
         );
-        Assertions.assertEquals("2.0|2.0 3.0|3.0 4.0|4.0", triangle.toString());
+        assertEquals("2.0|2.0 3.0|3.0 4.0|4.0", triangle.toString());
     }
 
     @Test
@@ -450,17 +452,17 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(0d), new DoublePoint(1d, 0d), new DoublePoint(1d)
         );
-        Assertions.assertEquals(
+        assertEquals(
             0d, triangle.compareTo(new DoubleTriangle(
                 new DoublePoint(0d), new DoublePoint(1d, 0d), new DoublePoint(1d)
             ))
         );
-        Assertions.assertEquals(
+        assertEquals(
             -1d, triangle.compareTo(new DoubleTriangle(
                 new DoublePoint(-1d), new DoublePoint(1d, 0d), new DoublePoint(1d)
             ))
         );
-        Assertions.assertEquals(
+        assertEquals(
             1d, triangle.compareTo(new DoubleTriangle(
                 new DoublePoint(0.5d, 1d), new DoublePoint(1d, 0.5d), new DoublePoint(1d)
             ))
@@ -469,7 +471,7 @@ class DoubleTriangleTest {
 
     @Test
     void serializable() {
-        SerializableAssertions.assertSerializable(
+        assertSerializable(
             new DoubleTriangle(new DoublePoint(), new DoublePoint(), new DoublePoint()),
             Triangle.class
         );
