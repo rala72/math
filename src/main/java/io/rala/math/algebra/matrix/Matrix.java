@@ -7,7 +7,9 @@ import io.rala.math.utils.StreamIterable;
 import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -286,6 +288,61 @@ public class Matrix<T extends Number>
             return integerTMap.isEmpty() ? null : integerTMap;
         });
         return previous.get();
+    }
+
+    // endregion
+
+    // region compute
+
+    /**
+     * @param row      row where new value is computed
+     * @param col      col where new value is computed
+     * @param operator operator to apply current value
+     * @return old value if existed or {@link #getDefaultValue()}
+     * @see #compute(long, UnaryOperator)
+     * @see #setValue(int, int, Number)
+     * @see #getValue(int, int)
+     */
+    public T compute(int row, int col, UnaryOperator<T> operator) {
+        return compute(getIndexOfRowAndCol(row, col), operator);
+    }
+
+    /**
+     * @param index    index where new value is computed
+     * @param operator operator to apply current value
+     * @return old value if existed or {@link #getDefaultValue()}
+     * @see #compute(long, UnaryOperator)
+     * @see #setValue(long, Number)
+     * @see #getValue(long)
+     */
+    public T compute(long index, UnaryOperator<T> operator) {
+        return setValue(index, operator.apply(getValue(index)));
+    }
+
+    /**
+     * @param row      row where new value is computed
+     * @param col      col where new value is computed
+     * @param t        value to use in computation
+     * @param operator operator to apply on old and new value
+     * @return old value if existed or {@link #getDefaultValue()}
+     * @see #compute(long, Number, BinaryOperator)
+     * @see #setValue(int, int, Number)
+     * @see #getValue(int, int)
+     */
+    public T compute(int row, int col, T t, BinaryOperator<T> operator) {
+        return compute(getIndexOfRowAndCol(row, col), t, operator);
+    }
+
+    /**
+     * @param index    index where new value is computed
+     * @param t        value to use in computation
+     * @param operator operator to apply on old and new value
+     * @return old value if existed or {@link #getDefaultValue()}
+     * @see #setValue(long, Number)
+     * @see #getValue(long)
+     */
+    public T compute(long index, T t, BinaryOperator<T> operator) {
+        return setValue(index, operator.apply(getValue(index), t));
     }
 
     // endregion

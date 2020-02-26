@@ -296,6 +296,94 @@ class BigDecimalMatrixTest {
 
     // endregion
 
+    // region compute
+
+    @Test
+    void computeWithUnaryOperatorByIndex0WhichWasUnset() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        assertEquals(BigDecimal.ZERO,
+            matrix.compute(0, number -> BigDecimal.ONE)
+        );
+        assertEquals(BigDecimal.ONE, matrix.getValue(0));
+        assertEquals(BigDecimal.ONE, matrix.getValue(0, 0));
+    }
+
+    @Test
+    void computeWithUnaryOperatorByIndex3WhichWasUnset() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        assertEquals(BigDecimal.ZERO,
+            matrix.compute(3, number -> BigDecimal.ONE)
+        );
+        assertEquals(BigDecimal.ONE, matrix.getValue(3));
+        assertEquals(BigDecimal.ONE, matrix.getValue(1, 1));
+    }
+
+    @Test
+    void computeWithUnaryOperatorByRow0Col0WhichWasUnset() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        assertEquals(BigDecimal.ZERO,
+            matrix.compute(0, 0, number -> BigDecimal.ONE)
+        );
+        assertEquals(BigDecimal.ONE, matrix.getValue(0));
+        assertEquals(BigDecimal.ONE, matrix.getValue(0, 0));
+        // assert all other are unset
+    }
+
+    @Test
+    void computeWithUnaryOperatorByRow1Col1WhichWasUnset() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        assertEquals(BigDecimal.ZERO,
+            matrix.compute(1, 0, number -> BigDecimal.ONE)
+        );
+        assertEquals(BigDecimal.ONE, matrix.getValue(1, 0));
+        assertEquals(BigDecimal.ONE, matrix.getValue(2));
+        // assert all other are unset
+    }
+
+    @Test
+    void computeWithBinaryOperatorByIndex0WhichWasUnset() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        assertEquals(BigDecimal.ZERO, matrix.compute(0,
+            BigDecimal.ONE, matrix.getArithmetic()::sum
+        ));
+        assertEquals(BigDecimal.ONE, matrix.getValue(0));
+        assertEquals(BigDecimal.ONE, matrix.getValue(0, 0));
+    }
+
+    @Test
+    void computeWithBinaryOperatorByIndex3WhichWasUnset() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        assertEquals(BigDecimal.ZERO, matrix.compute(3,
+            BigDecimal.ONE, matrix.getArithmetic()::sum
+        ));
+        assertEquals(BigDecimal.ONE, matrix.getValue(3));
+        assertEquals(BigDecimal.ONE, matrix.getValue(1, 1));
+    }
+
+    @Test
+    void computeWithBinaryOperatorByRow0Col0WhichWasUnset() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        assertEquals(BigDecimal.ZERO, matrix.compute(0, 0,
+            BigDecimal.ONE, matrix.getArithmetic()::sum
+        ));
+        assertEquals(BigDecimal.ONE, matrix.getValue(0));
+        assertEquals(BigDecimal.ONE, matrix.getValue(0, 0));
+        // assert all other are unset
+    }
+
+    @Test
+    void computeWithBinaryOperatorByRow1Col1WhichWasUnset() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        assertEquals(BigDecimal.ZERO, matrix.compute(1, 0,
+            BigDecimal.ONE, matrix.getArithmetic()::sum
+        ));
+        assertEquals(BigDecimal.ONE, matrix.getValue(1, 0));
+        assertEquals(BigDecimal.ONE, matrix.getValue(2));
+        // assert all other are unset
+    }
+
+    // endregion
+
     // region isSquare and isDiagonal
 
     @Test

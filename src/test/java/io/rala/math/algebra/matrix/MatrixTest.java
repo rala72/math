@@ -300,6 +300,86 @@ class MatrixTest {
 
     // endregion
 
+    // region compute
+
+    @Test
+    void computeWithUnaryOperatorByIndex0WhichWasUnset() {
+        TestMatrix matrix = new TestMatrix(2);
+        assertEquals(0d, matrix.compute(0, number -> 1));
+        assertEquals(1, matrix.getValue(0));
+        assertEquals(1, matrix.getValue(0, 0));
+    }
+
+    @Test
+    void computeWithUnaryOperatorByIndex3WhichWasUnset() {
+        TestMatrix matrix = new TestMatrix(2);
+        assertEquals(0d, matrix.compute(3, number -> 1));
+        assertEquals(1, matrix.getValue(3));
+        assertEquals(1, matrix.getValue(1, 1));
+    }
+
+    @Test
+    void computeWithUnaryOperatorByRow0Col0WhichWasUnset() {
+        TestMatrix matrix = new TestMatrix(2);
+        assertEquals(0d, matrix.compute(0, 0, number -> 1));
+        assertEquals(1, matrix.getValue(0));
+        assertEquals(1, matrix.getValue(0, 0));
+        // assert all other are unset
+    }
+
+    @Test
+    void computeWithUnaryOperatorByRow1Col1WhichWasUnset() {
+        TestMatrix matrix = new TestMatrix(2);
+        assertEquals(0d, matrix.compute(1, 0, number -> 1));
+        assertEquals(1, matrix.getValue(1, 0));
+        assertEquals(1, matrix.getValue(2));
+        // assert all other are unset
+    }
+
+    @Test
+    void computeWithBinaryOperatorByIndex0WhichWasUnset() {
+        TestMatrix matrix = new TestMatrix(2);
+        assertEquals(0d, matrix.compute(0,
+            1d, matrix.getArithmetic()::sum
+        ));
+        assertEquals(1d, matrix.getValue(0));
+        assertEquals(1d, matrix.getValue(0, 0));
+    }
+
+    @Test
+    void computeWithBinaryOperatorByIndex3WhichWasUnset() {
+        TestMatrix matrix = new TestMatrix(2);
+        assertEquals(0d, matrix.compute(3,
+            1d, matrix.getArithmetic()::sum
+        ));
+        assertEquals(1d, matrix.getValue(3));
+        assertEquals(1d, matrix.getValue(1, 1));
+    }
+
+    @Test
+    void computeWithBinaryOperatorByRow0Col0WhichWasUnset() {
+        TestMatrix matrix = new TestMatrix(2);
+        assertEquals(0d, matrix.compute(0, 0,
+            1d, matrix.getArithmetic()::sum
+        ));
+        assertEquals(1d, matrix.getValue(0));
+        assertEquals(1d, matrix.getValue(0, 0));
+        // assert all other are unset
+    }
+
+    @Test
+    void computeWithBinaryOperatorByRow1Col1WhichWasUnset() {
+        TestMatrix matrix = new TestMatrix(2);
+        assertEquals(0d, matrix.compute(1, 0,
+            1d, matrix.getArithmetic()::sum
+        ));
+        assertEquals(1d, matrix.getValue(1, 0));
+        assertEquals(1d, matrix.getValue(2));
+        // assert all other are unset
+    }
+
+    // endregion
+
     // region isSquare and isDiagonal
 
     @Test
