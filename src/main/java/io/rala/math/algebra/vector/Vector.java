@@ -313,19 +313,19 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
     // region norm
 
     /**
-     * @return euclidean norm of the vector
-     */
-    public T euclideanNorm() {
-        return pNorm(2);
-    }
-
-    /**
      * @return max-Norm of the vector, equal to the entry with highest absolute value
      */
     public T maxNorm() {
         return getVector().values().stream().max(
             (a, b) -> getArithmetic().difference(getArithmetic().absolute(a), getArithmetic().absolute(b)).intValue())
             .orElse(getArithmetic().zero());
+    }
+
+    /**
+     * @return euclidean norm of the vector
+     */
+    public T euclideanNorm() {
+        return pNorm(2);
     }
 
     /**
