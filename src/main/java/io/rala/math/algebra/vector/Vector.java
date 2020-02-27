@@ -458,20 +458,16 @@ public class Vector<T extends Number>
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Vector<?>)) return false;
-
         Vector<?> vector1 = (Vector<?>) o;
-
-        if (getSize() != vector1.getSize()) return false;
-        if (!getVector().equals(vector1.getVector())) return false;
-        return getType() == vector1.getType();
+        return getSize() == vector1.getSize() &&
+            getVector().equals(vector1.getVector()) &&
+            getDefaultValue().equals(vector1.getDefaultValue()) &&
+            getType() == vector1.getType();
     }
 
     @Override
     public int hashCode() {
-        int result = getVector().hashCode();
-        result = 31 * result + getSize();
-        result = 31 * result + getType().hashCode();
-        return result;
+        return Objects.hash(getVector(), getSize(), getDefaultValue(), getType());
     }
 
     @Override
