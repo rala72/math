@@ -3,14 +3,13 @@ package io.rala.math.algebra.vector;
 import io.rala.math.algebra.matrix.Matrix;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.utils.Copyable;
+import io.rala.math.utils.StreamIterable;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.IntStream;
 
-public class Vector<T extends Number> implements Copyable<Vector<T>> {
+public class Vector<T extends Number>
+    implements Copyable<Vector<T>>, StreamIterable<Vector<T>.Entry> {
 
     public enum Type {ROW, COLUMN}
 
@@ -372,6 +371,24 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
     @Override
     public Vector<T> copy() {
         return new Vector<>(this);
+    }
+
+    @Override
+    public Iterator<Entry> iterator() {
+        return new Iterator<>() {
+            private int index = 0;
+
+            @Override
+            public boolean hasNext() {
+                return index < size();
+            }
+
+            @Override
+            public Entry next() {
+                T value = getValue(index);
+                return new Entry(index++, value);
+            }
+        };
     }
 
     @Override
