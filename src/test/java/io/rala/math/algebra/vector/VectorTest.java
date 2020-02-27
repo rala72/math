@@ -1,16 +1,9 @@
 package io.rala.math.algebra.vector;
 
-import io.rala.math.arithmetic.AbstractArithmetic;
-import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 import io.rala.math.testUtils.algebra.TestMatrix;
 import io.rala.math.testUtils.algebra.TestVector;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
 import org.junit.jupiter.api.Test;
-
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -631,16 +624,64 @@ public class VectorTest {
 
     // endregion
 
-    // region temp (to be deleted, when proper tests exist)
+    // region norm
 
     @Test
-    void euclideanNorm() {
-        AbstractArithmetic<BigDecimal> arithmetic = new BigDecimalArithmetic();
-        List<BigDecimal> values = Stream.of(1, 0, 1, 0).map(arithmetic::fromInt).collect(Collectors.toList());
-        Vector<BigDecimal> vector = new Vector<BigDecimal>(arithmetic, values, arithmetic.fromInt(2));
-        BigDecimal result = arithmetic.root2(arithmetic.fromInt(2));
-        assertEquals(result, vector.euclideanNorm());
+    void maxNormEmptyVector() {
+        assertEquals(
+            0d,
+            new TestVector(3).maxNorm()
+        );
     }
+
+    @Test
+    void maxNormNonEmptyVector() {
+        assertEquals(
+            9d,
+            new TestVector(3, false).maxNorm()
+        );
+    }
+
+    @Test
+    void euclideanNormEmptyVector() {
+        assertEquals(
+            0d,
+            new TestVector(3).euclideanNorm()
+        );
+    }
+
+    @Test
+    void euclideanNormNonEmptyVector() {
+        assertEquals(
+            testAbstractArithmetic.root2(98d),
+            new TestVector(3, false).euclideanNorm()
+        );
+    }
+
+    @Test
+    void negativePNorm() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new TestVector(3).pNorm(-1)
+        );
+    }
+
+    @Test
+    void sevenNormEmptyVector() {
+        assertEquals(
+            0d,
+            new TestVector(3).pNorm(7)
+        );
+    }
+
+    @Test
+    void sevenNormNonEmptyVector() {
+        assertEquals(
+            testAbstractArithmetic.root(4766586d, 7),
+            new TestVector(3, false).pNorm(7)
+        );
+    }
+
     // endregion
 
 }
