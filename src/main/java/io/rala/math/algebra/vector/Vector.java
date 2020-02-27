@@ -150,7 +150,7 @@ public class Vector<T extends Number>
     /**
      * @return stored arithmetic
      */
-    protected AbstractArithmetic<T> getArithmetic() {
+    public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
     }
 
@@ -185,7 +185,7 @@ public class Vector<T extends Number>
     /**
      * @return type of vector
      */
-    protected Type getType() {
+    public Type getType() {
         return type;
     }
 
