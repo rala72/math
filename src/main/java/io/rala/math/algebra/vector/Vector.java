@@ -335,11 +335,11 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
      */
     public T pNorm(int p) {
         if (p <= 0) throw new IllegalArgumentException("May only calculate positive p-norm");
-        Map<Integer, T> squares = new HashMap<>();
-        getVector().forEach((key, value) -> squares.put(key, getArithmetic().power(value, p)));
-        return getArithmetic().root(squares.values().stream().reduce(
-            (a, b) -> getArithmetic().sum(getArithmetic().absolute(a), getArithmetic().absolute(b)))
-            .orElse(getArithmetic().zero()), p);
+        Map<Integer, T> powers = new HashMap<>();
+        getVector().forEach((key, value) -> powers.put(key, getArithmetic().power(value, p)));
+        return getArithmetic().root(getArithmetic().absolute(powers.values().stream().reduce(
+            (a, b) -> getArithmetic().sum(a, b))
+            .orElse(getArithmetic().zero())), p);
     }
 
     // endregion
