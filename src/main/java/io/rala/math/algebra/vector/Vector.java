@@ -396,5 +396,10 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return getSize() + ": " + getVector().entrySet().toString();
+    }
+
     // endregion
 }
