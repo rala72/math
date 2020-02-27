@@ -624,6 +624,28 @@ public class VectorTest {
 
     // endregion
 
+    // region static
+
+    @Test
+    void emptyVectorOfValues() {
+        assertEquals(
+            new TestVector(4),
+            Vector.ofValues(testAbstractArithmetic, 0,
+                0, 0, 0, 0)
+        );
+    }
+
+    @Test
+    void nonEmptyVectorOfValues() {
+        assertEquals(
+            new TestVector(4, false),
+            Vector.ofValues(testAbstractArithmetic, 0,
+                1d, -4d, 9d, -16d)
+        );
+    }
+
+    // endregion
+
     // region norm
 
     @Test

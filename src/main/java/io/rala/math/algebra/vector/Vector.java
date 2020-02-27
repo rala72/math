@@ -344,6 +344,30 @@ public class Vector<T extends Number>
 
     // endregion
 
+    // region static
+
+    /**
+     * creates a new vector containing all provided values
+     *
+     * @param arithmetic   arithmetic for calculations
+     * @param defaultValue default value of non-existing values
+     * @param values       values of vector
+     * @param <T>          number class
+     * @return new created vector
+     * @throws IllegalArgumentException if size is less than {@code 1}
+     */
+    @SafeVarargs
+    public static <T extends Number> Vector<T> ofValues(
+        AbstractArithmetic<T> arithmetic, T defaultValue, T... values
+    ) {
+        Vector<T> vector = new Vector<>(arithmetic, values.length, defaultValue);
+        for (int i = 0; i < values.length; i++)
+            vector.setValue(i, values[i]);
+        return vector;
+    }
+
+    // endregion
+
     // region private
 
     private void removeDefaultValues() {
