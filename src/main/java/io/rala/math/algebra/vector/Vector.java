@@ -344,16 +344,8 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
 
     // endregion
 
-    // region copy
+    // region private
 
-    @Override
-    public Vector<T> copy() {
-        return new Vector<>(this);
-    }
-
-    /**
-     * remove
-     */
     private void removeDefaultValues() {
         getVector().forEach((key, value) -> {
             if (value.equals(getDefaultValue())) removeValue(key);
@@ -375,6 +367,11 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
     // endregion
 
     // region override
+
+    @Override
+    public Vector<T> copy() {
+        return new Vector<>(this);
+    }
 
     @Override
     public boolean equals(Object o) {
