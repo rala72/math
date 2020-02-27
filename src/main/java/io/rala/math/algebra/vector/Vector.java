@@ -7,6 +7,7 @@ import io.rala.math.utils.Copyable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 public class Vector<T extends Number> implements Copyable<Vector<T>> {
@@ -399,4 +400,64 @@ public class Vector<T extends Number> implements Copyable<Vector<T>> {
     }
 
     // endregion
+
+    /**
+     * Class which holds an entry of a vector with immutable attributes
+     */
+    public class Entry {
+        private final int index;
+        private final T value;
+
+        /**
+         * @param index index of entry
+         * @param value value of entry
+         * @throws IndexOutOfBoundsException if index is invalid
+         */
+        protected Entry(int index, T value) {
+            if (!isValidIndex(index))
+                throw new IndexOutOfBoundsException("Invalid index: " + index);
+            this.index = index;
+            this.value = value;
+        }
+
+        /**
+         * @return index of entry
+         */
+        public int getIndex() {
+            return index;
+        }
+
+        /**
+         * @return value of entry
+         */
+        public T getValue() {
+            return value;
+        }
+
+        /**
+         * @return Vector instance of entry
+         */
+        protected Vector<T> getVector() {
+            return Vector.this;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Vector<?>.Entry entry = (Vector<?>.Entry) o;
+            return getIndex() == entry.getIndex() &&
+                getValue().equals(entry.getValue());
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(getIndex(), getValue());
+        }
+
+        @Override
+        public String toString() {
+            return getIndex() + ": " + getValue();
+        }
+    }
 }
