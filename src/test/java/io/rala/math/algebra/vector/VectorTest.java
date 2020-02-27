@@ -384,6 +384,108 @@ public class VectorTest {
         );
     }
 
+    @Test
+    void multiplyVectorsDifferentSize() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new TestVector(3).transpose().multiply(new TestVector(4))
+        );
+    }
+
+    @Test
+    void multiplyVectorsSameTypeColumn() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new TestVector(3).multiply(new TestVector(3))
+        );
+    }
+
+    @Test
+    void multiplyVectorsSameTypeRow() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new TestVector(3).transpose()
+                .multiply(new TestVector(3).transpose())
+        );
+    }
+
+    @Test
+    void multiplyEmptyVectorsColumnRow() {
+        assertEquals(
+            new TestMatrix(2),
+            new TestVector(2).multiply(new TestVector(2).transpose())
+        );
+    }
+
+    @Test
+    void multiplyEmptyVectorsRowColumn() {
+        assertEquals(
+            new TestMatrix(1),
+            new TestVector(2).transpose().multiply(new TestVector(2))
+        );
+    }
+
+    @Test
+    void multiplyNonEmptyVectorsColumnRow() {
+        TestMatrix expected = new TestMatrix(2);
+        expected.setValue(0, 0, 1d);
+        expected.setValue(0, 1, -4d);
+        expected.setValue(1, 0, -4d);
+        expected.setValue(1, 1, 16d);
+        assertEquals(
+            expected,
+            new TestVector(2, false)
+                .multiply(new TestVector(2, false).transpose())
+        );
+    }
+
+    @Test
+    void multiplyNonEmptyVectorsRowColumn() {
+        TestMatrix expected = new TestMatrix(1);
+        expected.setValue(0, 0, 17d);
+        assertEquals(
+            expected,
+            new TestVector(2, false).transpose()
+                .multiply(new TestVector(2, false))
+        );
+    }
+
+    @Test
+    void multiplyEmptyVectorToNonEmptyVectorColumnRow() {
+        assertEquals(
+            new TestMatrix(2),
+            new TestVector(2, false)
+                .multiply(new TestVector(2).transpose())
+        );
+    }
+
+    @Test
+    void multiplyEmptyVectorToNonEmptyVectorRowColumn() {
+        assertEquals(
+            new TestMatrix(1),
+            new TestVector(2, false).transpose()
+                .multiply(new TestVector(2))
+        );
+    }
+
+    @Test
+    void multiplyNonEmptyVectorToEmptyVectorColumnRow() {
+        assertEquals(
+            new TestMatrix(2),
+            new TestVector(2)
+                .multiply(new TestVector(2, false).transpose())
+        );
+    }
+
+    @Test
+    void multiplyNonEmptyVectorToEmptyVectorRowColumn() {
+        assertEquals(
+            new TestMatrix(1),
+            new TestVector(2).transpose()
+                .multiply(new TestVector(2, false))
+        );
+    }
+
     // endregion
 
     // region temp (to be deleted, when proper tests exist)
