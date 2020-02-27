@@ -48,8 +48,11 @@ public class Vector<T extends Number>
      * @param type         type of vector
      * @throws IllegalArgumentException if size is negative or zero
      */
-    public Vector(AbstractArithmetic<T> arithmetic, int size, T defaultValue, Type type) {
-        if (size < 0) throw new IllegalArgumentException("Size has to be greater than 0");
+    public Vector(
+        AbstractArithmetic<T> arithmetic, int size, T defaultValue, Type type
+    ) {
+        if (size < 0)
+            throw new IllegalArgumentException("Size has to be greater than 0");
         this.arithmetic = arithmetic;
         this.size = size;
         this.defaultValue = defaultValue;
@@ -65,7 +68,9 @@ public class Vector<T extends Number>
      * @param defaultValue default value for non-existing values
      * @throws IllegalArgumentException if values is null or its size is zero
      */
-    public Vector(AbstractArithmetic<T> arithmetic, List<T> values, T defaultValue) {
+    public Vector(
+        AbstractArithmetic<T> arithmetic, List<T> values, T defaultValue
+    ) {
         this(arithmetic, values, defaultValue, Type.COLUMN);
     }
 
@@ -78,8 +83,13 @@ public class Vector<T extends Number>
      * @param type         type of vector
      * @throws IllegalArgumentException if values is null or its size is zero
      */
-    public Vector(AbstractArithmetic<T> arithmetic, List<T> values, T defaultValue, Type type) {
-        this(arithmetic, values == null ? -1 : values.size(), defaultValue, type);
+    public Vector(
+        AbstractArithmetic<T> arithmetic, List<T> values,
+        T defaultValue, Type type
+    ) {
+        this(arithmetic, values == null
+            ? -1 : values.size(), defaultValue, type
+        );
         assert values != null;
         for (int i = 0; i < size; i++) {
             vector.put(i, values.get(i));
@@ -95,7 +105,10 @@ public class Vector<T extends Number>
      * @param defaultValue default value for non-existing values
      * @throws IllegalArgumentException if values is null or its size is zero
      */
-    public Vector(AbstractArithmetic<T> arithmetic, Map<Integer, T> values, T defaultValue) {
+    public Vector(
+        AbstractArithmetic<T> arithmetic, Map<Integer,
+        T> values, T defaultValue
+    ) {
         this(arithmetic, values, defaultValue, Type.COLUMN);
     }
 
@@ -108,8 +121,13 @@ public class Vector<T extends Number>
      * @param type         type of vector
      * @throws IllegalArgumentException if values is null or its size is zero
      */
-    public Vector(AbstractArithmetic<T> arithmetic, Map<Integer, T> values, T defaultValue, Type type) {
-        this(arithmetic, values == null ? -1 : values.size(), defaultValue, type);
+    public Vector(
+        AbstractArithmetic<T> arithmetic, Map<Integer, T> values,
+        T defaultValue, Type type
+    ) {
+        this(arithmetic, values == null
+            ? -1 : values.size(), defaultValue, type
+        );
         assert values != null;
         vector.putAll(values);
     }
@@ -120,7 +138,8 @@ public class Vector<T extends Number>
      * @param vector vector to copy
      */
     public Vector(Vector<T> vector) {
-        this(vector.getArithmetic(), vector.getSize(), vector.getDefaultValue(), vector.getType());
+        this(vector.getArithmetic(), vector.getSize(),
+            vector.getDefaultValue(), vector.getType());
         vector.getVector().forEach((key, value) -> getVector().put(key, value));
     }
 
@@ -217,7 +236,8 @@ public class Vector<T extends Number>
      * @return matrix equivalent to vector
      */
     public Matrix<T> toMatrix() {
-        Matrix<T> matrix = new Matrix<>(getArithmetic(), getSize(), 1, getDefaultValue());
+        Matrix<T> matrix =
+            new Matrix<>(getArithmetic(), getSize(), 1, getDefaultValue());
         getVector().forEach(matrix::setValue);
         return getType().equals(Type.COLUMN) ? matrix : matrix.transpose();
     }
@@ -230,8 +250,10 @@ public class Vector<T extends Number>
      * @return new vector with opposite type
      */
     public Vector<T> transpose() {
-        Vector<T> flipped = new Vector<>(getArithmetic(), getSize(), getDefaultValue(),
-            getType().equals(Type.COLUMN) ? Type.ROW : Type.COLUMN);
+        Vector<T> flipped =
+            new Vector<>(getArithmetic(), getSize(), getDefaultValue(),
+                getType().equals(Type.COLUMN) ? Type.ROW : Type.COLUMN
+            );
         getVector().forEach(flipped::setValue);
         return flipped;
     }
@@ -256,7 +278,8 @@ public class Vector<T extends Number>
             throw new IllegalArgumentException("size has to be equal");
         if (getType() != vector.getType())
             throw new IllegalArgumentException("vectors have to be either both row or both column");
-        Vector<T> result = new Vector<>(getArithmetic(), getSize(), getDefaultValue());
+        Vector<T> result =
+            new Vector<>(getArithmetic(), getSize(), getDefaultValue());
         IntStream.range(0, getSize())
             .forEach(index -> result.setValue(
                 index,
@@ -283,7 +306,9 @@ public class Vector<T extends Number>
     public Vector<T> multiply(T scalar) {
         Vector<T> result = new Vector<>(this);
         for (int i = 0; i < size(); i++) {
-            result.setValue(i, result.getArithmetic().product(result.getValue(i), scalar));
+            result.setValue(i,
+                result.getArithmetic().product(result.getValue(i), scalar)
+            );
         }
         return result;
     }
@@ -303,8 +328,12 @@ public class Vector<T extends Number>
      * @throws IllegalArgumentException if sizes do not match
      */
     public T dotProduct(Vector<T> vector) {
-        Vector<T> v1 = new Vector<>(getType() == Type.ROW ? this : transpose());
-        Vector<T> v2 = new Vector<>(vector.getType() == Type.COLUMN ? vector : vector.transpose());
+        Vector<T> v1 =
+            new Vector<>(getType() == Type.ROW ? this : transpose());
+        Vector<T> v2 =
+            new Vector<>(vector.getType() == Type.COLUMN
+                ? vector : vector.transpose()
+            );
         return v1.toMatrix().multiply(v2.toMatrix()).toParam();
     }
 
@@ -317,8 +346,11 @@ public class Vector<T extends Number>
      */
     public T maxNorm() {
         return getVector().values().stream().max(
-            (a, b) -> getArithmetic().difference(getArithmetic().absolute(a), getArithmetic().absolute(b)).intValue())
-            .orElse(getArithmetic().zero());
+            (a, b) -> getArithmetic().difference(
+                getArithmetic().absolute(a),
+                getArithmetic().absolute(b)
+            ).intValue()
+        ).orElse(getArithmetic().zero());
     }
 
     /**
@@ -336,10 +368,16 @@ public class Vector<T extends Number>
     public T pNorm(int p) {
         if (p <= 0) throw new IllegalArgumentException("May only calculate positive p-norm");
         Map<Integer, T> powers = new HashMap<>();
-        getVector().forEach((key, value) -> powers.put(key, getArithmetic().power(value, p)));
-        return getArithmetic().root(getArithmetic().absolute(powers.values().stream().reduce(
-            (a, b) -> getArithmetic().sum(a, b))
-            .orElse(getArithmetic().zero())), p);
+        getVector().forEach(
+            (key, value) -> powers.put(key, getArithmetic().power(value, p))
+        );
+        return getArithmetic().root(
+            getArithmetic().absolute(
+                powers.values().stream().reduce(
+                    (a, b) -> getArithmetic().sum(a, b)
+                ).orElse(getArithmetic().zero())
+            ), p
+        );
     }
 
     // endregion
@@ -360,7 +398,8 @@ public class Vector<T extends Number>
     public static <T extends Number> Vector<T> ofValues(
         AbstractArithmetic<T> arithmetic, T defaultValue, T... values
     ) {
-        Vector<T> vector = new Vector<>(arithmetic, values.length, defaultValue);
+        Vector<T> vector =
+            new Vector<>(arithmetic, values.length, defaultValue);
         for (int i = 0; i < values.length; i++)
             vector.setValue(i, values[i]);
         return vector;
