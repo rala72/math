@@ -79,7 +79,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
     /**
      * @return stored {@link AbstractResultArithmetic}
      */
-    protected AbstractResultArithmetic<T, V> getArithmetic() {
+    public AbstractResultArithmetic<T, V> getArithmetic() {
         return arithmetic;
     }
 
@@ -503,9 +503,9 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * ensures that if there is a signum it is on {@link #getNumerator()}
      */
     protected void simplifySignum() {
-        if (getArithmetic().getTArithmetic().signum(denominator) < 0) {
-            denominator = arithmetic.getTArithmetic().negate(denominator);
-            numerator = arithmetic.getTArithmetic().negate(numerator);
+        if (getArithmetic().getTArithmetic().signum(getDenominator()) < 0) {
+            setDenominator(getArithmetic().getTArithmetic().negate(getDenominator()));
+            setNumerator(getArithmetic().getTArithmetic().negate(getNumerator()));
         }
     }
 

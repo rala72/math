@@ -4,29 +4,31 @@ import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Circle;
 import io.rala.math.geometry.Point;
 import io.rala.math.testUtils.assertion.GeometryAssertions;
-import io.rala.math.testUtils.assertion.SerializableAssertions;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+
+import static io.rala.math.testUtils.assertion.GeometryAssertions.assertCircle;
+import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BigDecimalCircleTest {
     // region constructors, getter and setter
 
     @Test
     void constructorWithoutParameter() {
-        GeometryAssertions.assertCircle(new BigDecimalCircle());
+        assertCircle(new BigDecimalCircle());
     }
 
     @Test
     void constructorWithMathContext5() {
-        GeometryAssertions.assertCircle(new BigDecimalCircle(new MathContext(5)));
+        assertCircle(new BigDecimalCircle(new MathContext(5)));
     }
 
     @Test
     void constructorWithCenterButWithoutRadius() {
-        GeometryAssertions.assertCircle(
+        assertCircle(
             new BigDecimalCircle(new BigDecimalPoint(BigDecimal.ONE)),
             new BigDecimalPoint(BigDecimal.ONE)
         );
@@ -34,7 +36,7 @@ class BigDecimalCircleTest {
 
     @Test
     void constructorWithCenterAndMathContext5ButWithoutRadius() {
-        GeometryAssertions.assertCircle(
+        assertCircle(
             new BigDecimalCircle(
                 new BigDecimalPoint(BigDecimal.ONE),
                 new MathContext(5)
@@ -45,7 +47,7 @@ class BigDecimalCircleTest {
 
     @Test
     void constructorWithRadiusButWithoutCenter() {
-        GeometryAssertions.assertCircle(
+        assertCircle(
             new BigDecimalCircle(BigDecimal.valueOf(2d)),
             BigDecimal.valueOf(2d)
         );
@@ -53,7 +55,7 @@ class BigDecimalCircleTest {
 
     @Test
     void constructorWithRadiusAndMathContext5ButWithoutCenter() {
-        GeometryAssertions.assertCircle(
+        assertCircle(
             new BigDecimalCircle(
                 BigDecimal.valueOf(2d),
                 new MathContext(5)
@@ -64,7 +66,7 @@ class BigDecimalCircleTest {
 
     @Test
     void constructorWithCenterAndPoint() {
-        GeometryAssertions.assertCircle(
+        assertCircle(
             new BigDecimalCircle(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.ONE)
@@ -76,7 +78,7 @@ class BigDecimalCircleTest {
 
     @Test
     void constructorWithCenterAndPointAndMathContext5() {
-        GeometryAssertions.assertCircle(
+        assertCircle(
             new BigDecimalCircle(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.ONE),
@@ -89,7 +91,7 @@ class BigDecimalCircleTest {
 
     @Test
     void constructorWithCenterAndRadius() {
-        GeometryAssertions.assertCircle(
+        assertCircle(
             new BigDecimalCircle(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)),
                 BigDecimal.valueOf(3d)
@@ -100,7 +102,7 @@ class BigDecimalCircleTest {
 
     @Test
     void constructorWithCenterAndRadiusAndMathContext5() {
-        GeometryAssertions.assertCircle(
+        assertCircle(
             new BigDecimalCircle(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)),
                 BigDecimal.valueOf(3d),
@@ -113,9 +115,9 @@ class BigDecimalCircleTest {
     @Test
     void createAndSetCenter() {
         Circle<BigDecimal> circle = new BigDecimalCircle();
-        GeometryAssertions.assertCircle(circle);
+        assertCircle(circle);
         circle.setCenter(new BigDecimalPoint(BigDecimal.ONE));
-        GeometryAssertions.assertCircle(circle,
+        assertCircle(circle,
             new BigDecimalPoint(BigDecimal.ONE),
             BigDecimal.ONE
         );
@@ -124,33 +126,33 @@ class BigDecimalCircleTest {
     @Test
     void createAndSetRadius() {
         Circle<BigDecimal> circle = new BigDecimalCircle();
-        GeometryAssertions.assertCircle(circle);
+        assertCircle(circle);
         circle.setRadius(BigDecimal.valueOf(2d));
-        GeometryAssertions.assertCircle(circle, BigDecimal.valueOf(2d));
+        assertCircle(circle, BigDecimal.valueOf(2d));
     }
 
     @Test
     void createAndExpectDiameterToBeBigDecimal() {
         Circle<BigDecimal> circle = new BigDecimalCircle();
-        Assertions.assertEquals(BigDecimal.valueOf(2), circle.getDiameter());
+        assertEquals(BigDecimal.valueOf(2), circle.getDiameter());
         circle.setRadius(BigDecimal.valueOf(2d));
-        Assertions.assertEquals(BigDecimal.valueOf(4), circle.getDiameter());
+        assertEquals(BigDecimal.valueOf(4), circle.getDiameter());
         circle.setDiameter(BigDecimal.valueOf(2d));
-        Assertions.assertEquals(BigDecimal.valueOf(2), circle.getDiameter());
+        assertEquals(BigDecimal.valueOf(2), circle.getDiameter());
     }
 
     @Test
     void createAndSetRadiusAndExpectDiameterToBeBigDecimal() {
         Circle<BigDecimal> circle = new BigDecimalCircle();
         circle.setRadius(BigDecimal.valueOf(2d));
-        Assertions.assertEquals(BigDecimal.valueOf(4), circle.getDiameter());
+        assertEquals(BigDecimal.valueOf(4), circle.getDiameter());
     }
 
     @Test
     void createAndSetDiameterAndExpectRadiusToBeHalf() {
         Circle<BigDecimal> circle = new BigDecimalCircle();
         circle.setDiameter(BigDecimal.valueOf(2d));
-        Assertions.assertEquals(BigDecimal.valueOf(2), circle.getDiameter());
+        assertEquals(BigDecimal.valueOf(2), circle.getDiameter());
     }
 
     // endregion
@@ -159,7 +161,7 @@ class BigDecimalCircleTest {
 
     @Test
     void areaOfCircleWithoutParameter() {
-        Assertions.assertEquals(
+        assertEquals(
             BigDecimal.valueOf(Math.PI).round(GeometryAssertions.CONTEXT),
             new BigDecimalCircle().area()
         );
@@ -167,7 +169,7 @@ class BigDecimalCircleTest {
 
     @Test
     void areaOfCircleWithRadius2() {
-        Assertions.assertEquals(
+        assertEquals(
             BigDecimal.valueOf(12.56637062d),
             new BigDecimalCircle(BigDecimal.valueOf(2d)).area()
         );
@@ -175,7 +177,7 @@ class BigDecimalCircleTest {
 
     @Test
     void areaOfCircleWithRadius3() {
-        Assertions.assertEquals(
+        assertEquals(
             BigDecimal.valueOf(28.27433389d),
             new BigDecimalCircle(BigDecimal.valueOf(3d)).area()
         );
@@ -183,7 +185,7 @@ class BigDecimalCircleTest {
 
     @Test
     void circumferenceOfCircleWithoutParameter() {
-        Assertions.assertEquals(
+        assertEquals(
             BigDecimal.valueOf(6.283185308d),
             new BigDecimalCircle().circumference()
         );
@@ -191,7 +193,7 @@ class BigDecimalCircleTest {
 
     @Test
     void circumferenceOfCircleWithRadius2() {
-        Assertions.assertEquals(
+        assertEquals(
             BigDecimal.valueOf(12.56637062d),
             new BigDecimalCircle(BigDecimal.valueOf(2d)).circumference()
         );
@@ -199,7 +201,7 @@ class BigDecimalCircleTest {
 
     @Test
     void circumferenceOfCircleWithRadius3() {
-        Assertions.assertEquals(
+        assertEquals(
             BigDecimal.valueOf(18.84955592d),
             new BigDecimalCircle(BigDecimal.valueOf(3d)).circumference()
         );
@@ -211,17 +213,17 @@ class BigDecimalCircleTest {
 
     @Test
     void isUnitCircleWithRadius0() {
-        Assertions.assertFalse(new BigDecimalCircle(BigDecimal.ZERO).isUnitCircle());
+        assertFalse(new BigDecimalCircle(BigDecimal.ZERO).isUnitCircle());
     }
 
     @Test
     void isUnitCircleWithRadius1() {
-        Assertions.assertTrue(new BigDecimalCircle(BigDecimal.ONE).isUnitCircle());
+        assertTrue(new BigDecimalCircle(BigDecimal.ONE).isUnitCircle());
     }
 
     @Test
     void isUnitCircleWithRadius2() {
-        Assertions.assertFalse(
+        assertFalse(
             new BigDecimalCircle(BigDecimal.valueOf(2d)).isUnitCircle()
         );
     }
@@ -239,24 +241,24 @@ class BigDecimalCircleTest {
         Circle<Integer> result = new Circle<>(integerArithmetic,
             new Point<>(integerArithmetic, 0), 1
         );
-        Assertions.assertEquals(result,
+        assertEquals(result,
             circle.map(new IntegerArithmetic(), Number::intValue)
         );
     }
 
     @Test
     void isValidWithZeroValues() {
-        Assertions.assertTrue(new BigDecimalCircle().isValid());
+        assertTrue(new BigDecimalCircle().isValid());
     }
 
     @Test
     void isValidWithNegativeRadius() {
-        Assertions.assertFalse(new BigDecimalCircle(BigDecimal.ONE.negate()).isValid());
+        assertFalse(new BigDecimalCircle(BigDecimal.ONE.negate()).isValid());
     }
 
     @Test
     void moveOfCircleWithoutParameterWithXY() {
-        GeometryAssertions.assertCircle(
+        assertCircle(
             new BigDecimalCircle().move(BigDecimal.ONE),
             new BigDecimalPoint(BigDecimal.ONE)
         );
@@ -264,7 +266,7 @@ class BigDecimalCircleTest {
 
     @Test
     void moveOfCircleWithoutParameterWithXAndY() {
-        GeometryAssertions.assertCircle(
+        assertCircle(
             new BigDecimalCircle().move(BigDecimal.ONE, BigDecimal.ONE),
             new BigDecimalPoint(BigDecimal.ONE)
         );
@@ -272,7 +274,7 @@ class BigDecimalCircleTest {
 
     @Test
     void moveOfCircleWithoutParameterWithVector() {
-        GeometryAssertions.assertCircle(
+        assertCircle(
             new BigDecimalCircle().move(new BigDecimalVector(BigDecimal.ONE)),
             new BigDecimalPoint(BigDecimal.ONE)
         );
@@ -280,7 +282,7 @@ class BigDecimalCircleTest {
 
     @Test
     void rotateOfCircleWithX1Y2WithoutCenterWithPiHalf() {
-        GeometryAssertions.assertCircle(
+        assertCircle(
             new BigDecimalCircle(
                 new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d))
             ).rotate(BigDecimal.valueOf(Math.PI / 2d)),
@@ -293,7 +295,7 @@ class BigDecimalCircleTest {
 
     @Test
     void rotateOfCircleWithX1Y2WithCenterXY1WithPiHalf() {
-        GeometryAssertions.assertCircle(
+        assertCircle(
             new BigDecimalCircle(
                 new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d))
             ).rotate(
@@ -308,7 +310,7 @@ class BigDecimalCircleTest {
         Circle<BigDecimal> circle = new BigDecimalCircle(
             new BigDecimalPoint(BigDecimal.valueOf(2d)), BigDecimal.valueOf(3d)
         );
-        Assertions.assertEquals(circle, circle.copy());
+        assertEquals(circle, circle.copy());
     }
 
     // endregion
@@ -320,15 +322,13 @@ class BigDecimalCircleTest {
         Circle<BigDecimal> circle = new BigDecimalCircle(
             new BigDecimalPoint(BigDecimal.valueOf(2d)), BigDecimal.valueOf(3d)
         );
-        Assertions.assertEquals(
-            circle,
+        assertEquals(circle,
             new BigDecimalCircle(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)),
                 BigDecimal.valueOf(3d)
             )
         );
-        Assertions.assertNotEquals(
-            circle,
+        assertNotEquals(circle,
             new BigDecimalCircle(
                 new BigDecimalPoint(BigDecimal.valueOf(3d)),
                 BigDecimal.valueOf(2d)
@@ -338,8 +338,7 @@ class BigDecimalCircleTest {
 
     @Test
     void hashCodeOfCircleWithPointAndRadius() {
-        Assertions.assertEquals(
-            647715,
+        assertEquals(647715,
             new BigDecimalCircle(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)),
                 BigDecimal.valueOf(3d)
@@ -353,7 +352,7 @@ class BigDecimalCircleTest {
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             BigDecimal.valueOf(3d)
         );
-        Assertions.assertEquals("2.0|2.0 3.0", circle.toString());
+        assertEquals("2.0|2.0 3.0", circle.toString());
     }
 
     @Test
@@ -362,18 +361,18 @@ class BigDecimalCircleTest {
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             BigDecimal.valueOf(3d)
         );
-        Assertions.assertEquals(
-            0, circle.compareTo(new BigDecimalCircle(
+        assertEquals(0,
+            circle.compareTo(new BigDecimalCircle(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)), BigDecimal.valueOf(3d)
             ))
         );
-        Assertions.assertEquals(
-            -1, circle.compareTo(new BigDecimalCircle(
+        assertEquals(-1,
+            circle.compareTo(new BigDecimalCircle(
                 new BigDecimalPoint(BigDecimal.valueOf(3d)), BigDecimal.valueOf(3d)
             ))
         );
-        Assertions.assertEquals(
-            1, circle.compareTo(new BigDecimalCircle(
+        assertEquals(1,
+            circle.compareTo(new BigDecimalCircle(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)), BigDecimal.ONE
             ))
         );
@@ -381,7 +380,7 @@ class BigDecimalCircleTest {
 
     @Test
     void serializable() {
-        SerializableAssertions.assertSerializable(new BigDecimalCircle(), Circle.class);
+        assertSerializable(new BigDecimalCircle(), BigDecimalCircle.class);
     }
 
     // endregion

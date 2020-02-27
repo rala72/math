@@ -8,10 +8,11 @@ import io.rala.math.utils.StreamIterable;
 import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.StreamSupport;
 
 /**
  * class which holds a matrix with {@code rows} and {@code cols}
@@ -105,7 +106,7 @@ public class Matrix<T extends Number>
     /**
      * @return stored arithmetic
      */
-    protected AbstractArithmetic<T> getArithmetic() {
+    public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
     }
 
@@ -227,13 +228,15 @@ public class Matrix<T extends Number>
             return removeValue(index);
         else {
             AtomicReference<T> previous = new AtomicReference<>(getDefaultValue());
-            matrix.compute((int) (index / getCols()), (integer, integerTMap) -> {
-                Map<Integer, T> map = integerTMap == null ?
-                    new HashMap<>() : integerTMap;
-                T prev = map.put((int) (index % getCols()), value);
-                if (prev != null) previous.set(prev);
-                return map;
-            });
+            getMatrix().compute((int) (index / getCols()),
+                (integer, integerTMap) -> {
+                    Map<Integer, T> map = integerTMap == null ?
+                        new HashMap<>() : integerTMap;
+                    T prev = map.put((int) (index % getCols()), value);
+                    if (prev != null) previous.set(prev);
+                    return map;
+                }
+            );
             return previous.get();
         }
     }
@@ -257,7 +260,8 @@ public class Matrix<T extends Number>
     public T getValue(long index) {
         if (!isIndexValid(index))
             throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
-        return matrix.getOrDefault((int) (index / getCols()), Collections.emptyMap())
+        return getMatrix()
+            .getOrDefault((int) (index / getCols()), Collections.emptyMap())
             .getOrDefault((int) (index % getCols()), getDefaultValue());
     }
 
@@ -292,6 +296,78 @@ public class Matrix<T extends Number>
 
     // endregion
 
+    // region compute
+
+    /**
+     * @param row      row where new value is computed
+     * @param col      col where new value is computed
+     * @param operator operator to apply current value
+     * @return old value if existed or {@link #getDefaultValue()}
+     * @see #compute(long, UnaryOperator)
+     * @see #setValue(int, int, Number)
+     * @see #getValue(int, int)
+     */
+    public T compute(int row, int col, UnaryOperator<T> operator) {
+        return compute(getIndexOfRowAndCol(row, col), operator);
+    }
+
+    /**
+     * @param index    index where new value is computed
+     * @param operator operator to apply current value
+     * @return old value if existed or {@link #getDefaultValue()}
+     * @see #compute(long, UnaryOperator)
+     * @see #setValue(long, Number)
+     * @see #getValue(long)
+     */
+    public T compute(long index, UnaryOperator<T> operator) {
+        return setValue(index, operator.apply(getValue(index)));
+    }
+
+    /**
+     * @param row      row where new value is computed
+     * @param col      col where new value is computed
+     * @param value    new value to use in computation
+     * @param operator operator to apply on old and new value
+     * @return old value if existed or {@link #getDefaultValue()}
+     * @see #compute(long, Number, BinaryOperator)
+     * @see #setValue(int, int, Number)
+     * @see #getValue(int, int)
+     */
+    public T compute(int row, int col, T value, BinaryOperator<T> operator) {
+        return compute(getIndexOfRowAndCol(row, col), value, operator);
+    }
+
+    /**
+     * @param index    index where new value is computed
+     * @param value    new value to use in computation
+     * @param operator operator to apply on old and new value
+     * @return old value if existed or {@link #getDefaultValue()}
+     * @see #setValue(long, Number)
+     * @see #getValue(long)
+     */
+    public T compute(long index, T value, BinaryOperator<T> operator) {
+        return setValue(index, operator.apply(getValue(index), value));
+    }
+
+    /**
+     * @param operator operator to apply on all fields
+     * @see #setValue(long, Number)
+     */
+    public void computeAll(Function<Field, T> operator) {
+        forEach(field -> setValue(field.getIndex(), operator.apply(field)));
+    }
+
+    /**
+     * @param value    function returning new value to use in computation
+     * @param operator operator to apply on old and new value
+     * @see #computeAll(Function)
+     */
+    public void computeAll(Function<Field, T> value, BinaryOperator<T> operator) {
+        computeAll(field -> operator.apply(field.getValue(), value.apply(field)));
+    }
+
+    // endregion
+
     // region isDiagonal
 
     /**
@@ -305,7 +381,7 @@ public class Matrix<T extends Number>
      * @return {@code true} if only the diagonal has values
      */
     public final boolean isDiagonal() {
-        return isSquare() && StreamSupport.stream(spliterator(), true)
+        return isSquare() && stream()
             .allMatch(field -> field.getRow() == field.getCol() ||
                 field.getValue() == null ||
                 field.getValue().doubleValue() == 0d
@@ -326,12 +402,10 @@ public class Matrix<T extends Number>
         if (getCols() != matrix.getCols())
             throw new IllegalArgumentException("cols have to be equal");
         Matrix<T> result = copy();
-        for (int r = 0; r < getRows(); r++)
-            for (int c = 0; c < getCols(); c++)
-                result.setValue(r, c, getArithmetic().sum(
-                    getValue(r, c),
-                    matrix.getValue(r, c)
-                ));
+        result.computeAll(
+            field -> matrix.getValue(field.getIndex()),
+            getArithmetic()::sum
+        );
         result.removeDefaultValues();
         return result;
     }
@@ -342,11 +416,7 @@ public class Matrix<T extends Number>
      */
     public Matrix<T> multiply(T t) {
         Matrix<T> result = copy();
-        for (int r = 0; r < getRows(); r++)
-            for (int c = 0; c < getCols(); c++)
-                result.setValue(r, c, getArithmetic().product(
-                    getValue(r, c), t
-                ));
+        result.computeAll(field -> t, getArithmetic()::product);
         result.removeDefaultValues();
         return result;
     }
@@ -361,15 +431,17 @@ public class Matrix<T extends Number>
         Matrix<T> result = new Matrix<>(getArithmetic(),
             getRows(), matrix.getCols(), getDefaultValue()
         );
-        for (int r = 0; r < result.getRows(); r++)
-            for (int c = 0; c < result.getCols(); c++) {
-                T d = getArithmetic().zero();
-                for (int i = 0; i < getCols(); i++)
-                    d = getArithmetic().sum(d,
-                        getArithmetic().product(getValue(r, i), matrix.getValue(i, c))
-                    );
-                result.setValue(r, c, d);
-            }
+        result.computeAll(field -> {
+            T d = getArithmetic().zero();
+            for (int i = 0; i < getCols(); i++)
+                d = getArithmetic().sum(d,
+                    getArithmetic().product(
+                        getValue(field.getRow(), i),
+                        matrix.getValue(i, field.getCol())
+                    )
+                );
+            return d;
+        });
         return result;
     }
 
@@ -407,15 +479,14 @@ public class Matrix<T extends Number>
         Matrix<T> minorMatrix = new Matrix<>(getArithmetic(),
             getRows(), getCols(), getDefaultValue()
         );
-        for (int r = 0; r < minorMatrix.getRows(); r++) {
-            for (int c = 0; c < minorMatrix.getCols(); c++) {
-                T value = getArithmetic().product(
-                    getArithmetic().fromInt(signumFactor(r, c)),
-                    subMatrix(r, c).determinante()
-                );
-                minorMatrix.setValue(r, c, value);
-            }
-        }
+        minorMatrix.computeAll(field ->
+            getArithmetic().product(
+                getArithmetic().fromInt(
+                    signumFactor(field.getRow(), field.getCol())
+                ),
+                subMatrix(field.getRow(), field.getCol()).determinante()
+            )
+        );
         return minorMatrix.transpose().multiply(k);
     }
 
@@ -426,9 +497,10 @@ public class Matrix<T extends Number>
         Matrix<T> result = new Matrix<>(getArithmetic(),
             getCols(), getRows(), getDefaultValue()
         );
-        for (int r = 0; r < getRows(); r++)
-            for (int c = 0; c < getCols(); c++)
-                result.setValue(c, r, getValue(getIndexOfRowAndCol(r, c)));
+        forEach(field -> result.setValue(
+            field.getCol(), field.getRow(),
+            getValue(getIndexOfRowAndCol(field.getRow(), field.getCol()))
+        ));
         return result;
     }
 
@@ -645,7 +717,9 @@ public class Matrix<T extends Number>
         Matrix<NT> matrix = new Matrix<>(
             arithmetic, getRows(), getCols(), map.apply(getDefaultValue())
         );
-        forEach(field -> matrix.setValue(field.index, map.apply(field.value)));
+        forEach(field -> matrix.setValue(
+            field.getIndex(), map.apply(field.getValue())
+        ));
         return matrix;
     }
 
@@ -821,9 +895,7 @@ public class Matrix<T extends Number>
         if (getArithmetic().one().equals(n))
             return copy;
         for (int c = 0; c < getCols(); c++)
-            copy.setValue(row, c,
-                getArithmetic().product(getValue(row, c), n)
-            );
+            copy.compute(row, c, n, getArithmetic()::product);
         return copy;
     }
 
@@ -844,9 +916,7 @@ public class Matrix<T extends Number>
         if (getArithmetic().one().equals(n))
             return copy;
         for (int r = 0; r < getRows(); r++)
-            copy.setValue(r, col,
-                getArithmetic().product(getValue(r, col), n)
-            );
+            copy.compute(r, col, n, getArithmetic()::product);
         return copy;
     }
 
@@ -866,9 +936,10 @@ public class Matrix<T extends Number>
         if (row1 == row2) return multiplyRow(row1, n);
         Matrix<T> copy = copy();
         for (int c = 0; c < getCols(); c++)
-            copy.setValue(row1, c, getArithmetic().sum(getValue(row1, c),
-                getArithmetic().product(getValue(row2, c), n)
-            ));
+            copy.compute(row1, c,
+                getArithmetic().product(getValue(row2, c), n),
+                getArithmetic()::sum
+            );
         return copy;
     }
 
@@ -888,9 +959,10 @@ public class Matrix<T extends Number>
         if (col1 == col2) return multiplyCol(col1, n);
         Matrix<T> copy = copy();
         for (int r = 0; r < getRows(); r++)
-            copy.setValue(r, col1, getArithmetic().sum(getValue(r, col1),
-                getArithmetic().product(getValue(r, col2), n)
-            ));
+            copy.compute(r, col1,
+                getArithmetic().product(getValue(r, col2), n),
+                getArithmetic()::sum
+            );
         return copy;
     }
 
@@ -972,7 +1044,7 @@ public class Matrix<T extends Number>
     // endregion
 
     /**
-     * class which holds a field of a matrix
+     * class which holds a field of a matrix with immutable attributes
      */
     public class Field {
         private final long index;

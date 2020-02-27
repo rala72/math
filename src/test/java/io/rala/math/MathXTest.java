@@ -10,11 +10,13 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 class MathXTest {
     @ParameterizedTest
     @MethodSource("getGcdArguments")
     void gcd(int expected, int... a) {
-        Assertions.assertEquals(expected, a.length == 2 ?
+        assertEquals(expected, a.length == 2 ?
             MathX.gcd(a[0], a[1]) : MathX.gcd(a)
         );
     }
@@ -22,19 +24,19 @@ class MathXTest {
     @ParameterizedTest
     @MethodSource("getFactorsArguments")
     void factors(int number, List<Integer> expected) {
-        Assertions.assertEquals(expected, MathX.factors(number));
+        assertEquals(expected, MathX.factors(number));
     }
 
     @ParameterizedTest
     @MethodSource("getFactorialArguments")
     void factorial(int number, long expected) {
-        Assertions.assertEquals(expected, MathX.factorial(number));
+        assertEquals(expected, MathX.factorial(number));
     }
 
     @ParameterizedTest
     @MethodSource("getLcmArguments")
     void lcm(int expected, int... a) {
-        Assertions.assertEquals(expected, a.length == 2 ?
+        assertEquals(expected, a.length == 2 ?
             MathX.lcm(a[0], a[1]) : MathX.lcm(a)
         );
     }
@@ -46,12 +48,12 @@ class MathXTest {
             try {
                 MathX.root(a, n);
             } catch (IllegalArgumentException e) {
-                Assertions.assertEquals("number has to be positive", e.getMessage());
+                assertEquals("number has to be positive", e.getMessage());
                 return;
             }
             Assertions.fail();
         }
-        Assertions.assertEquals(expected, Math.round(MathX.root(a, n)));
+        assertEquals(expected, Math.round(MathX.root(a, n)));
     }
 
     @ParameterizedTest
@@ -61,12 +63,12 @@ class MathXTest {
             try {
                 MathX.root(a, n);
             } catch (IllegalArgumentException e) {
-                Assertions.assertEquals("number has to be positive", e.getMessage());
+                assertEquals("number has to be positive", e.getMessage());
                 return;
             }
             Assertions.fail();
         }
-        Assertions.assertEquals(expected, MathX.root(a, n).stripTrailingZeros());
+        assertEquals(expected, MathX.root(a, n).stripTrailingZeros());
     }
 
     // region argument streams

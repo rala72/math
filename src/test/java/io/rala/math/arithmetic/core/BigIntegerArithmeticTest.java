@@ -1,11 +1,12 @@
 package io.rala.math.arithmetic.core;
 
-import io.rala.math.testUtils.assertion.SerializableAssertions;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
+
+import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BigIntegerArithmeticTest {
     private static BigIntegerArithmetic arithmetic;
@@ -17,24 +18,24 @@ class BigIntegerArithmeticTest {
 
     @Test
     void getInstance() {
-        Assertions.assertEquals(arithmetic, BigIntegerArithmetic.getInstance());
+        assertEquals(arithmetic, BigIntegerArithmetic.getInstance());
     }
 
     // region fromInt, fromDouble and signum
 
     @Test
     void fromInt1() {
-        Assertions.assertEquals(BigInteger.ONE, arithmetic.fromInt(1));
+        assertEquals(BigInteger.ONE, arithmetic.fromInt(1));
     }
 
     @Test
     void fromDouble1_1() {
-        Assertions.assertEquals(BigInteger.ONE, arithmetic.fromDouble(1.1));
+        assertEquals(BigInteger.ONE, arithmetic.fromDouble(1.1));
     }
 
     @Test
     void signum1() {
-        Assertions.assertEquals(1, arithmetic.signum(BigInteger.ONE));
+        assertEquals(1, arithmetic.signum(BigInteger.ONE));
     }
 
     // endregion
@@ -43,76 +44,76 @@ class BigIntegerArithmeticTest {
 
     @Test
     void absoluteM1() {
-        Assertions.assertEquals(BigInteger.ONE,
+        assertEquals(BigInteger.ONE,
             arithmetic.absolute(BigInteger.ONE.negate())
         );
     }
 
     @Test
     void negate1() {
-        Assertions.assertEquals(BigInteger.ONE.negate(),
+        assertEquals(BigInteger.ONE.negate(),
             arithmetic.negate(BigInteger.ONE)
         );
     }
 
     @Test
     void compare() {
-        Assertions.assertEquals(
-            0, arithmetic.compare(BigInteger.ONE, BigInteger.ONE)
+        assertEquals(0,
+            arithmetic.compare(BigInteger.ONE, BigInteger.ONE)
         );
-        Assertions.assertEquals(
-            -1, arithmetic.compare(BigInteger.ONE, BigInteger.TWO)
+        assertEquals(-1,
+            arithmetic.compare(BigInteger.ONE, BigInteger.TWO)
         );
-        Assertions.assertEquals(
-            1, arithmetic.compare(BigInteger.TWO, BigInteger.ONE)
+        assertEquals(1,
+            arithmetic.compare(BigInteger.TWO, BigInteger.ONE)
         );
     }
 
     @Test
     void min() {
-        Assertions.assertEquals(
-            BigInteger.ONE, arithmetic.min(BigInteger.ONE, BigInteger.ONE)
+        assertEquals(BigInteger.ONE,
+            arithmetic.min(BigInteger.ONE, BigInteger.ONE)
         );
-        Assertions.assertEquals(
-            BigInteger.ONE, arithmetic.min(BigInteger.ONE, BigInteger.TWO)
+        assertEquals(BigInteger.ONE,
+            arithmetic.min(BigInteger.ONE, BigInteger.TWO)
         );
-        Assertions.assertEquals(
-            BigInteger.ONE, arithmetic.min(BigInteger.TWO, BigInteger.ONE)
+        assertEquals(BigInteger.ONE,
+            arithmetic.min(BigInteger.TWO, BigInteger.ONE)
         );
     }
 
     @Test
     void max() {
-        Assertions.assertEquals(
-            BigInteger.ONE, arithmetic.max(BigInteger.ONE, BigInteger.ONE)
+        assertEquals(BigInteger.ONE,
+            arithmetic.max(BigInteger.ONE, BigInteger.ONE)
         );
-        Assertions.assertEquals(
-            BigInteger.TWO, arithmetic.max(BigInteger.ONE, BigInteger.TWO)
+        assertEquals(BigInteger.TWO,
+            arithmetic.max(BigInteger.ONE, BigInteger.TWO)
         );
-        Assertions.assertEquals(
-            BigInteger.TWO, arithmetic.max(BigInteger.TWO, BigInteger.ONE)
+        assertEquals(BigInteger.TWO,
+            arithmetic.max(BigInteger.TWO, BigInteger.ONE)
         );
     }
 
     @Test
     void isZero() {
-        Assertions.assertTrue(arithmetic.isZero(BigInteger.ZERO));
-        Assertions.assertTrue(arithmetic.isZero(BigInteger.ZERO.negate()));
-        Assertions.assertFalse(arithmetic.isZero(BigInteger.ONE));
+        assertTrue(arithmetic.isZero(BigInteger.ZERO));
+        assertTrue(arithmetic.isZero(BigInteger.ZERO.negate()));
+        assertFalse(arithmetic.isZero(BigInteger.ONE));
     }
 
     @Test
     void isEqual() {
-        Assertions.assertTrue(
+        assertTrue(
             arithmetic.isEqual(BigInteger.ZERO, BigInteger.ZERO)
         );
-        Assertions.assertTrue(
+        assertTrue(
             arithmetic.isEqual(BigInteger.ZERO.negate(), BigInteger.ZERO)
         );
-        Assertions.assertTrue(
+        assertTrue(
             arithmetic.isEqual(BigInteger.ZERO.negate(), BigInteger.ZERO.negate())
         );
-        Assertions.assertFalse(
+        assertFalse(
             arithmetic.isEqual(BigInteger.ONE, BigInteger.ZERO)
         );
     }
@@ -123,49 +124,49 @@ class BigIntegerArithmeticTest {
 
     @Test
     void sum12() {
-        Assertions.assertEquals(BigInteger.valueOf(3),
+        assertEquals(BigInteger.valueOf(3),
             arithmetic.sum(BigInteger.ONE, BigInteger.TWO)
         );
     }
 
     @Test
     void sum123() {
-        Assertions.assertEquals(BigInteger.valueOf(6),
+        assertEquals(BigInteger.valueOf(6),
             arithmetic.sum(BigInteger.ONE, BigInteger.TWO, BigInteger.valueOf(3))
         );
     }
 
     @Test
     void difference12() {
-        Assertions.assertEquals(BigInteger.valueOf(-1),
+        assertEquals(BigInteger.valueOf(-1),
             arithmetic.difference(BigInteger.ONE, BigInteger.TWO)
         );
     }
 
     @Test
     void product12() {
-        Assertions.assertEquals(BigInteger.TWO,
+        assertEquals(BigInteger.TWO,
             arithmetic.product(BigInteger.ONE, BigInteger.TWO)
         );
     }
 
     @Test
     void product123() {
-        Assertions.assertEquals(BigInteger.valueOf(6),
+        assertEquals(BigInteger.valueOf(6),
             arithmetic.product(BigInteger.ONE, BigInteger.TWO, BigInteger.valueOf(3))
         );
     }
 
     @Test
     void quotient12() {
-        Assertions.assertEquals(BigInteger.ZERO,
+        assertEquals(BigInteger.ZERO,
             arithmetic.quotient(BigInteger.ONE, BigInteger.TWO)
         );
     }
 
     @Test
     void modulo12() {
-        Assertions.assertEquals(BigInteger.ONE,
+        assertEquals(BigInteger.ONE,
             arithmetic.modulo(BigInteger.ONE, BigInteger.TWO)
         );
     }
@@ -176,15 +177,12 @@ class BigIntegerArithmeticTest {
 
     @Test
     void power12() {
-        Assertions.assertEquals(BigInteger.ONE, arithmetic.power(BigInteger.ONE, 2));
+        assertEquals(BigInteger.ONE, arithmetic.power(BigInteger.ONE, 2));
     }
 
     @Test
     void root21() {
-        Assertions.assertEquals(
-            BigInteger.ONE.sqrt(),
-            arithmetic.root2(BigInteger.ONE)
-        );
+        assertEquals(BigInteger.ONE.sqrt(), arithmetic.root2(BigInteger.ONE));
     }
 
     // endregion
@@ -193,14 +191,14 @@ class BigIntegerArithmeticTest {
 
     @Test
     void gcd() {
-        Assertions.assertEquals(BigInteger.ONE,
+        assertEquals(BigInteger.ONE,
             arithmetic.gcd(BigInteger.valueOf(3), BigInteger.valueOf(4))
         );
     }
 
     @Test
     void lcm() {
-        Assertions.assertEquals(BigInteger.valueOf(12),
+        assertEquals(BigInteger.valueOf(12),
             arithmetic.lcm(BigInteger.valueOf(3), BigInteger.valueOf(4))
         );
     }
@@ -211,26 +209,24 @@ class BigIntegerArithmeticTest {
 
     @Test
     void equalsOfArithmetic() {
-        Assertions.assertEquals(new BigIntegerArithmetic(), new BigIntegerArithmetic());
+        assertEquals(new BigIntegerArithmetic(), new BigIntegerArithmetic());
     }
 
     @Test
     void hashCodeOfArithmetic() {
-        Assertions.assertEquals(962,
-            new BigIntegerArithmetic().hashCode()
-        );
+        assertEquals(962, new BigIntegerArithmetic().hashCode());
     }
 
     @Test
     void toStringOfArithmetic() {
-        Assertions.assertEquals("BigIntegerArithmetic",
+        assertEquals("BigIntegerArithmetic",
             new BigIntegerArithmetic().toString()
         );
     }
 
     @Test
     void serializable() {
-        SerializableAssertions.assertSerializable(
+        assertSerializable(
             new BigIntegerArithmetic(),
             BigIntegerArithmetic.class
         );

@@ -1,18 +1,19 @@
 package io.rala.math.probability;
 
 import io.rala.math.testUtils.arguments.EnumerativeCombinatoricsArgumentsStreamFactory;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 class EnumerativeCombinatoricTest {
     @ParameterizedTest
     @MethodSource("getPermutationsWithoutRepetitionArguments")
     void permutationsWithoutRepetition(int n, long expected) {
-        Assertions.assertEquals(expected,
+        assertEquals(expected,
             EnumerativeCombinatoric.permutationsWithoutRepetition(n)
         );
     }
@@ -20,7 +21,7 @@ class EnumerativeCombinatoricTest {
     @ParameterizedTest
     @MethodSource("getPermutationsWithRepetitionArguments")
     void permutationsWithRepetition(long expected, int n, int... k) {
-        Assertions.assertEquals(expected,
+        assertEquals(expected,
             EnumerativeCombinatoric.permutationsWithRepetition(n, k)
         );
     }
@@ -28,7 +29,7 @@ class EnumerativeCombinatoricTest {
     @ParameterizedTest
     @MethodSource("getVariationsWithoutRepetitionArguments")
     void variationsWithoutRepetition(int n, int k, long expected) {
-        Assertions.assertEquals(expected,
+        assertEquals(expected,
             EnumerativeCombinatoric.variationsWithoutRepetition(n, k)
         );
     }
@@ -36,7 +37,7 @@ class EnumerativeCombinatoricTest {
     @ParameterizedTest
     @MethodSource("getVariationsWithRepetitionArguments")
     void variationsWithRepetition(int n, int k, long expected) {
-        Assertions.assertEquals(expected,
+        assertEquals(expected,
             EnumerativeCombinatoric.variationsWithRepetition(n, k)
         );
     }
@@ -44,7 +45,7 @@ class EnumerativeCombinatoricTest {
     @ParameterizedTest
     @MethodSource("getCombinationsWithoutRepetitionArguments")
     void combinationsWithoutRepetition(int n, int k, long expected) {
-        Assertions.assertEquals(expected,
+        assertEquals(expected,
             EnumerativeCombinatoric.combinationsWithoutRepetition(n, k)
         );
     }
@@ -52,7 +53,7 @@ class EnumerativeCombinatoricTest {
     @ParameterizedTest
     @MethodSource("getCombinationsWithRepetitionArguments")
     void combinationsWithRepetition(int n, int k, long expected) {
-        Assertions.assertEquals(expected,
+        assertEquals(expected,
             EnumerativeCombinatoric.combinationsWithRepetition(n, k)
         );
     }
