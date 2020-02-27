@@ -1,5 +1,6 @@
 package io.rala.math.algebra.matrix;
 
+import io.rala.math.algebra.matrix.typed.BigDecimalMatrix;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.testUtils.algebra.TestMatrix;
 import org.junit.jupiter.api.Test;
@@ -465,9 +466,28 @@ class MatrixTest {
     }
 
     @Test
-    void addOfMatrixWithSize2ToItself() {
+    void addOfEmptyMatrixWithSize2AndDefault0AndEmptyMatrixWithSize2AndDefault1() {
+        TestMatrix matrix1 = new TestMatrix(2);
+        TestMatrix matrix2 = new TestMatrix(2, 1d);
+        TestMatrix result = new TestMatrix(2, 1d);
+        assertEquals(result, matrix1.add(matrix2));
+    }
+
+    @Test
+    void addOfMatrixWithSize2AndDefault0ToItself() {
         TestMatrix matrix = new TestMatrix(2);
         TestMatrix result = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++) {
+            matrix.setValue(i, i + 1d);
+            result.setValue(i, 2 * (i + 1d));
+        }
+        assertEquals(result, matrix.add(matrix));
+    }
+
+    @Test
+    void addOfMatrixWithSize2AndDefault2ToItself() {
+        TestMatrix matrix = new TestMatrix(2, 2d);
+        TestMatrix result = new TestMatrix(2, 2d);
         for (int i = 0; i < matrix.size(); i++) {
             matrix.setValue(i, i + 1d);
             result.setValue(i, 2 * (i + 1d));
@@ -483,9 +503,20 @@ class MatrixTest {
     }
 
     @Test
-    void multiplyMatrixWithSize2With2() {
+    void multiplyMatrixWithSize2AndDefault0With2() {
         TestMatrix matrix = new TestMatrix(2);
         TestMatrix result = new TestMatrix(2);
+        for (int i = 0; i < result.size(); i++) {
+            matrix.setValue(i, (i + 1));
+            result.setValue(i, (i + 1d) * 2);
+        }
+        assertEquals(result, matrix.multiply(2));
+    }
+
+    @Test
+    void multiplyMatrixWithSize2AndDefault2With2() {
+        TestMatrix matrix = new TestMatrix(2, 2d);
+        TestMatrix result = new TestMatrix(2, 2d);
         for (int i = 0; i < result.size(); i++) {
             matrix.setValue(i, (i + 1));
             result.setValue(i, (i + 1d) * 2);
@@ -757,7 +788,7 @@ class MatrixTest {
     void mapOfMatrixWithSize2() {
         TestMatrix matrix = new TestMatrix(2);
         Matrix<Integer> result =
-            new Matrix<>(new IntegerArithmetic(), 2, 0);
+            new Matrix<>(new IntegerArithmetic(), 2);
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++) {
                 matrix.setValue(r, c, r + c + 0.5);
@@ -767,6 +798,60 @@ class MatrixTest {
         assertEquals(result,
             matrix.map(new IntegerArithmetic(), Number::intValue)
         );
+    }
+
+    @Test
+    void mapDefaultValueOfIdentityMatrixWithSize2() {
+        TestMatrix matrix = TestMatrix.identity(2);
+        Matrix<Number> mapped = matrix.mapDefaultValue(1d);
+        assertEquals(matrix, mapped);
+        matrix.forEach(field -> {
+            if (field.getRow() == field.getCol()) {
+                assertTrue(
+                    matrix.getMatrix().get(field.getRow())
+                        .containsKey(field.getCol())
+                );
+                assertFalse(
+                    mapped.getMatrix().get(field.getRow())
+                        .containsKey(field.getCol())
+                );
+            } else {
+                assertFalse(
+                    matrix.getMatrix().get(field.getRow())
+                        .containsKey(field.getCol())
+                );
+                assertTrue(
+                    mapped.getMatrix().get(field.getRow())
+                        .containsKey(field.getCol())
+                );
+            }
+        });
+    }
+
+    @Test
+    void mapDefaultValueOfMatrixBy2Rows() {
+        TestMatrix matrix = TestMatrix.ofValuesByRows(2, 0d, 0d, 2d, 2d);
+        Matrix<Number> mapped = matrix.mapDefaultValue(2d);
+        assertEquals(matrix, mapped);
+        matrix.forEach(field -> {
+            if (field.getRow() == 0) {
+                assertFalse(
+                    matrix.getMatrix().containsKey(field.getRow())
+                );
+                assertTrue(
+                    mapped.getMatrix().get(field.getRow())
+                        .containsKey(field.getCol())
+                );
+            } else {
+                assertTrue(
+                    matrix.getMatrix().get(field.getRow())
+                        .containsKey(field.getCol())
+                );
+                assertFalse(
+                    mapped.getMatrix().containsKey(field.getRow())
+                );
+            }
+        });
     }
 
     @Test
@@ -807,6 +892,19 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(2, 3);
         assertEquals(matrix, new TestMatrix(2, 3));
         assertNotEquals(matrix, new TestMatrix(3, 2));
+    }
+
+    @Test
+    void equalsOfTestMatrixWithDifferentDefaults() {
+        TestMatrix default0 = new TestMatrix(2);
+        default0.forEach(field -> default0.setValue(field.getIndex(), 1d));
+        assertNotEquals(default0, new TestMatrix(2));
+        assertEquals(default0, new TestMatrix(2, 1d));
+    }
+
+    @Test
+    void equalsOfTestMatrixAndBigDecimalMatrix() {
+        assertNotEquals(new TestMatrix(2), new BigDecimalMatrix(2));
     }
 
     @Test

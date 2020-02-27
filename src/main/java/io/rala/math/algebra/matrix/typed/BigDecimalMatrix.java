@@ -12,62 +12,46 @@ import java.math.MathContext;
  * storing {@link BigDecimal}
  */
 public class BigDecimalMatrix extends Matrix<BigDecimal> {
-    /**
-     * default value of {@link BigDecimalMatrix} is {@link BigDecimal#ZERO}
-     *
-     * @see Matrix#getDefaultValue()
-     */
-    public static final BigDecimal DEFAULT_VALUE = BigDecimal.ZERO;
-
     // region constructor
 
     /**
-     * default value is {@code 0}
-     *
      * @param size size of matrix
-     * @see Matrix#Matrix(AbstractArithmetic, int, Number)
+     * @see Matrix#Matrix(AbstractArithmetic, int)
      */
     public BigDecimalMatrix(int size) {
-        super(BigDecimalArithmetic.getInstance(), size, DEFAULT_VALUE);
+        super(BigDecimalArithmetic.getInstance(), size);
     }
 
     /**
-     * default value is {@code 0}
-     *
      * @param size    size of matrix
      * @param context context of {@link BigDecimalArithmetic}
-     * @see Matrix#Matrix(AbstractArithmetic, int, Number)
+     * @see Matrix#Matrix(AbstractArithmetic, int)
      */
     public BigDecimalMatrix(int size, MathContext context) {
-        super(new BigDecimalArithmetic(context), size, DEFAULT_VALUE);
+        super(new BigDecimalArithmetic(context), size);
     }
 
     /**
-     * default value is {@code 0}
-     *
      * @param rows rows of matrix
      * @param cols cols of matrix
-     * @see Matrix#Matrix(AbstractArithmetic, int, int, Number)
+     * @see Matrix#Matrix(AbstractArithmetic, int, int)
      */
     public BigDecimalMatrix(int rows, int cols) {
-        super(BigDecimalArithmetic.getInstance(), rows, cols, DEFAULT_VALUE);
+        super(BigDecimalArithmetic.getInstance(), rows, cols);
     }
 
     /**
-     * default value is {@code 0}
-     *
      * @param rows    rows of matrix
      * @param cols    cols of matrix
      * @param context context of {@link BigDecimalArithmetic}
-     * @see Matrix#Matrix(AbstractArithmetic, int, int, Number)
+     * @see Matrix#Matrix(AbstractArithmetic, int, int)
      */
     public BigDecimalMatrix(int rows, int cols, MathContext context) {
-        super(new BigDecimalArithmetic(context), rows, cols, DEFAULT_VALUE);
+        super(new BigDecimalArithmetic(context), rows, cols);
     }
 
     /**
-     * creates a new matrix based on given one<br>
-     * default value is {@code 0}
+     * creates a new matrix based on given one
      *
      * @param matrix matrix to copy
      */
@@ -82,22 +66,22 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
     /**
      * @param size size of matrix
      * @return new created matrix
-     * @see Matrix#identity(AbstractArithmetic, int, Number)
+     * @see Matrix#identity(AbstractArithmetic, int)
      */
     public static BigDecimalMatrix identity(int size) {
         return new BigDecimalMatrix(
-            Matrix.identity(BigDecimalArithmetic.getInstance(), size, DEFAULT_VALUE)
+            Matrix.identity(BigDecimalArithmetic.getInstance(), size)
         );
     }
 
     /**
      * @param values diagonal values of matrix
      * @return new created matrix
-     * @see Matrix#diagonal(AbstractArithmetic, Number, Number[])
+     * @see Matrix#diagonal(AbstractArithmetic, Number[])
      */
     public static BigDecimalMatrix diagonal(BigDecimal... values) {
         return new BigDecimalMatrix(
-            Matrix.diagonal(BigDecimalArithmetic.getInstance(), DEFAULT_VALUE, values)
+            Matrix.diagonal(BigDecimalArithmetic.getInstance(), values)
         );
     }
 
@@ -113,14 +97,12 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      * @return new created matrix
      * @throws IllegalArgumentException if rows modulo {@code values.length}
      *                                  is not congruent {@code 0}
-     * @see Matrix#ofValuesByRows(AbstractArithmetic, Number, int, Number[])
+     * @see Matrix#ofValuesByRows(AbstractArithmetic, int, Number[])
      */
     public static BigDecimalMatrix ofValuesByRows(int rows, BigDecimal... values) {
-        return new BigDecimalMatrix(
-            Matrix.ofValuesByRows(BigDecimalArithmetic.getInstance(),
-                DEFAULT_VALUE, rows, values
-            )
-        );
+        return new BigDecimalMatrix(Matrix.ofValuesByRows(
+            BigDecimalArithmetic.getInstance(), rows, values
+        ));
     }
 
     /**
@@ -131,14 +113,12 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      * @return new created matrix
      * @throws IllegalArgumentException if cols modulo {@code values.length}
      *                                  is not congruent {@code 0}
-     * @see Matrix#ofValuesByCols(AbstractArithmetic, Number, int, Number[])
+     * @see Matrix#ofValuesByCols(AbstractArithmetic, int, Number[])
      */
     public static BigDecimalMatrix ofValuesByCols(int cols, BigDecimal... values) {
-        return new BigDecimalMatrix(
-            Matrix.ofValuesByCols(BigDecimalArithmetic.getInstance(),
-                DEFAULT_VALUE, cols, values
-            )
-        );
+        return new BigDecimalMatrix(Matrix.ofValuesByCols(
+            BigDecimalArithmetic.getInstance(), cols, values
+        ));
     }
 
     // endregion

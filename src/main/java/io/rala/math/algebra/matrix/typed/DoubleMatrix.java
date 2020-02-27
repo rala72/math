@@ -11,39 +11,27 @@ import java.util.Arrays;
  * storing {@link Double}
  */
 public class DoubleMatrix extends Matrix<Double> {
-    /**
-     * default value of {@link DoubleMatrix} is {@code 0}
-     *
-     * @see Matrix#getDefaultValue()
-     */
-    public static final Double DEFAULT_VALUE = DoubleArithmetic.getInstance().zero();
-
     // region constructor
 
     /**
-     * default value is {@code 0}
-     *
      * @param size size of matrix
-     * @see Matrix#Matrix(AbstractArithmetic, int, Number)
+     * @see Matrix#Matrix(AbstractArithmetic, int)
      */
     public DoubleMatrix(int size) {
-        super(DoubleArithmetic.getInstance(), size, DEFAULT_VALUE);
+        super(DoubleArithmetic.getInstance(), size);
     }
 
     /**
-     * default value is {@code 0}
-     *
      * @param rows rows of matrix
      * @param cols cols of matrix
-     * @see Matrix#Matrix(AbstractArithmetic, int, int, Number)
+     * @see Matrix#Matrix(AbstractArithmetic, int, int)
      */
     public DoubleMatrix(int rows, int cols) {
-        super(DoubleArithmetic.getInstance(), rows, cols, DEFAULT_VALUE);
+        super(DoubleArithmetic.getInstance(), rows, cols);
     }
 
     /**
-     * creates a new matrix based on given one<br>
-     * default value is {@code 0}
+     * creates a new matrix based on given one
      *
      * @param matrix matrix to copy
      */
@@ -58,23 +46,23 @@ public class DoubleMatrix extends Matrix<Double> {
     /**
      * @param size size of matrix
      * @return new created matrix
-     * @see Matrix#identity(AbstractArithmetic, int, Number)
+     * @see Matrix#identity(AbstractArithmetic, int)
      */
     public static DoubleMatrix identity(int size) {
         return new DoubleMatrix(
-            Matrix.identity(DoubleArithmetic.getInstance(), size, DEFAULT_VALUE)
+            Matrix.identity(DoubleArithmetic.getInstance(), size)
         );
     }
 
     /**
      * @param values diagonal values of matrix
      * @return new created matrix
-     * @see Matrix#diagonal(AbstractArithmetic, Number, Number[])
+     * @see Matrix#diagonal(AbstractArithmetic, Number[])
      */
     public static DoubleMatrix diagonal(double... values) {
         Double[] boxed = Arrays.stream(values).boxed().toArray(Double[]::new);
         return new DoubleMatrix(
-            Matrix.diagonal(DoubleArithmetic.getInstance(), DEFAULT_VALUE, boxed)
+            Matrix.diagonal(DoubleArithmetic.getInstance(), boxed)
         );
     }
 
@@ -90,15 +78,13 @@ public class DoubleMatrix extends Matrix<Double> {
      * @return new created matrix
      * @throws IllegalArgumentException if rows modulo {@code values.length}
      *                                  is not congruent {@code 0}
-     * @see Matrix#ofValuesByRows(AbstractArithmetic, Number, int, Number[])
+     * @see Matrix#ofValuesByRows(AbstractArithmetic, int, Number[])
      */
     public static DoubleMatrix ofValuesByRows(int rows, double... values) {
         Double[] boxed = Arrays.stream(values).boxed().toArray(Double[]::new);
-        return new DoubleMatrix(
-            Matrix.ofValuesByRows(DoubleArithmetic.getInstance(),
-                DEFAULT_VALUE, rows, boxed
-            )
-        );
+        return new DoubleMatrix(Matrix.ofValuesByRows(
+            DoubleArithmetic.getInstance(), rows, boxed
+        ));
     }
 
     /**
@@ -109,15 +95,13 @@ public class DoubleMatrix extends Matrix<Double> {
      * @return new created matrix
      * @throws IllegalArgumentException if cols modulo {@code values.length}
      *                                  is not congruent {@code 0}
-     * @see Matrix#ofValuesByCols(AbstractArithmetic, Number, int, Number[])
+     * @see Matrix#ofValuesByCols(AbstractArithmetic, int, Number[])
      */
     public static DoubleMatrix ofValuesByCols(int cols, double... values) {
         Double[] boxed = Arrays.stream(values).boxed().toArray(Double[]::new);
-        return new DoubleMatrix(
-            Matrix.ofValuesByCols(DoubleArithmetic.getInstance(),
-                DEFAULT_VALUE, cols, boxed
-            )
-        );
+        return new DoubleMatrix(Matrix.ofValuesByCols(
+            DoubleArithmetic.getInstance(), cols, boxed
+        ));
     }
 
     // endregion
