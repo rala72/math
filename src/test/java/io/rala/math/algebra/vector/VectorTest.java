@@ -2,7 +2,6 @@ package io.rala.math.algebra.vector;
 
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.core.BigDecimalArithmetic;
-import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.testUtils.algebra.TestMatrix;
 import io.rala.math.testUtils.algebra.TestVector;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
@@ -486,17 +485,153 @@ public class VectorTest {
         );
     }
 
+    @Test
+    void dotProductEmptyColumnVectors() {
+        assertEquals(
+            0d,
+            new TestVector(3)
+                .dotProduct(new TestVector(3))
+        );
+    }
+
+    @Test
+    void dotProductNonEmptyColumnVectors() {
+        assertEquals(
+            98d,
+            new TestVector(3, false)
+                .dotProduct(new TestVector(3, false))
+        );
+    }
+
+    @Test
+    void dotProductEmptyColumnVectorNonEmptyColumnVector() {
+        assertEquals(
+            0d,
+            new TestVector(3)
+                .dotProduct(new TestVector(3, false))
+        );
+    }
+
+    @Test
+    void dotProductNonEmptyColumnVectorEmptyColumnVector() {
+        assertEquals(
+            0d,
+            new TestVector(3, false)
+                .dotProduct(new TestVector(3))
+        );
+    }
+
+    @Test
+    void dotProductEmptyColumnVectorEmptyRowVector() {
+        assertEquals(
+            0d,
+            new TestVector(3)
+                .dotProduct(new TestVector(3).transpose())
+        );
+    }
+
+    @Test
+    void dotProductNonEmptyColumnVectorNonEmptyRowVector() {
+        assertEquals(
+            98d,
+            new TestVector(3, false)
+                .dotProduct(new TestVector(3, false).transpose())
+        );
+    }
+
+    @Test
+    void dotProductEmptyColumnVectorNonEmptyRowVector() {
+        assertEquals(
+            0d,
+            new TestVector(3)
+                .dotProduct(new TestVector(3, false).transpose())
+        );
+    }
+
+    @Test
+    void dotProductNonEmptyColumnVectorEmptyRowVector() {
+        assertEquals(
+            0d,
+            new TestVector(3, false)
+                .dotProduct(new TestVector(3).transpose())
+        );
+    }
+
+    @Test
+    void dotProductEmptyRowVectorEmptyColumnVector() {
+        assertEquals(
+            0d,
+            new TestVector(3).transpose()
+                .dotProduct(new TestVector(3))
+        );
+    }
+
+    @Test
+    void dotProductNonEmptyRowVectorNonEmptyColumnVector() {
+        assertEquals(
+            98d,
+            new TestVector(3, false).transpose()
+                .dotProduct(new TestVector(3, false))
+        );
+    }
+
+    @Test
+    void dotProductEmptyRowVectorNonEmptyColumnVector() {
+        assertEquals(
+            0d,
+            new TestVector(3).transpose()
+                .dotProduct(new TestVector(3, false))
+        );
+    }
+
+    @Test
+    void dotProductNonEmptyRowVectorEmptyColumnVector() {
+        assertEquals(
+            0d,
+            new TestVector(3, false).transpose()
+                .dotProduct(new TestVector(3))
+        );
+    }
+
+    @Test
+    void dotProductEmptyRowVectors() {
+        assertEquals(
+            0d,
+            new TestVector(3).transpose()
+                .dotProduct(new TestVector(3).transpose())
+        );
+    }
+
+    @Test
+    void dotProductNonEmptyRowVectors() {
+        assertEquals(
+            98d,
+            new TestVector(3, false).transpose()
+                .dotProduct(new TestVector(3, false).transpose())
+        );
+    }
+
+    @Test
+    void dotProductEmptyRowVectorNonEmptyRowVector() {
+        assertEquals(
+            0d,
+            new TestVector(3).transpose()
+                .dotProduct(new TestVector(3, false).transpose())
+        );
+    }
+
+    @Test
+    void dotProductNonEmptyRowVectorEmptyRowVector() {
+        assertEquals(
+            0d,
+            new TestVector(3, false).transpose()
+                .dotProduct(new TestVector(3).transpose())
+        );
+    }
+
     // endregion
 
     // region temp (to be deleted, when proper tests exist)
-    @Test
-    void dotProduct() {
-        AbstractArithmetic arithmetic = new IntegerArithmetic();
-        Vector v1 = new Vector(arithmetic, 3, 1);
-        Vector v2 = new Vector(arithmetic, 3, 2);
-        Integer res = 6;
-        assertEquals(res, v1.dotProduct(v2));
-    }
 
     @Test
     void euclideanNorm() {
