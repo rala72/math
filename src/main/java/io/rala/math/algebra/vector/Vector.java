@@ -427,6 +427,12 @@ public class Vector<T extends Number>
         return 0 <= index && index < size();
     }
 
+    protected boolean isZero() {
+        return stream().allMatch(
+            (entry) -> getArithmetic().isZero(entry.getValue())
+        );
+    }
+
     // endregion
 
     // region override
