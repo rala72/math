@@ -145,7 +145,7 @@ public class Vector<T extends Number>
 
     // endregion
 
-    // region getter, setter and size
+    // region getter, setter
 
     /**
      * @return stored arithmetic
@@ -169,13 +169,6 @@ public class Vector<T extends Number>
     }
 
     /**
-     * @return size of vector
-     */
-    public int size() {
-        return getSize();
-    }
-
-    /**
      * @return default value for non-existing values
      */
     protected T getDefaultValue() {
@@ -187,6 +180,24 @@ public class Vector<T extends Number>
      */
     public Type getType() {
         return type;
+    }
+
+    // endregion
+
+    // region properties
+
+    /**
+     * calls {@link #getSize()}
+     */
+    public int size() {
+        return getSize();
+    }
+
+    /**
+     * calls {@link #euclideanNorm()}
+     */
+    public T length() {
+        return euclideanNorm();
     }
 
     // endregion
