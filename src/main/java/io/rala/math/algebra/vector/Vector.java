@@ -339,7 +339,7 @@ public class Vector<T extends Number>
 
     // endregion
 
-    // region norm
+    // region norm and normalize
 
     /**
      * @return max-Norm of the vector, equal to the entry with highest absolute value
@@ -378,6 +378,29 @@ public class Vector<T extends Number>
                 ).orElse(getArithmetic().zero())
             ), p
         );
+    }
+
+    /**
+     * Result is only guaranteed to be correct for float, double, Fraction
+     *
+     * @return vector of length one
+     * @throws IllegalArgumentException if al vector entries are zero
+     */
+    public Vector<T> normalize() {
+        if (isZero())
+            throw new IllegalArgumentException("Zero vector may not be normalized.");
+        Vector<T> unit =
+            new Vector<>(
+                getArithmetic(), getSize(), getDefaultValue(), getType()
+            );
+        T norm = euclideanNorm();
+        stream().forEach(
+            entry -> unit.setValue(
+                entry.getIndex(),
+                getArithmetic().quotient(entry.getValue(), norm)
+            )
+        );
+        return unit;
     }
 
     // endregion

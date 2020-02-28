@@ -704,6 +704,34 @@ public class VectorTest {
         );
     }
 
+    @Test
+    void unitVectorOfEmptyVector() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new TestVector(3).normalize()
+        );
+    }
+
+    @Test
+    void unitVectorOfNonEmptyVector() {
+        TestVector expected = new TestVector(3);
+        expected.setValue(0, testAbstractArithmetic.quotient(
+            1,
+            testAbstractArithmetic.root2(98)
+        ));
+        expected.setValue(1, testAbstractArithmetic.quotient(
+            -4,
+            testAbstractArithmetic.root2(98)
+        ));
+        expected.setValue(2, testAbstractArithmetic.quotient(
+            9, testAbstractArithmetic.root2(98)
+        ));
+        assertEquals(
+            expected,
+            new TestVector(3, false).normalize()
+        );
+    }
+
     // endregion
 
 }
