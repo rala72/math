@@ -630,8 +630,8 @@ public class VectorTest {
     void emptyVectorOfValues() {
         assertEquals(
             new TestVector(4),
-            Vector.ofValues(testAbstractArithmetic, 0,
-                0, 0, 0, 0)
+            Vector.ofValues(testAbstractArithmetic, 0d,
+                0d, 0d, 0d, 0d)
         );
     }
 
@@ -639,14 +639,14 @@ public class VectorTest {
     void nonEmptyVectorOfValues() {
         assertEquals(
             new TestVector(4, false),
-            Vector.ofValues(testAbstractArithmetic, 0,
+            Vector.ofValues(testAbstractArithmetic, 0d,
                 1d, -4d, 9d, -16d)
         );
     }
 
     // endregion
 
-    // region norm
+    // region norm and unit
 
     @Test
     void maxNormEmptyVector() {
