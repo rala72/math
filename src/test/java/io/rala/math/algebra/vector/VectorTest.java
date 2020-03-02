@@ -5,6 +5,9 @@ import io.rala.math.testUtils.algebra.TestVector;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -641,6 +644,35 @@ public class VectorTest {
             new TestVector(4, false),
             Vector.ofValues(testAbstractArithmetic, 0d,
                 1d, -4d, 9d, -16d)
+        );
+    }
+
+    @Test
+    void emptyVectorOfList() {
+        List<Number> list = new ArrayList<>();
+        list.add(0d);
+        list.add(0d);
+        assertEquals(
+            new TestVector(2),
+            Vector.ofList(
+                testAbstractArithmetic,
+                testAbstractArithmetic.fromDouble(0d),
+                list)
+        );
+    }
+
+    @Test
+    void nonEmptyVectorOfList() {
+        List<Number> list = new ArrayList<>();
+        list.add(1d);
+        list.add(-4d);
+        assertEquals(
+            new TestVector(2, false),
+            Vector.ofList(
+                testAbstractArithmetic,
+                testAbstractArithmetic.fromDouble(0d),
+                list
+            )
         );
     }
 

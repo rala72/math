@@ -60,79 +60,6 @@ public class Vector<T extends Number>
     }
 
     /**
-     * calls {@link #Vector(AbstractArithmetic, List, Number, Type)}
-     * with {@link Type#COLUMN} as default type
-     *
-     * @param arithmetic   arithmetic for calculations
-     * @param values       values of vector entries
-     * @param defaultValue default value for non-existing values
-     * @throws IllegalArgumentException if values is null or its size is zero
-     */
-    public Vector(
-        AbstractArithmetic<T> arithmetic, List<T> values, T defaultValue
-    ) {
-        this(arithmetic, values, defaultValue, Type.COLUMN);
-    }
-
-    /**
-     * calls {@link #Vector(AbstractArithmetic, int, Number, Type)}
-     *
-     * @param arithmetic   arithmetic for calculations
-     * @param values       values of vector entries
-     * @param defaultValue default value for non-existing values
-     * @param type         type of vector
-     * @throws IllegalArgumentException if values is null or its size is zero
-     */
-    public Vector(
-        AbstractArithmetic<T> arithmetic, List<T> values,
-        T defaultValue, Type type
-    ) {
-        this(arithmetic, values == null
-            ? -1 : values.size(), defaultValue, type
-        );
-        assert values != null;
-        for (int i = 0; i < size; i++) {
-            vector.put(i, values.get(i));
-        }
-    }
-
-    /**
-     * calls {@link #Vector(AbstractArithmetic, Map, Number, Type)}
-     * with {@link Type#COLUMN} as default type
-     *
-     * @param arithmetic   arithmetic for calculations
-     * @param values       values of vector entries
-     * @param defaultValue default value for non-existing values
-     * @throws IllegalArgumentException if values is null or its size is zero
-     */
-    public Vector(
-        AbstractArithmetic<T> arithmetic, Map<Integer,
-        T> values, T defaultValue
-    ) {
-        this(arithmetic, values, defaultValue, Type.COLUMN);
-    }
-
-    /**
-     * calls {@link #Vector(AbstractArithmetic, int, Number, Type)}
-     *
-     * @param arithmetic   arithmetic for calculation
-     * @param values       values of vector entries
-     * @param defaultValue default value for non-existing values
-     * @param type         type of vector
-     * @throws IllegalArgumentException if values is null or its size is zero
-     */
-    public Vector(
-        AbstractArithmetic<T> arithmetic, Map<Integer, T> values,
-        T defaultValue, Type type
-    ) {
-        this(arithmetic, values == null
-            ? -1 : values.size(), defaultValue, type
-        );
-        assert values != null;
-        vector.putAll(values);
-    }
-
-    /**
      * creates a new vector based on given one
      *
      * @param vector vector to copy
@@ -249,7 +176,7 @@ public class Vector<T extends Number>
     public Matrix<T> toMatrix() {
         Matrix<T> matrix =
             new Matrix<>(getArithmetic(), getSize(), 1);
-        getVector().forEach(matrix::setValue);
+        forEach(entry -> matrix.setValue(entry.getIndex(), entry.getValue()));
         return getType().equals(Type.COLUMN) ? matrix : matrix.transpose();
     }
 
@@ -466,6 +393,15 @@ public class Vector<T extends Number>
             new Vector<>(arithmetic, values.length, defaultValue);
         for (int i = 0; i < values.length; i++)
             vector.setValue(i, values[i]);
+        return vector;
+    }
+
+    public static <T extends Number> Vector<T> ofList(
+        AbstractArithmetic<T> arithmetic, T defaultValue, List<T> values
+    ) {
+        Vector<T> vector = new Vector<>(arithmetic, values.size(), defaultValue);
+        for (int i = 0; i < values.size(); i++)
+            vector.setValue(i, values.get(i));
         return vector;
     }
 
