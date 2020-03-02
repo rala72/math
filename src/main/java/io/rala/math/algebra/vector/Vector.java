@@ -424,6 +424,28 @@ public class Vector<T extends Number>
 
     // endregion
 
+    // region angle
+
+    /**
+     * @param vector second vector of angle to calculate
+     * @return angle in radian
+     */
+    public T angle(Vector<T> vector) {
+        if (isZero() || vector.isZero())
+            throw new IllegalArgumentException("Angle is not defined for zero vector");
+        return getArithmetic().acos(
+            getArithmetic().quotient(
+                dotProduct(vector),
+                getArithmetic().product(
+                    euclideanNorm(),
+                    vector.euclideanNorm()
+                )
+            )
+        );
+    }
+
+    // endregion
+
     // region static
 
     /**

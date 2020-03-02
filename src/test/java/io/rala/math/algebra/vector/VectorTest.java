@@ -734,4 +734,59 @@ public class VectorTest {
 
     // endregion
 
+    // region angle
+
+    @Test
+    void angleBetweenEmptyVectors() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new TestVector(3).angle(new TestVector(3))
+        );
+    }
+
+    @Test
+    void angleBetweenIdenticalVectors() {
+        assertEquals(
+            testAbstractArithmetic.zero(),
+            new TestVector(3, false).angle(new TestVector(3, false))
+        );
+    }
+
+    @Test
+    void angleBetweenParallelVectors() {
+        assertEquals(
+            testAbstractArithmetic.zero(),
+            new TestVector(3, false).multiply(
+                testAbstractArithmetic.fromInt(2)
+            ).angle(new TestVector(3, false).multiply(
+                testAbstractArithmetic.fromInt(3)
+                )
+            )
+        );
+    }
+
+    @Test
+    void angleBetweenOppositeVectors() {
+        assertEquals(
+            testAbstractArithmetic.fromDouble(Math.PI),
+            new TestVector(3, false).multiply(
+                testAbstractArithmetic.fromInt(-2)
+            ).angle(new TestVector(3, false).multiply(
+                testAbstractArithmetic.fromInt(3)
+                )
+            )
+        );
+    }
+
+    @Test
+    void angleBetweenNonEmptyVectors() {
+        assertEquals(
+            testAbstractArithmetic.fromDouble(Math.PI / 2),
+            Vector.ofValues(testAbstractArithmetic, 0, 1, 0)
+                .angle(Vector.ofValues(testAbstractArithmetic, 0, 0, 1))
+        );
+    }
+
+    // endregion
+
 }
