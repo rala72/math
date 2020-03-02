@@ -456,11 +456,16 @@ public class Vector<T extends Number>
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Vector<?>)) return false;
-        Vector<?> vector1 = (Vector<?>) o;
-        return getSize() == vector1.getSize() &&
-            getVector().equals(vector1.getVector()) &&
-            getDefaultValue().equals(vector1.getDefaultValue()) &&
-            getType() == vector1.getType();
+        Vector<?> vector = (Vector<?>) o;
+        //noinspection unchecked
+        return getSize() == vector.getSize() &&
+            getType() == vector.getType() &&
+            IntStream.range(0, getSize()).allMatch(index ->
+                getArithmetic().isEqual(
+                    getValue(index),
+                    (T) vector.getValue(index)
+                )
+            );
     }
 
     @Override
