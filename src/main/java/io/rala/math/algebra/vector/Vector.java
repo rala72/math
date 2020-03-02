@@ -8,9 +8,17 @@ import io.rala.math.utils.StreamIterable;
 import java.util.*;
 import java.util.stream.IntStream;
 
+/**
+ * class which holds a vector of {@code size}
+ *
+ * @param <T> number class
+ */
 public class Vector<T extends Number>
     implements Copyable<Vector<T>>, StreamIterable<Vector<T>.Entry> {
 
+    /**
+     * describes whether a vector is {@link #COLUMN} or {@link #ROW}
+     */
     public enum Type {ROW, COLUMN}
 
     // region attributes
@@ -111,7 +119,7 @@ public class Vector<T extends Number>
     }
 
     /**
-     * calls {@link #euclideanNorm()}
+     * @return {@link #euclideanNorm()}
      */
     public T length() {
         return euclideanNorm();
@@ -385,6 +393,15 @@ public class Vector<T extends Number>
         return vector;
     }
 
+    /**
+     * creates a new vector containing values from a list
+     *
+     * @param arithmetic   arithmetic for calculations
+     * @param defaultValue default value of non-existing values
+     * @param values       values of vector
+     * @param <T>          number class
+     * @return new created vector
+     */
     public static <T extends Number> Vector<T> ofList(
         AbstractArithmetic<T> arithmetic, T defaultValue, List<T> values
     ) {
@@ -459,6 +476,9 @@ public class Vector<T extends Number>
         return 0 <= index && index < getSize();
     }
 
+    /**
+     * @return {@code true} if all values are zero
+     */
     protected boolean isZero() {
         return stream().allMatch(
             (entry) -> getArithmetic().isZero(entry.getValue())
