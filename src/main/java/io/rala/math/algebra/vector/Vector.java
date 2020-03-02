@@ -167,10 +167,9 @@ public class Vector<T extends Number>
      * @return matrix equivalent to vector
      */
     public Matrix<T> toMatrix() {
-        Matrix<T> matrix =
-            new Matrix<>(getArithmetic(), getSize(), 1);
+        Matrix<T> matrix = new Matrix<>(getArithmetic(), getSize(), 1);
         forEach(entry -> matrix.setValue(entry.getIndex(), entry.getValue()));
-        return getType().equals(Type.COLUMN) ? matrix : matrix.transpose();
+        return Type.COLUMN.equals(getType()) ? matrix : matrix.transpose();
     }
 
     /**
@@ -191,7 +190,7 @@ public class Vector<T extends Number>
     public Vector<T> transpose() {
         Vector<T> flipped =
             new Vector<>(getArithmetic(), getSize(), getDefaultValue(),
-                getType().equals(Type.COLUMN) ? Type.ROW : Type.COLUMN
+                Type.COLUMN.equals(getType()) ? Type.ROW : Type.COLUMN
             );
         getVector().forEach(flipped::setValue);
         return flipped;
