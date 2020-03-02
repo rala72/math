@@ -223,11 +223,10 @@ public class Vector<T extends Number>
             throw new IllegalArgumentException("vectors have to be either both row or both column");
         Vector<T> result =
             new Vector<>(getArithmetic(), getSize(), getDefaultValue());
-        IntStream.range(0, getSize())
-            .forEach(index -> result.setValue(
-                index,
-                getArithmetic().sum(getValue(index), vector.getValue(index))
-            ));
+        IntStream.range(0, getSize()).forEach(index -> result.setValue(
+            index,
+            getArithmetic().sum(getValue(index), vector.getValue(index))
+        ));
         result.removeDefaultValues();
         return result;
     }
