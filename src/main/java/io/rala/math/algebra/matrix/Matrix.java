@@ -403,7 +403,7 @@ public class Matrix<T extends Number>
 
     // endregion
 
-    // region isDiagonal
+    // region isDiagonal and isSquare
 
     /**
      * @return {@code true} if amount of rows and cols is equal
@@ -425,7 +425,7 @@ public class Matrix<T extends Number>
 
     // endregion
 
-    // region matrix arithmetic: add and multiply
+    // region add and multiply
 
     /**
      * @param matrix matrix to add
@@ -499,7 +499,7 @@ public class Matrix<T extends Number>
 
     // endregion
 
-    // region matrix arithmetic: inverse, transpose and determinante
+    // region inverse, transpose and determinante
 
     /**
      * @return new inverse matrix or {@code null} if there is none
@@ -617,7 +617,7 @@ public class Matrix<T extends Number>
 
     // endregion
 
-    // region to
+    // region toVector and toParam
 
     /**
      * @return new vector from matrix row/column

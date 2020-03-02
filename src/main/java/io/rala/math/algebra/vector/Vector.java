@@ -73,7 +73,7 @@ public class Vector<T extends Number>
 
     // endregion
 
-    // region getter
+    // region getter and length
 
     /**
      * @return stored arithmetic
@@ -109,10 +109,6 @@ public class Vector<T extends Number>
     public Type getType() {
         return type;
     }
-
-    // endregion
-
-    // region properties
 
     /**
      * calls {@link #euclideanNorm()}
@@ -162,7 +158,7 @@ public class Vector<T extends Number>
 
     // endregion
 
-    // region to
+    // region toMatrix and toParam
 
     /**
      * @return matrix equivalent to vector
@@ -187,30 +183,7 @@ public class Vector<T extends Number>
 
     // endregion
 
-    // region transpose and invert
-
-    /**
-     * @return new vector with opposite type
-     */
-    public Vector<T> transpose() {
-        Vector<T> flipped =
-            new Vector<>(getArithmetic(), getSize(), getDefaultValue(),
-                Type.COLUMN.equals(getType()) ? Type.ROW : Type.COLUMN
-            );
-        getVector().forEach(flipped::setValue);
-        return flipped;
-    }
-
-    /**
-     * @return new vector with inverted sign
-     */
-    public Vector<T> invert() {
-        return multiply(getArithmetic().negate(getArithmetic().one()));
-    }
-
-    // endregion
-
-    // region arithmetic
+    // region add, subtract, multiply and dotProduct
 
     /**
      * @param vector vector to add
@@ -277,6 +250,29 @@ public class Vector<T extends Number>
                 vector : vector.transpose()
             );
         return v1.toMatrix().multiply(v2.toMatrix()).toParam();
+    }
+
+    // endregion
+
+    // region transpose and invert
+
+    /**
+     * @return new vector with opposite type
+     */
+    public Vector<T> transpose() {
+        Vector<T> flipped =
+            new Vector<>(getArithmetic(), getSize(), getDefaultValue(),
+                Type.COLUMN.equals(getType()) ? Type.ROW : Type.COLUMN
+            );
+        getVector().forEach(flipped::setValue);
+        return flipped;
+    }
+
+    /**
+     * @return new vector with inverted sign
+     */
+    public Vector<T> invert() {
+        return multiply(getArithmetic().negate(getArithmetic().one()));
     }
 
     // endregion
@@ -400,33 +396,6 @@ public class Vector<T extends Number>
 
     // endregion
 
-    // region private
-
-    private void removeDefaultValues() {
-        getVector().entrySet().removeIf(
-            entry -> getDefaultValue().equals(entry.getValue()));
-    }
-
-    // endregion
-
-    // region validation
-
-    /**
-     * @param index to be validated
-     * @return {@code true} if value is valid
-     */
-    protected boolean isValidIndex(int index) {
-        return 0 <= index && index < getSize();
-    }
-
-    protected boolean isZero() {
-        return stream().allMatch(
-            (entry) -> getArithmetic().isZero(entry.getValue())
-        );
-    }
-
-    // endregion
-
     // region override
 
     @Override
@@ -476,6 +445,33 @@ public class Vector<T extends Number>
     @Override
     public String toString() {
         return getSize() + ": " + getVector().entrySet().toString();
+    }
+
+    // endregion
+
+    // region protected: validation
+
+    /**
+     * @param index to be validated
+     * @return {@code true} if value is valid
+     */
+    protected boolean isValidIndex(int index) {
+        return 0 <= index && index < getSize();
+    }
+
+    protected boolean isZero() {
+        return stream().allMatch(
+            (entry) -> getArithmetic().isZero(entry.getValue())
+        );
+    }
+
+    // endregion
+
+    // region private
+
+    private void removeDefaultValues() {
+        getVector().entrySet().removeIf(
+            entry -> getDefaultValue().equals(entry.getValue()));
     }
 
     // endregion

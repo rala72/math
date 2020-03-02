@@ -233,7 +233,7 @@ public class VectorTest {
 
     // endregion
 
-    // region arithmetic
+    // region add, subtract, multiply and dotProduct
 
     @Test
     void addNullVector() {
