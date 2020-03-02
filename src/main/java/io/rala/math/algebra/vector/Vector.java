@@ -403,9 +403,8 @@ public class Vector<T extends Number>
     // region private
 
     private void removeDefaultValues() {
-        getVector().forEach((key, value) -> {
-            if (value.equals(getDefaultValue())) removeValue(key);
-        });
+        getVector().entrySet().removeIf(
+            entry -> getDefaultValue().equals(entry.getValue()));
     }
 
     // endregion
