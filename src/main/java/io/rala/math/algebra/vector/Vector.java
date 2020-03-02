@@ -241,7 +241,7 @@ public class Vector<T extends Number>
 
     // endregion
 
-    // region Matrix
+    // region to
 
     /**
      * @return matrix equivalent to vector
@@ -251,6 +251,14 @@ public class Vector<T extends Number>
             new Matrix<>(getArithmetic(), getSize(), 1, getDefaultValue());
         getVector().forEach(matrix::setValue);
         return getType().equals(Type.COLUMN) ? matrix : matrix.transpose();
+    }
+
+    /**
+     * @return only entry of a size 1 vector
+     */
+    public T toParam() {
+        if (getSize() == 1) return getValue(0);
+        throw new IllegalArgumentException("Vector has to contain exactly one entry");
     }
 
     // endregion
