@@ -168,9 +168,13 @@ public class Vector<T extends Number>
      * @return matrix equivalent to vector
      */
     public Matrix<T> toMatrix() {
-        Matrix<T> matrix = new Matrix<>(getArithmetic(), getSize(), 1);
+        Matrix<T> matrix = new Matrix<>(
+            getArithmetic(),
+            Type.COLUMN.equals(getType()) ? getSize() : 1,
+            Type.COLUMN.equals(getType()) ? 1 : getSize()
+        );
         forEach(entry -> matrix.setValue(entry.getIndex(), entry.getValue()));
-        return Type.COLUMN.equals(getType()) ? matrix : matrix.transpose();
+        return matrix;
     }
 
     /**
