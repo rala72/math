@@ -72,7 +72,7 @@ public class Vector<T extends Number>
 
     // endregion
 
-    // region getter, setter
+    // region getter
 
     /**
      * @return stored arithmetic
@@ -91,7 +91,7 @@ public class Vector<T extends Number>
     /**
      * @return size of vector
      */
-    protected int getSize() {
+    public int getSize() {
         return size;
     }
 
@@ -112,13 +112,6 @@ public class Vector<T extends Number>
     // endregion
 
     // region properties
-
-    /**
-     * calls {@link #getSize()}
-     */
-    public int size() {
-        return getSize();
-    }
 
     /**
      * calls {@link #euclideanNorm()}
@@ -251,7 +244,7 @@ public class Vector<T extends Number>
      */
     public Vector<T> multiply(T scalar) {
         Vector<T> result = new Vector<>(this);
-        for (int i = 0; i < size(); i++) {
+        for (int i = 0; i < getSize(); i++) {
             result.setValue(i,
                 result.getArithmetic().product(result.getValue(i), scalar)
             );
@@ -423,7 +416,7 @@ public class Vector<T extends Number>
      * @return {@code true} if value is valid
      */
     protected boolean isValidIndex(int index) {
-        return 0 <= index && index < size();
+        return 0 <= index && index < getSize();
     }
 
     protected boolean isZero() {
@@ -448,7 +441,7 @@ public class Vector<T extends Number>
 
             @Override
             public boolean hasNext() {
-                return index < size();
+                return index < getSize();
             }
 
             @Override
