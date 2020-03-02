@@ -319,9 +319,8 @@ public class Vector<T extends Number>
         );
         return getArithmetic().root(
             getArithmetic().absolute(
-                powers.values().stream().reduce(
-                    (a, b) -> getArithmetic().sum(a, b)
-                ).orElse(getArithmetic().zero())
+                powers.values().stream().reduce(getArithmetic()::sum)
+                    .orElse(getArithmetic().zero())
             ), p
         );
     }
