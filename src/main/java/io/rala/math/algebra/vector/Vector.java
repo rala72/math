@@ -64,7 +64,7 @@ public class Vector<T extends Number>
      *
      * @param vector vector to copy
      */
-    public Vector(Vector<T> vector) {
+    protected Vector(Vector<T> vector) {
         this(vector.getArithmetic(), vector.getSize(),
             vector.getDefaultValue(), vector.getType());
         vector.getVector().forEach((key, value) -> getVector().put(key, value));
