@@ -248,7 +248,7 @@ public class Vector<T extends Number>
      */
     public Matrix<T> toMatrix() {
         Matrix<T> matrix =
-            new Matrix<>(getArithmetic(), getSize(), 1, getDefaultValue());
+            new Matrix<>(getArithmetic(), getSize(), 1);
         getVector().forEach(matrix::setValue);
         return getType().equals(Type.COLUMN) ? matrix : matrix.transpose();
     }
