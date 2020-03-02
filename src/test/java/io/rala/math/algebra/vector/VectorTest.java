@@ -29,13 +29,13 @@ public class VectorTest {
     void constructorWithPositiveSize() {
         int expectedSize = 1;
         TestVector vector = new TestVector(expectedSize);
-        assertEquals(expectedSize, vector.size());
+        assertEquals(expectedSize, vector.getSize());
     }
 
     @Test
     void constructorWithSizeZero() {
         TestVector vector = new TestVector(0);
-        assertEquals(0, vector.size());
+        assertEquals(0, vector.getSize());
         assertThrows(
             IndexOutOfBoundsException.class,
             () -> new TestVector(0).getValue(0)
@@ -52,7 +52,7 @@ public class VectorTest {
     void constructorWithVector() {
         assertEquals(
             1,
-            new TestVector(new TestVector(1, 2d)).size()
+            new TestVector(new TestVector(1, 2d)).getSize()
         );
         assertEquals(
             2d,
