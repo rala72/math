@@ -811,7 +811,7 @@ class BigDecimalMatrixTest {
     void mapOfMatrixWithSize2() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         Matrix<Integer> result =
-            new Matrix<>(new IntegerArithmetic(), 2, 0);
+            new Matrix<>(new IntegerArithmetic(), 2);
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++) {
                 matrix.setValue(r, c, BigDecimal.valueOf(r + c + 0.5));
