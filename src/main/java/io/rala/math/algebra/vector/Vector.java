@@ -66,7 +66,8 @@ public class Vector<T extends Number>
      */
     protected Vector(Vector<T> vector) {
         this(vector.getArithmetic(), vector.getSize(),
-            vector.getDefaultValue(), vector.getType());
+            vector.getDefaultValue(), vector.getType()
+        );
         vector.getVector().forEach((key, value) -> getVector().put(key, value));
     }
 
@@ -269,8 +270,8 @@ public class Vector<T extends Number>
         Vector<T> v1 =
             new Vector<>(getType() == Type.ROW ? this : transpose());
         Vector<T> v2 =
-            new Vector<>(vector.getType() == Type.COLUMN
-                ? vector : vector.transpose()
+            new Vector<>(vector.getType() == Type.COLUMN ?
+                vector : vector.transpose()
             );
         return v1.toMatrix().multiply(v2.toMatrix()).toParam();
     }
@@ -331,12 +332,10 @@ public class Vector<T extends Number>
                 getArithmetic(), getSize(), getDefaultValue(), getType()
             );
         T norm = euclideanNorm();
-        stream().forEach(
-            entry -> unit.setValue(
-                entry.getIndex(),
-                getArithmetic().quotient(entry.getValue(), norm)
-            )
-        );
+        forEach(entry -> unit.setValue(
+            entry.getIndex(),
+            getArithmetic().quotient(entry.getValue(), norm)
+        ));
         return unit;
     }
 
