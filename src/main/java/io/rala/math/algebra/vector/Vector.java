@@ -272,7 +272,7 @@ public class Vector<T extends Number>
      * @return new vector with calculated values
      */
     public Vector<T> add(Vector<T> vector) {
-        if (vector == null || getSize() != vector.getSize())
+        if (getSize() != vector.getSize())
             throw new IllegalArgumentException("sizes have to be equal");
         if (getType() != vector.getType())
             throw new IllegalArgumentException("vectors have to be either both row or both column");
@@ -291,8 +291,6 @@ public class Vector<T extends Number>
      * @return new vector with calculated values
      */
     public Vector<T> subtract(Vector<T> vector) {
-        if (vector == null)
-            throw new IllegalArgumentException("vector may not be null");
         return add(vector.invert());
     }
 
