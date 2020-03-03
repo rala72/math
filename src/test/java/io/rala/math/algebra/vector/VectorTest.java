@@ -129,8 +129,7 @@ public class VectorTest {
             actual.compute(0, x -> testAbstractArithmetic.product(2d, x))
         );
         assertEquals(
-            Vector.ofValues(testAbstractArithmetic, 0d,
-                2d, -4d, 9d),
+            Vector.ofValues(testAbstractArithmetic, 2d, -4d, 9d),
             actual
         );
     }
@@ -143,8 +142,7 @@ public class VectorTest {
             actual.compute(0, 2d, testAbstractArithmetic::product)
         );
         assertEquals(
-            Vector.ofValues(testAbstractArithmetic, 0d,
-                2d, -4d, 9d),
+            Vector.ofValues(testAbstractArithmetic, 2d, -4d, 9d),
             actual
         );
     }
@@ -156,8 +154,7 @@ public class VectorTest {
             x -> testAbstractArithmetic.product(2d, x.getValue())
         );
         assertEquals(
-            TestVector.ofValues(testAbstractArithmetic, 0d,
-                2d, -8d, 18d),
+            TestVector.ofValues(testAbstractArithmetic, 2d, -8d, 18d),
             actual
         );
     }
@@ -167,8 +164,7 @@ public class VectorTest {
         TestVector actual = new TestVector(3, false);
         actual.computeAll(x -> 2d, testAbstractArithmetic::product);
         assertEquals(
-            TestVector.ofValues(testAbstractArithmetic, 0d,
-                2d, -8d, 18d),
+            TestVector.ofValues(testAbstractArithmetic, 2d, -8d, 18d),
             actual
         );
     }
@@ -232,14 +228,6 @@ public class VectorTest {
     // region add, subtract, multiply and dotProduct
 
     @Test
-    void addNullVector() {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> new TestVector(2).add(null)
-        );
-    }
-
-    @Test
     void addVectorDifferentSize() {
         assertThrows(
             IllegalArgumentException.class,
@@ -288,14 +276,6 @@ public class VectorTest {
         assertEquals(
             expected,
             new TestVector(3, false).add(new TestVector(3, false))
-        );
-    }
-
-    @Test
-    void subtractNullVector() {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> new TestVector(2).subtract(null)
         );
     }
 
@@ -832,8 +812,7 @@ public class VectorTest {
     void emptyVectorOfValues() {
         assertEquals(
             new TestVector(4),
-            Vector.ofValues(testAbstractArithmetic, 0d,
-                0d, 0d, 0d, 0d)
+            Vector.ofValues(testAbstractArithmetic, 0d, 0d, 0d, 0d)
         );
     }
 
@@ -841,8 +820,7 @@ public class VectorTest {
     void nonEmptyVectorOfValues() {
         assertEquals(
             new TestVector(4, false),
-            Vector.ofValues(testAbstractArithmetic, 0d,
-                1d, -4d, 9d, -16d)
+            Vector.ofValues(testAbstractArithmetic, 1d, -4d, 9d, -16d)
         );
     }
 
@@ -855,7 +833,6 @@ public class VectorTest {
             new TestVector(2),
             Vector.ofList(
                 testAbstractArithmetic,
-                testAbstractArithmetic.fromDouble(0d),
                 list)
         );
     }
@@ -869,7 +846,6 @@ public class VectorTest {
             new TestVector(2, false),
             Vector.ofList(
                 testAbstractArithmetic,
-                testAbstractArithmetic.fromDouble(0d),
                 list
             )
         );

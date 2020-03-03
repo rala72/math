@@ -461,11 +461,7 @@ public class Vector<T extends Number>
     public static <T extends Number> Vector<T> ofValues(
         AbstractArithmetic<T> arithmetic, T... values
     ) {
-        Vector<T> vector =
-            new Vector<>(arithmetic, values.length);
-        for (int i = 0; i < values.length; i++)
-            vector.setValue(i, values[i]);
-        return vector;
+        return ofValues(arithmetic, arithmetic.zero(), values);
     }
 
     /**
@@ -479,7 +475,7 @@ public class Vector<T extends Number>
      * @throws IllegalArgumentException if size is less than {@code 1}
      */
     @SafeVarargs
-    protected static <T extends Number> Vector<T> ofValues(
+    private static <T extends Number> Vector<T> ofValues(
         AbstractArithmetic<T> arithmetic, T defaultValue, T... values
     ) {
         Vector<T> vector =
@@ -501,10 +497,7 @@ public class Vector<T extends Number>
     public static <T extends Number> Vector<T> ofList(
         AbstractArithmetic<T> arithmetic, List<T> values
     ) {
-        Vector<T> vector = new Vector<>(arithmetic, values.size());
-        for (int i = 0; i < values.size(); i++)
-            vector.setValue(i, values.get(i));
-        return vector;
+        return ofList(arithmetic, values, arithmetic.zero());
     }
 
     /**
