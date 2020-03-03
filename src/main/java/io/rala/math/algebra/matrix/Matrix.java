@@ -627,9 +627,9 @@ public class Matrix<T extends Number>
      */
     public Vector<T> toVector() {
         if (getCols() == 1)
-            return Vector.ofList(getArithmetic(), getDefaultValue(), getCol(0));
+            return Vector.ofList(getArithmetic(), getCol(0));
         if (getRows() == 1)
-            return Vector.ofList(getArithmetic(), getDefaultValue(), getRow(0)).transpose();
+            return Vector.ofList(getArithmetic(), getRow(0)).transpose();
         throw new IllegalStateException("Matrix has to have one row and/or one column");
     }
 
