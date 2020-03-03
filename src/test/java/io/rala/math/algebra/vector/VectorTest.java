@@ -124,7 +124,10 @@ public class VectorTest {
     @Test
     void computeFirstEntryTimesTwoUnary() {
         TestVector actual = new TestVector(3, false);
-        actual.compute(0, x -> testAbstractArithmetic.product(2d, x));
+        assertEquals(
+            1d,
+            actual.compute(0, x -> testAbstractArithmetic.product(2d, x))
+        );
         assertEquals(
             Vector.ofValues(testAbstractArithmetic, 0d,
                 2d, -4d, 9d),
@@ -135,7 +138,10 @@ public class VectorTest {
     @Test
     void computeFirstEntryTimesTwoBinary() {
         TestVector actual = new TestVector(3, false);
-        actual.compute(0, 2d, testAbstractArithmetic::product);
+        assertEquals(
+            1d,
+            actual.compute(0, 2d, testAbstractArithmetic::product)
+        );
         assertEquals(
             Vector.ofValues(testAbstractArithmetic, 0d,
                 2d, -4d, 9d),
