@@ -64,7 +64,7 @@ public class Vector<T extends Number>
         AbstractArithmetic<T> arithmetic, int size, T defaultValue, Type type
     ) {
         if (size < 0)
-            throw new IllegalArgumentException("Size has to be greater than 0");
+            throw new IllegalArgumentException("size has to be greater than 0");
         this.arithmetic = arithmetic;
         this.size = size;
         this.defaultValue = defaultValue;
@@ -235,7 +235,7 @@ public class Vector<T extends Number>
      */
     public T toParam() {
         if (getSize() == 1) return getValue(0);
-        throw new IllegalArgumentException("Vector has to contain exactly one entry");
+        throw new IllegalArgumentException("vector has to contain exactly one entry");
     }
 
     // endregion
@@ -248,7 +248,7 @@ public class Vector<T extends Number>
      */
     public Vector<T> add(Vector<T> vector) {
         if (vector == null || getSize() != vector.getSize())
-            throw new IllegalArgumentException("size has to be equal");
+            throw new IllegalArgumentException("sizes have to be equal");
         if (getType() != vector.getType())
             throw new IllegalArgumentException("vectors have to be either both row or both column");
         Vector<T> result =
@@ -363,7 +363,7 @@ public class Vector<T extends Number>
      * @throws IllegalArgumentException if p is less than {@code 1}
      */
     public T pNorm(int p) {
-        if (p <= 0) throw new IllegalArgumentException("May only calculate positive p-norm");
+        if (p <= 0) throw new IllegalArgumentException("may only calculate positive p-norm");
         Map<Integer, T> powers = new HashMap<>();
         getVector().forEach(
             (key, value) -> powers.put(key, getArithmetic().power(value, p))
@@ -385,7 +385,7 @@ public class Vector<T extends Number>
      */
     public Vector<T> normalize() {
         if (isZero())
-            throw new IllegalArgumentException("Zero vector may not be normalized.");
+            throw new IllegalArgumentException("zero vector may not be normalized.");
         Vector<T> unit =
             new Vector<>(
                 getArithmetic(), getSize(), getDefaultValue(), getType()
@@ -408,7 +408,7 @@ public class Vector<T extends Number>
      */
     public T angle(Vector<T> vector) {
         if (isZero() || vector.isZero())
-            throw new IllegalArgumentException("Angle is not defined for zero vector");
+            throw new IllegalArgumentException("angle is not defined for zero vector");
         return getArithmetic().acos(
             getArithmetic().quotient(
                 dotProduct(vector),
