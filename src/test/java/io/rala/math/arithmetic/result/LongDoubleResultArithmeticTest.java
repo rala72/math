@@ -2,7 +2,7 @@ package io.rala.math.arithmetic.result;
 
 import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
@@ -10,10 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class LongDoubleResultArithmeticTest {
-    private static LongDoubleResultArithmetic arithmetic;
+    private LongDoubleResultArithmetic arithmetic;
 
-    @BeforeAll
-    static void beforeAll() {
+    @BeforeEach
+    void setUp() {
         arithmetic = new LongDoubleResultArithmetic();
     }
 

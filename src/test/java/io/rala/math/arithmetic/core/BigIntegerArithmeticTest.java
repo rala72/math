@@ -1,6 +1,6 @@
 package io.rala.math.arithmetic.core;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
@@ -9,10 +9,10 @@ import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSeri
 import static org.junit.jupiter.api.Assertions.*;
 
 class BigIntegerArithmeticTest {
-    private static BigIntegerArithmetic arithmetic;
+    private BigIntegerArithmetic arithmetic;
 
-    @BeforeAll
-    static void beforeAll() {
+    @BeforeEach
+    void setUp() {
         arithmetic = new BigIntegerArithmetic();
     }
 

@@ -1,17 +1,17 @@
 package io.rala.math.arithmetic.core;
 
 import io.rala.math.arithmetic.AbstractArithmetic;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FloatArithmeticTest {
-    private static FloatArithmetic arithmetic;
+    private FloatArithmetic arithmetic;
 
-    @BeforeAll
-    static void beforeAll() {
+    @BeforeEach
+    void setUp() {
         arithmetic = new FloatArithmetic();
     }
 
