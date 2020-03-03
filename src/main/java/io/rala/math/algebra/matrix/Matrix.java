@@ -56,7 +56,7 @@ public class Matrix<T extends Number>
      *
      * @param arithmetic arithmetic for calculations
      * @param size       size of matrix
-     * @throws IllegalArgumentException if rows or cols is less than {@code 1}
+     * @throws IllegalArgumentException if size is less than {@code 1}
      * @see #Matrix(AbstractArithmetic, int, int)
      */
     public Matrix(AbstractArithmetic<T> arithmetic, int size) {
@@ -71,7 +71,7 @@ public class Matrix<T extends Number>
      * @param arithmetic   arithmetic for calculations
      * @param size         size of matrix
      * @param defaultValue default value of non-existing values
-     * @throws IllegalArgumentException if rows or cols is less than {@code 1}
+     * @throws IllegalArgumentException if size is less than {@code 1}
      * @implSpec default value should be {@code 0}
      * - other values may not be handled correctly
      * <i>(in {@link #equals(Object)}, ...)</i>
@@ -459,6 +459,7 @@ public class Matrix<T extends Number>
     /**
      * @param matrix matrix to multiply
      * @return new matrix with calculated values
+     * @throws IllegalArgumentException if cols and matrix rows do not match
      */
     public Matrix<T> multiply(Matrix<T> matrix) {
         if (getCols() != matrix.getRows())

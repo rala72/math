@@ -1,6 +1,7 @@
 package io.rala.math.algebra.vector;
 
 import io.rala.math.algebra.matrix.Matrix;
+import io.rala.math.algebra.numeric.Fraction;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.StreamIterable;
@@ -38,12 +39,12 @@ public class Vector<T extends Number>
 
     /**
      * calls {@link #Vector(AbstractArithmetic, int, Number, Type)}
-     * {@link Type#COLUMN} as default type
+     * using {@link Type#COLUMN} as default {@code Type}
      *
      * @param arithmetic   arithmetic for calculations
      * @param size         size of vector
      * @param defaultValue default value of non-existing values
-     * @throws IllegalArgumentException if size is negative or zero
+     * @throws IllegalArgumentException if size is less than {@code 1}
      */
     public Vector(AbstractArithmetic<T> arithmetic, int size, T defaultValue) {
         this(arithmetic, size, defaultValue, Type.COLUMN);
@@ -57,7 +58,7 @@ public class Vector<T extends Number>
      * @param size         size of vector
      * @param defaultValue default value of non-existing values
      * @param type         type of vector
-     * @throws IllegalArgumentException if size is negative or zero
+     * @throws IllegalArgumentException if size is less than {@code 1}
      */
     public Vector(
         AbstractArithmetic<T> arithmetic, int size, T defaultValue, Type type
@@ -133,8 +134,8 @@ public class Vector<T extends Number>
     // region value
 
     /**
-     * @param index where value should be stored
-     * @param value to be stored
+     * @param index index where value should be stored
+     * @param value new value to store
      * @return old value if existed or {@link #getDefaultValue()}
      * @throws IndexOutOfBoundsException if index is invalid
      */
@@ -157,7 +158,7 @@ public class Vector<T extends Number>
     }
 
     /**
-     * @param index of value to be deleted
+     * @param index index of value to remove
      * @return old value if existed or {@link #getDefaultValue()}
      * @throws IndexOutOfBoundsException if index is invalid
      */
@@ -229,7 +230,8 @@ public class Vector<T extends Number>
     }
 
     /**
-     * @return only entry of a size 1 vector
+     * @return only entry of a size {@code 1} vector
+     * @throws IllegalArgumentException if size is unequal to {@code 1}
      */
     public T toParam() {
         if (getSize() == 1) return getValue(0);
@@ -270,7 +272,7 @@ public class Vector<T extends Number>
     }
 
     /**
-     * @param scalar to multiply entries with
+     * @param scalar scalar to multiply entries with
      * @return new vector with calculated values
      */
     public Vector<T> multiply(T scalar) {
@@ -284,16 +286,16 @@ public class Vector<T extends Number>
     }
 
     /**
-     * @param vector to multiply with
+     * @param vector vector to multiply with
      * @return product of matrix multiplication
-     * @throws IllegalArgumentException if dimensions do not match
+     * @throws IllegalArgumentException if sizes do not match
      */
     public Matrix<T> multiply(Vector<T> vector) {
         return toMatrix().multiply(vector.toMatrix());
     }
 
     /**
-     * @param vector to compute dot product
+     * @param vector vector to compute dot product
      * @return dot product
      * @throws IllegalArgumentException if sizes do not match
      */
@@ -312,7 +314,7 @@ public class Vector<T extends Number>
     // region transpose and invert
 
     /**
-     * @return new vector with opposite type
+     * @return new vector with opposite {@link Type}
      */
     public Vector<T> transpose() {
         Vector<T> flipped =
@@ -347,6 +349,8 @@ public class Vector<T extends Number>
     }
 
     /**
+     * calls {@link #pNorm(int)} with degree {@code 2}
+     *
      * @return euclidean norm of the vector
      */
     public T euclideanNorm() {
@@ -356,7 +360,7 @@ public class Vector<T extends Number>
     /**
      * @param p degree of the norm
      * @return p-norm of the vector
-     * @throws IllegalArgumentException if p is less than 1
+     * @throws IllegalArgumentException if p is less than {@code 1}
      */
     public T pNorm(int p) {
         if (p <= 0) throw new IllegalArgumentException("May only calculate positive p-norm");
@@ -373,10 +377,11 @@ public class Vector<T extends Number>
     }
 
     /**
-     * Result is only guaranteed to be correct for float, double, Fraction
+     * result is only guaranteed to be correct for
+     * {@code float}, {@code double} and {@link Fraction}
      *
-     * @return vector of length one
-     * @throws IllegalArgumentException if al vector entries are zero
+     * @return vector of {@link #length()} one
+     * @throws IllegalArgumentException if all values are {@code 0}
      */
     public Vector<T> normalize() {
         if (isZero())
@@ -441,13 +446,14 @@ public class Vector<T extends Number>
     }
 
     /**
-     * creates a new vector containing values from a list
+     * creates a new vector containing values from provided list
      *
      * @param arithmetic   arithmetic for calculations
      * @param defaultValue default value of non-existing values
      * @param values       values of vector
      * @param <T>          number class
      * @return new created vector
+     * @throws IllegalArgumentException if size is less than {@code 1}
      */
     public static <T extends Number> Vector<T> ofList(
         AbstractArithmetic<T> arithmetic, T defaultValue, List<T> values
@@ -544,7 +550,7 @@ public class Vector<T extends Number>
     // endregion
 
     /**
-     * Class which holds an entry of a vector with immutable attributes
+     * class which holds an entry of a vector with immutable attributes
      */
     public class Entry {
         private final int index;
