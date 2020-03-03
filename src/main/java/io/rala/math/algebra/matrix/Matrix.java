@@ -1210,9 +1210,10 @@ public class Matrix<T extends Number>
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Matrix<?>.Field field = (Matrix<?>.Field) o;
+            //noinspection unchecked // can only fail in isEqual
             return Objects.equals(getMatrix(), field.getMatrix()) &&
                 getIndex() == field.getIndex() &&
-                Objects.equals(getValue(), field.getValue());
+                getArithmetic().isEqual(getValue(), (T) field.getValue());
         }
 
         @Override
