@@ -599,7 +599,7 @@ public class Vector<T extends Number>
 
     private void removeDefaultValues() {
         getVector().entrySet().removeIf(
-            entry -> getDefaultValue().equals(entry.getValue()));
+            entry -> getArithmetic().isEqual(getDefaultValue(), entry.getValue()));
     }
 
     // endregion
@@ -650,8 +650,9 @@ public class Vector<T extends Number>
             if (o == null || getClass() != o.getClass()) return false;
             Vector<?>.Entry entry = (Vector<?>.Entry) o;
             if (Objects.equals(getVector(), entry.getVector())) return false;
+            //noinspection unchecked
             return getIndex() == entry.getIndex() &&
-                getValue().equals(entry.getValue());
+                getArithmetic().isEqual(getValue(), (T) entry.getValue());
         }
 
         @Override
