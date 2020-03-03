@@ -469,6 +469,27 @@ public class Vector<T extends Number>
     }
 
     /**
+     * creates a new vector containing all provided values
+     *
+     * @param arithmetic   arithmetic for calculations
+     * @param defaultValue default value of non-existing values
+     * @param values       values of vector
+     * @param <T>          number class
+     * @return new created vector
+     * @throws IllegalArgumentException if size is less than {@code 1}
+     */
+    @SafeVarargs
+    protected static <T extends Number> Vector<T> ofValues(
+        AbstractArithmetic<T> arithmetic, T defaultValue, T... values
+    ) {
+        Vector<T> vector =
+            new Vector<>(arithmetic, values.length, defaultValue);
+        for (int i = 0; i < values.length; i++)
+            vector.setValue(i, values[i]);
+        return vector;
+    }
+
+    /**
      * creates a new vector containing values from provided list
      *
      * @param arithmetic arithmetic for calculations
@@ -481,6 +502,25 @@ public class Vector<T extends Number>
         AbstractArithmetic<T> arithmetic, List<T> values
     ) {
         Vector<T> vector = new Vector<>(arithmetic, values.size());
+        for (int i = 0; i < values.size(); i++)
+            vector.setValue(i, values.get(i));
+        return vector;
+    }
+
+    /**
+     * creates a new vector containing values from provided list
+     *
+     * @param arithmetic   arithmetic for calculations
+     * @param values       values of vector
+     * @param defaultValue default value for non-existing values
+     * @param <T>          number class
+     * @return new created vector
+     * @throws IllegalArgumentException if size is less than {@code 1}
+     */
+    protected static <T extends Number> Vector<T> ofList(
+        AbstractArithmetic<T> arithmetic, List<T> values, T defaultValue
+    ) {
+        Vector<T> vector = new Vector<>(arithmetic, values.size(), defaultValue);
         for (int i = 0; i < values.size(); i++)
             vector.setValue(i, values.get(i));
         return vector;
