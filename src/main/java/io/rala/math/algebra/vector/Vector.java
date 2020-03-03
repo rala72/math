@@ -123,28 +123,28 @@ public class Vector<T extends Number>
     /**
      * @return vector map using index as key
      */
-    protected Map<Integer, T> getVector() {
+    protected final Map<Integer, T> getVector() {
         return vector;
     }
 
     /**
      * @return size of vector
      */
-    public int getSize() {
+    public final int getSize() {
         return size;
     }
 
     /**
      * @return default value for non-existing values
      */
-    protected T getDefaultValue() {
+    protected final T getDefaultValue() {
         return defaultValue;
     }
 
     /**
      * @return type of vector
      */
-    public Type getType() {
+    public final Type getType() {
         return type;
     }
 
@@ -581,14 +581,14 @@ public class Vector<T extends Number>
      * @param index to be validated
      * @return {@code true} if value is valid
      */
-    protected boolean isValidIndex(int index) {
+    protected final boolean isValidIndex(int index) {
         return 0 <= index && index < getSize();
     }
 
     /**
      * @return {@code true} if all values are zero
      */
-    protected boolean isZero() {
+    protected final boolean isZero() {
         return stream().allMatch(
             (entry) -> getArithmetic().isZero(entry.getValue())
         );
