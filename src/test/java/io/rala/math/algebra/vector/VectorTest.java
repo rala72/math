@@ -119,7 +119,7 @@ public class VectorTest {
 
     // endregion
 
-    // region Matrix
+    // region to Matrix and toParam
 
     @Test
     void emptyColumnVectorToMatrix() {
@@ -168,66 +168,6 @@ public class VectorTest {
         assertEquals(
             expected,
             new TestVector(4, Vector.Type.ROW, false).toMatrix()
-        );
-    }
-
-    // endregion
-
-    // region transpose and invert
-
-    @Test
-    void transposeEmptyColumnVector() {
-        assertEquals(
-            new TestVector(3, Vector.Type.ROW),
-            new TestVector(3).transpose()
-        );
-    }
-
-    @Test
-    void transposeEmptyRowVector() {
-        assertEquals(
-            new TestVector(3),
-            new TestVector(3, Vector.Type.ROW).transpose()
-        );
-    }
-
-    @Test
-    void transposeNonEmptyColumnVector() {
-        assertEquals(
-            new TestVector(3, Vector.Type.ROW, false),
-            new TestVector(3, false).transpose()
-        );
-    }
-
-    @Test
-    void transposeNonEmptyRowVector() {
-        assertEquals(
-            new TestVector(3, false),
-            new TestVector(3, Vector.Type.ROW, false).transpose()
-        );
-    }
-
-    @Test
-    void invertEmptyVector() {
-        TestVector expected = new TestVector(3);
-        for (int i = 0; i < 3; i++) {
-            expected.setValue(i, -0d);
-        }
-        assertEquals(
-            expected,
-            new TestVector(3).invert()
-        );
-    }
-
-    @Test
-    void invertNonEmptyVector() {
-        TestVector expected = new TestVector(3);
-        expected.setValue(0, -1d);
-        expected.setValue(1, 4d);
-        expected.setValue(2, -9d);
-        assertEquals(
-            expected,
-            new TestVector(3, false).invert()
         );
     }
 
@@ -627,52 +567,61 @@ public class VectorTest {
 
     // endregion
 
-    // region static
+    // region transpose and invert
 
     @Test
-    void emptyVectorOfValues() {
+    void transposeEmptyColumnVector() {
         assertEquals(
-            new TestVector(4),
-            Vector.ofValues(testAbstractArithmetic, 0d,
-                0d, 0d, 0d, 0d)
+            new TestVector(3, Vector.Type.ROW),
+            new TestVector(3).transpose()
         );
     }
 
     @Test
-    void nonEmptyVectorOfValues() {
+    void transposeEmptyRowVector() {
         assertEquals(
-            new TestVector(4, false),
-            Vector.ofValues(testAbstractArithmetic, 0d,
-                1d, -4d, 9d, -16d)
+            new TestVector(3),
+            new TestVector(3, Vector.Type.ROW).transpose()
         );
     }
 
     @Test
-    void emptyVectorOfList() {
-        List<Number> list = new ArrayList<>();
-        list.add(0d);
-        list.add(0d);
+    void transposeNonEmptyColumnVector() {
         assertEquals(
-            new TestVector(2),
-            Vector.ofList(
-                testAbstractArithmetic,
-                testAbstractArithmetic.fromDouble(0d),
-                list)
+            new TestVector(3, Vector.Type.ROW, false),
+            new TestVector(3, false).transpose()
         );
     }
 
     @Test
-    void nonEmptyVectorOfList() {
-        List<Number> list = new ArrayList<>();
-        list.add(1d);
-        list.add(-4d);
+    void transposeNonEmptyRowVector() {
         assertEquals(
-            new TestVector(2, false),
-            Vector.ofList(
-                testAbstractArithmetic,
-                testAbstractArithmetic.fromDouble(0d),
-                list
-            )
+            new TestVector(3, false),
+            new TestVector(3, Vector.Type.ROW, false).transpose()
+        );
+    }
+
+    @Test
+    void invertEmptyVector() {
+        TestVector expected = new TestVector(3);
+        for (int i = 0; i < 3; i++) {
+            expected.setValue(i, -0d);
+        }
+        assertEquals(
+            expected,
+            new TestVector(3).invert()
+        );
+    }
+
+    @Test
+    void invertNonEmptyVector() {
+        TestVector expected = new TestVector(3);
+        expected.setValue(0, -1d);
+        expected.setValue(1, 4d);
+        expected.setValue(2, -9d);
+        assertEquals(
+            expected,
+            new TestVector(3, false).invert()
         );
     }
 
@@ -821,4 +770,54 @@ public class VectorTest {
 
     // endregion
 
+    // region static
+
+    @Test
+    void emptyVectorOfValues() {
+        assertEquals(
+            new TestVector(4),
+            Vector.ofValues(testAbstractArithmetic, 0d,
+                0d, 0d, 0d, 0d)
+        );
+    }
+
+    @Test
+    void nonEmptyVectorOfValues() {
+        assertEquals(
+            new TestVector(4, false),
+            Vector.ofValues(testAbstractArithmetic, 0d,
+                1d, -4d, 9d, -16d)
+        );
+    }
+
+    @Test
+    void emptyVectorOfList() {
+        List<Number> list = new ArrayList<>();
+        list.add(0d);
+        list.add(0d);
+        assertEquals(
+            new TestVector(2),
+            Vector.ofList(
+                testAbstractArithmetic,
+                testAbstractArithmetic.fromDouble(0d),
+                list)
+        );
+    }
+
+    @Test
+    void nonEmptyVectorOfList() {
+        List<Number> list = new ArrayList<>();
+        list.add(1d);
+        list.add(-4d);
+        assertEquals(
+            new TestVector(2, false),
+            Vector.ofList(
+                testAbstractArithmetic,
+                testAbstractArithmetic.fromDouble(0d),
+                list
+            )
+        );
+    }
+
+    // endregion
 }
