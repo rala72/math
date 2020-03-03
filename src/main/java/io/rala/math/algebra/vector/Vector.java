@@ -30,15 +30,15 @@ public class Vector<T extends Number>
     private final AbstractArithmetic<T> arithmetic;
     private final Map<Integer, T> vector = new HashMap<>();
     private final int size;
-    private final T defaultValue;
     private final Type type;
+    private final T defaultValue;
 
     // endregion
 
     // region constructors
 
     /**
-     * calls {@link #Vector(AbstractArithmetic, int, Number, Type)}
+     * calls {@link #Vector(AbstractArithmetic, int, Type, Number)}
      * using {@link Type#COLUMN} as default {@code Type}
      *
      * @param arithmetic   arithmetic for calculations
@@ -47,7 +47,7 @@ public class Vector<T extends Number>
      * @throws IllegalArgumentException if size is less than {@code 1}
      */
     public Vector(AbstractArithmetic<T> arithmetic, int size, T defaultValue) {
-        this(arithmetic, size, defaultValue, Type.COLUMN);
+        this(arithmetic, size, Type.COLUMN, defaultValue);
     }
 
     /**
@@ -61,7 +61,7 @@ public class Vector<T extends Number>
      * @throws IllegalArgumentException if size is less than {@code 1}
      */
     public Vector(
-        AbstractArithmetic<T> arithmetic, int size, T defaultValue, Type type
+        AbstractArithmetic<T> arithmetic, int size, Type type, T defaultValue
     ) {
         if (size < 0)
             throw new IllegalArgumentException("size has to be greater than 0");
@@ -78,7 +78,7 @@ public class Vector<T extends Number>
      */
     protected Vector(Vector<T> vector) {
         this(vector.getArithmetic(), vector.getSize(),
-            vector.getDefaultValue(), vector.getType()
+            vector.getType(), vector.getDefaultValue()
         );
         vector.getVector().forEach((key, value) -> getVector().put(key, value));
     }
@@ -318,8 +318,9 @@ public class Vector<T extends Number>
      */
     public Vector<T> transpose() {
         Vector<T> flipped =
-            new Vector<>(getArithmetic(), getSize(), getDefaultValue(),
-                Type.COLUMN.equals(getType()) ? Type.ROW : Type.COLUMN
+            new Vector<>(getArithmetic(), getSize(),
+                Type.COLUMN.equals(getType()) ? Type.ROW : Type.COLUMN,
+                getDefaultValue()
             );
         getVector().forEach(flipped::setValue);
         return flipped;
@@ -388,7 +389,7 @@ public class Vector<T extends Number>
             throw new IllegalArgumentException("zero vector may not be normalized.");
         Vector<T> unit =
             new Vector<>(
-                getArithmetic(), getSize(), getDefaultValue(), getType()
+                getArithmetic(), getSize(), getType(), getDefaultValue()
             );
         T norm = euclideanNorm();
         forEach(entry -> unit.setValue(
