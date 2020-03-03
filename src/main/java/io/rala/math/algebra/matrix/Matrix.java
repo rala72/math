@@ -190,7 +190,7 @@ public class Matrix<T extends Number>
      * @throws IndexOutOfBoundsException if row is invalid
      */
     public List<Field> getRowFields(int row) {
-        if (!isRowValid(row))
+        if (!isValidRow(row))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
         return IntStream.range(0, getCols())
             .mapToObj(col -> new Field(row, col, getValue(row, col)))
@@ -215,7 +215,7 @@ public class Matrix<T extends Number>
      * @throws IndexOutOfBoundsException if col is invalid
      */
     public List<Field> getColFields(int col) {
-        if (!isColValid(col))
+        if (!isValidCol(col))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
         return IntStream.range(0, getRows())
             .mapToObj(row -> new Field(row, col, getValue(row, col)))
@@ -257,7 +257,7 @@ public class Matrix<T extends Number>
      * @throws IndexOutOfBoundsException if index is invalid
      */
     public T setValue(long index, T value) {
-        if (!isIndexValid(index))
+        if (!isValidIndex(index))
             throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
         if (isDefaultValue(value))
             return removeValue(index);
@@ -293,7 +293,7 @@ public class Matrix<T extends Number>
      * @throws IndexOutOfBoundsException if index is invalid
      */
     public T getValue(long index) {
-        if (!isIndexValid(index))
+        if (!isValidIndex(index))
             throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
         return getMatrix()
             .getOrDefault((int) (index / getCols()), Collections.emptyMap())
@@ -317,7 +317,7 @@ public class Matrix<T extends Number>
      * @throws IndexOutOfBoundsException if index is invalid
      */
     public T removeValue(long index) {
-        if (!isIndexValid(index))
+        if (!isValidIndex(index))
             throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
         AtomicReference<T> previous = new AtomicReference<>(getDefaultValue());
         getMatrix().compute((int) (index / getCols()), (integer, integerTMap) -> {
@@ -909,9 +909,9 @@ public class Matrix<T extends Number>
     protected final Matrix<T> subMatrix(int row, int col) {
         if (!isSquare())
             throw new IllegalArgumentException(EXCEPTION_NO_SQUARE);
-        if (!isRowValid(row))
+        if (!isValidRow(row))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
-        if (!isColValid(col))
+        if (!isValidCol(col))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
         Matrix<T> subMatrix = new Matrix<>(getArithmetic(),
             getRows() - 1, getCols() - 1, getDefaultValue()
@@ -937,9 +937,9 @@ public class Matrix<T extends Number>
     protected final T coFactor(int row, int col) {
         if (!isSquare())
             throw new IllegalArgumentException(EXCEPTION_NO_SQUARE);
-        if (!isRowValid(row))
+        if (!isValidRow(row))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
-        if (!isColValid(col))
+        if (!isValidCol(col))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
         return getArithmetic().product(
             getArithmetic().product(
@@ -970,9 +970,9 @@ public class Matrix<T extends Number>
      * @throws IndexOutOfBoundsException if row1 or row2 is invalid
      */
     protected Matrix<T> swapRows(int row1, int row2) {
-        if (!isRowValid(row1))
+        if (!isValidRow(row1))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row1);
-        if (!isRowValid(row2))
+        if (!isValidRow(row2))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row2);
         Matrix<T> copy = copy();
         if (row1 == row2) return copy;
@@ -990,9 +990,9 @@ public class Matrix<T extends Number>
      * @throws IndexOutOfBoundsException if col1 or col2 is invalid
      */
     protected Matrix<T> swapCols(int col1, int col2) {
-        if (!isColValid(col1))
+        if (!isValidCol(col1))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col1);
-        if (!isColValid(col2))
+        if (!isValidCol(col2))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col2);
         Matrix<T> copy = copy();
         if (col1 == col2) return copy;
@@ -1009,7 +1009,7 @@ public class Matrix<T extends Number>
      * @return new matrix with multiplied row
      */
     protected Matrix<T> multiplyRow(int row, T n) {
-        if (!isRowValid(row))
+        if (!isValidRow(row))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
         Matrix<T> copy = copy();
         if (getArithmetic().isZero(n)) {
@@ -1030,7 +1030,7 @@ public class Matrix<T extends Number>
      * @return new matrix with multiplied col
      */
     protected Matrix<T> multiplyCol(int col, T n) {
-        if (!isColValid(col))
+        if (!isValidCol(col))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
         Matrix<T> copy = copy();
         if (getArithmetic().isZero(n)) {
@@ -1052,9 +1052,9 @@ public class Matrix<T extends Number>
      * @return new matrix with multiplied rows
      */
     protected Matrix<T> addRowMultipleTimes(int row1, int row2, T n) {
-        if (!isRowValid(row1))
+        if (!isValidRow(row1))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row1);
-        if (!isRowValid(row2))
+        if (!isValidRow(row2))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row2);
         if (getArithmetic().isZero(n))
             return copy();
@@ -1075,9 +1075,9 @@ public class Matrix<T extends Number>
      * @return new matrix with multiplied cols
      */
     protected Matrix<T> addColMultipleTimes(int col1, int col2, T n) {
-        if (!isColValid(col1))
+        if (!isValidCol(col1))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col1);
-        if (!isColValid(col2))
+        if (!isValidCol(col2))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col2);
         if (getArithmetic().isZero(n))
             return copy();
@@ -1102,9 +1102,9 @@ public class Matrix<T extends Number>
      * @throws IndexOutOfBoundsException if row or col is invalid
      */
     protected final long getIndexOfRowAndCol(int row, int col) {
-        if (!isRowValid(row))
+        if (!isValidRow(row))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
-        if (!isColValid(col))
+        if (!isValidCol(col))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
         return (long) row * getCols() + col;
     }
@@ -1121,7 +1121,7 @@ public class Matrix<T extends Number>
      * @param index index to check
      * @return {@code true} if value is valid
      */
-    protected final boolean isIndexValid(long index) {
+    protected final boolean isValidIndex(long index) {
         return 0 <= index && index < size();
     }
 
@@ -1129,7 +1129,7 @@ public class Matrix<T extends Number>
      * @param row row to check
      * @return {@code true} if value is valid
      */
-    protected final boolean isRowValid(int row) {
+    protected final boolean isValidRow(int row) {
         return 0 <= row && row < getRows();
     }
 
@@ -1137,7 +1137,7 @@ public class Matrix<T extends Number>
      * @param col col to check
      * @return {@code true} if col is valid
      */
-    protected final boolean isColValid(int col) {
+    protected final boolean isValidCol(int col) {
         return 0 <= col && col < getCols();
     }
 
@@ -1193,7 +1193,7 @@ public class Matrix<T extends Number>
          * @throws IndexOutOfBoundsException if index is invalid
          */
         protected Field(long index, T value) {
-            if (!isIndexValid(index))
+            if (!isValidIndex(index))
                 throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
             this.index = index;
             this.value = value;

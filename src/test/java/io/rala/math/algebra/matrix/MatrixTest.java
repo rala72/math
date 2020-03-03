@@ -29,8 +29,8 @@ class MatrixTest {
         long expectedSize = (long) Integer.MAX_VALUE * Integer.MAX_VALUE;
         assertEquals(expectedSize, matrix.size());
 
-        assertTrue(matrix.isIndexValid(expectedSize - 1));
-        assertFalse(matrix.isIndexValid(expectedSize));
+        assertTrue(matrix.isValidIndex(expectedSize - 1));
+        assertFalse(matrix.isValidIndex(expectedSize));
     }
 
     @Test
@@ -1350,30 +1350,30 @@ class MatrixTest {
     }
 
     @Test
-    void isIndexValidOfMatrixWithSize2() {
+    void isValidIndexOfMatrixWithSize2() {
         TestMatrix matrix = new TestMatrix(2);
-        assertFalse(matrix.isIndexValid(-1));
+        assertFalse(matrix.isValidIndex(-1));
         for (int i = 0; i < matrix.size(); i++)
-            assertTrue(matrix.isIndexValid(i));
-        assertFalse(matrix.isIndexValid((int) matrix.size()));
+            assertTrue(matrix.isValidIndex(i));
+        assertFalse(matrix.isValidIndex((int) matrix.size()));
     }
 
     @Test
-    void isRowValidOfMatrixWithSize2() {
+    void isValidRowOfMatrixWithSize2() {
         TestMatrix matrix = new TestMatrix(2);
-        assertFalse(matrix.isRowValid(-1));
+        assertFalse(matrix.isValidRow(-1));
         for (int i = 0; i < matrix.getRows(); i++)
-            assertTrue(matrix.isRowValid(i));
-        assertFalse(matrix.isRowValid(matrix.getRows()));
+            assertTrue(matrix.isValidRow(i));
+        assertFalse(matrix.isValidRow(matrix.getRows()));
     }
 
     @Test
-    void isColValidOfMatrixWithSize2() {
+    void isValidColOfMatrixWithSize2() {
         TestMatrix matrix = new TestMatrix(2);
-        assertFalse(matrix.isColValid(-1));
+        assertFalse(matrix.isValidCol(-1));
         for (int i = 0; i < matrix.getCols(); i++)
-            assertTrue(matrix.isColValid(i));
-        assertFalse(matrix.isColValid(matrix.getCols()));
+            assertTrue(matrix.isValidCol(i));
+        assertFalse(matrix.isValidCol(matrix.getCols()));
     }
 
     // endregion
