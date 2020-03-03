@@ -649,6 +649,7 @@ public class Vector<T extends Number>
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Vector<?>.Entry entry = (Vector<?>.Entry) o;
+            if (Objects.equals(getVector(), entry.getVector())) return false;
             return getIndex() == entry.getIndex() &&
                 getValue().equals(entry.getValue());
         }
