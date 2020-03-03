@@ -6,6 +6,7 @@ import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.StreamIterable;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
@@ -18,7 +19,7 @@ import java.util.stream.IntStream;
  * @param <T> number class
  */
 public class Vector<T extends Number>
-    implements Copyable<Vector<T>>, StreamIterable<Vector<T>.Entry> {
+    implements Copyable<Vector<T>>, StreamIterable<Vector<T>.Entry>, Serializable {
 
     /**
      * describes whether a vector is {@link #COLUMN} or {@link #ROW}

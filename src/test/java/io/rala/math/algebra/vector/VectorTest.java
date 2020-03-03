@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -849,6 +850,15 @@ public class VectorTest {
                 list
             )
         );
+    }
+
+    // endregion
+
+    // region override
+
+    @Test
+    void serializable() {
+        assertSerializable(new TestVector(2), TestVector.class);
     }
 
     // endregion
