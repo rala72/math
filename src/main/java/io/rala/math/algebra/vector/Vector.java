@@ -39,6 +39,18 @@ public class Vector<T extends Number>
 
     /**
      * calls {@link #Vector(AbstractArithmetic, int, Type, Number)}
+     * using {@code Type.COLUMN} as {@code Type} and {@code 0} as {@code defaultValue}
+     *
+     * @param arithmetic arithmetic for calculations
+     * @param size       size of vector
+     * @throws IllegalArgumentException if size is less than {@code 1}
+     */
+    public Vector(AbstractArithmetic<T> arithmetic, int size) {
+        this(arithmetic, size, Type.COLUMN, arithmetic.zero());
+    }
+
+    /**
+     * calls {@link #Vector(AbstractArithmetic, int, Type, Number)}
      * using {@link Type#COLUMN} as default {@code Type}
      *
      * @param arithmetic   arithmetic for calculations
@@ -46,8 +58,21 @@ public class Vector<T extends Number>
      * @param defaultValue default value of non-existing values
      * @throws IllegalArgumentException if size is less than {@code 1}
      */
-    public Vector(AbstractArithmetic<T> arithmetic, int size, T defaultValue) {
+    protected Vector(AbstractArithmetic<T> arithmetic, int size, T defaultValue) {
         this(arithmetic, size, Type.COLUMN, defaultValue);
+    }
+
+    /**
+     * calls {@link #Vector(AbstractArithmetic, int, Type, Number)}
+     * using {@code 0} as {@code defaultValue}
+     *
+     * @param arithmetic arithmetic for calculations
+     * @param size       size of vector
+     * @param type       type of vector
+     * @throws IllegalArgumentException if size is less than {@code 1}
+     */
+    public Vector(AbstractArithmetic<T> arithmetic, int size, Type type) {
+        this(arithmetic, size, type, arithmetic.zero());
     }
 
     /**
@@ -60,7 +85,7 @@ public class Vector<T extends Number>
      * @param type         type of vector
      * @throws IllegalArgumentException if size is less than {@code 1}
      */
-    public Vector(
+    protected Vector(
         AbstractArithmetic<T> arithmetic, int size, Type type, T defaultValue
     ) {
         if (size < 0)
@@ -428,19 +453,18 @@ public class Vector<T extends Number>
     /**
      * creates a new vector containing all provided values
      *
-     * @param arithmetic   arithmetic for calculations
-     * @param defaultValue default value of non-existing values
-     * @param values       values of vector
-     * @param <T>          number class
+     * @param arithmetic arithmetic for calculations
+     * @param values     values of vector
+     * @param <T>        number class
      * @return new created vector
      * @throws IllegalArgumentException if size is less than {@code 1}
      */
     @SafeVarargs
     public static <T extends Number> Vector<T> ofValues(
-        AbstractArithmetic<T> arithmetic, T defaultValue, T... values
+        AbstractArithmetic<T> arithmetic, T... values
     ) {
         Vector<T> vector =
-            new Vector<>(arithmetic, values.length, defaultValue);
+            new Vector<>(arithmetic, values.length);
         for (int i = 0; i < values.length; i++)
             vector.setValue(i, values[i]);
         return vector;
@@ -449,17 +473,16 @@ public class Vector<T extends Number>
     /**
      * creates a new vector containing values from provided list
      *
-     * @param arithmetic   arithmetic for calculations
-     * @param defaultValue default value of non-existing values
-     * @param values       values of vector
-     * @param <T>          number class
+     * @param arithmetic arithmetic for calculations
+     * @param values     values of vector
+     * @param <T>        number class
      * @return new created vector
      * @throws IllegalArgumentException if size is less than {@code 1}
      */
     public static <T extends Number> Vector<T> ofList(
-        AbstractArithmetic<T> arithmetic, T defaultValue, List<T> values
+        AbstractArithmetic<T> arithmetic, List<T> values
     ) {
-        Vector<T> vector = new Vector<>(arithmetic, values.size(), defaultValue);
+        Vector<T> vector = new Vector<>(arithmetic, values.size());
         for (int i = 0; i < values.size(); i++)
             vector.setValue(i, values.get(i));
         return vector;
