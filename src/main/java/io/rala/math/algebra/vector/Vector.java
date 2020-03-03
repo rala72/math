@@ -38,20 +38,20 @@ public class Vector<T extends Number>
     // region constructors
 
     /**
-     * calls {@link #Vector(AbstractArithmetic, int, Type, Number)}
-     * using {@code Type.COLUMN} as {@code Type} and {@code 0} as {@code defaultValue}
+     * calls {@link #Vector(AbstractArithmetic, int, Number)}
+     * using {@code 0} as {@code defaultValue}
      *
      * @param arithmetic arithmetic for calculations
      * @param size       size of vector
      * @throws IllegalArgumentException if size is less than {@code 1}
      */
     public Vector(AbstractArithmetic<T> arithmetic, int size) {
-        this(arithmetic, size, Type.COLUMN, arithmetic.zero());
+        this(arithmetic, size, arithmetic.zero());
     }
 
     /**
      * calls {@link #Vector(AbstractArithmetic, int, Type, Number)}
-     * using {@link Type#COLUMN} as default {@code Type}
+     * using {@link Type#COLUMN} as default {@link Type}
      *
      * @param arithmetic   arithmetic for calculations
      * @param size         size of vector
