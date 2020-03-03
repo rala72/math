@@ -119,6 +119,56 @@ public class VectorTest {
 
     // endregion
 
+    // region compute
+
+    @Test
+    void computeFirstEntryTimesTwoUnary() {
+        TestVector actual = new TestVector(3, false);
+        actual.compute(0, x -> testAbstractArithmetic.product(2d, x));
+        assertEquals(
+            Vector.ofValues(testAbstractArithmetic, 0d,
+                2d, -4d, 9d),
+            actual
+        );
+    }
+
+    @Test
+    void computeFirstEntryTimesTwoBinary() {
+        TestVector actual = new TestVector(3, false);
+        actual.compute(0, 2d, testAbstractArithmetic::product);
+        assertEquals(
+            Vector.ofValues(testAbstractArithmetic, 0d,
+                2d, -4d, 9d),
+            actual
+        );
+    }
+
+    @Test
+    void computeTimesTwoUnary() {
+        TestVector actual = new TestVector(3, false);
+        actual.computeAll(
+            x -> testAbstractArithmetic.product(2d, x.getValue())
+        );
+        assertEquals(
+            TestVector.ofValues(testAbstractArithmetic, 0d,
+                2d, -8d, 18d),
+            actual
+        );
+    }
+
+    @Test
+    void computeTimesTwoBinary() {
+        TestVector actual = new TestVector(3, false);
+        actual.computeAll(x -> 2d, testAbstractArithmetic::product);
+        assertEquals(
+            TestVector.ofValues(testAbstractArithmetic, 0d,
+                2d, -8d, 18d),
+            actual
+        );
+    }
+
+    // endregion
+
     // region to Matrix and toParam
 
     @Test

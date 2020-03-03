@@ -6,6 +6,9 @@ import io.rala.math.utils.Copyable;
 import io.rala.math.utils.StreamIterable;
 
 import java.util.*;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.function.UnaryOperator;
 import java.util.stream.IntStream;
 
 /**
@@ -162,6 +165,50 @@ public class Vector<T extends Number>
         if (!isValidIndex(index)) throw new IndexOutOfBoundsException();
         T old = getVector().remove(index);
         return old == null ? getDefaultValue() : old;
+    }
+
+    // endregion
+
+    // region compute
+
+    /**
+     * @param index    index where new value is computed
+     * @param operator operator to apply to current value
+     * @return old value if existed or {@link #getDefaultValue()}
+     * @see #setValue(int, Number)
+     * @see #getValue(int)
+     */
+    public T compute(int index, UnaryOperator<T> operator) {
+        return setValue(index, operator.apply(getValue(index)));
+    }
+
+    /**
+     * @param index    index where new value is computed
+     * @param value    new value to use in computation
+     * @param operator operator to apply to old and new value
+     * @return old value if existed or {@link #getDefaultValue()}
+     * @see #setValue(int, Number)
+     * @see #getValue(int)
+     */
+    public T compute(int index, T value, BinaryOperator<T> operator) {
+        return setValue(index, operator.apply(getValue(index), value));
+    }
+
+    /**
+     * @param operator operator to apply to all entries
+     * @see #setValue(int, Number)
+     */
+    public void computeAll(Function<Entry, T> operator) {
+        forEach(entry -> setValue(entry.getIndex(), operator.apply(entry)));
+    }
+
+    /**
+     * @param value    function returning new value to use in computation
+     * @param operator operator to apply to all entries
+     * @see #computeAll(Function)
+     */
+    public void computeAll(Function<Entry, T> value, BinaryOperator<T> operator) {
+        computeAll(entry -> operator.apply(entry.getValue(), value.apply(entry)));
     }
 
     // endregion
