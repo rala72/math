@@ -630,7 +630,7 @@ public class Matrix<T extends Number>
             return Vector.ofList(getArithmetic(), getCol(0));
         if (getRows() == 1)
             return Vector.ofList(getArithmetic(), getRow(0)).transpose();
-        throw new IllegalStateException("Matrix has to have one row and/or one column");
+        throw new IllegalStateException("matrix has to have one row and/or one column");
     }
 
     /**
@@ -640,7 +640,7 @@ public class Matrix<T extends Number>
     public T toParam() {
         if (getRows() == 1 && getCols() == 1)
             return getValue(0, 0);
-        throw new IllegalStateException("Matrix has to contain only one value");
+        throw new IllegalStateException("matrix has to contain only one value");
     }
 
     // endregion

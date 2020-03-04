@@ -3,6 +3,7 @@ package io.rala.math.algebra.matrix;
 import io.rala.math.algebra.matrix.typed.BigDecimalMatrix;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.testUtils.algebra.TestMatrix;
+import io.rala.math.testUtils.algebra.TestVector;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -710,6 +711,108 @@ class MatrixTest {
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, r != 0 && (r == c || c == 0) ? 0d : 1d);
         assertEquals(2d, matrix.determinante());
+    }
+
+    // endregion
+
+    // region toVector and toParam
+
+    @Test
+    void TwoByTwoMatrixToVector() {
+        assertThrows(
+            IllegalStateException.class,
+            () -> new TestMatrix(2, 2).toVector()
+        );
+    }
+
+    @Test
+    void TwoByOneEmptyMatrixToVector() {
+        assertEquals(
+            new TestVector(2),
+            new TestMatrix(2, 1).toVector()
+        );
+    }
+
+    @Test
+    void TwoByOneNonEmptyMatrixToVector() {
+        TestMatrix matrix = new TestMatrix(2, 1);
+        matrix.setValue(0, 0, 1d);
+        matrix.setValue(1, 0, -4d);
+        assertEquals(
+            new TestVector(2, false),
+            matrix.toVector()
+        );
+    }
+
+    @Test
+    void OneByTwoEmptyMatrixToVector() {
+        assertEquals(
+            new TestVector(2).transpose(),
+            new TestMatrix(1, 2).toVector()
+        );
+    }
+
+    @Test
+    void OneByTwoNonEmptyMatrixToVector() {
+        TestMatrix matrix = new TestMatrix(1, 2);
+        matrix.setValue(0, 0, 1d);
+        matrix.setValue(0, 1, -4d);
+        assertEquals(
+            new TestVector(2, false).transpose(),
+            matrix.toVector()
+        );
+    }
+
+    @Test
+    void OneByOneEmptyMatrixToVector() {
+        assertEquals(
+            new TestVector(1),
+            new TestMatrix(1, 1).toVector()
+        );
+    }
+
+    @Test
+    void OneByOneNonEmptyMatrixToVector() {
+        TestMatrix matrix = new TestMatrix(1, 1);
+        matrix.setValue(0, 0, 1d);
+        assertEquals(
+            new TestVector(1, false),
+            matrix.toVector()
+        );
+    }
+
+    @Test
+    void TwoByOneMatrixToParam() {
+        assertThrows(
+            IllegalStateException.class,
+            () -> new TestMatrix(2, 1).toParam()
+        );
+    }
+
+    @Test
+    void OneByTwoMatrixToParam() {
+        assertThrows(
+            IllegalStateException.class,
+            () -> new TestMatrix(1, 2).toParam()
+        );
+    }
+
+    @Test
+    void OneByOneEmptyMatrixToParam() {
+        assertEquals(
+            0d,
+            new TestMatrix(1, 1).toParam()
+        );
+    }
+
+    @Test
+    void OneByOneNonEmptyMatrixToParam() {
+        TestMatrix matrix = new TestMatrix(1, 1);
+        matrix.setValue(0, 0, 1d);
+        assertEquals(
+            1d,
+            matrix.toParam()
+        );
     }
 
     // endregion
