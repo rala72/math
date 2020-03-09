@@ -845,11 +845,11 @@ public class Matrix<T extends Number>
     }
 
     @Override
+    @SuppressWarnings("unchecked") // can only fail in isEqual
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Matrix<?>)) return false;
         Matrix<?> matrix = (Matrix<?>) o;
-        //noinspection unchecked // can only fail in isEqual
         return getRows() == matrix.getRows() &&
             getCols() == matrix.getCols() &&
             LongStream.range(0, size()).allMatch(i ->
@@ -1206,11 +1206,11 @@ public class Matrix<T extends Number>
         }
 
         @Override
+        @SuppressWarnings("unchecked") // can only fail in isEqual
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Matrix<?>.Field field = (Matrix<?>.Field) o;
-            //noinspection unchecked // can only fail in isEqual
             return Objects.equals(getMatrix(), field.getMatrix()) &&
                 getIndex() == field.getIndex() &&
                 getArithmetic().isEqual(getValue(), (T) field.getValue());
