@@ -216,6 +216,14 @@ class DoubleMatrixTest {
     }
 
     @Test
+    void setValueByIndex2WichWasSet() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        matrix.setValue(2, 1d);
+        assertEquals(1, matrix.getValue(2));
+        assertEquals(1, matrix.setValue(2, 2d));
+    }
+
+    @Test
     void getValueByIndexMinus1() {
         DoubleMatrix matrix = new DoubleMatrix(2);
         assertThrows(IndexOutOfBoundsException.class,

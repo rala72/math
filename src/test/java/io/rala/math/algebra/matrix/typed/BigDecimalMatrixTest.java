@@ -228,6 +228,14 @@ class BigDecimalMatrixTest {
     }
 
     @Test
+    void setValueByIndex2WichWasSet() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        matrix.setValue(2, BigDecimal.ONE);
+        assertEquals(BigDecimal.ONE, matrix.getValue(2));
+        assertEquals(BigDecimal.ONE, matrix.setValue(2, BigDecimal.valueOf(2)));
+    }
+
+    @Test
     void getValueByIndexMinus1() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertThrows(IndexOutOfBoundsException.class,

@@ -233,6 +233,14 @@ class MatrixTest {
     }
 
     @Test
+    void setValueByIndex2WichWasSet() {
+        TestMatrix matrix = new TestMatrix(2);
+        matrix.setValue(2, 1);
+        assertEquals(1, matrix.getValue(2));
+        assertEquals(1, matrix.setValue(2, 2));
+    }
+
+    @Test
     void getValueByIndexMinus1() {
         TestMatrix matrix = new TestMatrix(2);
         assertThrows(IndexOutOfBoundsException.class,
