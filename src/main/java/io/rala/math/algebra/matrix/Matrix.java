@@ -547,10 +547,10 @@ public class Matrix<T extends Number>
     }
 
     /**
-     * @return determinante of matrix
+     * @return determinante of matrix or {@code 0}
      */
     public T determinante() {
-        if (size() == 0 || !isSquare()) return getDefaultValue();
+        if (size() == 0 || !isSquare()) return getArithmetic().zero();
         if (getRows() == 1) return getValue(0);
         if (getRows() == 2) {
             return getArithmetic().difference(
@@ -591,11 +591,11 @@ public class Matrix<T extends Number>
      * recursive implementation especially for matrices
      * with sizes greater than {@code 3}<br>
      *
-     * @return determinante of matrix
+     * @return determinante of matrix or {@code 0}
      * @see #determinante()
      */
     protected T determinanteRecursive() {
-        if (size() == 0 || !isSquare()) return getDefaultValue();
+        if (size() == 0 || !isSquare()) return getArithmetic().zero();
         boolean isRowMode = true;
         int index = 0;
         List<Field> zeros = parallelStream()
