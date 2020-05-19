@@ -427,7 +427,7 @@ public class Matrix<T extends Number>
      * and {@link #determinante()}!={@code 0}
      */
     public final boolean isInvertible() {
-        return isSquare() && !getArithmetic().isZero(determinante());
+        return isSquare() && !isZero(determinante());
     }
 
     // endregion
@@ -515,7 +515,7 @@ public class Matrix<T extends Number>
         if (!isSquare())
             throw new IllegalArgumentException(EXCEPTION_NO_SQUARE);
         T determinante = determinante();
-        if (determinante == null || isDefaultValue(determinante))
+        if (determinante == null || isZero(determinante))
             return null;
         T k = getArithmetic().quotient(getArithmetic().fromInt(1), determinante);
         Matrix<T> minorMatrix = new Matrix<>(getArithmetic(),
@@ -599,7 +599,7 @@ public class Matrix<T extends Number>
         boolean isRowMode = true;
         int index = 0;
         List<Field> zeros = parallelStream()
-            .filter(field -> getArithmetic().isZero(field.getValue()))
+            .filter(field -> isZero(field.getValue()))
             .collect(Collectors.toList());
         if (!zeros.isEmpty()) {
             Map.Entry<Integer, List<Field>> bestRow = getBestEntry(zeros, true);
@@ -1011,7 +1011,7 @@ public class Matrix<T extends Number>
         if (!isRowValid(row))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
         Matrix<T> copy = copy();
-        if (getArithmetic().isZero(n)) {
+        if (isZero(n)) {
             for (int i = 0; i < getCols(); i++)
                 copy.setValue(row, i, getArithmetic().zero());
             return copy;
@@ -1032,7 +1032,7 @@ public class Matrix<T extends Number>
         if (!isColValid(col))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
         Matrix<T> copy = copy();
-        if (getArithmetic().isZero(n)) {
+        if (isZero(n)) {
             for (int i = 0; i < getCols(); i++)
                 copy.setValue(i, col, getArithmetic().zero());
             return copy;
@@ -1055,7 +1055,7 @@ public class Matrix<T extends Number>
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row1);
         if (!isRowValid(row2))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row2);
-        if (getArithmetic().isZero(n))
+        if (isZero(n))
             return copy();
         if (row1 == row2) return multiplyRow(row1, n);
         Matrix<T> copy = copy();
@@ -1078,7 +1078,7 @@ public class Matrix<T extends Number>
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col1);
         if (!isColValid(col2))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col2);
-        if (getArithmetic().isZero(n))
+        if (isZero(n))
             return copy();
         if (col1 == col2) return multiplyCol(col1, n);
         Matrix<T> copy = copy();
@@ -1111,9 +1111,19 @@ public class Matrix<T extends Number>
     /**
      * @param t value to check
      * @return {@code true} if {@code t} is equal to {@link #getDefaultValue()}
+     * @see AbstractArithmetic#isEqual(Number, Number)
      */
     protected final boolean isDefaultValue(T t) {
         return getArithmetic().isEqual(getDefaultValue(), t);
+    }
+
+    /**
+     * @param t value to check
+     * @return {@code true} if {@link AbstractArithmetic#isZero(Number)} is
+     * @see AbstractArithmetic#isZero(Number)
+     */
+    protected final boolean isZero(T t) {
+        return getArithmetic().isZero(t);
     }
 
     /**
