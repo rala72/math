@@ -392,7 +392,7 @@ class DoubleMatrixTest {
 
     // endregion
 
-    // region isSquare and isDiagonal
+    // region isSquare, isDiagonal and isInvertible
 
     @Test
     void isSquareOfMatrixWithRow1Col2() {
@@ -422,6 +422,30 @@ class DoubleMatrixTest {
     @Test
     void isDiagonalOfDiagonalMatrix() {
         assertTrue(DoubleMatrix.diagonal(1, 2, 3).isDiagonal());
+    }
+
+    @Test
+    void isInvertibleOfMatrixWithSize2AndDeterminante0() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        matrix.setValue(0, 1d);
+        matrix.setValue(1, 2d);
+        matrix.setValue(2, 2d);
+        matrix.setValue(3, 4d);
+        assertTrue(matrix.isSquare());
+        assertTrue(matrix.getArithmetic().isZero(matrix.determinante()));
+        assertFalse(matrix.isInvertible());
+    }
+
+    @Test
+    void isInvertibleOfMatrixWithSize2AndDeterminanteNon0() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        matrix.setValue(0, 1d);
+        matrix.setValue(1, 0d);
+        matrix.setValue(2, 0d);
+        matrix.setValue(3, 4d);
+        assertTrue(matrix.isSquare());
+        assertFalse(matrix.getArithmetic().isZero(matrix.determinante()));
+        assertTrue(matrix.isInvertible());
     }
 
     // endregion

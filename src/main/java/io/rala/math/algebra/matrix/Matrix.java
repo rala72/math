@@ -402,7 +402,7 @@ public class Matrix<T extends Number>
 
     // endregion
 
-    // region isDiagonal
+    // region isSquare, isDiagonal and isInvertible
 
     /**
      * @return {@code true} if amount of rows and cols is equal
@@ -420,6 +420,14 @@ public class Matrix<T extends Number>
                 field.getValue() == null ||
                 field.getValue().doubleValue() == 0d
             );
+    }
+
+    /**
+     * @return {@code true} if {@link #isSquare()}
+     * and {@link #determinante()}!={@code 0}
+     */
+    public final boolean isInvertible() {
+        return isSquare() && !getArithmetic().isZero(determinante());
     }
 
     // endregion

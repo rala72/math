@@ -409,7 +409,7 @@ class MatrixTest {
 
     // endregion
 
-    // region isSquare and isDiagonal
+    // region isSquare, isDiagonal and isInvertible
 
     @Test
     void isSquareOfMatrixWithRow1Col2() {
@@ -444,6 +444,30 @@ class MatrixTest {
         matrix.setValue(2, 3);
         matrix.setValue(3, 4);
         assertFalse(matrix.isDiagonal());
+    }
+
+    @Test
+    void isInvertibleOfMatrixWithSize2AndDeterminante0() {
+        TestMatrix matrix = new TestMatrix(2);
+        matrix.setValue(0, 1);
+        matrix.setValue(1, 2);
+        matrix.setValue(2, 2);
+        matrix.setValue(3, 4);
+        assertTrue(matrix.isSquare());
+        assertTrue(matrix.getArithmetic().isZero(matrix.determinante()));
+        assertFalse(matrix.isInvertible());
+    }
+
+    @Test
+    void isInvertibleOfMatrixWithSize2AndDeterminanteNon0() {
+        TestMatrix matrix = new TestMatrix(2);
+        matrix.setValue(0, 1);
+        matrix.setValue(1, 0);
+        matrix.setValue(2, 0);
+        matrix.setValue(3, 4);
+        assertTrue(matrix.isSquare());
+        assertFalse(matrix.getArithmetic().isZero(matrix.determinante()));
+        assertTrue(matrix.isInvertible());
     }
 
     // endregion
