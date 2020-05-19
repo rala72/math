@@ -930,6 +930,26 @@ public class Matrix<T extends Number>
     }
 
     /**
+     * @return coFactor matrix
+     * @see #coFactor(int, int)
+     */
+    protected final Matrix<T> coFactorMatrix() {
+        if (!isSquare())
+            throw new IllegalArgumentException(EXCEPTION_NO_SQUARE);
+        Matrix<T> copy = copy();
+        copy.computeAll(field -> coFactor(field.getRow(), field.getCol()));
+        return copy;
+    }
+
+    /**
+     * @return transposed coFactorMatrix
+     * @see #coFactorMatrix()
+     */
+    protected final Matrix<T> adjunctMatrix() {
+        return coFactorMatrix().transpose();
+    }
+
+    /**
      * @param row row of matrix
      * @param col col of matrix
      * @return {@code (-1)^(row+col)}

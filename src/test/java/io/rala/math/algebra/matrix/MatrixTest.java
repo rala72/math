@@ -957,7 +957,7 @@ class MatrixTest {
 
     // endregion
 
-    // region protected: subMatrix, coFactor and signumFactor
+    // region protected: subMatrix, coFactor, coFactorMatrix and signumFactor
 
     @Test
     void subMatrixR0C0OfMatrixWithR1C2WichIsNoSquare() {
@@ -1056,6 +1056,39 @@ class MatrixTest {
         assertEquals(-2d, matrix.coFactor(0, 1));
         assertEquals(-2d, matrix.coFactor(1, 0));
         assertEquals(0d, matrix.coFactor(1, 1));
+    }
+
+    @Test
+    void coFactorMatrixOfMatrixWhichIsNoSquare() {
+        assertThrows(IllegalArgumentException.class,
+            () -> new TestMatrix(1, 2).coFactorMatrix()
+        ); // assert exception message?
+    }
+
+    @Test
+    void coFactorMatrixOfMatrixWithSize2() {
+        TestMatrix matrix = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, (double) i);
+
+        Matrix<Number> coFactorMatrix = matrix.coFactorMatrix();
+        assertEquals(0d, coFactorMatrix.getValue(0, 0));
+        assertEquals(-2d, coFactorMatrix.getValue(0, 1));
+        assertEquals(-2d, coFactorMatrix.getValue(1, 0));
+        assertEquals(0d, coFactorMatrix.getValue(1, 1));
+    }
+
+    @Test
+    void adjunctMatrixOfMatrixWithSize2() {
+        TestMatrix matrix = new TestMatrix(2);
+        for (int i = 0; i < matrix.size(); i++)
+            matrix.setValue(i, (double) i);
+
+        Matrix<Number> coFactorMatrix = matrix.adjunctMatrix();
+        assertEquals(0d, coFactorMatrix.getValue(0, 0));
+        assertEquals(-2d, coFactorMatrix.getValue(0, 1));
+        assertEquals(-2d, coFactorMatrix.getValue(1, 0));
+        assertEquals(0d, coFactorMatrix.getValue(1, 1));
     }
 
     @Test
