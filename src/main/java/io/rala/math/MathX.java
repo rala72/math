@@ -288,6 +288,7 @@ public class MathX {
      * @param a number to calc root
      * @param n number of root
      * @return calculated root
+     * @throws IllegalArgumentException if a is not positive
      * @see Math#pow(double, double)
      */
     public static double root(double a, int n) {
@@ -318,6 +319,7 @@ public class MathX {
      * @param context context to use
      * @return calculated root
      * or {@code null} if parameter is {@code null}
+     * @throws IllegalArgumentException if a is not positive
      */
     public static BigDecimal root(BigDecimal a, int n, MathContext context) {
         // https://stackoverflow.com/a/34074999/2715720

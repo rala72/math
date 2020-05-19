@@ -92,6 +92,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
 
     /**
      * @param numerator new numerator of fraction
+     * @throws IllegalArgumentException if numerator is {@code null}
      */
     public void setNumerator(T numerator) {
         if (numerator == null)
@@ -108,6 +109,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
 
     /**
      * @param denominator new denominator of fraction
+     * @throws IllegalArgumentException if denominator is {@code 0}
      */
     public void setDenominator(T denominator) {
         if (denominator == null)

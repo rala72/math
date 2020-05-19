@@ -32,6 +32,7 @@ public class Solution<E extends AbstractEquationSystem, T extends Number> {
      * @param equationSystem equation system to store
      * @param solution       solution values
      * @param state          state of solution
+     * @throws IllegalArgumentException if any argument is {@code null}
      */
     public Solution(E equationSystem, List<T> solution, State state) {
         if (equationSystem == null || solution == null || state == null)
