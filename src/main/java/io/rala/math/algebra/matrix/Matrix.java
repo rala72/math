@@ -437,6 +437,7 @@ public class Matrix<T extends Number>
     /**
      * @param matrix matrix to add
      * @return new matrix with calculated values
+     * @throws IllegalArgumentException if rows or cols are not equal
      */
     public Matrix<T> add(Matrix<T> matrix) {
         if (getRows() != matrix.getRows())
@@ -466,6 +467,7 @@ public class Matrix<T extends Number>
     /**
      * @param matrix matrix to multiply
      * @return new matrix with calculated values
+     * @throws IllegalArgumentException if cols are not equal param rows
      */
     public Matrix<T> multiply(Matrix<T> matrix) {
         if (getCols() != matrix.getRows())
@@ -510,6 +512,7 @@ public class Matrix<T extends Number>
 
     /**
      * @return new inverse matrix or {@code null} if there is none
+     * @throws IllegalArgumentException if {@link #isSquare()} is {@code false}
      */
     public Matrix<T> inverse() {
         if (!isSquare())
@@ -883,6 +886,7 @@ public class Matrix<T extends Number>
      * @param row row to exclude
      * @param col col to exclude
      * @return new sub matrix excluding specified row and col
+     * @throws IllegalArgumentException  if {@link #isSquare()} is {@code false}
      * @throws IndexOutOfBoundsException if row or col is invalid
      */
     protected final Matrix<T> subMatrix(int row, int col) {
@@ -909,6 +913,7 @@ public class Matrix<T extends Number>
      * @param row row of coFactor
      * @param col col of coFactor
      * @return coFactor of matrix
+     * @throws IllegalArgumentException  if {@link #isSquare()} is {@code false}
      * @throws IndexOutOfBoundsException if row or col is invalid
      * @see #subMatrix(int, int)
      * @see #signumFactor(int, int)
@@ -931,6 +936,7 @@ public class Matrix<T extends Number>
 
     /**
      * @return coFactor matrix
+     * @throws IllegalArgumentException if {@link #isSquare()} is {@code false}
      * @see #coFactor(int, int)
      */
     protected final Matrix<T> coFactorMatrix() {
@@ -1006,6 +1012,7 @@ public class Matrix<T extends Number>
      * @param row row to multiply
      * @param n   factor to use
      * @return new matrix with multiplied row
+     * @throws IndexOutOfBoundsException if row is invalid
      */
     protected Matrix<T> multiplyRow(int row, T n) {
         if (!isRowValid(row))
@@ -1027,6 +1034,7 @@ public class Matrix<T extends Number>
      * @param col col to multiply
      * @param n   factor to use
      * @return new matrix with multiplied col
+     * @throws IndexOutOfBoundsException if col is invalid
      */
     protected Matrix<T> multiplyCol(int col, T n) {
         if (!isColValid(col))
@@ -1049,6 +1057,7 @@ public class Matrix<T extends Number>
      * @param row2 row to multiply multiple times with other
      * @param n    factor to use
      * @return new matrix with multiplied rows
+     * @throws IndexOutOfBoundsException if row1 or row2 is invalid
      */
     protected Matrix<T> addRowMultipleTimes(int row1, int row2, T n) {
         if (!isRowValid(row1))
@@ -1072,6 +1081,7 @@ public class Matrix<T extends Number>
      * @param col2 col to multiply multiple times with other
      * @param n    factor to use
      * @return new matrix with multiplied cols
+     * @throws IndexOutOfBoundsException if col1 or col2 is invalid
      */
     protected Matrix<T> addColMultipleTimes(int col1, int col2, T n) {
         if (!isColValid(col1))
