@@ -1082,7 +1082,7 @@ public class Matrix<T extends Number>
 
     /**
      * @param t value to check
-     * @return {@code true} if t is equal to {@link #getDefaultValue()}
+     * @return {@code true} if {@code t} is equal to {@link #getDefaultValue()}
      */
     protected final boolean isDefaultValue(T t) {
         return getArithmetic().isEqual(getDefaultValue(), t);
