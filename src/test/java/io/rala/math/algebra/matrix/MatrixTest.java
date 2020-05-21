@@ -2,6 +2,7 @@ package io.rala.math.algebra.matrix;
 
 import io.rala.math.algebra.matrix.typed.BigDecimalMatrix;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
+import io.rala.math.exception.NotSupportedException;
 import io.rala.math.testUtils.algebra.TestMatrix;
 import org.junit.jupiter.api.Test;
 
@@ -635,7 +636,7 @@ class MatrixTest {
 
     @Test
     void inverseOfEmptyMatrixWichIsNoSquare() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NotSupportedException.class,
             () -> new TestMatrix(1, 2).inverse()
         ); // assert exception message?
     }
@@ -961,7 +962,7 @@ class MatrixTest {
 
     @Test
     void subMatrixR0C0OfMatrixWithR1C2WichIsNoSquare() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NotSupportedException.class,
             () -> new TestMatrix(1, 2).subMatrix(0, 0)
         ); // assert exception message?
     }
@@ -1027,7 +1028,7 @@ class MatrixTest {
 
     @Test
     void coFactorR0C0OfMatrixWithR1C2WichIsNoSquare() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NotSupportedException.class,
             () -> new TestMatrix(1, 2).coFactor(0, 0)
         ); // assert exception message?
     }
@@ -1060,7 +1061,7 @@ class MatrixTest {
 
     @Test
     void coFactorMatrixOfMatrixWhichIsNoSquare() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NotSupportedException.class,
             () -> new TestMatrix(1, 2).coFactorMatrix()
         ); // assert exception message?
     }

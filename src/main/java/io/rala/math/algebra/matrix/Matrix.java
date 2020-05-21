@@ -1,6 +1,7 @@
 package io.rala.math.algebra.matrix;
 
 import io.rala.math.arithmetic.AbstractArithmetic;
+import io.rala.math.exception.NotSupportedException;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.StreamIterable;
 
@@ -512,11 +513,11 @@ public class Matrix<T extends Number>
 
     /**
      * @return new inverse matrix or {@code null} if there is none
-     * @throws IllegalArgumentException if {@link #isSquare()} is {@code false}
+     * @throws NotSupportedException if {@link #isSquare()} is {@code false}
      */
     public Matrix<T> inverse() {
         if (!isSquare())
-            throw new IllegalArgumentException(EXCEPTION_NO_SQUARE);
+            throw new NotSupportedException(EXCEPTION_NO_SQUARE);
         T determinante = determinante();
         if (determinante == null || isZero(determinante))
             return null;
@@ -886,12 +887,12 @@ public class Matrix<T extends Number>
      * @param row row to exclude
      * @param col col to exclude
      * @return new sub matrix excluding specified row and col
-     * @throws IllegalArgumentException  if {@link #isSquare()} is {@code false}
+     * @throws NotSupportedException     if {@link #isSquare()} is {@code false}
      * @throws IndexOutOfBoundsException if row or col is invalid
      */
     protected final Matrix<T> subMatrix(int row, int col) {
         if (!isSquare())
-            throw new IllegalArgumentException(EXCEPTION_NO_SQUARE);
+            throw new NotSupportedException(EXCEPTION_NO_SQUARE);
         if (!isRowValid(row))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
         if (!isColValid(col))
@@ -913,14 +914,14 @@ public class Matrix<T extends Number>
      * @param row row of coFactor
      * @param col col of coFactor
      * @return coFactor of matrix
-     * @throws IllegalArgumentException  if {@link #isSquare()} is {@code false}
+     * @throws NotSupportedException  if {@link #isSquare()} is {@code false}
      * @throws IndexOutOfBoundsException if row or col is invalid
      * @see #subMatrix(int, int)
      * @see #signumFactor(int, int)
      */
     protected final T coFactor(int row, int col) {
         if (!isSquare())
-            throw new IllegalArgumentException(EXCEPTION_NO_SQUARE);
+            throw new NotSupportedException(EXCEPTION_NO_SQUARE);
         if (!isRowValid(row))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
         if (!isColValid(col))
@@ -936,12 +937,12 @@ public class Matrix<T extends Number>
 
     /**
      * @return coFactor matrix
-     * @throws IllegalArgumentException if {@link #isSquare()} is {@code false}
+     * @throws NotSupportedException if {@link #isSquare()} is {@code false}
      * @see #coFactor(int, int)
      */
     protected final Matrix<T> coFactorMatrix() {
         if (!isSquare())
-            throw new IllegalArgumentException(EXCEPTION_NO_SQUARE);
+            throw new NotSupportedException(EXCEPTION_NO_SQUARE);
         Matrix<T> copy = copy();
         copy.computeAll(field -> coFactor(field.getRow(), field.getCol()));
         return copy;

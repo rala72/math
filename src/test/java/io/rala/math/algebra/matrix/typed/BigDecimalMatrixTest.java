@@ -2,6 +2,7 @@ package io.rala.math.algebra.matrix.typed;
 
 import io.rala.math.algebra.matrix.Matrix;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
+import io.rala.math.exception.NotSupportedException;
 import io.rala.math.testUtils.algebra.TestMatrix;
 import org.junit.jupiter.api.Test;
 
@@ -628,7 +629,7 @@ class BigDecimalMatrixTest {
 
     @Test
     void inverseOfEmptyMatrixWichIsNoSquare() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NotSupportedException.class,
             () -> new BigDecimalMatrix(1, 2).inverse()
         ); // assert exception message?
     }
