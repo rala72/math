@@ -1,5 +1,7 @@
 package io.rala.math.arithmetic;
 
+import io.rala.math.exception.NotSupportedException;
+
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.function.Function;
@@ -118,6 +120,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @param a first value of quotient
      * @param b second value of quotient
      * @return reminder of division like {@code r=a-q*b}
+     * @throws NotSupportedException if operation is not supported
      * @see AbstractArithmetic#modulo(Number, Number)
      */
     public R modulo(T a, T b) {
