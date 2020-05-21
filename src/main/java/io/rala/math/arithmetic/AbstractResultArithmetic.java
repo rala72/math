@@ -54,7 +54,6 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @param a first value of sum
      * @param b second value of sum
      * @return {@code a+b}
-     * @throws AbstractArithmetic.NotImplementedException if operation is not implemented
      * @see AbstractArithmetic#sum(Number, Number)
      */
     public R sum(T a, T b) {
@@ -66,7 +65,6 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @param b second value of sum
      * @param c third value of sum
      * @return {@code a+b+c}
-     * @throws AbstractArithmetic.NotImplementedException if operation is not implemented
      * @see #sum(Number, Number)
      * @see AbstractArithmetic#sum(Number, Number, Number)
      */
@@ -78,7 +76,6 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @param a first value of difference
      * @param b second value of difference
      * @return {@code a-b}
-     * @throws AbstractArithmetic.NotImplementedException if operation is not implemented
      * @see AbstractArithmetic#difference(Number, Number)
      */
     public R difference(T a, T b) {
@@ -89,7 +86,6 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @param a first value of product
      * @param b second value of product
      * @return {@code a*b}
-     * @throws AbstractArithmetic.NotImplementedException if operation is not implemented
      * @see AbstractArithmetic#product(Number, Number)
      */
     public R product(T a, T b) {
@@ -101,7 +97,6 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @param b second value of product
      * @param c third value of product
      * @return {@code a*b*c}
-     * @throws AbstractArithmetic.NotImplementedException if operation is not implemented
      * @see #product(Number, Number)
      * @see AbstractArithmetic#product(Number, Number, Number)
      */
@@ -113,7 +108,6 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @param a first value of quotient
      * @param b second value of quotient
      * @return {@code a/b}
-     * @throws AbstractArithmetic.NotImplementedException if operation is not implemented
      * @see AbstractArithmetic#quotient(Number, Number)
      */
     public R quotient(T a, T b) {
@@ -124,7 +118,6 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @param a first value of quotient
      * @param b second value of quotient
      * @return reminder of division like {@code r=a-q*b}
-     * @throws AbstractArithmetic.NotImplementedException if operation is not implemented
      * @see AbstractArithmetic#modulo(Number, Number)
      */
     public R modulo(T a, T b) {
