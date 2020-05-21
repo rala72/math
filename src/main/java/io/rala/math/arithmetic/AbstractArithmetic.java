@@ -460,7 +460,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     // endregion
 
     /**
-     * thrown if operation is not supported
+     * thrown if operation is not implemented
      * <p>
      * may be used in similar context like {@link UnsupportedOperationException}
      */
