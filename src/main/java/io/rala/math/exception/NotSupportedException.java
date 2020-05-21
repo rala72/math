@@ -7,6 +7,13 @@ package io.rala.math.exception;
  */
 public class NotSupportedException extends RuntimeException {
     /**
+     * exception default message: {@code method not supported}
+     */
+    public NotSupportedException() {
+        super("method not supported");
+    }
+
+    /**
      * @param message message of exception
      */
     public NotSupportedException(String message) {

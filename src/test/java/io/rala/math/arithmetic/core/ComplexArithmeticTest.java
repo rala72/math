@@ -1,7 +1,7 @@
 package io.rala.math.arithmetic.core;
 
 import io.rala.math.algebra.numeric.Complex;
-import io.rala.math.arithmetic.AbstractArithmetic;
+import io.rala.math.exception.NotSupportedException;
 import io.rala.math.testUtils.arithmetic.TestComplexArithmetic;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -237,14 +237,14 @@ class ComplexArithmeticTest {
 
     @Test
     void gcd() {
-        assertThrows(AbstractArithmetic.NotImplementedException.class,
+        assertThrows(NotSupportedException.class,
             () -> arithmetic.gcd(create(1, 2), create(3, 4))
         ); // assert exception message?
     }
 
     @Test
     void lcm() {
-        assertThrows(AbstractArithmetic.NotImplementedException.class,
+        assertThrows(NotSupportedException.class,
             () -> arithmetic.lcm(create(1, 2), create(3, 4))
         ); // assert exception message?
     }

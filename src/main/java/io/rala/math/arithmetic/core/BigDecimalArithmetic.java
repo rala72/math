@@ -2,6 +2,7 @@ package io.rala.math.arithmetic.core;
 
 import io.rala.math.MathX;
 import io.rala.math.arithmetic.AbstractArithmetic;
+import io.rala.math.exception.NotSupportedException;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -138,7 +139,7 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
 
     @Override
     public BigDecimal gcd(BigDecimal a, BigDecimal b) {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
     // endregion

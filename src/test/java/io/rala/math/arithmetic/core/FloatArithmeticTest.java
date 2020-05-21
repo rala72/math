@@ -1,6 +1,6 @@
 package io.rala.math.arithmetic.core;
 
-import io.rala.math.arithmetic.AbstractArithmetic;
+import io.rala.math.exception.NotSupportedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -146,14 +146,14 @@ class FloatArithmeticTest {
 
     @Test
     void gcd() {
-        assertThrows(AbstractArithmetic.NotImplementedException.class,
+        assertThrows(NotSupportedException.class,
             () -> arithmetic.gcd(3f, 4f)
         ); // assert exception message?
     }
 
     @Test
     void lcm() {
-        assertThrows(AbstractArithmetic.NotImplementedException.class,
+        assertThrows(NotSupportedException.class,
             () -> arithmetic.lcm(3f, 4f)
         ); // assert exception message?
     }
