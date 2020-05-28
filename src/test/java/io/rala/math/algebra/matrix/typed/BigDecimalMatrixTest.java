@@ -169,6 +169,30 @@ class BigDecimalMatrixTest {
     // region value
 
     @Test
+    void getValueByIndexMinus1() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.getValue(-1)
+        ); // assert exception message?
+    }
+
+    @Test
+    void getValueByRowMinus1Col0() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.getValue(-1, 0)
+        ); // assert exception message?
+    }
+
+    @Test
+    void getValueByRow0ColMinus1() {
+        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
+        assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.getValue(0, -1)
+        ); // assert exception message?
+    }
+
+    @Test
     void setValueByIndexMinus1() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertThrows(IndexOutOfBoundsException.class,
@@ -234,30 +258,6 @@ class BigDecimalMatrixTest {
         matrix.setValue(2, BigDecimal.ONE);
         assertEquals(BigDecimal.ONE, matrix.getValue(2));
         assertEquals(BigDecimal.ONE, matrix.setValue(2, BigDecimal.valueOf(2)));
-    }
-
-    @Test
-    void getValueByIndexMinus1() {
-        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.getValue(-1)
-        ); // assert exception message?
-    }
-
-    @Test
-    void getValueByRowMinus1Col0() {
-        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.getValue(-1, 0)
-        ); // assert exception message?
-    }
-
-    @Test
-    void getValueByRow0ColMinus1() {
-        BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.getValue(0, -1)
-        ); // assert exception message?
     }
 
     @Test

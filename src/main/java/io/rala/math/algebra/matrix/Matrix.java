@@ -239,6 +239,30 @@ public class Matrix<T extends Number>
     // region value
 
     /**
+     * @param row row of requested value
+     * @param col col of requested value
+     * @return current value on given position
+     * @throws IndexOutOfBoundsException if row or col is invalid
+     * @see #getValue(long)
+     */
+    public T getValue(int row, int col) {
+        return getValue(getIndexOfRowAndCol(row, col));
+    }
+
+    /**
+     * @param index index of requested value
+     * @return current value on given position
+     * @throws IndexOutOfBoundsException if index is invalid
+     */
+    public T getValue(long index) {
+        if (!isIndexValid(index))
+            throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
+        return getMatrix()
+            .getOrDefault((int) (index / getCols()), Collections.emptyMap())
+            .getOrDefault((int) (index % getCols()), getDefaultValue());
+    }
+
+    /**
      * @param row   row where value should be stored
      * @param col   col where value should be stored
      * @param value new value to store
@@ -274,30 +298,6 @@ public class Matrix<T extends Number>
             );
             return previous.get();
         }
-    }
-
-    /**
-     * @param row row of requested value
-     * @param col col of requested value
-     * @return current value on given position
-     * @throws IndexOutOfBoundsException if row or col is invalid
-     * @see #getValue(long)
-     */
-    public T getValue(int row, int col) {
-        return getValue(getIndexOfRowAndCol(row, col));
-    }
-
-    /**
-     * @param index index of requested value
-     * @return current value on given position
-     * @throws IndexOutOfBoundsException if index is invalid
-     */
-    public T getValue(long index) {
-        if (!isIndexValid(index))
-            throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
-        return getMatrix()
-            .getOrDefault((int) (index / getCols()), Collections.emptyMap())
-            .getOrDefault((int) (index % getCols()), getDefaultValue());
     }
 
     /**
@@ -914,7 +914,7 @@ public class Matrix<T extends Number>
      * @param row row of coFactor
      * @param col col of coFactor
      * @return coFactor of matrix
-     * @throws NotSupportedException  if {@link #isSquare()} is {@code false}
+     * @throws NotSupportedException     if {@link #isSquare()} is {@code false}
      * @throws IndexOutOfBoundsException if row or col is invalid
      * @see #subMatrix(int, int)
      * @see #signumFactor(int, int)

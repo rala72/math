@@ -157,6 +157,30 @@ class DoubleMatrixTest {
     // region value
 
     @Test
+    void getValueByIndexMinus1() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.getValue(-1)
+        ); // assert exception message?
+    }
+
+    @Test
+    void getValueByRowMinus1Col0() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.getValue(-1, 0)
+        ); // assert exception message?
+    }
+
+    @Test
+    void getValueByRow0ColMinus1() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.getValue(0, -1)
+        ); // assert exception message?
+    }
+
+    @Test
     void setValueByIndexMinus1() {
         DoubleMatrix matrix = new DoubleMatrix(2);
         assertThrows(IndexOutOfBoundsException.class,
@@ -222,30 +246,6 @@ class DoubleMatrixTest {
         matrix.setValue(2, 1d);
         assertEquals(1, matrix.getValue(2));
         assertEquals(1, matrix.setValue(2, 2d));
-    }
-
-    @Test
-    void getValueByIndexMinus1() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.getValue(-1)
-        ); // assert exception message?
-    }
-
-    @Test
-    void getValueByRowMinus1Col0() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.getValue(-1, 0)
-        ); // assert exception message?
-    }
-
-    @Test
-    void getValueByRow0ColMinus1() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.getValue(0, -1)
-        ); // assert exception message?
     }
 
     @Test
