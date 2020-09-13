@@ -12,7 +12,7 @@ import java.util.function.Function;
  * class which holds a line in a 2d area with m &amp; b<br>
  * {@code y=m*x+b}<br>
  * if line is vertical m is considered to be {@code null}<br>
- * {@code y=b}
+ * {@code x=b}
  *
  * @param <T> number class
  */
