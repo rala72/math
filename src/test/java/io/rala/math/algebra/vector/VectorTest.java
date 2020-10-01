@@ -61,10 +61,10 @@ public class VectorTest {
 
     // endregion
 
-    // region length
+    // region getter and length
 
     @Test
-    void lengthOfEmptyVector() {
+    void createWithLength0AndAssertLengthEquals0() {
         assertEquals(
             0d,
             new TestVector(3).length()
@@ -72,7 +72,7 @@ public class VectorTest {
     }
 
     @Test
-    void lengthOfNonEmptyVector() {
+    void createWithLength3AndAssertLengthEquals98() {
         assertEquals(
             testAbstractArithmetic.root2(98d),
             new TestVector(3).fillWithTestValues().length()
