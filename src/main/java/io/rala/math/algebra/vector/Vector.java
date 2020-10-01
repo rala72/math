@@ -12,6 +12,7 @@ import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -295,12 +296,8 @@ public class Vector<T extends Number>
             throw new IllegalArgumentException(EXCEPTION_SIZES_UNEQUAL);
         if (getType() != vector.getType())
             throw new IllegalArgumentException(EXCEPTION_TYPES_UNEQUAL);
-        Vector<T> result =
-            new Vector<>(getArithmetic(), getSize(), getDefaultValue());
-        IntStream.range(0, getSize()).forEach(index -> result.setValue(
-            index,
-            getArithmetic().sum(getValue(index), vector.getValue(index))
-        ));
+        Vector<T> result = copy();
+        result.computeAll(entry -> getArithmetic().sum(entry.getValue(), vector.getValue(entry.getIndex())));
         result.removeDefaultValues();
         return result;
     }
@@ -318,12 +315,8 @@ public class Vector<T extends Number>
      * @return new vector with calculated values
      */
     public Vector<T> multiply(T scalar) {
-        Vector<T> result = new Vector<>(this);
-        for (int i = 0; i < getSize(); i++) {
-            result.setValue(i,
-                result.getArithmetic().product(result.getValue(i), scalar)
-            );
-        }
+        Vector<T> result = copy();
+        result.computeAll(entry -> getArithmetic().product(entry.getValue(), scalar));
         return result;
     }
 
@@ -407,10 +400,11 @@ public class Vector<T extends Number>
      */
     public T pNorm(int p) {
         if (p <= 0) throw new IllegalArgumentException(EXCEPTION_NOT_POSITIV_P_NORM);
-        Map<Integer, T> powers = new HashMap<>();
-        getVector().forEach(
-            (key, value) -> powers.put(key, getArithmetic().power(value, p))
-        );
+        Map<Integer, T> powers = getVector().entrySet().stream()
+            .map(integerTEntry -> Map.entry(
+                integerTEntry.getKey(),
+                getArithmetic().power(integerTEntry.getValue(), p)
+            )).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
         return getArithmetic().root(
             getArithmetic().absolute(
                 powers.values().stream().reduce(getArithmetic()::sum)
