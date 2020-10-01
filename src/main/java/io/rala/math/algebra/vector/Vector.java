@@ -646,13 +646,13 @@ public class Vector<T extends Number>
         }
 
         @Override
+        @SuppressWarnings("unchecked") // can only fail in isEqual
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Vector<?>.Entry entry = (Vector<?>.Entry) o;
-            if (Objects.equals(getVector(), entry.getVector())) return false;
-            //noinspection unchecked
-            return getIndex() == entry.getIndex() &&
+            return Objects.equals(getVector(), entry.getVector()) &&
+                getIndex() == entry.getIndex() &&
                 getArithmetic().isEqual(getValue(), (T) entry.getValue());
         }
 
