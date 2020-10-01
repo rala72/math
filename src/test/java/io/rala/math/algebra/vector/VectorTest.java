@@ -193,7 +193,7 @@ public class VectorTest {
     // region to Matrix and toParam
 
     @Test
-    void emptyColumnVectorToMatrix() {
+    void toMatrixOfVectorWithEmptyColumn() {
         assertEquals(
             new TestMatrix(3, 1),
             new TestVector(3).toMatrix()
@@ -201,7 +201,7 @@ public class VectorTest {
     }
 
     @Test
-    void emptyRowVectorToMatrix() {
+    void toMatrixOfVectorWithEmptyRow() {
         assertEquals(
             new TestMatrix(1, 3),
             new TestVector(3, Vector.Type.ROW).toMatrix()
@@ -209,7 +209,7 @@ public class VectorTest {
     }
 
     @Test
-    void nonEmptyVectorOfSizeOneToMatrix() {
+    void toMatrixOfNonEmptyVectorWithSize1() {
         assertEquals(
             new TestMatrix(1, 1d),
             new TestVector(1, 1d).toMatrix()
@@ -217,7 +217,7 @@ public class VectorTest {
     }
 
     @Test
-    void nonEmptyColumnVectorToMatrix() {
+    void toMatrixOfVectorWithNonEmptyColumn() {
         TestMatrix expected = new TestMatrix(4, 1);
         expected.setValue(0, 0, 1d);
         expected.setValue(1, 0, -4d);
@@ -230,7 +230,7 @@ public class VectorTest {
     }
 
     @Test
-    void nonEmptyRowVectorToMatrix() {
+    void toMatrixOfVectorWithNonEmptyRow() {
         TestMatrix expected = new TestMatrix(1, 4);
         expected.setValue(0, 0, 1d);
         expected.setValue(0, 1, -4d);
@@ -243,7 +243,7 @@ public class VectorTest {
     }
 
     @Test
-    void emptyVectorToParam() {
+    void toParamOfEmptyVector() {
         assertEquals(
             0d,
             new TestVector(1).toParam()
@@ -251,7 +251,7 @@ public class VectorTest {
     }
 
     @Test
-    void nonEmptyVectorToParam() {
+    void toParamOfNonEmptyVector() {
         assertEquals(
             1d,
             new TestVector(1).fillWithTestValues().toParam()
@@ -259,7 +259,7 @@ public class VectorTest {
     }
 
     @Test
-    void emptyVectorWithInvalidSizeToParam() {
+    void toParamOFEmptyVectorWithInvalidSize() {
         assertThrows(NotSupportedException.class,
             () -> new TestVector(2).toParam()
         ); // assert exception message?
@@ -929,11 +929,6 @@ public class VectorTest {
         default0.forEach(field -> default0.setValue(field.getIndex(), 1d));
         assertNotEquals(default0, new TestVector(2));
         assertEquals(default0, new TestVector(2, 1d));
-    }
-
-    @Test
-    void equalsOfTestVectorAndBigDecimalVector() {
-        // assertNotEquals(new TestVector(2), new BigDecimalVector(2));
     }
 
     @Test

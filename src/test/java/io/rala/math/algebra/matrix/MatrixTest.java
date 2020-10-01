@@ -1,6 +1,5 @@
 package io.rala.math.algebra.matrix;
 
-import io.rala.math.algebra.matrix.typed.BigDecimalMatrix;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.exception.NotSupportedException;
 import io.rala.math.testUtils.algebra.TestMatrix;
@@ -751,14 +750,14 @@ class MatrixTest {
     // region toVector and toParam
 
     @Test
-    void TwoByTwoMatrixToVector() {
+    void toVectorOfMatrixWithRow2Col2() {
         assertThrows(IllegalStateException.class,
             () -> new TestMatrix(2, 2).toVector()
         ); // assert exception message?
     }
 
     @Test
-    void TwoByOneEmptyMatrixToVector() {
+    void toVectorOfEmptyMatrixWithRow2Col1() {
         assertEquals(
             new TestVector(2),
             new TestMatrix(2, 1).toVector()
@@ -766,7 +765,7 @@ class MatrixTest {
     }
 
     @Test
-    void TwoByOneNonEmptyMatrixToVector() {
+    void toVectorOfNonEmptyMatrixWithRow2Col1() {
         TestMatrix matrix = new TestMatrix(2, 1);
         matrix.setValue(0, 0, 1d);
         matrix.setValue(1, 0, -4d);
@@ -777,7 +776,7 @@ class MatrixTest {
     }
 
     @Test
-    void OneByTwoEmptyMatrixToVector() {
+    void toVectorOfEmptyMatrixWithRow1Col2() {
         assertEquals(
             new TestVector(2).transpose(),
             new TestMatrix(1, 2).toVector()
@@ -785,7 +784,7 @@ class MatrixTest {
     }
 
     @Test
-    void OneByTwoNonEmptyMatrixToVector() {
+    void toVectorOfNonEmptyMatrixWithRow1Col2() {
         TestMatrix matrix = new TestMatrix(1, 2);
         matrix.setValue(0, 0, 1d);
         matrix.setValue(0, 1, -4d);
@@ -796,7 +795,7 @@ class MatrixTest {
     }
 
     @Test
-    void OneByOneEmptyMatrixToVector() {
+    void toVectorOfEmptyMatrixWithRow1Col1() {
         assertEquals(
             new TestVector(1),
             new TestMatrix(1, 1).toVector()
@@ -804,7 +803,7 @@ class MatrixTest {
     }
 
     @Test
-    void OneByOneNonEmptyMatrixToVector() {
+    void toVectorOfNonEmptyMatrixWithRow1Col1() {
         TestMatrix matrix = new TestMatrix(1, 1);
         matrix.setValue(0, 0, 1d);
         assertEquals(
@@ -814,21 +813,21 @@ class MatrixTest {
     }
 
     @Test
-    void TwoByOneMatrixToParam() {
+    void toParamOfMatrixWithRow2Col1() {
         assertThrows(IllegalStateException.class,
             () -> new TestMatrix(2, 1).toParam()
         ); // assert exception message?
     }
 
     @Test
-    void OneByTwoMatrixToParam() {
+    void toParamOfMatrixWithRow1Col2() {
         assertThrows(IllegalStateException.class,
             () -> new TestMatrix(1, 2).toParam()
         ); // assert exception message?
     }
 
     @Test
-    void OneByOneEmptyMatrixToParam() {
+    void toParamOfEmptyMatrixWithRow1Col1() {
         assertEquals(
             0d,
             new TestMatrix(1, 1).toParam()
@@ -836,7 +835,7 @@ class MatrixTest {
     }
 
     @Test
-    void OneByOneNonEmptyMatrixToParam() {
+    void toParamOfNonEmptyMatrixWithRow1Col1() {
         TestMatrix matrix = new TestMatrix(1, 1);
         matrix.setValue(0, 0, 1d);
         assertEquals(
@@ -1033,11 +1032,6 @@ class MatrixTest {
         default0.forEach(field -> default0.setValue(field.getIndex(), 1d));
         assertNotEquals(default0, new TestMatrix(2));
         assertEquals(default0, new TestMatrix(2, 1d));
-    }
-
-    @Test
-    void equalsOfTestMatrixAndBigDecimalMatrix() {
-        assertNotEquals(new TestMatrix(2), new BigDecimalMatrix(2));
     }
 
     @Test
