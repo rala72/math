@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class VectorTest {
 
@@ -58,6 +57,26 @@ public class VectorTest {
         assertEquals(
             2d,
             new TestVector(new TestVector(1, 2d)).getDefaultValue()
+        );
+    }
+
+    // endregion
+
+    // region length
+
+    @Test
+    void lengthOfEmptyVector() {
+        assertEquals(
+            0d,
+            new TestVector(3).length()
+        );
+    }
+
+    @Test
+    void lengthOfNonEmptyVector() {
+        assertEquals(
+            testAbstractArithmetic.root2(98d),
+            new TestVector(3).fillWithTestValues().length()
         );
     }
 
@@ -222,6 +241,29 @@ public class VectorTest {
             expected,
             new TestVector(4, Vector.Type.ROW).fillWithTestValues().toMatrix()
         );
+    }
+
+    @Test
+    void emptyVectorToParam() {
+        assertEquals(
+            0d,
+            new TestVector(1).toParam()
+        );
+    }
+
+    @Test
+    void nonEmptyVectorToParam() {
+        assertEquals(
+            1d,
+            new TestVector(1).fillWithTestValues().toParam()
+        );
+    }
+
+    @Test
+    void emptyVectorWithInvalidSizeToParam() {
+        assertThrows(IllegalArgumentException.class,
+            () -> new TestVector(2).toParam()
+        ); // assert exception message?
     }
 
     // endregion
@@ -857,8 +899,133 @@ public class VectorTest {
     // region override
 
     @Test
+    void copyOfVectorWithSize2() {
+        TestVector vector = new TestVector(2);
+        assertEquals(vector, vector.copy());
+    }
+
+    @Test
+    void iteratorOfEmptyVector() {
+        TestVector vector = new TestVector(2);
+        List<TestVector.Entry> values = new ArrayList<>();
+        for (TestVector.Entry d : vector) {
+            values.add(d);
+            assertEquals(0d, d.getValue());
+        }
+        assertEquals(vector.getSize(), values.size());
+    }
+
+    @Test
+    void streamOfEmptyVector() {
+        TestVector vector = new TestVector(2);
+        assertEquals(2, vector.stream().count());
+    }
+
+    @Test
+    void parallelStreamOfEmptyVector() {
+        TestVector vector = new TestVector(2);
+        assertEquals(2, vector.parallelStream().count());
+    }
+
+    @Test
+    void equalsOfTestVectorWithSize2() {
+        TestVector vector = new TestVector(2);
+        assertEquals(vector, new TestVector(2));
+        assertNotEquals(vector, new TestVector(3));
+    }
+
+    @Test
+    void equalsOfTestVectorWithDifferentDefaults() {
+        TestVector default0 = new TestVector(2);
+        default0.forEach(field -> default0.setValue(field.getIndex(), 1d));
+        assertNotEquals(default0, new TestVector(2));
+        assertEquals(default0, new TestVector(2, 1d));
+    }
+
+    @Test
+    void equalsOfTestVectorAndBigDecimalVector() {
+        // assertNotEquals(new TestVector(2), new BigDecimalVector(2));
+    }
+
+    @Test
+    void hashCodeOfTestVectorWithSize2() {
+        // hashCode changing after every start
+        assertEquals(
+            new TestVector(2).hashCode(),
+            new TestVector(2).hashCode()
+        );
+    }
+
+    @Test
+    void toStringOfTestVectorWithSize2() {
+        TestVector vector = new TestVector(2);
+        assertEquals("2: []", vector.toString());
+    }
+
+    @Test
     void serializable() {
         assertSerializable(new TestVector(2), TestVector.class);
+    }
+
+    // endregion
+
+    // region protected: validation
+
+    @Test
+    void isValidIndexOfVectorWithSize2() {
+        TestVector vector = new TestVector(2);
+        assertFalse(vector.isValidIndex(-1));
+        for (int i = 0; i < vector.getSize(); i++)
+            assertTrue(vector.isValidIndex(i));
+        assertFalse(vector.isValidIndex(vector.getSize()));
+    }
+
+    @Test
+    void isZeroOfEmptyVectorWithSize2() {
+        assertTrue(new TestVector(2).isZero());
+    }
+
+    @Test
+    void isZeroOfNonEmptyVectorWithSize2() {
+        assertFalse(new TestVector(2).fillWithTestValues().isZero());
+    }
+
+    // endregion
+
+    // region entry
+
+    @Test
+    void entryGetter() {
+        TestVector vector = new TestVector(2);
+        int index = 0;
+        for (Vector<Number>.Entry Entry : vector) {
+            assertEquals(index, Entry.getIndex());
+            assertEquals(vector, Entry.getVector());
+            index++;
+        }
+    }
+
+    @Test
+    void entryOverride() {
+        TestVector vector = new TestVector(2);
+        Vector<Number>.Entry previous = null;
+        for (Vector<Number>.Entry entry : vector) {
+            if (previous != null) assertNotEquals(previous, entry);
+            else assertEquals(
+                vector.new Entry(entry.getIndex(), entry.getValue()),
+                entry
+            );
+            assertTrue(0 < entry.hashCode());
+            assertEquals(
+                entry.getIndex() + ": " + entry.getValue(),
+                entry.toString()
+            );
+            previous = entry;
+        }
+
+        assertThrows(IndexOutOfBoundsException.class,
+            () -> vector.new Entry(vector.getSize(), 0)
+        ); // assert exception message?
     }
 
     // endregion
