@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static io.rala.math.testUtils.algebra.TestVector.fillVectorWithTestValues;
 import static io.rala.math.testUtils.assertion.MatrixAssertions.assertMatrix;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
 import static org.junit.jupiter.api.Assertions.*;
@@ -770,7 +771,7 @@ class MatrixTest {
         matrix.setValue(0, 0, 1d);
         matrix.setValue(1, 0, -4d);
         assertEquals(
-            new TestVector(2).fillWithTestValues(),
+            fillVectorWithTestValues(new TestVector(2)),
             matrix.toVector()
         );
     }
@@ -789,7 +790,7 @@ class MatrixTest {
         matrix.setValue(0, 0, 1d);
         matrix.setValue(0, 1, -4d);
         assertEquals(
-            new TestVector(2).fillWithTestValues().transpose(),
+            fillVectorWithTestValues(new TestVector(2)).transpose(),
             matrix.toVector()
         );
     }
@@ -807,7 +808,7 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(1, 1);
         matrix.setValue(0, 0, 1d);
         assertEquals(
-            new TestVector(1).fillWithTestValues(),
+            fillVectorWithTestValues(new TestVector(1)),
             matrix.toVector()
         );
     }

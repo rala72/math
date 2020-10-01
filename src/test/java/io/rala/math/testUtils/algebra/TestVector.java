@@ -1,8 +1,10 @@
 package io.rala.math.testUtils.algebra;
 
 import io.rala.math.algebra.vector.Vector;
+import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
 
+@SuppressWarnings("unused")
 public class TestVector extends Vector<Number> {
 
     // region constructors
@@ -29,12 +31,13 @@ public class TestVector extends Vector<Number> {
 
     // endregion
 
-    public TestVector fillWithTestValues() {
-        for (int i = 0; i < getSize(); i++) {
-            setValue(i, getArithmetic().product(
-                getArithmetic().power(i + 1, 2),
-                getArithmetic().power(getArithmetic().fromInt(-1), i)));
+    public static <V extends Vector<N>, N extends Number> V fillVectorWithTestValues(V vector) {
+        final AbstractArithmetic<N> arithmetic = vector.getArithmetic();
+        for (int i = 0; i < vector.getSize(); i++) {
+            vector.setValue(i, arithmetic.product(
+                arithmetic.power(arithmetic.fromInt(i + 1), 2),
+                arithmetic.power(arithmetic.fromInt(-1), i)));
         }
-        return this;
+        return vector;
     }
 }
