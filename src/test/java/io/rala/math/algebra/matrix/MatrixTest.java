@@ -772,7 +772,7 @@ class MatrixTest {
         matrix.setValue(0, 0, 1d);
         matrix.setValue(1, 0, -4d);
         assertEquals(
-            new TestVector(2, false),
+            new TestVector(2).fillWithTestValues(),
             matrix.toVector()
         );
     }
@@ -791,7 +791,7 @@ class MatrixTest {
         matrix.setValue(0, 0, 1d);
         matrix.setValue(0, 1, -4d);
         assertEquals(
-            new TestVector(2, false).transpose(),
+            new TestVector(2).fillWithTestValues().transpose(),
             matrix.toVector()
         );
     }
@@ -809,7 +809,7 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(1, 1);
         matrix.setValue(0, 0, 1d);
         assertEquals(
-            new TestVector(1, false),
+            new TestVector(1).fillWithTestValues(),
             matrix.toVector()
         );
     }
