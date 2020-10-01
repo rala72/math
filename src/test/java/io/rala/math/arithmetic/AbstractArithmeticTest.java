@@ -316,11 +316,4 @@ class AbstractArithmeticTest {
     }
 
     // endregion
-
-    @Test
-    void notImplementedException() {
-        assertThrows(AbstractArithmetic.NotImplementedException.class, () -> {
-            throw new AbstractArithmetic.NotImplementedException();
-        });
-    }
 }

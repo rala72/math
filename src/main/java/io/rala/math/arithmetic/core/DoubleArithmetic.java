@@ -2,6 +2,7 @@ package io.rala.math.arithmetic.core;
 
 import io.rala.math.MathX;
 import io.rala.math.arithmetic.AbstractArithmetic;
+import io.rala.math.exception.NotSupportedException;
 
 /**
  * class which handles {@link Double} arithmetic
@@ -87,7 +88,7 @@ public class DoubleArithmetic extends AbstractArithmetic<Double> {
 
     @Override
     public Double gcd(Double a, Double b) {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
     // endregion

@@ -1,7 +1,7 @@
 package io.rala.math.arithmetic.core;
 
-import io.rala.math.arithmetic.AbstractArithmetic;
-import org.junit.jupiter.api.BeforeAll;
+import io.rala.math.exception.NotSupportedException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -11,10 +11,10 @@ import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSeri
 import static org.junit.jupiter.api.Assertions.*;
 
 class BigDecimalArithmeticTest {
-    private static BigDecimalArithmetic arithmetic;
+    private BigDecimalArithmetic arithmetic;
 
-    @BeforeAll
-    static void beforeAll() {
+    @BeforeEach
+    void setUp() {
         arithmetic = new BigDecimalArithmetic();
     }
 
@@ -200,14 +200,14 @@ class BigDecimalArithmeticTest {
 
     @Test
     void gcd() {
-        assertThrows(AbstractArithmetic.NotImplementedException.class,
+        assertThrows(NotSupportedException.class,
             () -> arithmetic.gcd(BigDecimal.valueOf(3), BigDecimal.valueOf(4))
         ); // assert exception message?
     }
 
     @Test
     void lcm() {
-        assertThrows(AbstractArithmetic.NotImplementedException.class,
+        assertThrows(NotSupportedException.class,
             () -> arithmetic.gcd(BigDecimal.valueOf(3), BigDecimal.valueOf(4))
         ); // assert exception message?
     }

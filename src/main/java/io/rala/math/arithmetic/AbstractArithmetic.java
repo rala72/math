@@ -1,5 +1,7 @@
 package io.rala.math.arithmetic;
 
+import io.rala.math.exception.NotSupportedException;
+
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.function.Function;
@@ -16,21 +18,19 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     /**
      * @param a value from integer
      * @return number as {@code T}
-     * @throws NotImplementedException if operation is not implemented
      */
     public abstract T fromInt(int a);
 
     /**
      * @param a value from double
      * @return number as {@code T}
-     * @throws NotImplementedException if operation is not implemented
      */
     public abstract T fromDouble(double a);
 
     /**
      * @param a value to get signum
      * @return {@code -1} if negative, {@code 0} if zero or {@code 1} if positive
-     * @throws NotImplementedException if operation is not implemented
+     * @throws NotSupportedException if operation is not supported
      */
     public abstract double signum(T a);
 
@@ -65,7 +65,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     /**
      * @param a value to make absolute
      * @return absolute value of a
-     * @throws NotImplementedException if operation is not implemented
+     * @throws NotSupportedException if operation is not supported
      */
     public T absolute(T a) {
         return signum(a) < 0 || Double.valueOf(signum(a)).equals(-0d) ? negate(a) : a;
@@ -74,7 +74,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     /**
      * @param a value to negate
      * @return {@code -a}
-     * @throws NotImplementedException if operation is not implemented
+     * @throws NotSupportedException if operation is not supported
      */
     public T negate(T a) {
         return product(a, fromInt(-1));
@@ -84,7 +84,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @param a first value of comparison
      * @param b second value of comparison
      * @return {@link Comparable#compareTo(Object)}
-     * @throws NotImplementedException if operation is not implemented
+     * @throws NotSupportedException if operation is not supported
      * @implSpec default implementation uses {@link Double#compare(double, double)}
      * @see Comparable#compareTo(Object)
      */
@@ -141,7 +141,6 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @param a first value of sum
      * @param b second value of sum
      * @return {@code a+b}
-     * @throws NotImplementedException if operation is not implemented
      */
     public abstract T sum(T a, T b);
 
@@ -150,7 +149,6 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @param b second value of sum
      * @param c third value of sum
      * @return {@code a+b+c}
-     * @throws NotImplementedException if operation is not implemented
      * @implSpec default implementation uses {@link #sum(Number, Number)} twice
      * @see #sum(Number, Number)
      */
@@ -173,7 +171,6 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @param a first value of difference
      * @param b second value of difference
      * @return {@code a-b}
-     * @throws NotImplementedException if operation is not implemented
      */
     public abstract T difference(T a, T b);
 
@@ -181,7 +178,6 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @param a first value of product
      * @param b second value of product
      * @return {@code a*b}
-     * @throws NotImplementedException if operation is not implemented
      */
     public abstract T product(T a, T b);
 
@@ -190,7 +186,6 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @param b second value of product
      * @param c third value of product
      * @return {@code a*b*c}
-     * @throws NotImplementedException if operation is not implemented
      * @implSpec default implementation uses {@link #product(Number, Number)} twice
      * @see #product(Number, Number)
      */
@@ -213,7 +208,6 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @param a first value of quotient
      * @param b second value of quotient
      * @return {@code a/b}
-     * @throws NotImplementedException if operation is not implemented
      */
     public abstract T quotient(T a, T b);
 
@@ -221,7 +215,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @param a first value of quotient
      * @param b second value of quotient
      * @return reminder of division like {@code r=a-q*b}
-     * @throws NotImplementedException if operation is not implemented
+     * @throws NotSupportedException if operation is not supported
      */
     public T modulo(T a, T b) {
         T quotient = quotient(a, b);
@@ -237,7 +231,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @param a basis of power
      * @param b exponent of power
      * @return {@code a^b}
-     * @throws NotImplementedException if operation is not implemented
+     * @throws NotSupportedException if operation is not supported
      */
     public abstract T power(T a, int b);
 
@@ -245,14 +239,15 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @param a value
      * @param b degree of root
      * @return {@code root(a, b)}
-     * @throws NotImplementedException if operation is not implemented
+     * @throws NotSupportedException if operation is not supported
      */
     public abstract T root(T a, int b);
 
     /**
      * @param a value
      * @return {@code sqrt(a)}
-     * @throws NotImplementedException if operation is not implemented
+     * @throws NotSupportedException if operation is not supported
+     * @see #root(Number, int)
      */
     public T root2(T a) {
         return root(a, 2);
@@ -265,7 +260,6 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     /**
      * @param a value to check
      * @return {@code true} if value is finite
-     * @throws NotImplementedException if operation is not implemented
      * @implSpec default implementation uses {@link Double#isInfinite(double)}
      */
     public boolean isFinite(T a) {
@@ -275,7 +269,6 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     /**
      * @param a value to check
      * @return {@code true} if value is infinite
-     * @throws NotImplementedException if operation is not implemented
      * @implSpec default implementation uses {@link Double#isInfinite(double)}
      */
     public boolean isInfinite(T a) {
@@ -285,7 +278,6 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     /**
      * @param a value to check
      * @return {@code true} if value is NaN
-     * @throws NotImplementedException if operation is not implemented
      * @implSpec default implementation uses {@link Double#isNaN(double)}
      */
     public boolean isNaN(T a) {
@@ -300,7 +292,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @param a first value
      * @param b second value
      * @return greatest common divisor
-     * @throws NotImplementedException if operation is not implemented
+     * @throws NotSupportedException if operation is not supported
      */
     public abstract T gcd(T a, T b);
 
@@ -308,7 +300,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @param a first value
      * @param b second value
      * @return least common multiple
-     * @throws NotImplementedException if operation is not implemented
+     * @throws NotSupportedException if operation is not supported
      * @implSpec default implementation uses {@code abs(a*b)/gcd(a,b)}
      */
     public T lcm(T a, T b) {
@@ -322,7 +314,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     /**
      * @param a value to calc sin from
      * @return {@code sin(a)}
-     * @throws NotImplementedException if operation is not implemented
+     * @throws NotSupportedException if operation is not supported
      * @implSpec default implementation uses {@link Math#sin(double)}
      */
     public T sin(T a) {
@@ -332,7 +324,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     /**
      * @param a value to calc cos from
      * @return {@code cos(a)}
-     * @throws NotImplementedException if operation is not implemented
+     * @throws NotSupportedException if operation is not supported
      * @implSpec default implementation uses {@link Math#cos(double)}
      */
     public T cos(T a) {
@@ -342,7 +334,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     /**
      * @param a value to calc tan from
      * @return {@code tan(a)}
-     * @throws NotImplementedException if operation is not implemented
+     * @throws NotSupportedException if operation is not supported
      * @implSpec default implementation uses {@link Math#tan(double)}
      */
     public T tan(T a) {
@@ -352,7 +344,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     /**
      * @param a value to calc asin from
      * @return {@code asin(a)}
-     * @throws NotImplementedException if operation is not implemented
+     * @throws NotSupportedException if operation is not supported
      * @implSpec default implementation uses {@link Math#asin(double)}
      */
     public T asin(T a) {
@@ -362,7 +354,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     /**
      * @param a value to calc acos from
      * @return {@code acos(a)}
-     * @throws NotImplementedException if operation is not implemented
+     * @throws NotSupportedException if operation is not supported
      * @implSpec default implementation uses {@link Math#acos(double)}
      */
     public T acos(T a) {
@@ -372,7 +364,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     /**
      * @param a value to calc acos from
      * @return {@code atan(a)}
-     * @throws NotImplementedException if operation is not implemented
+     * @throws NotSupportedException if operation is not supported
      * @implSpec default implementation uses {@link Math#atan(double)}
      */
     public T atan(T a) {
@@ -382,7 +374,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     /**
      * @param a value to calc sin from
      * @return {@code sinh(a)}
-     * @throws NotImplementedException if operation is not implemented
+     * @throws NotSupportedException if operation is not supported
      * @implSpec default implementation uses {@link Math#sinh(double)}
      */
     public T sinh(T a) {
@@ -392,7 +384,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     /**
      * @param a value to calc cos from
      * @return {@code cosh(a)}
-     * @throws NotImplementedException if operation is not implemented
+     * @throws NotSupportedException if operation is not supported
      * @implSpec default implementation uses {@link Math#cosh(double)}
      */
     public T cosh(T a) {
@@ -402,7 +394,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     /**
      * @param a value to calc tan from
      * @return {@code tanh(a)}
-     * @throws NotImplementedException if operation is not implemented
+     * @throws NotSupportedException if operation is not supported
      * @implSpec default implementation uses {@link Math#tanh(double)}
      */
     public T tanh(T a) {
@@ -458,12 +450,4 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     }
 
     // endregion
-
-    /**
-     * thrown if operation is not supported
-     * <p>
-     * may be used in similar context like {@link UnsupportedOperationException}
-     */
-    public static class NotImplementedException extends RuntimeException {
-    }
 }

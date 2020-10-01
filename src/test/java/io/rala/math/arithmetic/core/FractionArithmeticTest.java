@@ -1,7 +1,7 @@
 package io.rala.math.arithmetic.core;
 
 import io.rala.math.algebra.numeric.Fraction;
-import io.rala.math.arithmetic.AbstractArithmetic;
+import io.rala.math.exception.NotSupportedException;
 import io.rala.math.testUtils.algebra.TestFraction;
 import io.rala.math.testUtils.arithmetic.TestFractionArithmetic;
 import org.junit.jupiter.api.BeforeAll;
@@ -215,14 +215,14 @@ class FractionArithmeticTest {
 
     @Test
     void gcd() {
-        assertThrows(AbstractArithmetic.NotImplementedException.class,
+        assertThrows(NotSupportedException.class,
             () -> arithmetic.gcd(new TestFraction(3d), new TestFraction(4d))
         ); // assert exception message?
     }
 
     @Test
     void lcm() {
-        assertThrows(AbstractArithmetic.NotImplementedException.class,
+        assertThrows(NotSupportedException.class,
             () -> arithmetic.lcm(new TestFraction(3d), new TestFraction(4d))
         ); // assert exception message?
     }

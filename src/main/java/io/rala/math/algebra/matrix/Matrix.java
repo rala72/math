@@ -2,6 +2,7 @@ package io.rala.math.algebra.matrix;
 
 import io.rala.math.algebra.vector.Vector;
 import io.rala.math.arithmetic.AbstractArithmetic;
+import io.rala.math.exception.NotSupportedException;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.StreamIterable;
 
@@ -239,6 +240,30 @@ public class Matrix<T extends Number>
     // region value
 
     /**
+     * @param row row of requested value
+     * @param col col of requested value
+     * @return current value on given position
+     * @throws IndexOutOfBoundsException if row or col is invalid
+     * @see #getValue(long)
+     */
+    public T getValue(int row, int col) {
+        return getValue(getIndexOfRowAndCol(row, col));
+    }
+
+    /**
+     * @param index index of requested value
+     * @return current value on given position
+     * @throws IndexOutOfBoundsException if index is invalid
+     */
+    public T getValue(long index) {
+        if (!isValidIndex(index))
+            throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
+        return getMatrix()
+            .getOrDefault((int) (index / getCols()), Collections.emptyMap())
+            .getOrDefault((int) (index % getCols()), getDefaultValue());
+    }
+
+    /**
      * @param row   row where value should be stored
      * @param col   col where value should be stored
      * @param value new value to store
@@ -274,30 +299,6 @@ public class Matrix<T extends Number>
             );
             return previous.get();
         }
-    }
-
-    /**
-     * @param row row of requested value
-     * @param col col of requested value
-     * @return current value on given position
-     * @throws IndexOutOfBoundsException if row or col is invalid
-     * @see #getValue(long)
-     */
-    public T getValue(int row, int col) {
-        return getValue(getIndexOfRowAndCol(row, col));
-    }
-
-    /**
-     * @param index index of requested value
-     * @return current value on given position
-     * @throws IndexOutOfBoundsException if index is invalid
-     */
-    public T getValue(long index) {
-        if (!isValidIndex(index))
-            throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
-        return getMatrix()
-            .getOrDefault((int) (index / getCols()), Collections.emptyMap())
-            .getOrDefault((int) (index % getCols()), getDefaultValue());
     }
 
     /**
@@ -403,7 +404,7 @@ public class Matrix<T extends Number>
 
     // endregion
 
-    // region isDiagonal and isSquare
+    // region isSquare, isDiagonal and isInvertible
 
     /**
      * @return {@code true} if amount of rows and cols is equal
@@ -423,6 +424,14 @@ public class Matrix<T extends Number>
             );
     }
 
+    /**
+     * @return {@code true} if {@link #isSquare()}
+     * and {@link #determinante()}!={@code 0}
+     */
+    public final boolean isInvertible() {
+        return isSquare() && !isZero(determinante());
+    }
+
     // endregion
 
     // region add and multiply
@@ -430,6 +439,7 @@ public class Matrix<T extends Number>
     /**
      * @param matrix matrix to add
      * @return new matrix with calculated values
+     * @throws IllegalArgumentException if rows or cols are not equal
      */
     public Matrix<T> add(Matrix<T> matrix) {
         if (getRows() != matrix.getRows())
@@ -459,7 +469,7 @@ public class Matrix<T extends Number>
     /**
      * @param matrix matrix to multiply
      * @return new matrix with calculated values
-     * @throws IllegalArgumentException if cols and matrix rows do not match
+     * @throws IllegalArgumentException if cols are not equal param rows
      */
     public Matrix<T> multiply(Matrix<T> matrix) {
         if (getCols() != matrix.getRows())
@@ -504,12 +514,13 @@ public class Matrix<T extends Number>
 
     /**
      * @return new inverse matrix or {@code null} if there is none
+     * @throws NotSupportedException if {@link #isSquare()} is {@code false}
      */
     public Matrix<T> inverse() {
         if (!isSquare())
-            throw new IllegalArgumentException(EXCEPTION_NO_SQUARE);
+            throw new NotSupportedException(EXCEPTION_NO_SQUARE);
         T determinante = determinante();
-        if (determinante == null || isDefaultValue(determinante))
+        if (determinante == null || isZero(determinante))
             return null;
         T k = getArithmetic().quotient(getArithmetic().fromInt(1), determinante);
         Matrix<T> minorMatrix = new Matrix<>(getArithmetic(),
@@ -541,10 +552,10 @@ public class Matrix<T extends Number>
     }
 
     /**
-     * @return determinante of matrix
+     * @return determinante of matrix or {@code 0}
      */
     public T determinante() {
-        if (size() == 0 || !isSquare()) return getDefaultValue();
+        if (size() == 0 || !isSquare()) return getArithmetic().zero();
         if (getRows() == 1) return getValue(0);
         if (getRows() == 2) {
             return getArithmetic().difference(
@@ -585,15 +596,15 @@ public class Matrix<T extends Number>
      * recursive implementation especially for matrices
      * with sizes greater than {@code 3}<br>
      *
-     * @return determinante of matrix
+     * @return determinante of matrix or {@code 0}
      * @see #determinante()
      */
     protected T determinanteRecursive() {
-        if (size() == 0 || !isSquare()) return getDefaultValue();
+        if (size() == 0 || !isSquare()) return getArithmetic().zero();
         boolean isRowMode = true;
         int index = 0;
         List<Field> zeros = parallelStream()
-            .filter(field -> getArithmetic().isZero(field.getValue()))
+            .filter(field -> isZero(field.getValue()))
             .collect(Collectors.toList());
         if (!zeros.isEmpty()) {
             Map.Entry<Integer, List<Field>> bestRow = getBestEntry(zeros, true);
@@ -874,11 +885,11 @@ public class Matrix<T extends Number>
     }
 
     @Override
+    @SuppressWarnings("unchecked") // can only fail in isEqual
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Matrix<?>)) return false;
         Matrix<?> matrix = (Matrix<?>) o;
-        //noinspection unchecked // can only fail in isEqual
         return getRows() == matrix.getRows() &&
             getCols() == matrix.getCols() &&
             LongStream.range(0, size()).allMatch(i ->
@@ -904,11 +915,12 @@ public class Matrix<T extends Number>
      * @param row row to exclude
      * @param col col to exclude
      * @return new sub matrix excluding specified row and col
+     * @throws NotSupportedException     if {@link #isSquare()} is {@code false}
      * @throws IndexOutOfBoundsException if row or col is invalid
      */
     protected final Matrix<T> subMatrix(int row, int col) {
         if (!isSquare())
-            throw new IllegalArgumentException(EXCEPTION_NO_SQUARE);
+            throw new NotSupportedException(EXCEPTION_NO_SQUARE);
         if (!isValidRow(row))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
         if (!isValidCol(col))
@@ -930,13 +942,14 @@ public class Matrix<T extends Number>
      * @param row row of coFactor
      * @param col col of coFactor
      * @return coFactor of matrix
+     * @throws NotSupportedException     if {@link #isSquare()} is {@code false}
      * @throws IndexOutOfBoundsException if row or col is invalid
      * @see #subMatrix(int, int)
      * @see #signumFactor(int, int)
      */
     protected final T coFactor(int row, int col) {
         if (!isSquare())
-            throw new IllegalArgumentException(EXCEPTION_NO_SQUARE);
+            throw new NotSupportedException(EXCEPTION_NO_SQUARE);
         if (!isValidRow(row))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
         if (!isValidCol(col))
@@ -948,6 +961,27 @@ public class Matrix<T extends Number>
             ),
             subMatrix(row, col).determinante()
         );
+    }
+
+    /**
+     * @return coFactor matrix
+     * @throws NotSupportedException if {@link #isSquare()} is {@code false}
+     * @see #coFactor(int, int)
+     */
+    protected final Matrix<T> coFactorMatrix() {
+        if (!isSquare())
+            throw new NotSupportedException(EXCEPTION_NO_SQUARE);
+        Matrix<T> copy = copy();
+        copy.computeAll(field -> coFactor(field.getRow(), field.getCol()));
+        return copy;
+    }
+
+    /**
+     * @return transposed coFactorMatrix
+     * @see #coFactorMatrix()
+     */
+    protected final Matrix<T> adjunctMatrix() {
+        return coFactorMatrix().transpose();
     }
 
     /**
@@ -1007,12 +1041,13 @@ public class Matrix<T extends Number>
      * @param row row to multiply
      * @param n   factor to use
      * @return new matrix with multiplied row
+     * @throws IndexOutOfBoundsException if row is invalid
      */
     protected Matrix<T> multiplyRow(int row, T n) {
         if (!isValidRow(row))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
         Matrix<T> copy = copy();
-        if (getArithmetic().isZero(n)) {
+        if (isZero(n)) {
             for (int i = 0; i < getCols(); i++)
                 copy.setValue(row, i, getArithmetic().zero());
             return copy;
@@ -1028,12 +1063,13 @@ public class Matrix<T extends Number>
      * @param col col to multiply
      * @param n   factor to use
      * @return new matrix with multiplied col
+     * @throws IndexOutOfBoundsException if col is invalid
      */
     protected Matrix<T> multiplyCol(int col, T n) {
         if (!isValidCol(col))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
         Matrix<T> copy = copy();
-        if (getArithmetic().isZero(n)) {
+        if (isZero(n)) {
             for (int i = 0; i < getCols(); i++)
                 copy.setValue(i, col, getArithmetic().zero());
             return copy;
@@ -1050,13 +1086,14 @@ public class Matrix<T extends Number>
      * @param row2 row to multiply multiple times with other
      * @param n    factor to use
      * @return new matrix with multiplied rows
+     * @throws IndexOutOfBoundsException if row1 or row2 is invalid
      */
     protected Matrix<T> addRowMultipleTimes(int row1, int row2, T n) {
         if (!isValidRow(row1))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row1);
         if (!isValidRow(row2))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row2);
-        if (getArithmetic().isZero(n))
+        if (isZero(n))
             return copy();
         if (row1 == row2) return multiplyRow(row1, n);
         Matrix<T> copy = copy();
@@ -1073,13 +1110,14 @@ public class Matrix<T extends Number>
      * @param col2 col to multiply multiple times with other
      * @param n    factor to use
      * @return new matrix with multiplied cols
+     * @throws IndexOutOfBoundsException if col1 or col2 is invalid
      */
     protected Matrix<T> addColMultipleTimes(int col1, int col2, T n) {
         if (!isValidCol(col1))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col1);
         if (!isValidCol(col2))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col2);
-        if (getArithmetic().isZero(n))
+        if (isZero(n))
             return copy();
         if (col1 == col2) return multiplyCol(col1, n);
         Matrix<T> copy = copy();
@@ -1111,10 +1149,20 @@ public class Matrix<T extends Number>
 
     /**
      * @param t value to check
-     * @return {@code true} if t is equal to {@link #getDefaultValue()}
+     * @return {@code true} if {@code t} is equal to {@link #getDefaultValue()}
+     * @see AbstractArithmetic#isEqual(Number, Number)
      */
     protected final boolean isDefaultValue(T t) {
         return getArithmetic().isEqual(getDefaultValue(), t);
+    }
+
+    /**
+     * @param t value to check
+     * @return {@code true} if {@link AbstractArithmetic#isZero(Number)} is
+     * @see AbstractArithmetic#isZero(Number)
+     */
+    protected final boolean isZero(T t) {
+        return getArithmetic().isZero(t);
     }
 
     /**
@@ -1235,13 +1283,14 @@ public class Matrix<T extends Number>
         }
 
         @Override
+        @SuppressWarnings("unchecked") // can only fail in isEqual
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Matrix<?>.Field field = (Matrix<?>.Field) o;
             return Objects.equals(getMatrix(), field.getMatrix()) &&
                 getIndex() == field.getIndex() &&
-                Objects.equals(getValue(), field.getValue());
+                getArithmetic().isEqual(getValue(), (T) field.getValue());
         }
 
         @Override

@@ -2,6 +2,7 @@ package io.rala.math.arithmetic.core;
 
 import io.rala.math.algebra.numeric.Complex;
 import io.rala.math.arithmetic.AbstractArithmetic;
+import io.rala.math.exception.NotSupportedException;
 
 import java.util.Objects;
 
@@ -105,7 +106,7 @@ public class ComplexArithmetic<T extends Number> extends AbstractArithmetic<Comp
 
     @Override
     public Complex<T> gcd(Complex<T> a, Complex<T> b) {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
     // endregion

@@ -2,6 +2,7 @@ package io.rala.math.algebra.matrix.typed;
 
 import io.rala.math.algebra.matrix.Matrix;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
+import io.rala.math.exception.NotSupportedException;
 import io.rala.math.testUtils.algebra.TestMatrix;
 import org.junit.jupiter.api.Test;
 
@@ -156,6 +157,30 @@ class DoubleMatrixTest {
     // region value
 
     @Test
+    void getValueByIndexMinus1() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.getValue(-1)
+        ); // assert exception message?
+    }
+
+    @Test
+    void getValueByRowMinus1Col0() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.getValue(-1, 0)
+        ); // assert exception message?
+    }
+
+    @Test
+    void getValueByRow0ColMinus1() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.getValue(0, -1)
+        ); // assert exception message?
+    }
+
+    @Test
     void setValueByIndexMinus1() {
         DoubleMatrix matrix = new DoubleMatrix(2);
         assertThrows(IndexOutOfBoundsException.class,
@@ -216,27 +241,11 @@ class DoubleMatrixTest {
     }
 
     @Test
-    void getValueByIndexMinus1() {
+    void setValueByIndex2WichWasSet() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.getValue(-1)
-        ); // assert exception message?
-    }
-
-    @Test
-    void getValueByRowMinus1Col0() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.getValue(-1, 0)
-        ); // assert exception message?
-    }
-
-    @Test
-    void getValueByRow0ColMinus1() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.getValue(0, -1)
-        ); // assert exception message?
+        matrix.setValue(2, 1d);
+        assertEquals(1, matrix.getValue(2));
+        assertEquals(1, matrix.setValue(2, 2d));
     }
 
     @Test
@@ -384,7 +393,7 @@ class DoubleMatrixTest {
 
     // endregion
 
-    // region isSquare and isDiagonal
+    // region isSquare, isDiagonal and isInvertible
 
     @Test
     void isSquareOfMatrixWithRow1Col2() {
@@ -414,6 +423,30 @@ class DoubleMatrixTest {
     @Test
     void isDiagonalOfDiagonalMatrix() {
         assertTrue(DoubleMatrix.diagonal(1, 2, 3).isDiagonal());
+    }
+
+    @Test
+    void isInvertibleOfMatrixWithSize2AndDeterminante0() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        matrix.setValue(0, 1d);
+        matrix.setValue(1, 2d);
+        matrix.setValue(2, 2d);
+        matrix.setValue(3, 4d);
+        assertTrue(matrix.isSquare());
+        assertTrue(matrix.getArithmetic().isZero(matrix.determinante()));
+        assertFalse(matrix.isInvertible());
+    }
+
+    @Test
+    void isInvertibleOfMatrixWithSize2AndDeterminanteNon0() {
+        DoubleMatrix matrix = new DoubleMatrix(2);
+        matrix.setValue(0, 1d);
+        matrix.setValue(1, 0d);
+        matrix.setValue(2, 0d);
+        matrix.setValue(3, 4d);
+        assertTrue(matrix.isSquare());
+        assertFalse(matrix.getArithmetic().isZero(matrix.determinante()));
+        assertTrue(matrix.isInvertible());
     }
 
     // endregion
@@ -555,7 +588,7 @@ class DoubleMatrixTest {
 
     @Test
     void inverseOfEmptyMatrixWichIsNoSquare() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NotSupportedException.class,
             () -> new DoubleMatrix(1, 2).inverse()
         ); // assert exception message?
     }

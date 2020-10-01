@@ -3,7 +3,7 @@ package io.rala.math.arithmetic.result;
 import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -15,10 +15,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BigIntegerBigDecimalResultArithmeticTest {
-    private static BigIntegerBigDecimalResultArithmetic arithmetic;
+    private BigIntegerBigDecimalResultArithmetic arithmetic;
 
-    @BeforeAll
-    static void beforeAll() {
+    @BeforeEach
+    void setUp() {
         arithmetic = new BigIntegerBigDecimalResultArithmetic();
     }
 

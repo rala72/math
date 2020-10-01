@@ -17,7 +17,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <maven.resources.skip>true</maven.resources.skip>
-        <junit.version>5.5.2</junit.version>
+        <junit.version>5.7.0</junit.version>
     </properties>
 
     <licenses>
@@ -34,10 +34,10 @@
         </developer>
     </developers>
 
-    <!--<scm>
+    <scm>
         <connection>git://github.com/rala72/math.git</connection>
         <url>http://github.com/rala72/math</url>
-    </scm>-->
+    </scm>
 
     <dependencies>
         <dependency>

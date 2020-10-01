@@ -3,6 +3,7 @@ package io.rala.math.arithmetic.core;
 import io.rala.math.algebra.numeric.Fraction;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.AbstractResultArithmetic;
+import io.rala.math.exception.NotSupportedException;
 
 import java.util.Objects;
 
@@ -117,7 +118,7 @@ public class FractionArithmetic<T extends Number, R extends Number>
 
     @Override
     public Fraction<T, R> gcd(Fraction<T, R> a, Fraction<T, R> b) {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
     // endregion

@@ -1,16 +1,16 @@
 package io.rala.math.arithmetic.core;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
 import static org.junit.jupiter.api.Assertions.*;
 
 class IntegerArithmeticTest {
-    private static IntegerArithmetic arithmetic;
+    private IntegerArithmetic arithmetic;
 
-    @BeforeAll
-    static void beforeAll() {
+    @BeforeEach
+    void setUp() {
         arithmetic = new IntegerArithmetic();
     }
 

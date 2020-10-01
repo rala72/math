@@ -2,6 +2,7 @@ package io.rala.math.algebra.numeric;
 
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.AbstractResultArithmetic;
+import io.rala.math.exception.NotSupportedException;
 import io.rala.math.utils.Copyable;
 
 import java.util.Objects;
@@ -92,6 +93,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
 
     /**
      * @param numerator new numerator of fraction
+     * @throws IllegalArgumentException if numerator is {@code null}
      */
     public void setNumerator(T numerator) {
         if (numerator == null)
@@ -108,6 +110,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
 
     /**
      * @param denominator new denominator of fraction
+     * @throws IllegalArgumentException if denominator is {@code 0}
      */
     public void setDenominator(T denominator) {
         if (denominator == null)
@@ -181,7 +184,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
         T gcd;
         try {
             gcd = tArithmetic.gcd(getNumerator(), getDenominator());
-        } catch (AbstractArithmetic.NotImplementedException e) {
+        } catch (NotSupportedException e) {
             return copy();
         }
         T newNumerator = tArithmetic.quotient(getNumerator(), gcd);
@@ -214,7 +217,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
         T lcm;
         try {
             lcm = tArithmetic.lcm(getDenominator(), fraction.getDenominator());
-        } catch (AbstractArithmetic.NotImplementedException e) {
+        } catch (NotSupportedException e) {
             lcm = tArithmetic.product(getDenominator(), fraction.getDenominator());
         }
         T t1 = tArithmetic.product(getNumerator(),

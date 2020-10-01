@@ -2,6 +2,7 @@ package io.rala.math.arithmetic.core;
 
 import io.rala.math.MathX;
 import io.rala.math.arithmetic.AbstractArithmetic;
+import io.rala.math.exception.NotSupportedException;
 
 /**
  * class which handles {@link Float} arithmetic
@@ -87,7 +88,7 @@ public class FloatArithmetic extends AbstractArithmetic<Float> {
 
     @Override
     public Float gcd(Float a, Float b) {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
     // endregion
