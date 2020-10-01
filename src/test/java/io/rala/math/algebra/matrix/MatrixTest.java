@@ -615,7 +615,7 @@ class MatrixTest {
         TestMatrix matrix2 = new TestMatrix(3, 4);
         assertThrows(IllegalArgumentException.class,
             () -> matrix1.multiplyTolerant(matrix2)
-        );
+        ); // assert exception message?
     }
 
     @Test
@@ -752,10 +752,9 @@ class MatrixTest {
 
     @Test
     void TwoByTwoMatrixToVector() {
-        assertThrows(
-            IllegalStateException.class,
+        assertThrows(IllegalStateException.class,
             () -> new TestMatrix(2, 2).toVector()
-        );
+        ); // assert exception message?
     }
 
     @Test
@@ -816,18 +815,16 @@ class MatrixTest {
 
     @Test
     void TwoByOneMatrixToParam() {
-        assertThrows(
-            IllegalStateException.class,
+        assertThrows(IllegalStateException.class,
             () -> new TestMatrix(2, 1).toParam()
-        );
+        ); // assert exception message?
     }
 
     @Test
     void OneByTwoMatrixToParam() {
-        assertThrows(
-            IllegalStateException.class,
+        assertThrows(IllegalStateException.class,
             () -> new TestMatrix(1, 2).toParam()
-        );
+        ); // assert exception message?
     }
 
     @Test
@@ -892,7 +889,7 @@ class MatrixTest {
     void ofValuesByRows2WithInvalidParamCount() {
         assertThrows(IllegalArgumentException.class,
             () -> TestMatrix.ofValuesByRows(2, 1)
-        );
+        ); // assert exception message?
     }
 
     @Test
@@ -906,7 +903,7 @@ class MatrixTest {
     void ofValuesByCols2WithInvalidParamCount() {
         assertThrows(IllegalArgumentException.class,
             () -> TestMatrix.ofValuesByCols(2, 1)
-        );
+        ); // assert exception message?
     }
 
     @Test

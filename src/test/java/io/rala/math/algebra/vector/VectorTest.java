@@ -1,5 +1,6 @@
 package io.rala.math.algebra.vector;
 
+import io.rala.math.exception.NotSupportedException;
 import io.rala.math.testUtils.algebra.TestMatrix;
 import io.rala.math.testUtils.algebra.TestVector;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
@@ -19,8 +20,7 @@ public class VectorTest {
 
     @Test
     void constructorWithNegativeSize() {
-        assertThrows(
-            IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new TestVector(-1)
         ); // assert exception message?
     }
@@ -36,8 +36,7 @@ public class VectorTest {
     void constructorWithSizeZero() {
         TestVector vector = new TestVector(0);
         assertEquals(0, vector.getSize());
-        assertThrows(
-            IndexOutOfBoundsException.class,
+        assertThrows(IndexOutOfBoundsException.class,
             () -> new TestVector(0).getValue(0)
         ); // assert exception message?
     }
@@ -261,7 +260,7 @@ public class VectorTest {
 
     @Test
     void emptyVectorWithInvalidSizeToParam() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NotSupportedException.class,
             () -> new TestVector(2).toParam()
         ); // assert exception message?
     }
@@ -272,18 +271,16 @@ public class VectorTest {
 
     @Test
     void addVectorDifferentSize() {
-        assertThrows(
-            IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new TestVector(2).add(new TestVector(3))
-        );
+        ); // assert exception message?
     }
 
     @Test
     void addVectorDifferentType() {
-        assertThrows(
-            IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new TestVector(2).add(new TestVector(2).transpose())
-        );
+        ); // assert exception message?
     }
 
     @Test
@@ -324,18 +321,16 @@ public class VectorTest {
 
     @Test
     void subtractVectorDifferentSize() {
-        assertThrows(
-            IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new TestVector(2).subtract(new TestVector(3))
-        );
+        ); // assert exception message?
     }
 
     @Test
     void subtractVectorDifferentType() {
-        assertThrows(
-            IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new TestVector(2).subtract(new TestVector(2).transpose())
-        );
+        ); // assert exception message?
     }
 
     @Test
@@ -400,27 +395,24 @@ public class VectorTest {
 
     @Test
     void multiplyVectorsDifferentSize() {
-        assertThrows(
-            IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new TestVector(3).transpose().multiply(new TestVector(4))
-        );
+        ); // assert exception message?
     }
 
     @Test
     void multiplyVectorsSameTypeColumn() {
-        assertThrows(
-            IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new TestVector(3).multiply(new TestVector(3))
-        );
+        ); // assert exception message?
     }
 
     @Test
     void multiplyVectorsSameTypeRow() {
-        assertThrows(
-            IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new TestVector(3).transpose()
                 .multiply(new TestVector(3).transpose())
-        );
+        ); // assert exception message?
     }
 
     @Test
@@ -742,10 +734,9 @@ public class VectorTest {
 
     @Test
     void negativePNorm() {
-        assertThrows(
-            IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
             () -> new TestVector(3).pNorm(-1)
-        );
+        ); // assert exception message?
     }
 
     @Test
@@ -766,10 +757,9 @@ public class VectorTest {
 
     @Test
     void unitVectorOfEmptyVector() {
-        assertThrows(
-            IllegalArgumentException.class,
+        assertThrows(NotSupportedException.class,
             () -> new TestVector(3).normalize()
-        );
+        ); // assert exception message?
     }
 
     @Test
@@ -798,10 +788,9 @@ public class VectorTest {
 
     @Test
     void angleBetweenEmptyVectors() {
-        assertThrows(
-            IllegalArgumentException.class,
+        assertThrows(NotSupportedException.class,
             () -> new TestVector(3).angle(new TestVector(3))
-        );
+        ); // assert exception message?
     }
 
     @Test

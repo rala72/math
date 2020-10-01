@@ -3,6 +3,7 @@ package io.rala.math.algebra.vector;
 import io.rala.math.algebra.matrix.Matrix;
 import io.rala.math.algebra.numeric.Fraction;
 import io.rala.math.arithmetic.AbstractArithmetic;
+import io.rala.math.exception.NotSupportedException;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.StreamIterable;
 
@@ -25,6 +26,23 @@ public class Vector<T extends Number>
      * describes whether a vector is {@link #COLUMN} or {@link #ROW}
      */
     public enum Type {ROW, COLUMN}
+
+    // region protected exception messages
+    protected static final String EXCEPTION_SIZE_GREATER_0 =
+        "size has to be greater than 0";
+    protected static final String EXCEPTION_SIZE_UNEQUAL_1 =
+        "size has to be exactly one";
+    protected static final String EXCEPTION_SIZES_UNEQUAL =
+        "sizes have to be equal";
+    protected static final String EXCEPTION_TYPES_UNEQUAL =
+        "types have to be either both row or column";
+    protected static final String EXCEPTION_NOT_POSITIV_P_NORM =
+        "may only calculate positive p-norm";
+    protected static final String EXCEPTION_ZERO_VECTOR_NO_NORMALIZE =
+        "zero vector can not be normalized";
+    protected static final String EXCEPTION_ZERO_VECTOR_NO_ANGLE =
+        "angle is not defined for zero vector";
+    // endregion
 
     // region attributes
 
@@ -90,7 +108,7 @@ public class Vector<T extends Number>
         AbstractArithmetic<T> arithmetic, int size, Type type, T defaultValue
     ) {
         if (size < 0)
-            throw new IllegalArgumentException("size has to be greater than 0");
+            throw new IllegalArgumentException(EXCEPTION_SIZE_GREATER_0);
         this.arithmetic = arithmetic;
         this.size = size;
         this.defaultValue = defaultValue;
@@ -257,11 +275,11 @@ public class Vector<T extends Number>
 
     /**
      * @return only entry of a size {@code 1} vector
-     * @throws IllegalArgumentException if size is unequal to {@code 1}
+     * @throws NotSupportedException if size is unequal to {@code 1}
      */
     public T toParam() {
         if (getSize() == 1) return getValue(0);
-        throw new IllegalArgumentException("vector has to contain exactly one entry");
+        throw new NotSupportedException(EXCEPTION_SIZE_UNEQUAL_1);
     }
 
     // endregion
@@ -274,9 +292,9 @@ public class Vector<T extends Number>
      */
     public Vector<T> add(Vector<T> vector) {
         if (getSize() != vector.getSize())
-            throw new IllegalArgumentException("sizes have to be equal");
+            throw new IllegalArgumentException(EXCEPTION_SIZES_UNEQUAL);
         if (getType() != vector.getType())
-            throw new IllegalArgumentException("vectors have to be either both row or both column");
+            throw new IllegalArgumentException(EXCEPTION_TYPES_UNEQUAL);
         Vector<T> result =
             new Vector<>(getArithmetic(), getSize(), getDefaultValue());
         IntStream.range(0, getSize()).forEach(index -> result.setValue(
@@ -388,7 +406,7 @@ public class Vector<T extends Number>
      * @throws IllegalArgumentException if p is less than {@code 1}
      */
     public T pNorm(int p) {
-        if (p <= 0) throw new IllegalArgumentException("may only calculate positive p-norm");
+        if (p <= 0) throw new IllegalArgumentException(EXCEPTION_NOT_POSITIV_P_NORM);
         Map<Integer, T> powers = new HashMap<>();
         getVector().forEach(
             (key, value) -> powers.put(key, getArithmetic().power(value, p))
@@ -406,11 +424,11 @@ public class Vector<T extends Number>
      * {@code float}, {@code double} and {@link Fraction}
      *
      * @return vector of {@link #length()} one
-     * @throws IllegalArgumentException if all values are {@code 0}
+     * @throws NotSupportedException if all values are {@code 0}
      */
     public Vector<T> normalize() {
         if (isZero())
-            throw new IllegalArgumentException("zero vector may not be normalized.");
+            throw new NotSupportedException(EXCEPTION_ZERO_VECTOR_NO_NORMALIZE);
         Vector<T> unit =
             new Vector<>(
                 getArithmetic(), getSize(), getType(), getDefaultValue()
@@ -430,10 +448,11 @@ public class Vector<T extends Number>
     /**
      * @param vector second vector of angle to calculate
      * @return angle in radian
+     * @throws NotSupportedException if any vector has only values equal {@code 0}
      */
     public T angle(Vector<T> vector) {
         if (isZero() || vector.isZero())
-            throw new IllegalArgumentException("angle is not defined for zero vector");
+            throw new NotSupportedException(EXCEPTION_ZERO_VECTOR_NO_ANGLE);
         return getArithmetic().acos(
             getArithmetic().quotient(
                 dotProduct(vector),
