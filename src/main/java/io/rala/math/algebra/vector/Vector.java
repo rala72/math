@@ -108,7 +108,7 @@ public class Vector<T extends Number>
     protected Vector(
         AbstractArithmetic<T> arithmetic, int size, Type type, T defaultValue
     ) {
-        if (size < 0)
+        if (size <= 0)
             throw new IllegalArgumentException(EXCEPTION_SIZE_GREATER_0);
         this.arithmetic = arithmetic;
         this.size = size;

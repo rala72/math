@@ -1,6 +1,6 @@
 package io.rala.math.algebra.vector;
 
-import io.rala.math.arithmetic.AbstractArithmetic;
+import io.rala.math.MathX;
 import io.rala.math.exception.NotSupportedException;
 import io.rala.math.testUtils.algebra.TestMatrix;
 import io.rala.math.testUtils.algebra.TestVector;
@@ -12,12 +12,10 @@ import java.util.List;
 
 import static io.rala.math.testUtils.algebra.TestVector.fillVectorWithTestValues;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.VectorAssertions.assertVector;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class VectorTest {
-
-    private final AbstractArithmetic<Number> arithmetic = new TestAbstractArithmetic();
-
     // region constructors
 
     @Test
@@ -28,19 +26,20 @@ public class VectorTest {
     }
 
     @Test
-    void constructorWithPositiveSize() {
-        int expectedSize = 1;
-        TestVector vector = new TestVector(expectedSize);
-        assertEquals(expectedSize, vector.getSize());
+    void constructorWithZeroSize() {
+        assertThrows(IllegalArgumentException.class,
+            () -> new TestVector(0)
+        ); // assert exception message?
     }
 
     @Test
-    void constructorWithSizeZero() {
-        TestVector vector = new TestVector(0);
-        assertEquals(0, vector.getSize());
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> new TestVector(0).getValue(0)
-        ); // assert exception message?
+    void constructorWithPositiveSize() {
+        assertVector(new TestVector(1), 1);
+    }
+
+    @Test
+    void constructorWithPositiveSizeAndType() {
+        assertVector(new TestVector(2, Vector.Type.ROW), 2, Vector.Type.ROW);
     }
 
     @Test
@@ -51,14 +50,9 @@ public class VectorTest {
 
     @Test
     void constructorWithVector() {
-        assertEquals(
-            1,
-            new TestVector(new TestVector(1, 2d)).getSize()
-        );
-        assertEquals(
-            2d,
-            new TestVector(new TestVector(1, 2d)).getDefaultValue()
-        );
+        TestVector vector = new TestVector(new TestVector(1, 2d));
+        assertVector(vector, 1);
+        assertEquals(2d, vector.getDefaultValue());
     }
 
     // endregion
@@ -67,16 +61,13 @@ public class VectorTest {
 
     @Test
     void createWithLength0AndAssertLengthEquals0() {
-        assertEquals(
-            0d,
-            new TestVector(3).length()
-        );
+        assertEquals(0d, new TestVector(3).length());
     }
 
     @Test
     void createWithLength3AndAssertLengthEquals98() {
         assertEquals(
-            arithmetic.root2(98d),
+            Math.sqrt(98),
             fillVectorWithTestValues(new TestVector(3)).length()
         );
     }
@@ -86,56 +77,57 @@ public class VectorTest {
     // region value
 
     @Test
-    void defaultZeroAllDefault() {
-        TestVector vector = new TestVector(3);
-        for (int i = 0; i < 3; i++) {
-            assertEquals(0d, vector.getValue(i));
-        }
+    void getValueByIndexMinus1() {
+        TestVector vector = new TestVector(2);
+        assertThrows(IndexOutOfBoundsException.class,
+            () -> vector.getValue(-1)
+        ); // assert exception message?
     }
 
     @Test
-    void defaultOneAllDefault() {
-        TestVector vector = new TestVector(3, 1d);
-        for (int i = 0; i < 3; i++) {
-            assertEquals(1d, vector.getValue(i));
-        }
+    void setValueByIndexMinus1() {
+        TestVector vector = new TestVector(2);
+        assertThrows(IndexOutOfBoundsException.class,
+            () -> vector.setValue(-1, 0)
+        ); // assert exception message?
     }
 
     @Test
-    void defaultZeroSomeDefault() {
-        TestVector vector = new TestVector(3);
-        vector.setValue(2, 3d);
-        for (int i = 0; i < 2; i++) {
-            assertEquals(0d, vector.getValue(i));
-        }
-        assertEquals(3d, vector.getValue(2));
+    void setValueByIndex0WhichWasUnset() {
+        TestVector vector = new TestVector(2);
+        assertEquals(0d, vector.setValue(0, 1));
+        assertEquals(1, vector.getValue(0));
     }
 
     @Test
-    void defaultOneSomeDefault() {
-        TestVector vector = new TestVector(3, 1d);
-        vector.setValue(2, 3d);
-        for (int i = 0; i < 2; i++) {
-            assertEquals(1d, vector.getValue(i));
-        }
-        assertEquals(3d, vector.getValue(2));
+    void setValueByIndex0WhichWasSet() {
+        TestVector vector = new TestVector(2);
+        vector.setValue(0, 1d);
+        assertEquals(1d, vector.setValue(0, 2));
+        assertEquals(2, vector.getValue(0));
     }
 
     @Test
-    void defaultZeroNoneDefault() {
-        TestVector vector = fillVectorWithTestValues(new TestVector(3));
-        assertEquals(1d, vector.getValue(0));
-        assertEquals(-4d, vector.getValue(1));
-        assertEquals(9d, vector.getValue(2));
+    void removeValueByIndexMinus1() {
+        TestVector vector = new TestVector(2);
+        assertThrows(IndexOutOfBoundsException.class,
+            () -> vector.removeValue(-1)
+        ); // assert exception message?
     }
 
     @Test
-    void defaultOneNoneDefault() {
-        TestVector vector = fillVectorWithTestValues(new TestVector(3));
-        vector.setValue(0, 7d);
-        assertEquals(7d, vector.getValue(0));
-        assertEquals(-4d, vector.getValue(1));
-        assertEquals(9d, vector.getValue(2));
+    void removeValueByIndex0WhichWasUnset() {
+        TestVector vector = new TestVector(2);
+        assertEquals(0d, vector.removeValue(0));
+        assertEquals(0d, vector.getValue(0));
+    }
+
+    @Test
+    void removeValueByIndex0WhichWasSet() {
+        TestVector vector = new TestVector(2);
+        vector.setValue(0, 1d);
+        assertEquals(1d, vector.removeValue(0));
+        assertEquals(0d, vector.getValue(0));
     }
 
     // endregion
@@ -144,49 +136,49 @@ public class VectorTest {
 
     @Test
     void computeFirstEntryTimesTwoUnary() {
-        TestVector actual = fillVectorWithTestValues(new TestVector(3));
+        TestVector vector = fillVectorWithTestValues(new TestVector(3));
         assertEquals(
             1d,
-            actual.compute(0, x -> arithmetic.product(2d, x))
+            vector.compute(0, x -> vector.getArithmetic().product(2d, x))
         );
         assertEquals(
-            Vector.ofValues(arithmetic, 2d, -4d, 9d),
-            actual
+            Vector.ofValues(vector.getArithmetic(), 2d, -4d, 9d),
+            vector
         );
     }
 
     @Test
     void computeFirstEntryTimesTwoBinary() {
-        TestVector actual = fillVectorWithTestValues(new TestVector(3));
+        TestVector vector = fillVectorWithTestValues(new TestVector(3));
         assertEquals(
             1d,
-            actual.compute(0, 2d, arithmetic::product)
+            vector.compute(0, 2d, vector.getArithmetic()::product)
         );
         assertEquals(
-            Vector.ofValues(arithmetic, 2d, -4d, 9d),
-            actual
+            Vector.ofValues(vector.getArithmetic(), 2d, -4d, 9d),
+            vector
         );
     }
 
     @Test
     void computeTimesTwoUnary() {
-        TestVector actual = fillVectorWithTestValues(new TestVector(3));
-        actual.computeAll(
-            x -> arithmetic.product(2d, x.getValue())
+        TestVector vector = fillVectorWithTestValues(new TestVector(3));
+        vector.computeAll(
+            x -> vector.getArithmetic().product(2d, x.getValue())
         );
         assertEquals(
-            TestVector.ofValues(arithmetic, 2d, -8d, 18d),
-            actual
+            TestVector.ofValues(vector.getArithmetic(), 2d, -8d, 18d),
+            vector
         );
     }
 
     @Test
     void computeTimesTwoBinary() {
-        TestVector actual = fillVectorWithTestValues(new TestVector(3));
-        actual.computeAll(x -> 2d, arithmetic::product);
+        TestVector vector = fillVectorWithTestValues(new TestVector(3));
+        vector.computeAll(x -> 2d, vector.getArithmetic()::product);
         assertEquals(
-            TestVector.ofValues(arithmetic, 2d, -8d, 18d),
-            actual
+            TestVector.ofValues(vector.getArithmetic(), 2d, -8d, 18d),
+            vector
         );
     }
 
@@ -281,7 +273,7 @@ public class VectorTest {
     @Test
     void addVectorDifferentType() {
         assertThrows(IllegalArgumentException.class,
-            () -> new TestVector(2).add(new TestVector(2).transpose())
+            () -> new TestVector(2).add(new TestVector(2, Vector.Type.ROW))
         ); // assert exception message?
     }
 
@@ -317,7 +309,8 @@ public class VectorTest {
         expected.setValue(2, 18d);
         assertEquals(
             expected,
-            fillVectorWithTestValues(new TestVector(3)).add(fillVectorWithTestValues(new TestVector(3)))
+            fillVectorWithTestValues(new TestVector(3))
+                .add(fillVectorWithTestValues(new TestVector(3)))
         );
     }
 
@@ -331,7 +324,7 @@ public class VectorTest {
     @Test
     void subtractVectorDifferentType() {
         assertThrows(IllegalArgumentException.class,
-            () -> new TestVector(2).subtract(new TestVector(2).transpose())
+            () -> new TestVector(2).subtract(new TestVector(2, Vector.Type.ROW))
         ); // assert exception message?
     }
 
@@ -363,7 +356,8 @@ public class VectorTest {
     void subtractNonEmptyVectorFromNonEmptyVector() {
         assertEquals(
             new TestVector(3),
-            fillVectorWithTestValues(new TestVector(3)).subtract(fillVectorWithTestValues(new TestVector(3)))
+            fillVectorWithTestValues(new TestVector(3))
+                .subtract(fillVectorWithTestValues(new TestVector(3)))
         );
     }
 
@@ -371,7 +365,7 @@ public class VectorTest {
     void multiplyNonEmptyVectorByZero() {
         assertEquals(
             new TestVector(3),
-            fillVectorWithTestValues(new TestVector(3)).multiply(arithmetic.zero())
+            fillVectorWithTestValues(new TestVector(3)).multiply(0)
         );
     }
 
@@ -379,7 +373,7 @@ public class VectorTest {
     void multiplyNonEmptyVectorByOne() {
         assertEquals(
             fillVectorWithTestValues(new TestVector(3)),
-            fillVectorWithTestValues(new TestVector(3)).multiply(arithmetic.one())
+            fillVectorWithTestValues(new TestVector(3)).multiply(1)
         );
     }
 
@@ -391,14 +385,14 @@ public class VectorTest {
         expected.setValue(2, 45d);
         assertEquals(
             expected,
-            fillVectorWithTestValues(new TestVector(3)).multiply(arithmetic.fromInt(5))
+            fillVectorWithTestValues(new TestVector(3)).multiply(5)
         );
     }
 
     @Test
     void multiplyVectorsDifferentSize() {
         assertThrows(IllegalArgumentException.class,
-            () -> new TestVector(3).transpose().multiply(new TestVector(4))
+            () -> new TestVector(3, Vector.Type.ROW).multiply(new TestVector(4))
         ); // assert exception message?
     }
 
@@ -412,8 +406,8 @@ public class VectorTest {
     @Test
     void multiplyVectorsSameTypeRow() {
         assertThrows(IllegalArgumentException.class,
-            () -> new TestVector(3).transpose()
-                .multiply(new TestVector(3).transpose())
+            () -> new TestVector(3, Vector.Type.ROW)
+                .multiply(new TestVector(3, Vector.Type.ROW))
         ); // assert exception message?
     }
 
@@ -421,7 +415,7 @@ public class VectorTest {
     void multiplyEmptyVectorsColumnRow() {
         assertEquals(
             new TestMatrix(2),
-            new TestVector(2).multiply(new TestVector(2).transpose())
+            new TestVector(2).multiply(new TestVector(2, Vector.Type.ROW))
         );
     }
 
@@ -429,7 +423,7 @@ public class VectorTest {
     void multiplyEmptyVectorsRowColumn() {
         assertEquals(
             new TestMatrix(1),
-            new TestVector(2).transpose().multiply(new TestVector(2))
+            new TestVector(2, Vector.Type.ROW).multiply(new TestVector(2))
         );
     }
 
@@ -443,7 +437,7 @@ public class VectorTest {
         assertEquals(
             expected,
             fillVectorWithTestValues(new TestVector(2))
-                .multiply(fillVectorWithTestValues(new TestVector(2)).transpose())
+                .multiply(fillVectorWithTestValues(new TestVector(2, Vector.Type.ROW)))
         );
     }
 
@@ -453,7 +447,7 @@ public class VectorTest {
         expected.setValue(0, 0, 17d);
         assertEquals(
             expected,
-            fillVectorWithTestValues(new TestVector(2)).transpose()
+            fillVectorWithTestValues(new TestVector(2, Vector.Type.ROW))
                 .multiply(fillVectorWithTestValues(new TestVector(2)))
         );
     }
@@ -463,7 +457,7 @@ public class VectorTest {
         assertEquals(
             new TestMatrix(2),
             fillVectorWithTestValues(new TestVector(2))
-                .multiply(new TestVector(2).transpose())
+                .multiply(new TestVector(2, Vector.Type.ROW))
         );
     }
 
@@ -471,7 +465,7 @@ public class VectorTest {
     void multiplyEmptyVectorToNonEmptyVectorRowColumn() {
         assertEquals(
             new TestMatrix(1),
-            fillVectorWithTestValues(new TestVector(2)).transpose()
+            fillVectorWithTestValues(new TestVector(2, Vector.Type.ROW))
                 .multiply(new TestVector(2))
         );
     }
@@ -481,7 +475,7 @@ public class VectorTest {
         assertEquals(
             new TestMatrix(2),
             new TestVector(2)
-                .multiply(fillVectorWithTestValues(new TestVector(2)).transpose())
+                .multiply(fillVectorWithTestValues(new TestVector(2, Vector.Type.ROW)))
         );
     }
 
@@ -489,7 +483,7 @@ public class VectorTest {
     void multiplyNonEmptyVectorToEmptyVectorRowColumn() {
         assertEquals(
             new TestMatrix(1),
-            new TestVector(2).transpose()
+            new TestVector(2, Vector.Type.ROW)
                 .multiply(fillVectorWithTestValues(new TestVector(2)))
         );
     }
@@ -535,7 +529,7 @@ public class VectorTest {
         assertEquals(
             0d,
             new TestVector(3)
-                .dotProduct(new TestVector(3).transpose())
+                .dotProduct(new TestVector(3, Vector.Type.ROW))
         );
     }
 
@@ -544,7 +538,7 @@ public class VectorTest {
         assertEquals(
             98d,
             fillVectorWithTestValues(new TestVector(3))
-                .dotProduct(fillVectorWithTestValues(new TestVector(3)).transpose())
+                .dotProduct(fillVectorWithTestValues(new TestVector(3, Vector.Type.ROW)))
         );
     }
 
@@ -553,7 +547,7 @@ public class VectorTest {
         assertEquals(
             0d,
             new TestVector(3)
-                .dotProduct(fillVectorWithTestValues(new TestVector(3)).transpose())
+                .dotProduct(fillVectorWithTestValues(new TestVector(3, Vector.Type.ROW)))
         );
     }
 
@@ -562,7 +556,7 @@ public class VectorTest {
         assertEquals(
             0d,
             fillVectorWithTestValues(new TestVector(3))
-                .dotProduct(new TestVector(3).transpose())
+                .dotProduct(new TestVector(3, Vector.Type.ROW))
         );
     }
 
@@ -570,7 +564,7 @@ public class VectorTest {
     void dotProductEmptyRowVectorEmptyColumnVector() {
         assertEquals(
             0d,
-            new TestVector(3).transpose()
+            new TestVector(3, Vector.Type.ROW)
                 .dotProduct(new TestVector(3))
         );
     }
@@ -579,7 +573,7 @@ public class VectorTest {
     void dotProductNonEmptyRowVectorNonEmptyColumnVector() {
         assertEquals(
             98d,
-            fillVectorWithTestValues(new TestVector(3)).transpose()
+            fillVectorWithTestValues(new TestVector(3, Vector.Type.ROW))
                 .dotProduct(fillVectorWithTestValues(new TestVector(3)))
         );
     }
@@ -588,7 +582,7 @@ public class VectorTest {
     void dotProductEmptyRowVectorNonEmptyColumnVector() {
         assertEquals(
             0d,
-            new TestVector(3).transpose()
+            new TestVector(3, Vector.Type.ROW)
                 .dotProduct(fillVectorWithTestValues(new TestVector(3)))
         );
     }
@@ -597,7 +591,7 @@ public class VectorTest {
     void dotProductNonEmptyRowVectorEmptyColumnVector() {
         assertEquals(
             0d,
-            fillVectorWithTestValues(new TestVector(3)).transpose()
+            fillVectorWithTestValues(new TestVector(3, Vector.Type.ROW))
                 .dotProduct(new TestVector(3))
         );
     }
@@ -606,8 +600,8 @@ public class VectorTest {
     void dotProductEmptyRowVectors() {
         assertEquals(
             0d,
-            new TestVector(3).transpose()
-                .dotProduct(new TestVector(3).transpose())
+            new TestVector(3, Vector.Type.ROW)
+                .dotProduct(new TestVector(3, Vector.Type.ROW))
         );
     }
 
@@ -615,8 +609,8 @@ public class VectorTest {
     void dotProductNonEmptyRowVectors() {
         assertEquals(
             98d,
-            fillVectorWithTestValues(new TestVector(3)).transpose()
-                .dotProduct(fillVectorWithTestValues(new TestVector(3)).transpose())
+            fillVectorWithTestValues(new TestVector(3, Vector.Type.ROW))
+                .dotProduct(fillVectorWithTestValues(new TestVector(3, Vector.Type.ROW)))
         );
     }
 
@@ -624,8 +618,8 @@ public class VectorTest {
     void dotProductEmptyRowVectorNonEmptyRowVector() {
         assertEquals(
             0d,
-            new TestVector(3).transpose()
-                .dotProduct(fillVectorWithTestValues(new TestVector(3)).transpose())
+            new TestVector(3, Vector.Type.ROW)
+                .dotProduct(fillVectorWithTestValues(new TestVector(3, Vector.Type.ROW)))
         );
     }
 
@@ -633,8 +627,8 @@ public class VectorTest {
     void dotProductNonEmptyRowVectorEmptyRowVector() {
         assertEquals(
             0d,
-            fillVectorWithTestValues(new TestVector(3)).transpose()
-                .dotProduct(new TestVector(3).transpose())
+            fillVectorWithTestValues(new TestVector(3, Vector.Type.ROW))
+                .dotProduct(new TestVector(3, Vector.Type.ROW))
         );
     }
 
@@ -729,7 +723,7 @@ public class VectorTest {
     @Test
     void euclideanNormNonEmptyVector() {
         assertEquals(
-            arithmetic.root2(98d),
+            Math.sqrt(98),
             fillVectorWithTestValues(new TestVector(3)).euclideanNorm()
         );
     }
@@ -752,7 +746,7 @@ public class VectorTest {
     @Test
     void sevenNormNonEmptyVector() {
         assertEquals(
-            arithmetic.root(4766586d, 7),
+            MathX.root(4766586d, 7),
             fillVectorWithTestValues(new TestVector(3)).pNorm(7)
         );
     }
@@ -767,17 +761,9 @@ public class VectorTest {
     @Test
     void unitVectorOfNonEmptyVector() {
         TestVector expected = new TestVector(3);
-        expected.setValue(0, arithmetic.quotient(
-            1,
-            arithmetic.root2(98)
-        ));
-        expected.setValue(1, arithmetic.quotient(
-            -4,
-            arithmetic.root2(98)
-        ));
-        expected.setValue(2, arithmetic.quotient(
-            9, arithmetic.root2(98)
-        ));
+        expected.setValue(0, 1 / Math.sqrt(98));
+        expected.setValue(1, -4 / Math.sqrt(98));
+        expected.setValue(2, 9 / Math.sqrt(98));
         assertEquals(
             expected,
             fillVectorWithTestValues(new TestVector(3)).normalize()
@@ -798,7 +784,7 @@ public class VectorTest {
     @Test
     void angleBetweenIdenticalVectors() {
         assertEquals(
-            arithmetic.zero(),
+            0d,
             fillVectorWithTestValues(new TestVector(3))
                 .angle(fillVectorWithTestValues(new TestVector(3)))
         );
@@ -807,33 +793,27 @@ public class VectorTest {
     @Test
     void angleBetweenParallelVectors() {
         assertEquals(
-            arithmetic.zero(),
-            fillVectorWithTestValues(new TestVector(3)).multiply(
-                arithmetic.fromInt(2)
-            ).angle(fillVectorWithTestValues(new TestVector(3)).multiply(
-                arithmetic.fromInt(3)
-            ))
+            0d,
+            fillVectorWithTestValues(new TestVector(3)).multiply(2)
+                .angle(fillVectorWithTestValues(new TestVector(3)).multiply(3))
         );
     }
 
     @Test
     void angleBetweenOppositeVectors() {
         assertEquals(
-            arithmetic.fromDouble(Math.PI),
-            fillVectorWithTestValues(new TestVector(3)).multiply(
-                arithmetic.fromInt(-2)
-            ).angle(fillVectorWithTestValues(new TestVector(3)).multiply(
-                arithmetic.fromInt(3)
-            ))
+            Math.PI,
+            fillVectorWithTestValues(new TestVector(3)).multiply(-2)
+                .angle(fillVectorWithTestValues(new TestVector(3)).multiply(3))
         );
     }
 
     @Test
     void angleBetweenNonEmptyVectors() {
         assertEquals(
-            arithmetic.fromDouble(Math.PI / 2),
-            Vector.ofValues(arithmetic, 0, 1, 0)
-                .angle(Vector.ofValues(arithmetic, 0, 0, 1))
+            Math.PI / 2,
+            Vector.ofValues(new TestAbstractArithmetic(), 0, 1, 0)
+                .angle(Vector.ofValues(new TestAbstractArithmetic(), 0, 0, 1))
         );
     }
 
@@ -842,40 +822,40 @@ public class VectorTest {
     // region static
 
     @Test
-    void emptyVectorOfValues() {
+    void ofValuesWithZeroValues() {
         assertEquals(
             new TestVector(4),
-            Vector.ofValues(arithmetic, 0d, 0d, 0d, 0d)
+            Vector.ofValues(new TestAbstractArithmetic(), 0d, 0d, 0d, 0d)
         );
     }
 
     @Test
-    void nonEmptyVectorOfValues() {
+    void ofValuesWithNonZeroValues() {
         assertEquals(
             fillVectorWithTestValues(new TestVector(4)),
-            Vector.ofValues(arithmetic, 1d, -4d, 9d, -16d)
+            Vector.ofValues(new TestAbstractArithmetic(), 1d, -4d, 9d, -16d)
         );
     }
 
     @Test
-    void emptyVectorOfList() {
+    void ofListWithZeroValues() {
         List<Number> list = new ArrayList<>();
         list.add(0d);
         list.add(0d);
         assertEquals(
             new TestVector(2),
-            Vector.ofList(arithmetic, list)
+            Vector.ofList(new TestAbstractArithmetic(), list)
         );
     }
 
     @Test
-    void nonEmptyVectorOfList() {
+    void ofListWithNonZeroValues() {
         List<Number> list = new ArrayList<>();
         list.add(1d);
         list.add(-4d);
         assertEquals(
             fillVectorWithTestValues(new TestVector(2)),
-            Vector.ofList(arithmetic, list)
+            Vector.ofList(new TestAbstractArithmetic(), list)
         );
     }
 
