@@ -4,6 +4,7 @@ import io.rala.math.algebra.equation.AbstractEquationSystem;
 import io.rala.math.algebra.equation.Solution;
 import io.rala.math.algebra.equation.linear.solver.GaussSolver;
 import io.rala.math.algebra.matrix.Matrix;
+import io.rala.math.algebra.vector.Vector;
 
 import java.util.Objects;
 
@@ -124,5 +125,82 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
         }
 
         // endregion
+    }
+
+    /**
+     * special {@link Vector} for linear equations
+     *
+     * @param <T> number class of {@link Vector}
+     */
+    public static class LinearEquationVector<T extends Number> extends Vector<T> {
+        /**
+         * creates a new equation vector from given vector
+         *
+         * @param vector vector to store
+         */
+        public LinearEquationVector(Vector<T> vector) {
+            super(vector);
+        }
+
+        /**
+         * @param index1 index1 to swap with index2
+         * @param index2 index2 to swap with index1
+         * @return new vector with swapped values
+         * @throws IndexOutOfBoundsException if index1 or index2 is invalid
+         */
+        public LinearEquationVector<T> swapValues(int index1, int index2) {
+            if (!isValidIndex(index1))
+                throw new IndexOutOfBoundsException(index1 + " / " + getSize());
+            if (!isValidIndex(index2))
+                throw new IndexOutOfBoundsException(index2 + " / " + getSize());
+            LinearEquationVector<T> copy = new LinearEquationVector<>(copy());
+            if (index1 == index2) return copy;
+            T value1 = copy.getValue(index1);
+            copy.setValue(index1, copy.getValue(index2));
+            copy.setValue(index2, value1);
+            return copy;
+        }
+
+        /**
+         * @param index index to multiply
+         * @param n     factor to use
+         * @return new vector with multiplied index
+         * @throws IndexOutOfBoundsException if index is invalid
+         */
+        public LinearEquationVector<T> multiplyValue(int index, T n) {
+            if (!isValidIndex(index))
+                throw new IndexOutOfBoundsException(index + " / " + getSize());
+            LinearEquationVector<T> copy = new LinearEquationVector<>(copy());
+            if (isZero() || getArithmetic().one().equals(n))
+                return copy;
+            if (getArithmetic().isZero(n)) {
+                copy.setValue(index, getArithmetic().zero());
+                return copy;
+            }
+            copy.compute(index, t -> getArithmetic().product(t, n));
+            return copy;
+        }
+
+        /**
+         * @param index1 index to multiply with other multiple times
+         * @param index2 index to multiply multiple times with other
+         * @param n      factor to use
+         * @return new vector with multiplied value
+         * @throws IndexOutOfBoundsException if index1 or index2 is invalid
+         */
+        public LinearEquationVector<T> addValueMultiplyTimes(int index1, int index2, T n) {
+            if (!isValidIndex(index1))
+                throw new IndexOutOfBoundsException(index1 + " / " + getSize());
+            if (!isValidIndex(index2))
+                throw new IndexOutOfBoundsException(index2 + " / " + getSize());
+            LinearEquationVector<T> copy = new LinearEquationVector<>(copy());
+            if (isZero()) return copy;
+            if (index1 == index2) return multiplyValue(index1, n);
+            copy.compute(index1,
+                getArithmetic().product(getValue(index2), n),
+                getArithmetic()::sum
+            );
+            return copy;
+        }
     }
 }
