@@ -93,8 +93,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     }
 
     /**
-     * @param a first value of comparision
-     * @param b second value of comparision
+     * @param a first value of comparison
+     * @param b second value of comparison
      * @return min value
      * @implSpec {@link #compare(Number, Number)} {@code <= 0 ? a : b}
      */
@@ -103,8 +103,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     }
 
     /**
-     * @param a first value of comparision
-     * @param b second value of comparision
+     * @param a first value of comparison
+     * @param b second value of comparison
      * @return max value
      * @implSpec {@link #compare(Number, Number)} {@code < 0 ? b : a}
      */
@@ -122,8 +122,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     }
 
     /**
-     * @param a first value of comparision
-     * @param b second value of comparision
+     * @param a first value of comparison
+     * @param b second value of comparison
      * @return {@code true} if both values are equal
      */
     public boolean isEqual(T a, T b) {

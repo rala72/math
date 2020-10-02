@@ -242,7 +242,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
     }
 
     /**
-     * class which stores two col indizes
+     * class which stores two col indices
      */
     protected static class ColPair {
         private final int col1;

@@ -491,7 +491,7 @@ public class Matrix<T extends Number>
     }
 
     /**
-     * calls {@link #multiply(Matrix)} but flips matrizen
+     * calls {@link #multiply(Matrix)} but flips matrices
      * if arithmetic does not work in provided order but in flipped one
      *
      * @param matrix matrix to multiply
