@@ -200,7 +200,7 @@ public class Matrix<T extends Number>
      */
     public List<Field> getRowFields(int row) {
         if (!isValidRow(row))
-            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
+            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row + " / " + getRows());
         return IntStream.range(0, getCols())
             .mapToObj(col -> new Field(row, col, getValue(row, col)))
             .collect(Collectors.toUnmodifiableList());
@@ -225,7 +225,7 @@ public class Matrix<T extends Number>
      */
     public List<Field> getColFields(int col) {
         if (!isValidCol(col))
-            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
+            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col + " / " + getCols());
         return IntStream.range(0, getRows())
             .mapToObj(row -> new Field(row, col, getValue(row, col)))
             .collect(Collectors.toUnmodifiableList());
@@ -265,7 +265,7 @@ public class Matrix<T extends Number>
      */
     public T getValue(long index) {
         if (!isValidIndex(index))
-            throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
+            throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + index + " / " + size());
         return getMatrix()
             .getOrDefault((int) (index / getCols()), Collections.emptyMap())
             .getOrDefault((int) (index % getCols()), getDefaultValue());
@@ -291,7 +291,7 @@ public class Matrix<T extends Number>
      */
     public T setValue(long index, T value) {
         if (!isValidIndex(index))
-            throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
+            throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + index + " / " + size());
         if (isDefaultValue(value))
             return removeValue(index);
         else {
@@ -327,7 +327,7 @@ public class Matrix<T extends Number>
      */
     public T removeValue(long index) {
         if (!isValidIndex(index))
-            throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
+            throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + index + " / " + size());
         AtomicReference<T> previous = new AtomicReference<>(getDefaultValue());
         getMatrix().compute((int) (index / getCols()), (integer, integerTMap) -> {
             if (integerTMap == null) return null;
@@ -930,9 +930,9 @@ public class Matrix<T extends Number>
         if (!isSquare())
             throw new NotSupportedException(EXCEPTION_NO_SQUARE);
         if (!isValidRow(row))
-            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
+            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row + " / " + getRows());
         if (!isValidCol(col))
-            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
+            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col + " / " + getCols());
         Matrix<T> subMatrix = new Matrix<>(getArithmetic(),
             getRows() - 1, getCols() - 1, getDefaultValue()
         );
@@ -959,9 +959,9 @@ public class Matrix<T extends Number>
         if (!isSquare())
             throw new NotSupportedException(EXCEPTION_NO_SQUARE);
         if (!isValidRow(row))
-            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
+            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row + " / " + getRows());
         if (!isValidCol(col))
-            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
+            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col + " / " + getCols());
         return getArithmetic().product(
             getArithmetic().product(
                 getValue(row, col),
@@ -1013,9 +1013,9 @@ public class Matrix<T extends Number>
      */
     protected Matrix<T> swapRows(int row1, int row2) {
         if (!isValidRow(row1))
-            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row1);
+            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row1 + " / " + getRows());
         if (!isValidRow(row2))
-            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row2);
+            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row2 + " / " + getRows());
         Matrix<T> copy = copy();
         if (row1 == row2) return copy;
         for (int c = 0; c < getCols(); c++) {
@@ -1033,9 +1033,9 @@ public class Matrix<T extends Number>
      */
     protected Matrix<T> swapCols(int col1, int col2) {
         if (!isValidCol(col1))
-            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col1);
+            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col1 + " / " + getCols());
         if (!isValidCol(col2))
-            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col2);
+            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col2 + " / " + getCols());
         Matrix<T> copy = copy();
         if (col1 == col2) return copy;
         for (int r = 0; r < getRows(); r++) {
@@ -1053,7 +1053,7 @@ public class Matrix<T extends Number>
      */
     protected Matrix<T> multiplyRow(int row, T n) {
         if (!isValidRow(row))
-            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
+            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row + " / " + getRows());
         Matrix<T> copy = copy();
         if (isZero(n)) {
             for (int i = 0; i < getCols(); i++)
@@ -1075,7 +1075,7 @@ public class Matrix<T extends Number>
      */
     protected Matrix<T> multiplyCol(int col, T n) {
         if (!isValidCol(col))
-            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
+            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col + " / " + getCols());
         Matrix<T> copy = copy();
         if (isZero(n)) {
             for (int i = 0; i < getCols(); i++)
@@ -1098,9 +1098,9 @@ public class Matrix<T extends Number>
      */
     protected Matrix<T> addRowMultipleTimes(int row1, int row2, T n) {
         if (!isValidRow(row1))
-            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row1);
+            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row1 + " / " + getRows());
         if (!isValidRow(row2))
-            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row2);
+            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row2 + " / " + getRows());
         if (isZero(n))
             return copy();
         if (row1 == row2) return multiplyRow(row1, n);
@@ -1122,9 +1122,9 @@ public class Matrix<T extends Number>
      */
     protected Matrix<T> addColMultipleTimes(int col1, int col2, T n) {
         if (!isValidCol(col1))
-            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col1);
+            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col1 + " / " + getCols());
         if (!isValidCol(col2))
-            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col2);
+            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col2 + " / " + getCols());
         if (isZero(n))
             return copy();
         if (col1 == col2) return multiplyCol(col1, n);
@@ -1149,9 +1149,9 @@ public class Matrix<T extends Number>
      */
     protected final long getIndexOfRowAndCol(int row, int col) {
         if (!isValidRow(row))
-            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row);
+            throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row + " / " + getRows());
         if (!isValidCol(col))
-            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col);
+            throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col + " / " + getCols());
         return (long) row * getCols() + col;
     }
 
@@ -1250,7 +1250,7 @@ public class Matrix<T extends Number>
          */
         protected Field(long index, T value) {
             if (!isValidIndex(index))
-                throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + size());
+                throw new IndexOutOfBoundsException(EXCEPTION_SIZE_PREFIX + index + " / " + size());
             this.index = index;
             this.value = value;
         }

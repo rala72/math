@@ -182,7 +182,7 @@ public class Vector<T extends Number>
      * @throws IndexOutOfBoundsException if index is invalid
      */
     public T getValue(int index) {
-        if (!isValidIndex(index)) throw new IndexOutOfBoundsException();
+        if (!isValidIndex(index)) throw new IndexOutOfBoundsException(index + " / " + getSize());
         return getVector().getOrDefault(index, getDefaultValue());
     }
 
@@ -193,7 +193,7 @@ public class Vector<T extends Number>
      * @throws IndexOutOfBoundsException if index is invalid
      */
     public T setValue(int index, T value) {
-        if (!isValidIndex(index)) throw new IndexOutOfBoundsException();
+        if (!isValidIndex(index)) throw new IndexOutOfBoundsException(index + " / " + getSize());
         if (getArithmetic().isEqual(value, getDefaultValue()))
             return removeValue(index);
         T old = getVector().put(index, value);
@@ -206,7 +206,7 @@ public class Vector<T extends Number>
      * @throws IndexOutOfBoundsException if index is invalid
      */
     public T removeValue(int index) {
-        if (!isValidIndex(index)) throw new IndexOutOfBoundsException();
+        if (!isValidIndex(index)) throw new IndexOutOfBoundsException(index + " / " + getSize());
         T old = getVector().remove(index);
         return old == null ? getDefaultValue() : old;
     }
@@ -635,7 +635,7 @@ public class Vector<T extends Number>
          */
         protected Entry(int index, T value) {
             if (!isValidIndex(index))
-                throw new IndexOutOfBoundsException("Invalid index: " + index);
+                throw new IndexOutOfBoundsException(index + " / " + getSize());
             this.index = index;
             this.value = value;
         }
