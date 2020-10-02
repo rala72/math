@@ -4,6 +4,8 @@ import io.rala.math.algebra.vector.Vector;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
 
+import java.util.List;
+
 @SuppressWarnings("unused")
 public class TestVector extends Vector<Number> {
 
@@ -25,8 +27,24 @@ public class TestVector extends Vector<Number> {
         super(new TestAbstractArithmetic(), size, type, defaultValue);
     }
 
-    public TestVector(TestVector vector) {
+    public TestVector(Vector<Number> vector) {
         super(vector);
+    }
+
+    // endregion
+
+    // region static: of
+
+    public static TestVector ofValues(Number... values) {
+        return new TestVector(
+            Vector.ofValues(new TestAbstractArithmetic(), values)
+        );
+    }
+
+    public static TestVector ofList(List<Number> values) {
+        return new TestVector(
+            Vector.ofList(new TestAbstractArithmetic(), values)
+        );
     }
 
     // endregion
