@@ -1093,7 +1093,7 @@ public class Matrix<T extends Number>
      * @param row1 row to multiply with other multiple times
      * @param row2 row to multiply multiple times with other
      * @param n    factor to use
-     * @return new matrix with multiplied rows
+     * @return new matrix with multiplied row
      * @throws IndexOutOfBoundsException if row1 or row2 is invalid
      */
     protected Matrix<T> addRowMultipleTimes(int row1, int row2, T n) {
@@ -1117,7 +1117,7 @@ public class Matrix<T extends Number>
      * @param col1 col to multiply with other multiple times
      * @param col2 col to multiply multiple times with other
      * @param n    factor to use
-     * @return new matrix with multiplied cols
+     * @return new matrix with multiplied col
      * @throws IndexOutOfBoundsException if col1 or col2 is invalid
      */
     protected Matrix<T> addColMultipleTimes(int col1, int col2, T n) {
