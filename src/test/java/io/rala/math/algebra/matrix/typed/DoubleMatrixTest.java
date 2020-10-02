@@ -451,7 +451,7 @@ class DoubleMatrixTest {
 
     // endregion
 
-    // region matrix arithmetic: add and multiply
+    // region add and multiply
 
     @Test
     void addOfEmptyMatrixWithSize1AndEmptyMatrixWithRows2Cols1() {
@@ -584,7 +584,7 @@ class DoubleMatrixTest {
 
     // endregion
 
-    // region matrix arithmetic: inverse, transpose and determinante
+    // region inverse, transpose and determinante
 
     @Test
     void inverseOfEmptyMatrixWichIsNoSquare() {

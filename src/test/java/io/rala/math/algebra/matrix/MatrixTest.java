@@ -3,11 +3,13 @@ package io.rala.math.algebra.matrix;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.exception.NotSupportedException;
 import io.rala.math.testUtils.algebra.TestMatrix;
+import io.rala.math.testUtils.algebra.TestVector;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static io.rala.math.testUtils.algebra.TestVector.fillVectorWithTestValues;
 import static io.rala.math.testUtils.assertion.MatrixAssertions.assertMatrix;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,13 +31,15 @@ class MatrixTest {
         long expectedSize = (long) Integer.MAX_VALUE * Integer.MAX_VALUE;
         assertEquals(expectedSize, matrix.size());
 
-        assertTrue(matrix.isIndexValid(expectedSize - 1));
-        assertFalse(matrix.isIndexValid(expectedSize));
+        assertTrue(matrix.isValidIndex(expectedSize - 1));
+        assertFalse(matrix.isValidIndex(expectedSize));
     }
 
     @Test
     void constructorWithSize0() {
-        assertMatrix(new TestMatrix(1), 1);
+        assertThrows(IllegalArgumentException.class,
+            () -> new TestMatrix(0)
+        ); // assert exception message?
     }
 
     @Test
@@ -472,7 +476,7 @@ class MatrixTest {
 
     // endregion
 
-    // region matrix arithmetic: add and multiply
+    // region add and multiply
 
     @Test
     void addOfEmptyMatrixWithSize1AndEmptyMatrixWithRows2Cols1() {
@@ -613,7 +617,7 @@ class MatrixTest {
         TestMatrix matrix2 = new TestMatrix(3, 4);
         assertThrows(IllegalArgumentException.class,
             () -> matrix1.multiplyTolerant(matrix2)
-        );
+        ); // assert exception message?
     }
 
     @Test
@@ -631,7 +635,7 @@ class MatrixTest {
 
     // endregion
 
-    // region matrix arithmetic: inverse, transpose and determinante
+    // region inverse, transpose and determinante
 
     @Test
     void inverseOfEmptyMatrixWichIsNoSquare() {
@@ -746,6 +750,105 @@ class MatrixTest {
 
     // endregion
 
+    // region toVector and toParam
+
+    @Test
+    void toVectorOfMatrixWithRow2Col2() {
+        assertThrows(NotSupportedException.class,
+            () -> new TestMatrix(2, 2).toVector()
+        ); // assert exception message?
+    }
+
+    @Test
+    void toVectorOfEmptyMatrixWithRow2Col1() {
+        assertEquals(
+            new TestVector(2),
+            new TestMatrix(2, 1).toVector()
+        );
+    }
+
+    @Test
+    void toVectorOfNonEmptyMatrixWithRow2Col1() {
+        TestMatrix matrix = new TestMatrix(2, 1);
+        matrix.setValue(0, 0, 1d);
+        matrix.setValue(1, 0, -4d);
+        assertEquals(
+            fillVectorWithTestValues(new TestVector(2)),
+            matrix.toVector()
+        );
+    }
+
+    @Test
+    void toVectorOfEmptyMatrixWithRow1Col2() {
+        assertEquals(
+            new TestVector(2).transpose(),
+            new TestMatrix(1, 2).toVector()
+        );
+    }
+
+    @Test
+    void toVectorOfNonEmptyMatrixWithRow1Col2() {
+        TestMatrix matrix = new TestMatrix(1, 2);
+        matrix.setValue(0, 0, 1d);
+        matrix.setValue(0, 1, -4d);
+        assertEquals(
+            fillVectorWithTestValues(new TestVector(2)).transpose(),
+            matrix.toVector()
+        );
+    }
+
+    @Test
+    void toVectorOfEmptyMatrixWithRow1Col1() {
+        assertEquals(
+            new TestVector(1),
+            new TestMatrix(1, 1).toVector()
+        );
+    }
+
+    @Test
+    void toVectorOfNonEmptyMatrixWithRow1Col1() {
+        TestMatrix matrix = new TestMatrix(1, 1);
+        matrix.setValue(0, 0, 1d);
+        assertEquals(
+            fillVectorWithTestValues(new TestVector(1)),
+            matrix.toVector()
+        );
+    }
+
+    @Test
+    void toParamOfMatrixWithRow2Col1() {
+        assertThrows(NotSupportedException.class,
+            () -> new TestMatrix(2, 1).toParam()
+        ); // assert exception message?
+    }
+
+    @Test
+    void toParamOfMatrixWithRow1Col2() {
+        assertThrows(NotSupportedException.class,
+            () -> new TestMatrix(1, 2).toParam()
+        ); // assert exception message?
+    }
+
+    @Test
+    void toParamOfEmptyMatrixWithRow1Col1() {
+        assertEquals(
+            0d,
+            new TestMatrix(1, 1).toParam()
+        );
+    }
+
+    @Test
+    void toParamOfNonEmptyMatrixWithRow1Col1() {
+        TestMatrix matrix = new TestMatrix(1, 1);
+        matrix.setValue(0, 0, 1d);
+        assertEquals(
+            1d,
+            matrix.toParam()
+        );
+    }
+
+    // endregion
+
     // region static: identity and diagonal
 
     @Test
@@ -788,7 +891,7 @@ class MatrixTest {
     void ofValuesByRows2WithInvalidParamCount() {
         assertThrows(IllegalArgumentException.class,
             () -> TestMatrix.ofValuesByRows(2, 1)
-        );
+        ); // assert exception message?
     }
 
     @Test
@@ -802,7 +905,7 @@ class MatrixTest {
     void ofValuesByCols2WithInvalidParamCount() {
         assertThrows(IllegalArgumentException.class,
             () -> TestMatrix.ofValuesByCols(2, 1)
-        );
+        ); // assert exception message?
     }
 
     @Test
@@ -1410,30 +1513,30 @@ class MatrixTest {
     }
 
     @Test
-    void isIndexValidOfMatrixWithSize2() {
+    void isValidIndexOfMatrixWithSize2() {
         TestMatrix matrix = new TestMatrix(2);
-        assertFalse(matrix.isIndexValid(-1));
+        assertFalse(matrix.isValidIndex(-1));
         for (int i = 0; i < matrix.size(); i++)
-            assertTrue(matrix.isIndexValid(i));
-        assertFalse(matrix.isIndexValid((int) matrix.size()));
+            assertTrue(matrix.isValidIndex(i));
+        assertFalse(matrix.isValidIndex((int) matrix.size()));
     }
 
     @Test
-    void isRowValidOfMatrixWithSize2() {
+    void isValidRowOfMatrixWithSize2() {
         TestMatrix matrix = new TestMatrix(2);
-        assertFalse(matrix.isRowValid(-1));
+        assertFalse(matrix.isValidRow(-1));
         for (int i = 0; i < matrix.getRows(); i++)
-            assertTrue(matrix.isRowValid(i));
-        assertFalse(matrix.isRowValid(matrix.getRows()));
+            assertTrue(matrix.isValidRow(i));
+        assertFalse(matrix.isValidRow(matrix.getRows()));
     }
 
     @Test
-    void isColValidOfMatrixWithSize2() {
+    void isValidColOfMatrixWithSize2() {
         TestMatrix matrix = new TestMatrix(2);
-        assertFalse(matrix.isColValid(-1));
+        assertFalse(matrix.isValidCol(-1));
         for (int i = 0; i < matrix.getCols(); i++)
-            assertTrue(matrix.isColValid(i));
-        assertFalse(matrix.isColValid(matrix.getCols()));
+            assertTrue(matrix.isValidCol(i));
+        assertFalse(matrix.isValidCol(matrix.getCols()));
     }
 
     // endregion
