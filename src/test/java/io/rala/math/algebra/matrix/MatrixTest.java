@@ -754,7 +754,7 @@ class MatrixTest {
 
     @Test
     void toVectorOfMatrixWithRow2Col2() {
-        assertThrows(IllegalStateException.class,
+        assertThrows(NotSupportedException.class,
             () -> new TestMatrix(2, 2).toVector()
         ); // assert exception message?
     }
@@ -817,14 +817,14 @@ class MatrixTest {
 
     @Test
     void toParamOfMatrixWithRow2Col1() {
-        assertThrows(IllegalStateException.class,
+        assertThrows(NotSupportedException.class,
             () -> new TestMatrix(2, 1).toParam()
         ); // assert exception message?
     }
 
     @Test
     void toParamOfMatrixWithRow1Col2() {
-        assertThrows(IllegalStateException.class,
+        assertThrows(NotSupportedException.class,
             () -> new TestMatrix(1, 2).toParam()
         ); // assert exception message?
     }
