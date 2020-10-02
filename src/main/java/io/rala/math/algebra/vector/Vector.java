@@ -179,6 +179,16 @@ public class Vector<T extends Number>
     // region value
 
     /**
+     * @param index of requested value
+     * @return value at index if exists or {@link #getDefaultValue()}
+     * @throws IndexOutOfBoundsException if index is invalid
+     */
+    public T getValue(int index) {
+        if (!isValidIndex(index)) throw new IndexOutOfBoundsException();
+        return getVector().getOrDefault(index, getDefaultValue());
+    }
+
+    /**
      * @param index index where value should be stored
      * @param value new value to store
      * @return old value if existed or {@link #getDefaultValue()}
@@ -190,16 +200,6 @@ public class Vector<T extends Number>
             return removeValue(index);
         T old = getVector().put(index, value);
         return old == null ? getDefaultValue() : old;
-    }
-
-    /**
-     * @param index of requested value
-     * @return value at index if exists or {@link #getDefaultValue()}
-     * @throws IndexOutOfBoundsException if index is invalid
-     */
-    public T getValue(int index) {
-        if (!isValidIndex(index)) throw new IndexOutOfBoundsException();
-        return getVector().getOrDefault(index, getDefaultValue());
     }
 
     /**
@@ -578,7 +578,7 @@ public class Vector<T extends Number>
 
     @Override
     public int hashCode() {
-        return Objects.hash(getVector(), getSize(), getDefaultValue(), getType());
+        return Objects.hash(getVector(), getSize(), getType(), getDefaultValue());
     }
 
     @Override
