@@ -317,6 +317,7 @@ public class Vector<T extends Number>
     public Vector<T> multiply(T scalar) {
         Vector<T> result = copy();
         result.computeAll(entry -> getArithmetic().product(entry.getValue(), scalar));
+        result.removeDefaultValues();
         return result;
     }
 
