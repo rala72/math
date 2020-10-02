@@ -37,7 +37,9 @@ class MatrixTest {
 
     @Test
     void constructorWithSize0() {
-        assertMatrix(new TestMatrix(1), 1);
+        assertThrows(IllegalArgumentException.class,
+            () -> new TestMatrix(0)
+        ); // assert exception message?
     }
 
     @Test
