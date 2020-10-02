@@ -113,7 +113,7 @@ public class Vector<T extends Number>
         this.arithmetic = arithmetic;
         this.size = size;
         this.defaultValue = defaultValue;
-        this.type = type;
+        this.type = type != null ? type : Type.COLUMN;
     }
 
     /**

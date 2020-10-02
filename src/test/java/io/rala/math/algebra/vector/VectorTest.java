@@ -43,6 +43,11 @@ public class VectorTest {
     }
 
     @Test
+    void constructorWithPositiveSizeAndTypeNull() {
+        assertVector(new TestVector(2, (Vector.Type) null), 2);
+    }
+
+    @Test
     void constructorWithSizeTenAndDefaultValue() {
         TestVector vector = new TestVector(10, 2d);
         assertEquals(2d, vector.getDefaultValue());

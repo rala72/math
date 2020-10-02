@@ -50,6 +50,11 @@ public class BigDecimalVectorTest {
     }
 
     @Test
+    void constructorWithPositiveSizeAndTypeNull() {
+        assertVector(new BigDecimalVector(2, (Vector.Type) null), 2);
+    }
+
+    @Test
     void constructorWithPositiveSizeAndTypeAndMathContext5() {
         assertVector(new BigDecimalVector(2, Vector.Type.ROW, new MathContext(5)),
             2, Vector.Type.ROW

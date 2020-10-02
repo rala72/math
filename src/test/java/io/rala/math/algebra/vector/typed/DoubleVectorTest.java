@@ -42,6 +42,11 @@ public class DoubleVectorTest {
     }
 
     @Test
+    void constructorWithPositiveSizeAndTypeNull() {
+        assertVector(new DoubleVector(2, null), 2);
+    }
+
+    @Test
     void constructorWithVector() {
         DoubleVector vector = new DoubleVector(new DoubleVector(1));
         assertVector(vector, 1);
