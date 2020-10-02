@@ -38,6 +38,10 @@ public class Matrix<T extends Number>
         "rows modulo values.length is not congruent 0";
     protected static final String EXCEPTION_COLS_NOT_CONGRUENT_0 =
         "cols modulo values.length is not congruent 0";
+    protected static final String EXCEPTION_ROW_OR_COLUMN_AMOUNT_NOT_1 =
+        "matrix has to have one row and/or one column";
+    protected static final String EXCEPTION_NOT_1X1 =
+        "matrix has to contain only one value";
     // endregion
 
     // region attributes
@@ -634,24 +638,24 @@ public class Matrix<T extends Number>
     /**
      * @return new vector from matrix row/column
      * prefers column vector if rows and columns are equal to one
-     * @throws IllegalStateException if columns and rows are more than one
+     * @throws NotSupportedException if columns and rows are more than one
      */
     public Vector<T> toVector() {
         if (getCols() == 1)
             return Vector.ofList(getArithmetic(), getCol(0));
         if (getRows() == 1)
             return Vector.ofList(getArithmetic(), getRow(0)).transpose();
-        throw new IllegalStateException("matrix has to have one row and/or one column");
+        throw new NotSupportedException(EXCEPTION_ROW_OR_COLUMN_AMOUNT_NOT_1);
     }
 
     /**
      * @return only entry of 1x1 matrix
-     * @throws IllegalStateException if matrix is not 1x1
+     * @throws NotSupportedException if matrix is not 1x1
      */
     public T toParam() {
         if (getRows() == 1 && getCols() == 1)
             return getValue(0, 0);
-        throw new IllegalStateException("matrix has to contain only one value");
+        throw new NotSupportedException(EXCEPTION_NOT_1X1);
     }
 
     // endregion
