@@ -28,6 +28,10 @@ public class Matrix<T extends Number>
     protected static final String EXCEPTION_SIZE_PREFIX = "size: ";
     protected static final String EXCEPTION_ROW_PREFIX = "row: ";
     protected static final String EXCEPTION_COL_PREFIX = "col: ";
+    protected static final String EXCEPTION_ROWS_UNEQUAL =
+        "rows have to be equal";
+    protected static final String EXCEPTION_COLS_UNEQUAL =
+        "cols have to be equal";
     protected static final String EXCEPTION_NO_SQUARE =
         "matrix has to be a square matrix";
     protected static final String EXCEPTION_ANY_COLS_EQUALS_OTHER_ROWS =
@@ -447,9 +451,9 @@ public class Matrix<T extends Number>
      */
     public Matrix<T> add(Matrix<T> matrix) {
         if (getRows() != matrix.getRows())
-            throw new IllegalArgumentException("rows have to be equal");
+            throw new IllegalArgumentException(EXCEPTION_ROWS_UNEQUAL);
         if (getCols() != matrix.getCols())
-            throw new IllegalArgumentException("cols have to be equal");
+            throw new IllegalArgumentException(EXCEPTION_COLS_UNEQUAL);
         Matrix<T> result = copy();
         result.computeAll(
             field -> matrix.getValue(field.getIndex()),

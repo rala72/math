@@ -29,8 +29,6 @@ public class Vector<T extends Number>
     public enum Type {ROW, COLUMN}
 
     // region protected exception messages
-    protected static final String EXCEPTION_SIZE_GREATER_0 =
-        "size has to be greater than 0";
     protected static final String EXCEPTION_SIZE_UNEQUAL_1 =
         "size has to be exactly one";
     protected static final String EXCEPTION_SIZES_UNEQUAL =
@@ -109,7 +107,7 @@ public class Vector<T extends Number>
         AbstractArithmetic<T> arithmetic, int size, Type type, T defaultValue
     ) {
         if (size <= 0)
-            throw new IllegalArgumentException(EXCEPTION_SIZE_GREATER_0);
+            throw new IllegalArgumentException("size has to be greater than 0");
         this.arithmetic = arithmetic;
         this.size = size;
         this.defaultValue = defaultValue;
