@@ -18,7 +18,8 @@ class LinearEquationSystemTest {
     @BeforeAll
     static void beforeAll() {
         matrix = TestMatrix.ofValuesByRows(2,
-            1, 2, 3, 4
+            1,
+            3
         );
         vector = TestVector.ofValues(2, 4);
     }
@@ -26,17 +27,39 @@ class LinearEquationSystemTest {
     @Test
     void getMatrixOfLinearEquationSystem() {
         LinearEquationSystem<Number> equationSystem =
-            new LinearEquationSystem<>(matrix);
+            new LinearEquationSystem<>(matrix, vector);
         assertEquals(matrix, equationSystem.getMatrix());
     }
 
     @Test
     void solveWithGaussOfLinearEquationSystem() {
         LinearEquationSystem<Number> equationSystem =
-            new LinearEquationSystem<>(matrix);
+            new LinearEquationSystem<>(matrix, vector);
         Solution<LinearEquationSystem<Number>, Number> solution =
             equationSystem.solveWithGauss();
         assertEquals(Solution.unsolvable(equationSystem), solution);
+    }
+
+    @Test
+    void ofMatrixWithSolutionColumn() {
+        LinearEquationSystem<Number> equationSystem =
+            LinearEquationSystem.ofMatrixWithSolutionColumn(TestMatrix.ofValuesByRows(2,
+                1, 2, 3, 4
+                )
+            );
+        assertEquals(matrix, equationSystem.getMatrix());
+        assertEquals(vector, equationSystem.getVector());
+    }
+
+    @Test
+    void ofMatrixWithSolutionRow() {
+        LinearEquationSystem<Number> equationSystem =
+            LinearEquationSystem.ofMatrixWithSolutionRow(TestMatrix.ofValuesByRows(2,
+                1, 3, 2, 4
+                )
+            );
+        assertEquals(matrix, equationSystem.getMatrix());
+        assertEquals(vector, equationSystem.getVector());
     }
 
     // region override
@@ -44,21 +67,25 @@ class LinearEquationSystemTest {
     @Test
     void equalsOfTestAbstractSolver() {
         LinearEquationSystem<Number> equationSystem =
-            new LinearEquationSystem<>(matrix);
-        assertEquals(equationSystem, new LinearEquationSystem<>(matrix));
-        assertNotEquals(equationSystem, new LinearEquationSystem<>(null));
+            new LinearEquationSystem<>(matrix, vector);
+        assertEquals(equationSystem, new LinearEquationSystem<>(matrix, vector));
+        assertNotEquals(equationSystem, new LinearEquationSystem<>(null, null));
     }
 
     @Test
     void hashCodeOfTestAbstractSolver() {
-        assertEquals(1312819, new LinearEquationSystem<>(matrix).hashCode());
+        // hashCode changing after every start
+        assertEquals(
+            new LinearEquationSystem<>(matrix, vector).hashCode(),
+            new LinearEquationSystem<>(matrix, vector).hashCode()
+        );
     }
 
     @Test
     void toStringOfTestAbstractSolver() {
         LinearEquationSystem<Number> equationSystem =
-            new LinearEquationSystem<>(matrix);
-        String toString = "2 2: [0={0=1, 1=2}, 1={0=3, 1=4}]";
+            new LinearEquationSystem<>(matrix, vector);
+        String toString = "2 1: [0={0=1}, 1={0=3}] - 2: [0=2, 1=4]";
         assertEquals(toString, equationSystem.toString());
     }
 

@@ -17,6 +17,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
     // region attributes
 
     private final LinearEquationMatrix<T> matrix;
+    private final LinearEquationVector<T> vector;
 
     // endregion
 
@@ -26,10 +27,11 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
      *
      * @param matrix matrix of linear equation matrix
      * @see LinearEquationMatrix#LinearEquationMatrix(Matrix)
-     * @see LinearEquationSystem#LinearEquationSystem(LinearEquationMatrix)
+     * @see LinearEquationVector#LinearEquationVector(Vector)
+     * @see LinearEquationSystem#LinearEquationSystem(LinearEquationMatrix, LinearEquationVector)
      */
-    public LinearEquationSystem(Matrix<T> matrix) {
-        this(new LinearEquationMatrix<>(matrix));
+    public LinearEquationSystem(Matrix<T> matrix, Vector<T> vector) {
+        this(new LinearEquationMatrix<>(matrix), new LinearEquationVector<>(vector));
     }
 
     /**
@@ -37,8 +39,11 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
      *
      * @param matrix matrix of linear equation system
      */
-    public LinearEquationSystem(LinearEquationMatrix<T> matrix) {
+    public LinearEquationSystem(
+        LinearEquationMatrix<T> matrix, LinearEquationVector<T> vector
+    ) {
         this.matrix = matrix;
+        this.vector = vector;
     }
 
     /**
@@ -49,10 +54,35 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
     }
 
     /**
+     * @return stored vector
+     */
+    public LinearEquationVector<T> getVector() {
+        return vector;
+    }
+
+    /**
      * @return {@link Solution} of {@link GaussSolver#solve()}
      */
     public Solution<LinearEquationSystem<T>, T> solveWithGauss() {
         return new GaussSolver<>(this).solve();
+    }
+
+    public static <T extends Number> LinearEquationSystem<T> ofMatrixWithSolutionColumn(Matrix<T> matrix) {
+        Matrix<T> eMatrix = new Matrix<>(matrix.getArithmetic(),
+            matrix.getRows(), matrix.getCols() - 1
+        );
+        eMatrix.forEach(field -> eMatrix.setValue(
+            field.getIndex(),
+            matrix.getValue(field.getRow(), field.getCol())
+        ));
+        Vector<T> eVector = Vector.ofList(matrix.getArithmetic(),
+            matrix.getCol(matrix.getCols() - 1)
+        );
+        return new LinearEquationSystem<>(eMatrix, eVector);
+    }
+
+    public static <T extends Number> LinearEquationSystem<T> ofMatrixWithSolutionRow(Matrix<T> matrix) {
+        return ofMatrixWithSolutionColumn(matrix.transpose());
     }
 
     // region override
@@ -62,17 +92,18 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
         if (this == o) return true;
         if (!(o instanceof LinearEquationSystem)) return false;
         LinearEquationSystem<?> that = (LinearEquationSystem<?>) o;
-        return Objects.equals(getMatrix(), that.getMatrix());
+        return Objects.equals(getMatrix(), that.getMatrix()) &&
+            Objects.equals(getVector(), that.getVector());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getMatrix());
+        return Objects.hash(getMatrix(), getVector());
     }
 
     @Override
     public String toString() {
-        return getMatrix().toString();
+        return getMatrix().toString() + " - " + getVector();
     }
 
     // endregion
