@@ -1,6 +1,5 @@
 package io.rala.math.algebra.matrix;
 
-import io.rala.math.algebra.matrix.typed.BigDecimalMatrix;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.exception.NotSupportedException;
 import io.rala.math.testUtils.algebra.TestMatrix;
@@ -933,11 +932,6 @@ class MatrixTest {
         default0.forEach(field -> default0.setValue(field.getIndex(), 1d));
         assertNotEquals(default0, new TestMatrix(2));
         assertEquals(default0, new TestMatrix(2, 1d));
-    }
-
-    @Test
-    void equalsOfTestMatrixAndBigDecimalMatrix() {
-        assertNotEquals(new TestMatrix(2), new BigDecimalMatrix(2));
     }
 
     @Test
