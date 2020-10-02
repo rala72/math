@@ -12,7 +12,7 @@ public class MatrixAssertions {
     }
 
     /**
-     * @see Matrix#Matrix(AbstractArithmetic, int, int)
+     * @see Matrix#Matrix(AbstractArithmetic, int)
      * @see #assertMatrix(Matrix, int, int)
      */
     public static <T extends Number> void assertMatrix(Matrix<T> matrix, int size) {
