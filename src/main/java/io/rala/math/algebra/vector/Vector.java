@@ -96,7 +96,7 @@ public class Vector<T extends Number>
     }
 
     /**
-     * creates a new vector with given size and given type
+     * creates a new vector with given size and given {@link Type}
      * which uses given default value for non-existing values
      *
      * @param arithmetic   arithmetic for calculations
@@ -324,6 +324,7 @@ public class Vector<T extends Number>
      * @param vector vector to multiply with
      * @return product of matrix multiplication
      * @throws IllegalArgumentException if sizes do not match
+     * @see Matrix#multiply(Matrix)
      */
     public Matrix<T> multiply(Vector<T> vector) {
         return toMatrix().multiply(vector.toMatrix());
@@ -333,6 +334,8 @@ public class Vector<T extends Number>
      * @param vector vector to compute dot product
      * @return dot product
      * @throws IllegalArgumentException if sizes do not match
+     * @see Matrix#multiply(Matrix)
+     * @see #toParam()
      */
     public T dotProduct(Vector<T> vector) {
         Vector<T> v1 =
@@ -363,6 +366,7 @@ public class Vector<T extends Number>
 
     /**
      * @return new vector with inverted sign
+     * @see #multiply(Number)
      */
     public Vector<T> invert() {
         return multiply(getArithmetic().negate(getArithmetic().one()));
@@ -415,7 +419,7 @@ public class Vector<T extends Number>
 
     /**
      * result is only guaranteed to be correct for
-     * {@code float}, {@code double} and {@link Fraction}
+     * floating point numbers and {@link Fraction}
      *
      * @return vector of {@link #length()} one
      * @throws NotSupportedException if all values are {@code 0}
