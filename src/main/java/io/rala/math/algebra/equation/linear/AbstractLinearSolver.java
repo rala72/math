@@ -88,6 +88,18 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
     // region protected final utils
 
     /**
+     * @param index index of row
+     * @return {@code true} if all values in {@link #getWorking()}
+     * matrix row and vector index are {@code 0}
+     * @see #areAllZero(Collection)
+     * @see #isZero(Number)
+     */
+    protected final boolean isZeroRow(int index) {
+        return areAllZero(getWorkingMatrix().getRow(index)) &&
+            isZero(getWorkingVector().getValue(index));
+    }
+
+    /**
      * @param collection collection to check
      * @return {@code true} if all elements are {@code 0}
      */

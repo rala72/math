@@ -107,6 +107,26 @@ class AbstractLinearSolverTest {
     // region protected final utils
 
     @Test
+    void isZeroRowWithOnlyZeroValues() {
+        TestAbstractLinearSolver solver =
+            new TestAbstractLinearSolver(LinearEquationSystem.ofMatrixWithSolutionColumn(
+                TestMatrix.ofValuesByRows(1, 0d, 0d)
+            ));
+        solver.reset();
+        assertTrue(solver.isZeroRow(0));
+    }
+
+    @Test
+    void isZeroRowWithOnlyZeroValuesExceptSolution() {
+        TestAbstractLinearSolver solver =
+            new TestAbstractLinearSolver(LinearEquationSystem.ofMatrixWithSolutionColumn(
+                TestMatrix.ofValuesByRows(1, 0d, 1d)
+            ));
+        solver.reset();
+        assertFalse(solver.isZeroRow(0));
+    }
+
+    @Test
     void areAllZeroWithOnlyZeros() {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);

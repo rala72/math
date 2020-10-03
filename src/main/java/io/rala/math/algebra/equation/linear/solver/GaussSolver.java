@@ -79,11 +79,9 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
      */
     protected void prepareMatrixBySwappingZeroRowsToBottom() {
         for (int i = 0; i < getWorkingMatrix().getRows() - 1; i++) {
-            List<T> row = getWorkingMatrix().getRow(i);
-            if (!areAllZero(row) && !isZero(getWorkingVector().getValue(i))) continue;
+            if (!isZeroRow(i)) continue;
             for (int j = i + 1; j < getWorkingMatrix().getRows(); j++)
-                if (!areAllZero(getWorkingMatrix().getRow(j)) ||
-                    !isZero(getWorkingVector().getValue(j))) {
+                if (!isZeroRow(j)) {
                     setWorkingEquationSystem(
                         getWorkingMatrix().swapRows(i, j),
                         getWorkingVector().swapValues(i, j)
@@ -114,8 +112,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
                     getWorkingVector().swapValues(rowIndex, i)
                 );
                 return;
-            } else if (areAllZero(getWorkingMatrix().getRow(i)) ||
-                isZero(getWorkingVector().getValue(i))) break;
+            } else if (isZeroRow(i)) break;
         for (int i = rowIndex + 1; i < getWorkingMatrix().getCols(); i++)
             if (!isZero(row.get(i))) {
                 setWorkingEquationSystem(
@@ -175,9 +172,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
      */
     protected void solveBottomUp() {
         for (int i = getWorkingMatrix().getRows() - 1; 0 < i; i--) {
-            if (areAllZero(getWorkingMatrix().getRow(i)) &&
-                isZero(getWorkingVector().getValue(i)))
-                continue;
+            if (isZeroRow(i)) continue;
             for (int j = i - 1; 0 <= j; j--) {
                 List<T> row = getWorkingMatrix().getRow(j);
                 if (!isZero(row.get(i))) {
@@ -211,9 +206,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
      */
     protected void sortRows() {
         for (int i = 0; i < getWorkingMatrix().getRows(); i++) {
-            List<T> row = getWorkingMatrix().getRow(i);
-            if (areAllZero(row) && isZero(getWorkingVector().getValue(i)) ||
-                !isZero(row.get(i)))
+            if (isZeroRow(i) || !isZero(getWorkingMatrix().getRow(i).get(i)))
                 continue;
             for (int j = i + 1; j < getWorkingMatrix().getRows(); j++)
                 if (!isZero(getWorkingMatrix().getRow(j).get(i)))
@@ -230,13 +223,13 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
 
     /**
      * @return {@code true} if current {@link #getWorkingMatrix()} has no solutions
-     * @implSpec checks if a row values {@link #areAllZero(Collection)}
+     * @implSpec checks if a solution value is unequal zero and
+     * matrix row values {@link #areAllZero(Collection)}
      */
     protected boolean hasNoSolutions() {
         for (int i = 0; i < getWorkingMatrix().getRows(); i++) {
-            List<T> row = getWorkingMatrix().getRow(i);
             if (!isZero(getWorkingVector().getValue(i)) &&
-                areAllZero(row))
+                areAllZero(getWorkingMatrix().getRow(i)))
                 return true;
         }
         return false;
