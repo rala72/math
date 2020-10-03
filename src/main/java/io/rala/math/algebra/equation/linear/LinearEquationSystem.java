@@ -13,7 +13,7 @@ import java.util.Objects;
  *
  * @param <T> number class of linear equation system
  */
-public class LinearEquationSystem<T extends Number> extends AbstractEquationSystem {
+public class LinearEquationSystem<T extends Number> extends AbstractEquationSystem<LinearEquationSystem<T>> {
     // region attributes
 
     private final LinearEquationMatrix<T> matrix;
@@ -100,6 +100,11 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
     }
 
     // region override
+
+    @Override
+    public LinearEquationSystem<T> transpose() {
+        return new LinearEquationSystem<>(getMatrix().transpose(), getVector().transpose());
+    }
 
     @Override
     public boolean equals(Object o) {
