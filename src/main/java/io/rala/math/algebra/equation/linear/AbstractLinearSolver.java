@@ -76,7 +76,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
     /**
      * {@inheritDoc}
      *
-     * @implSpec transposes {@link #getWorking()} system
+     * @implSpec transposes {@link #getWorking()} equation system
      * if {@link #getEquationSystem()} has solution {@link Vector.Type#ROW}
      */
     protected void reset() {
