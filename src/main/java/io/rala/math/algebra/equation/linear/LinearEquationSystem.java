@@ -102,7 +102,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
     // region override
 
     @Override
-    public LinearEquationSystem<T> transpose() {
+    protected LinearEquationSystem<T> transpose() {
         return new LinearEquationSystem<>(getMatrix().transpose(), getVector().transpose());
     }
 

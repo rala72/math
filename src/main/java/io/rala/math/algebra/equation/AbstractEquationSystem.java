@@ -9,5 +9,5 @@ public abstract class AbstractEquationSystem<T extends AbstractEquationSystem<T>
     /**
      * @return new transposed equation system
      */
-    public abstract T transpose();
+    protected abstract T transpose();
 }
