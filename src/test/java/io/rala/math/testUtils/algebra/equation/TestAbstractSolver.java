@@ -12,9 +12,4 @@ public class TestAbstractSolver extends AbstractSolver<TestAbstractEquationSyste
     public Solution<TestAbstractEquationSystem, Number> solve() {
         return null;
     }
-
-    @Override
-    public void reset() {
-        setWorking(getEquationSystem());
-    }
 }

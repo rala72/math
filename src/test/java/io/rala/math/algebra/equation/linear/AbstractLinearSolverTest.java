@@ -80,6 +80,30 @@ class AbstractLinearSolverTest {
         assertEquals(expectedSolution, solver.toSingleSolution());
     }
 
+    @Test
+    void resetOfEquationSystemWithColumnVector() {
+        TestAbstractLinearSolver solver =
+            new TestAbstractLinearSolver(equationSystem);
+        solver.reset();
+        assertEquals(equationSystem.getMatrix(), solver.getWorkingMatrix());
+        assertEquals(equationSystem.getVector(), solver.getWorkingVector());
+        assertEquals(Vector.Type.COLUMN, solver.getWorkingVector().getType());
+    }
+
+    @Test
+    void resetOfEquationSystemWithRowVector() {
+        TestAbstractLinearSolver solver =
+            new TestAbstractLinearSolver(new LinearEquationSystem<>(
+                equationSystem.getMatrix().transpose(),
+                equationSystem.getVector().transpose()
+            ));
+        solver.reset();
+        assertEquals(equationSystem.getMatrix(), solver.getWorkingMatrix());
+        assertEquals(equationSystem.getVector(), solver.getWorkingVector());
+        assertEquals(Vector.Type.ROW, solver.getEquationSystem().getVector().getType());
+        assertEquals(Vector.Type.COLUMN, solver.getWorkingVector().getType());
+    }
+
     // region protected final utils
 
     @Test

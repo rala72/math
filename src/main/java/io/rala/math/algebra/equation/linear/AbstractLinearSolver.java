@@ -2,6 +2,7 @@ package io.rala.math.algebra.equation.linear;
 
 import io.rala.math.algebra.equation.AbstractSolver;
 import io.rala.math.algebra.equation.Solution;
+import io.rala.math.algebra.matrix.Matrix;
 import io.rala.math.algebra.vector.Vector;
 import io.rala.math.arithmetic.AbstractArithmetic;
 
@@ -73,8 +74,18 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
         );
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @implSpec transposes {@link #getWorking()} system
+     * if {@link #getEquationSystem()} has solution {@link Vector.Type#ROW}
+     */
     protected void reset() {
-        setWorking(getEquationSystem());
+        if (getEquationSystem().getVector().getType().equals(Vector.Type.ROW)) {
+            Matrix<T> transposedMatrix = getEquationSystem().getMatrix().transpose();
+            Vector<T> transposedVector = getEquationSystem().getVector().transpose();
+            setWorking(new LinearEquationSystem<>(transposedMatrix, transposedVector));
+        } else super.reset();
     }
 
     // region protected final utils

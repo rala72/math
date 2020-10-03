@@ -60,9 +60,11 @@ public abstract class AbstractSolver<E extends AbstractEquationSystem, T extends
     /**
      * resets solver
      *
-     * @implSpec resets {@link #working} to start {@link #getEquationSystem()}
+     * @implSpec resets {@link #getWorking()} to {@link #getEquationSystem()}
      */
-    protected abstract void reset();
+    protected void reset() {
+        setWorking(getEquationSystem());
+    }
 
     // endregion
 
