@@ -11,7 +11,7 @@ import java.util.Objects;
 /**
  * class which holds a linear equation system
  *
- * @param <T> number class of matrix
+ * @param <T> number class of linear equation system
  */
 public class LinearEquationSystem<T extends Number> extends AbstractEquationSystem {
     // region attributes
@@ -26,6 +26,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
      * by calling {@link LinearEquationMatrix#LinearEquationMatrix(Matrix)}
      *
      * @param matrix matrix of linear equation matrix
+     * @param vector vector of linear equation solution
      * @see LinearEquationMatrix#LinearEquationMatrix(Matrix)
      * @see LinearEquationVector#LinearEquationVector(Vector)
      * @see LinearEquationSystem#LinearEquationSystem(LinearEquationMatrix, LinearEquationVector)
@@ -38,6 +39,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
      * creates a new {@link LinearEquationSystem} for given matrix
      *
      * @param matrix matrix of linear equation system
+     * @param vector vector of linear equation solution
      */
     public LinearEquationSystem(
         LinearEquationMatrix<T> matrix, LinearEquationVector<T> vector
@@ -67,6 +69,12 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
         return new GaussSolver<>(this).solve();
     }
 
+    /**
+     * @param matrix matrix of linear equation system where solution is last column
+     * @param <T>    number class of linear equation system
+     * @return new linear equation system with
+     * {@link LinearEquationMatrix} and {@link LinearEquationVector}
+     */
     public static <T extends Number> LinearEquationSystem<T> ofMatrixWithSolutionColumn(Matrix<T> matrix) {
         Matrix<T> eMatrix = new Matrix<>(matrix.getArithmetic(),
             matrix.getRows(), matrix.getCols() - 1
@@ -81,6 +89,12 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
         return new LinearEquationSystem<>(eMatrix, eVector);
     }
 
+    /**
+     * @param matrix matrix of linear equation system where solution is last row
+     * @param <T>    number class of linear equation system
+     * @return new linear equation system with
+     * {@link LinearEquationMatrix} and {@link LinearEquationVector}
+     */
     public static <T extends Number> LinearEquationSystem<T> ofMatrixWithSolutionRow(Matrix<T> matrix) {
         return ofMatrixWithSolutionColumn(matrix.transpose());
     }

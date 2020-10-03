@@ -38,6 +38,10 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
         return getWorking().getMatrix();
     }
 
+    /**
+     * @return current working vector
+     * @see #getWorking()
+     */
     protected LinearEquationSystem.LinearEquationVector<T> getWorkingVector() {
         return getWorking().getVector();
     }
