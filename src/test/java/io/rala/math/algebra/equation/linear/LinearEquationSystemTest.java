@@ -54,8 +54,8 @@ class LinearEquationSystemTest {
     @Test
     void ofMatrixWithSolutionRow() {
         LinearEquationSystem<Number> equationSystem =
-            LinearEquationSystem.ofMatrixWithSolutionRow(TestMatrix.ofValuesByRows(2,
-                1, 3, 2, 4
+            LinearEquationSystem.ofMatrixWithSolutionRow(TestMatrix.ofValuesByCols(2,
+                1, 2, 3, 4
                 )
             );
         assertEquals(matrix, equationSystem.getMatrix());
