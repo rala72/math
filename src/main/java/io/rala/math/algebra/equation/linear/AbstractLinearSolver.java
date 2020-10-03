@@ -65,7 +65,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
     }
 
     /**
-     * @return {@link Solution} based on {@link #getWorkingMatrix()}
+     * @return {@link Solution} based on {@link #getWorkingVector()}
      */
     protected Solution<LinearEquationSystem<T>, T> toSingleSolution() {
         return Solution.single(getEquationSystem(),
