@@ -2,7 +2,9 @@ package io.rala.math.algebra.equation.linear;
 
 import io.rala.math.algebra.equation.Solution;
 import io.rala.math.algebra.matrix.Matrix;
+import io.rala.math.algebra.vector.Vector;
 import io.rala.math.testUtils.algebra.TestMatrix;
+import io.rala.math.testUtils.algebra.TestVector;
 import io.rala.math.testUtils.algebra.equation.TestAbstractLinearSolver;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
 import org.junit.jupiter.api.BeforeAll;
@@ -18,9 +20,10 @@ class AbstractLinearSolverTest {
     @BeforeAll
     static void beforeAll() {
         Matrix<Number> matrix = TestMatrix.ofValuesByRows(2,
-            1, 2, 3, 4
+            1, 3
         );
-        equationSystem = new LinearEquationSystem<>(matrix);
+        Vector<Number> vector = TestVector.ofValues(2, 4);
+        equationSystem = new LinearEquationSystem<>(matrix, vector);
     }
 
     @Test
@@ -31,14 +34,32 @@ class AbstractLinearSolverTest {
     }
 
     @Test
-    void getAndSetWorkingMatrixOfAbstractLinearSolver() {
+    void getAndSetWorkingEquationSystemOfAbstractLinearSolver() {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);
         assertThrows(NullPointerException.class,
             solver::getWorkingMatrix
         );
-        solver.setWorkingMatrix(equationSystem.getMatrix());
+        assertThrows(NullPointerException.class,
+            solver::getWorkingVector
+        );
+        solver.setWorkingEquationSystem(new LinearEquationSystem<>(
+            equationSystem.getMatrix(), equationSystem.getVector())
+        );
         assertNotNull(solver.getWorkingMatrix());
+        assertNotNull(solver.getWorkingVector());
+    }
+
+    @Test
+    void getAndSetWorkingMatrixAndVectorOfAbstractLinearSolver() {
+        TestAbstractLinearSolver solver =
+            new TestAbstractLinearSolver(equationSystem);
+        assertThrows(NullPointerException.class,
+            solver::getWorkingMatrix
+        );
+        solver.setWorkingEquationSystem(equationSystem.getMatrix(), equationSystem.getVector());
+        assertNotNull(solver.getWorkingMatrix());
+        assertNotNull(solver.getWorkingVector());
     }
 
     @Test
@@ -59,7 +80,51 @@ class AbstractLinearSolverTest {
         assertEquals(expectedSolution, solver.toSingleSolution());
     }
 
+    @Test
+    void resetOfEquationSystemWithColumnVector() {
+        TestAbstractLinearSolver solver =
+            new TestAbstractLinearSolver(equationSystem);
+        solver.reset();
+        assertEquals(equationSystem.getMatrix(), solver.getWorkingMatrix());
+        assertEquals(equationSystem.getVector(), solver.getWorkingVector());
+        assertEquals(Vector.Type.COLUMN, solver.getWorkingVector().getType());
+    }
+
+    @Test
+    void resetOfEquationSystemWithRowVector() {
+        TestAbstractLinearSolver solver =
+            new TestAbstractLinearSolver(new LinearEquationSystem<>(
+                equationSystem.getMatrix().transpose(),
+                equationSystem.getVector().transpose()
+            ));
+        solver.reset();
+        assertEquals(equationSystem.getMatrix(), solver.getWorkingMatrix());
+        assertEquals(equationSystem.getVector(), solver.getWorkingVector());
+        assertEquals(Vector.Type.ROW, solver.getEquationSystem().getVector().getType());
+        assertEquals(Vector.Type.COLUMN, solver.getWorkingVector().getType());
+    }
+
     // region protected final utils
+
+    @Test
+    void isZeroRowWithOnlyZeroValues() {
+        TestAbstractLinearSolver solver =
+            new TestAbstractLinearSolver(LinearEquationSystem.ofMatrixWithSolutionColumn(
+                TestMatrix.ofValuesByRows(1, 0d, 0d)
+            ));
+        solver.reset();
+        assertTrue(solver.isZeroRow(0));
+    }
+
+    @Test
+    void isZeroRowWithOnlyZeroValuesExceptSolution() {
+        TestAbstractLinearSolver solver =
+            new TestAbstractLinearSolver(LinearEquationSystem.ofMatrixWithSolutionColumn(
+                TestMatrix.ofValuesByRows(1, 0d, 1d)
+            ));
+        solver.reset();
+        assertFalse(solver.isZeroRow(0));
+    }
 
     @Test
     void areAllZeroWithOnlyZeros() {
@@ -76,24 +141,17 @@ class AbstractLinearSolverTest {
     }
 
     @Test
-    void areAllZeroIgnoringSolutionWithOnlyZeros() {
+    void isZeroWithZero() {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);
-        assertTrue(solver.areAllZero(List.of(0d, 0d)));
+        assertTrue(solver.isZero(0d));
     }
 
     @Test
-    void areAllZeroIgnoringSolutionWithOnlyZerosExceptSolution() {
+    void isZeroWithNonZero() {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);
-        assertTrue(solver.areAllZeroIgnoringSolution(List.of(0d, 1d)));
-    }
-
-    @Test
-    void areAllZeroIgnoringSolutionWithNotOnlyZerosExceptSolution() {
-        TestAbstractLinearSolver solver =
-            new TestAbstractLinearSolver(equationSystem);
-        assertFalse(solver.areAllZeroIgnoringSolution(List.of(1, 0)));
+        assertFalse(solver.isZero(1d));
     }
 
     // endregion

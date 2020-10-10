@@ -8,7 +8,7 @@ import java.util.Deque;
 
 public class TestGaussSolver<T extends Number> extends GaussSolver<T> {
     public TestGaussSolver(Matrix<T> matrix) {
-        this(new LinearEquationSystem<>(matrix));
+        this(LinearEquationSystem.ofMatrixWithSolutionColumn(matrix));
     }
 
     public TestGaussSolver(LinearEquationSystem<T> equationSystem) {
@@ -16,8 +16,8 @@ public class TestGaussSolver<T extends Number> extends GaussSolver<T> {
     }
 
     @Override
-    public LinearEquationSystem.LinearEquationMatrix<T> getWorkingMatrix() {
-        return super.getWorkingMatrix();
+    public LinearEquationSystem<T> getWorking() {
+        return super.getWorking();
     }
 
     @Override

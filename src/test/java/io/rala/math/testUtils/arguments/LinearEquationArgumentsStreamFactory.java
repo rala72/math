@@ -16,7 +16,7 @@ public class LinearEquationArgumentsStreamFactory {
         return Stream.of(
             Arguments.of(
                 Solution.single(
-                    new LinearEquationSystem<>(
+                    LinearEquationSystem.ofMatrixWithSolutionColumn(
                         DoubleMatrix.ofValuesByRows(3,
                             1, 2, 3, 2,
                             1, 1, 1, 2,
@@ -28,7 +28,7 @@ public class LinearEquationArgumentsStreamFactory {
             ),
             Arguments.of(
                 Solution.single(
-                    new LinearEquationSystem<>(
+                    LinearEquationSystem.ofMatrixWithSolutionColumn(
                         DoubleMatrix.ofValuesByRows(3,
                             1, -1, 2, 0,
                             -2, 1, -6, 0,
@@ -40,7 +40,7 @@ public class LinearEquationArgumentsStreamFactory {
             ),
             Arguments.of(
                 Solution.single(
-                    new LinearEquationSystem<>(
+                    LinearEquationSystem.ofMatrixWithSolutionColumn(
                         DoubleMatrix.ofValuesByRows(2,
                             3, 4, -1,
                             2, 5, -3
@@ -51,7 +51,7 @@ public class LinearEquationArgumentsStreamFactory {
             ),
             Arguments.of(
                 Solution.single(
-                    new LinearEquationSystem<>(
+                    LinearEquationSystem.ofMatrixWithSolutionColumn(
                         DoubleMatrix.ofValuesByRows(2,
                             3, -4, -26,
                             2, 3, 28
@@ -62,7 +62,7 @@ public class LinearEquationArgumentsStreamFactory {
             ),
             Arguments.of(
                 Solution.unsolvable(
-                    new LinearEquationSystem<>(
+                    LinearEquationSystem.ofMatrixWithSolutionColumn(
                         DoubleMatrix.ofValuesByRows(3,
                             3, 2, -1,
                             4, 1, -2,
@@ -73,7 +73,7 @@ public class LinearEquationArgumentsStreamFactory {
             ),
             Arguments.of(
                 Solution.unsolvable(
-                    new LinearEquationSystem<>(
+                    LinearEquationSystem.ofMatrixWithSolutionColumn(
                         DoubleMatrix.ofValuesByRows(3,
                             1, -3, 4,
                             2, 1, 1,
@@ -84,7 +84,7 @@ public class LinearEquationArgumentsStreamFactory {
             ),
             Arguments.of(
                 Solution.infinite(
-                    new LinearEquationSystem<>(
+                    LinearEquationSystem.ofMatrixWithSolutionColumn(
                         DoubleMatrix.ofValuesByRows(3,
                             1, -2, 3,
                             -2, 4, -6,
@@ -95,7 +95,7 @@ public class LinearEquationArgumentsStreamFactory {
             ),
             Arguments.of(
                 Solution.single(
-                    new LinearEquationSystem<>(
+                    LinearEquationSystem.ofMatrixWithSolutionColumn(
                         DoubleMatrix.ofValuesByRows(3,
                             6, -1, 2, 1,
                             5, -3, 3, 4,
@@ -107,7 +107,7 @@ public class LinearEquationArgumentsStreamFactory {
             ),
             Arguments.of(
                 Solution.single(
-                    new LinearEquationSystem<>(
+                    LinearEquationSystem.ofMatrixWithSolutionColumn(
                         DoubleMatrix.ofValuesByRows(3,
                             1, -2, 0, 4,
                             0, -1, -1, -1,
@@ -119,7 +119,7 @@ public class LinearEquationArgumentsStreamFactory {
             ),
             Arguments.of(
                 Solution.single(
-                    new LinearEquationSystem<>(
+                    LinearEquationSystem.ofMatrixWithSolutionColumn(
                         DoubleMatrix.ofValuesByRows(3,
                             1, 2, -1, 2,
                             1, 1, 2, 9,
@@ -131,7 +131,7 @@ public class LinearEquationArgumentsStreamFactory {
             ),
             Arguments.of(
                 Solution.single(
-                    new LinearEquationSystem<>(
+                    LinearEquationSystem.ofMatrixWithSolutionColumn(
                         DoubleMatrix.ofValuesByRows(3,
                             2, 3, -1, 3,
                             1, 0, 2, 9,
@@ -148,7 +148,7 @@ public class LinearEquationArgumentsStreamFactory {
             ),
             Arguments.of(
                 Solution.single(
-                    new LinearEquationSystem<>(
+                    LinearEquationSystem.ofMatrixWithSolutionColumn(
                         DoubleMatrix.ofValuesByRows(3,
                             5, 2, -2, -1,
                             3, 1, -3, -4,
@@ -164,7 +164,7 @@ public class LinearEquationArgumentsStreamFactory {
             ),
             Arguments.of(
                 Solution.single(
-                    new LinearEquationSystem<>(
+                    LinearEquationSystem.ofMatrixWithSolutionColumn(
                         DoubleMatrix.ofValuesByRows(3,
                             4, 3, 1, 13,
                             2, -5, 3, 1,
@@ -180,7 +180,7 @@ public class LinearEquationArgumentsStreamFactory {
             ),
             Arguments.of(
                 Solution.single(
-                    new LinearEquationSystem<>(
+                    LinearEquationSystem.ofMatrixWithSolutionColumn(
                         DoubleMatrix.ofValuesByRows(3,
                             2, 9, -14, 39,
                             3, 6, 2, 36,
@@ -197,7 +197,7 @@ public class LinearEquationArgumentsStreamFactory {
             ),
             Arguments.of(
                 Solution.unsolvable(
-                    new LinearEquationSystem<>(
+                    LinearEquationSystem.ofMatrixWithSolutionColumn(
                         DoubleMatrix.ofValuesByRows(3,
                             1, 1, -1, 4,
                             4, -2, -2, 3,
@@ -208,7 +208,7 @@ public class LinearEquationArgumentsStreamFactory {
             ),
             Arguments.of(
                 Solution.infinite(
-                    new LinearEquationSystem<>(
+                    LinearEquationSystem.ofMatrixWithSolutionColumn(
                         DoubleMatrix.ofValuesByRows(3,
                             1, 0, 0, 2,
                             0, 0, 1, 0,
