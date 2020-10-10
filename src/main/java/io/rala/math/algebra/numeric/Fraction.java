@@ -16,9 +16,9 @@ import java.util.function.Function;
  */
 public class Fraction<T extends Number, V extends Number> extends Number
     implements Copyable<Fraction<T, V>>, Comparable<Fraction<T, V>> {
-    protected static final String EXCEPTION_NUMERATOR_NOT_NULL =
+    protected static final String EXCEPTION_NUMERATOR_IS_NULL =
         "numerator has to be non-null";
-    protected static final String EXCEPTION_DENOMINATOR_NOT_ZERO =
+    protected static final String EXCEPTION_DENOMINATOR_IS_ZERO =
         "denominator has to be non-zero";
 
     // region attributes
@@ -97,7 +97,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
      */
     public void setNumerator(T numerator) {
         if (numerator == null)
-            throw new IllegalArgumentException(EXCEPTION_NUMERATOR_NOT_NULL);
+            throw new IllegalArgumentException(EXCEPTION_NUMERATOR_IS_NULL);
         this.numerator = numerator;
     }
 
@@ -116,7 +116,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
         if (denominator == null)
             denominator = getArithmetic().getTArithmetic().one();
         if (getArithmetic().getTArithmetic().isZero(denominator))
-            throw new IllegalArgumentException(EXCEPTION_DENOMINATOR_NOT_ZERO);
+            throw new IllegalArgumentException(EXCEPTION_DENOMINATOR_IS_ZERO);
         this.denominator = denominator;
 
         simplifySignum();
@@ -495,8 +495,8 @@ public class Fraction<T extends Number, V extends Number> extends Number
         try {
             return new Fraction<>(getArithmetic(), numerator, denominator);
         } catch (IllegalArgumentException e) {
-            if (e.getMessage().equals(EXCEPTION_DENOMINATOR_NOT_ZERO))
-                throw new ArithmeticException(EXCEPTION_DENOMINATOR_NOT_ZERO);
+            if (e.getMessage().equals(EXCEPTION_DENOMINATOR_IS_ZERO))
+                throw new ArithmeticException(EXCEPTION_DENOMINATOR_IS_ZERO);
             else
                 throw e;
         }
