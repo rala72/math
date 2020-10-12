@@ -14,6 +14,11 @@ import java.util.Objects;
  * @param <T> number class of linear equation system
  */
 public class LinearEquationSystem<T extends Number> extends AbstractEquationSystem<LinearEquationSystem<T>> {
+    // region protected exception messages
+    protected static final String EXCEPTION_MATRIX_VECTOR_NO_MATCH =
+        "matrix and vector do not match";
+    // endregion
+
     // region attributes
 
     private final LinearEquationMatrix<T> matrix;
@@ -27,6 +32,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
      *
      * @param matrix matrix of linear equation matrix
      * @param vector vector of linear equation solution
+     * @throws IllegalArgumentException if matrix and vector do not match
      * @see LinearEquationMatrix#LinearEquationMatrix(Matrix)
      * @see LinearEquationVector#LinearEquationVector(Vector)
      * @see LinearEquationSystem#LinearEquationSystem(LinearEquationMatrix, LinearEquationVector)
@@ -40,10 +46,17 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
      *
      * @param matrix matrix of linear equation system
      * @param vector vector of linear equation solution
+     * @throws IllegalArgumentException if matrix and vector do not match
      */
     public LinearEquationSystem(
         LinearEquationMatrix<T> matrix, LinearEquationVector<T> vector
     ) {
+        if (Vector.Type.ROW.equals(vector.getType()) &&
+            vector.getSize() != matrix.getCols() ||
+            Vector.Type.COLUMN.equals(vector.getType()) &&
+                vector.getSize() != matrix.getRows()) {
+            throw new IllegalArgumentException(EXCEPTION_MATRIX_VECTOR_NO_MATCH);
+        }
         this.matrix = matrix;
         this.vector = vector;
     }

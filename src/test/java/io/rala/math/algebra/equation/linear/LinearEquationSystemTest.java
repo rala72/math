@@ -25,6 +25,15 @@ class LinearEquationSystemTest {
     }
 
     @Test
+    void constructorWithNonMatchingMatrixAndVector() {
+        assertThrows(IllegalArgumentException.class,
+            () -> new LinearEquationSystem<>(
+                new TestMatrix(1), new TestVector(2)
+            )
+        ); // assert exception message?
+    }
+
+    @Test
     void getMatrixOfLinearEquationSystem() {
         LinearEquationSystem<Number> equationSystem =
             new LinearEquationSystem<>(matrix, vector);
@@ -69,7 +78,9 @@ class LinearEquationSystemTest {
         LinearEquationSystem<Number> equationSystem =
             new LinearEquationSystem<>(matrix, vector);
         assertEquals(equationSystem, new LinearEquationSystem<>(matrix, vector));
-        assertNotEquals(equationSystem, new LinearEquationSystem<>(null, null));
+        assertNotEquals(equationSystem, new LinearEquationSystem<>(
+            new TestMatrix(1), new TestVector(1))
+        );
     }
 
     @Test
