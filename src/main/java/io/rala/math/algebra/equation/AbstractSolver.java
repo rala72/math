@@ -8,7 +8,7 @@ import java.util.Objects;
  * @param <E> class of {@link AbstractEquationSystem}
  * @param <T> number class of {@link AbstractEquationSystem}
  */
-public abstract class AbstractSolver<E extends AbstractEquationSystem, T extends Number> {
+public abstract class AbstractSolver<E extends AbstractEquationSystem<E>, T extends Number> {
     // region attributes
 
     private final E equationSystem;
