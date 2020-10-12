@@ -49,6 +49,88 @@ class LinearEquationSystemTest {
         assertEquals(Solution.unsolvable(equationSystem), solution);
     }
 
+    // region modify
+
+    @Test
+    void swapRows() {
+        LinearEquationSystem<Number> equation = new LinearEquationSystem<>(matrix, vector);
+        assertEquals(LinearEquationSystem.ofMatrixWithSolutionColumn(
+            TestMatrix.ofValuesByRows(2,
+                3, 4,
+                1, 2
+            )),
+            equation.swapRows(0, 1)
+        );
+    }
+
+    @Test
+    void swapCols() {
+        LinearEquationSystem<Number> equation =
+            new LinearEquationSystem<>(matrix, vector)
+                .transpose();
+        assertEquals(LinearEquationSystem.ofMatrixWithSolutionRow(
+            TestMatrix.ofValuesByCols(2,
+                3, 4,
+                1, 2
+            )).transpose(),
+            equation.swapCols(0, 1)
+        );
+    }
+
+    @Test
+    void multiplyRow() {
+        LinearEquationSystem<Number> equation = new LinearEquationSystem<>(matrix, vector);
+        assertEquals(LinearEquationSystem.ofMatrixWithSolutionColumn(
+            TestMatrix.ofValuesByRows(2,
+                2d, 4d,
+                3, 4
+            )),
+            equation.multiplyRow(0, 2)
+        );
+    }
+
+    @Test
+    void multiplyCol() {
+        LinearEquationSystem<Number> equation = new LinearEquationSystem<>(matrix, vector);
+        assertEquals(LinearEquationSystem.ofMatrixWithSolutionColumn(
+            TestMatrix.ofValuesByRows(2,
+                2d, 2,
+                6d, 4
+            )),
+            equation.multiplyCol(0, 2)
+        );
+    }
+
+    @Test
+    void addRowMultipleTimes() {
+        LinearEquationSystem<Number> equation = new LinearEquationSystem<>(matrix, vector);
+        assertEquals(LinearEquationSystem.ofMatrixWithSolutionColumn(
+            TestMatrix.ofValuesByRows(2,
+                7d, 10d,
+                3, 4
+            )),
+            equation.addRowMultipleTimes(0, 1, 2)
+        );
+    }
+
+    @Test
+    void addColMultipleTimes() {
+        LinearEquationSystem<Number> equation =
+            new LinearEquationSystem<>(matrix, vector)
+                .transpose();
+        assertEquals(LinearEquationSystem.ofMatrixWithSolutionRow(
+            TestMatrix.ofValuesByCols(2,
+                7d, 2,
+                3, 4
+            )).transpose(),
+            equation.addColMultipleTimes(0, 1, 2)
+        );
+    }
+
+    // endregion
+
+    // region static of
+
     @Test
     void ofMatrixWithSolutionColumn() {
         LinearEquationSystem<Number> equationSystem =
@@ -70,6 +152,8 @@ class LinearEquationSystemTest {
         assertEquals(matrix, equationSystem.getMatrix());
         assertEquals(vector, equationSystem.getVector());
     }
+
+    // endregion
 
     // region override
 

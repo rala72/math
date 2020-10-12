@@ -82,10 +82,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
             if (!isZeroRow(i)) continue;
             for (int j = i + 1; j < getWorkingMatrix().getRows(); j++)
                 if (!isZeroRow(j)) {
-                    setWorkingEquationSystem(
-                        getWorkingMatrix().swapRows(i, j),
-                        getWorkingVector().swapValues(i, j)
-                    );
+                    setWorkingEquationSystem(getWorking().swapRows(i, j));
                     break;
                 }
         }
@@ -107,18 +104,12 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
         List<T> col = getWorkingMatrix().getCol(rowIndex);
         for (int i = rowIndex + 1; i < getWorkingMatrix().getRows(); i++)
             if (!isZero(col.get(i))) {
-                setWorkingEquationSystem(
-                    getWorkingMatrix().swapRows(rowIndex, i),
-                    getWorkingVector().swapValues(rowIndex, i)
-                );
+                setWorkingEquationSystem(getWorking().swapRows(rowIndex, i));
                 return;
             } else if (isZeroRow(i)) break;
         for (int i = rowIndex + 1; i < getWorkingMatrix().getCols(); i++)
             if (!isZero(row.get(i))) {
-                setWorkingEquationSystem(
-                    getWorkingMatrix().swapCols(rowIndex, i),
-                    getWorkingVector()
-                );
+                setWorkingEquationSystem(getWorking().swapCols(rowIndex, i));
                 getSwappedCols().add(new ColPair(rowIndex, i));
                 return;
             }
@@ -136,10 +127,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
         if (getArithmetic().one().equals(rowIndexValue))
             return;
         T quotient = getArithmetic().quotient(getArithmetic().one(), rowIndexValue);
-        setWorkingEquationSystem(
-            getWorkingMatrix().multiplyRow(rowIndex, quotient),
-            getWorkingVector().multiplyValue(rowIndex, quotient)
-        );
+        setWorkingEquationSystem(getWorking().multiplyRow(rowIndex, quotient));
         if (!getArithmetic().one().equals(getWorkingMatrix().getValue(rowIndex, rowIndex)))
             getWorkingMatrix().setValue(rowIndex, rowIndex, getArithmetic().one());
     }
@@ -156,10 +144,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
             if (isZero(rowIndexValue))
                 continue;
             T negate = getArithmetic().negate(rowIndexValue);
-            setWorkingEquationSystem(
-                getWorkingMatrix().addRowMultipleTimes(i, rowIndex, negate),
-                getWorkingVector().addValueMultiplyTimes(i, rowIndex, negate)
-            );
+            setWorkingEquationSystem(getWorking().addRowMultipleTimes(i, rowIndex, negate));
         }
     }
 
@@ -177,10 +162,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
                 List<T> row = getWorkingMatrix().getRow(j);
                 if (!isZero(row.get(i))) {
                     T negate = getArithmetic().negate(row.get(i));
-                    setWorkingEquationSystem(
-                        getWorkingMatrix().addRowMultipleTimes(j, i, negate),
-                        getWorkingVector().addValueMultiplyTimes(j, i, negate)
-                    );
+                    setWorkingEquationSystem(getWorking().addRowMultipleTimes(j, i, negate));
                 }
             }
         }
@@ -192,10 +174,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
     protected void reSwapCols() {
         while (!getSwappedCols().isEmpty()) {
             ColPair pop = getSwappedCols().pop();
-            setWorkingEquationSystem(
-                getWorkingMatrix().swapCols(pop.getCol1(), pop.getCol2()),
-                getWorkingVector()
-            );
+            setWorkingEquationSystem(getWorking().swapCols(pop.getCol1(), pop.getCol2()));
         }
     }
 
@@ -210,10 +189,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
                 continue;
             for (int j = i + 1; j < getWorkingMatrix().getRows(); j++)
                 if (!isZero(getWorkingMatrix().getRow(j).get(i)))
-                    setWorkingEquationSystem(
-                        getWorkingMatrix().swapRows(i, j),
-                        getWorkingVector().swapValues(i, j)
-                    );
+                    setWorkingEquationSystem(getWorking().swapRows(i, j));
         }
     }
 

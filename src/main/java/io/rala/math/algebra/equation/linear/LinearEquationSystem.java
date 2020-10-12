@@ -80,6 +80,98 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
         return new GaussSolver<>(this).solve();
     }
 
+    // region modify
+
+    /**
+     * @param row1 row1 to swap with row2
+     * @param row2 row2 to swap with row1
+     * @return new equation system with changed values
+     * @see LinearEquationMatrix#swapRows(int, int)
+     * @see LinearEquationVector#swapValues(int, int)
+     */
+    public LinearEquationSystem<T> swapRows(int row1, int row2) {
+        return new LinearEquationSystem<>(
+            getMatrix().swapRows(row1, row2),
+            getVector().isColumn() ? getVector().swapValues(row1, row2) : getVector()
+        );
+    }
+
+    /**
+     * @param col1 col1 to swap with col2
+     * @param col2 col2 to swap with col1
+     * @return new equation system with changed values
+     * @see LinearEquationMatrix#swapCols(int, int)
+     * @see LinearEquationVector#swapValues(int, int)
+     */
+    public LinearEquationSystem<T> swapCols(int col1, int col2) {
+        return new LinearEquationSystem<>(
+            getMatrix().swapCols(col1, col2),
+            getVector().isRow() ? getVector().swapValues(col1, col2) : getVector()
+        );
+    }
+
+    /**
+     * @param row row to multiply
+     * @param n   factor to use
+     * @return new equation system with changed values
+     * @see LinearEquationMatrix#multiplyRow(int, Number)
+     * @see LinearEquationVector#multiplyValue(int, Number)
+     */
+    public LinearEquationSystem<T> multiplyRow(int row, T n) {
+        return new LinearEquationSystem<>(
+            getMatrix().multiplyRow(row, n),
+            getVector().isColumn() ? getVector().multiplyValue(row, n) : getVector()
+        );
+    }
+
+    /**
+     * @param col col to multiply
+     * @param n   factor to use
+     * @return new equation system with changed values
+     * @see LinearEquationMatrix#multiplyCol(int, Number)
+     * @see LinearEquationVector#multiplyValue(int, Number)
+     */
+    public LinearEquationSystem<T> multiplyCol(int col, T n) {
+        return new LinearEquationSystem<>(
+            getMatrix().multiplyCol(col, n),
+            getVector().isRow() ? getVector().multiplyValue(col, n) : getVector()
+        );
+    }
+
+    /**
+     * @param row1 row to multiply with other multiple times
+     * @param row2 row to multiply multiple times with other
+     * @param n    factor to use
+     * @return new equation system with changed values
+     * @see LinearEquationMatrix#addRowMultipleTimes(int, int, Number)
+     * @see LinearEquationVector#addValueMultiplyTimes(int, int, Number)
+     */
+    public LinearEquationSystem<T> addRowMultipleTimes(int row1, int row2, T n) {
+        return new LinearEquationSystem<>(
+            getMatrix().addRowMultipleTimes(row1, row2, n),
+            getVector().isColumn() ? getVector().addValueMultiplyTimes(row1, row2, n) : getVector()
+        );
+    }
+
+    /**
+     * @param col1 col to multiply with other multiple times
+     * @param col2 col to multiply multiple times with other
+     * @param n    factor to use
+     * @return new equation system with changed values
+     * @see LinearEquationMatrix#addColMultipleTimes(int, int, Number)
+     * @see LinearEquationVector#addValueMultiplyTimes(int, int, Number)
+     */
+    public LinearEquationSystem<T> addColMultipleTimes(int col1, int col2, T n) {
+        return new LinearEquationSystem<>(
+            getMatrix().addColMultipleTimes(col1, col2, n),
+            getVector().isColumn() ? getVector().addValueMultiplyTimes(col1, col2, n) : getVector()
+        );
+    }
+
+    // endregion
+
+    // region static of
+
     /**
      * @param matrix matrix of linear equation system where solution is last column
      * @param <T>    number class of linear equation system
@@ -109,6 +201,8 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
     public static <T extends Number> LinearEquationSystem<T> ofMatrixWithSolutionRow(Matrix<T> matrix) {
         return ofMatrixWithSolutionColumn(matrix.transpose());
     }
+
+    // endregion
 
     // region override
 
