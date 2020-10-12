@@ -40,7 +40,7 @@ public class BigIntegerBigDecimalFraction extends Fraction<BigInteger, BigDecima
      *
      * @param fraction fraction to copy
      */
-    public BigIntegerBigDecimalFraction(BigIntegerBigDecimalFraction fraction) {
+    public BigIntegerBigDecimalFraction(Fraction<BigInteger, BigDecimal> fraction) {
         super(fraction);
     }
 

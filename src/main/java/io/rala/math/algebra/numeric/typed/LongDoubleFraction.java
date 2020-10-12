@@ -37,7 +37,7 @@ public class LongDoubleFraction extends Fraction<Long, Double> {
      *
      * @param fraction fraction to copy
      */
-    public LongDoubleFraction(LongDoubleFraction fraction) {
+    public LongDoubleFraction(Fraction<Long, Double> fraction) {
         super(fraction);
     }
 
