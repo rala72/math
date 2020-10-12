@@ -2,10 +2,12 @@ package io.rala.math.testUtils.assertion;
 
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.geometry.*;
-import org.junit.jupiter.api.Assertions;
 import org.opentest4j.AssertionFailedError;
 
 import java.math.MathContext;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * assertions for {@link io.rala.math.geometry} package
@@ -50,8 +52,8 @@ public class GeometryAssertions {
     public static <T extends Number> void assertCircle(
         Circle<T> circle, Point<T> center, T radius
     ) {
-        assertEquals(center, circle.getCenter(), "center is invalid");
-        Assertions.assertEquals(radius.doubleValue(), circle.getRadius().doubleValue(),
+        assertEqualsPoint(center, circle.getCenter(), "center is invalid");
+        assertEquals(radius.doubleValue(), circle.getRadius().doubleValue(),
             DELTA, "radius is invalid"
         );
     }
@@ -76,8 +78,8 @@ public class GeometryAssertions {
     public static <T extends Number> void assertLineSegment(
         LineSegment<T> lineSegment, Point<T> a, Point<T> b
     ) {
-        assertEquals(a, lineSegment.getA(), "a is invalid");
-        assertEquals(b, lineSegment.getB(), "b is invalid");
+        assertEqualsPoint(a, lineSegment.getA(), "a is invalid");
+        assertEqualsPoint(b, lineSegment.getB(), "b is invalid");
     }
 
     // endregion
@@ -88,8 +90,8 @@ public class GeometryAssertions {
      * asserts that line has expected values
      */
     public static <T extends Number> void assertLine(Line<T> line, T m, T b) {
-        Assertions.assertEquals(m, line.getM(), "m is invalid");
-        Assertions.assertEquals(b, line.getB(), "b is invalid");
+        assertEquals(m, line.getM(), "m is invalid");
+        assertEquals(b, line.getB(), "b is invalid");
     }
 
     // endregion
@@ -116,10 +118,10 @@ public class GeometryAssertions {
      * asserts that point has expected values
      */
     public static <T extends Number> void assertPoint(Point<T> point, T x, T y) {
-        Assertions.assertEquals(x.doubleValue(), point.getX().doubleValue(),
+        assertEquals(x.doubleValue(), point.getX().doubleValue(),
             DELTA, "x is invalid"
         );
-        Assertions.assertEquals(y.doubleValue(), point.getY().doubleValue(),
+        assertEquals(y.doubleValue(), point.getY().doubleValue(),
             DELTA, "y is invalid"
         );
     }
@@ -146,9 +148,9 @@ public class GeometryAssertions {
     public static <T extends Number> void assertRect(
         Rect<T> rect, Point<T> a, Point<T> b, T size
     ) {
-        assertEquals(a, rect.getA(), "a is invalid");
-        assertEquals(b, rect.getB(), "b is invalid");
-        Assertions.assertEquals(size.doubleValue(), rect.getSize().doubleValue(),
+        assertEqualsPoint(a, rect.getA(), "a is invalid");
+        assertEqualsPoint(b, rect.getB(), "b is invalid");
+        assertEquals(size.doubleValue(), rect.getSize().doubleValue(),
             DELTA, "size is invalid"
         );
     }
@@ -163,9 +165,9 @@ public class GeometryAssertions {
     public static <T extends Number> void assertTriangle(
         Triangle<T> triangle, Point<T> a, Point<T> b, Point<T> c
     ) {
-        assertEquals(a, triangle.getA(), "a is invalid");
-        assertEquals(b, triangle.getB(), "b is invalid");
-        assertEquals(c, triangle.getC(), "c is invalid");
+        assertEqualsPoint(a, triangle.getA(), "a is invalid");
+        assertEqualsPoint(b, triangle.getB(), "b is invalid");
+        assertEqualsPoint(c, triangle.getC(), "c is invalid");
     }
 
     // endregion
@@ -192,11 +194,11 @@ public class GeometryAssertions {
      * asserts that vector has expected values
      */
     public static <T extends Number> void assertVector(Vector<T> vector, T x, T y) {
-        Assertions.assertEquals(
+        assertEquals(
             x.doubleValue(), vector.getX().doubleValue(),
             DELTA, "x is invalid"
         );
-        Assertions.assertEquals(
+        assertEquals(
             y.doubleValue(), vector.getY().doubleValue(),
             DELTA, "y is invalid"
         );
@@ -206,11 +208,11 @@ public class GeometryAssertions {
 
     // region private assertEquals
 
-    private static void assertEquals(Point<Number> expected, Point<Number> actual) {
-        assertEquals(actual, expected, null);
+    private static void assertEqualsPoint(Point<Number> expected, Point<Number> actual) {
+        assertEqualsPoint(actual, expected, null);
     }
 
-    private static <T extends Number> void assertEquals(
+    private static <T extends Number> void assertEqualsPoint(
         Point<T> expected, Point<T> actual, String message
     ) {
         if (message == null) message = "point is invalid";
@@ -220,7 +222,7 @@ public class GeometryAssertions {
                 expected.getY()
             );
         } catch (AssertionFailedError error) { // better way?
-            Assertions.fail(message + " [" + error.getMessage() + "]", error);
+            fail(message + " [" + error.getMessage() + "]", error);
         }
     }
 

@@ -1,10 +1,12 @@
 package io.rala.math.testUtils.assertion;
 
 import io.rala.math.testUtils.SerializableUtils;
-import org.junit.jupiter.api.Assertions;
 
 import java.io.IOException;
 import java.io.Serializable;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * {@link Serializable} assertions based on {@link SerializableUtils}
@@ -26,9 +28,9 @@ public class SerializableAssertions {
         try {
             byte[] serialize = SerializableUtils.serialize(t);
             T deserialize = SerializableUtils.deserialize(serialize, tClass);
-            Assertions.assertEquals(t, deserialize);
+            assertEquals(t, deserialize);
         } catch (IOException | ClassNotFoundException e) {
-            Assertions.fail(e);
+            fail(e);
         }
     }
 }
