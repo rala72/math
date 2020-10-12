@@ -27,5 +27,7 @@ public class VectorAssertions {
     ) {
         Assertions.assertEquals(size, vector.getSize(), "size is invalid");
         Assertions.assertEquals(type, vector.getType(), "type is invalid");
+        Assertions.assertEquals(Vector.Type.ROW.equals(type), vector.isRow(), "isRow is invalid");
+        Assertions.assertEquals(Vector.Type.COLUMN.equals(type), vector.isColumn(), "isRow is invalid");
     }
 }

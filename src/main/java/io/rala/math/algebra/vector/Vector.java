@@ -166,6 +166,22 @@ public class Vector<T extends Number>
     }
 
     /**
+     * @return {@code true} if {@link #getType()} returns {@link Type#ROW}
+     * @see #isColumn()
+     */
+    public final boolean isRow() {
+        return Type.ROW.equals(getType());
+    }
+
+    /**
+     * @return {@code true} if {@link #getType()} returns {@link Type#COLUMN}
+     * @see #isRow()
+     */
+    public final boolean isColumn() {
+        return Type.COLUMN.equals(getType());
+    }
+
+    /**
      * @return {@link #euclideanNorm()}
      */
     public T length() {
@@ -340,7 +356,7 @@ public class Vector<T extends Number>
         Vector<T> v1 =
             new Vector<>(getType() == Type.ROW ? this : transpose());
         Vector<T> v2 =
-            new Vector<>(vector.getType() == Type.COLUMN ?
+            new Vector<>(vector.isColumn() ?
                 vector : vector.transpose()
             );
         return v1.toMatrix().multiply(v2.toMatrix()).toParam();

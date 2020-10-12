@@ -51,10 +51,8 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
     public LinearEquationSystem(
         LinearEquationMatrix<T> matrix, LinearEquationVector<T> vector
     ) {
-        if (Vector.Type.ROW.equals(vector.getType()) &&
-            vector.getSize() != matrix.getCols() ||
-            Vector.Type.COLUMN.equals(vector.getType()) &&
-                vector.getSize() != matrix.getRows()) {
+        if (vector.isRow() && vector.getSize() != matrix.getCols() ||
+            vector.isColumn() && vector.getSize() != matrix.getRows()) {
             throw new IllegalArgumentException(EXCEPTION_MATRIX_VECTOR_NO_MATCH);
         }
         this.matrix = matrix;
