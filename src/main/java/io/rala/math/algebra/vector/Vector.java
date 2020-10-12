@@ -659,7 +659,7 @@ public class Vector<T extends Number>
         /**
          * @return index of entry
          */
-        public int getIndex() {
+        public final int getIndex() {
             return index;
         }
 
