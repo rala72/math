@@ -979,9 +979,9 @@ public class Matrix<T extends Number>
     protected final Matrix<T> coFactorMatrix() {
         if (!isSquare())
             throw new NotSupportedException(EXCEPTION_NO_SQUARE);
-        Matrix<T> copy = copy();
-        copy.computeAll(field -> coFactor(field.getRow(), field.getCol()));
-        return copy;
+        Matrix<T> result = copy();
+        result.computeAll(field -> coFactor(field.getRow(), field.getCol()));
+        return result;
     }
 
     /**
@@ -1016,13 +1016,13 @@ public class Matrix<T extends Number>
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row1 + " / " + getRows());
         if (!isValidRow(row2))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row2 + " / " + getRows());
-        Matrix<T> copy = copy();
-        if (row1 == row2) return copy;
+        Matrix<T> result = copy();
+        if (row1 == row2) return result;
         for (int c = 0; c < getCols(); c++) {
-            copy.setValue(row1, c, getValue(row2, c));
-            copy.setValue(row2, c, getValue(row1, c));
+            result.setValue(row1, c, getValue(row2, c));
+            result.setValue(row2, c, getValue(row1, c));
         }
-        return copy;
+        return result;
     }
 
     /**
@@ -1036,13 +1036,13 @@ public class Matrix<T extends Number>
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col1 + " / " + getCols());
         if (!isValidCol(col2))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col2 + " / " + getCols());
-        Matrix<T> copy = copy();
-        if (col1 == col2) return copy;
+        Matrix<T> result = copy();
+        if (col1 == col2) return result;
         for (int r = 0; r < getRows(); r++) {
-            copy.setValue(r, col1, getValue(r, col2));
-            copy.setValue(r, col2, getValue(r, col1));
+            result.setValue(r, col1, getValue(r, col2));
+            result.setValue(r, col2, getValue(r, col1));
         }
-        return copy;
+        return result;
     }
 
     /**
@@ -1054,17 +1054,17 @@ public class Matrix<T extends Number>
     protected Matrix<T> multiplyRow(int row, T n) {
         if (!isValidRow(row))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row + " / " + getRows());
-        Matrix<T> copy = copy();
+        Matrix<T> result = copy();
         if (isZero(n)) {
             for (int i = 0; i < getCols(); i++)
-                copy.setValue(row, i, getArithmetic().zero());
-            return copy;
+                result.setValue(row, i, getArithmetic().zero());
+            return result;
         }
         if (getArithmetic().one().equals(n))
-            return copy;
+            return result;
         for (int c = 0; c < getCols(); c++)
-            copy.compute(row, c, n, getArithmetic()::product);
-        return copy;
+            result.compute(row, c, n, getArithmetic()::product);
+        return result;
     }
 
     /**
@@ -1076,17 +1076,17 @@ public class Matrix<T extends Number>
     protected Matrix<T> multiplyCol(int col, T n) {
         if (!isValidCol(col))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col + " / " + getCols());
-        Matrix<T> copy = copy();
+        Matrix<T> result = copy();
         if (isZero(n)) {
             for (int i = 0; i < getCols(); i++)
-                copy.setValue(i, col, getArithmetic().zero());
-            return copy;
+                result.setValue(i, col, getArithmetic().zero());
+            return result;
         }
         if (getArithmetic().one().equals(n))
-            return copy;
+            return result;
         for (int r = 0; r < getRows(); r++)
-            copy.compute(r, col, n, getArithmetic()::product);
-        return copy;
+            result.compute(r, col, n, getArithmetic()::product);
+        return result;
     }
 
     /**
@@ -1104,13 +1104,13 @@ public class Matrix<T extends Number>
         if (isZero(n))
             return copy();
         if (row1 == row2) return multiplyRow(row1, n);
-        Matrix<T> copy = copy();
+        Matrix<T> result = copy();
         for (int c = 0; c < getCols(); c++)
-            copy.compute(row1, c,
+            result.compute(row1, c,
                 getArithmetic().product(getValue(row2, c), n),
                 getArithmetic()::sum
             );
-        return copy;
+        return result;
     }
 
     /**
@@ -1128,13 +1128,13 @@ public class Matrix<T extends Number>
         if (isZero(n))
             return copy();
         if (col1 == col2) return multiplyCol(col1, n);
-        Matrix<T> copy = copy();
+        Matrix<T> result = copy();
         for (int r = 0; r < getRows(); r++)
-            copy.compute(r, col1,
+            result.compute(r, col1,
                 getArithmetic().product(getValue(r, col2), n),
                 getArithmetic()::sum
             );
-        return copy;
+        return result;
     }
 
     // endregion
