@@ -750,7 +750,37 @@ class MatrixTest {
 
     // endregion
 
-    // region rowEchelonForm
+    // region rank and rowEchelonForm
+
+    @Test
+    public void rankOfSquareMatrixWithZeroRowInSolution() {
+        TestMatrix matrix = TestMatrix.ofValuesByRows(3,
+            2, -1, 0,
+            -2, 2, -2,
+            2, -1, 0
+        );
+        assertEquals(2, matrix.rank());
+    }
+
+    @Test
+    public void rankOfSquareMatrixWithoutZeroRowInSolution() {
+        TestMatrix matrix = TestMatrix.ofValuesByRows(3,
+            1, -1, 2,
+            -2, 1, -6,
+            1, 0, -2
+        );
+        assertEquals(3, matrix.rank());
+    }
+
+    @Test
+    public void rankOfNonSquareMatrix() {
+        TestMatrix matrix = TestMatrix.ofValuesByRows(3,
+            0d, -2, 2, 4,
+            2, -1, -1, 1,
+            2, -2, 0d, 3
+        );
+        assertEquals(2, matrix.rank());
+    }
 
     @Test
     public void rowEchelonFormOfSquareMatrixWithZeroRowInSolution() {

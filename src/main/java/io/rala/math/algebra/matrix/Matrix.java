@@ -637,7 +637,16 @@ public class Matrix<T extends Number>
 
     // endregion
 
-    // region rowEchelonForm
+    // region rank and rowEchelonForm
+
+    /**
+     * @return rank of matrix
+     * @see #rowEchelonForm()
+     */
+    public int rank() {
+        Matrix<T> matrix = rowEchelonForm();
+        return getRows() - (int) IntStream.range(0, getRows()).filter(matrix::isZeroRow).count();
+    }
 
     /**
      * @return new matrix in row echelon form
