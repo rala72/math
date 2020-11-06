@@ -652,8 +652,8 @@ public class Matrix<T extends Number>
      * @return new matrix in row echelon form
      * (not necessary reduced)
      */
-    // see GaussSolver
     public Matrix<T> rowEchelonForm() {
+        // see GaussSolver
         Matrix<T> result = copy();
         result = result.swapZeroRowsToBottom();
         result = result.ensureDiagonalFieldsAreNonZero();
@@ -1184,8 +1184,8 @@ public class Matrix<T extends Number>
      *
      * @return new matrix with swapped rows
      */
-    // see GaussSolver#prepareMatrixBySwappingZeroRowsToBottom
     protected Matrix<T> swapZeroRowsToBottom() {
+        // see GaussSolver#prepareMatrixBySwappingZeroRowsToBottom
         Matrix<T> result = copy();
         for (int i = 0; i < result.getRows() - 1; i++) {
             if (!result.isZeroRow(i)) continue;
@@ -1213,8 +1213,8 @@ public class Matrix<T extends Number>
      *
      * @return new matrix with swapped rows
      */
-    // see GaussSolver#prepareMatrixBySwapping
     protected Matrix<T> ensureDiagonalFieldsAreNonZero(boolean includeCols) {
+        // see GaussSolver#prepareMatrixBySwapping
         Matrix<T> result = copy();
         rowIndex:
         for (int rowIndex = 0; rowIndex < result.getRows(); rowIndex++) {
