@@ -92,7 +92,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
      * swaps (preferred) rows and (if required) cols to
      * ensure {@code rowIndex} value is not {@code 0}
      * <p>
-     * solution column method will be untouched if columns are swapped
+     * solution column will be untouched if columns are swapped
      *
      * @param rowIndex rowIndex to handle
      * @implSpec pre: non zero row
