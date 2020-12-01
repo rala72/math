@@ -637,6 +637,44 @@ public class Matrix<T extends Number>
 
     // endregion
 
+    // region rank and rowEchelonForm
+
+    /**
+     * @return rank of matrix
+     * @see #rowEchelonForm()
+     */
+    public int rank() {
+        Matrix<T> matrix = rowEchelonForm();
+        return getRows() - (int) IntStream.range(0, getRows()).filter(matrix::isZeroRow).count();
+    }
+
+    /**
+     * @return new matrix in row echelon form
+     * (not necessary reduced)
+     */
+    public Matrix<T> rowEchelonForm() {
+        // see GaussSolver
+        Matrix<T> result = copy();
+        result = result.swapZeroRowsToBottom();
+        result = result.ensureDiagonalFieldsAreNonZero();
+        final int minSquareSize = Math.min(result.getRows(), result.getCols());
+        for (int i = 0; i < minSquareSize; i++) {
+            T value = result.getValue(i, i);
+            if (isZero(value)) break;
+            for (int r = i + 1; r < minSquareSize; r++) {
+                T rValue = result.getValue(r, i);
+                if (isZero(rValue)) continue;
+                T quotient = getArithmetic().quotient(value, rValue);
+                T inverse = getArithmetic().quotient(getArithmetic().one(), quotient);
+                T negated = getArithmetic().negate(inverse);
+                result = result.addRowMultipleTimes(r, i, negated);
+            }
+        }
+        return result;
+    }
+
+    // endregion
+
     // region toVector and toParam
 
     /**
@@ -1139,7 +1177,69 @@ public class Matrix<T extends Number>
 
     // endregion
 
-    // region protected: isDefaultValue, getIndexOfRowAndCol and isValid
+    // region protected: modify - rowEchelonForm
+
+    /**
+     * swaps zero rows to bottom
+     *
+     * @return new matrix with swapped rows
+     */
+    protected Matrix<T> swapZeroRowsToBottom() {
+        // see GaussSolver#prepareMatrixBySwappingZeroRowsToBottom
+        Matrix<T> result = copy();
+        for (int i = 0; i < result.getRows() - 1; i++) {
+            if (!result.isZeroRow(i)) continue;
+            for (int j = i + 1; j < result.getRows(); j++)
+                if (!result.isZeroRow(j)) {
+                    result = result.swapRows(i, j);
+                    break;
+                }
+        }
+        return result;
+    }
+
+    /**
+     * swaps rows so diagonal fields are non zero
+     *
+     * @return new matrix with swapped rows
+     * @see #ensureDiagonalFieldsAreNonZero(boolean)
+     */
+    protected Matrix<T> ensureDiagonalFieldsAreNonZero() {
+        return ensureDiagonalFieldsAreNonZero(false);
+    }
+
+    /**
+     * swaps rows (or if necessary columns) so diagonal fields are non zero
+     *
+     * @return new matrix with swapped rows
+     */
+    protected Matrix<T> ensureDiagonalFieldsAreNonZero(boolean includeCols) {
+        // see GaussSolver#prepareMatrixBySwapping
+        Matrix<T> result = copy();
+        rowIndex:
+        for (int rowIndex = 0; rowIndex < result.getRows(); rowIndex++) {
+            if (result.isZeroRow(rowIndex)) break;
+            List<T> row = result.getRow(rowIndex);
+            if (row.size() <= rowIndex || !isZero(row.get(rowIndex)))
+                continue;
+            List<T> col = result.getCol(rowIndex);
+            for (int i = rowIndex + 1; i < result.getRows(); i++)
+                if (!isZero(col.get(i))) {
+                    result = result.swapRows(rowIndex, i);
+                    continue rowIndex;
+                } else if (result.isZeroRow(i)) break;
+            for (int i = rowIndex + 1; includeCols && i < result.getCols(); i++)
+                if (!isZero(row.get(i))) {
+                    result = result.swapCols(rowIndex, i);
+                    continue rowIndex;
+                }
+        }
+        return result;
+    }
+
+    // endregion
+
+    // region protected: getIndexOfRowAndCol, isValid and isDefaultValue
 
     /**
      * @param row row of requested index
@@ -1153,24 +1253,6 @@ public class Matrix<T extends Number>
         if (!isValidCol(col))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col + " / " + getCols());
         return (long) row * getCols() + col;
-    }
-
-    /**
-     * @param t value to check
-     * @return {@code true} if {@code t} is equal to {@link #getDefaultValue()}
-     * @see AbstractArithmetic#isEqual(Number, Number)
-     */
-    protected final boolean isDefaultValue(T t) {
-        return getArithmetic().isEqual(getDefaultValue(), t);
-    }
-
-    /**
-     * @param t value to check
-     * @return {@code true} if {@link AbstractArithmetic#isZero(Number)} is
-     * @see AbstractArithmetic#isZero(Number)
-     */
-    protected final boolean isZero(T t) {
-        return getArithmetic().isZero(t);
     }
 
     /**
@@ -1195,6 +1277,34 @@ public class Matrix<T extends Number>
      */
     protected final boolean isValidCol(int col) {
         return 0 <= col && col < getCols();
+    }
+
+    /**
+     * @param t value to check
+     * @return {@code true} if {@code t} is equal to {@link #getDefaultValue()}
+     * @see AbstractArithmetic#isEqual(Number, Number)
+     */
+    protected final boolean isDefaultValue(T t) {
+        return getArithmetic().isEqual(getDefaultValue(), t);
+    }
+
+    /**
+     * @param t value to check
+     * @return {@code true} if {@link AbstractArithmetic#isZero(Number)} is
+     * @see AbstractArithmetic#isZero(Number)
+     */
+    protected final boolean isZero(T t) {
+        return getArithmetic().isZero(t);
+    }
+
+    /**
+     * @param row row to check
+     * @return {@code true} if value is valid
+     * @throws IndexOutOfBoundsException if row is invalid
+     * @see #getRow(int)
+     */
+    protected final boolean isZeroRow(int row) {
+        return getRow(row).stream().allMatch(this::isZero);
     }
 
     // endregion

@@ -750,6 +750,82 @@ class MatrixTest {
 
     // endregion
 
+    // region rank and rowEchelonForm
+
+    @Test
+    public void rankOfSquareMatrixWithZeroRowInSolution() {
+        TestMatrix matrix = TestMatrix.ofValuesByRows(3,
+            2, -1, 0,
+            -2, 2, -2,
+            2, -1, 0
+        );
+        assertEquals(2, matrix.rank());
+    }
+
+    @Test
+    public void rankOfSquareMatrixWithoutZeroRowInSolution() {
+        TestMatrix matrix = TestMatrix.ofValuesByRows(3,
+            1, -1, 2,
+            -2, 1, -6,
+            1, 0, -2
+        );
+        assertEquals(3, matrix.rank());
+    }
+
+    @Test
+    public void rankOfNonSquareMatrix() {
+        TestMatrix matrix = TestMatrix.ofValuesByRows(3,
+            0d, -2, 2, 4,
+            2, -1, -1, 1,
+            2, -2, 0d, 3
+        );
+        assertEquals(2, matrix.rank());
+    }
+
+    @Test
+    public void rowEchelonFormOfSquareMatrixWithZeroRowInSolution() {
+        TestMatrix matrix = TestMatrix.ofValuesByRows(3,
+            2, -1, 0,
+            -2, 2, -2,
+            2, -1, 0
+        );
+        assertEquals(TestMatrix.ofValuesByRows(3,
+            2, -1, 0,
+            0d, 1d, -2d,
+            0d, 0d, 0d
+        ), matrix.rowEchelonForm());
+    }
+
+    @Test
+    public void rowEchelonFormOfSquareMatrixWithoutZeroRowInSolution() {
+        TestMatrix matrix = TestMatrix.ofValuesByRows(3,
+            1, -1, 2,
+            -2, 1, -6,
+            1, 0, -2
+        );
+        assertEquals(TestMatrix.ofValuesByRows(3,
+            1, -1, 2,
+            0d, -1d, -2d,
+            0d, 0d, -6d
+        ), matrix.rowEchelonForm());
+    }
+
+    @Test
+    public void rowEchelonFormOfNonSquareMatrix() {
+        TestMatrix matrix = TestMatrix.ofValuesByRows(3,
+            0d, -2, 2, 4,
+            2, -1, -1, 1,
+            2, -2, 0d, 3
+        );
+        assertEquals(TestMatrix.ofValuesByRows(3,
+            2, -1, -1, 1,
+            0d, -2, 2, 4,
+            0d, 0d, 0d, 0d
+        ), matrix.rowEchelonForm());
+    }
+
+    // endregion
+
     // region toVector and toParam
 
     @Test
@@ -1485,6 +1561,55 @@ class MatrixTest {
 
     // endregion
 
+    // region protected: modify - rowEchelonForm
+
+    @Test
+    void swapZeroRowsToBottomWithoutZeroRows() {
+        TestMatrix matrix = TestMatrix.ofValuesByRows(3,
+            2, -1, 0,
+            -2, 2, -2,
+            2, -1, 0
+        );
+        assertEquals(matrix, matrix.swapZeroRowsToBottom());
+    }
+
+    @Test
+    void swapZeroRowsToBottomWithZeroRows() {
+        TestMatrix matrix = TestMatrix.ofValuesByRows(3,
+            0d, 0d, 0d,
+            -2, 2, -2,
+            2, -1, 0
+        );
+        assertNotEquals(matrix, matrix.swapZeroRowsToBottom());
+        assertEquals(matrix.swapRows(0, 1).swapRows(1, 2), matrix.swapZeroRowsToBottom());
+    }
+
+    @Test
+    void ensureDiagonalFieldsAreNonZeroWithoutZeroRows() {
+        TestMatrix matrix = TestMatrix.ofValuesByRows(3,
+            2, -1, 0,
+            -2, 2, -2,
+            2, -1, 0
+        );
+        assertEquals(matrix, matrix.ensureDiagonalFieldsAreNonZero(true));
+    }
+
+    @Test
+    void ensureDiagonalFieldsAreNonZeroWithZeroRows() {
+        TestMatrix matrix = TestMatrix.ofValuesByRows(3,
+            0d, 0d, -2,
+            2, -1, 0d,
+            2, 0d, 0d
+        );
+        assertNotEquals(matrix, matrix.ensureDiagonalFieldsAreNonZero(true));
+        assertEquals(
+            matrix.swapRows(0, 1).swapCols(1, 2),
+            matrix.ensureDiagonalFieldsAreNonZero(true)
+        );
+    }
+
+    // endregion
+
     // region protected: getIndexOfRowAndCol, isDefaultValue and isValid
 
     @Test
@@ -1494,22 +1619,6 @@ class MatrixTest {
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 assertEquals(index++, matrix.getIndexOfRowAndCol(r, c));
-    }
-
-    @Test
-    void isDefaultValueOfMatrixWithDefaultValueNull() {
-        TestMatrix matrix = new TestMatrix(1, null);
-        assertTrue(matrix.isDefaultValue(null));
-        assertFalse(matrix.isDefaultValue(0));
-        assertFalse(matrix.isDefaultValue(1));
-    }
-
-    @Test
-    void isDefaultValueOfMatrixWithDefaultValue1() {
-        TestMatrix matrix = new TestMatrix(1, 1d);
-        assertFalse(matrix.isDefaultValue(null));
-        assertFalse(matrix.isDefaultValue(0));
-        assertTrue(matrix.isDefaultValue(1d));
     }
 
     @Test
@@ -1537,6 +1646,38 @@ class MatrixTest {
         for (int i = 0; i < matrix.getCols(); i++)
             assertTrue(matrix.isValidCol(i));
         assertFalse(matrix.isValidCol(matrix.getCols()));
+    }
+
+    @Test
+    void isDefaultValueOfMatrixWithDefaultValueNull() {
+        TestMatrix matrix = new TestMatrix(1, null);
+        assertTrue(matrix.isDefaultValue(null));
+        assertFalse(matrix.isDefaultValue(0));
+        assertFalse(matrix.isDefaultValue(1));
+    }
+
+    @Test
+    void isDefaultValueOfMatrixWithDefaultValue1() {
+        TestMatrix matrix = new TestMatrix(1, 1d);
+        assertFalse(matrix.isDefaultValue(null));
+        assertFalse(matrix.isDefaultValue(0));
+        assertTrue(matrix.isDefaultValue(1d));
+    }
+
+    @Test
+    void isZeroRowOfMatrixWithSize2() {
+        TestMatrix matrix = new TestMatrix(2);
+        matrix.setValue(0, 1);
+        assertFalse(matrix.isZeroRow(0));
+        assertTrue(matrix.isZeroRow(1));
+    }
+
+    @Test
+    void isZeroRowWithInvalidIndexOfMatrixWithSize1() {
+        TestMatrix matrix = new TestMatrix(1);
+        assertThrows(IndexOutOfBoundsException.class,
+            () -> matrix.isZeroRow(1)
+        ); // assert exception message?
     }
 
     // endregion
