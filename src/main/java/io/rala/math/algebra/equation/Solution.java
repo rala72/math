@@ -10,7 +10,7 @@ import java.util.Objects;
  * @param <E> class of {@link AbstractEquationSystem}
  * @param <T> number class
  */
-public class Solution<E extends AbstractEquationSystem, T extends Number> {
+public class Solution<E extends AbstractEquationSystem<E>, T extends Number> {
     /**
      * describes the state of the solution of a {@link AbstractEquationSystem}
      * which can either have a {@link #SINGLE} or {@link #INFINITE} solutions or
@@ -102,7 +102,7 @@ public class Solution<E extends AbstractEquationSystem, T extends Number> {
      * @param <T>            number class
      * @return new {@link Solution} instance
      */
-    public static <E extends AbstractEquationSystem, T extends Number>
+    public static <E extends AbstractEquationSystem<E>, T extends Number>
     Solution<E, T> single(E equationSystem, List<T> solution) {
         return new Solution<>(equationSystem, solution, State.SINGLE);
     }
@@ -115,7 +115,7 @@ public class Solution<E extends AbstractEquationSystem, T extends Number> {
      * @param <T>            number class
      * @return new {@link Solution} instance
      */
-    public static <E extends AbstractEquationSystem, T extends Number>
+    public static <E extends AbstractEquationSystem<E>, T extends Number>
     Solution<E, T> unsolvable(E equationSystem) {
         return new Solution<>(equationSystem, Collections.emptyList(), State.UNSOLVABLE);
     }
@@ -128,7 +128,7 @@ public class Solution<E extends AbstractEquationSystem, T extends Number> {
      * @param <T>            number class
      * @return new {@link Solution} instance
      */
-    public static <E extends AbstractEquationSystem, T extends Number>
+    public static <E extends AbstractEquationSystem<E>, T extends Number>
     Solution<E, T> infinite(E equationSystem) {
         return new Solution<>(equationSystem, Collections.emptyList(), State.INFINITE);
     }

@@ -9,7 +9,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SolutionTest {
-    private static AbstractEquationSystem equationSystem;
+    private static TestAbstractEquationSystem equationSystem;
 
     @BeforeAll
     static void beforeAll() {
@@ -27,7 +27,7 @@ class SolutionTest {
 
     @Test
     void equalsOfTestAbstractSolver() {
-        Solution<AbstractEquationSystem, Number> solution =
+        Solution<TestAbstractEquationSystem, Number> solution =
             Solution.unsolvable(equationSystem);
         assertEquals(solution, Solution.unsolvable(equationSystem));
         assertNotEquals(solution, Solution.infinite(equationSystem));
@@ -44,7 +44,7 @@ class SolutionTest {
 
     @Test
     void toStringOfTestAbstractSolver() {
-        Solution<AbstractEquationSystem, Number> solution =
+        Solution<TestAbstractEquationSystem, Number> solution =
             Solution.single(equationSystem, List.of(1));
         assertEquals("SINGLE: [1]", solution.toString());
     }
@@ -55,7 +55,7 @@ class SolutionTest {
 
     @Test
     void createStaticSingle() {
-        Solution<AbstractEquationSystem, Number> solution = Solution.single(
+        Solution<TestAbstractEquationSystem, Number> solution = Solution.single(
             equationSystem, List.of(1)
         );
         assertEquals(equationSystem, solution.getEquationSystem());
@@ -65,7 +65,7 @@ class SolutionTest {
 
     @Test
     void createStaticUnsolvable() {
-        Solution<AbstractEquationSystem, Number> solution =
+        Solution<TestAbstractEquationSystem, Number> solution =
             Solution.unsolvable(equationSystem);
         assertEquals(equationSystem, solution.getEquationSystem());
         assertTrue(solution.getSolution().isEmpty());
@@ -74,7 +74,7 @@ class SolutionTest {
 
     @Test
     void createStaticInfinite() {
-        Solution<AbstractEquationSystem, Number> solution =
+        Solution<TestAbstractEquationSystem, Number> solution =
             Solution.infinite(equationSystem);
         assertEquals(equationSystem, solution.getEquationSystem());
         assertTrue(solution.getSolution().isEmpty());
