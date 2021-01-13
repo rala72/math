@@ -32,6 +32,9 @@
             <name>rala</name>
             <email>code@rala.io</email>
         </developer>
+        <developer>
+            <name>sebrastianb</name>
+        </developer>
     </developers>
 
     <scm>
