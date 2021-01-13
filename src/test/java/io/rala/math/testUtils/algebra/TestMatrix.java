@@ -71,6 +71,6 @@ public class TestMatrix extends Matrix<Number> {
      * @see Matrix#getIndexOfRowAndCol(int, int)
      */
     public static long getIndexOfRowAndCol(Matrix<?> matrix, int row, int col) {
-        return row * matrix.getCols() + col;
+        return (long) row * matrix.getCols() + col;
     }
 }

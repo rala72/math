@@ -149,7 +149,7 @@ class BigDecimalMatrixTest {
             Matrix<BigDecimal>.Field field = col0.get(i);
             assertEquals(0, field.getCol());
             assertEquals(i, field.getRow());
-            assertEquals(BigDecimal.valueOf(i * 2), field.getValue());
+            assertEquals(BigDecimal.valueOf(i * 2L), field.getValue());
         }
     }
 
@@ -161,7 +161,7 @@ class BigDecimalMatrixTest {
         List<BigDecimal> col0 = matrix.getCol(0);
         assertEquals(2, col0.size());
         for (int i = 0; i < col0.size(); i++)
-            assertEquals(BigDecimal.valueOf(i * 2), col0.get(i));
+            assertEquals(BigDecimal.valueOf(i * 2L), col0.get(i));
     }
 
     // endregion
@@ -532,7 +532,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix result = new BigDecimalMatrix(2);
         for (int i = 0; i < result.size(); i++) {
             matrix.setValue(i, BigDecimal.valueOf(i + 1));
-            result.setValue(i, BigDecimal.valueOf((i + 1) * 2));
+            result.setValue(i, BigDecimal.valueOf((i + 1) * 2L));
         }
         assertEquals(result, matrix.multiply(BigDecimal.valueOf(2)));
     }
