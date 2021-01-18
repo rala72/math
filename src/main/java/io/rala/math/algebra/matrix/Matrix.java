@@ -343,6 +343,8 @@ public class Matrix<T extends Number>
     // region compute
 
     /**
+     * computes a new value based on given operator
+     *
      * @param row      row where new value is computed
      * @param col      col where new value is computed
      * @param operator operator to apply current value
@@ -356,6 +358,8 @@ public class Matrix<T extends Number>
     }
 
     /**
+     * computes a new value based on given operator
+     *
      * @param index    index where new value is computed
      * @param operator operator to apply current value
      * @return old value if existed or {@link #getDefaultValue()}
@@ -368,6 +372,8 @@ public class Matrix<T extends Number>
     }
 
     /**
+     * computes a new value based on given operator
+     *
      * @param row      row where new value is computed
      * @param col      col where new value is computed
      * @param value    new value to use in computation
@@ -382,6 +388,8 @@ public class Matrix<T extends Number>
     }
 
     /**
+     * computes a new value based on given operator
+     *
      * @param index    index where new value is computed
      * @param value    new value to use in computation
      * @param operator operator to apply on old and new value
@@ -394,6 +402,8 @@ public class Matrix<T extends Number>
     }
 
     /**
+     * computes new values based on given operator
+     *
      * @param operator operator to apply on all fields
      * @see #setValue(long, Number)
      */
@@ -402,6 +412,8 @@ public class Matrix<T extends Number>
     }
 
     /**
+     * computes new values based on given operator
+     *
      * @param value    function returning new value to use in computation
      * @param operator operator to apply on old and new value
      * @see #computeAll(Function)
