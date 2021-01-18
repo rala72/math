@@ -15,7 +15,7 @@ class AbstractSolverTest {
         equationSystem = new TestAbstractEquationSystem();
     }
 
-    // region getter
+    // region getter and setter
 
     @Test
     void getEquationSystemOfTestAbstractSolver() {

@@ -25,7 +25,7 @@ public abstract class AbstractSolver<E extends AbstractEquationSystem<E>, T exte
         this.equationSystem = equationSystem;
     }
 
-    // region getter
+    // region getter and setter
 
     /**
      * @return stored {@link AbstractEquationSystem}
