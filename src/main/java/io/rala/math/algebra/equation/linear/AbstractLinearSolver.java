@@ -65,6 +65,9 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
     }
 
     /**
+     * converts {@link #getWorkingVector()} to a
+     * {@link Solution} with state {@link Solution.State#SINGLE}
+     *
      * @return {@link Solution} based on {@link #getWorkingVector()}
      */
     protected Solution<LinearEquationSystem<T>, T> toSingleSolution() {

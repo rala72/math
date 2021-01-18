@@ -53,6 +53,8 @@ public abstract class AbstractSolver<E extends AbstractEquationSystem<E>, T exte
     // region abstract
 
     /**
+     * solves {@link AbstractEquationSystem} and returns {@link Solution}
+     *
      * @return solution of {@link AbstractEquationSystem}
      */
     public abstract Solution<E, T> solve();

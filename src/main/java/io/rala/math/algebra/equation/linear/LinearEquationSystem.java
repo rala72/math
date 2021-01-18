@@ -74,6 +74,8 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
     }
 
     /**
+     * solves an {@link AbstractEquationSystem} with {@link GaussSolver}
+     *
      * @return {@link Solution} of {@link GaussSolver#solve()}
      */
     public Solution<LinearEquationSystem<T>, T> solveWithGauss() {
@@ -173,6 +175,9 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
     // region static of
 
     /**
+     * converts {@link Matrix} to {@link LinearEquationMatrix}
+     * where {@link Solution} is last column
+     *
      * @param matrix matrix of linear equation system where solution is last column
      * @param <T>    number class of linear equation system
      * @return new linear equation system with
@@ -193,6 +198,9 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
     }
 
     /**
+     * converts {@link Matrix} to {@link LinearEquationMatrix}
+     * where {@link Solution} is last row
+     *
      * @param matrix matrix of linear equation system where solution is last row
      * @param <T>    number class of linear equation system
      * @return new linear equation system with
