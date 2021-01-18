@@ -200,8 +200,8 @@ public class Complex<T extends Number> extends Number implements Validatable,
     /**
      * calls {@link #add(Complex)} with given values
      *
-     * @param re re value to add
-     * @param im im value to add
+     * @param re real value to add
+     * @param im imaginary value to add
      * @return new complex with sum of current and given parameters
      * @see #add(Complex)
      */
@@ -223,8 +223,8 @@ public class Complex<T extends Number> extends Number implements Validatable,
     /**
      * calls {@link #subtract(Complex)} with given values
      *
-     * @param re re value to subtract
-     * @param im im value to subtract
+     * @param re real value to subtract
+     * @param im imaginary value to subtract
      * @return new complex with difference of current and given parameters
      * @see #subtract(Complex)
      */
@@ -245,8 +245,8 @@ public class Complex<T extends Number> extends Number implements Validatable,
     // region multiply and divide
 
     /**
-     * @param i value to multiply with re &amp; im
-     * @return new complex with multiplied re &amp; im values
+     * @param i value to multiply with real &amp; imaginary
+     * @return new complex with multiplied real &amp; imaginary values
      */
     public Complex<T> multiply(T i) {
         return new Complex<>(getArithmetic(),
@@ -257,7 +257,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
 
     /**
      * @param complex complex value to multiply
-     * @return new complex with multiplied re &amp; im values
+     * @return new complex with multiplied real &amp; imaginary values
      */
     public Complex<T> multiply(Complex<T> complex) {
         return new Complex<>(getArithmetic(),
@@ -273,8 +273,8 @@ public class Complex<T extends Number> extends Number implements Validatable,
     }
 
     /**
-     * @param i value to divide re &amp; im through
-     * @return new complex with divided re &amp; im values
+     * @param i value to divide real &amp; imaginary through
+     * @return new complex with divided real &amp; imaginary values
      */
     public Complex<T> divide(T i) {
         return new Complex<>(getArithmetic(),
@@ -318,7 +318,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
 
     /**
      * @param n number of power
-     * @return new complex with powered re &amp; im values
+     * @return new complex with powered real &amp; imaginary values
      */
     public Complex<T> pow(int n) {
         return Complex.of(getArithmetic(),
@@ -329,7 +329,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
 
     /**
      * @param n number of root
-     * @return new complex with rooted re &amp; im values
+     * @return new complex with rooted real &amp; imaginary values
      * @see MathX#root(double, int)
      */
     public List<Complex<T>> root(int n) {
@@ -356,7 +356,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
     // region inverse
 
     /**
-     * @return new complex which has inverse re &amp; im values
+     * @return new complex which has inverse real &amp; imaginary values
      * @see #inverseRe()
      * @see #inverseIm()
      */
@@ -365,7 +365,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
     }
 
     /**
-     * @return new complex which has inverse re value
+     * @return new complex which has inverse real value
      * @see #inverse()
      * @see #inverseIm()
      */
@@ -374,7 +374,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
     }
 
     /**
-     * @return new complex which has inverse im value
+     * @return new complex which has inverse imaginary value
      * @see #inverse()
      * @see #inverseRe()
      */
