@@ -19,8 +19,6 @@ public class DoubleComplex extends Complex<Double> {
     }
 
     /**
-     * creates a new complex with real and imaginary part
-     *
      * @param re real part
      * @param im imaginary part
      * @see Complex#Complex(AbstractArithmetic, Number, Number)

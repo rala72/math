@@ -30,8 +30,6 @@ public class BigDecimalComplex extends Complex<BigDecimal> {
     }
 
     /**
-     * creates a new complex with real and imaginary part
-     *
      * @param re real part
      * @param im imaginary part
      * @see Complex#Complex(AbstractArithmetic, Number, Number)
@@ -41,8 +39,6 @@ public class BigDecimalComplex extends Complex<BigDecimal> {
     }
 
     /**
-     * creates a new complex with real and imaginary part
-     *
      * @param re      real part
      * @param im      imaginary part
      * @param context context of {@link BigDecimalArithmetic}
