@@ -9,12 +9,15 @@ import java.util.Objects;
  *
  * @param <E> class of {@link AbstractEquationSystem}
  * @param <T> number class
+ * @since 1.0.0
  */
 public class Solution<E extends AbstractEquationSystem<E>, T extends Number> {
     /**
      * describes the state of the solution of a {@link AbstractEquationSystem}
      * which can either have a {@link #SINGLE} or {@link #INFINITE} solutions or
      * is {@link #UNSOLVABLE}
+     *
+     * @since 1.0.0
      */
     public enum State {SINGLE, UNSOLVABLE, INFINITE}
 
@@ -33,6 +36,7 @@ public class Solution<E extends AbstractEquationSystem<E>, T extends Number> {
      * @param solution       solution values
      * @param state          state of solution
      * @throws IllegalArgumentException if any argument is {@code null}
+     * @since 1.0.0
      */
     public Solution(E equationSystem, List<T> solution, State state) {
         if (equationSystem == null || solution == null || state == null)
@@ -46,6 +50,7 @@ public class Solution<E extends AbstractEquationSystem<E>, T extends Number> {
 
     /**
      * @return equation system of solution
+     * @since 1.0.0
      */
     public E getEquationSystem() {
         return equationSystem;
@@ -53,6 +58,7 @@ public class Solution<E extends AbstractEquationSystem<E>, T extends Number> {
 
     /**
      * @return solution values
+     * @since 1.0.0
      */
     public List<T> getSolution() {
         return Collections.unmodifiableList(solution);
@@ -60,6 +66,7 @@ public class Solution<E extends AbstractEquationSystem<E>, T extends Number> {
 
     /**
      * @return {@link State} of solution
+     * @since 1.0.0
      */
     public State getState() {
         return state;
@@ -101,6 +108,7 @@ public class Solution<E extends AbstractEquationSystem<E>, T extends Number> {
      * @param <E>            evaluation class
      * @param <T>            number class
      * @return new {@link Solution} instance
+     * @since 1.0.0
      */
     public static <E extends AbstractEquationSystem<E>, T extends Number>
     Solution<E, T> single(E equationSystem, List<T> solution) {
@@ -114,6 +122,7 @@ public class Solution<E extends AbstractEquationSystem<E>, T extends Number> {
      * @param <E>            evaluation class
      * @param <T>            number class
      * @return new {@link Solution} instance
+     * @since 1.0.0
      */
     public static <E extends AbstractEquationSystem<E>, T extends Number>
     Solution<E, T> unsolvable(E equationSystem) {
@@ -127,6 +136,7 @@ public class Solution<E extends AbstractEquationSystem<E>, T extends Number> {
      * @param <E>            evaluation class
      * @param <T>            number class
      * @return new {@link Solution} instance
+     * @since 1.0.0
      */
     public static <E extends AbstractEquationSystem<E>, T extends Number>
     Solution<E, T> infinite(E equationSystem) {

@@ -15,6 +15,7 @@ import java.util.function.Function;
  * class which holds a rect in 2d area with point a, b &amp; size
  *
  * @param <T> number class
+ * @since 1.0.0
  */
 public class Rect<T extends Number> implements Validatable,
     Movable<T, Rect<T>>, Rotatable<T, Rect<T>>,
@@ -40,6 +41,7 @@ public class Rect<T extends Number> implements Validatable,
      * @param arithmetic arithmetic for calculations
      * @param height     height of rect
      * @param width      width of rect
+     * @since 1.0.0
      */
     public Rect(AbstractArithmetic<T> arithmetic, T height, T width) {
         this(arithmetic,
@@ -56,6 +58,7 @@ public class Rect<T extends Number> implements Validatable,
      * @param a          a of rect
      * @param b          b of rect
      * @param size       height of rect
+     * @since 1.0.0
      */
     public Rect(AbstractArithmetic<T> arithmetic, Point<T> a, Point<T> b, T size) {
         this.arithmetic = arithmetic;
@@ -70,6 +73,7 @@ public class Rect<T extends Number> implements Validatable,
 
     /**
      * @return stored arithmetic
+     * @since 1.0.0
      */
     public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
@@ -77,6 +81,7 @@ public class Rect<T extends Number> implements Validatable,
 
     /**
      * @return point of rect
+     * @since 1.0.0
      */
     public Point<T> getA() {
         return a;
@@ -84,6 +89,7 @@ public class Rect<T extends Number> implements Validatable,
 
     /**
      * @param a new point of rect
+     * @since 1.0.0
      */
     public void setA(Point<T> a) {
         this.a = a;
@@ -91,6 +97,7 @@ public class Rect<T extends Number> implements Validatable,
 
     /**
      * @return b of rect
+     * @since 1.0.0
      */
     public Point<T> getB() {
         return b;
@@ -98,6 +105,7 @@ public class Rect<T extends Number> implements Validatable,
 
     /**
      * @param b new b of rect
+     * @since 1.0.0
      */
     public void setB(Point<T> b) {
         this.b = b;
@@ -105,6 +113,7 @@ public class Rect<T extends Number> implements Validatable,
 
     /**
      * @return height of rect
+     * @since 1.0.0
      */
     public T getSize() {
         return size;
@@ -112,6 +121,7 @@ public class Rect<T extends Number> implements Validatable,
 
     /**
      * @param size new height of rect
+     * @since 1.0.0
      */
     public void setSize(T size) {
         this.size = size;
@@ -123,6 +133,7 @@ public class Rect<T extends Number> implements Validatable,
 
     /**
      * @return {@link #getA()}
+     * @since 1.0.0
      */
     public Point<T> vertexA() {
         return getA();
@@ -130,6 +141,7 @@ public class Rect<T extends Number> implements Validatable,
 
     /**
      * @return {@link #getB()}
+     * @since 1.0.0
      */
     public Point<T> vertexB() {
         return getB();
@@ -137,6 +149,7 @@ public class Rect<T extends Number> implements Validatable,
 
     /**
      * @return {@link #vertexB()}{@code +size}
+     * @since 1.0.0
      */
     public Point<T> vertexC() {
         return new Point<>(getArithmetic(), vertexB().getX(),
@@ -146,6 +159,7 @@ public class Rect<T extends Number> implements Validatable,
 
     /**
      * @return {@link #vertexA()}{@code +size}
+     * @since 1.0.0
      */
     public Point<T> vertexD() {
         return new Point<>(getArithmetic(), vertexA().getX(),
@@ -159,6 +173,7 @@ public class Rect<T extends Number> implements Validatable,
 
     /**
      * @return lower length of the rect
+     * @since 1.0.0
      */
     public T height() {
         return getArithmetic().min(getArithmetic().absolute(getSize()),
@@ -167,6 +182,7 @@ public class Rect<T extends Number> implements Validatable,
 
     /**
      * @return larger length of the rect
+     * @since 1.0.0
      */
     public T width() {
         return getArithmetic().max(getArithmetic().absolute(getSize()),
@@ -175,6 +191,7 @@ public class Rect<T extends Number> implements Validatable,
 
     /**
      * @return {@code sqrt(w^2+h^2)}
+     * @since 1.0.0
      */
     public T diagonale() {
         return getArithmetic().root2(
@@ -191,6 +208,7 @@ public class Rect<T extends Number> implements Validatable,
 
     /**
      * @return {@code h*w}
+     * @since 1.0.0
      */
     public T area() {
         return getArithmetic().product(height(), width());
@@ -198,6 +216,7 @@ public class Rect<T extends Number> implements Validatable,
 
     /**
      * @return {@code 2*(h+w)}
+     * @since 1.0.0
      */
     public T circumference() {
         return getArithmetic().product(
@@ -212,6 +231,7 @@ public class Rect<T extends Number> implements Validatable,
 
     /**
      * @return circum circle of rect
+     * @since 1.0.0
      */
     public Circle<T> circumCircle() {
         return new Circle<>(getArithmetic(), circumCirclePoint(), circumCircleRadius());
@@ -219,6 +239,7 @@ public class Rect<T extends Number> implements Validatable,
 
     /**
      * @return {@link #diagonale()}{@code /2}
+     * @since 1.0.0
      */
     protected T circumCircleRadius() {
         return getArithmetic().quotient(diagonale(), getArithmetic().fromInt(2));
@@ -226,6 +247,7 @@ public class Rect<T extends Number> implements Validatable,
 
     /**
      * @return intersection of AC and BD diagonals
+     * @since 1.0.0
      */
     protected Point<T> circumCirclePoint() {
         LineSegment<T> ac = new LineSegment<>(getArithmetic(), vertexA(), vertexC());
@@ -239,6 +261,7 @@ public class Rect<T extends Number> implements Validatable,
 
     /**
      * @return {@code true} if {@link #height()} and {@link #width()} are equal
+     * @since 1.0.0
      */
     public boolean isSquare() {
         return getArithmetic().isEqual(height(), width());
@@ -253,6 +276,7 @@ public class Rect<T extends Number> implements Validatable,
      * @param map        mapping function to convert current values to new one
      * @param <NT>       new number class
      * @return mapped rect
+     * @since 1.0.0
      */
     public <NT extends Number> Rect<NT> map(
         AbstractArithmetic<NT> arithmetic, Function<T, NT> map

@@ -15,6 +15,7 @@ import java.util.function.Function;
  * {@code x=b}
  *
  * @param <T> number class
+ * @since 1.0.0
  */
 public class Line<T extends Number> implements Validatable,
     Copyable<Line<T>>, Comparable<Line<T>>, Serializable {
@@ -36,6 +37,7 @@ public class Line<T extends Number> implements Validatable,
      *
      * @param arithmetic arithmetic for calculations
      * @param x          x value of line
+     * @since 1.0.0
      */
     public Line(AbstractArithmetic<T> arithmetic, T x) {
         this(arithmetic, null, x);
@@ -47,6 +49,7 @@ public class Line<T extends Number> implements Validatable,
      * @param arithmetic arithmetic for calculations
      * @param m          slope/gradient of line
      * @param b          y-intercept of line
+     * @since 1.0.0
      */
     public Line(AbstractArithmetic<T> arithmetic, T m, T b) {
         this.arithmetic = arithmetic;
@@ -60,6 +63,7 @@ public class Line<T extends Number> implements Validatable,
 
     /**
      * @return stored arithmetic
+     * @since 1.0.0
      */
     public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
@@ -67,6 +71,7 @@ public class Line<T extends Number> implements Validatable,
 
     /**
      * @return m value of line - may return {@code null} if {@link #isVertical()}
+     * @since 1.0.0
      */
     public T getM() {
         return m;
@@ -74,6 +79,7 @@ public class Line<T extends Number> implements Validatable,
 
     /**
      * @param m new m value of line - use {@code null} if {@link #isVertical()}
+     * @since 1.0.0
      */
     public void setM(T m) {
         this.m = m != null && getArithmetic().isFinite(m) ? m : null;
@@ -81,6 +87,7 @@ public class Line<T extends Number> implements Validatable,
 
     /**
      * @return b value of line
+     * @since 1.0.0
      */
     public T getB() {
         return b;
@@ -88,6 +95,7 @@ public class Line<T extends Number> implements Validatable,
 
     /**
      * @param b new b value of line
+     * @since 1.0.0
      */
     public void setB(T b) {
         this.b = b;
@@ -99,6 +107,7 @@ public class Line<T extends Number> implements Validatable,
 
     /**
      * @return {@code true} if {@link #getM()} returns {@code 0}
+     * @since 1.0.0
      */
     public boolean isHorizontal() {
         return !isVertical() && getArithmetic().isZero(getM());
@@ -106,6 +115,7 @@ public class Line<T extends Number> implements Validatable,
 
     /**
      * @return {@code true} if {@link #getM()} returns {@code null}
+     * @since 1.0.0
      */
     public boolean isVertical() {
         return getM() == null;
@@ -122,6 +132,7 @@ public class Line<T extends Number> implements Validatable,
      * @return {@code x=(y-b)/m}, {@link #getB()} if {@link #isVertical()}
      * or may return {@code null} if {@link #isHorizontal()}
      * and {@code y} is not on line
+     * @since 1.0.0
      */
     public T calculateX(T y) {
         return isVertical() ? getB() : isHorizontal() ?
@@ -138,6 +149,7 @@ public class Line<T extends Number> implements Validatable,
      * @return {@code y=m*x+b}, {@link #getB()} if {@link #isHorizontal()}
      * or may return {@code null} if {@link #isVertical()}
      * and {@code x} is not on line
+     * @since 1.0.0
      */
     public T calculateY(T x) {
         return isHorizontal() ? getB() : isVertical() ?
@@ -154,6 +166,7 @@ public class Line<T extends Number> implements Validatable,
 
     /**
      * @return normal line without changing {@link #getB()}
+     * @since 1.0.0
      */
     public Line<T> normal() {
         T m = isVertical() ? getArithmetic().zero() :
@@ -169,6 +182,7 @@ public class Line<T extends Number> implements Validatable,
      * @param point point on line
      * @return normal line through given point
      * @see #normal()
+     * @since 1.0.0
      */
     public Line<T> normal(Point<T> point) {
         Line<T> normal = normal();
@@ -189,6 +203,7 @@ public class Line<T extends Number> implements Validatable,
     /**
      * @param line line to check if intersection exists
      * @return {@code true} if {@code m} is not equal
+     * @since 1.0.0
      */
     public boolean hasIntersection(Line<T> line) {
         return (!isVertical() || !line.isVertical()) &&
@@ -199,6 +214,7 @@ public class Line<T extends Number> implements Validatable,
      * @param line line to intersect
      * @return intersection or {@code null}
      * if {@link #hasIntersection(Line)} is {@code false}
+     * @since 1.0.0
      */
     public Point<T> intersection(Line<T> line) {
         if (!hasIntersection(line)) return null;
@@ -219,6 +235,7 @@ public class Line<T extends Number> implements Validatable,
      * @param line line to intersect
      * @return intersection angle in {@code rad} or {@code null}
      * if there is no intersection
+     * @since 1.0.0
      */
     public T intersectionAngle(Line<T> line) {
         if (!hasIntersection(line)) return null;
@@ -250,6 +267,7 @@ public class Line<T extends Number> implements Validatable,
     /**
      * @param point point to check if on line
      * @return {@code true} if point is on line
+     * @since 1.0.0
      */
     public boolean hasPoint(Point<T> point) {
         return isVertical() && getArithmetic().isEqual(getB(), point.getX()) ||
@@ -266,6 +284,7 @@ public class Line<T extends Number> implements Validatable,
      * @param toX   end index of line segment
      * @return new line segment instance in given boundaries
      * @see #calculateY(Number)
+     * @since 1.0.0
      */
     public LineSegment<T> toLineSegmentUsingX(T fromX, T toX) {
         return new LineSegment<>(
@@ -279,6 +298,7 @@ public class Line<T extends Number> implements Validatable,
      * @param toY   end index of line segment
      * @return new line segment instance in given boundaries
      * @see #calculateX(Number)
+     * @since 1.0.0
      */
     public LineSegment<T> toLineSegmentUsingY(T fromY, T toY) {
         return new LineSegment<>(
@@ -297,6 +317,7 @@ public class Line<T extends Number> implements Validatable,
      *                   - {@code null} handling already done for {@link #getM()}
      * @param <NT>       new number class
      * @return mapped point
+     * @since 1.0.0
      */
     public <NT extends Number> Line<NT> map(
         AbstractArithmetic<NT> arithmetic, Function<T, NT> map

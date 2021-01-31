@@ -14,6 +14,7 @@ import java.util.function.Function;
  * class which holds a point in a 2d area with x &amp; y
  *
  * @param <T> number class
+ * @since 1.0.0
  */
 public class Point<T extends Number> implements Validatable,
     Movable<T, Point<T>>, Rotatable<T, Point<T>>,
@@ -35,6 +36,7 @@ public class Point<T extends Number> implements Validatable,
      * @param arithmetic arithmetic for calculations
      * @see #Point(AbstractArithmetic, Number)
      * @see #Point(AbstractArithmetic, Number, Number)
+     * @since 1.0.0
      */
     public Point(AbstractArithmetic<T> arithmetic) {
         this(arithmetic, arithmetic.zero());
@@ -48,6 +50,7 @@ public class Point<T extends Number> implements Validatable,
      *                   {@link #Point(AbstractArithmetic, Number, Number)} at x and y
      * @see #Point(AbstractArithmetic)
      * @see #Point(AbstractArithmetic, Number, Number)
+     * @since 1.0.0
      */
     public Point(AbstractArithmetic<T> arithmetic, T xy) {
         this(arithmetic, xy, xy);
@@ -61,6 +64,7 @@ public class Point<T extends Number> implements Validatable,
      * @param y          y value of point
      * @see #Point(AbstractArithmetic)
      * @see #Point(AbstractArithmetic, Number)
+     * @since 1.0.0
      */
     public Point(AbstractArithmetic<T> arithmetic, T x, T y) {
         this.arithmetic = arithmetic;
@@ -74,6 +78,7 @@ public class Point<T extends Number> implements Validatable,
 
     /**
      * @return stored arithmetic
+     * @since 1.0.0
      */
     public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
@@ -81,6 +86,7 @@ public class Point<T extends Number> implements Validatable,
 
     /**
      * @return x value of point
+     * @since 1.0.0
      */
     public T getX() {
         return x;
@@ -88,6 +94,7 @@ public class Point<T extends Number> implements Validatable,
 
     /**
      * @param x new x value of point
+     * @since 1.0.0
      */
     public void setX(T x) {
         this.x = x;
@@ -95,6 +102,7 @@ public class Point<T extends Number> implements Validatable,
 
     /**
      * @return y value of point
+     * @since 1.0.0
      */
     public T getY() {
         return y;
@@ -102,6 +110,7 @@ public class Point<T extends Number> implements Validatable,
 
     /**
      * @param y new y value of point
+     * @since 1.0.0
      */
     public void setY(T y) {
         this.y = y;
@@ -109,6 +118,7 @@ public class Point<T extends Number> implements Validatable,
 
     /**
      * @param xy new x and y value of point
+     * @since 1.0.0
      */
     public void setXY(T xy) {
         setX(xy);
@@ -124,6 +134,7 @@ public class Point<T extends Number> implements Validatable,
      * @param map        mapping function to convert current values to new one
      * @param <NT>       new number class
      * @return mapped point
+     * @since 1.0.0
      */
     public <NT extends Number> Point<NT> map(
         AbstractArithmetic<NT> arithmetic, Function<T, NT> map

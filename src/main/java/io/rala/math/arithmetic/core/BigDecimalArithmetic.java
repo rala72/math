@@ -10,6 +10,8 @@ import java.util.Objects;
 
 /**
  * class which handles {@link BigDecimal} arithmetic
+ *
+ * @since 1.0.0
  */
 public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
     // region singleton
@@ -18,6 +20,7 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
 
     /**
      * @return default instance
+     * @since 1.0.0
      */
     public static BigDecimalArithmetic getInstance() {
         if (instance == null) instance = new BigDecimalArithmetic();
@@ -33,6 +36,7 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
      * with a new {@link MathContext} which precision is {@code 10}
      *
      * @see MathContext#MathContext(int)
+     * @since 1.0.0
      */
     public BigDecimalArithmetic() {
         this(new MathContext(10));
@@ -42,6 +46,7 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
      * creates a new instance
      *
      * @param mathContext mathContext of arithmetic
+     * @since 1.0.0
      */
     public BigDecimalArithmetic(MathContext mathContext) {
         this.mathContext = mathContext;
@@ -49,6 +54,7 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
 
     /**
      * @return stored {@link MathContext}
+     * @since 1.0.0
      */
     public MathContext getMathContext() {
         return mathContext;

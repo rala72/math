@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
  * collection of math functions similar to {@link Math}
  *
  * @see Math
+ * @since 1.0.0
  */
 public class MathX {
     private static final MathContext MATH_CONTEXT =
@@ -33,6 +34,7 @@ public class MathX {
      *                             {@link Math#toIntExact(long)}
      * @see #gcd(int, int)
      * @see BigInteger#gcd(BigInteger)
+     * @since 1.0.0
      */
     public static int gcd(int... a) {
         return Math.toIntExact(
@@ -47,6 +49,7 @@ public class MathX {
      *                             {@link BigInteger#longValueExact()}
      * @see #gcd(long, long)
      * @see BigInteger#gcd(BigInteger)
+     * @since 1.0.0
      */
     public static long gcd(long... a) {
         return gcd(
@@ -62,6 +65,7 @@ public class MathX {
      * or {@code null} if parameter is {@code null}
      * @see #gcd(BigInteger, BigInteger)
      * @see BigInteger#gcd(BigInteger)
+     * @since 1.0.0
      */
     public static BigInteger gcd(BigInteger... a) {
         if (a == null) return null;
@@ -81,6 +85,7 @@ public class MathX {
      *                             {@link Math#toIntExact(long)}
      * @see #gcd(int...)
      * @see BigInteger#gcd(BigInteger)
+     * @since 1.0.0
      */
     public static int gcd(int a, int b) {
         return Math.toIntExact(gcd((long) a, b));
@@ -94,6 +99,7 @@ public class MathX {
      *                             {@link BigInteger#longValueExact()}
      * @see #gcd(long...)
      * @see BigInteger#gcd(BigInteger)
+     * @since 1.0.0
      */
     public static long gcd(long a, long b) {
         return gcd(BigInteger.valueOf(a), BigInteger.valueOf(b)).longValueExact();
@@ -106,6 +112,7 @@ public class MathX {
      * or {@code null} if parameter is {@code null}
      * @see #gcd(BigInteger...)
      * @see BigInteger#gcd(BigInteger)
+     * @since 1.0.0
      */
     public static BigInteger gcd(BigInteger a, BigInteger b) {
         return a == null || b == null ? null : a.gcd(b);
@@ -118,6 +125,7 @@ public class MathX {
     /**
      * @param a number to get factors of
      * @return list of factors
+     * @since 1.0.0
      */
     public static List<Integer> factors(int a) {
         return factors((long) a).stream()
@@ -128,6 +136,7 @@ public class MathX {
     /**
      * @param a number to get factors of
      * @return list of factors
+     * @since 1.0.0
      */
     public static List<Long> factors(long a) {
         // https://stackoverflow.com/a/6233030/2715720
@@ -150,6 +159,7 @@ public class MathX {
      *
      * @param a number
      * @return factorial
+     * @since 1.0.0
      */
     public static long factorial(int a) {
         return factorial((long) a);
@@ -162,6 +172,7 @@ public class MathX {
      * @return factorial
      * @throws ArithmeticException may be thrown for example by
      *                             {@link BigInteger#longValueExact()}
+     * @since 1.0.0
      */
     public static long factorial(long a) {
         return factorial(BigInteger.valueOf(a)).longValueExact();
@@ -173,6 +184,7 @@ public class MathX {
      * @param a number
      * @return factorial
      * or {@code null} if parameter is {@code null}
+     * @since 1.0.0
      */
     public static BigInteger factorial(BigInteger a) {
         return a == null ? null :
@@ -193,6 +205,7 @@ public class MathX {
      * @throws ArithmeticException may be thrown for example by
      *                             {@link Math#toIntExact(long)}
      * @see #lcm(int, int)
+     * @since 1.0.0
      */
     public static int lcm(int... a) {
         return Math.toIntExact(
@@ -208,6 +221,7 @@ public class MathX {
      * @throws ArithmeticException may be thrown for example by
      *                             {@link BigInteger#longValueExact()}
      * @see #lcm(long, long)
+     * @since 1.0.0
      */
     public static long lcm(long... a) {
         return lcm(
@@ -224,6 +238,7 @@ public class MathX {
      * @return least common multiple
      * or {@code null} if parameter is {@code null}
      * @see #lcm(BigInteger, BigInteger)
+     * @since 1.0.0
      */
     public static BigInteger lcm(BigInteger... a) {
         if (a == null) return null;
@@ -244,6 +259,7 @@ public class MathX {
      * @throws ArithmeticException may be thrown for example by
      *                             {@link Math#toIntExact(long)}
      * @see #lcm(int...)
+     * @since 1.0.0
      */
     public static int lcm(int a, int b) {
         return Math.toIntExact(lcm((long) a, b));
@@ -258,6 +274,7 @@ public class MathX {
      * @throws ArithmeticException may be thrown for example by
      *                             {@link BigInteger#longValueExact()}
      * @see #lcm(long...)
+     * @since 1.0.0
      */
     public static long lcm(long a, long b) {
         return lcm(BigInteger.valueOf(a), BigInteger.valueOf(b)).longValueExact();
@@ -271,6 +288,7 @@ public class MathX {
      * @return least common multiple
      * or {@code null} if parameter is {@code null}
      * @see #lcm(BigInteger...)
+     * @since 1.0.0
      */
     public static BigInteger lcm(BigInteger a, BigInteger b) {
         return a == null || b == null ? null :
@@ -290,6 +308,7 @@ public class MathX {
      * @return calculated root
      * @throws IllegalArgumentException if a is not positive
      * @see Math#pow(double, double)
+     * @since 1.0.0
      */
     public static double root(double a, int n) {
         if (a < 0)
@@ -306,6 +325,7 @@ public class MathX {
      * @param n number of root
      * @return calculated root
      * @see #root(BigDecimal, int)
+     * @since 1.0.0
      */
     public static BigDecimal root(BigDecimal a, int n) {
         return root(a, n, MATH_CONTEXT);
@@ -320,6 +340,7 @@ public class MathX {
      * @return calculated root
      * or {@code null} if parameter is {@code null}
      * @throws IllegalArgumentException if a is not positive
+     * @since 1.0.0
      */
     public static BigDecimal root(BigDecimal a, int n, MathContext context) {
         // https://stackoverflow.com/a/34074999/2715720

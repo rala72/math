@@ -10,6 +10,8 @@ import io.rala.math.geometry.Line;
  * {@code y=m*x+b}<br>
  * if line is vertical m is considered to be {@code null}<br>
  * {@code y=b}
+ *
+ * @since 1.0.0
  */
 public class DoubleLine extends Line<Double> {
     // region constructors
@@ -17,6 +19,7 @@ public class DoubleLine extends Line<Double> {
     /**
      * @param x x value of line
      * @see Line#Line(AbstractArithmetic, Number)
+     * @since 1.0.0
      */
     public DoubleLine(double x) {
         super(DoubleArithmetic.getInstance(), x);
@@ -26,6 +29,7 @@ public class DoubleLine extends Line<Double> {
      * @param m m value of line
      * @param b b value of line
      * @see Line#Line(AbstractArithmetic, Number, Number)
+     * @since 1.0.0
      */
     public DoubleLine(Double m, double b) {
         super(DoubleArithmetic.getInstance(), m, b);

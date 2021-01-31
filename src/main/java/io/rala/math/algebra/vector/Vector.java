@@ -19,12 +19,15 @@ import java.util.stream.IntStream;
  * class which holds a vector of {@code size}
  *
  * @param <T> number class
+ * @since 1.0.0
  */
 public class Vector<T extends Number>
     implements Copyable<Vector<T>>, StreamIterable<Vector<T>.Entry>, Serializable {
 
     /**
      * describes whether a vector is {@link #COLUMN} or {@link #ROW}
+     *
+     * @since 1.0.0
      */
     public enum Type {ROW, COLUMN}
 
@@ -62,6 +65,7 @@ public class Vector<T extends Number>
      * @param arithmetic arithmetic for calculations
      * @param size       size of vector
      * @throws IllegalArgumentException if size is less than {@code 1}
+     * @since 1.0.0
      */
     public Vector(AbstractArithmetic<T> arithmetic, int size) {
         this(arithmetic, size, arithmetic.zero());
@@ -75,6 +79,7 @@ public class Vector<T extends Number>
      * @param size         size of vector
      * @param defaultValue default value of non-existing values
      * @throws IllegalArgumentException if size is less than {@code 1}
+     * @since 1.0.0
      */
     protected Vector(AbstractArithmetic<T> arithmetic, int size, T defaultValue) {
         this(arithmetic, size, Type.COLUMN, defaultValue);
@@ -88,6 +93,7 @@ public class Vector<T extends Number>
      * @param size       size of vector
      * @param type       type of vector
      * @throws IllegalArgumentException if size is less than {@code 1}
+     * @since 1.0.0
      */
     public Vector(AbstractArithmetic<T> arithmetic, int size, Type type) {
         this(arithmetic, size, type, arithmetic.zero());
@@ -102,6 +108,7 @@ public class Vector<T extends Number>
      * @param defaultValue default value of non-existing values
      * @param type         type of vector
      * @throws IllegalArgumentException if size is less than {@code 1}
+     * @since 1.0.0
      */
     protected Vector(
         AbstractArithmetic<T> arithmetic, int size, Type type, T defaultValue
@@ -118,6 +125,7 @@ public class Vector<T extends Number>
      * creates a new vector based on given one
      *
      * @param vector vector to copy
+     * @since 1.0.0
      */
     protected Vector(Vector<T> vector) {
         this(vector.getArithmetic(), vector.getSize(),
@@ -132,6 +140,7 @@ public class Vector<T extends Number>
 
     /**
      * @return stored arithmetic
+     * @since 1.0.0
      */
     public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
@@ -139,6 +148,7 @@ public class Vector<T extends Number>
 
     /**
      * @return vector map using index as key
+     * @since 1.0.0
      */
     protected final Map<Integer, T> getVector() {
         return vector;
@@ -146,6 +156,7 @@ public class Vector<T extends Number>
 
     /**
      * @return size of vector
+     * @since 1.0.0
      */
     public final int getSize() {
         return size;
@@ -153,6 +164,7 @@ public class Vector<T extends Number>
 
     /**
      * @return default value for non-existing values
+     * @since 1.0.0
      */
     protected final T getDefaultValue() {
         return defaultValue;
@@ -160,6 +172,7 @@ public class Vector<T extends Number>
 
     /**
      * @return type of vector
+     * @since 1.0.0
      */
     public final Type getType() {
         return type;
@@ -168,6 +181,7 @@ public class Vector<T extends Number>
     /**
      * @return {@code true} if {@link #getType()} returns {@link Type#ROW}
      * @see #isColumn()
+     * @since 1.0.0
      */
     public final boolean isRow() {
         return Type.ROW.equals(getType());
@@ -176,6 +190,7 @@ public class Vector<T extends Number>
     /**
      * @return {@code true} if {@link #getType()} returns {@link Type#COLUMN}
      * @see #isRow()
+     * @since 1.0.0
      */
     public final boolean isColumn() {
         return Type.COLUMN.equals(getType());
@@ -183,6 +198,7 @@ public class Vector<T extends Number>
 
     /**
      * @return {@link #euclideanNorm()}
+     * @since 1.0.0
      */
     public T length() {
         return euclideanNorm();
@@ -196,6 +212,7 @@ public class Vector<T extends Number>
      * @param index of requested value
      * @return value at index if exists or {@link #getDefaultValue()}
      * @throws IndexOutOfBoundsException if index is invalid
+     * @since 1.0.0
      */
     public T getValue(int index) {
         if (!isValidIndex(index)) throw new IndexOutOfBoundsException(index + " / " + getSize());
@@ -207,6 +224,7 @@ public class Vector<T extends Number>
      * @param value new value to store
      * @return old value if existed or {@link #getDefaultValue()}
      * @throws IndexOutOfBoundsException if index is invalid
+     * @since 1.0.0
      */
     public T setValue(int index, T value) {
         if (!isValidIndex(index)) throw new IndexOutOfBoundsException(index + " / " + getSize());
@@ -220,6 +238,7 @@ public class Vector<T extends Number>
      * @param index index of value to remove
      * @return old value if existed or {@link #getDefaultValue()}
      * @throws IndexOutOfBoundsException if index is invalid
+     * @since 1.0.0
      */
     public T removeValue(int index) {
         if (!isValidIndex(index)) throw new IndexOutOfBoundsException(index + " / " + getSize());
@@ -237,6 +256,7 @@ public class Vector<T extends Number>
      * @return old value if existed or {@link #getDefaultValue()}
      * @see #setValue(int, Number)
      * @see #getValue(int)
+     * @since 1.0.0
      */
     public T compute(int index, UnaryOperator<T> operator) {
         return setValue(index, operator.apply(getValue(index)));
@@ -249,6 +269,7 @@ public class Vector<T extends Number>
      * @return old value if existed or {@link #getDefaultValue()}
      * @see #setValue(int, Number)
      * @see #getValue(int)
+     * @since 1.0.0
      */
     public T compute(int index, T value, BinaryOperator<T> operator) {
         return setValue(index, operator.apply(getValue(index), value));
@@ -257,6 +278,7 @@ public class Vector<T extends Number>
     /**
      * @param operator operator to apply to all entries
      * @see #setValue(int, Number)
+     * @since 1.0.0
      */
     public void computeAll(Function<Entry, T> operator) {
         forEach(entry -> setValue(entry.getIndex(), operator.apply(entry)));
@@ -266,6 +288,7 @@ public class Vector<T extends Number>
      * @param value    function returning new value to use in computation
      * @param operator operator to apply to all entries
      * @see #computeAll(Function)
+     * @since 1.0.0
      */
     public void computeAll(Function<Entry, T> value, BinaryOperator<T> operator) {
         computeAll(entry -> operator.apply(entry.getValue(), value.apply(entry)));
@@ -277,6 +300,7 @@ public class Vector<T extends Number>
 
     /**
      * @return matrix equivalent to vector
+     * @since 1.0.0
      */
     public Matrix<T> toMatrix() {
         Matrix<T> matrix = new Matrix<>(
@@ -291,6 +315,7 @@ public class Vector<T extends Number>
     /**
      * @return only entry of a size {@code 1} vector
      * @throws NotSupportedException if size is unequal to {@code 1}
+     * @since 1.0.0
      */
     public T toParam() {
         if (getSize() == 1) return getValue(0);
@@ -304,6 +329,7 @@ public class Vector<T extends Number>
     /**
      * @param vector vector to add
      * @return new vector with calculated values
+     * @since 1.0.0
      */
     public Vector<T> add(Vector<T> vector) {
         if (getSize() != vector.getSize())
@@ -319,6 +345,7 @@ public class Vector<T extends Number>
     /**
      * @param vector vector to subtract
      * @return new vector with calculated values
+     * @since 1.0.0
      */
     public Vector<T> subtract(Vector<T> vector) {
         return add(vector.invert());
@@ -327,6 +354,7 @@ public class Vector<T extends Number>
     /**
      * @param scalar scalar to multiply entries with
      * @return new vector with calculated values
+     * @since 1.0.0
      */
     public Vector<T> multiply(T scalar) {
         Vector<T> result = copy();
@@ -340,6 +368,7 @@ public class Vector<T extends Number>
      * @return product of matrix multiplication
      * @throws IllegalArgumentException if sizes do not match
      * @see Matrix#multiply(Matrix)
+     * @since 1.0.0
      */
     public Matrix<T> multiply(Vector<T> vector) {
         return toMatrix().multiply(vector.toMatrix());
@@ -351,6 +380,7 @@ public class Vector<T extends Number>
      * @throws IllegalArgumentException if sizes do not match
      * @see Matrix#multiply(Matrix)
      * @see #toParam()
+     * @since 1.0.0
      */
     public T dotProduct(Vector<T> vector) {
         Vector<T> v1 =
@@ -368,6 +398,7 @@ public class Vector<T extends Number>
 
     /**
      * @return new vector with opposite {@link Type}
+     * @since 1.0.0
      */
     public Vector<T> transpose() {
         Vector<T> flipped =
@@ -382,6 +413,7 @@ public class Vector<T extends Number>
     /**
      * @return new vector with inverted sign
      * @see #multiply(Number)
+     * @since 1.0.0
      */
     public Vector<T> invert() {
         return multiply(getArithmetic().negate(getArithmetic().one()));
@@ -393,6 +425,7 @@ public class Vector<T extends Number>
 
     /**
      * @return max-Norm of the vector, equal to the entry with highest absolute value
+     * @since 1.0.0
      */
     public T maxNorm() {
         return getVector().values().stream().max(
@@ -407,6 +440,7 @@ public class Vector<T extends Number>
      * calls {@link #pNorm(int)} with degree {@code 2}
      *
      * @return euclidean norm of the vector
+     * @since 1.0.0
      */
     public T euclideanNorm() {
         return pNorm(2);
@@ -416,6 +450,7 @@ public class Vector<T extends Number>
      * @param p degree of the norm
      * @return p-norm of the vector
      * @throws IllegalArgumentException if p is less than {@code 1}
+     * @since 1.0.0
      */
     public T pNorm(int p) {
         if (p <= 0) throw new IllegalArgumentException(EXCEPTION_NOT_POSITIV_P_NORM);
@@ -438,6 +473,7 @@ public class Vector<T extends Number>
      *
      * @return vector of {@link #length()} one
      * @throws NotSupportedException if all values are {@code 0}
+     * @since 1.0.0
      */
     public Vector<T> normalize() {
         if (isZero())
@@ -462,6 +498,7 @@ public class Vector<T extends Number>
      * @param vector second vector of angle to calculate
      * @return angle in radian
      * @throws NotSupportedException if any vector has only values equal {@code 0}
+     * @since 1.0.0
      */
     public T angle(Vector<T> vector) {
         if (isZero() || vector.isZero())
@@ -489,6 +526,7 @@ public class Vector<T extends Number>
      * @param <T>        number class
      * @return new created vector
      * @throws IllegalArgumentException if size is less than {@code 1}
+     * @since 1.0.0
      */
     @SafeVarargs
     public static <T extends Number> Vector<T> ofValues(
@@ -506,6 +544,7 @@ public class Vector<T extends Number>
      * @param <T>          number class
      * @return new created vector
      * @throws IllegalArgumentException if size is less than {@code 1}
+     * @since 1.0.0
      */
     @SafeVarargs
     private static <T extends Number> Vector<T> ofValues(
@@ -526,6 +565,7 @@ public class Vector<T extends Number>
      * @param <T>        number class
      * @return new created vector
      * @throws IllegalArgumentException if size is less than {@code 1}
+     * @since 1.0.0
      */
     public static <T extends Number> Vector<T> ofList(
         AbstractArithmetic<T> arithmetic, List<T> values
@@ -542,6 +582,7 @@ public class Vector<T extends Number>
      * @param <T>          number class
      * @return new created vector
      * @throws IllegalArgumentException if size is less than {@code 1}
+     * @since 1.0.0
      */
     protected static <T extends Number> Vector<T> ofList(
         AbstractArithmetic<T> arithmetic, List<T> values, T defaultValue
@@ -612,6 +653,7 @@ public class Vector<T extends Number>
     /**
      * @param index to be validated
      * @return {@code true} if value is valid
+     * @since 1.0.0
      */
     protected final boolean isValidIndex(int index) {
         return 0 <= index && index < getSize();
@@ -619,6 +661,7 @@ public class Vector<T extends Number>
 
     /**
      * @return {@code true} if all values are zero
+     * @since 1.0.0
      */
     protected final boolean isZero() {
         return stream().allMatch(
@@ -639,6 +682,8 @@ public class Vector<T extends Number>
 
     /**
      * class which holds an entry of a vector with immutable attributes
+     *
+     * @since 1.0.0
      */
     public class Entry {
         private final int index;
@@ -648,6 +693,7 @@ public class Vector<T extends Number>
          * @param index index of entry
          * @param value value of entry
          * @throws IndexOutOfBoundsException if index is invalid
+         * @since 1.0.0
          */
         protected Entry(int index, T value) {
             if (!isValidIndex(index))
@@ -658,6 +704,7 @@ public class Vector<T extends Number>
 
         /**
          * @return index of entry
+         * @since 1.0.0
          */
         public final int getIndex() {
             return index;
@@ -665,6 +712,7 @@ public class Vector<T extends Number>
 
         /**
          * @return value of entry
+         * @since 1.0.0
          */
         public T getValue() {
             return value;
@@ -672,6 +720,7 @@ public class Vector<T extends Number>
 
         /**
          * @return Vector instance of entry
+         * @since 1.0.0
          */
         protected Vector<T> getVector() {
             return Vector.this;

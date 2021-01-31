@@ -14,6 +14,7 @@ import java.util.function.Function;
  * class which holds a circle a in 2d area with center &amp; radius
  *
  * @param <T> number class
+ * @since 1.0.0
  */
 public class Circle<T extends Number> implements Validatable,
     Movable<T, Circle<T>>, Rotatable<T, Circle<T>>,
@@ -34,6 +35,7 @@ public class Circle<T extends Number> implements Validatable,
      * {@link Point#Point(AbstractArithmetic)}
      *
      * @param arithmetic arithmetic for calculations
+     * @since 1.0.0
      */
     public Circle(AbstractArithmetic<T> arithmetic) {
         this(arithmetic, new Point<>(arithmetic));
@@ -44,6 +46,7 @@ public class Circle<T extends Number> implements Validatable,
      *
      * @param arithmetic arithmetic for calculations
      * @param center     center point of circle
+     * @since 1.0.0
      */
     public Circle(AbstractArithmetic<T> arithmetic, Point<T> center) {
         this(arithmetic, center, arithmetic.one());
@@ -55,6 +58,7 @@ public class Circle<T extends Number> implements Validatable,
      *
      * @param arithmetic arithmetic for calculations
      * @param radius     radius of circle
+     * @since 1.0.0
      */
     public Circle(AbstractArithmetic<T> arithmetic, T radius) {
         this(arithmetic, new Point<>(arithmetic), radius);
@@ -67,6 +71,7 @@ public class Circle<T extends Number> implements Validatable,
      * @param arithmetic arithmetic for calculations
      * @param center     center point of circle
      * @param point      point on circle
+     * @since 1.0.0
      */
     public Circle(AbstractArithmetic<T> arithmetic, Point<T> center, Point<T> point) {
         this(arithmetic, center, new LineSegment<>(arithmetic, center, point).length());
@@ -78,6 +83,7 @@ public class Circle<T extends Number> implements Validatable,
      * @param arithmetic arithmetic for calculations
      * @param center     center point of circle
      * @param radius     radius of circle
+     * @since 1.0.0
      */
     public Circle(AbstractArithmetic<T> arithmetic, Point<T> center, T radius) {
         this.arithmetic = arithmetic;
@@ -91,6 +97,7 @@ public class Circle<T extends Number> implements Validatable,
 
     /**
      * @return stored arithmetic
+     * @since 1.0.0
      */
     public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
@@ -98,6 +105,7 @@ public class Circle<T extends Number> implements Validatable,
 
     /**
      * @return center of circle
+     * @since 1.0.0
      */
     public Point<T> getCenter() {
         return center;
@@ -105,6 +113,7 @@ public class Circle<T extends Number> implements Validatable,
 
     /**
      * @param center new center of circle
+     * @since 1.0.0
      */
     public void setCenter(Point<T> center) {
         this.center = center;
@@ -112,6 +121,7 @@ public class Circle<T extends Number> implements Validatable,
 
     /**
      * @return radius of circle
+     * @since 1.0.0
      */
     public T getRadius() {
         return radius;
@@ -119,6 +129,7 @@ public class Circle<T extends Number> implements Validatable,
 
     /**
      * @param radius new radius of circle
+     * @since 1.0.0
      */
     public void setRadius(T radius) {
         this.radius = radius;
@@ -126,6 +137,7 @@ public class Circle<T extends Number> implements Validatable,
 
     /**
      * @return {@link #getRadius()}{@code *2}
+     * @since 1.0.0
      */
     public T getDiameter() {
         return getArithmetic().product(
@@ -138,6 +150,7 @@ public class Circle<T extends Number> implements Validatable,
      *
      * @param diameter new diameter of circle
      * @see #setRadius(Number)
+     * @since 1.0.0
      */
     public void setDiameter(T diameter) {
         setRadius(getArithmetic().quotient(
@@ -151,6 +164,7 @@ public class Circle<T extends Number> implements Validatable,
 
     /**
      * @return &pi;{@code *r^2}
+     * @since 1.0.0
      */
     public T area() {
         return getArithmetic().product(
@@ -161,6 +175,7 @@ public class Circle<T extends Number> implements Validatable,
 
     /**
      * @return {@code 2*}&pi;{@code *r}
+     * @since 1.0.0
      */
     public T circumference() {
         return getArithmetic().product(
@@ -176,6 +191,7 @@ public class Circle<T extends Number> implements Validatable,
 
     /**
      * @return {@code true} if {@link #getRadius()} is 1
+     * @since 1.0.0
      */
     public boolean isUnitCircle() {
         return getArithmetic().one().equals(getRadius());
@@ -190,6 +206,7 @@ public class Circle<T extends Number> implements Validatable,
      * @param map        mapping function to convert current values to new one
      * @param <NT>       new number class
      * @return mapped circle
+     * @since 1.0.0
      */
     public <NT extends Number> Circle<NT> map(
         AbstractArithmetic<NT> arithmetic, Function<T, NT> map

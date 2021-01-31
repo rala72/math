@@ -7,6 +7,7 @@ import java.util.Objects;
  *
  * @param <E> class of {@link AbstractEquationSystem}
  * @param <T> number class of {@link AbstractEquationSystem}
+ * @since 1.0.0
  */
 public abstract class AbstractSolver<E extends AbstractEquationSystem<E>, T extends Number> {
     // region attributes
@@ -20,6 +21,7 @@ public abstract class AbstractSolver<E extends AbstractEquationSystem<E>, T exte
      * creates a {@link AbstractSolver} for given {@link AbstractEquationSystem}
      *
      * @param equationSystem equationSystem to store
+     * @since 1.0.0
      */
     protected AbstractSolver(E equationSystem) {
         this.equationSystem = equationSystem;
@@ -29,6 +31,7 @@ public abstract class AbstractSolver<E extends AbstractEquationSystem<E>, T exte
 
     /**
      * @return stored {@link AbstractEquationSystem}
+     * @since 1.0.0
      */
     public final E getEquationSystem() {
         return equationSystem;
@@ -36,6 +39,7 @@ public abstract class AbstractSolver<E extends AbstractEquationSystem<E>, T exte
 
     /**
      * @return current working instance
+     * @since 1.0.0
      */
     protected E getWorking() {
         return working;
@@ -43,6 +47,7 @@ public abstract class AbstractSolver<E extends AbstractEquationSystem<E>, T exte
 
     /**
      * @param working new working instance
+     * @since 1.0.0
      */
     protected void setWorking(E working) {
         this.working = working;
@@ -56,6 +61,7 @@ public abstract class AbstractSolver<E extends AbstractEquationSystem<E>, T exte
      * solves {@link AbstractEquationSystem} and returns {@link Solution}
      *
      * @return solution of {@link AbstractEquationSystem}
+     * @since 1.0.0
      */
     public abstract Solution<E, T> solve();
 
@@ -63,6 +69,7 @@ public abstract class AbstractSolver<E extends AbstractEquationSystem<E>, T exte
      * resets solver
      *
      * @implSpec resets {@link #getWorking()} to {@link #getEquationSystem()}
+     * @since 1.0.0
      */
     protected void reset() {
         setWorking(getEquationSystem());

@@ -11,6 +11,8 @@ import java.math.MathContext;
 /**
  * class which holds a triangle in a 2d area with points a, b &amp; c
  * storing {@link BigDecimal}
+ *
+ * @since 1.0.0
  */
 public class BigDecimalTriangle extends Triangle<BigDecimal> {
     // region constructors
@@ -20,6 +22,7 @@ public class BigDecimalTriangle extends Triangle<BigDecimal> {
      * @param b b of triangle
      * @param c c of triangle
      * @see Triangle#Triangle(AbstractArithmetic, Point, Point, Point)
+     * @since 1.0.0
      */
     public BigDecimalTriangle(
         Point<BigDecimal> a, Point<BigDecimal> b, Point<BigDecimal> c
@@ -33,6 +36,7 @@ public class BigDecimalTriangle extends Triangle<BigDecimal> {
      * @param c       c of triangle
      * @param context context of {@link BigDecimalArithmetic}
      * @see Triangle#Triangle(AbstractArithmetic, Point, Point, Point)
+     * @since 1.0.0
      */
     public BigDecimalTriangle(
         Point<BigDecimal> a, Point<BigDecimal> b,

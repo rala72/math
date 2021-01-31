@@ -15,6 +15,7 @@ import java.util.function.Function;
  * class which holds a real and a imaginary part of a complex number
  *
  * @param <T> number class
+ * @since 1.0.0
  */
 public class Complex<T extends Number> extends Number implements Validatable,
     Copyable<Complex<T>>, Comparable<Complex<T>> {
@@ -33,6 +34,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
      * calls {@link #Complex(AbstractArithmetic, Number, Number)} with {@code 0}
      *
      * @param arithmetic arithmetic for calculations
+     * @since 1.0.0
      */
     public Complex(AbstractArithmetic<T> arithmetic) {
         this(arithmetic,
@@ -46,6 +48,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
      * @param arithmetic arithmetic for calculations
      * @param re         real part
      * @param im         imaginary part
+     * @since 1.0.0
      */
     public Complex(AbstractArithmetic<T> arithmetic, T re, T im) {
         this.arithmetic = arithmetic;
@@ -57,6 +60,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
      * creates a new complex based on given one
      *
      * @param complex complex to copy
+     * @since 1.0.0
      */
     protected Complex(Complex<T> complex) {
         this(complex.getArithmetic(), complex.getRe(), complex.getIm());
@@ -68,6 +72,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
 
     /**
      * @return stored {@link AbstractArithmetic}
+     * @since 1.0.0
      */
     public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
@@ -75,6 +80,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
 
     /**
      * @return real part of complex number
+     * @since 1.0.0
      */
     public T getRe() {
         return re;
@@ -82,6 +88,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
 
     /**
      * @param re new real part of complex number
+     * @since 1.0.0
      */
     public void setRe(T re) {
         this.re = re;
@@ -89,6 +96,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
 
     /**
      * @return imaginary part of complex number
+     * @since 1.0.0
      */
     public T getIm() {
         return im;
@@ -96,6 +104,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
 
     /**
      * @param im new imaginary part of complex number
+     * @since 1.0.0
      */
     public void setIm(T im) {
         this.im = im;
@@ -131,6 +140,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
 
     /**
      * @return absolute <i>(modulus)</i> value of complex based on pythagoras
+     * @since 1.0.0
      */
     public T absoluteValue() {
         return getArithmetic().root2(getArithmetic().sum(
@@ -141,6 +151,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
 
     /**
      * @return argument value of complex
+     * @since 1.0.0
      */
     public T argument() {
         return getArithmetic().product(
@@ -151,6 +162,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
 
     /**
      * @return {@code 0} if z is zero otherwise {@code z/|z|}
+     * @since 1.0.0
      */
     public Complex<T> signum() {
         if (getArithmetic().isZero(getRe()) &&
@@ -162,6 +174,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
     /**
      * @return if re is not {@code 0} {@code sign(re)} otherwise {@code sign(im)}
      * @see Math#signum(double)
+     * @since 1.0.0
      */
     public double complexSignum() {
         return !getArithmetic().isZero(getRe()) ?
@@ -174,6 +187,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
 
     /**
      * @return {@link #inverseIm()}
+     * @since 1.0.0
      */
     public Complex<T> conjugation() {
         return inverseIm();
@@ -181,6 +195,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
 
     /**
      * @return new reciprocal of complex
+     * @since 1.0.0
      */
     public Complex<T> reciprocal() {
         T d = getArithmetic().sum(
@@ -204,6 +219,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
      * @param im imaginary value to add
      * @return new complex with sum of current and given parameters
      * @see #add(Complex)
+     * @since 1.0.0
      */
     public Complex<T> add(T re, T im) {
         return add(new Complex<>(getArithmetic(), re, im));
@@ -212,6 +228,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
     /**
      * @param complex complex value to add
      * @return new complex with sum of current and given complex
+     * @since 1.0.0
      */
     public Complex<T> add(Complex<T> complex) {
         return new Complex<>(getArithmetic(),
@@ -227,6 +244,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
      * @param im imaginary value to subtract
      * @return new complex with difference of current and given parameters
      * @see #subtract(Complex)
+     * @since 1.0.0
      */
     public Complex<T> subtract(T re, T im) {
         return subtract(new Complex<>(getArithmetic(), re, im));
@@ -235,6 +253,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
     /**
      * @param complex complex value to subtract
      * @return new complex with difference of current and given complex
+     * @since 1.0.0
      */
     public Complex<T> subtract(Complex<T> complex) {
         return add(complex.inverse());
@@ -247,6 +266,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
     /**
      * @param i value to multiply with real &amp; imaginary
      * @return new complex with multiplied real &amp; imaginary values
+     * @since 1.0.0
      */
     public Complex<T> multiply(T i) {
         return new Complex<>(getArithmetic(),
@@ -258,6 +278,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
     /**
      * @param complex complex value to multiply
      * @return new complex with multiplied real &amp; imaginary values
+     * @since 1.0.0
      */
     public Complex<T> multiply(Complex<T> complex) {
         return new Complex<>(getArithmetic(),
@@ -275,6 +296,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
     /**
      * @param i value to divide real &amp; imaginary through
      * @return new complex with divided real &amp; imaginary values
+     * @since 1.0.0
      */
     public Complex<T> divide(T i) {
         return new Complex<>(getArithmetic(),
@@ -286,6 +308,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
     /**
      * @param complex complex value to divide through
      * @return new complex which is quotient of the division
+     * @since 1.0.0
      */
     public Complex<T> divide(Complex<T> complex) {
         return new Complex<>(getArithmetic(),
@@ -319,6 +342,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
     /**
      * @param n number of power
      * @return new complex with powered real &amp; imaginary values
+     * @since 1.0.0
      */
     public Complex<T> pow(int n) {
         return Complex.of(getArithmetic(),
@@ -331,6 +355,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
      * @param n number of root
      * @return new complex with rooted real &amp; imaginary values
      * @see MathX#root(double, int)
+     * @since 1.0.0
      */
     public List<Complex<T>> root(int n) {
         List<Complex<T>> list = new ArrayList<>(n - 1);
@@ -359,6 +384,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
      * @return new complex which has inverse real &amp; imaginary values
      * @see #inverseRe()
      * @see #inverseIm()
+     * @since 1.0.0
      */
     public Complex<T> inverse() {
         return inverseRe().inverseIm();
@@ -368,6 +394,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
      * @return new complex which has inverse real value
      * @see #inverse()
      * @see #inverseIm()
+     * @since 1.0.0
      */
     public Complex<T> inverseRe() {
         return new Complex<>(getArithmetic(), getArithmetic().negate(getRe()), getIm());
@@ -377,6 +404,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
      * @return new complex which has inverse imaginary value
      * @see #inverse()
      * @see #inverseRe()
+     * @since 1.0.0
      */
     public Complex<T> inverseIm() {
         return new Complex<>(getArithmetic(), getRe(), getArithmetic().negate(getIm()));
@@ -392,6 +420,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
      * @param argument      argument of vector
      * @param <T>           number class of values
      * @return new complex based on absoluteValue and argument
+     * @since 1.0.0
      */
     public static <T extends Number> Complex<T> of(
         AbstractArithmetic<T> arithmetic, T absoluteValue, T argument
@@ -412,6 +441,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
      * @return new vector representing
      * {@link #getRe()} as {@code x} and
      * {@link #getIm()} as {@code y}
+     * @since 1.0.0
      */
     public Vector<T> asVector() {
         return new Vector<>(getArithmetic(), getRe(), getIm());
@@ -426,6 +456,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
      * @param map        mapping function to convert current values to new one
      * @param <NT>       new number class
      * @return new mapped complex
+     * @since 1.0.0
      */
     public <NT extends Number> Complex<NT> map(
         AbstractArithmetic<NT> arithmetic, Function<T, NT> map

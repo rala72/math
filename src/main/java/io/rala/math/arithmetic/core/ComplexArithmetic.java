@@ -10,6 +10,7 @@ import java.util.Objects;
  * class which handles {@link Complex} arithmetic
  *
  * @param <T> number class
+ * @since 1.0.0
  */
 public class ComplexArithmetic<T extends Number> extends AbstractArithmetic<Complex<T>> {
     private final AbstractArithmetic<T> arithmetic;
@@ -18,6 +19,7 @@ public class ComplexArithmetic<T extends Number> extends AbstractArithmetic<Comp
      * creates a new instance
      *
      * @param arithmetic arithmetic of complex
+     * @since 1.0.0
      */
     public ComplexArithmetic(AbstractArithmetic<T> arithmetic) {
         this.arithmetic = arithmetic;
@@ -25,6 +27,7 @@ public class ComplexArithmetic<T extends Number> extends AbstractArithmetic<Comp
 
     /**
      * @return stored {@link AbstractArithmetic} of {@link Complex}
+     * @since 1.0.0
      */
     public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;

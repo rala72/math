@@ -12,6 +12,7 @@ import java.util.Objects;
  *
  * @param <T> number class of values
  * @param <R> number class of result of {@link Number} methods
+ * @since 1.0.0
  */
 public class FractionArithmetic<T extends Number, R extends Number>
     extends AbstractArithmetic<Fraction<T, R>> {
@@ -21,6 +22,7 @@ public class FractionArithmetic<T extends Number, R extends Number>
      * creates a new {@link AbstractResultArithmetic} with given two arithmetic
      *
      * @param arithmetic arithmetic of {@link Fraction}
+     * @since 1.0.0
      */
     public FractionArithmetic(AbstractResultArithmetic<T, R> arithmetic) {
         this.arithmetic = arithmetic;
@@ -28,6 +30,7 @@ public class FractionArithmetic<T extends Number, R extends Number>
 
     /**
      * @return stored {@link AbstractResultArithmetic}
+     * @since 1.0.0
      */
     public AbstractResultArithmetic<T, R> getArithmetic() {
         return arithmetic;

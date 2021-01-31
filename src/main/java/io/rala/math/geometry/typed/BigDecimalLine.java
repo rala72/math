@@ -13,6 +13,8 @@ import java.math.MathContext;
  * {@code y=m*x+b}<br>
  * if line is vertical m is considered to be {@code null}<br>
  * {@code y=b}
+ *
+ * @since 1.0.0
  */
 public class BigDecimalLine extends Line<BigDecimal> {
     // region constructors
@@ -20,6 +22,7 @@ public class BigDecimalLine extends Line<BigDecimal> {
     /**
      * @param x x value of line
      * @see Line#Line(AbstractArithmetic, Number)
+     * @since 1.0.0
      */
     public BigDecimalLine(BigDecimal x) {
         super(BigDecimalArithmetic.getInstance(), x);
@@ -29,6 +32,7 @@ public class BigDecimalLine extends Line<BigDecimal> {
      * @param x       x value of line
      * @param context context of {@link BigDecimalArithmetic}
      * @see Line#Line(AbstractArithmetic, Number)
+     * @since 1.0.0
      */
     public BigDecimalLine(BigDecimal x, MathContext context) {
         super(new BigDecimalArithmetic(context), x);
@@ -38,6 +42,7 @@ public class BigDecimalLine extends Line<BigDecimal> {
      * @param m m value of line
      * @param b b value of line
      * @see Line#Line(AbstractArithmetic, Number, Number)
+     * @since 1.0.0
      */
     public BigDecimalLine(BigDecimal m, BigDecimal b) {
         super(BigDecimalArithmetic.getInstance(), m, b);
@@ -48,6 +53,7 @@ public class BigDecimalLine extends Line<BigDecimal> {
      * @param b       b value of line
      * @param context context of {@link BigDecimalArithmetic}
      * @see Line#Line(AbstractArithmetic, Number, Number)
+     * @since 1.0.0
      */
     public BigDecimalLine(BigDecimal m, BigDecimal b, MathContext context) {
         super(new BigDecimalArithmetic(context), m, b);

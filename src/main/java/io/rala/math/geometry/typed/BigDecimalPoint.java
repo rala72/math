@@ -10,12 +10,15 @@ import java.math.MathContext;
 /**
  * class which holds a point in a 2d area with x &amp; y
  * storing {@link BigDecimal}
+ *
+ * @since 1.0.0
  */
 public class BigDecimalPoint extends Point<BigDecimal> {
     // region constructors
 
     /**
      * @see Point#Point(AbstractArithmetic)
+     * @since 1.0.0
      */
     public BigDecimalPoint() {
         super(BigDecimalArithmetic.getInstance());
@@ -24,6 +27,7 @@ public class BigDecimalPoint extends Point<BigDecimal> {
     /**
      * @param context context of {@link BigDecimalArithmetic}
      * @see Point#Point(AbstractArithmetic)
+     * @since 1.0.0
      */
     public BigDecimalPoint(MathContext context) {
         super(new BigDecimalArithmetic(context));
@@ -33,6 +37,7 @@ public class BigDecimalPoint extends Point<BigDecimal> {
      * @param xy value to be used in
      *           {@link Point#Point(AbstractArithmetic, Number, Number)} at x and y
      * @see Point#Point(AbstractArithmetic, Number)
+     * @since 1.0.0
      */
     public BigDecimalPoint(BigDecimal xy) {
         super(BigDecimalArithmetic.getInstance(), xy);
@@ -43,6 +48,7 @@ public class BigDecimalPoint extends Point<BigDecimal> {
      *                {@link Point#Point(AbstractArithmetic, Number, Number)} at x and y
      * @param context context of {@link BigDecimalArithmetic}
      * @see Point#Point(AbstractArithmetic, Number)
+     * @since 1.0.0
      */
     public BigDecimalPoint(BigDecimal xy, MathContext context) {
         super(new BigDecimalArithmetic(context), xy);
@@ -52,6 +58,7 @@ public class BigDecimalPoint extends Point<BigDecimal> {
      * @param x x value of point
      * @param y y value of point
      * @see Point#Point(AbstractArithmetic, Number, Number)
+     * @since 1.0.0
      */
     public BigDecimalPoint(BigDecimal x, BigDecimal y) {
         super(BigDecimalArithmetic.getInstance(), x, y);
@@ -62,6 +69,7 @@ public class BigDecimalPoint extends Point<BigDecimal> {
      * @param y       y value of point
      * @param context context of {@link BigDecimalArithmetic}
      * @see Point#Point(AbstractArithmetic, Number, Number)
+     * @since 1.0.0
      */
     public BigDecimalPoint(BigDecimal x, BigDecimal y, MathContext context) {
         super(new BigDecimalArithmetic(context), x, y);

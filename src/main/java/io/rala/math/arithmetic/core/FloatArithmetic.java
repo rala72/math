@@ -6,6 +6,8 @@ import io.rala.math.exception.NotSupportedException;
 
 /**
  * class which handles {@link Float} arithmetic
+ *
+ * @since 1.0.0
  */
 public class FloatArithmetic extends AbstractArithmetic<Float> {
     // region singleton
@@ -14,6 +16,7 @@ public class FloatArithmetic extends AbstractArithmetic<Float> {
 
     /**
      * @return default instance
+     * @since 1.0.0
      */
     public static FloatArithmetic getInstance() {
         if (instance == null) instance = new FloatArithmetic();

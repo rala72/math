@@ -12,6 +12,7 @@ import java.util.Objects;
  * class which holds a linear equation system
  *
  * @param <T> number class of linear equation system
+ * @since 1.0.0
  */
 public class LinearEquationSystem<T extends Number> extends AbstractEquationSystem<LinearEquationSystem<T>> {
     // region protected exception messages
@@ -36,6 +37,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
      * @see LinearEquationMatrix#LinearEquationMatrix(Matrix)
      * @see LinearEquationVector#LinearEquationVector(Vector)
      * @see LinearEquationSystem#LinearEquationSystem(LinearEquationMatrix, LinearEquationVector)
+     * @since 1.0.0
      */
     public LinearEquationSystem(Matrix<T> matrix, Vector<T> vector) {
         this(new LinearEquationMatrix<>(matrix), new LinearEquationVector<>(vector));
@@ -47,6 +49,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
      * @param matrix matrix of linear equation system
      * @param vector vector of linear equation solution
      * @throws IllegalArgumentException if matrix and vector do not match
+     * @since 1.0.0
      */
     public LinearEquationSystem(
         LinearEquationMatrix<T> matrix, LinearEquationVector<T> vector
@@ -61,6 +64,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
 
     /**
      * @return stored matrix
+     * @since 1.0.0
      */
     public LinearEquationMatrix<T> getMatrix() {
         return matrix;
@@ -68,6 +72,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
 
     /**
      * @return stored vector
+     * @since 1.0.0
      */
     public LinearEquationVector<T> getVector() {
         return vector;
@@ -77,6 +82,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
      * solves an {@link AbstractEquationSystem} with {@link GaussSolver}
      *
      * @return {@link Solution} of {@link GaussSolver#solve()}
+     * @since 1.0.0
      */
     public Solution<LinearEquationSystem<T>, T> solveWithGauss() {
         return new GaussSolver<>(this).solve();
@@ -90,6 +96,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
      * @return new equation system with changed values
      * @see LinearEquationMatrix#swapRows(int, int)
      * @see LinearEquationVector#swapValues(int, int)
+     * @since 1.0.0
      */
     public LinearEquationSystem<T> swapRows(int row1, int row2) {
         return new LinearEquationSystem<>(
@@ -104,6 +111,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
      * @return new equation system with changed values
      * @see LinearEquationMatrix#swapCols(int, int)
      * @see LinearEquationVector#swapValues(int, int)
+     * @since 1.0.0
      */
     public LinearEquationSystem<T> swapCols(int col1, int col2) {
         return new LinearEquationSystem<>(
@@ -118,6 +126,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
      * @return new equation system with changed values
      * @see LinearEquationMatrix#multiplyRow(int, Number)
      * @see LinearEquationVector#multiplyValue(int, Number)
+     * @since 1.0.0
      */
     public LinearEquationSystem<T> multiplyRow(int row, T n) {
         return new LinearEquationSystem<>(
@@ -132,6 +141,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
      * @return new equation system with changed values
      * @see LinearEquationMatrix#multiplyCol(int, Number)
      * @see LinearEquationVector#multiplyValue(int, Number)
+     * @since 1.0.0
      */
     public LinearEquationSystem<T> multiplyCol(int col, T n) {
         return new LinearEquationSystem<>(
@@ -147,6 +157,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
      * @return new equation system with changed values
      * @see LinearEquationMatrix#addRowMultipleTimes(int, int, Number)
      * @see LinearEquationVector#addValueMultiplyTimes(int, int, Number)
+     * @since 1.0.0
      */
     public LinearEquationSystem<T> addRowMultipleTimes(int row1, int row2, T n) {
         return new LinearEquationSystem<>(
@@ -162,6 +173,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
      * @return new equation system with changed values
      * @see LinearEquationMatrix#addColMultipleTimes(int, int, Number)
      * @see LinearEquationVector#addValueMultiplyTimes(int, int, Number)
+     * @since 1.0.0
      */
     public LinearEquationSystem<T> addColMultipleTimes(int col1, int col2, T n) {
         return new LinearEquationSystem<>(
@@ -182,6 +194,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
      * @param <T>    number class of linear equation system
      * @return new linear equation system with
      * {@link LinearEquationMatrix} and {@link LinearEquationVector}
+     * @since 1.0.0
      */
     public static <T extends Number> LinearEquationSystem<T> ofMatrixWithSolutionColumn(Matrix<T> matrix) {
         Matrix<T> eMatrix = new Matrix<>(matrix.getArithmetic(),
@@ -205,6 +218,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
      * @param <T>    number class of linear equation system
      * @return new linear equation system with
      * {@link LinearEquationMatrix} and {@link LinearEquationVector}
+     * @since 1.0.0
      */
     public static <T extends Number> LinearEquationSystem<T> ofMatrixWithSolutionRow(Matrix<T> matrix) {
         return ofMatrixWithSolutionColumn(matrix.transpose());
@@ -244,12 +258,14 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
      * special {@link Matrix} for linear equations
      *
      * @param <T> number class of {@link Matrix}
+     * @since 1.0.0
      */
     public static class LinearEquationMatrix<T extends Number> extends Matrix<T> {
         /**
          * creates a new equation system from given matrix
          *
          * @param matrix matrix to store
+         * @since 1.0.0
          */
         public LinearEquationMatrix(Matrix<T> matrix) {
             super(matrix);
@@ -294,12 +310,14 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
      * special {@link Vector} for linear equations
      *
      * @param <T> number class of {@link Vector}
+     * @since 1.0.0
      */
     public static class LinearEquationVector<T extends Number> extends Vector<T> {
         /**
          * creates a new equation vector from given vector
          *
          * @param vector vector to store
+         * @since 1.0.0
          */
         public LinearEquationVector(Vector<T> vector) {
             super(vector);
@@ -310,6 +328,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
          * @param index2 index2 to swap with index1
          * @return new vector with swapped values
          * @throws IndexOutOfBoundsException if index1 or index2 is invalid
+         * @since 1.0.0
          */
         public LinearEquationVector<T> swapValues(int index1, int index2) {
             if (!isValidIndex(index1))
@@ -329,6 +348,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
          * @param n     factor to use
          * @return new vector with multiplied index
          * @throws IndexOutOfBoundsException if index is invalid
+         * @since 1.0.0
          */
         public LinearEquationVector<T> multiplyValue(int index, T n) {
             if (!isValidIndex(index))
@@ -350,6 +370,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
          * @param n      factor to use
          * @return new vector with multiplied value
          * @throws IndexOutOfBoundsException if index1 or index2 is invalid
+         * @since 1.0.0
          */
         public LinearEquationVector<T> addValueMultiplyTimes(int index1, int index2, T n) {
             if (!isValidIndex(index1))

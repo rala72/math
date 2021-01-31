@@ -7,6 +7,8 @@ import java.util.Arrays;
 
 /**
  * collection of enumerative combinatoric math functions
+ *
+ * @since 1.0.0
  */
 public class EnumerativeCombinatoric {
     private EnumerativeCombinatoric() {
@@ -18,6 +20,7 @@ public class EnumerativeCombinatoric {
      * @param n number of elements
      * @return {@code n!}
      * @see MathX#factorial(int)
+     * @since 1.0.0
      */
     public static long permutationsWithoutRepetition(int n) {
         return permutationsWithoutRepetition((long) n);
@@ -29,6 +32,7 @@ public class EnumerativeCombinatoric {
      * @throws ArithmeticException may be thrown for example by
      *                             {@link BigInteger#longValueExact()}
      * @see MathX#factorial(long)
+     * @since 1.0.0
      */
     public static long permutationsWithoutRepetition(long n) {
         return permutationsWithoutRepetition(BigInteger.valueOf(n)).longValueExact();
@@ -38,6 +42,7 @@ public class EnumerativeCombinatoric {
      * @param n number of elements
      * @return {@code n!}
      * @see MathX#factorial(BigInteger)
+     * @since 1.0.0
      */
     public static BigInteger permutationsWithoutRepetition(BigInteger n) {
         return MathX.factorial(n);
@@ -50,6 +55,7 @@ public class EnumerativeCombinatoric {
      * @param k sub number of elements
      * @return {@code n! / product(k)}
      * @see MathX#factorial(int)
+     * @since 1.0.0
      */
     public static long permutationsWithRepetition(int n, int... k) {
         return permutationsWithRepetition(n,
@@ -66,6 +72,7 @@ public class EnumerativeCombinatoric {
      * @throws ArithmeticException may be thrown for example by
      *                             {@link BigInteger#longValueExact()}
      * @see MathX#factorial(long)
+     * @since 1.0.0
      */
     public static long permutationsWithRepetition(long n, long... k) {
         return permutationsWithRepetition(BigInteger.valueOf(n),
@@ -80,6 +87,7 @@ public class EnumerativeCombinatoric {
      * @param k sub number of elements
      * @return {@code n! / product(k)}
      * @see MathX#factorial(BigInteger)
+     * @since 1.0.0
      */
     public static BigInteger permutationsWithRepetition(BigInteger n, BigInteger... k) {
         return MathX.factorial(n).divide(
@@ -97,6 +105,7 @@ public class EnumerativeCombinatoric {
      * @param k sub number of elements
      * @return {@code nPr(n,k)}
      * @see MathX#factorial(int)
+     * @since 1.0.0
      */
     public static long variationsWithoutRepetition(int n, int k) {
         return variationsWithoutRepetition((long) n, k);
@@ -109,6 +118,7 @@ public class EnumerativeCombinatoric {
      * @throws ArithmeticException may be thrown for example by
      *                             {@link BigInteger#longValueExact()}
      * @see MathX#factorial(long)
+     * @since 1.0.0
      */
     public static long variationsWithoutRepetition(long n, long k) {
         return variationsWithoutRepetition(
@@ -121,6 +131,7 @@ public class EnumerativeCombinatoric {
      * @param k sub number of elements
      * @return {@code nPr(n,k)}
      * @see MathX#factorial(BigInteger)
+     * @since 1.0.0
      */
     public static BigInteger variationsWithoutRepetition(BigInteger n, BigInteger k) {
         return MathX.factorial(n).divide(MathX.factorial(n.subtract(k)));
@@ -131,6 +142,7 @@ public class EnumerativeCombinatoric {
      * @param k sub number of elements
      * @return n^k
      * @see BigInteger#pow(int)
+     * @since 1.0.0
      */
     public static long variationsWithRepetition(int n, int k) {
         return variationsWithRepetition((long) n, k);
@@ -143,6 +155,7 @@ public class EnumerativeCombinatoric {
      * @throws ArithmeticException may be thrown for example by
      *                             {@link BigInteger#longValueExact()}
      * @see BigInteger#pow(int)
+     * @since 1.0.0
      */
     public static long variationsWithRepetition(long n, long k) {
         return variationsWithRepetition(
@@ -157,6 +170,7 @@ public class EnumerativeCombinatoric {
      * @throws ArithmeticException may be thrown for example by
      *                             {@link BigInteger#longValueExact()}
      * @see BigInteger#pow(int)
+     * @since 1.0.0
      */
     public static BigInteger variationsWithRepetition(BigInteger n, BigInteger k) {
         return n == null || k == null ? null : n.pow(k.intValueExact());
@@ -171,6 +185,7 @@ public class EnumerativeCombinatoric {
      * @param k sub number of elements
      * @return {@code nCr(n,k)}
      * @see MathX#factorial(int)
+     * @since 1.0.0
      */
     public static long combinationsWithoutRepetition(int n, int k) {
         return combinationsWithoutRepetition((long) n, k);
@@ -183,6 +198,7 @@ public class EnumerativeCombinatoric {
      * @throws ArithmeticException may be thrown for example by
      *                             {@link BigInteger#longValueExact()}
      * @see MathX#factorial(long)
+     * @since 1.0.0
      */
     public static long combinationsWithoutRepetition(long n, long k) {
         return combinationsWithoutRepetition(
@@ -195,6 +211,7 @@ public class EnumerativeCombinatoric {
      * @param k sub number of elements
      * @return {@code nCr(n,k)}
      * @see MathX#factorial(BigInteger)
+     * @since 1.0.0
      */
     public static BigInteger combinationsWithoutRepetition(BigInteger n, BigInteger k) {
         if (n == null || k == null) return null;
@@ -210,6 +227,7 @@ public class EnumerativeCombinatoric {
      * @param k sub number of elements
      * @return {@code nCr(n+k-1,k)}
      * @see #combinationsWithoutRepetition(int, int)
+     * @since 1.0.0
      */
     public static long combinationsWithRepetition(int n, int k) {
         return combinationsWithRepetition((long) n, k);
@@ -222,6 +240,7 @@ public class EnumerativeCombinatoric {
      * @throws ArithmeticException may be thrown for example by
      *                             {@link BigInteger#longValueExact()}
      * @see #combinationsWithoutRepetition(long, long)
+     * @since 1.0.0
      */
     public static long combinationsWithRepetition(long n, long k) {
         return combinationsWithRepetition(BigInteger.valueOf(n), BigInteger.valueOf(k))
@@ -233,6 +252,7 @@ public class EnumerativeCombinatoric {
      * @param k sub number of elements
      * @return {@code nCr(n+k-1,k)}
      * @see #combinationsWithoutRepetition(BigInteger, BigInteger)
+     * @since 1.0.0
      */
     public static BigInteger combinationsWithRepetition(BigInteger n, BigInteger k) {
         return n == null || k == null ? null :

@@ -10,12 +10,15 @@ import java.math.MathContext;
 /**
  * class which holds a real and a imaginary part of a complex number
  * storing {@link BigDecimal}
+ *
+ * @since 1.0.0
  */
 public class BigDecimalComplex extends Complex<BigDecimal> {
     // region constructor
 
     /**
      * @see Complex#Complex(AbstractArithmetic)
+     * @since 1.0.0
      */
     public BigDecimalComplex() {
         super(BigDecimalArithmetic.getInstance());
@@ -24,6 +27,7 @@ public class BigDecimalComplex extends Complex<BigDecimal> {
     /**
      * @param context context of {@link BigDecimalArithmetic}
      * @see Complex#Complex(AbstractArithmetic)
+     * @since 1.0.0
      */
     public BigDecimalComplex(MathContext context) {
         super(new BigDecimalArithmetic(context));
@@ -33,6 +37,7 @@ public class BigDecimalComplex extends Complex<BigDecimal> {
      * @param re real part
      * @param im imaginary part
      * @see Complex#Complex(AbstractArithmetic, Number, Number)
+     * @since 1.0.0
      */
     public BigDecimalComplex(BigDecimal re, BigDecimal im) {
         super(BigDecimalArithmetic.getInstance(), re, im);
@@ -43,6 +48,7 @@ public class BigDecimalComplex extends Complex<BigDecimal> {
      * @param im      imaginary part
      * @param context context of {@link BigDecimalArithmetic}
      * @see Complex#Complex(AbstractArithmetic, Number, Number)
+     * @since 1.0.0
      */
     public BigDecimalComplex(BigDecimal re, BigDecimal im, MathContext context) {
         super(new BigDecimalArithmetic(context), re, im);
@@ -53,6 +59,7 @@ public class BigDecimalComplex extends Complex<BigDecimal> {
      *
      * @param complex complex to copy
      * @see Complex#Complex(Complex)
+     * @since 1.0.0
      */
     public BigDecimalComplex(Complex<BigDecimal> complex) {
         super(complex.getArithmetic(), complex.getRe(), complex.getIm());
@@ -66,6 +73,7 @@ public class BigDecimalComplex extends Complex<BigDecimal> {
      * @param absoluteValue absolute value of complex
      * @param argument      argument of vector
      * @return new complex based on absoluteValue and argument
+     * @since 1.0.0
      */
     public static BigDecimalComplex of(BigDecimal absoluteValue, BigDecimal argument) {
         return new BigDecimalComplex(

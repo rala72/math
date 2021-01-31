@@ -5,6 +5,8 @@ import io.rala.math.arithmetic.AbstractArithmetic;
 
 /**
  * class which handles {@link Integer} arithmetic
+ *
+ * @since 1.0.0
  */
 public class IntegerArithmetic extends AbstractArithmetic<Integer> {
     // region singleton
@@ -13,6 +15,7 @@ public class IntegerArithmetic extends AbstractArithmetic<Integer> {
 
     /**
      * @return default instance
+     * @since 1.0.0
      */
     public static IntegerArithmetic getInstance() {
         if (instance == null) instance = new IntegerArithmetic();

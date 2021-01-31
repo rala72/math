@@ -6,6 +6,8 @@ import io.rala.math.exception.NotSupportedException;
 
 /**
  * class which handles {@link Double} arithmetic
+ *
+ * @since 1.0.0
  */
 public class DoubleArithmetic extends AbstractArithmetic<Double> {
     // region singleton
@@ -14,6 +16,7 @@ public class DoubleArithmetic extends AbstractArithmetic<Double> {
 
     /**
      * @return default instance
+     * @since 1.0.0
      */
     public static DoubleArithmetic getInstance() {
         if (instance == null) instance = new DoubleArithmetic();

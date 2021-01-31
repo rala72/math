@@ -10,6 +10,7 @@ import java.util.*;
  * solves a {@link LinearEquationSystem} based on Gauss
  *
  * @param <T> number class
+ * @since 1.0.0
  */
 public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
     private final Deque<ColPair> swappedCols = new LinkedList<>();
@@ -18,6 +19,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
      * creates a new GaussSolver based on a {@link LinearEquationSystem}
      *
      * @param equationSystem equation system to solve
+     * @since 1.0.0
      */
     public GaussSolver(LinearEquationSystem<T> equationSystem) {
         super(equationSystem);
@@ -27,6 +29,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
 
     /**
      * @return current swappedCols instance
+     * @since 1.0.0
      */
     protected Deque<ColPair> getSwappedCols() {
         return swappedCols;
@@ -62,6 +65,8 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
      * {@link #prepareMatrixBySwapping(int)},
      * {@link #prepareMatrixByMakingFieldToOne(int)} and
      * {@link #prepareMatrixByMakeColToZero(int)}
+     *
+     * @since 1.0.0
      */
     protected void prepareMatrix() {
         prepareMatrixBySwappingZeroRowsToBottom();
@@ -76,6 +81,8 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
 
     /**
      * moves zero rows to bottom
+     *
+     * @since 1.0.0
      */
     protected void prepareMatrixBySwappingZeroRowsToBottom() {
         for (int i = 0; i < getWorkingMatrix().getRows() - 1; i++) {
@@ -96,6 +103,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
      *
      * @param rowIndex rowIndex to handle
      * @implSpec pre: non zero row
+     * @since 1.0.0
      */
     protected void prepareMatrixBySwapping(int rowIndex) {
         List<T> row = getWorkingMatrix().getRow(rowIndex);
@@ -121,6 +129,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
      * @param rowIndex rowIndex to handle
      * @implSpec pre: <i>see {@link #prepareMatrixBySwapping(int)}</i>
      * and {@code rowIndex} is also a valid column index
+     * @since 1.0.0
      */
     protected void prepareMatrixByMakingFieldToOne(int rowIndex) {
         T rowIndexValue = getWorkingMatrix().getValue(rowIndex, rowIndex);
@@ -137,6 +146,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
      *
      * @param rowIndex rowIndex to handle
      * @implSpec pre: <i>see {@link #prepareMatrixByMakingFieldToOne(int)}</i>
+     * @since 1.0.0
      */
     protected void prepareMatrixByMakeColToZero(int rowIndex) {
         for (int i = rowIndex + 1; i < getWorkingMatrix().getRows(); i++) {
@@ -154,6 +164,8 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
 
     /**
      * clears all values above rows so that only the diagonal is left
+     *
+     * @since 1.0.0
      */
     protected void solveBottomUp() {
         for (int i = getWorkingMatrix().getRows() - 1; 0 < i; i--) {
@@ -170,6 +182,8 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
 
     /**
      * reSwaps cols which have been swapped during {@link #prepareMatrixBySwapping(int)}
+     *
+     * @since 1.0.0
      */
     protected void reSwapCols() {
         while (!getSwappedCols().isEmpty()) {
@@ -182,6 +196,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
      * sorts rows after {@link #reSwapCols()}
      *
      * @implSpec suggested only if {@link #getSwappedCols()} was non-empty
+     * @since 1.0.0
      */
     protected void sortRows() {
         for (int i = 0; i < getWorkingMatrix().getRows(); i++) {
@@ -201,6 +216,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
      * @return {@code true} if current {@link #getWorkingMatrix()} has no solutions
      * @implSpec checks if a solution value is unequal zero and
      * matrix row values {@link #areAllZero(Collection)}
+     * @since 1.0.0
      */
     protected boolean hasNoSolutions() {
         for (int i = 0; i < getWorkingMatrix().getRows(); i++) {
@@ -216,6 +232,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
      * @implSpec pre: {@link #prepareMatrix()} and {@link #solveBottomUp()};
      * all possible eliminations have been done -
      * it is checking for non-zero values between main diagonale and solution
+     * @since 1.0.0
      */
     protected boolean hasInfiniteSolutions() {
         for (int i = 0; i < getWorkingMatrix().getRows(); i++) {
@@ -239,6 +256,8 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
 
     /**
      * class which stores two col indices
+     *
+     * @since 1.0.0
      */
     protected static class ColPair {
         private final int col1;
@@ -249,6 +268,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
          *
          * @param col1 first col
          * @param col2 second col
+         * @since 1.0.0
          */
         public ColPair(int col1, int col2) {
             this.col1 = col1;
@@ -257,6 +277,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
 
         /**
          * @return col1
+         * @since 1.0.0
          */
         public int getCol1() {
             return col1;
@@ -264,6 +285,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
 
         /**
          * @return col2
+         * @since 1.0.0
          */
         public int getCol2() {
             return col2;

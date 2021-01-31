@@ -10,12 +10,15 @@ import java.math.MathContext;
 /**
  * class which holds a vector in a 2d area with x &amp; y
  * storing {@link BigDecimal}
+ *
+ * @since 1.0.0
  */
 public class BigDecimalVector extends Vector<BigDecimal> {
     // region constructors
 
     /**
      * @see Vector#Vector(AbstractArithmetic)
+     * @since 1.0.0
      */
     public BigDecimalVector() {
         super(BigDecimalArithmetic.getInstance());
@@ -24,6 +27,7 @@ public class BigDecimalVector extends Vector<BigDecimal> {
     /**
      * @param context context of {@link BigDecimalArithmetic}
      * @see Vector#Vector(AbstractArithmetic)
+     * @since 1.0.0
      */
     public BigDecimalVector(MathContext context) {
         super(new BigDecimalArithmetic(context));
@@ -33,6 +37,7 @@ public class BigDecimalVector extends Vector<BigDecimal> {
      * @param xy value to be used in
      *           {@link Vector#Vector(AbstractArithmetic, Number, Number)} at x and y
      * @see Vector#Vector(AbstractArithmetic, Number)
+     * @since 1.0.0
      */
     public BigDecimalVector(BigDecimal xy) {
         super(BigDecimalArithmetic.getInstance(), xy);
@@ -44,6 +49,7 @@ public class BigDecimalVector extends Vector<BigDecimal> {
      *                at x and y
      * @param context context of {@link BigDecimalArithmetic}
      * @see Vector#Vector(AbstractArithmetic, Number)
+     * @since 1.0.0
      */
     public BigDecimalVector(BigDecimal xy, MathContext context) {
         super(new BigDecimalArithmetic(context), xy);
@@ -53,6 +59,7 @@ public class BigDecimalVector extends Vector<BigDecimal> {
      * @param x x value of vector
      * @param y y value of vector
      * @see Vector#Vector(AbstractArithmetic, Number, Number)
+     * @since 1.0.0
      */
     public BigDecimalVector(BigDecimal x, BigDecimal y) {
         super(BigDecimalArithmetic.getInstance(), x, y);
@@ -63,6 +70,7 @@ public class BigDecimalVector extends Vector<BigDecimal> {
      * @param y       y value of vector
      * @param context context of {@link BigDecimalArithmetic}
      * @see Vector#Vector(AbstractArithmetic, Number, Number)
+     * @since 1.0.0
      */
     public BigDecimalVector(BigDecimal x, BigDecimal y, MathContext context) {
         super(new BigDecimalArithmetic(context), x, y);

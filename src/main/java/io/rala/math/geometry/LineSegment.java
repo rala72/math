@@ -15,6 +15,7 @@ import java.util.function.Function;
  * class which holds a line segment in a 2d area with points a &amp; b
  *
  * @param <T> number class
+ * @since 1.0.0
  */
 public class LineSegment<T extends Number> implements Validatable,
     Movable<T, LineSegment<T>>, Rotatable<T, LineSegment<T>>,
@@ -38,6 +39,7 @@ public class LineSegment<T extends Number> implements Validatable,
      * @param b          b value to be used in
      *                   {@link #LineSegment(AbstractArithmetic, Point, Point)} at b
      * @see #LineSegment(AbstractArithmetic, Point, Point)
+     * @since 1.0.0
      */
     public LineSegment(AbstractArithmetic<T> arithmetic, Point<T> b) {
         this(arithmetic, new Point<>(arithmetic), b);
@@ -50,6 +52,7 @@ public class LineSegment<T extends Number> implements Validatable,
      * @param a          a value of line segment
      * @param b          b value of line segment
      * @see #LineSegment(AbstractArithmetic, Point)
+     * @since 1.0.0
      */
     public LineSegment(AbstractArithmetic<T> arithmetic, Point<T> a, Point<T> b) {
         this.arithmetic = arithmetic;
@@ -63,6 +66,7 @@ public class LineSegment<T extends Number> implements Validatable,
 
     /**
      * @return stored arithmetic
+     * @since 1.0.0
      */
     public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
@@ -70,6 +74,7 @@ public class LineSegment<T extends Number> implements Validatable,
 
     /**
      * @return a value of line segment
+     * @since 1.0.0
      */
     public Point<T> getA() {
         return a;
@@ -77,6 +82,7 @@ public class LineSegment<T extends Number> implements Validatable,
 
     /**
      * @param a new a value of line segment
+     * @since 1.0.0
      */
     public void setA(Point<T> a) {
         this.a = a;
@@ -84,6 +90,7 @@ public class LineSegment<T extends Number> implements Validatable,
 
     /**
      * @return b value of line segment
+     * @since 1.0.0
      */
     public Point<T> getB() {
         return b;
@@ -91,6 +98,7 @@ public class LineSegment<T extends Number> implements Validatable,
 
     /**
      * @param b new b value of line segment
+     * @since 1.0.0
      */
     public void setB(Point<T> b) {
         this.b = b;
@@ -102,6 +110,7 @@ public class LineSegment<T extends Number> implements Validatable,
 
     /**
      * @return length of line segment based on pythagoras
+     * @since 1.0.0
      */
     public T length() {
         return getArithmetic().root2(
@@ -124,6 +133,7 @@ public class LineSegment<T extends Number> implements Validatable,
 
     /**
      * @return {@code (A+B)/2}
+     * @since 1.0.0
      */
     public Point<T> halvingPoint() {
         return new Point<>(getArithmetic(),
@@ -141,6 +151,7 @@ public class LineSegment<T extends Number> implements Validatable,
     /**
      * @param d proportion of distribution
      * @return {@code (1-d)*A+d*B}
+     * @since 1.0.0
      */
     public Point<T> distributionPoint(T d) {
         T dT = getArithmetic().difference(getArithmetic().one(), d);
@@ -162,6 +173,7 @@ public class LineSegment<T extends Number> implements Validatable,
 
     /**
      * @return a new line segment with flipped points
+     * @since 1.0.0
      */
     public LineSegment<T> flip() {
         return new LineSegment<>(getArithmetic(), getB(), getA());
@@ -173,6 +185,7 @@ public class LineSegment<T extends Number> implements Validatable,
      * {@code b} is corresponding {@code x}
      *
      * @return new line instance
+     * @since 1.0.0
      */
     public Line<T> toLine() {
         if (getArithmetic().isEqual(getA().getX(), getB().getX()))
@@ -203,6 +216,7 @@ public class LineSegment<T extends Number> implements Validatable,
      * @param map        mapping function to convert current values to new one
      * @param <NT>       new number class
      * @return mapped lineSegment
+     * @since 1.0.0
      */
     public <NT extends Number> LineSegment<NT> map(
         AbstractArithmetic<NT> arithmetic, Function<T, NT> map

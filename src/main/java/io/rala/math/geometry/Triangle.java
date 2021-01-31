@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
  * class which holds a triangle in a 2d area with points a, b &amp; c
  *
  * @param <T> number class
+ * @since 1.0.0
  */
 public class Triangle<T extends Number> implements Validatable,
     Movable<T, Triangle<T>>, Rotatable<T, Triangle<T>>,
@@ -39,6 +40,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @param a          a of triangle
      * @param b          b of triangle
      * @param c          c of triangle
+     * @since 1.0.0
      */
     public Triangle(
         AbstractArithmetic<T> arithmetic, Point<T> a, Point<T> b, Point<T> c
@@ -55,6 +57,7 @@ public class Triangle<T extends Number> implements Validatable,
 
     /**
      * @return stored arithmetic
+     * @since 1.0.0
      */
     public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
@@ -62,6 +65,7 @@ public class Triangle<T extends Number> implements Validatable,
 
     /**
      * @return a of triangle
+     * @since 1.0.0
      */
     public Point<T> getA() {
         return a;
@@ -69,6 +73,7 @@ public class Triangle<T extends Number> implements Validatable,
 
     /**
      * @param a new a of triangle
+     * @since 1.0.0
      */
     public void setA(Point<T> a) {
         this.a = a;
@@ -76,6 +81,7 @@ public class Triangle<T extends Number> implements Validatable,
 
     /**
      * @return b of triangle
+     * @since 1.0.0
      */
     public Point<T> getB() {
         return b;
@@ -83,6 +89,7 @@ public class Triangle<T extends Number> implements Validatable,
 
     /**
      * @param b new b of triangle
+     * @since 1.0.0
      */
     public void setB(Point<T> b) {
         this.b = b;
@@ -90,6 +97,7 @@ public class Triangle<T extends Number> implements Validatable,
 
     /**
      * @return c of triangle
+     * @since 1.0.0
      */
     public Point<T> getC() {
         return c;
@@ -97,6 +105,7 @@ public class Triangle<T extends Number> implements Validatable,
 
     /**
      * @param c new c of triangle
+     * @since 1.0.0
      */
     public void setC(Point<T> c) {
         this.c = c;
@@ -108,6 +117,7 @@ public class Triangle<T extends Number> implements Validatable,
 
     /**
      * @return line segment from b to c
+     * @since 1.0.0
      */
     public LineSegment<T> edgeA() {
         return new LineSegment<>(getArithmetic(), getB(), getC());
@@ -115,6 +125,7 @@ public class Triangle<T extends Number> implements Validatable,
 
     /**
      * @return line segment from a to c
+     * @since 1.0.0
      */
     public LineSegment<T> edgeB() {
         return new LineSegment<>(getArithmetic(), getA(), getC());
@@ -122,6 +133,7 @@ public class Triangle<T extends Number> implements Validatable,
 
     /**
      * @return line segment from a to b
+     * @since 1.0.0
      */
     public LineSegment<T> edgeC() {
         return new LineSegment<>(getArithmetic(), getA(), getB());
@@ -129,6 +141,7 @@ public class Triangle<T extends Number> implements Validatable,
 
     /**
      * @return line segment of altitude {@code a} starting at {@link #getA()}
+     * @since 1.0.0
      */
     public LineSegment<T> altitudeA() {
         return getAltitude(edgeA().toLine(), getA());
@@ -136,6 +149,7 @@ public class Triangle<T extends Number> implements Validatable,
 
     /**
      * @return line segment of altitude {@code b} starting at {@link #getB()}
+     * @since 1.0.0
      */
     public LineSegment<T> altitudeB() {
         return getAltitude(edgeB().toLine(), getB());
@@ -143,6 +157,7 @@ public class Triangle<T extends Number> implements Validatable,
 
     /**
      * @return line segment of altitude {@code c} starting at {@link #getC()}
+     * @since 1.0.0
      */
     public LineSegment<T> altitudeC() {
         return getAltitude(edgeC().toLine(), getC());
@@ -153,6 +168,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @param point point to get altitude from
      * @return altitude starting at {@code point} and
      * ending at intersection with {@code edge}
+     * @since 1.0.0
      */
     protected LineSegment<T> getAltitude(Line<T> edge, Point<T> point) {
         Line<T> altitudeLine = edge.normal(point);
@@ -169,6 +185,7 @@ public class Triangle<T extends Number> implements Validatable,
      * calculates angle using law of cosines
      *
      * @return angle in {@code rad} at point {@code A}
+     * @since 1.0.0
      */
     public T angleAlpha() {
         T dividend = getArithmetic().difference(
@@ -191,6 +208,7 @@ public class Triangle<T extends Number> implements Validatable,
      * calculates angle using law of cosines
      *
      * @return angle in {@code rad} at point {@code B}
+     * @since 1.0.0
      */
     public T angleBeta() {
         T dividend = getArithmetic().difference(
@@ -213,6 +231,7 @@ public class Triangle<T extends Number> implements Validatable,
      * calculates angle using law of cosines
      *
      * @return angle in {@code rad} at point {@code C}
+     * @since 1.0.0
      */
     public T angleGamma() {
         T dividend = getArithmetic().difference(
@@ -237,6 +256,7 @@ public class Triangle<T extends Number> implements Validatable,
 
     /**
      * @return {@code sqrt(s*(s-a)*(s-b)*(s-c))}
+     * @since 1.0.0
      */
     public T area() {
         T s = getArithmetic().quotient(
@@ -256,6 +276,7 @@ public class Triangle<T extends Number> implements Validatable,
 
     /**
      * @return {@code a+b+c}
+     * @since 1.0.0
      */
     public T circumference() {
         return getArithmetic().sum(
@@ -269,6 +290,7 @@ public class Triangle<T extends Number> implements Validatable,
 
     /**
      * @return {@code (A+B+C)/3}
+     * @since 1.0.0
      */
     public Point<T> centroid() {
         return new Point<>(getArithmetic(),
@@ -290,6 +312,7 @@ public class Triangle<T extends Number> implements Validatable,
     /**
      * @return intersection from {@link #altitudeA()} and {@link #altitudeB()}
      * @see Line#intersection(Line)
+     * @since 1.0.0
      */
     public Point<T> orthoCenter() {
         return altitudeA().toLine().intersection(altitudeB().toLine());
@@ -301,6 +324,7 @@ public class Triangle<T extends Number> implements Validatable,
 
     /**
      * @return circum circle of triangle
+     * @since 1.0.0
      */
     public Circle<T> circumCircle() {
         return new Circle<>(getArithmetic(), circumCirclePoint(), circumCircleRadius());
@@ -308,6 +332,7 @@ public class Triangle<T extends Number> implements Validatable,
 
     /**
      * @return in circle of triangle
+     * @since 1.0.0
      */
     public Circle<T> inCircle() {
         return new Circle<>(getArithmetic(), inCirclePoint(), inCircleRadius());
@@ -315,6 +340,7 @@ public class Triangle<T extends Number> implements Validatable,
 
     /**
      * @return {@code (a*b*c)/A}
+     * @since 1.0.0
      */
     protected T circumCircleRadius() {
         return getArithmetic().quotient(
@@ -333,6 +359,7 @@ public class Triangle<T extends Number> implements Validatable,
      * (a2*(Bx-Cx)+b2*(Cx-Ax)+c2*(Ax-Bx))/d )}
      * where {@code N2=Nx^2+Ny^2} with {@code N in [ABC]}
      * and {@code d=Ax*(By-Cy)+Bx*(Cy-Ay)+Cx*(Ay-By)}
+     * @since 1.0.0
      */
     protected Point<T> circumCirclePoint() {
         T d = getArithmetic().product(getArithmetic().fromInt(2),
@@ -395,6 +422,7 @@ public class Triangle<T extends Number> implements Validatable,
 
     /**
      * @return {@code A/(r/2)}
+     * @since 1.0.0
      */
     protected T inCircleRadius() {
         return getArithmetic().quotient(area(),
@@ -407,6 +435,7 @@ public class Triangle<T extends Number> implements Validatable,
 
     /**
      * @return {@code ( (a*xA+b*xB+c*xC)/p, (a*yA+b*yB+c*yC)/p )} where {@code p=a+b+c}
+     * @since 1.0.0
      */
     protected Point<T> inCirclePoint() {
         T p = circumference();
@@ -437,6 +466,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @param map        mapping function to convert current values to new one
      * @param <NT>       new number class
      * @return mapped triangle
+     * @since 1.0.0
      */
     public <NT extends Number> Triangle<NT> map(
         AbstractArithmetic<NT> arithmetic, Function<T, NT> map

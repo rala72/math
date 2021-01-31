@@ -11,6 +11,7 @@ import java.util.function.Function;
  *
  * @param <T> number class of arithmetic input
  * @param <R> number class of arithmetic result
+ * @since 1.0.0
  */
 public abstract class AbstractResultArithmetic<T extends Number, R extends Number> implements Serializable {
 
@@ -22,6 +23,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      *
      * @param tArithmetic t arithmetic
      * @param rArithmetic r arithmetic
+     * @since 1.0.0
      */
     public AbstractResultArithmetic(
         AbstractArithmetic<T> tArithmetic, AbstractArithmetic<R> rArithmetic
@@ -32,6 +34,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
 
     /**
      * @return stored t {@link AbstractArithmetic}
+     * @since 1.0.0
      */
     public AbstractArithmetic<T> getTArithmetic() {
         return tArithmetic;
@@ -39,6 +42,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
 
     /**
      * @return stored r {@link AbstractArithmetic}
+     * @since 1.0.0
      */
     public AbstractArithmetic<R> getRArithmetic() {
         return rArithmetic;
@@ -47,6 +51,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
     /**
      * @param a value to convert
      * @return value as {@code R}
+     * @since 1.0.0
      */
     public abstract R fromT(T a);
 
@@ -57,6 +62,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @param b second value of sum
      * @return {@code a+b}
      * @see AbstractArithmetic#sum(Number, Number)
+     * @since 1.0.0
      */
     public R sum(T a, T b) {
         return getRArithmetic().sum(fromT(a), fromT(b));
@@ -69,6 +75,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @return {@code a+b+c}
      * @see #sum(Number, Number)
      * @see AbstractArithmetic#sum(Number, Number, Number)
+     * @since 1.0.0
      */
     public R sum(T a, T b, T c) {
         return getRArithmetic().sum(fromT(a), fromT(b), fromT(c));
@@ -79,6 +86,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @param b second value of difference
      * @return {@code a-b}
      * @see AbstractArithmetic#difference(Number, Number)
+     * @since 1.0.0
      */
     public R difference(T a, T b) {
         return getRArithmetic().difference(fromT(a), fromT(b));
@@ -89,6 +97,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @param b second value of product
      * @return {@code a*b}
      * @see AbstractArithmetic#product(Number, Number)
+     * @since 1.0.0
      */
     public R product(T a, T b) {
         return getRArithmetic().product(fromT(a), fromT(b));
@@ -101,6 +110,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @return {@code a*b*c}
      * @see #product(Number, Number)
      * @see AbstractArithmetic#product(Number, Number, Number)
+     * @since 1.0.0
      */
     public R product(T a, T b, T c) {
         return getRArithmetic().product(fromT(a), fromT(b), fromT(c));
@@ -111,6 +121,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @param b second value of quotient
      * @return {@code a/b}
      * @see AbstractArithmetic#quotient(Number, Number)
+     * @since 1.0.0
      */
     public R quotient(T a, T b) {
         return getRArithmetic().quotient(fromT(a), fromT(b));
@@ -122,6 +133,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @return reminder of division like {@code r=a-q*b}
      * @throws NotSupportedException if operation is not supported
      * @see AbstractArithmetic#modulo(Number, Number)
+     * @since 1.0.0
      */
     public R modulo(T a, T b) {
         return getRArithmetic().modulo(fromT(a), fromT(b));
@@ -136,6 +148,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @param map        mapping function to convert current source to new one
      * @param <NT>       number class of new source
      * @return new {@link AbstractResultArithmetic} wich uses {@code V}
+     * @since 1.0.0
      */
     public <NT extends Number> AbstractResultArithmetic<NT, R> map(
         AbstractArithmetic<NT> arithmetic, Function<NT, R> map
@@ -150,6 +163,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @param map        mapping function to convert current result to new one
      * @param <NR>       number class of target
      * @return new {@link AbstractResultArithmetic} wich returns {@code V}
+     * @since 1.0.0
      */
     public <NR extends Number> AbstractResultArithmetic<T, NR> mapResult(
         AbstractArithmetic<NR> arithmetic, Function<T, NR> map
@@ -168,6 +182,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @param <T>         number class for storing
      * @param <R>         number class for result
      * @return {@link AbstractResultArithmetic} with given values
+     * @since 1.0.0
      */
     public static <T extends Number, R extends Number> AbstractResultArithmetic<T, R> of(
         AbstractArithmetic<T> tArithmetic,

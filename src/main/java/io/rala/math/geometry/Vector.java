@@ -14,6 +14,7 @@ import java.util.function.Function;
  * class which holds a vector in a 2d area with x &amp; y
  *
  * @param <T> number class
+ * @since 1.0.0
  */
 public class Vector<T extends Number> implements Validatable, Rotatable<T, Vector<T>>,
     Copyable<Vector<T>>, Comparable<Vector<T>>, Serializable {
@@ -34,6 +35,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
      * @param arithmetic arithmetic for calculations
      * @see #Vector(AbstractArithmetic, Number)
      * @see #Vector(AbstractArithmetic, Number, Number)
+     * @since 1.0.0
      */
     public Vector(AbstractArithmetic<T> arithmetic) {
         this(arithmetic, arithmetic.zero());
@@ -49,6 +51,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
      *                   at x and y
      * @see #Vector(AbstractArithmetic)
      * @see #Vector(AbstractArithmetic, Number, Number)
+     * @since 1.0.0
      */
     public Vector(AbstractArithmetic<T> arithmetic, T xy) {
         this(arithmetic, xy, xy);
@@ -62,6 +65,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
      * @param y          y value of vector
      * @see #Vector(AbstractArithmetic)
      * @see #Vector(AbstractArithmetic, Number)
+     * @since 1.0.0
      */
     public Vector(AbstractArithmetic<T> arithmetic, T x, T y) {
         this.arithmetic = arithmetic;
@@ -75,6 +79,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
 
     /**
      * @return stored arithmetic
+     * @since 1.0.0
      */
     public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
@@ -82,6 +87,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
 
     /**
      * @return x value of vector
+     * @since 1.0.0
      */
     public T getX() {
         return x;
@@ -89,6 +95,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
 
     /**
      * @param x new x value of vector
+     * @since 1.0.0
      */
     public void setX(T x) {
         this.x = x;
@@ -96,6 +103,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
 
     /**
      * @return y value of vector
+     * @since 1.0.0
      */
     public T getY() {
         return y;
@@ -103,6 +111,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
 
     /**
      * @param y new y value of vector
+     * @since 1.0.0
      */
     public void setY(T y) {
         this.y = y;
@@ -110,6 +119,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
 
     /**
      * @param xy new x and y value of vector
+     * @since 1.0.0
      */
     public void setXY(T xy) {
         setX(xy);
@@ -122,6 +132,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
 
     /**
      * @return length of vector based on pythagoras
+     * @since 1.0.0
      */
     public T length() {
         return getArithmetic().root2(
@@ -139,6 +150,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
      * @return new vector with sum of current and given parameters
      * @see #add(Number, Number)
      * @see #add(Vector)
+     * @since 1.0.0
      */
     public Vector<T> add(T xy) {
         return add(xy, xy);
@@ -152,6 +164,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
      * @return new vector with sum of current and given parameters
      * @see #add(Number)
      * @see #add(Vector)
+     * @since 1.0.0
      */
     public Vector<T> add(T x, T y) {
         return add(new Vector<>(getArithmetic(), x, y));
@@ -162,6 +175,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
      * @return new vector with sum of current and given vector
      * @see #add(Number)
      * @see #add(Number, Number)
+     * @since 1.0.0
      */
     public Vector<T> add(Vector<T> vector) {
         return new Vector<>(getArithmetic(),
@@ -177,6 +191,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
      * @return new vector with difference of current and given parameters
      * @see #subtract(Number, Number)
      * @see #subtract(Vector)
+     * @since 1.0.0
      */
     public Vector<T> subtract(T xy) {
         return subtract(xy, xy);
@@ -190,6 +205,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
      * @return new vector with difference of current and given parameters
      * @see #subtract(Number)
      * @see #subtract(Vector)
+     * @since 1.0.0
      */
     public Vector<T> subtract(T x, T y) {
         return subtract(new Vector<>(getArithmetic(), x, y));
@@ -200,6 +216,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
      * @return new vector with difference of current and given vector
      * @see #subtract(Number)
      * @see #subtract(Number, Number)
+     * @since 1.0.0
      */
     public Vector<T> subtract(Vector<T> vector) {
         return add(vector.inverse());
@@ -208,6 +225,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
     /**
      * @param i value to multiply with x &amp; y
      * @return new vector with multiplied x &amp; y values
+     * @since 1.0.0
      */
     public Vector<T> multiply(T i) {
         return new Vector<>(getArithmetic(),
@@ -224,6 +242,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
      * @return new vector which has inverse x &amp; y values
      * @see #inverseX()
      * @see #inverseY()
+     * @since 1.0.0
      */
     public Vector<T> inverse() {
         return inverseX().inverseY();
@@ -233,6 +252,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
      * @return new vector which has inverse x value
      * @see #inverse()
      * @see #inverseY()
+     * @since 1.0.0
      */
     public Vector<T> inverseX() {
         return new Vector<>(getArithmetic(), getArithmetic().negate(getX()), getY());
@@ -242,6 +262,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
      * @return new vector which has inverse y value
      * @see #inverse()
      * @see #inverseX()
+     * @since 1.0.0
      */
     public Vector<T> inverseY() {
         return new Vector<>(getArithmetic(), getX(), getArithmetic().negate(getY()));
@@ -254,6 +275,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
     /**
      * @return new vector with absolute values
      * @see Math#abs(double)
+     * @since 1.0.0
      */
     public Vector<T> absolute() {
         return new Vector<>(getArithmetic(),
@@ -264,6 +286,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
 
     /**
      * @return new normal vector rotated left
+     * @since 1.0.0
      */
     public Vector<T> normalLeft() {
         return new Vector<>(getArithmetic(), getArithmetic().negate(getY()), getX());
@@ -271,6 +294,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
 
     /**
      * @return new normal vector rotated right
+     * @since 1.0.0
      */
     public Vector<T> normalRight() {
         return new Vector<>(getArithmetic(), getY(), getArithmetic().negate(getX()));
@@ -278,6 +302,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
 
     /**
      * @return new normalized vector
+     * @since 1.0.0
      */
     public Vector<T> normalized() {
         return new Vector<>(getArithmetic(),
@@ -293,6 +318,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
     /**
      * @param vector to calc scalar product
      * @return scalar product
+     * @since 1.0.0
      */
     public T scalarProduct(Vector<T> vector) {
         return getArithmetic().sum(
@@ -304,6 +330,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
     /**
      * @param vector vector to calc angle between
      * @return angle in {@code rad} between vectors
+     * @since 1.0.0
      */
     public T angle(Vector<T> vector) {
         return getArithmetic().acos(
@@ -320,6 +347,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
 
     /**
      * @return {@code true} if both params casted to {@code int} are zero
+     * @since 1.0.0
      */
     public boolean isZeroVector() {
         return getArithmetic().isZero(getX()) && getArithmetic().isFinite(getY());
@@ -329,6 +357,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
      * @return new complex representing
      * {@link #getX()} as {@code re} and
      * {@link #getY()} as {@code im}
+     * @since 1.0.0
      */
     public Complex<T> asComplex() {
         return new Complex<>(getArithmetic(), getX(), getY());
@@ -343,6 +372,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
      * @param map        mapping function to convert current values to new one
      * @param <NT>       new number class
      * @return mapped vector
+     * @since 1.0.0
      */
     public <NT extends Number> Vector<NT> map(
         AbstractArithmetic<NT> arithmetic, Function<T, NT> map

@@ -7,12 +7,15 @@ import io.rala.math.arithmetic.core.DoubleArithmetic;
 /**
  * class which holds a real and a imaginary part of a complex number
  * storing {@link Double}
+ *
+ * @since 1.0.0
  */
 public class DoubleComplex extends Complex<Double> {
     // region constructor
 
     /**
      * @see Complex#Complex(AbstractArithmetic)
+     * @since 1.0.0
      */
     public DoubleComplex() {
         super(DoubleArithmetic.getInstance());
@@ -22,6 +25,7 @@ public class DoubleComplex extends Complex<Double> {
      * @param re real part
      * @param im imaginary part
      * @see Complex#Complex(AbstractArithmetic, Number, Number)
+     * @since 1.0.0
      */
     public DoubleComplex(Double re, Double im) {
         super(DoubleArithmetic.getInstance(), re, im);
@@ -32,6 +36,7 @@ public class DoubleComplex extends Complex<Double> {
      *
      * @param complex complex to copy
      * @see Complex#Complex(Complex)
+     * @since 1.0.0
      */
     public DoubleComplex(Complex<Double> complex) {
         super(complex.getArithmetic(), complex.getRe(), complex.getIm());
@@ -45,6 +50,7 @@ public class DoubleComplex extends Complex<Double> {
      * @param absoluteValue absolute value of complex
      * @param argument      argument of vector
      * @return new complex based on absoluteValue and argument
+     * @since 1.0.0
      */
     public static DoubleComplex of(double absoluteValue, double argument) {
         return new DoubleComplex(

@@ -8,6 +8,8 @@ import java.math.BigInteger;
 
 /**
  * class which handles {@link BigInteger} arithmetic
+ *
+ * @since 1.0.0
  */
 public class BigIntegerArithmetic extends AbstractArithmetic<BigInteger> {
     // region singleton
@@ -16,6 +18,7 @@ public class BigIntegerArithmetic extends AbstractArithmetic<BigInteger> {
 
     /**
      * @return default instance
+     * @since 1.0.0
      */
     public static BigIntegerArithmetic getInstance() {
         if (instance == null) instance = new BigIntegerArithmetic();

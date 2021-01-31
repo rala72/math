@@ -11,6 +11,8 @@ import java.math.MathContext;
 /**
  * class which holds a line segment in a 2d area with points a &amp; b
  * storing BigDecimal
+ *
+ * @since 1.0.0
  */
 public class BigDecimalLineSegment extends LineSegment<BigDecimal> {
     // region constructors
@@ -19,6 +21,7 @@ public class BigDecimalLineSegment extends LineSegment<BigDecimal> {
      * @param b b value to be used in
      *          {@link LineSegment#LineSegment(AbstractArithmetic, Point, Point)} at b
      * @see LineSegment#LineSegment(AbstractArithmetic, Point)
+     * @since 1.0.0
      */
     public BigDecimalLineSegment(Point<BigDecimal> b) {
         super(BigDecimalArithmetic.getInstance(), b);
@@ -30,6 +33,7 @@ public class BigDecimalLineSegment extends LineSegment<BigDecimal> {
      *                at b
      * @param context context of {@link BigDecimalArithmetic}
      * @see LineSegment#LineSegment(AbstractArithmetic, Point)
+     * @since 1.0.0
      */
     public BigDecimalLineSegment(Point<BigDecimal> b, MathContext context) {
         super(new BigDecimalArithmetic(context), b);
@@ -39,6 +43,7 @@ public class BigDecimalLineSegment extends LineSegment<BigDecimal> {
      * @param a a value of line segment
      * @param b b value of line segment
      * @see LineSegment#LineSegment(AbstractArithmetic, Point, Point)
+     * @since 1.0.0
      */
     public BigDecimalLineSegment(Point<BigDecimal> a, Point<BigDecimal> b) {
         super(BigDecimalArithmetic.getInstance(), a, b);
@@ -49,6 +54,7 @@ public class BigDecimalLineSegment extends LineSegment<BigDecimal> {
      * @param b       b value of line segment
      * @param context context of {@link BigDecimalArithmetic}
      * @see LineSegment#LineSegment(AbstractArithmetic, Point, Point)
+     * @since 1.0.0
      */
     public BigDecimalLineSegment(
         Point<BigDecimal> a, Point<BigDecimal> b, MathContext context

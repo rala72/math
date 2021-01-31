@@ -12,12 +12,14 @@ import java.util.stream.Collectors;
  * class which allows solving {@link LinearEquationSystem}s
  *
  * @param <T> number class
+ * @since 1.0.0
  */
 public abstract class AbstractLinearSolver<T extends Number> extends AbstractSolver<LinearEquationSystem<T>, T> {
     /**
      * creates a {@link AbstractLinearSolver} for given {@link LinearEquationSystem}
      *
      * @param equationSystem equationSystem to store
+     * @since 1.0.0
      */
     protected AbstractLinearSolver(LinearEquationSystem<T> equationSystem) {
         super(equationSystem);
@@ -25,6 +27,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
 
     /**
      * @return {@link AbstractArithmetic} of {@link #getEquationSystem()}
+     * @since 1.0.0
      */
     protected final AbstractArithmetic<T> getArithmetic() {
         return getEquationSystem().getMatrix().getArithmetic();
@@ -33,6 +36,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
     /**
      * @return current working matrix
      * @see #getWorking()
+     * @since 1.0.0
      */
     protected LinearEquationSystem.LinearEquationMatrix<T> getWorkingMatrix() {
         return getWorking().getMatrix();
@@ -41,6 +45,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
     /**
      * @return current working vector
      * @see #getWorking()
+     * @since 1.0.0
      */
     protected LinearEquationSystem.LinearEquationVector<T> getWorkingVector() {
         return getWorking().getVector();
@@ -48,6 +53,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
 
     /**
      * @param working new working instance
+     * @since 1.0.0
      */
     protected void setWorkingEquationSystem(LinearEquationSystem<T> working) {
         setWorkingEquationSystem(working.getMatrix(), working.getVector());
@@ -56,6 +62,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
     /**
      * @param workingMatrix new workingMatrix
      * @param workingVector new workingVector
+     * @since 1.0.0
      */
     protected void setWorkingEquationSystem(
         LinearEquationSystem.LinearEquationMatrix<T> workingMatrix,
@@ -69,6 +76,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
      * {@link Solution} with state {@link Solution.State#SINGLE}
      *
      * @return {@link Solution} based on {@link #getWorkingVector()}
+     * @since 1.0.0
      */
     protected Solution<LinearEquationSystem<T>, T> toSingleSolution() {
         return Solution.single(getEquationSystem(),
@@ -81,6 +89,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
      *
      * @implSpec transposes {@link #getWorking()} equation system
      * if {@link #getEquationSystem()} has solution {@link Vector.Type#ROW}
+     * @since 1.0.0
      */
     protected void reset() {
         if (getEquationSystem().getVector().getType().equals(Vector.Type.ROW))
@@ -96,6 +105,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
      * matrix row and vector index are {@code 0}
      * @see #areAllZero(Collection)
      * @see #isZero(Number)
+     * @since 1.0.0
      */
     protected final boolean isZeroRow(int index) {
         return areAllZero(getWorkingMatrix().getRow(index)) &&
@@ -105,6 +115,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
     /**
      * @param collection collection to check
      * @return {@code true} if all elements are {@code 0}
+     * @since 1.0.0
      */
     protected final boolean areAllZero(Collection<T> collection) {
         return collection.stream().allMatch(this::isZero);
@@ -113,6 +124,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
     /**
      * @param t t to check
      * @return {@code} if {@link AbstractArithmetic#isZero(Number)}
+     * @since 1.0.0
      */
     protected final boolean isZero(T t) {
         return getArithmetic().isZero(t);

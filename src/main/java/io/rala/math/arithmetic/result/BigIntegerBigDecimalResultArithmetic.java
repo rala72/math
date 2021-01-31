@@ -11,6 +11,8 @@ import java.math.MathContext;
 /**
  * class which defines required arithmetic for calculations
  * which calculates {@link BigInteger} to {@link BigDecimal}
+ *
+ * @since 1.0.0
  */
 public class BigIntegerBigDecimalResultArithmetic extends AbstractResultArithmetic<BigInteger, BigDecimal> {
     // region singleton
@@ -19,6 +21,7 @@ public class BigIntegerBigDecimalResultArithmetic extends AbstractResultArithmet
 
     /**
      * @return default instance
+     * @since 1.0.0
      */
     public static BigIntegerBigDecimalResultArithmetic getInstance() {
         if (instance == null) instance = new BigIntegerBigDecimalResultArithmetic();
@@ -32,6 +35,7 @@ public class BigIntegerBigDecimalResultArithmetic extends AbstractResultArithmet
      * {@link BigIntegerArithmetic} and {@link BigDecimalArithmetic}
      *
      * @see BigDecimalArithmetic#BigDecimalArithmetic()
+     * @since 1.0.0
      */
     public BigIntegerBigDecimalResultArithmetic() {
         super(BigIntegerArithmetic.getInstance(), BigDecimalArithmetic.getInstance());
@@ -43,6 +47,7 @@ public class BigIntegerBigDecimalResultArithmetic extends AbstractResultArithmet
      *
      * @param context context of {@link BigDecimalArithmetic}
      * @see BigDecimalArithmetic#BigDecimalArithmetic(MathContext)
+     * @since 1.0.0
      */
     public BigIntegerBigDecimalResultArithmetic(MathContext context) {
         super(BigIntegerArithmetic.getInstance(), new BigDecimalArithmetic(context));

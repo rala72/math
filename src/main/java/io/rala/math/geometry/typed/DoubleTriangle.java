@@ -8,6 +8,8 @@ import io.rala.math.geometry.Triangle;
 /**
  * class which holds a triangle in a 2d area with points a, b &amp; c
  * storing {@link Double}
+ *
+ * @since 1.0.0
  */
 public class DoubleTriangle extends Triangle<Double> {
     // region constructors
@@ -17,6 +19,7 @@ public class DoubleTriangle extends Triangle<Double> {
      * @param b b of triangle
      * @param c c of triangle
      * @see Triangle#Triangle(AbstractArithmetic, Point, Point, Point)
+     * @since 1.0.0
      */
     public DoubleTriangle(Point<Double> a, Point<Double> b, Point<Double> c) {
         super(DoubleArithmetic.getInstance(), a, b, c);

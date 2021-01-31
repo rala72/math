@@ -11,6 +11,8 @@ import java.math.MathContext;
 /**
  * class which holds a rect in 2d area with point a, b &amp; size
  * storing {@link BigDecimal}
+ *
+ * @since 1.0.0
  */
 public class BigDecimalRect extends Rect<BigDecimal> {
     // region constructors
@@ -19,6 +21,7 @@ public class BigDecimalRect extends Rect<BigDecimal> {
      * @param height height of rect
      * @param width  width of rect
      * @see Rect#Rect(AbstractArithmetic, Number, Number)
+     * @since 1.0.0
      */
     public BigDecimalRect(BigDecimal height, BigDecimal width) {
         super(BigDecimalArithmetic.getInstance(), height, width);
@@ -29,6 +32,7 @@ public class BigDecimalRect extends Rect<BigDecimal> {
      * @param width   width of rect
      * @param context context of {@link BigDecimalArithmetic}
      * @see Rect#Rect(AbstractArithmetic, Number, Number)
+     * @since 1.0.0
      */
     public BigDecimalRect(BigDecimal height, BigDecimal width, MathContext context) {
         super(new BigDecimalArithmetic(context), height, width);
@@ -39,6 +43,7 @@ public class BigDecimalRect extends Rect<BigDecimal> {
      * @param b    b of rect
      * @param size height of rect
      * @see Rect#Rect(AbstractArithmetic, Point, Point, Number)
+     * @since 1.0.0
      */
     public BigDecimalRect(Point<BigDecimal> a, Point<BigDecimal> b, BigDecimal size) {
         super(BigDecimalArithmetic.getInstance(), a, b, size);
@@ -50,6 +55,7 @@ public class BigDecimalRect extends Rect<BigDecimal> {
      * @param size    height of rect
      * @param context context of {@link BigDecimalArithmetic}
      * @see Rect#Rect(AbstractArithmetic, Point, Point, Number)
+     * @since 1.0.0
      */
     public BigDecimalRect(
         Point<BigDecimal> a, Point<BigDecimal> b, BigDecimal size, MathContext context

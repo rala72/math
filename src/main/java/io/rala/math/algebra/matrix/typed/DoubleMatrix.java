@@ -9,6 +9,8 @@ import java.util.Arrays;
 /**
  * class which holds a matrix with {@code rows} and {@code cols}
  * storing {@link Double}
+ *
+ * @since 1.0.0
  */
 public class DoubleMatrix extends Matrix<Double> {
     // region constructor
@@ -16,6 +18,7 @@ public class DoubleMatrix extends Matrix<Double> {
     /**
      * @param size size of matrix
      * @see Matrix#Matrix(AbstractArithmetic, int)
+     * @since 1.0.0
      */
     public DoubleMatrix(int size) {
         super(DoubleArithmetic.getInstance(), size);
@@ -25,6 +28,7 @@ public class DoubleMatrix extends Matrix<Double> {
      * @param rows rows of matrix
      * @param cols cols of matrix
      * @see Matrix#Matrix(AbstractArithmetic, int, int)
+     * @since 1.0.0
      */
     public DoubleMatrix(int rows, int cols) {
         super(DoubleArithmetic.getInstance(), rows, cols);
@@ -34,6 +38,7 @@ public class DoubleMatrix extends Matrix<Double> {
      * creates a new matrix based on given one
      *
      * @param matrix matrix to copy
+     * @since 1.0.0
      */
     public DoubleMatrix(Matrix<Double> matrix) {
         super(matrix);
@@ -47,6 +52,7 @@ public class DoubleMatrix extends Matrix<Double> {
      * @param size size of matrix
      * @return new created matrix
      * @see Matrix#identity(AbstractArithmetic, int)
+     * @since 1.0.0
      */
     public static DoubleMatrix identity(int size) {
         return new DoubleMatrix(
@@ -58,6 +64,7 @@ public class DoubleMatrix extends Matrix<Double> {
      * @param values diagonal values of matrix
      * @return new created matrix
      * @see Matrix#diagonal(AbstractArithmetic, Number[])
+     * @since 1.0.0
      */
     public static DoubleMatrix diagonal(double... values) {
         Double[] boxed = Arrays.stream(values).boxed().toArray(Double[]::new);
@@ -79,6 +86,7 @@ public class DoubleMatrix extends Matrix<Double> {
      * @throws IllegalArgumentException if rows modulo {@code values.length}
      *                                  is not congruent {@code 0}
      * @see Matrix#ofValuesByRows(AbstractArithmetic, int, Number[])
+     * @since 1.0.0
      */
     public static DoubleMatrix ofValuesByRows(int rows, double... values) {
         Double[] boxed = Arrays.stream(values).boxed().toArray(Double[]::new);
@@ -96,6 +104,7 @@ public class DoubleMatrix extends Matrix<Double> {
      * @throws IllegalArgumentException if cols modulo {@code values.length}
      *                                  is not congruent {@code 0}
      * @see Matrix#ofValuesByCols(AbstractArithmetic, int, Number[])
+     * @since 1.0.0
      */
     public static DoubleMatrix ofValuesByCols(int cols, double... values) {
         Double[] boxed = Arrays.stream(values).boxed().toArray(Double[]::new);

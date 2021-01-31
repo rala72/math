@@ -11,12 +11,15 @@ import java.math.MathContext;
 /**
  * class which holds a circle a in 2d area with center &amp; radius
  * storing {@link BigDecimal}
+ *
+ * @since 1.0.0
  */
 public class BigDecimalCircle extends Circle<BigDecimal> {
     // region constructors
 
     /**
      * @see Circle#Circle(AbstractArithmetic)
+     * @since 1.0.0
      */
     public BigDecimalCircle() {
         super(BigDecimalArithmetic.getInstance());
@@ -25,6 +28,7 @@ public class BigDecimalCircle extends Circle<BigDecimal> {
     /**
      * @param context context of {@link BigDecimalArithmetic}
      * @see Circle#Circle(AbstractArithmetic)
+     * @since 1.0.0
      */
     public BigDecimalCircle(MathContext context) {
         super(new BigDecimalArithmetic(context));
@@ -33,6 +37,7 @@ public class BigDecimalCircle extends Circle<BigDecimal> {
     /**
      * @param center center point of circle
      * @see Circle#Circle(AbstractArithmetic, Point)
+     * @since 1.0.0
      */
     public BigDecimalCircle(Point<BigDecimal> center) {
         super(BigDecimalArithmetic.getInstance(), center);
@@ -42,6 +47,7 @@ public class BigDecimalCircle extends Circle<BigDecimal> {
      * @param center  center point of circle
      * @param context context of {@link BigDecimalArithmetic}
      * @see Circle#Circle(AbstractArithmetic, Point)
+     * @since 1.0.0
      */
     public BigDecimalCircle(Point<BigDecimal> center, MathContext context) {
         super(new BigDecimalArithmetic(context), center);
@@ -50,6 +56,7 @@ public class BigDecimalCircle extends Circle<BigDecimal> {
     /**
      * @param radius radius of circle
      * @see Circle#Circle(AbstractArithmetic, Number)
+     * @since 1.0.0
      */
     public BigDecimalCircle(BigDecimal radius) {
         super(BigDecimalArithmetic.getInstance(), radius);
@@ -59,6 +66,7 @@ public class BigDecimalCircle extends Circle<BigDecimal> {
      * @param radius  radius of circle
      * @param context context of {@link BigDecimalArithmetic}
      * @see Circle#Circle(AbstractArithmetic, Number)
+     * @since 1.0.0
      */
     public BigDecimalCircle(BigDecimal radius, MathContext context) {
         super(new BigDecimalArithmetic(context), radius);
@@ -68,6 +76,7 @@ public class BigDecimalCircle extends Circle<BigDecimal> {
      * @param center center point of circle
      * @param point  point on circle
      * @see Circle#Circle(AbstractArithmetic, Point, Point)
+     * @since 1.0.0
      */
     public BigDecimalCircle(Point<BigDecimal> center, Point<BigDecimal> point) {
         super(BigDecimalArithmetic.getInstance(), center, point);
@@ -78,6 +87,7 @@ public class BigDecimalCircle extends Circle<BigDecimal> {
      * @param point   point on circle
      * @param context context of {@link BigDecimalArithmetic}
      * @see Circle#Circle(AbstractArithmetic, Point, Point)
+     * @since 1.0.0
      */
     public BigDecimalCircle(
         Point<BigDecimal> center, Point<BigDecimal> point, MathContext context
@@ -89,6 +99,7 @@ public class BigDecimalCircle extends Circle<BigDecimal> {
      * @param center center point of circle
      * @param radius radius of circle
      * @see Circle#Circle(AbstractArithmetic, Point, Number)
+     * @since 1.0.0
      */
     public BigDecimalCircle(Point<BigDecimal> center, BigDecimal radius) {
         super(BigDecimalArithmetic.getInstance(), center, radius);
@@ -99,6 +110,7 @@ public class BigDecimalCircle extends Circle<BigDecimal> {
      * @param radius  radius of circle
      * @param context context of {@link BigDecimalArithmetic}
      * @see Circle#Circle(AbstractArithmetic, Point, Number)
+     * @since 1.0.0
      */
     public BigDecimalCircle(
         Point<BigDecimal> center, BigDecimal radius, MathContext context

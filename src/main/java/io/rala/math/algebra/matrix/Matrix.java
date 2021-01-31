@@ -20,6 +20,7 @@ import java.util.stream.LongStream;
  * class which holds a matrix with {@code rows} and {@code cols}
  *
  * @param <T> number class
+ * @since 1.0.0
  */
 public class Matrix<T extends Number>
     implements Copyable<Matrix<T>>, StreamIterable<Matrix<T>.Field>, Serializable {
@@ -67,6 +68,7 @@ public class Matrix<T extends Number>
      * @param size       size of matrix
      * @throws IllegalArgumentException if size is less than {@code 1}
      * @see #Matrix(AbstractArithmetic, int, int)
+     * @since 1.0.0
      */
     public Matrix(AbstractArithmetic<T> arithmetic, int size) {
         this(arithmetic, size, size);
@@ -85,6 +87,7 @@ public class Matrix<T extends Number>
      * - other values may not be handled correctly
      * <i>(in {@link #equals(Object)}, ...)</i>
      * @see #Matrix(AbstractArithmetic, int, Number)
+     * @since 1.0.0
      */
     protected Matrix(AbstractArithmetic<T> arithmetic, int size, T defaultValue) {
         this(arithmetic, size, size, defaultValue);
@@ -100,6 +103,7 @@ public class Matrix<T extends Number>
      * @param cols       cols of matrix
      * @throws IllegalArgumentException if rows or cols is less than {@code 1}
      * @see #Matrix(AbstractArithmetic, int, int)
+     * @since 1.0.0
      */
     public Matrix(AbstractArithmetic<T> arithmetic, int rows, int cols) {
         this(arithmetic, rows, cols, arithmetic.zero());
@@ -117,6 +121,7 @@ public class Matrix<T extends Number>
      * @implSpec default value should be {@code 0}
      * - other values may not be handled correctly
      * <i>(in {@link #equals(Object)}, ...)</i>
+     * @since 1.0.0
      */
     protected Matrix(AbstractArithmetic<T> arithmetic, int rows, int cols, T defaultValue) {
         if (rows <= 0 || cols <= 0)
@@ -131,6 +136,7 @@ public class Matrix<T extends Number>
      * creates a new matrix based on given one
      *
      * @param matrix matrix to copy
+     * @since 1.0.0
      */
     protected Matrix(Matrix<T> matrix) {
         this(
@@ -149,6 +155,7 @@ public class Matrix<T extends Number>
 
     /**
      * @return stored arithmetic
+     * @since 1.0.0
      */
     public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
@@ -156,6 +163,7 @@ public class Matrix<T extends Number>
 
     /**
      * @return matrix map which uses index as key
+     * @since 1.0.0
      */
     protected final Map<Integer, Map<Integer, T>> getMatrix() {
         return matrix;
@@ -163,6 +171,7 @@ public class Matrix<T extends Number>
 
     /**
      * @return rows of matrix
+     * @since 1.0.0
      */
     public final int getRows() {
         return rows;
@@ -170,6 +179,7 @@ public class Matrix<T extends Number>
 
     /**
      * @return cols of matrix
+     * @since 1.0.0
      */
     public final int getCols() {
         return cols;
@@ -177,6 +187,7 @@ public class Matrix<T extends Number>
 
     /**
      * @return default value for non-existing values
+     * @since 1.0.0
      */
     protected final T getDefaultValue() {
         return defaultValue;
@@ -184,6 +195,7 @@ public class Matrix<T extends Number>
 
     /**
      * @return {@link #getRows()} * {@link #getCols()}
+     * @since 1.0.0
      */
     public final long size() {
         return (long) getRows() * getCols();
@@ -197,6 +209,7 @@ public class Matrix<T extends Number>
      * @param row row of matrix
      * @return list of fields in row
      * @throws IndexOutOfBoundsException if row is invalid
+     * @since 1.0.0
      */
     public List<Field> getRowFields(int row) {
         if (!isValidRow(row))
@@ -211,6 +224,7 @@ public class Matrix<T extends Number>
      * @return list of values in row
      * @throws IndexOutOfBoundsException if row is invalid
      * @see #getRowFields(int)
+     * @since 1.0.0
      */
     public List<T> getRow(int row) {
         return getRowFields(row).stream()
@@ -222,6 +236,7 @@ public class Matrix<T extends Number>
      * @param col col of matrix
      * @return list of fields in col
      * @throws IndexOutOfBoundsException if col is invalid
+     * @since 1.0.0
      */
     public List<Field> getColFields(int col) {
         if (!isValidCol(col))
@@ -236,6 +251,7 @@ public class Matrix<T extends Number>
      * @return list of values in col
      * @throws IndexOutOfBoundsException if col is invalid
      * @see #getColFields(int)
+     * @since 1.0.0
      */
     public List<T> getCol(int col) {
         return getColFields(col).stream()
@@ -253,6 +269,7 @@ public class Matrix<T extends Number>
      * @return current value on given position
      * @throws IndexOutOfBoundsException if row or col is invalid
      * @see #getValue(long)
+     * @since 1.0.0
      */
     public T getValue(int row, int col) {
         return getValue(getIndexOfRowAndCol(row, col));
@@ -262,6 +279,7 @@ public class Matrix<T extends Number>
      * @param index index of requested value
      * @return current value on given position
      * @throws IndexOutOfBoundsException if index is invalid
+     * @since 1.0.0
      */
     public T getValue(long index) {
         if (!isValidIndex(index))
@@ -278,6 +296,7 @@ public class Matrix<T extends Number>
      * @return old value if existed or {@link #getDefaultValue()}
      * @throws IndexOutOfBoundsException if row or col is invalid
      * @see #setValue(long, Number)
+     * @since 1.0.0
      */
     public T setValue(int row, int col, T value) {
         return setValue(getIndexOfRowAndCol(row, col), value);
@@ -288,6 +307,7 @@ public class Matrix<T extends Number>
      * @param value new value to store
      * @return old value if existed or {@link #getDefaultValue()}
      * @throws IndexOutOfBoundsException if index is invalid
+     * @since 1.0.0
      */
     public T setValue(long index, T value) {
         if (!isValidIndex(index))
@@ -315,6 +335,7 @@ public class Matrix<T extends Number>
      * @return old value if existed or {@link #getDefaultValue()}
      * @throws IndexOutOfBoundsException if row or col is invalid
      * @see #removeValue(long)
+     * @since 1.0.0
      */
     public T removeValue(int row, int col) {
         return removeValue(getIndexOfRowAndCol(row, col));
@@ -324,6 +345,7 @@ public class Matrix<T extends Number>
      * @param index index of value to remove
      * @return old value if existed or {@link #getDefaultValue()}
      * @throws IndexOutOfBoundsException if index is invalid
+     * @since 1.0.0
      */
     public T removeValue(long index) {
         if (!isValidIndex(index))
@@ -352,6 +374,7 @@ public class Matrix<T extends Number>
      * @see #compute(long, UnaryOperator)
      * @see #setValue(int, int, Number)
      * @see #getValue(int, int)
+     * @since 1.0.0
      */
     public T compute(int row, int col, UnaryOperator<T> operator) {
         return compute(getIndexOfRowAndCol(row, col), operator);
@@ -366,6 +389,7 @@ public class Matrix<T extends Number>
      * @see #compute(long, UnaryOperator)
      * @see #setValue(long, Number)
      * @see #getValue(long)
+     * @since 1.0.0
      */
     public T compute(long index, UnaryOperator<T> operator) {
         return setValue(index, operator.apply(getValue(index)));
@@ -382,6 +406,7 @@ public class Matrix<T extends Number>
      * @see #compute(long, Number, BinaryOperator)
      * @see #setValue(int, int, Number)
      * @see #getValue(int, int)
+     * @since 1.0.0
      */
     public T compute(int row, int col, T value, BinaryOperator<T> operator) {
         return compute(getIndexOfRowAndCol(row, col), value, operator);
@@ -396,6 +421,7 @@ public class Matrix<T extends Number>
      * @return old value if existed or {@link #getDefaultValue()}
      * @see #setValue(long, Number)
      * @see #getValue(long)
+     * @since 1.0.0
      */
     public T compute(long index, T value, BinaryOperator<T> operator) {
         return setValue(index, operator.apply(getValue(index), value));
@@ -406,6 +432,7 @@ public class Matrix<T extends Number>
      *
      * @param operator operator to apply on all fields
      * @see #setValue(long, Number)
+     * @since 1.0.0
      */
     public void computeAll(Function<Field, T> operator) {
         forEach(field -> setValue(field.getIndex(), operator.apply(field)));
@@ -417,6 +444,7 @@ public class Matrix<T extends Number>
      * @param value    function returning new value to use in computation
      * @param operator operator to apply on old and new value
      * @see #computeAll(Function)
+     * @since 1.0.0
      */
     public void computeAll(Function<Field, T> value, BinaryOperator<T> operator) {
         computeAll(field -> operator.apply(field.getValue(), value.apply(field)));
@@ -428,6 +456,7 @@ public class Matrix<T extends Number>
 
     /**
      * @return {@code true} if amount of rows and cols is equal
+     * @since 1.0.0
      */
     public final boolean isSquare() {
         return getRows() == getCols();
@@ -435,6 +464,7 @@ public class Matrix<T extends Number>
 
     /**
      * @return {@code true} if only the diagonal has values
+     * @since 1.0.0
      */
     public final boolean isDiagonal() {
         return isSquare() && stream()
@@ -447,6 +477,7 @@ public class Matrix<T extends Number>
     /**
      * @return {@code true} if {@link #isSquare()}
      * and {@link #determinante()}!={@code 0}
+     * @since 1.0.0
      */
     public final boolean isInvertible() {
         return isSquare() && !isZero(determinante());
@@ -460,6 +491,7 @@ public class Matrix<T extends Number>
      * @param matrix matrix to add
      * @return new matrix with calculated values
      * @throws IllegalArgumentException if rows or cols are not equal
+     * @since 1.0.0
      */
     public Matrix<T> add(Matrix<T> matrix) {
         if (getRows() != matrix.getRows())
@@ -478,6 +510,7 @@ public class Matrix<T extends Number>
     /**
      * @param t value to multiply
      * @return new matrix with calculated values
+     * @since 1.0.0
      */
     public Matrix<T> multiply(T t) {
         Matrix<T> result = copy();
@@ -490,6 +523,7 @@ public class Matrix<T extends Number>
      * @param matrix matrix to multiply
      * @return new matrix with calculated values
      * @throws IllegalArgumentException if cols are not equal param rows
+     * @since 1.0.0
      */
     public Matrix<T> multiply(Matrix<T> matrix) {
         if (getCols() != matrix.getRows())
@@ -519,6 +553,7 @@ public class Matrix<T extends Number>
      * @return new matrix with calculated values
      * @throws IllegalArgumentException if no cols and rows match
      * @see #multiply(Matrix)
+     * @since 1.0.0
      */
     public Matrix<T> multiplyTolerant(Matrix<T> matrix) {
         if (getCols() == matrix.getRows())
@@ -535,6 +570,7 @@ public class Matrix<T extends Number>
     /**
      * @return new inverse matrix or {@code null} if there is none
      * @throws NotSupportedException if {@link #isSquare()} is {@code false}
+     * @since 1.0.0
      */
     public Matrix<T> inverse() {
         if (!isSquare())
@@ -559,6 +595,7 @@ public class Matrix<T extends Number>
 
     /**
      * @return new transposed matrix
+     * @since 1.0.0
      */
     public Matrix<T> transpose() {
         Matrix<T> result = new Matrix<>(getArithmetic(),
@@ -573,6 +610,7 @@ public class Matrix<T extends Number>
 
     /**
      * @return determinante of matrix or {@code 0}
+     * @since 1.0.0
      */
     public T determinante() {
         if (size() == 0 || !isSquare()) return getArithmetic().zero();
@@ -618,6 +656,7 @@ public class Matrix<T extends Number>
      *
      * @return determinante of matrix or {@code 0}
      * @see #determinante()
+     * @since 1.0.0
      */
     protected T determinanteRecursive() {
         if (size() == 0 || !isSquare()) return getArithmetic().zero();
@@ -654,6 +693,7 @@ public class Matrix<T extends Number>
     /**
      * @return rank of matrix
      * @see #rowEchelonForm()
+     * @since 1.0.0
      */
     public int rank() {
         Matrix<T> matrix = rowEchelonForm();
@@ -663,6 +703,7 @@ public class Matrix<T extends Number>
     /**
      * @return new matrix in row echelon form
      * (not necessary reduced)
+     * @since 1.0.0
      */
     public Matrix<T> rowEchelonForm() {
         // see GaussSolver
@@ -693,6 +734,7 @@ public class Matrix<T extends Number>
      * @return new vector from matrix row/column
      * prefers column vector if rows and columns are equal to one
      * @throws NotSupportedException if columns and rows are more than one
+     * @since 1.0.0
      */
     public Vector<T> toVector() {
         if (getCols() == 1)
@@ -705,6 +747,7 @@ public class Matrix<T extends Number>
     /**
      * @return only entry of 1x1 matrix
      * @throws NotSupportedException if matrix is not 1x1
+     * @since 1.0.0
      */
     public T toParam() {
         if (getRows() == 1 && getCols() == 1)
@@ -725,6 +768,7 @@ public class Matrix<T extends Number>
      * @param <T>        number class
      * @return new created matrix
      * @throws IllegalArgumentException if rows or cols is less than {@code 1}
+     * @since 1.0.0
      */
     public static <T extends Number> Matrix<T> identity(
         AbstractArithmetic<T> arithmetic, int size
@@ -739,6 +783,7 @@ public class Matrix<T extends Number>
      * @param <T>          number class
      * @return new created matrix
      * @throws IllegalArgumentException if rows or cols is less than {@code 1}
+     * @since 1.0.0
      */
     protected static <T extends Number> Matrix<T> identity(
         AbstractArithmetic<T> arithmetic, int size, T defaultValue
@@ -758,6 +803,7 @@ public class Matrix<T extends Number>
      * @param <T>        number class
      * @return new created matrix
      * @throws IllegalArgumentException if rows or cols is less than {@code 1}
+     * @since 1.0.0
      */
     @SafeVarargs
     public static <T extends Number> Matrix<T> diagonal(
@@ -773,6 +819,7 @@ public class Matrix<T extends Number>
      * @param <T>          number class
      * @return new created matrix
      * @throws IllegalArgumentException if rows or cols is less than {@code 1}
+     * @since 1.0.0
      */
     @SafeVarargs
     protected static <T extends Number> Matrix<T> diagonal(
@@ -800,6 +847,7 @@ public class Matrix<T extends Number>
      * @throws IllegalArgumentException if rows modulo {@code values.length}
      *                                  is not congruent {@code 0}
      * @throws IllegalArgumentException if rows or cols is less than {@code 1}
+     * @since 1.0.0
      */
     @SafeVarargs
     public static <T extends Number> Matrix<T> ofValuesByRows(
@@ -820,6 +868,7 @@ public class Matrix<T extends Number>
      * @throws IllegalArgumentException if rows modulo {@code values.length}
      *                                  is not congruent {@code 0}
      * @throws IllegalArgumentException if rows or cols is less than {@code 1}
+     * @since 1.0.0
      */
     @SafeVarargs
     protected static <T extends Number> Matrix<T> ofValuesByRows(
@@ -847,6 +896,7 @@ public class Matrix<T extends Number>
      * @throws IllegalArgumentException if cols modulo {@code values.length}
      *                                  is not congruent {@code 0}
      * @throws IllegalArgumentException if rows or cols is less than {@code 1}
+     * @since 1.0.0
      */
     @SafeVarargs
     public static <T extends Number> Matrix<T> ofValuesByCols(
@@ -867,6 +917,7 @@ public class Matrix<T extends Number>
      * @throws IllegalArgumentException if cols modulo {@code values.length}
      *                                  is not congruent {@code 0}
      * @throws IllegalArgumentException if rows or cols is less than {@code 1}
+     * @since 1.0.0
      */
     @SafeVarargs
     protected static <T extends Number> Matrix<T> ofValuesByCols(
@@ -888,6 +939,7 @@ public class Matrix<T extends Number>
      * @param map        mapping function to convert current values to new one
      * @param <NT>       new number class
      * @return mapped matrix
+     * @since 1.0.0
      */
     public <NT extends Number> Matrix<NT> map(
         AbstractArithmetic<NT> arithmetic, Function<T, NT> map
@@ -904,6 +956,7 @@ public class Matrix<T extends Number>
     /**
      * @param newDefaultValue new default value for matrix
      * @return mapped matrix
+     * @since 1.0.0
      */
     protected Matrix<T> mapDefaultValue(T newDefaultValue) {
         if (isDefaultValue(newDefaultValue)) return copy();
@@ -975,6 +1028,7 @@ public class Matrix<T extends Number>
      * @return new sub matrix excluding specified row and col
      * @throws NotSupportedException     if {@link #isSquare()} is {@code false}
      * @throws IndexOutOfBoundsException if row or col is invalid
+     * @since 1.0.0
      */
     protected final Matrix<T> subMatrix(int row, int col) {
         if (!isSquare())
@@ -1004,6 +1058,7 @@ public class Matrix<T extends Number>
      * @throws IndexOutOfBoundsException if row or col is invalid
      * @see #subMatrix(int, int)
      * @see #signumFactor(int, int)
+     * @since 1.0.0
      */
     protected final T coFactor(int row, int col) {
         if (!isSquare())
@@ -1025,6 +1080,7 @@ public class Matrix<T extends Number>
      * @return coFactor matrix
      * @throws NotSupportedException if {@link #isSquare()} is {@code false}
      * @see #coFactor(int, int)
+     * @since 1.0.0
      */
     protected final Matrix<T> coFactorMatrix() {
         if (!isSquare())
@@ -1037,6 +1093,7 @@ public class Matrix<T extends Number>
     /**
      * @return transposed coFactorMatrix
      * @see #coFactorMatrix()
+     * @since 1.0.0
      */
     protected final Matrix<T> adjunctMatrix() {
         return coFactorMatrix().transpose();
@@ -1046,6 +1103,7 @@ public class Matrix<T extends Number>
      * @param row row of matrix
      * @param col col of matrix
      * @return {@code (-1)^(row+col)}
+     * @since 1.0.0
      */
     protected static int signumFactor(int row, int col) {
         return (row + col) % 2 == 0 ? 1 : -1;
@@ -1060,6 +1118,7 @@ public class Matrix<T extends Number>
      * @param row2 row2 to swap with row1
      * @return new matrix with swapped values
      * @throws IndexOutOfBoundsException if row1 or row2 is invalid
+     * @since 1.0.0
      */
     protected Matrix<T> swapRows(int row1, int row2) {
         if (!isValidRow(row1))
@@ -1080,6 +1139,7 @@ public class Matrix<T extends Number>
      * @param col2 col2 to swap with col1
      * @return new matrix with swapped values
      * @throws IndexOutOfBoundsException if col1 or col2 is invalid
+     * @since 1.0.0
      */
     protected Matrix<T> swapCols(int col1, int col2) {
         if (!isValidCol(col1))
@@ -1100,6 +1160,7 @@ public class Matrix<T extends Number>
      * @param n   factor to use
      * @return new matrix with multiplied row
      * @throws IndexOutOfBoundsException if row is invalid
+     * @since 1.0.0
      */
     protected Matrix<T> multiplyRow(int row, T n) {
         if (!isValidRow(row))
@@ -1122,6 +1183,7 @@ public class Matrix<T extends Number>
      * @param n   factor to use
      * @return new matrix with multiplied col
      * @throws IndexOutOfBoundsException if col is invalid
+     * @since 1.0.0
      */
     protected Matrix<T> multiplyCol(int col, T n) {
         if (!isValidCol(col))
@@ -1145,6 +1207,7 @@ public class Matrix<T extends Number>
      * @param n    factor to use
      * @return new matrix with multiplied row
      * @throws IndexOutOfBoundsException if row1 or row2 is invalid
+     * @since 1.0.0
      */
     protected Matrix<T> addRowMultipleTimes(int row1, int row2, T n) {
         if (!isValidRow(row1))
@@ -1169,6 +1232,7 @@ public class Matrix<T extends Number>
      * @param n    factor to use
      * @return new matrix with multiplied col
      * @throws IndexOutOfBoundsException if col1 or col2 is invalid
+     * @since 1.0.0
      */
     protected Matrix<T> addColMultipleTimes(int col1, int col2, T n) {
         if (!isValidCol(col1))
@@ -1195,6 +1259,7 @@ public class Matrix<T extends Number>
      * swaps zero rows to bottom
      *
      * @return new matrix with swapped rows
+     * @since 1.0.0
      */
     protected Matrix<T> swapZeroRowsToBottom() {
         // see GaussSolver#prepareMatrixBySwappingZeroRowsToBottom
@@ -1215,6 +1280,7 @@ public class Matrix<T extends Number>
      *
      * @return new matrix with swapped rows
      * @see #ensureDiagonalFieldsAreNonZero(boolean)
+     * @since 1.0.0
      */
     protected Matrix<T> ensureDiagonalFieldsAreNonZero() {
         return ensureDiagonalFieldsAreNonZero(false);
@@ -1225,6 +1291,7 @@ public class Matrix<T extends Number>
      *
      * @param includeCols if {@code true} columns may be swapped if necessary
      * @return new matrix with swapped rows
+     * @since 1.0.0
      */
     protected Matrix<T> ensureDiagonalFieldsAreNonZero(boolean includeCols) {
         // see GaussSolver#prepareMatrixBySwapping
@@ -1259,6 +1326,7 @@ public class Matrix<T extends Number>
      * @param col col of requested index
      * @return index of requested position
      * @throws IndexOutOfBoundsException if row or col is invalid
+     * @since 1.0.0
      */
     protected final long getIndexOfRowAndCol(int row, int col) {
         if (!isValidRow(row))
@@ -1271,6 +1339,7 @@ public class Matrix<T extends Number>
     /**
      * @param index index to check
      * @return {@code true} if value is valid
+     * @since 1.0.0
      */
     protected final boolean isValidIndex(long index) {
         return 0 <= index && index < size();
@@ -1279,6 +1348,7 @@ public class Matrix<T extends Number>
     /**
      * @param row row to check
      * @return {@code true} if value is valid
+     * @since 1.0.0
      */
     protected final boolean isValidRow(int row) {
         return 0 <= row && row < getRows();
@@ -1287,6 +1357,7 @@ public class Matrix<T extends Number>
     /**
      * @param col col to check
      * @return {@code true} if col is valid
+     * @since 1.0.0
      */
     protected final boolean isValidCol(int col) {
         return 0 <= col && col < getCols();
@@ -1296,6 +1367,7 @@ public class Matrix<T extends Number>
      * @param t value to check
      * @return {@code true} if {@code t} is equal to {@link #getDefaultValue()}
      * @see AbstractArithmetic#isEqual(Number, Number)
+     * @since 1.0.0
      */
     protected final boolean isDefaultValue(T t) {
         return getArithmetic().isEqual(getDefaultValue(), t);
@@ -1305,6 +1377,7 @@ public class Matrix<T extends Number>
      * @param t value to check
      * @return {@code true} if {@link AbstractArithmetic#isZero(Number)} is
      * @see AbstractArithmetic#isZero(Number)
+     * @since 1.0.0
      */
     protected final boolean isZero(T t) {
         return getArithmetic().isZero(t);
@@ -1315,6 +1388,7 @@ public class Matrix<T extends Number>
      * @return {@code true} if value is valid
      * @throws IndexOutOfBoundsException if row is invalid
      * @see #getRow(int)
+     * @since 1.0.0
      */
     protected final boolean isZeroRow(int row) {
         return getRow(row).stream().allMatch(this::isZero);
@@ -1349,6 +1423,8 @@ public class Matrix<T extends Number>
 
     /**
      * class which holds a field of a matrix with immutable attributes
+     *
+     * @since 1.0.0
      */
     public class Field {
         private final long index;
@@ -1361,6 +1437,7 @@ public class Matrix<T extends Number>
          * @throws IndexOutOfBoundsException if row or col is invalid
          * @see #Field(long, Number)
          * @see #getIndexOfRowAndCol(int, int)
+         * @since 1.0.0
          */
         protected Field(int row, int col, T value) {
             this(getIndexOfRowAndCol(row, col), value);
@@ -1370,6 +1447,7 @@ public class Matrix<T extends Number>
          * @param index index of field
          * @param value value of field
          * @throws IndexOutOfBoundsException if index is invalid
+         * @since 1.0.0
          */
         protected Field(long index, T value) {
             if (!isValidIndex(index))
@@ -1380,6 +1458,7 @@ public class Matrix<T extends Number>
 
         /**
          * @return row of field
+         * @since 1.0.0
          */
         public final int getRow() {
             return (int) (getIndex() / getCols());
@@ -1387,6 +1466,7 @@ public class Matrix<T extends Number>
 
         /**
          * @return col of field
+         * @since 1.0.0
          */
         public final int getCol() {
             return (int) (getIndex() % getCols());
@@ -1394,6 +1474,7 @@ public class Matrix<T extends Number>
 
         /**
          * @return index of field
+         * @since 1.0.0
          */
         public final long getIndex() {
             return index;
@@ -1401,6 +1482,7 @@ public class Matrix<T extends Number>
 
         /**
          * @return value of field
+         * @since 1.0.0
          */
         public T getValue() {
             return value;
@@ -1408,6 +1490,7 @@ public class Matrix<T extends Number>
 
         /**
          * @return Matrix instance of field
+         * @since 1.0.0
          */
         protected Matrix<T> getMatrix() {
             return Matrix.this;
