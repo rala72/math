@@ -7,7 +7,7 @@
 
 This library makes math calculations easy.<br>
 The development of this library started after a
-[Coding Contest](https://codingcontest.org) from Catalysts.
+[Coding Contest](https://codingcontest.org) from Cloudflight.
 
 ## Download
 
