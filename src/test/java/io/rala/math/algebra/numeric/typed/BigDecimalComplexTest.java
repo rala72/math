@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BigDecimalComplexTest {
     private static final MathContext CONTEXT = new MathContext(10);
+    private static final double DELTA = 0.00001;
 
     // region constructors, getter and setter
 
@@ -531,7 +532,7 @@ class BigDecimalComplexTest {
         Complex<BigDecimal> complex = BigDecimalComplex.of(
             BigDecimal.ONE, BigDecimal.valueOf(2)
         );
-        assertEquals(BigDecimal.ONE, complex.absoluteValue());
+        assertEquals(1, complex.absoluteValue().doubleValue(), DELTA);
         assertEquals(BigDecimal.valueOf(2), complex.argument());
     }
 

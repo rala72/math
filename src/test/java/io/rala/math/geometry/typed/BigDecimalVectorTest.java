@@ -15,6 +15,8 @@ import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSeri
 import static org.junit.jupiter.api.Assertions.*;
 
 class BigDecimalVectorTest {
+    private static final double DELTA = 0.00001;
+
     // region constructors, getter and setter
 
     @Test
@@ -313,7 +315,7 @@ class BigDecimalVectorTest {
     void normalizedOfVectorWithXY1() {
         Vector<BigDecimal> vector = new BigDecimalVector(BigDecimal.ONE).normalized();
         assertVector(vector, BigDecimal.valueOf(0.7071067811865475d));
-        assertEquals(BigDecimal.valueOf(1.000000001), vector.length());
+        assertEquals(1.000000001, vector.length().doubleValue(), DELTA);
     }
 
     @Test
@@ -325,7 +327,7 @@ class BigDecimalVectorTest {
             BigDecimal.valueOf(0.4472135954999579d),
             BigDecimal.valueOf(0.8944271909999159d)
         );
-        assertEquals(BigDecimal.valueOf(1.000000001), vector.length());
+        assertEquals(1.000000001, vector.length().doubleValue(), DELTA);
     }
 
     // endregion
