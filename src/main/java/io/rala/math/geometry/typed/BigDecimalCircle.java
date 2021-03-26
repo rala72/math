@@ -92,7 +92,7 @@ public class BigDecimalCircle extends Circle<BigDecimal> {
     public BigDecimalCircle(
         Point<BigDecimal> center, Point<BigDecimal> point, MathContext context
     ) {
-        super(BigDecimalArithmetic.getInstance(), center, point);
+        super(new BigDecimalArithmetic(context), center, point);
     }
 
     /**

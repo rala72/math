@@ -85,7 +85,7 @@ class BigDecimalCircleTest {
                 new MathContext(5)
             ),
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
-            BigDecimal.valueOf(Math.sqrt(2d))
+            BigDecimal.valueOf(Math.sqrt(2d)).round(new MathContext(5))
         );
     }
 
