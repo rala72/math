@@ -32,7 +32,7 @@ public class LongDoubleFraction extends Fraction<Long, Double> {
      * @see Fraction#Fraction(AbstractResultArithmetic, Number, Number)
      * @since 1.0.0
      */
-    public LongDoubleFraction(long numerator, long denominator) {
+    public LongDoubleFraction(long numerator, Long denominator) {
         super(LongDoubleResultArithmetic.getInstance(), numerator, denominator);
     }
 
