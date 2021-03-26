@@ -6,6 +6,7 @@ import io.rala.math.arithmetic.result.BigIntegerBigDecimalResultArithmetic;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
 
 /**
  * class which holds fraction values as {@link BigInteger}
@@ -28,6 +29,18 @@ public class BigIntegerBigDecimalFraction extends Fraction<BigInteger, BigDecima
     }
 
     /**
+     * default denominator is {@code 1}
+     *
+     * @param numerator numerator of fraction
+     * @param context   context of {@link BigIntegerBigDecimalResultArithmetic}
+     * @see Fraction#Fraction(AbstractResultArithmetic, Number)
+     * @since 1.0.1
+     */
+    public BigIntegerBigDecimalFraction(BigInteger numerator, MathContext context) {
+        super(new BigIntegerBigDecimalResultArithmetic(context), numerator);
+    }
+
+    /**
      * creates a new fraction with numerator and denominator
      *
      * @param numerator   numerator of fraction
@@ -37,6 +50,19 @@ public class BigIntegerBigDecimalFraction extends Fraction<BigInteger, BigDecima
      */
     public BigIntegerBigDecimalFraction(BigInteger numerator, BigInteger denominator) {
         super(BigIntegerBigDecimalResultArithmetic.getInstance(), numerator, denominator);
+    }
+
+    /**
+     * creates a new fraction with numerator and denominator
+     *
+     * @param numerator   numerator of fraction
+     * @param denominator denominator of fraction
+     * @param context     context of {@link BigIntegerBigDecimalResultArithmetic}
+     * @see Fraction#Fraction(AbstractResultArithmetic, Number, Number)
+     * @since 1.0.1
+     */
+    public BigIntegerBigDecimalFraction(BigInteger numerator, BigInteger denominator, MathContext context) {
+        super(new BigIntegerBigDecimalResultArithmetic(context), numerator, denominator);
     }
 
     /**

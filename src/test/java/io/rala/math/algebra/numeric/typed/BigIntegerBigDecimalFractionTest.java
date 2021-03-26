@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
 
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,10 +24,24 @@ class BigIntegerBigDecimalFractionTest {
     }
 
     @Test
+    void constructorWithNuMathContext5() {
+        assertFraction(new BigIntegerBigDecimalFraction(BigInteger.ONE, new MathContext(5)));
+    }
+
+    @Test
     void constructorWithDifferentNuDeParameter() {
         assertFraction(
             new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.valueOf(3)),
             BigInteger.TWO, BigInteger.valueOf(3)
+        );
+    }
+
+
+    @Test
+    void constructorWithNuDeMathContext5() {
+        assertFraction(
+            new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO, new MathContext(5)),
+            BigInteger.ONE, BigInteger.TWO
         );
     }
 
