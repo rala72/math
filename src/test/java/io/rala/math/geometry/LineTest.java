@@ -355,6 +355,9 @@ class LineTest {
         assertEquals(0, line.compareTo(new TestLine(2, 3)));
         assertEquals(-1, line.compareTo(new TestLine(3, 1)));
         assertEquals(1, line.compareTo(new TestLine(2, 1)));
+
+        assertEquals(1, line.compareTo(new TestLine(null, 1)));
+        assertEquals(-1, new TestLine(null, 1).compareTo(line));
     }
 
     @Test

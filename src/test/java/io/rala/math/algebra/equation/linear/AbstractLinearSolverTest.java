@@ -37,10 +37,10 @@ class AbstractLinearSolverTest {
     void getAndSetWorkingEquationSystemOfAbstractLinearSolver() {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);
-        assertThrows(NullPointerException.class,
+        assertThrows(IllegalStateException.class,
             solver::getWorkingMatrix
         );
-        assertThrows(NullPointerException.class,
+        assertThrows(IllegalStateException.class,
             solver::getWorkingVector
         );
         solver.setWorkingEquationSystem(new LinearEquationSystem<>(
@@ -54,7 +54,7 @@ class AbstractLinearSolverTest {
     void getAndSetWorkingMatrixAndVectorOfAbstractLinearSolver() {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);
-        assertThrows(NullPointerException.class,
+        assertThrows(IllegalStateException.class,
             solver::getWorkingMatrix
         );
         solver.setWorkingEquationSystem(equationSystem.getMatrix(), equationSystem.getVector());
@@ -66,7 +66,7 @@ class AbstractLinearSolverTest {
     void toSingleSolutionOfAbstractLinearSolverWithNull() {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);
-        assertThrows(NullPointerException.class, solver::toSingleSolution);
+        assertThrows(IllegalStateException.class, solver::toSingleSolution);
     }
 
     @Test

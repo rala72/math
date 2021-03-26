@@ -3,6 +3,8 @@ package io.rala.math.algebra.numeric.typed;
 import io.rala.math.algebra.numeric.Fraction;
 import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.result.LongDoubleResultArithmetic;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * class which holds fraction values as {@link Long}
@@ -32,7 +34,7 @@ public class LongDoubleFraction extends Fraction<Long, Double> {
      * @see Fraction#Fraction(AbstractResultArithmetic, Number, Number)
      * @since 1.0.0
      */
-    public LongDoubleFraction(long numerator, Long denominator) {
+    public LongDoubleFraction(long numerator, @Nullable Long denominator) {
         super(LongDoubleResultArithmetic.getInstance(), numerator, denominator);
     }
 
@@ -42,7 +44,7 @@ public class LongDoubleFraction extends Fraction<Long, Double> {
      * @param fraction fraction to copy
      * @since 1.0.0
      */
-    public LongDoubleFraction(Fraction<Long, Double> fraction) {
+    public LongDoubleFraction(@NotNull Fraction<Long, Double> fraction) {
         super(fraction);
     }
 

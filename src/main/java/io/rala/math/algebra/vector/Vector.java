@@ -6,6 +6,8 @@ import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.exception.NotSupportedException;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.StreamIterable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.*;
@@ -67,7 +69,7 @@ public class Vector<T extends Number>
      * @throws IllegalArgumentException if size is less than {@code 1}
      * @since 1.0.0
      */
-    public Vector(AbstractArithmetic<T> arithmetic, int size) {
+    public Vector(@NotNull AbstractArithmetic<T> arithmetic, int size) {
         this(arithmetic, size, arithmetic.zero());
     }
 
@@ -81,7 +83,10 @@ public class Vector<T extends Number>
      * @throws IllegalArgumentException if size is less than {@code 1}
      * @since 1.0.0
      */
-    protected Vector(AbstractArithmetic<T> arithmetic, int size, T defaultValue) {
+    protected Vector(
+        @NotNull AbstractArithmetic<T> arithmetic, int size,
+        @NotNull T defaultValue
+    ) {
         this(arithmetic, size, Type.COLUMN, defaultValue);
     }
 
@@ -95,7 +100,10 @@ public class Vector<T extends Number>
      * @throws IllegalArgumentException if size is less than {@code 1}
      * @since 1.0.0
      */
-    public Vector(AbstractArithmetic<T> arithmetic, int size, Type type) {
+    public Vector(
+        @NotNull AbstractArithmetic<T> arithmetic, int size,
+        @Nullable Type type
+    ) {
         this(arithmetic, size, type, arithmetic.zero());
     }
 
@@ -111,7 +119,8 @@ public class Vector<T extends Number>
      * @since 1.0.0
      */
     protected Vector(
-        AbstractArithmetic<T> arithmetic, int size, Type type, T defaultValue
+        @NotNull AbstractArithmetic<T> arithmetic, int size,
+        @Nullable Type type, @NotNull T defaultValue
     ) {
         if (size <= 0)
             throw new IllegalArgumentException("size has to be greater than 0");
@@ -127,7 +136,7 @@ public class Vector<T extends Number>
      * @param vector vector to copy
      * @since 1.0.0
      */
-    protected Vector(Vector<T> vector) {
+    protected Vector(@NotNull Vector<T> vector) {
         this(vector.getArithmetic(), vector.getSize(),
             vector.getType(), vector.getDefaultValue()
         );
@@ -142,6 +151,7 @@ public class Vector<T extends Number>
      * @return stored arithmetic
      * @since 1.0.0
      */
+    @NotNull
     public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
     }
@@ -150,6 +160,7 @@ public class Vector<T extends Number>
      * @return vector map using index as key
      * @since 1.0.0
      */
+    @NotNull
     protected final Map<Integer, T> getVector() {
         return vector;
     }
@@ -166,6 +177,7 @@ public class Vector<T extends Number>
      * @return default value for non-existing values
      * @since 1.0.0
      */
+    @NotNull
     protected final T getDefaultValue() {
         return defaultValue;
     }
@@ -174,6 +186,7 @@ public class Vector<T extends Number>
      * @return type of vector
      * @since 1.0.0
      */
+    @NotNull
     public final Type getType() {
         return type;
     }
@@ -200,6 +213,7 @@ public class Vector<T extends Number>
      * @return {@link #euclideanNorm()}
      * @since 1.0.0
      */
+    @NotNull
     public T length() {
         return euclideanNorm();
     }
@@ -214,6 +228,7 @@ public class Vector<T extends Number>
      * @throws IndexOutOfBoundsException if index is invalid
      * @since 1.0.0
      */
+    @NotNull
     public T getValue(int index) {
         if (!isValidIndex(index)) throw new IndexOutOfBoundsException(index + " / " + getSize());
         return getVector().getOrDefault(index, getDefaultValue());
@@ -226,7 +241,8 @@ public class Vector<T extends Number>
      * @throws IndexOutOfBoundsException if index is invalid
      * @since 1.0.0
      */
-    public T setValue(int index, T value) {
+    @NotNull
+    public T setValue(int index, @NotNull T value) {
         if (!isValidIndex(index)) throw new IndexOutOfBoundsException(index + " / " + getSize());
         if (getArithmetic().isEqual(value, getDefaultValue()))
             return removeValue(index);
@@ -240,6 +256,7 @@ public class Vector<T extends Number>
      * @throws IndexOutOfBoundsException if index is invalid
      * @since 1.0.0
      */
+    @NotNull
     public T removeValue(int index) {
         if (!isValidIndex(index)) throw new IndexOutOfBoundsException(index + " / " + getSize());
         T old = getVector().remove(index);
@@ -258,7 +275,8 @@ public class Vector<T extends Number>
      * @see #getValue(int)
      * @since 1.0.0
      */
-    public T compute(int index, UnaryOperator<T> operator) {
+    @NotNull
+    public T compute(int index, @NotNull UnaryOperator<T> operator) {
         return setValue(index, operator.apply(getValue(index)));
     }
 
@@ -271,7 +289,8 @@ public class Vector<T extends Number>
      * @see #getValue(int)
      * @since 1.0.0
      */
-    public T compute(int index, T value, BinaryOperator<T> operator) {
+    @NotNull
+    public T compute(int index, @NotNull T value, @NotNull BinaryOperator<T> operator) {
         return setValue(index, operator.apply(getValue(index), value));
     }
 
@@ -280,7 +299,7 @@ public class Vector<T extends Number>
      * @see #setValue(int, Number)
      * @since 1.0.0
      */
-    public void computeAll(Function<Entry, T> operator) {
+    public void computeAll(@NotNull Function<Entry, T> operator) {
         forEach(entry -> setValue(entry.getIndex(), operator.apply(entry)));
     }
 
@@ -290,7 +309,7 @@ public class Vector<T extends Number>
      * @see #computeAll(Function)
      * @since 1.0.0
      */
-    public void computeAll(Function<Entry, T> value, BinaryOperator<T> operator) {
+    public void computeAll(@NotNull Function<Entry, T> value, @NotNull BinaryOperator<T> operator) {
         computeAll(entry -> operator.apply(entry.getValue(), value.apply(entry)));
     }
 
@@ -302,6 +321,7 @@ public class Vector<T extends Number>
      * @return matrix equivalent to vector
      * @since 1.0.0
      */
+    @NotNull
     public Matrix<T> toMatrix() {
         Matrix<T> matrix = new Matrix<>(
             getArithmetic(),
@@ -317,6 +337,7 @@ public class Vector<T extends Number>
      * @throws NotSupportedException if size is unequal to {@code 1}
      * @since 1.0.0
      */
+    @NotNull
     public T toParam() {
         if (getSize() == 1) return getValue(0);
         throw new NotSupportedException(EXCEPTION_SIZE_UNEQUAL_1);
@@ -331,7 +352,8 @@ public class Vector<T extends Number>
      * @return new vector with calculated values
      * @since 1.0.0
      */
-    public Vector<T> add(Vector<T> vector) {
+    @NotNull
+    public Vector<T> add(@NotNull Vector<T> vector) {
         if (getSize() != vector.getSize())
             throw new IllegalArgumentException(EXCEPTION_SIZES_UNEQUAL);
         if (getType() != vector.getType())
@@ -347,7 +369,8 @@ public class Vector<T extends Number>
      * @return new vector with calculated values
      * @since 1.0.0
      */
-    public Vector<T> subtract(Vector<T> vector) {
+    @NotNull
+    public Vector<T> subtract(@NotNull Vector<T> vector) {
         return add(vector.invert());
     }
 
@@ -356,7 +379,8 @@ public class Vector<T extends Number>
      * @return new vector with calculated values
      * @since 1.0.0
      */
-    public Vector<T> multiply(T scalar) {
+    @NotNull
+    public Vector<T> multiply(@NotNull T scalar) {
         Vector<T> result = copy();
         result.computeAll(entry -> getArithmetic().product(entry.getValue(), scalar));
         result.removeDefaultValues();
@@ -370,7 +394,8 @@ public class Vector<T extends Number>
      * @see Matrix#multiply(Matrix)
      * @since 1.0.0
      */
-    public Matrix<T> multiply(Vector<T> vector) {
+    @NotNull
+    public Matrix<T> multiply(@NotNull Vector<T> vector) {
         return toMatrix().multiply(vector.toMatrix());
     }
 
@@ -382,7 +407,8 @@ public class Vector<T extends Number>
      * @see #toParam()
      * @since 1.0.0
      */
-    public T dotProduct(Vector<T> vector) {
+    @NotNull
+    public T dotProduct(@NotNull Vector<T> vector) {
         Vector<T> v1 =
             new Vector<>(getType() == Type.ROW ? this : transpose());
         Vector<T> v2 =
@@ -400,6 +426,7 @@ public class Vector<T extends Number>
      * @return new vector with opposite {@link Type}
      * @since 1.0.0
      */
+    @NotNull
     public Vector<T> transpose() {
         Vector<T> flipped =
             new Vector<>(getArithmetic(), getSize(),
@@ -415,6 +442,7 @@ public class Vector<T extends Number>
      * @see #multiply(Number)
      * @since 1.0.0
      */
+    @NotNull
     public Vector<T> invert() {
         return multiply(getArithmetic().negate(getArithmetic().one()));
     }
@@ -427,6 +455,7 @@ public class Vector<T extends Number>
      * @return max-Norm of the vector, equal to the entry with highest absolute value
      * @since 1.0.0
      */
+    @NotNull
     public T maxNorm() {
         return getVector().values().stream().max(
             (a, b) -> getArithmetic().difference(
@@ -442,6 +471,7 @@ public class Vector<T extends Number>
      * @return euclidean norm of the vector
      * @since 1.0.0
      */
+    @NotNull
     public T euclideanNorm() {
         return pNorm(2);
     }
@@ -452,6 +482,7 @@ public class Vector<T extends Number>
      * @throws IllegalArgumentException if p is less than {@code 1}
      * @since 1.0.0
      */
+    @NotNull
     public T pNorm(int p) {
         if (p <= 0) throw new IllegalArgumentException(EXCEPTION_NOT_POSITIV_P_NORM);
         Map<Integer, T> powers = getVector().entrySet().stream()
@@ -475,6 +506,7 @@ public class Vector<T extends Number>
      * @throws NotSupportedException if all values are {@code 0}
      * @since 1.0.0
      */
+    @NotNull
     public Vector<T> normalize() {
         if (isZero())
             throw new NotSupportedException(EXCEPTION_ZERO_VECTOR_NO_NORMALIZE);
@@ -500,7 +532,8 @@ public class Vector<T extends Number>
      * @throws NotSupportedException if any vector has only values equal {@code 0}
      * @since 1.0.0
      */
-    public T angle(Vector<T> vector) {
+    @NotNull
+    public T angle(@NotNull Vector<T> vector) {
         if (isZero() || vector.isZero())
             throw new NotSupportedException(EXCEPTION_ZERO_VECTOR_NO_ANGLE);
         return getArithmetic().acos(
@@ -529,8 +562,9 @@ public class Vector<T extends Number>
      * @since 1.0.0
      */
     @SafeVarargs
+    @NotNull
     public static <T extends Number> Vector<T> ofValues(
-        AbstractArithmetic<T> arithmetic, T... values
+        @NotNull AbstractArithmetic<T> arithmetic, @NotNull T... values
     ) {
         return ofValues(arithmetic, arithmetic.zero(), values);
     }
@@ -547,8 +581,10 @@ public class Vector<T extends Number>
      * @since 1.0.0
      */
     @SafeVarargs
+    @NotNull
     private static <T extends Number> Vector<T> ofValues(
-        AbstractArithmetic<T> arithmetic, T defaultValue, T... values
+        @NotNull AbstractArithmetic<T> arithmetic,
+        @NotNull T defaultValue, @NotNull T... values
     ) {
         Vector<T> vector =
             new Vector<>(arithmetic, values.length, defaultValue);
@@ -567,8 +603,9 @@ public class Vector<T extends Number>
      * @throws IllegalArgumentException if size is less than {@code 1}
      * @since 1.0.0
      */
+    @NotNull
     public static <T extends Number> Vector<T> ofList(
-        AbstractArithmetic<T> arithmetic, List<T> values
+        @NotNull AbstractArithmetic<T> arithmetic, @NotNull List<T> values
     ) {
         return ofList(arithmetic, values, arithmetic.zero());
     }
@@ -584,8 +621,10 @@ public class Vector<T extends Number>
      * @throws IllegalArgumentException if size is less than {@code 1}
      * @since 1.0.0
      */
+    @NotNull
     protected static <T extends Number> Vector<T> ofList(
-        AbstractArithmetic<T> arithmetic, List<T> values, T defaultValue
+        @NotNull AbstractArithmetic<T> arithmetic,
+        @NotNull List<T> values, @NotNull T defaultValue
     ) {
         Vector<T> vector = new Vector<>(arithmetic, values.size(), defaultValue);
         for (int i = 0; i < values.size(); i++)
@@ -598,11 +637,13 @@ public class Vector<T extends Number>
     // region override
 
     @Override
+    @NotNull
     public Vector<T> copy() {
         return new Vector<>(this);
     }
 
     @Override
+    @NotNull
     public Iterator<Entry> iterator() {
         return new Iterator<>() {
             private int index = 0;
@@ -642,6 +683,7 @@ public class Vector<T extends Number>
     }
 
     @Override
+    @NotNull
     public String toString() {
         return getSize() + ": " + getVector().entrySet().toString();
     }
@@ -714,6 +756,7 @@ public class Vector<T extends Number>
          * @return value of entry
          * @since 1.0.0
          */
+        @NotNull
         public T getValue() {
             return value;
         }
@@ -722,6 +765,7 @@ public class Vector<T extends Number>
          * @return Vector instance of entry
          * @since 1.0.0
          */
+        @NotNull
         protected Vector<T> getVector() {
             return Vector.this;
         }
@@ -743,6 +787,7 @@ public class Vector<T extends Number>
         }
 
         @Override
+        @NotNull
         public String toString() {
             return getIndex() + ": " + getValue();
         }

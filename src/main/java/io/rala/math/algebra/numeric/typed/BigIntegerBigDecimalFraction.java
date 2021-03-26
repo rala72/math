@@ -3,6 +3,8 @@ package io.rala.math.algebra.numeric.typed;
 import io.rala.math.algebra.numeric.Fraction;
 import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.result.BigIntegerBigDecimalResultArithmetic;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -24,7 +26,7 @@ public class BigIntegerBigDecimalFraction extends Fraction<BigInteger, BigDecima
      * @see Fraction#Fraction(AbstractResultArithmetic, Number)
      * @since 1.0.0
      */
-    public BigIntegerBigDecimalFraction(BigInteger numerator) {
+    public BigIntegerBigDecimalFraction(@NotNull BigInteger numerator) {
         super(BigIntegerBigDecimalResultArithmetic.getInstance(), numerator);
     }
 
@@ -36,7 +38,7 @@ public class BigIntegerBigDecimalFraction extends Fraction<BigInteger, BigDecima
      * @see Fraction#Fraction(AbstractResultArithmetic, Number)
      * @since 1.0.1
      */
-    public BigIntegerBigDecimalFraction(BigInteger numerator, MathContext context) {
+    public BigIntegerBigDecimalFraction(@NotNull BigInteger numerator, @NotNull MathContext context) {
         super(new BigIntegerBigDecimalResultArithmetic(context), numerator);
     }
 
@@ -48,7 +50,7 @@ public class BigIntegerBigDecimalFraction extends Fraction<BigInteger, BigDecima
      * @see Fraction#Fraction(AbstractResultArithmetic, Number, Number)
      * @since 1.0.0
      */
-    public BigIntegerBigDecimalFraction(BigInteger numerator, BigInteger denominator) {
+    public BigIntegerBigDecimalFraction(@NotNull BigInteger numerator, @Nullable BigInteger denominator) {
         super(BigIntegerBigDecimalResultArithmetic.getInstance(), numerator, denominator);
     }
 
@@ -61,7 +63,9 @@ public class BigIntegerBigDecimalFraction extends Fraction<BigInteger, BigDecima
      * @see Fraction#Fraction(AbstractResultArithmetic, Number, Number)
      * @since 1.0.1
      */
-    public BigIntegerBigDecimalFraction(BigInteger numerator, BigInteger denominator, MathContext context) {
+    public BigIntegerBigDecimalFraction(
+        @NotNull BigInteger numerator, @Nullable BigInteger denominator, @NotNull MathContext context
+    ) {
         super(new BigIntegerBigDecimalResultArithmetic(context), numerator, denominator);
     }
 
@@ -71,7 +75,7 @@ public class BigIntegerBigDecimalFraction extends Fraction<BigInteger, BigDecima
      * @param fraction fraction to copy
      * @since 1.0.0
      */
-    public BigIntegerBigDecimalFraction(Fraction<BigInteger, BigDecimal> fraction) {
+    public BigIntegerBigDecimalFraction(@NotNull Fraction<BigInteger, BigDecimal> fraction) {
         super(fraction);
     }
 

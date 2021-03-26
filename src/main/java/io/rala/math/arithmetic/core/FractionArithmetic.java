@@ -4,6 +4,7 @@ import io.rala.math.algebra.numeric.Fraction;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.exception.NotSupportedException;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -24,7 +25,7 @@ public class FractionArithmetic<T extends Number, R extends Number>
      * @param arithmetic arithmetic of {@link Fraction}
      * @since 1.0.0
      */
-    public FractionArithmetic(AbstractResultArithmetic<T, R> arithmetic) {
+    public FractionArithmetic(@NotNull AbstractResultArithmetic<T, R> arithmetic) {
         this.arithmetic = arithmetic;
     }
 
@@ -32,6 +33,7 @@ public class FractionArithmetic<T extends Number, R extends Number>
      * @return stored {@link AbstractResultArithmetic}
      * @since 1.0.0
      */
+    @NotNull
     public AbstractResultArithmetic<T, R> getArithmetic() {
         return arithmetic;
     }
@@ -39,6 +41,7 @@ public class FractionArithmetic<T extends Number, R extends Number>
     // region fromInt, fromDouble and signum
 
     @Override
+    @NotNull
     public Fraction<T, R> fromInt(int a) {
         return new Fraction<>(getArithmetic(),
             getArithmetic().getTArithmetic().fromInt(a)
@@ -46,6 +49,7 @@ public class FractionArithmetic<T extends Number, R extends Number>
     }
 
     @Override
+    @NotNull
     public Fraction<T, R> fromDouble(double a) {
         String string = Double.toString(a);
         String nominatorString = string.replaceAll("[.,]", "");
@@ -59,7 +63,7 @@ public class FractionArithmetic<T extends Number, R extends Number>
     }
 
     @Override
-    public double signum(Fraction<T, R> a) {
+    public double signum(@NotNull Fraction<T, R> a) {
         return getArithmetic().getTArithmetic().signum(a.getNumerator());
     }
 
@@ -68,12 +72,13 @@ public class FractionArithmetic<T extends Number, R extends Number>
     // region negate and compare
 
     @Override
-    public Fraction<T, R> negate(Fraction<T, R> a) {
+    @NotNull
+    public Fraction<T, R> negate(@NotNull Fraction<T, R> a) {
         return a.negate();
     }
 
     @Override
-    public int compare(Fraction<T, R> a, Fraction<T, R> b) {
+    public int compare(@NotNull Fraction<T, R> a, @NotNull Fraction<T, R> b) {
         return a.compareTo(b);
     }
 
@@ -82,22 +87,26 @@ public class FractionArithmetic<T extends Number, R extends Number>
     // region sum, difference, product and quotient
 
     @Override
-    public Fraction<T, R> sum(Fraction<T, R> a, Fraction<T, R> b) {
+    @NotNull
+    public Fraction<T, R> sum(@NotNull Fraction<T, R> a, @NotNull Fraction<T, R> b) {
         return a.add(b);
     }
 
     @Override
-    public Fraction<T, R> difference(Fraction<T, R> a, Fraction<T, R> b) {
+    @NotNull
+    public Fraction<T, R> difference(@NotNull Fraction<T, R> a, @NotNull Fraction<T, R> b) {
         return a.subtract(b);
     }
 
     @Override
-    public Fraction<T, R> product(Fraction<T, R> a, Fraction<T, R> b) {
+    @NotNull
+    public Fraction<T, R> product(@NotNull Fraction<T, R> a, @NotNull Fraction<T, R> b) {
         return a.multiply(b);
     }
 
     @Override
-    public Fraction<T, R> quotient(Fraction<T, R> a, Fraction<T, R> b) {
+    @NotNull
+    public Fraction<T, R> quotient(@NotNull Fraction<T, R> a, @NotNull Fraction<T, R> b) {
         return a.divide(b);
     }
 
@@ -106,12 +115,14 @@ public class FractionArithmetic<T extends Number, R extends Number>
     // region power and root
 
     @Override
-    public Fraction<T, R> power(Fraction<T, R> a, int b) {
+    @NotNull
+    public Fraction<T, R> power(@NotNull Fraction<T, R> a, int b) {
         return a.pow(b);
     }
 
     @Override
-    public Fraction<T, R> root(Fraction<T, R> a, int b) {
+    @NotNull
+    public Fraction<T, R> root(@NotNull Fraction<T, R> a, int b) {
         return a.root(b);
     }
 
@@ -120,7 +131,8 @@ public class FractionArithmetic<T extends Number, R extends Number>
     // region gcd
 
     @Override
-    public Fraction<T, R> gcd(Fraction<T, R> a, Fraction<T, R> b) {
+    @NotNull
+    public Fraction<T, R> gcd(@NotNull Fraction<T, R> a, @NotNull Fraction<T, R> b) {
         throw new NotSupportedException();
     }
 

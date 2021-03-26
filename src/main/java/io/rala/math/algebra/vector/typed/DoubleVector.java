@@ -3,6 +3,8 @@ package io.rala.math.algebra.vector.typed;
 import io.rala.math.algebra.vector.Vector;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.core.DoubleArithmetic;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,7 +33,7 @@ public class DoubleVector extends Vector<Double> {
      * @see Vector#Vector(AbstractArithmetic, int, Type)
      * @since 1.0.0
      */
-    public DoubleVector(int size, Type type) {
+    public DoubleVector(int size, @Nullable Type type) {
         super(DoubleArithmetic.getInstance(), size, type);
     }
 
@@ -41,7 +43,7 @@ public class DoubleVector extends Vector<Double> {
      * @param vector vector to copy
      * @since 1.0.0
      */
-    public DoubleVector(Vector<Double> vector) {
+    public DoubleVector(@NotNull Vector<Double> vector) {
         super(vector);
     }
 
@@ -57,6 +59,7 @@ public class DoubleVector extends Vector<Double> {
      * @throws IllegalArgumentException if size is less than {@code 1}
      * @since 1.0.0
      */
+    @NotNull
     public static DoubleVector ofValues(double... values) {
         Double[] boxed = Arrays.stream(values).boxed().toArray(Double[]::new);
         return new DoubleVector(Vector.ofValues(DoubleArithmetic.getInstance(), boxed));
@@ -70,7 +73,8 @@ public class DoubleVector extends Vector<Double> {
      * @throws IllegalArgumentException if size is less than {@code 1}
      * @since 1.0.0
      */
-    public static DoubleVector ofList(List<Double> values) {
+    @NotNull
+    public static DoubleVector ofList(@NotNull List<Double> values) {
         return new DoubleVector(Vector.ofList(DoubleArithmetic.getInstance(), values));
     }
 

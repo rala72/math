@@ -3,6 +3,8 @@ package io.rala.math.geometry.typed;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 import io.rala.math.geometry.Line;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -24,7 +26,7 @@ public class BigDecimalLine extends Line<BigDecimal> {
      * @see Line#Line(AbstractArithmetic, Number)
      * @since 1.0.0
      */
-    public BigDecimalLine(BigDecimal x) {
+    public BigDecimalLine(@NotNull BigDecimal x) {
         super(BigDecimalArithmetic.getInstance(), x);
     }
 
@@ -34,7 +36,7 @@ public class BigDecimalLine extends Line<BigDecimal> {
      * @see Line#Line(AbstractArithmetic, Number)
      * @since 1.0.0
      */
-    public BigDecimalLine(BigDecimal x, MathContext context) {
+    public BigDecimalLine(@NotNull BigDecimal x, @NotNull MathContext context) {
         super(new BigDecimalArithmetic(context), x);
     }
 
@@ -44,7 +46,7 @@ public class BigDecimalLine extends Line<BigDecimal> {
      * @see Line#Line(AbstractArithmetic, Number, Number)
      * @since 1.0.0
      */
-    public BigDecimalLine(BigDecimal m, BigDecimal b) {
+    public BigDecimalLine(@Nullable BigDecimal m, @NotNull BigDecimal b) {
         super(BigDecimalArithmetic.getInstance(), m, b);
     }
 
@@ -55,7 +57,9 @@ public class BigDecimalLine extends Line<BigDecimal> {
      * @see Line#Line(AbstractArithmetic, Number, Number)
      * @since 1.0.0
      */
-    public BigDecimalLine(BigDecimal m, BigDecimal b, MathContext context) {
+    public BigDecimalLine(
+        @Nullable BigDecimal m, @NotNull BigDecimal b, @NotNull MathContext context
+    ) {
         super(new BigDecimalArithmetic(context), m, b);
     }
 

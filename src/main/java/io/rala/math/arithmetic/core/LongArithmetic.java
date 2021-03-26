@@ -2,6 +2,7 @@ package io.rala.math.arithmetic.core;
 
 import io.rala.math.MathX;
 import io.rala.math.arithmetic.AbstractArithmetic;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * class which handles {@link Long} arithmetic
@@ -17,6 +18,7 @@ public class LongArithmetic extends AbstractArithmetic<Long> {
      * @return default instance
      * @since 1.0.0
      */
+    @NotNull
     public static LongArithmetic getInstance() {
         if (instance == null) instance = new LongArithmetic();
         return instance;
@@ -27,17 +29,19 @@ public class LongArithmetic extends AbstractArithmetic<Long> {
     // region fromInt, fromDouble and signum
 
     @Override
+    @NotNull
     public Long fromInt(int a) {
         return (long) a;
     }
 
     @Override
+    @NotNull
     public Long fromDouble(double a) {
         return (long) a;
     }
 
     @Override
-    public double signum(Long a) {
+    public double signum(@NotNull Long a) {
         return Math.signum(a);
     }
 
@@ -46,27 +50,32 @@ public class LongArithmetic extends AbstractArithmetic<Long> {
     // region sum, difference, product, quotient and modulo
 
     @Override
-    public Long sum(Long a, Long b) {
+    @NotNull
+    public Long sum(@NotNull Long a, @NotNull Long b) {
         return a + b;
     }
 
     @Override
-    public Long difference(Long a, Long b) {
+    @NotNull
+    public Long difference(@NotNull Long a, @NotNull Long b) {
         return a - b;
     }
 
     @Override
-    public Long product(Long a, Long b) {
+    @NotNull
+    public Long product(@NotNull Long a, @NotNull Long b) {
         return a * b;
     }
 
     @Override
-    public Long quotient(Long a, Long b) {
+    @NotNull
+    public Long quotient(@NotNull Long a, @NotNull Long b) {
         return a / b;
     }
 
     @Override
-    public Long modulo(Long a, Long b) {
+    @NotNull
+    public Long modulo(@NotNull Long a, @NotNull Long b) {
         return a % b;
     }
 
@@ -75,12 +84,14 @@ public class LongArithmetic extends AbstractArithmetic<Long> {
     // region power and root
 
     @Override
-    public Long power(Long a, int b) {
+    @NotNull
+    public Long power(@NotNull Long a, int b) {
         return (long) Math.pow(a, b);
     }
 
     @Override
-    public Long root(Long a, int b) {
+    @NotNull
+    public Long root(@NotNull Long a, int b) {
         return (long) MathX.root(a, b);
     }
 
@@ -89,7 +100,8 @@ public class LongArithmetic extends AbstractArithmetic<Long> {
     // region gcd
 
     @Override
-    public Long gcd(Long a, Long b) {
+    @NotNull
+    public Long gcd(@NotNull Long a, @NotNull Long b) {
         return MathX.gcd(a, b);
     }
 

@@ -4,6 +4,7 @@ import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.core.DoubleArithmetic;
 import io.rala.math.geometry.Circle;
 import io.rala.math.geometry.Point;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * class which holds a circle a in 2d area with center &amp; radius
@@ -27,7 +28,7 @@ public class DoubleCircle extends Circle<Double> {
      * @see Circle#Circle(AbstractArithmetic, Point)
      * @since 1.0.0
      */
-    public DoubleCircle(Point<Double> center) {
+    public DoubleCircle(@NotNull Point<Double> center) {
         super(DoubleArithmetic.getInstance(), center);
     }
 
@@ -46,7 +47,7 @@ public class DoubleCircle extends Circle<Double> {
      * @see Circle#Circle(AbstractArithmetic, Point, Point)
      * @since 1.0.0
      */
-    public DoubleCircle(Point<Double> center, Point<Double> point) {
+    public DoubleCircle(@NotNull Point<Double> center, @NotNull Point<Double> point) {
         super(DoubleArithmetic.getInstance(), center, point);
     }
 
@@ -56,7 +57,7 @@ public class DoubleCircle extends Circle<Double> {
      * @see Circle#Circle(AbstractArithmetic, Point, Number)
      * @since 1.0.0
      */
-    public DoubleCircle(Point<Double> center, double radius) {
+    public DoubleCircle(@NotNull Point<Double> center, double radius) {
         super(DoubleArithmetic.getInstance(), center, radius);
     }
 

@@ -3,6 +3,7 @@ package io.rala.math.arithmetic.core;
 import io.rala.math.algebra.numeric.Complex;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.exception.NotSupportedException;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -21,7 +22,7 @@ public class ComplexArithmetic<T extends Number> extends AbstractArithmetic<Comp
      * @param arithmetic arithmetic of complex
      * @since 1.0.0
      */
-    public ComplexArithmetic(AbstractArithmetic<T> arithmetic) {
+    public ComplexArithmetic(@NotNull AbstractArithmetic<T> arithmetic) {
         this.arithmetic = arithmetic;
     }
 
@@ -36,6 +37,7 @@ public class ComplexArithmetic<T extends Number> extends AbstractArithmetic<Comp
     // region fromInt, fromDouble and signum
 
     @Override
+    @NotNull
     public Complex<T> fromInt(int a) {
         return new Complex<>(getArithmetic(),
             getArithmetic().fromInt(a),
@@ -44,6 +46,7 @@ public class ComplexArithmetic<T extends Number> extends AbstractArithmetic<Comp
     }
 
     @Override
+    @NotNull
     public Complex<T> fromDouble(double a) {
         return new Complex<>(getArithmetic(),
             getArithmetic().fromDouble(a),
@@ -52,7 +55,7 @@ public class ComplexArithmetic<T extends Number> extends AbstractArithmetic<Comp
     }
 
     @Override
-    public double signum(Complex<T> a) {
+    public double signum(@NotNull Complex<T> a) {
         return a.complexSignum();
     }
 
@@ -61,7 +64,7 @@ public class ComplexArithmetic<T extends Number> extends AbstractArithmetic<Comp
     // region compare
 
     @Override
-    public int compare(Complex<T> a, Complex<T> b) {
+    public int compare(@NotNull Complex<T> a, @NotNull Complex<T> b) {
         return a.compareTo(b);
     }
 
@@ -70,22 +73,26 @@ public class ComplexArithmetic<T extends Number> extends AbstractArithmetic<Comp
     // region sum, difference, product and quotient
 
     @Override
-    public Complex<T> sum(Complex<T> a, Complex<T> b) {
+    @NotNull
+    public Complex<T> sum(@NotNull Complex<T> a, @NotNull Complex<T> b) {
         return a.add(b);
     }
 
     @Override
-    public Complex<T> difference(Complex<T> a, Complex<T> b) {
+    @NotNull
+    public Complex<T> difference(@NotNull Complex<T> a, @NotNull Complex<T> b) {
         return a.subtract(b);
     }
 
     @Override
-    public Complex<T> product(Complex<T> a, Complex<T> b) {
+    @NotNull
+    public Complex<T> product(@NotNull Complex<T> a, @NotNull Complex<T> b) {
         return a.multiply(b);
     }
 
     @Override
-    public Complex<T> quotient(Complex<T> a, Complex<T> b) {
+    @NotNull
+    public Complex<T> quotient(@NotNull Complex<T> a, @NotNull Complex<T> b) {
         return a.divide(b);
     }
 
@@ -94,12 +101,14 @@ public class ComplexArithmetic<T extends Number> extends AbstractArithmetic<Comp
     // region power and root
 
     @Override
-    public Complex<T> power(Complex<T> a, int b) {
+    @NotNull
+    public Complex<T> power(@NotNull Complex<T> a, int b) {
         return a.pow(b);
     }
 
     @Override
-    public Complex<T> root(Complex<T> a, int b) {
+    @NotNull
+    public Complex<T> root(@NotNull Complex<T> a, int b) {
         return a.root(b).get(0);
     }
 
@@ -108,7 +117,8 @@ public class ComplexArithmetic<T extends Number> extends AbstractArithmetic<Comp
     // region gcd
 
     @Override
-    public Complex<T> gcd(Complex<T> a, Complex<T> b) {
+    @NotNull
+    public Complex<T> gcd(@NotNull Complex<T> a, @NotNull Complex<T> b) {
         throw new NotSupportedException();
     }
 

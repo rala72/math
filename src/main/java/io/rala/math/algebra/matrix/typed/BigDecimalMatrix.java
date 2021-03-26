@@ -3,6 +3,7 @@ package io.rala.math.algebra.matrix.typed;
 import io.rala.math.algebra.matrix.Matrix;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.core.BigDecimalArithmetic;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -31,7 +32,7 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      * @see Matrix#Matrix(AbstractArithmetic, int)
      * @since 1.0.0
      */
-    public BigDecimalMatrix(int size, MathContext context) {
+    public BigDecimalMatrix(int size, @NotNull MathContext context) {
         super(new BigDecimalArithmetic(context), size);
     }
 
@@ -52,7 +53,7 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      * @see Matrix#Matrix(AbstractArithmetic, int, int)
      * @since 1.0.0
      */
-    public BigDecimalMatrix(int rows, int cols, MathContext context) {
+    public BigDecimalMatrix(int rows, int cols, @NotNull MathContext context) {
         super(new BigDecimalArithmetic(context), rows, cols);
     }
 
@@ -62,7 +63,7 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      * @param matrix matrix to copy
      * @since 1.0.0
      */
-    public BigDecimalMatrix(Matrix<BigDecimal> matrix) {
+    public BigDecimalMatrix(@NotNull Matrix<BigDecimal> matrix) {
         super(matrix);
     }
 
@@ -76,6 +77,7 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      * @see Matrix#identity(AbstractArithmetic, int)
      * @since 1.0.0
      */
+    @NotNull
     public static BigDecimalMatrix identity(int size) {
         return new BigDecimalMatrix(
             Matrix.identity(BigDecimalArithmetic.getInstance(), size)
@@ -88,7 +90,8 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      * @see Matrix#diagonal(AbstractArithmetic, Number[])
      * @since 1.0.0
      */
-    public static BigDecimalMatrix diagonal(BigDecimal... values) {
+    @NotNull
+    public static BigDecimalMatrix diagonal(@NotNull BigDecimal... values) {
         return new BigDecimalMatrix(
             Matrix.diagonal(BigDecimalArithmetic.getInstance(), values)
         );
@@ -109,7 +112,8 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      * @see Matrix#ofValuesByRows(AbstractArithmetic, int, Number[])
      * @since 1.0.0
      */
-    public static BigDecimalMatrix ofValuesByRows(int rows, BigDecimal... values) {
+    @NotNull
+    public static BigDecimalMatrix ofValuesByRows(int rows, @NotNull BigDecimal... values) {
         return new BigDecimalMatrix(Matrix.ofValuesByRows(
             BigDecimalArithmetic.getInstance(), rows, values
         ));
@@ -126,7 +130,8 @@ public class BigDecimalMatrix extends Matrix<BigDecimal> {
      * @see Matrix#ofValuesByCols(AbstractArithmetic, int, Number[])
      * @since 1.0.0
      */
-    public static BigDecimalMatrix ofValuesByCols(int cols, BigDecimal... values) {
+    @NotNull
+    public static BigDecimalMatrix ofValuesByCols(int cols, @NotNull BigDecimal... values) {
         return new BigDecimalMatrix(Matrix.ofValuesByCols(
             BigDecimalArithmetic.getInstance(), cols, values
         ));

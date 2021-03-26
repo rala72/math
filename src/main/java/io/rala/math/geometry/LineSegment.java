@@ -5,6 +5,7 @@ import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
 import io.rala.math.utils.Validatable;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.List;
@@ -41,7 +42,7 @@ public class LineSegment<T extends Number> implements Validatable,
      * @see #LineSegment(AbstractArithmetic, Point, Point)
      * @since 1.0.0
      */
-    public LineSegment(AbstractArithmetic<T> arithmetic, Point<T> b) {
+    public LineSegment(@NotNull AbstractArithmetic<T> arithmetic, @NotNull Point<T> b) {
         this(arithmetic, new Point<>(arithmetic), b);
     }
 
@@ -54,7 +55,7 @@ public class LineSegment<T extends Number> implements Validatable,
      * @see #LineSegment(AbstractArithmetic, Point)
      * @since 1.0.0
      */
-    public LineSegment(AbstractArithmetic<T> arithmetic, Point<T> a, Point<T> b) {
+    public LineSegment(@NotNull AbstractArithmetic<T> arithmetic, Point<T> a, @NotNull Point<T> b) {
         this.arithmetic = arithmetic;
         setA(a);
         setB(b);
@@ -68,6 +69,7 @@ public class LineSegment<T extends Number> implements Validatable,
      * @return stored arithmetic
      * @since 1.0.0
      */
+    @NotNull
     public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
     }
@@ -76,6 +78,7 @@ public class LineSegment<T extends Number> implements Validatable,
      * @return a value of line segment
      * @since 1.0.0
      */
+    @NotNull
     public Point<T> getA() {
         return a;
     }
@@ -84,7 +87,7 @@ public class LineSegment<T extends Number> implements Validatable,
      * @param a new a value of line segment
      * @since 1.0.0
      */
-    public void setA(Point<T> a) {
+    public void setA(@NotNull Point<T> a) {
         this.a = a;
     }
 
@@ -92,6 +95,7 @@ public class LineSegment<T extends Number> implements Validatable,
      * @return b value of line segment
      * @since 1.0.0
      */
+    @NotNull
     public Point<T> getB() {
         return b;
     }
@@ -100,7 +104,7 @@ public class LineSegment<T extends Number> implements Validatable,
      * @param b new b value of line segment
      * @since 1.0.0
      */
-    public void setB(Point<T> b) {
+    public void setB(@NotNull Point<T> b) {
         this.b = b;
     }
 
@@ -112,6 +116,7 @@ public class LineSegment<T extends Number> implements Validatable,
      * @return length of line segment based on pythagoras
      * @since 1.0.0
      */
+    @NotNull
     public T length() {
         return getArithmetic().root2(
             getArithmetic().sum(
@@ -135,6 +140,7 @@ public class LineSegment<T extends Number> implements Validatable,
      * @return {@code (A+B)/2}
      * @since 1.0.0
      */
+    @NotNull
     public Point<T> halvingPoint() {
         return new Point<>(getArithmetic(),
             getArithmetic().quotient(
@@ -153,7 +159,8 @@ public class LineSegment<T extends Number> implements Validatable,
      * @return {@code (1-d)*A+d*B}
      * @since 1.0.0
      */
-    public Point<T> distributionPoint(T d) {
+    @NotNull
+    public Point<T> distributionPoint(@NotNull T d) {
         T dT = getArithmetic().difference(getArithmetic().one(), d);
         return new Point<>(getArithmetic(),
             getArithmetic().sum(
@@ -175,6 +182,7 @@ public class LineSegment<T extends Number> implements Validatable,
      * @return a new line segment with flipped points
      * @since 1.0.0
      */
+    @NotNull
     public LineSegment<T> flip() {
         return new LineSegment<>(getArithmetic(), getB(), getA());
     }
@@ -187,6 +195,7 @@ public class LineSegment<T extends Number> implements Validatable,
      * @return new line instance
      * @since 1.0.0
      */
+    @NotNull
     public Line<T> toLine() {
         if (getArithmetic().isEqual(getA().getX(), getB().getX()))
             return new Line<>(getArithmetic(), null, getA().getX());
@@ -218,8 +227,9 @@ public class LineSegment<T extends Number> implements Validatable,
      * @return mapped lineSegment
      * @since 1.0.0
      */
+    @NotNull
     public <NT extends Number> LineSegment<NT> map(
-        AbstractArithmetic<NT> arithmetic, Function<T, NT> map
+        @NotNull AbstractArithmetic<NT> arithmetic, @NotNull Function<T, NT> map
     ) {
         return new LineSegment<>(
             arithmetic,
@@ -234,19 +244,22 @@ public class LineSegment<T extends Number> implements Validatable,
     }
 
     @Override
-    public LineSegment<T> move(T x, T y) {
+    @NotNull
+    public LineSegment<T> move(@NotNull T x, @NotNull T y) {
         return new LineSegment<>(getArithmetic(),
             getA().move(x, y), getB().move(x, y)
         );
     }
 
     @Override
-    public LineSegment<T> rotate(T phi) {
+    @NotNull
+    public LineSegment<T> rotate(@NotNull T phi) {
         return rotate(new Point<>(getArithmetic()), phi);
     }
 
     @Override
-    public LineSegment<T> rotate(Point<T> center, T phi) {
+    @NotNull
+    public LineSegment<T> rotate(@NotNull Point<T> center, @NotNull T phi) {
         return new LineSegment<>(
             getArithmetic(), getA().rotate(center, phi),
             getB().rotate(center, phi)
@@ -254,6 +267,7 @@ public class LineSegment<T extends Number> implements Validatable,
     }
 
     @Override
+    @NotNull
     public LineSegment<T> copy() {
         return new LineSegment<>(getArithmetic(), getA().copy(), getB().copy());
     }
@@ -277,12 +291,13 @@ public class LineSegment<T extends Number> implements Validatable,
     }
 
     @Override
+    @NotNull
     public String toString() {
         return getA() + " " + getB();
     }
 
     @Override
-    public int compareTo(LineSegment<T> o) {
+    public int compareTo(@NotNull LineSegment<T> o) {
         Point<T> min = List.of(getA(), getB()).stream().min(Point::compareTo).get();
         Point<T> minO = List.of(o.getA(), o.getB()).stream().min(Point::compareTo).get();
         int i = min.compareTo(minO);

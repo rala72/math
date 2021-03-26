@@ -1,5 +1,8 @@
 package io.rala.math.algebra.equation;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Unmodifiable;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -35,12 +38,9 @@ public class Solution<E extends AbstractEquationSystem<E>, T extends Number> {
      * @param equationSystem equation system to store
      * @param solution       solution values
      * @param state          state of solution
-     * @throws IllegalArgumentException if any argument is {@code null}
      * @since 1.0.0
      */
-    public Solution(E equationSystem, List<T> solution, State state) {
-        if (equationSystem == null || solution == null || state == null)
-            throw new IllegalArgumentException("arguments must not be null");
+    public Solution(@NotNull E equationSystem, @NotNull List<T> solution, @NotNull State state) {
         this.equationSystem = equationSystem;
         this.solution = solution;
         this.state = state;
@@ -52,6 +52,7 @@ public class Solution<E extends AbstractEquationSystem<E>, T extends Number> {
      * @return equation system of solution
      * @since 1.0.0
      */
+    @NotNull
     public E getEquationSystem() {
         return equationSystem;
     }
@@ -60,6 +61,8 @@ public class Solution<E extends AbstractEquationSystem<E>, T extends Number> {
      * @return solution values
      * @since 1.0.0
      */
+    @NotNull
+    @Unmodifiable
     public List<T> getSolution() {
         return Collections.unmodifiableList(solution);
     }
@@ -68,6 +71,7 @@ public class Solution<E extends AbstractEquationSystem<E>, T extends Number> {
      * @return {@link State} of solution
      * @since 1.0.0
      */
+    @NotNull
     public State getState() {
         return state;
     }
@@ -92,6 +96,7 @@ public class Solution<E extends AbstractEquationSystem<E>, T extends Number> {
     }
 
     @Override
+    @NotNull
     public String toString() {
         return getState() + ": " + getSolution();
     }
@@ -110,8 +115,9 @@ public class Solution<E extends AbstractEquationSystem<E>, T extends Number> {
      * @return new {@link Solution} instance
      * @since 1.0.0
      */
+    @NotNull
     public static <E extends AbstractEquationSystem<E>, T extends Number>
-    Solution<E, T> single(E equationSystem, List<T> solution) {
+    Solution<E, T> single(@NotNull E equationSystem, @NotNull List<T> solution) {
         return new Solution<>(equationSystem, solution, State.SINGLE);
     }
 
@@ -124,8 +130,9 @@ public class Solution<E extends AbstractEquationSystem<E>, T extends Number> {
      * @return new {@link Solution} instance
      * @since 1.0.0
      */
+    @NotNull
     public static <E extends AbstractEquationSystem<E>, T extends Number>
-    Solution<E, T> unsolvable(E equationSystem) {
+    Solution<E, T> unsolvable(@NotNull E equationSystem) {
         return new Solution<>(equationSystem, Collections.emptyList(), State.UNSOLVABLE);
     }
 
@@ -138,8 +145,9 @@ public class Solution<E extends AbstractEquationSystem<E>, T extends Number> {
      * @return new {@link Solution} instance
      * @since 1.0.0
      */
+    @NotNull
     public static <E extends AbstractEquationSystem<E>, T extends Number>
-    Solution<E, T> infinite(E equationSystem) {
+    Solution<E, T> infinite(@NotNull E equationSystem) {
         return new Solution<>(equationSystem, Collections.emptyList(), State.INFINITE);
     }
 

@@ -6,8 +6,7 @@ import org.opentest4j.AssertionFailedError;
 
 import java.math.MathContext;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * assertions for {@link io.rala.math.geometry} package
@@ -118,6 +117,7 @@ public class GeometryAssertions {
      * asserts that point has expected values
      */
     public static <T extends Number> void assertPoint(Point<T> point, T x, T y) {
+        assertNotNull(point);
         assertEquals(x.doubleValue(), point.getX().doubleValue(),
             DELTA, "x is invalid"
         );

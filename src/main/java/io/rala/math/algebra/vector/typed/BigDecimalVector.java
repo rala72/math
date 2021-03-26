@@ -3,6 +3,8 @@ package io.rala.math.algebra.vector.typed;
 import io.rala.math.algebra.vector.Vector;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.core.BigDecimalArithmetic;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -32,7 +34,7 @@ public class BigDecimalVector extends Vector<BigDecimal> {
      * @see Vector#Vector(AbstractArithmetic, int)
      * @since 1.0.0
      */
-    public BigDecimalVector(int size, MathContext context) {
+    public BigDecimalVector(int size, @NotNull MathContext context) {
         super(new BigDecimalArithmetic(context), size);
     }
 
@@ -42,7 +44,7 @@ public class BigDecimalVector extends Vector<BigDecimal> {
      * @see Vector#Vector(AbstractArithmetic, int, Type)
      * @since 1.0.0
      */
-    public BigDecimalVector(int size, Type type) {
+    public BigDecimalVector(int size, @Nullable Type type) {
         super(BigDecimalArithmetic.getInstance(), size, type);
     }
 
@@ -53,7 +55,7 @@ public class BigDecimalVector extends Vector<BigDecimal> {
      * @see Vector#Vector(AbstractArithmetic, int, Type)
      * @since 1.0.0
      */
-    public BigDecimalVector(int size, Type type, MathContext context) {
+    public BigDecimalVector(int size, @Nullable Type type, @NotNull MathContext context) {
         super(new BigDecimalArithmetic(context), size, type);
     }
 
@@ -63,7 +65,7 @@ public class BigDecimalVector extends Vector<BigDecimal> {
      * @param vector vector to copy
      * @since 1.0.0
      */
-    public BigDecimalVector(Vector<BigDecimal> vector) {
+    public BigDecimalVector(@NotNull Vector<BigDecimal> vector) {
         super(vector);
     }
 
@@ -79,7 +81,8 @@ public class BigDecimalVector extends Vector<BigDecimal> {
      * @throws IllegalArgumentException if size is less than {@code 1}
      * @since 1.0.0
      */
-    public static BigDecimalVector ofValues(BigDecimal... values) {
+    @NotNull
+    public static BigDecimalVector ofValues(@NotNull BigDecimal... values) {
         return new BigDecimalVector(Vector.ofValues(BigDecimalArithmetic.getInstance(), values));
     }
 
@@ -91,7 +94,8 @@ public class BigDecimalVector extends Vector<BigDecimal> {
      * @throws IllegalArgumentException if size is less than {@code 1}
      * @since 1.0.0
      */
-    public static BigDecimalVector ofList(List<BigDecimal> values) {
+    @NotNull
+    public static BigDecimalVector ofList(@NotNull List<BigDecimal> values) {
         return new BigDecimalVector(Vector.ofList(BigDecimalArithmetic.getInstance(), values));
     }
 

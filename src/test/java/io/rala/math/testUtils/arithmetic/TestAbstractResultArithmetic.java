@@ -1,6 +1,7 @@
 package io.rala.math.testUtils.arithmetic;
 
 import io.rala.math.arithmetic.AbstractResultArithmetic;
+import org.jetbrains.annotations.NotNull;
 
 public class TestAbstractResultArithmetic extends AbstractResultArithmetic<Number, Number> {
     public TestAbstractResultArithmetic() {
@@ -8,7 +9,8 @@ public class TestAbstractResultArithmetic extends AbstractResultArithmetic<Numbe
     }
 
     @Override
-    public Number fromT(Number a) {
+    @NotNull
+    public Number fromT(@NotNull Number a) {
         return a;
     }
 }

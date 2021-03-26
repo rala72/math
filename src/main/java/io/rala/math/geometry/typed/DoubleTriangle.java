@@ -4,6 +4,7 @@ import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.core.DoubleArithmetic;
 import io.rala.math.geometry.Point;
 import io.rala.math.geometry.Triangle;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * class which holds a triangle in a 2d area with points a, b &amp; c
@@ -21,7 +22,9 @@ public class DoubleTriangle extends Triangle<Double> {
      * @see Triangle#Triangle(AbstractArithmetic, Point, Point, Point)
      * @since 1.0.0
      */
-    public DoubleTriangle(Point<Double> a, Point<Double> b, Point<Double> c) {
+    public DoubleTriangle(
+        @NotNull Point<Double> a, @NotNull Point<Double> b, @NotNull Point<Double> c
+    ) {
         super(DoubleArithmetic.getInstance(), a, b, c);
     }
 

@@ -4,6 +4,7 @@ import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.core.DoubleArithmetic;
 import io.rala.math.geometry.Point;
 import io.rala.math.geometry.Rect;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * class which holds a rect in 2d area with point a, b &amp; size
@@ -31,7 +32,7 @@ public class DoubleRect extends Rect<Double> {
      * @see Rect#Rect(AbstractArithmetic, Point, Point, Number)
      * @since 1.0.0
      */
-    public DoubleRect(Point<Double> a, Point<Double> b, double size) {
+    public DoubleRect(@NotNull Point<Double> a, @NotNull Point<Double> b, double size) {
         super(DoubleArithmetic.getInstance(), a, b, size);
     }
 

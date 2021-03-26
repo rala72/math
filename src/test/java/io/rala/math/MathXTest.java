@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class MathXTest {
     @ParameterizedTest
@@ -68,7 +69,9 @@ class MathXTest {
             }
             Assertions.fail();
         }
-        assertEquals(expected, MathX.root(a, n).stripTrailingZeros());
+        BigDecimal root = MathX.root(a, n);
+        assertNotNull(root);
+        assertEquals(expected, root.stripTrailingZeros());
     }
 
     // region argument streams

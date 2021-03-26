@@ -1,6 +1,7 @@
 package io.rala.math.arithmetic;
 
 import io.rala.math.exception.NotSupportedException;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -26,7 +27,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @since 1.0.0
      */
     public AbstractResultArithmetic(
-        AbstractArithmetic<T> tArithmetic, AbstractArithmetic<R> rArithmetic
+        @NotNull AbstractArithmetic<T> tArithmetic, @NotNull AbstractArithmetic<R> rArithmetic
     ) {
         this.tArithmetic = tArithmetic;
         this.rArithmetic = rArithmetic;
@@ -36,6 +37,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @return stored t {@link AbstractArithmetic}
      * @since 1.0.0
      */
+    @NotNull
     public AbstractArithmetic<T> getTArithmetic() {
         return tArithmetic;
     }
@@ -44,6 +46,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @return stored r {@link AbstractArithmetic}
      * @since 1.0.0
      */
+    @NotNull
     public AbstractArithmetic<R> getRArithmetic() {
         return rArithmetic;
     }
@@ -53,7 +56,8 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @return value as {@code R}
      * @since 1.0.0
      */
-    public abstract R fromT(T a);
+    @NotNull
+    public abstract R fromT(@NotNull T a);
 
     // region sum, difference, product, quotient and modulo
 
@@ -64,7 +68,8 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @see AbstractArithmetic#sum(Number, Number)
      * @since 1.0.0
      */
-    public R sum(T a, T b) {
+    @NotNull
+    public R sum(@NotNull T a, @NotNull T b) {
         return getRArithmetic().sum(fromT(a), fromT(b));
     }
 
@@ -77,7 +82,8 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @see AbstractArithmetic#sum(Number, Number, Number)
      * @since 1.0.0
      */
-    public R sum(T a, T b, T c) {
+    @NotNull
+    public R sum(@NotNull T a, @NotNull T b, @NotNull T c) {
         return getRArithmetic().sum(fromT(a), fromT(b), fromT(c));
     }
 
@@ -88,7 +94,8 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @see AbstractArithmetic#difference(Number, Number)
      * @since 1.0.0
      */
-    public R difference(T a, T b) {
+    @NotNull
+    public R difference(@NotNull T a, @NotNull T b) {
         return getRArithmetic().difference(fromT(a), fromT(b));
     }
 
@@ -99,7 +106,8 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @see AbstractArithmetic#product(Number, Number)
      * @since 1.0.0
      */
-    public R product(T a, T b) {
+    @NotNull
+    public R product(@NotNull T a, @NotNull T b) {
         return getRArithmetic().product(fromT(a), fromT(b));
     }
 
@@ -112,7 +120,8 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @see AbstractArithmetic#product(Number, Number, Number)
      * @since 1.0.0
      */
-    public R product(T a, T b, T c) {
+    @NotNull
+    public R product(@NotNull T a, @NotNull T b, @NotNull T c) {
         return getRArithmetic().product(fromT(a), fromT(b), fromT(c));
     }
 
@@ -123,7 +132,8 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @see AbstractArithmetic#quotient(Number, Number)
      * @since 1.0.0
      */
-    public R quotient(T a, T b) {
+    @NotNull
+    public R quotient(@NotNull T a, @NotNull T b) {
         return getRArithmetic().quotient(fromT(a), fromT(b));
     }
 
@@ -135,7 +145,8 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @see AbstractArithmetic#modulo(Number, Number)
      * @since 1.0.0
      */
-    public R modulo(T a, T b) {
+    @NotNull
+    public R modulo(@NotNull T a, @NotNull T b) {
         return getRArithmetic().modulo(fromT(a), fromT(b));
     }
 
@@ -150,8 +161,9 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @return new {@link AbstractResultArithmetic} wich uses {@code V}
      * @since 1.0.0
      */
+    @NotNull
     public <NT extends Number> AbstractResultArithmetic<NT, R> map(
-        AbstractArithmetic<NT> arithmetic, Function<NT, R> map
+        @NotNull AbstractArithmetic<NT> arithmetic, @NotNull Function<NT, R> map
     ) {
         return AbstractResultArithmetic.of(
             arithmetic, getRArithmetic(), map
@@ -165,8 +177,9 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @return new {@link AbstractResultArithmetic} wich returns {@code V}
      * @since 1.0.0
      */
+    @NotNull
     public <NR extends Number> AbstractResultArithmetic<T, NR> mapResult(
-        AbstractArithmetic<NR> arithmetic, Function<T, NR> map
+        @NotNull AbstractArithmetic<NR> arithmetic, @NotNull Function<T, NR> map
     ) {
         return AbstractResultArithmetic.of(getTArithmetic(), arithmetic, map);
     }
@@ -184,14 +197,16 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @return {@link AbstractResultArithmetic} with given values
      * @since 1.0.0
      */
+    @NotNull
     public static <T extends Number, R extends Number> AbstractResultArithmetic<T, R> of(
-        AbstractArithmetic<T> tArithmetic,
-        AbstractArithmetic<R> rArithmetic,
-        Function<T, R> map
+        @NotNull AbstractArithmetic<T> tArithmetic,
+        @NotNull AbstractArithmetic<R> rArithmetic,
+        @NotNull Function<T, R> map
     ) {
         return new AbstractResultArithmetic<>(tArithmetic, rArithmetic) {
             @Override
-            public R fromT(T a) {
+            @NotNull
+            public R fromT(@NotNull T a) {
                 return map.apply(a);
             }
         };
@@ -216,6 +231,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
     }
 
     @Override
+    @NotNull
     public String toString() {
         return getClass().getSimpleName() + "{" +
             "tArithmetic=" + getTArithmetic() +

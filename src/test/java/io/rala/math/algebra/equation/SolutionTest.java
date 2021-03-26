@@ -16,13 +16,6 @@ class SolutionTest {
         equationSystem = new TestAbstractEquationSystem();
     }
 
-    @Test
-    void constructorWithNull() {
-        assertThrows(IllegalArgumentException.class,
-            () -> new Solution<>(null, null, null)
-        ); // assert exception message?
-    }
-
     // region override
 
     @Test

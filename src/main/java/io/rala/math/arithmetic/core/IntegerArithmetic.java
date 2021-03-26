@@ -2,6 +2,7 @@ package io.rala.math.arithmetic.core;
 
 import io.rala.math.MathX;
 import io.rala.math.arithmetic.AbstractArithmetic;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * class which handles {@link Integer} arithmetic
@@ -17,6 +18,7 @@ public class IntegerArithmetic extends AbstractArithmetic<Integer> {
      * @return default instance
      * @since 1.0.0
      */
+    @NotNull
     public static IntegerArithmetic getInstance() {
         if (instance == null) instance = new IntegerArithmetic();
         return instance;
@@ -27,17 +29,19 @@ public class IntegerArithmetic extends AbstractArithmetic<Integer> {
     // region fromInt, fromDouble and signum
 
     @Override
+    @NotNull
     public Integer fromInt(int a) {
         return a;
     }
 
     @Override
+    @NotNull
     public Integer fromDouble(double a) {
         return (int) a;
     }
 
     @Override
-    public double signum(Integer a) {
+    public double signum(@NotNull Integer a) {
         return Math.signum(a);
     }
 
@@ -46,27 +50,32 @@ public class IntegerArithmetic extends AbstractArithmetic<Integer> {
     // region sum, difference, product, quotient and modulo
 
     @Override
-    public Integer sum(Integer a, Integer b) {
+    @NotNull
+    public Integer sum(@NotNull Integer a, @NotNull Integer b) {
         return a + b;
     }
 
     @Override
-    public Integer difference(Integer a, Integer b) {
+    @NotNull
+    public Integer difference(@NotNull Integer a, @NotNull Integer b) {
         return a - b;
     }
 
     @Override
-    public Integer product(Integer a, Integer b) {
+    @NotNull
+    public Integer product(@NotNull Integer a, @NotNull Integer b) {
         return a * b;
     }
 
     @Override
-    public Integer quotient(Integer a, Integer b) {
+    @NotNull
+    public Integer quotient(@NotNull Integer a, @NotNull Integer b) {
         return a / b;
     }
 
     @Override
-    public Integer modulo(Integer a, Integer b) {
+    @NotNull
+    public Integer modulo(@NotNull Integer a, @NotNull Integer b) {
         return a % b;
     }
 
@@ -75,12 +84,14 @@ public class IntegerArithmetic extends AbstractArithmetic<Integer> {
     // region power and root
 
     @Override
-    public Integer power(Integer a, int b) {
+    @NotNull
+    public Integer power(@NotNull Integer a, int b) {
         return Math.toIntExact((long) Math.pow(a, b));
     }
 
     @Override
-    public Integer root(Integer a, int b) {
+    @NotNull
+    public Integer root(@NotNull Integer a, int b) {
         return (int) MathX.root(a, b);
     }
 
@@ -89,7 +100,8 @@ public class IntegerArithmetic extends AbstractArithmetic<Integer> {
     // region gcd
 
     @Override
-    public Integer gcd(Integer a, Integer b) {
+    @NotNull
+    public Integer gcd(@NotNull Integer a, @NotNull Integer b) {
         return MathX.gcd(a, b);
     }
 

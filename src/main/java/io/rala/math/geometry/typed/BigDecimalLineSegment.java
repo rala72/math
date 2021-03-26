@@ -4,6 +4,7 @@ import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 import io.rala.math.geometry.LineSegment;
 import io.rala.math.geometry.Point;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -23,7 +24,7 @@ public class BigDecimalLineSegment extends LineSegment<BigDecimal> {
      * @see LineSegment#LineSegment(AbstractArithmetic, Point)
      * @since 1.0.0
      */
-    public BigDecimalLineSegment(Point<BigDecimal> b) {
+    public BigDecimalLineSegment(@NotNull Point<BigDecimal> b) {
         super(BigDecimalArithmetic.getInstance(), b);
     }
 
@@ -35,7 +36,7 @@ public class BigDecimalLineSegment extends LineSegment<BigDecimal> {
      * @see LineSegment#LineSegment(AbstractArithmetic, Point)
      * @since 1.0.0
      */
-    public BigDecimalLineSegment(Point<BigDecimal> b, MathContext context) {
+    public BigDecimalLineSegment(@NotNull Point<BigDecimal> b, @NotNull MathContext context) {
         super(new BigDecimalArithmetic(context), b);
     }
 
@@ -45,7 +46,7 @@ public class BigDecimalLineSegment extends LineSegment<BigDecimal> {
      * @see LineSegment#LineSegment(AbstractArithmetic, Point, Point)
      * @since 1.0.0
      */
-    public BigDecimalLineSegment(Point<BigDecimal> a, Point<BigDecimal> b) {
+    public BigDecimalLineSegment(@NotNull Point<BigDecimal> a, @NotNull Point<BigDecimal> b) {
         super(BigDecimalArithmetic.getInstance(), a, b);
     }
 
@@ -57,7 +58,8 @@ public class BigDecimalLineSegment extends LineSegment<BigDecimal> {
      * @since 1.0.0
      */
     public BigDecimalLineSegment(
-        Point<BigDecimal> a, Point<BigDecimal> b, MathContext context
+        @NotNull Point<BigDecimal> a, @NotNull Point<BigDecimal> b,
+        @NotNull MathContext context
     ) {
         super(new BigDecimalArithmetic(context), a, b);
     }

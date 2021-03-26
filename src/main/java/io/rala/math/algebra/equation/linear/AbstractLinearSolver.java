@@ -4,6 +4,8 @@ import io.rala.math.algebra.equation.AbstractSolver;
 import io.rala.math.algebra.equation.Solution;
 import io.rala.math.algebra.vector.Vector;
 import io.rala.math.arithmetic.AbstractArithmetic;
+import org.jetbrains.annotations.MustBeInvokedByOverriders;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -21,7 +23,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
      * @param equationSystem equationSystem to store
      * @since 1.0.0
      */
-    protected AbstractLinearSolver(LinearEquationSystem<T> equationSystem) {
+    protected AbstractLinearSolver(@NotNull LinearEquationSystem<T> equationSystem) {
         super(equationSystem);
     }
 
@@ -29,6 +31,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
      * @return {@link AbstractArithmetic} of {@link #getEquationSystem()}
      * @since 1.0.0
      */
+    @NotNull
     protected final AbstractArithmetic<T> getArithmetic() {
         return getEquationSystem().getMatrix().getArithmetic();
     }
@@ -38,6 +41,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
      * @see #getWorking()
      * @since 1.0.0
      */
+    @NotNull
     protected LinearEquationSystem.LinearEquationMatrix<T> getWorkingMatrix() {
         return getWorking().getMatrix();
     }
@@ -47,6 +51,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
      * @see #getWorking()
      * @since 1.0.0
      */
+    @NotNull
     protected LinearEquationSystem.LinearEquationVector<T> getWorkingVector() {
         return getWorking().getVector();
     }
@@ -55,7 +60,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
      * @param working new working instance
      * @since 1.0.0
      */
-    protected void setWorkingEquationSystem(LinearEquationSystem<T> working) {
+    protected void setWorkingEquationSystem(@NotNull LinearEquationSystem<T> working) {
         setWorkingEquationSystem(working.getMatrix(), working.getVector());
     }
 
@@ -65,8 +70,8 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
      * @since 1.0.0
      */
     protected void setWorkingEquationSystem(
-        LinearEquationSystem.LinearEquationMatrix<T> workingMatrix,
-        LinearEquationSystem.LinearEquationVector<T> workingVector
+        @NotNull LinearEquationSystem.LinearEquationMatrix<T> workingMatrix,
+        @NotNull LinearEquationSystem.LinearEquationVector<T> workingVector
     ) {
         setWorking(new LinearEquationSystem<>(workingMatrix, workingVector));
     }
@@ -78,6 +83,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
      * @return {@link Solution} based on {@link #getWorkingVector()}
      * @since 1.0.0
      */
+    @NotNull
     protected Solution<LinearEquationSystem<T>, T> toSingleSolution() {
         return Solution.single(getEquationSystem(),
             getWorkingVector().stream().map(Vector.Entry::getValue).collect(Collectors.toList())
@@ -91,6 +97,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
      * if {@link #getEquationSystem()} has solution {@link Vector.Type#ROW}
      * @since 1.0.0
      */
+    @MustBeInvokedByOverriders
     protected void reset() {
         if (getEquationSystem().getVector().getType().equals(Vector.Type.ROW))
             setWorking(getEquationSystem().transpose());
@@ -117,7 +124,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
      * @return {@code true} if all elements are {@code 0}
      * @since 1.0.0
      */
-    protected final boolean areAllZero(Collection<T> collection) {
+    protected final boolean areAllZero(@NotNull Collection<T> collection) {
         return collection.stream().allMatch(this::isZero);
     }
 
@@ -126,7 +133,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
      * @return {@code} if {@link AbstractArithmetic#isZero(Number)}
      * @since 1.0.0
      */
-    protected final boolean isZero(T t) {
+    protected final boolean isZero(@NotNull T t) {
         return getArithmetic().isZero(t);
     }
 

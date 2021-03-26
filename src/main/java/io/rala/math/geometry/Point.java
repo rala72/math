@@ -5,6 +5,7 @@ import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
 import io.rala.math.utils.Validatable;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -38,7 +39,7 @@ public class Point<T extends Number> implements Validatable,
      * @see #Point(AbstractArithmetic, Number, Number)
      * @since 1.0.0
      */
-    public Point(AbstractArithmetic<T> arithmetic) {
+    public Point(@NotNull AbstractArithmetic<T> arithmetic) {
         this(arithmetic, arithmetic.zero());
     }
 
@@ -52,7 +53,7 @@ public class Point<T extends Number> implements Validatable,
      * @see #Point(AbstractArithmetic, Number, Number)
      * @since 1.0.0
      */
-    public Point(AbstractArithmetic<T> arithmetic, T xy) {
+    public Point(@NotNull AbstractArithmetic<T> arithmetic, @NotNull T xy) {
         this(arithmetic, xy, xy);
     }
 
@@ -66,7 +67,7 @@ public class Point<T extends Number> implements Validatable,
      * @see #Point(AbstractArithmetic, Number)
      * @since 1.0.0
      */
-    public Point(AbstractArithmetic<T> arithmetic, T x, T y) {
+    public Point(@NotNull AbstractArithmetic<T> arithmetic, @NotNull T x, @NotNull T y) {
         this.arithmetic = arithmetic;
         setX(x);
         setY(y);
@@ -80,6 +81,7 @@ public class Point<T extends Number> implements Validatable,
      * @return stored arithmetic
      * @since 1.0.0
      */
+    @NotNull
     public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
     }
@@ -88,6 +90,7 @@ public class Point<T extends Number> implements Validatable,
      * @return x value of point
      * @since 1.0.0
      */
+    @NotNull
     public T getX() {
         return x;
     }
@@ -96,7 +99,7 @@ public class Point<T extends Number> implements Validatable,
      * @param x new x value of point
      * @since 1.0.0
      */
-    public void setX(T x) {
+    public void setX(@NotNull T x) {
         this.x = x;
     }
 
@@ -104,6 +107,7 @@ public class Point<T extends Number> implements Validatable,
      * @return y value of point
      * @since 1.0.0
      */
+    @NotNull
     public T getY() {
         return y;
     }
@@ -112,7 +116,7 @@ public class Point<T extends Number> implements Validatable,
      * @param y new y value of point
      * @since 1.0.0
      */
-    public void setY(T y) {
+    public void setY(@NotNull T y) {
         this.y = y;
     }
 
@@ -120,7 +124,7 @@ public class Point<T extends Number> implements Validatable,
      * @param xy new x and y value of point
      * @since 1.0.0
      */
-    public void setXY(T xy) {
+    public void setXY(@NotNull T xy) {
         setX(xy);
         setY(xy);
     }
@@ -136,8 +140,9 @@ public class Point<T extends Number> implements Validatable,
      * @return mapped point
      * @since 1.0.0
      */
+    @NotNull
     public <NT extends Number> Point<NT> map(
-        AbstractArithmetic<NT> arithmetic, Function<T, NT> map
+        @NotNull AbstractArithmetic<NT> arithmetic, @NotNull Function<T, NT> map
     ) {
         return new Point<>(
             arithmetic,
@@ -152,7 +157,8 @@ public class Point<T extends Number> implements Validatable,
     }
 
     @Override
-    public Point<T> move(T x, T y) {
+    @NotNull
+    public Point<T> move(@NotNull T x, @NotNull T y) {
         return new Point<>(getArithmetic(),
             getArithmetic().sum(getX(), x),
             getArithmetic().sum(getY(), y)
@@ -160,12 +166,14 @@ public class Point<T extends Number> implements Validatable,
     }
 
     @Override
-    public Point<T> rotate(T phi) {
+    @NotNull
+    public Point<T> rotate(@NotNull T phi) {
         return rotate(new Point<>(getArithmetic()), phi);
     }
 
     @Override
-    public Point<T> rotate(Point<T> center, T phi) {
+    @NotNull
+    public Point<T> rotate(@NotNull Point<T> center, @NotNull T phi) {
         Vector<T> vector = new Vector<>(getArithmetic(), center.getX(), center.getY());
         Point<T> moved = move(vector.inverse());
         T cosPhi = getArithmetic().cos(phi);
@@ -182,6 +190,7 @@ public class Point<T extends Number> implements Validatable,
     }
 
     @Override
+    @NotNull
     public Point<T> copy() {
         return new Point<>(getArithmetic(), getX(), getY());
     }
@@ -205,12 +214,13 @@ public class Point<T extends Number> implements Validatable,
     }
 
     @Override
+    @NotNull
     public String toString() {
         return getX() + "|" + getY();
     }
 
     @Override
-    public int compareTo(Point<T> o) {
+    public int compareTo(@NotNull Point<T> o) {
         int diffX = getArithmetic().compare(getX(), o.getX());
         if (diffX != 0) return diffX;
         return getArithmetic().compare(getY(), o.getY());

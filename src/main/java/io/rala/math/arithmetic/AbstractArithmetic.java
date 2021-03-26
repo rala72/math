@@ -1,6 +1,8 @@
 package io.rala.math.arithmetic;
 
 import io.rala.math.exception.NotSupportedException;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -21,6 +23,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @return number as {@code T}
      * @since 1.0.0
      */
+    @NotNull
     public abstract T fromInt(int a);
 
     /**
@@ -28,6 +31,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @return number as {@code T}
      * @since 1.0.0
      */
+    @NotNull
     public abstract T fromDouble(double a);
 
     /**
@@ -36,7 +40,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @throws NotSupportedException if operation is not supported
      * @since 1.0.0
      */
-    public abstract double signum(T a);
+    public abstract double signum(@NotNull T a);
 
     // endregion
 
@@ -49,6 +53,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @see #fromInt(int)
      * @since 1.0.0
      */
+    @NotNull
     public final T zero() {
         return fromInt(0);
     }
@@ -60,6 +65,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @see #fromInt(int)
      * @since 1.0.0
      */
+    @NotNull
     public final T one() {
         return fromInt(1);
     }
@@ -74,7 +80,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @throws NotSupportedException if operation is not supported
      * @since 1.0.0
      */
-    public T absolute(T a) {
+    @NotNull
+    public T absolute(@NotNull T a) {
         return signum(a) < 0 || Double.valueOf(signum(a)).equals(-0d) ? negate(a) : a;
     }
 
@@ -84,7 +91,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @throws NotSupportedException if operation is not supported
      * @since 1.0.0
      */
-    public T negate(T a) {
+    @NotNull
+    public T negate(@NotNull T a) {
         return product(a, fromInt(-1));
     }
 
@@ -97,7 +105,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @see Comparable#compareTo(Object)
      * @since 1.0.0
      */
-    public int compare(T a, T b) {
+    public int compare(@NotNull T a, @NotNull T b) {
         return Double.compare(a.doubleValue(), b.doubleValue());
     }
 
@@ -108,7 +116,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @implSpec {@link #compare(Number, Number)} {@code <= 0 ? a : b}
      * @since 1.0.0
      */
-    public T min(T a, T b) {
+    @NotNull
+    public T min(@NotNull T a, @NotNull T b) {
         return compare(a, b) <= 0 ? a : b;
     }
 
@@ -119,7 +128,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @implSpec {@link #compare(Number, Number)} {@code < 0 ? b : a}
      * @since 1.0.0
      */
-    public T max(T a, T b) {
+    @NotNull
+    public T max(@NotNull T a, @NotNull T b) {
         return compare(a, b) < 0 ? b : a;
     }
 
@@ -129,7 +139,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @see #absolute(Number)
      * @since 1.0.0
      */
-    public boolean isZero(T a) {
+    public boolean isZero(@NotNull T a) {
         return zero().equals(absolute(a));
     }
 
@@ -139,7 +149,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @return {@code true} if both values are equal
      * @since 1.0.0
      */
-    public boolean isEqual(T a, T b) {
+    public boolean isEqual(@Nullable T a, @Nullable T b) {
         return a == null && b == null ||
             a != null && a.equals(b) ||
             a != null && b != null &&
@@ -156,7 +166,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @return {@code a+b}
      * @since 1.0.0
      */
-    public abstract T sum(T a, T b);
+    @NotNull
+    public abstract T sum(@NotNull T a, @NotNull T b);
 
     /**
      * @param a first value of sum
@@ -167,7 +178,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @see #sum(Number, Number)
      * @since 1.0.0
      */
-    public T sum(T a, T b, T c) {
+    @NotNull
+    public T sum(@NotNull T a, @NotNull T b, @NotNull T c) {
         return sum(sum(a, b), c);
     }
 
@@ -178,7 +190,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * and starts with {@code 0}
      * @since 1.0.0
      */
-    public T sum(Iterable<T> iterable) {
+    @NotNull
+    public T sum(@NotNull Iterable<T> iterable) {
         return StreamSupport.stream(iterable.spliterator(), false)
             .reduce(zero(), this::sum);
     }
@@ -189,7 +202,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @return {@code a-b}
      * @since 1.0.0
      */
-    public abstract T difference(T a, T b);
+    @NotNull
+    public abstract T difference(@NotNull T a, @NotNull T b);
 
     /**
      * @param a first value of product
@@ -197,7 +211,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @return {@code a*b}
      * @since 1.0.0
      */
-    public abstract T product(T a, T b);
+    @NotNull
+    public abstract T product(@NotNull T a, @NotNull T b);
 
     /**
      * @param a first value of product
@@ -208,7 +223,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @see #product(Number, Number)
      * @since 1.0.0
      */
-    public T product(T a, T b, T c) {
+    @NotNull
+    public T product(@NotNull T a, @NotNull T b, @NotNull T c) {
         return product(product(a, b), c);
     }
 
@@ -219,7 +235,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * and starts with {@code 1}
      * @since 1.0.0
      */
-    public T product(Iterable<T> iterable) {
+    @NotNull
+    public T product(@NotNull Iterable<T> iterable) {
         return StreamSupport.stream(iterable.spliterator(), false)
             .reduce(one(), this::product);
     }
@@ -230,7 +247,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @return {@code a/b}
      * @since 1.0.0
      */
-    public abstract T quotient(T a, T b);
+    @NotNull
+    public abstract T quotient(@NotNull T a, @NotNull T b);
 
     /**
      * @param a first value of quotient
@@ -239,7 +257,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @throws NotSupportedException if operation is not supported
      * @since 1.0.0
      */
-    public T modulo(T a, T b) {
+    @NotNull
+    public T modulo(@NotNull T a, @NotNull T b) {
         T quotient = quotient(a, b);
         T product = product(quotient, b);
         return difference(a, product);
@@ -256,7 +275,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @throws NotSupportedException if operation is not supported
      * @since 1.0.0
      */
-    public abstract T power(T a, int b);
+    @NotNull
+    public abstract T power(@NotNull T a, int b);
 
     /**
      * @param a value
@@ -265,7 +285,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @throws NotSupportedException if operation is not supported
      * @since 1.0.0
      */
-    public abstract T root(T a, int b);
+    @NotNull
+    public abstract T root(@NotNull T a, int b);
 
     /**
      * @param a value
@@ -274,7 +295,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @see #root(Number, int)
      * @since 1.0.0
      */
-    public T root2(T a) {
+    @NotNull
+    public T root2(@NotNull T a) {
         return root(a, 2);
     }
 
@@ -288,7 +310,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @implSpec default implementation uses {@link Double#isInfinite(double)}
      * @since 1.0.0
      */
-    public boolean isFinite(T a) {
+    public boolean isFinite(@NotNull T a) {
         return Double.isFinite(a.doubleValue());
     }
 
@@ -298,7 +320,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @implSpec default implementation uses {@link Double#isInfinite(double)}
      * @since 1.0.0
      */
-    public boolean isInfinite(T a) {
+    public boolean isInfinite(@NotNull T a) {
         return Double.isInfinite(a.doubleValue());
     }
 
@@ -308,7 +330,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @implSpec default implementation uses {@link Double#isNaN(double)}
      * @since 1.0.0
      */
-    public boolean isNaN(T a) {
+    public boolean isNaN(@NotNull T a) {
         return Double.isNaN(a.doubleValue());
     }
 
@@ -323,7 +345,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @throws NotSupportedException if operation is not supported
      * @since 1.0.0
      */
-    public abstract T gcd(T a, T b);
+    @NotNull
+    public abstract T gcd(@NotNull T a, @NotNull T b);
 
     /**
      * @param a first value
@@ -333,7 +356,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @implSpec default implementation uses {@code abs(a*b)/gcd(a,b)}
      * @since 1.0.0
      */
-    public T lcm(T a, T b) {
+    @NotNull
+    public T lcm(@NotNull T a, @NotNull T b) {
         return quotient(absolute(product(a, b)), gcd(a, b));
     }
 
@@ -348,7 +372,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @implSpec default implementation uses {@link Math#sin(double)}
      * @since 1.0.0
      */
-    public T sin(T a) {
+    @NotNull
+    public T sin(@NotNull T a) {
         return fromDouble(Math.sin(a.doubleValue()));
     }
 
@@ -359,7 +384,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @implSpec default implementation uses {@link Math#cos(double)}
      * @since 1.0.0
      */
-    public T cos(T a) {
+    @NotNull
+    public T cos(@NotNull T a) {
         return fromDouble(Math.cos(a.doubleValue()));
     }
 
@@ -370,7 +396,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @implSpec default implementation uses {@link Math#tan(double)}
      * @since 1.0.0
      */
-    public T tan(T a) {
+    @NotNull
+    public T tan(@NotNull T a) {
         return fromDouble(Math.tan(a.doubleValue()));
     }
 
@@ -381,7 +408,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @implSpec default implementation uses {@link Math#asin(double)}
      * @since 1.0.0
      */
-    public T asin(T a) {
+    @NotNull
+    public T asin(@NotNull T a) {
         return fromDouble(Math.asin(a.doubleValue()));
     }
 
@@ -392,7 +420,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @implSpec default implementation uses {@link Math#acos(double)}
      * @since 1.0.0
      */
-    public T acos(T a) {
+    @NotNull
+    public T acos(@NotNull T a) {
         return fromDouble(Math.acos(a.doubleValue()));
     }
 
@@ -403,7 +432,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @implSpec default implementation uses {@link Math#atan(double)}
      * @since 1.0.0
      */
-    public T atan(T a) {
+    @NotNull
+    public T atan(@NotNull T a) {
         return fromDouble(Math.atan(a.doubleValue()));
     }
 
@@ -414,7 +444,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @implSpec default implementation uses {@link Math#sinh(double)}
      * @since 1.0.0
      */
-    public T sinh(T a) {
+    @NotNull
+    public T sinh(@NotNull T a) {
         return fromDouble(Math.sinh(a.doubleValue()));
     }
 
@@ -425,7 +456,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @implSpec default implementation uses {@link Math#cosh(double)}
      * @since 1.0.0
      */
-    public T cosh(T a) {
+    @NotNull
+    public T cosh(@NotNull T a) {
         return fromDouble(Math.cosh(a.doubleValue()));
     }
 
@@ -436,7 +468,8 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @implSpec default implementation uses {@link Math#tanh(double)}
      * @since 1.0.0
      */
-    public T tanh(T a) {
+    @NotNull
+    public T tanh(@NotNull T a) {
         return fromDouble(Math.tanh(a.doubleValue()));
     }
 
@@ -449,6 +482,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @see AbstractResultArithmetic#of(AbstractArithmetic, AbstractArithmetic, Function)
      * @since 1.0.0
      */
+    @NotNull
     public AbstractResultArithmetic<T, T> toResultArithmetic() {
         return AbstractResultArithmetic.of(this, this, t -> t);
     }
@@ -463,8 +497,9 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
      * @see AbstractResultArithmetic#mapResult(AbstractArithmetic, Function)
      * @since 1.0.0
      */
+    @NotNull
     public <R extends Number> AbstractResultArithmetic<T, R> toResultArithmetic(
-        AbstractArithmetic<R> arithmetic, Function<T, R> map
+        @NotNull AbstractArithmetic<R> arithmetic, @NotNull Function<T, R> map
     ) {
         return AbstractResultArithmetic.of(this, arithmetic, map);
     }
@@ -486,6 +521,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     }
 
     @Override
+    @NotNull
     public String toString() {
         return getClass().getSimpleName();
     }

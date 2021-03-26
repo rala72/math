@@ -3,6 +3,7 @@ package io.rala.math.arithmetic.core;
 import io.rala.math.MathX;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.exception.NotSupportedException;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -22,6 +23,7 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
      * @return default instance
      * @since 1.0.0
      */
+    @NotNull
     public static BigDecimalArithmetic getInstance() {
         if (instance == null) instance = new BigDecimalArithmetic();
         return instance;
@@ -48,7 +50,7 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
      * @param mathContext mathContext of arithmetic
      * @since 1.0.0
      */
-    public BigDecimalArithmetic(MathContext mathContext) {
+    public BigDecimalArithmetic(@NotNull MathContext mathContext) {
         this.mathContext = mathContext;
     }
 
@@ -56,6 +58,7 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
      * @return stored {@link MathContext}
      * @since 1.0.0
      */
+    @NotNull
     public MathContext getMathContext() {
         return mathContext;
     }
@@ -63,17 +66,19 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
     // region fromInt, fromDouble and signum
 
     @Override
+    @NotNull
     public BigDecimal fromInt(int a) {
         return BigDecimal.valueOf(a);
     }
 
     @Override
+    @NotNull
     public BigDecimal fromDouble(double a) {
         return cleanup(BigDecimal.valueOf(a));
     }
 
     @Override
-    public double signum(BigDecimal a) {
+    public double signum(@NotNull BigDecimal a) {
         return a.signum();
     }
 
@@ -82,17 +87,19 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
     // region absolute, negate and compare
 
     @Override
-    public BigDecimal absolute(BigDecimal a) {
+    @NotNull
+    public BigDecimal absolute(@NotNull BigDecimal a) {
         return a.abs();
     }
 
     @Override
-    public BigDecimal negate(BigDecimal a) {
+    @NotNull
+    public BigDecimal negate(@NotNull BigDecimal a) {
         return a.negate();
     }
 
     @Override
-    public int compare(BigDecimal a, BigDecimal b) {
+    public int compare(@NotNull BigDecimal a, @NotNull BigDecimal b) {
         return a.compareTo(b);
     }
 
@@ -101,27 +108,32 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
     // region sum, difference, product, quotient and modulo
 
     @Override
-    public BigDecimal sum(BigDecimal a, BigDecimal b) {
+    @NotNull
+    public BigDecimal sum(@NotNull BigDecimal a, @NotNull BigDecimal b) {
         return cleanup(a.add(b, getMathContext()));
     }
 
     @Override
-    public BigDecimal difference(BigDecimal a, BigDecimal b) {
+    @NotNull
+    public BigDecimal difference(@NotNull BigDecimal a, @NotNull BigDecimal b) {
         return cleanup(a.subtract(b, getMathContext()));
     }
 
     @Override
-    public BigDecimal product(BigDecimal a, BigDecimal b) {
+    @NotNull
+    public BigDecimal product(@NotNull BigDecimal a, @NotNull BigDecimal b) {
         return cleanup(a.multiply(b, getMathContext()));
     }
 
     @Override
-    public BigDecimal quotient(BigDecimal a, BigDecimal b) {
+    @NotNull
+    public BigDecimal quotient(@NotNull BigDecimal a, @NotNull BigDecimal b) {
         return cleanup(a.divide(b, getMathContext()));
     }
 
     @Override
-    public BigDecimal modulo(BigDecimal a, BigDecimal b) {
+    @NotNull
+    public BigDecimal modulo(@NotNull BigDecimal a, @NotNull BigDecimal b) {
         return a.remainder(b, getMathContext());
     }
 
@@ -130,12 +142,14 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
     // region power and root
 
     @Override
-    public BigDecimal power(BigDecimal a, int b) {
+    @NotNull
+    public BigDecimal power(@NotNull BigDecimal a, int b) {
         return cleanup(a.pow(b, getMathContext()));
     }
 
     @Override
-    public BigDecimal root(BigDecimal a, int b) {
+    @NotNull
+    public BigDecimal root(@NotNull BigDecimal a, int b) {
         return cleanup(MathX.root(a, b, getMathContext()));
     }
 
@@ -144,7 +158,8 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
     // region gcd
 
     @Override
-    public BigDecimal gcd(BigDecimal a, BigDecimal b) {
+    @NotNull
+    public BigDecimal gcd(@NotNull BigDecimal a, @NotNull BigDecimal b) {
         throw new NotSupportedException();
     }
 
@@ -168,7 +183,8 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
 
     // endregion
 
-    private BigDecimal cleanup(BigDecimal a) {
+    @NotNull
+    private BigDecimal cleanup(@NotNull BigDecimal a) {
         return new BigDecimal(
             a.stripTrailingZeros().toPlainString(),
             getMathContext()

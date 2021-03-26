@@ -4,6 +4,8 @@ import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.exception.NotSupportedException;
 import io.rala.math.utils.Copyable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 import java.util.function.Function;
@@ -17,8 +19,6 @@ import java.util.function.Function;
  */
 public class Fraction<T extends Number, V extends Number> extends Number
     implements Copyable<Fraction<T, V>>, Comparable<Fraction<T, V>> {
-    protected static final String EXCEPTION_NUMERATOR_IS_NULL =
-        "numerator has to be non-null";
     protected static final String EXCEPTION_DENOMINATOR_IS_ZERO =
         "denominator has to be non-zero";
 
@@ -40,7 +40,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @param numerator  numerator of fraction
      * @since 1.0.0
      */
-    public Fraction(AbstractResultArithmetic<T, V> arithmetic, T numerator) {
+    public Fraction(@NotNull AbstractResultArithmetic<T, V> arithmetic, @NotNull T numerator) {
         this(arithmetic, numerator, null);
     }
 
@@ -54,7 +54,8 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @since 1.0.0
      */
     public Fraction(
-        AbstractResultArithmetic<T, V> arithmetic, T numerator, T denominator
+        @NotNull AbstractResultArithmetic<T, V> arithmetic,
+        @NotNull T numerator, @Nullable T denominator
     ) {
         this.arithmetic = arithmetic;
         setNumerator(numerator);
@@ -71,7 +72,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @param fraction fraction to copy
      * @since 1.0.0
      */
-    protected Fraction(Fraction<T, V> fraction) {
+    protected Fraction(@NotNull Fraction<T, V> fraction) {
         this(fraction.getArithmetic(),
             fraction.getNumerator(), fraction.getDenominator()
         );
@@ -85,6 +86,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @return stored {@link AbstractResultArithmetic}
      * @since 1.0.0
      */
+    @NotNull
     public AbstractResultArithmetic<T, V> getArithmetic() {
         return arithmetic;
     }
@@ -93,18 +95,16 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @return numerator of fraction
      * @since 1.0.0
      */
+    @NotNull
     public T getNumerator() {
         return numerator;
     }
 
     /**
      * @param numerator new numerator of fraction
-     * @throws IllegalArgumentException if numerator is {@code null}
      * @since 1.0.0
      */
-    public void setNumerator(T numerator) {
-        if (numerator == null)
-            throw new IllegalArgumentException(EXCEPTION_NUMERATOR_IS_NULL);
+    public void setNumerator(@NotNull T numerator) {
         this.numerator = numerator;
     }
 
@@ -112,6 +112,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @return denominator of fraction
      * @since 1.0.0
      */
+    @NotNull
     public T getDenominator() {
         return denominator;
     }
@@ -121,7 +122,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @throws IllegalArgumentException if denominator is {@code 0}
      * @since 1.0.0
      */
-    public void setDenominator(T denominator) {
+    public void setDenominator(@Nullable T denominator) {
         if (denominator == null)
             denominator = getArithmetic().getTArithmetic().one();
         if (getArithmetic().getTArithmetic().isZero(denominator))
@@ -139,6 +140,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @return calculated value
      * @since 1.0.0
      */
+    @NotNull
     public V value() {
         return getArithmetic().quotient(getNumerator(), getDenominator());
     }
@@ -171,6 +173,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @return new fraction with negated {@link #getNumerator()}
      * @since 1.0.0
      */
+    @NotNull
     public Fraction<T, V> negate() {
         return createFromArithmetic(
             getArithmetic().getTArithmetic().negate(getNumerator()),
@@ -182,6 +185,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @return new fraction with flipped {@code numerator} and {@code denominator}
      * @since 1.0.0
      */
+    @NotNull
     public Fraction<T, V> inverse() {
         return createFromArithmetic(getDenominator(), getNumerator());
     }
@@ -192,6 +196,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @return simplified {@link Fraction} or {@link #copy()}
      * @since 1.0.0
      */
+    @NotNull
     public Fraction<T, V> simplify() {
         AbstractArithmetic<T> tArithmetic = getArithmetic().getTArithmetic();
         T gcd;
@@ -218,7 +223,8 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @see #add(Fraction)
      * @since 1.0.0
      */
-    public Fraction<T, V> add(T numerator, T denominator) {
+    @NotNull
+    public Fraction<T, V> add(@NotNull T numerator, @Nullable T denominator) {
         return add(new Fraction<>(getArithmetic(), numerator, denominator));
     }
 
@@ -227,7 +233,8 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @return new fraction with sum of current and given fraction
      * @since 1.0.0
      */
-    public Fraction<T, V> add(Fraction<T, V> fraction) {
+    @NotNull
+    public Fraction<T, V> add(@NotNull Fraction<T, V> fraction) {
         AbstractArithmetic<T> tArithmetic = getArithmetic().getTArithmetic();
         T lcm;
         try {
@@ -254,7 +261,8 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @see #subtract(Fraction)
      * @since 1.0.0
      */
-    public Fraction<T, V> subtract(T numerator, T denominator) {
+    @NotNull
+    public Fraction<T, V> subtract(@NotNull T numerator, @Nullable T denominator) {
         return subtract(new Fraction<>(getArithmetic(), numerator, denominator));
     }
 
@@ -263,7 +271,8 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @return new fraction with difference of current and given fraction
      * @since 1.0.0
      */
-    public Fraction<T, V> subtract(Fraction<T, V> fraction) {
+    @NotNull
+    public Fraction<T, V> subtract(@NotNull Fraction<T, V> fraction) {
         return add(fraction.negate());
     }
 
@@ -279,7 +288,8 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @see #multiply(Fraction)
      * @since 1.0.0
      */
-    public Fraction<T, V> multiply(T numerator) {
+    @NotNull
+    public Fraction<T, V> multiply(@NotNull T numerator) {
         return multiply(new Fraction<>(getArithmetic(), numerator));
     }
 
@@ -292,7 +302,8 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @see #multiply(Fraction)
      * @since 1.0.0
      */
-    public Fraction<T, V> multiply(T numerator, T denominator) {
+    @NotNull
+    public Fraction<T, V> multiply(@NotNull T numerator, @Nullable T denominator) {
         return multiply(new Fraction<>(getArithmetic(), numerator, denominator));
     }
 
@@ -301,7 +312,8 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @return new fraction with product of current and given fraction
      * @since 1.0.0
      */
-    public Fraction<T, V> multiply(Fraction<T, V> fraction) {
+    @NotNull
+    public Fraction<T, V> multiply(@NotNull Fraction<T, V> fraction) {
         AbstractArithmetic<T> tArithmetic = getArithmetic().getTArithmetic();
         T newNumerator = tArithmetic.product(
             getNumerator(), fraction.getNumerator()
@@ -320,7 +332,8 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @see #divide(Fraction)
      * @since 1.0.0
      */
-    public Fraction<T, V> divide(T numerator) {
+    @NotNull
+    public Fraction<T, V> divide(@NotNull T numerator) {
         return divide(new Fraction<>(getArithmetic(), numerator));
     }
 
@@ -333,7 +346,8 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @see #divide(Fraction)
      * @since 1.0.0
      */
-    public Fraction<T, V> divide(T numerator, T denominator) {
+    @NotNull
+    public Fraction<T, V> divide(@NotNull T numerator, @Nullable T denominator) {
         return divide(new Fraction<>(getArithmetic(), numerator, denominator));
     }
 
@@ -342,7 +356,8 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @return new fraction with quotient of current and given fraction
      * @since 1.0.0
      */
-    public Fraction<T, V> divide(Fraction<T, V> fraction) {
+    @NotNull
+    public Fraction<T, V> divide(@NotNull Fraction<T, V> fraction) {
         return multiply(fraction.inverse());
     }
 
@@ -355,6 +370,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @return {@code pow(numerator,n)/pow(denominator,n)}
      * @since 1.0.0
      */
+    @NotNull
     public Fraction<T, V> pow(int n) {
         AbstractArithmetic<T> tArithmetic = getArithmetic().getTArithmetic();
         T newNumerator = tArithmetic.power(getNumerator(), n);
@@ -367,6 +383,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @return {@code root(numerator,n)/root(denominator,n)}
      * @since 1.0.0
      */
+    @NotNull
     public Fraction<T, V> root(int n) {
         AbstractArithmetic<T> tArithmetic = getArithmetic().getTArithmetic();
         T newNumerator = tArithmetic.root(getNumerator(), n);
@@ -387,8 +404,9 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @see AbstractArithmetic#toResultArithmetic()
      * @since 1.0.0
      */
+    @NotNull
     public static <T extends Number> Fraction<T, T> of(
-        AbstractArithmetic<T> arithmetic, T numerator
+        @NotNull AbstractArithmetic<T> arithmetic, @NotNull T numerator
     ) {
         return new Fraction<>(arithmetic.toResultArithmetic(), numerator);
     }
@@ -403,8 +421,10 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @see AbstractArithmetic#toResultArithmetic()
      * @since 1.0.0
      */
+    @NotNull
     public static <T extends Number> Fraction<T, T> of(
-        AbstractArithmetic<T> arithmetic, T numerator, T denominator
+        @NotNull AbstractArithmetic<T> arithmetic,
+        @NotNull T numerator, @Nullable T denominator
     ) {
         return new Fraction<>(arithmetic.toResultArithmetic(), numerator, denominator);
     }
@@ -421,8 +441,9 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @return mapped fraction
      * @since 1.0.0
      */
+    @NotNull
     public <NT extends Number, NV extends Number> Fraction<NT, NV> map(
-        AbstractResultArithmetic<NT, NV> arithmetic, Function<T, NT> map
+        @NotNull AbstractResultArithmetic<NT, NV> arithmetic, @NotNull Function<T, NT> map
     ) {
         return new Fraction<>(
             arithmetic,
@@ -441,8 +462,10 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @see AbstractResultArithmetic#map(AbstractArithmetic, Function)
      * @since 1.0.0
      */
+    @NotNull
     public <NT extends Number> Fraction<NT, V> mapValues(
-        AbstractArithmetic<NT> arithmetic, Function<T, NT> mapTR, Function<NT, V> mapRV
+        @NotNull AbstractArithmetic<NT> arithmetic,
+        @NotNull Function<T, NT> mapTR, @NotNull Function<NT, V> mapRV
     ) {
         return mapValues(getArithmetic().map(arithmetic, mapRV), mapTR);
     }
@@ -455,8 +478,9 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @see #map(AbstractResultArithmetic, Function)
      * @since 1.0.0
      */
+    @NotNull
     public <NT extends Number> Fraction<NT, V> mapValues(
-        AbstractResultArithmetic<NT, V> arithmetic, Function<T, NT> map
+        @NotNull AbstractResultArithmetic<NT, V> arithmetic, @NotNull Function<T, NT> map
     ) {
         return map(arithmetic, map);
     }
@@ -469,8 +493,9 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @see AbstractResultArithmetic#mapResult(AbstractArithmetic, Function)
      * @since 1.0.0
      */
+    @NotNull
     public <NV extends Number> Fraction<T, NV> mapValue(
-        AbstractArithmetic<NV> arithmetic, Function<T, NV> map
+        @NotNull AbstractArithmetic<NV> arithmetic, @NotNull Function<T, NV> map
     ) {
         return new Fraction<>(
             getArithmetic().mapResult(arithmetic, map),
@@ -479,6 +504,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
     }
 
     @Override
+    @NotNull
     public Fraction<T, V> copy() {
         return new Fraction<>(this);
     }
@@ -502,12 +528,13 @@ public class Fraction<T extends Number, V extends Number> extends Number
     }
 
     @Override
+    @NotNull
     public String toString() {
         return getNumerator() + "/" + getDenominator();
     }
 
     @Override
-    public int compareTo(Fraction<T, V> o) {
+    public int compareTo(@NotNull Fraction<T, V> o) {
         return getArithmetic().getRArithmetic().compare(value(), o.value());
     }
 
@@ -523,14 +550,12 @@ public class Fraction<T extends Number, V extends Number> extends Number
      * @throws IllegalArgumentException if constructor throws one
      * @since 1.0.0
      */
-    protected final Fraction<T, V> createFromArithmetic(T numerator, T denominator) {
+    @NotNull
+    protected final Fraction<T, V> createFromArithmetic(@NotNull T numerator, @Nullable T denominator) {
         try {
             return new Fraction<>(getArithmetic(), numerator, denominator);
         } catch (IllegalArgumentException e) {
-            if (e.getMessage().equals(EXCEPTION_DENOMINATOR_IS_ZERO))
-                throw new ArithmeticException(EXCEPTION_DENOMINATOR_IS_ZERO);
-            else
-                throw e;
+            throw new ArithmeticException(e.getMessage());
         }
     }
 

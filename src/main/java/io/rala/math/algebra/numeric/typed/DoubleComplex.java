@@ -3,6 +3,7 @@ package io.rala.math.algebra.numeric.typed;
 import io.rala.math.algebra.numeric.Complex;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.core.DoubleArithmetic;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * class which holds a real and a imaginary part of a complex number
@@ -38,7 +39,7 @@ public class DoubleComplex extends Complex<Double> {
      * @see Complex#Complex(Complex)
      * @since 1.0.0
      */
-    public DoubleComplex(Complex<Double> complex) {
+    public DoubleComplex(@NotNull Complex<Double> complex) {
         super(complex.getArithmetic(), complex.getRe(), complex.getIm());
     }
 
@@ -52,6 +53,7 @@ public class DoubleComplex extends Complex<Double> {
      * @return new complex based on absoluteValue and argument
      * @since 1.0.0
      */
+    @NotNull
     public static DoubleComplex of(double absoluteValue, double argument) {
         return new DoubleComplex(
             Complex.of(DoubleArithmetic.getInstance(), absoluteValue, argument)

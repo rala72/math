@@ -1,6 +1,7 @@
 package io.rala.math.probability;
 
 import io.rala.math.MathX;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -44,7 +45,8 @@ public class EnumerativeCombinatoric {
      * @see MathX#factorial(BigInteger)
      * @since 1.0.0
      */
-    public static BigInteger permutationsWithoutRepetition(BigInteger n) {
+    @NotNull
+    public static BigInteger permutationsWithoutRepetition(@NotNull BigInteger n) {
         return MathX.factorial(n);
     }
 
@@ -89,7 +91,8 @@ public class EnumerativeCombinatoric {
      * @see MathX#factorial(BigInteger)
      * @since 1.0.0
      */
-    public static BigInteger permutationsWithRepetition(BigInteger n, BigInteger... k) {
+    @NotNull
+    public static BigInteger permutationsWithRepetition(@NotNull BigInteger n, @NotNull BigInteger... k) {
         return MathX.factorial(n).divide(
             Arrays.stream(k).map(MathX::factorial)
                 .reduce(BigInteger::multiply).orElse(BigInteger.ONE)
@@ -133,7 +136,10 @@ public class EnumerativeCombinatoric {
      * @see MathX#factorial(BigInteger)
      * @since 1.0.0
      */
-    public static BigInteger variationsWithoutRepetition(BigInteger n, BigInteger k) {
+    @NotNull
+    public static BigInteger variationsWithoutRepetition(
+        @NotNull BigInteger n, @NotNull BigInteger k
+    ) {
         return MathX.factorial(n).divide(MathX.factorial(n.subtract(k)));
     }
 
@@ -172,8 +178,11 @@ public class EnumerativeCombinatoric {
      * @see BigInteger#pow(int)
      * @since 1.0.0
      */
-    public static BigInteger variationsWithRepetition(BigInteger n, BigInteger k) {
-        return n == null || k == null ? null : n.pow(k.intValueExact());
+    @NotNull
+    public static BigInteger variationsWithRepetition(
+        @NotNull BigInteger n, @NotNull BigInteger k
+    ) {
+        return n.pow(k.intValueExact());
     }
 
     // endregion
@@ -213,8 +222,10 @@ public class EnumerativeCombinatoric {
      * @see MathX#factorial(BigInteger)
      * @since 1.0.0
      */
-    public static BigInteger combinationsWithoutRepetition(BigInteger n, BigInteger k) {
-        if (n == null || k == null) return null;
+    @NotNull
+    public static BigInteger combinationsWithoutRepetition(
+        @NotNull BigInteger n, @NotNull BigInteger k
+    ) {
         if (k.equals(BigInteger.ZERO) || n.equals(k)) return BigInteger.ONE;
         return MathX.factorial(n).divide(
             MathX.factorial(n.subtract(k))
@@ -254,9 +265,11 @@ public class EnumerativeCombinatoric {
      * @see #combinationsWithoutRepetition(BigInteger, BigInteger)
      * @since 1.0.0
      */
-    public static BigInteger combinationsWithRepetition(BigInteger n, BigInteger k) {
-        return n == null || k == null ? null :
-            combinationsWithoutRepetition(n.add(k).subtract(BigInteger.ONE), k);
+    @NotNull
+    public static BigInteger combinationsWithRepetition(
+        @NotNull BigInteger n, @NotNull BigInteger k
+    ) {
+        return combinationsWithoutRepetition(n.add(k).subtract(BigInteger.ONE), k);
     }
 
     // endregion

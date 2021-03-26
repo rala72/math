@@ -5,6 +5,7 @@ import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
 import io.rala.math.utils.Validatable;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.List;
@@ -43,7 +44,7 @@ public class Rect<T extends Number> implements Validatable,
      * @param width      width of rect
      * @since 1.0.0
      */
-    public Rect(AbstractArithmetic<T> arithmetic, T height, T width) {
+    public Rect(@NotNull AbstractArithmetic<T> arithmetic, @NotNull T height, @NotNull T width) {
         this(arithmetic,
             new Point<>(arithmetic),
             new Point<>(arithmetic, width, arithmetic.zero()),
@@ -60,7 +61,9 @@ public class Rect<T extends Number> implements Validatable,
      * @param size       height of rect
      * @since 1.0.0
      */
-    public Rect(AbstractArithmetic<T> arithmetic, Point<T> a, Point<T> b, T size) {
+    public Rect(@NotNull AbstractArithmetic<T> arithmetic,
+                @NotNull Point<T> a, @NotNull Point<T> b, @NotNull T size
+    ) {
         this.arithmetic = arithmetic;
         setA(a);
         setB(b);
@@ -75,6 +78,7 @@ public class Rect<T extends Number> implements Validatable,
      * @return stored arithmetic
      * @since 1.0.0
      */
+    @NotNull
     public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
     }
@@ -83,6 +87,7 @@ public class Rect<T extends Number> implements Validatable,
      * @return point of rect
      * @since 1.0.0
      */
+    @NotNull
     public Point<T> getA() {
         return a;
     }
@@ -91,7 +96,7 @@ public class Rect<T extends Number> implements Validatable,
      * @param a new point of rect
      * @since 1.0.0
      */
-    public void setA(Point<T> a) {
+    public void setA(@NotNull Point<T> a) {
         this.a = a;
     }
 
@@ -99,6 +104,7 @@ public class Rect<T extends Number> implements Validatable,
      * @return b of rect
      * @since 1.0.0
      */
+    @NotNull
     public Point<T> getB() {
         return b;
     }
@@ -107,7 +113,7 @@ public class Rect<T extends Number> implements Validatable,
      * @param b new b of rect
      * @since 1.0.0
      */
-    public void setB(Point<T> b) {
+    public void setB(@NotNull Point<T> b) {
         this.b = b;
     }
 
@@ -115,6 +121,7 @@ public class Rect<T extends Number> implements Validatable,
      * @return height of rect
      * @since 1.0.0
      */
+    @NotNull
     public T getSize() {
         return size;
     }
@@ -123,7 +130,7 @@ public class Rect<T extends Number> implements Validatable,
      * @param size new height of rect
      * @since 1.0.0
      */
-    public void setSize(T size) {
+    public void setSize(@NotNull T size) {
         this.size = size;
     }
 
@@ -135,6 +142,7 @@ public class Rect<T extends Number> implements Validatable,
      * @return {@link #getA()}
      * @since 1.0.0
      */
+    @NotNull
     public Point<T> vertexA() {
         return getA();
     }
@@ -143,6 +151,7 @@ public class Rect<T extends Number> implements Validatable,
      * @return {@link #getB()}
      * @since 1.0.0
      */
+    @NotNull
     public Point<T> vertexB() {
         return getB();
     }
@@ -151,6 +160,7 @@ public class Rect<T extends Number> implements Validatable,
      * @return {@link #vertexB()}{@code +size}
      * @since 1.0.0
      */
+    @NotNull
     public Point<T> vertexC() {
         return new Point<>(getArithmetic(), vertexB().getX(),
             getArithmetic().sum(vertexB().getY(), getSize())
@@ -161,6 +171,7 @@ public class Rect<T extends Number> implements Validatable,
      * @return {@link #vertexA()}{@code +size}
      * @since 1.0.0
      */
+    @NotNull
     public Point<T> vertexD() {
         return new Point<>(getArithmetic(), vertexA().getX(),
             getArithmetic().sum(vertexA().getY(), getSize())
@@ -175,6 +186,7 @@ public class Rect<T extends Number> implements Validatable,
      * @return lower length of the rect
      * @since 1.0.0
      */
+    @NotNull
     public T height() {
         return getArithmetic().min(getArithmetic().absolute(getSize()),
             new LineSegment<>(getArithmetic(), getA(), getB()).length());
@@ -184,6 +196,7 @@ public class Rect<T extends Number> implements Validatable,
      * @return larger length of the rect
      * @since 1.0.0
      */
+    @NotNull
     public T width() {
         return getArithmetic().max(getArithmetic().absolute(getSize()),
             new LineSegment<>(getArithmetic(), getA(), getB()).length());
@@ -193,6 +206,7 @@ public class Rect<T extends Number> implements Validatable,
      * @return {@code sqrt(w^2+h^2)}
      * @since 1.0.0
      */
+    @NotNull
     public T diagonale() {
         return getArithmetic().root2(
             getArithmetic().sum(
@@ -210,6 +224,7 @@ public class Rect<T extends Number> implements Validatable,
      * @return {@code h*w}
      * @since 1.0.0
      */
+    @NotNull
     public T area() {
         return getArithmetic().product(height(), width());
     }
@@ -218,6 +233,7 @@ public class Rect<T extends Number> implements Validatable,
      * @return {@code 2*(h+w)}
      * @since 1.0.0
      */
+    @NotNull
     public T circumference() {
         return getArithmetic().product(
             getArithmetic().fromInt(2),
@@ -233,6 +249,7 @@ public class Rect<T extends Number> implements Validatable,
      * @return circum circle of rect
      * @since 1.0.0
      */
+    @NotNull
     public Circle<T> circumCircle() {
         return new Circle<>(getArithmetic(), circumCirclePoint(), circumCircleRadius());
     }
@@ -241,6 +258,7 @@ public class Rect<T extends Number> implements Validatable,
      * @return {@link #diagonale()}{@code /2}
      * @since 1.0.0
      */
+    @NotNull
     protected T circumCircleRadius() {
         return getArithmetic().quotient(diagonale(), getArithmetic().fromInt(2));
     }
@@ -249,10 +267,11 @@ public class Rect<T extends Number> implements Validatable,
      * @return intersection of AC and BD diagonals
      * @since 1.0.0
      */
+    @NotNull
     protected Point<T> circumCirclePoint() {
         LineSegment<T> ac = new LineSegment<>(getArithmetic(), vertexA(), vertexC());
         LineSegment<T> bd = new LineSegment<>(getArithmetic(), vertexB(), vertexD());
-        return ac.toLine().intersection(bd.toLine());
+        return Objects.requireNonNull(ac.toLine().intersection(bd.toLine()));
     }
 
     // endregion
@@ -278,8 +297,9 @@ public class Rect<T extends Number> implements Validatable,
      * @return mapped rect
      * @since 1.0.0
      */
+    @NotNull
     public <NT extends Number> Rect<NT> map(
-        AbstractArithmetic<NT> arithmetic, Function<T, NT> map
+        @NotNull AbstractArithmetic<NT> arithmetic, @NotNull Function<T, NT> map
     ) {
         return new Rect<>(
             arithmetic,
@@ -296,19 +316,22 @@ public class Rect<T extends Number> implements Validatable,
     }
 
     @Override
-    public Rect<T> move(T x, T y) {
+    @NotNull
+    public Rect<T> move(@NotNull T x, @NotNull T y) {
         return new Rect<>(getArithmetic(),
             getA().move(x, y), getB().move(x, y), getSize()
         );
     }
 
     @Override
-    public Rect<T> rotate(T phi) {
+    @NotNull
+    public Rect<T> rotate(@NotNull T phi) {
         return rotate(new Point<>(getArithmetic()), phi);
     }
 
     @Override
-    public Rect<T> rotate(Point<T> center, T phi) {
+    @NotNull
+    public Rect<T> rotate(@NotNull Point<T> center, @NotNull T phi) {
         return new Rect<>(
             getArithmetic(), getA().rotate(center, phi),
             getB().rotate(center, phi),
@@ -317,6 +340,7 @@ public class Rect<T extends Number> implements Validatable,
     }
 
     @Override
+    @NotNull
     public Rect<T> copy() {
         return new Rect<>(getArithmetic(), getA().copy(), getB().copy(), getSize());
     }
@@ -341,12 +365,13 @@ public class Rect<T extends Number> implements Validatable,
     }
 
     @Override
+    @NotNull
     public String toString() {
         return getA() + " " + getB() + " " + getSize();
     }
 
     @Override
-    public int compareTo(Rect<T> o) {
+    public int compareTo(@NotNull Rect<T> o) {
         int compare = getArithmetic().compare(getSize(), o.getSize());
         if (compare != 0) return compare;
         Point<T> min = List.of(getA(), getB()).stream()
