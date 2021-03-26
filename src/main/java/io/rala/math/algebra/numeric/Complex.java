@@ -7,6 +7,7 @@ import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Validatable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
@@ -373,7 +374,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
                     ), getArithmetic().fromInt(n)
                 )
             ));
-        return list;
+        return Collections.unmodifiableList(list);
     }
 
     // endregion
