@@ -17,7 +17,7 @@ public class LongDoubleFraction extends Fraction<Long, Double> {
      * default denominator is {@code 1}
      *
      * @param numerator numerator of fraction
-     * @see Fraction#Fraction(io.rala.math.arithmetic.AbstractResultArithmetic, Number)
+     * @see Fraction#Fraction(AbstractResultArithmetic, Number)
      * @since 1.0.0
      */
     public LongDoubleFraction(long numerator) {

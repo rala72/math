@@ -20,7 +20,7 @@ public class BigIntegerBigDecimalFraction extends Fraction<BigInteger, BigDecima
      * default denominator is {@code 1}
      *
      * @param numerator numerator of fraction
-     * @see Fraction#Fraction(io.rala.math.arithmetic.AbstractResultArithmetic, Number)
+     * @see Fraction#Fraction(AbstractResultArithmetic, Number)
      * @since 1.0.0
      */
     public BigIntegerBigDecimalFraction(BigInteger numerator) {
