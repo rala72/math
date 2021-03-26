@@ -1,5 +1,6 @@
 package io.rala.math.utils;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -15,5 +16,6 @@ public interface Copyable<T> {
      * @since 1.0.0
      */
     @NotNull
+    @Contract(value = "-> new", pure = true)
     T copy();
 }
