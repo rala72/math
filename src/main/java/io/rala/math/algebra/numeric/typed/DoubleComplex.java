@@ -27,7 +27,7 @@ public class DoubleComplex extends Complex<Double> {
      * @see Complex#Complex(AbstractArithmetic, Number, Number)
      * @since 1.0.0
      */
-    public DoubleComplex(Double re, Double im) {
+    public DoubleComplex(double re, double im) {
         super(DoubleArithmetic.getInstance(), re, im);
     }
 
