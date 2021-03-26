@@ -397,7 +397,7 @@ public abstract class AbstractArithmetic<T extends Number> implements Serializab
     }
 
     /**
-     * @param a value to calc acos from
+     * @param a value to calc atan from
      * @return {@code atan(a)}
      * @throws NotSupportedException if operation is not supported
      * @implSpec default implementation uses {@link Math#atan(double)}
