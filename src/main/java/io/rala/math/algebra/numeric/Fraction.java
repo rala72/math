@@ -511,7 +511,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
         return getArithmetic().getRArithmetic().compare(value(), o.value());
     }
 
-// endregion
+    // endregion
 
     // region protected
 
