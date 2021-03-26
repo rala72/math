@@ -470,7 +470,7 @@ public class Matrix<T extends Number>
         return isSquare() && stream()
             .allMatch(field -> field.getRow() == field.getCol() ||
                 field.getValue() == null ||
-                field.getValue().doubleValue() == 0d
+                getArithmetic().isZero(field.getValue())
             );
     }
 
