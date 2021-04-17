@@ -643,7 +643,7 @@ public class Vector<T extends Number>
 
     @Override
     public String toString() {
-        return getSize() + ": " + getVector().entrySet().toString();
+        return getSize() + ": " + getVector().entrySet();
     }
 
     // endregion
