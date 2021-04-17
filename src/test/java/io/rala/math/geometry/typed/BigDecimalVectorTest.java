@@ -373,7 +373,7 @@ class BigDecimalVectorTest {
     @Test
     void angleBetweenX0Y1AndXY1() {
         assertEquals(
-            BigDecimal.valueOf(0.7853981631), // PI/4
+            BigDecimal.valueOf(0.7853981633974484), // PI/4
             new BigDecimalVector(BigDecimal.ZERO, BigDecimal.ONE)
                 .angle(new BigDecimalVector(BigDecimal.ONE, BigDecimal.ONE))
         );

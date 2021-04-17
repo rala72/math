@@ -4,12 +4,13 @@ import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.LineSegment;
 import io.rala.math.geometry.Point;
 import io.rala.math.geometry.Triangle;
+import io.rala.math.testUtils.assertion.GeometryAssertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-import static io.rala.math.testUtils.assertion.GeometryAssertions.*;
+import static io.rala.math.testUtils.assertion.GeometryAssertions.CONTEXT;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,7 +19,7 @@ class BigDecimalTriangleTest {
 
     @Test
     void constructorWithA2B3C4() {
-        assertTriangle(
+        GeometryAssertions.assertTriangle(
             new BigDecimalTriangle(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.valueOf(3d)),
@@ -32,7 +33,7 @@ class BigDecimalTriangleTest {
 
     @Test
     void constructorWithA2B3C4AndMathContext5() {
-        assertTriangle(
+        GeometryAssertions.assertTriangle(
             new BigDecimalTriangle(
                 new BigDecimalPoint(BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.valueOf(3d)),
@@ -50,11 +51,11 @@ class BigDecimalTriangleTest {
         Triangle<BigDecimal> triangle = new BigDecimalTriangle(
             new BigDecimalPoint(), new BigDecimalPoint(), new BigDecimalPoint()
         );
-        assertTriangle(triangle,
+        GeometryAssertions.assertTriangle(triangle,
             new BigDecimalPoint(), new BigDecimalPoint(), new BigDecimalPoint()
         );
         triangle.setA(new BigDecimalPoint(BigDecimal.ONE));
-        assertTriangle(triangle,
+        GeometryAssertions.assertTriangle(triangle,
             new BigDecimalPoint(BigDecimal.ONE),
             new BigDecimalPoint(),
             new BigDecimalPoint()
@@ -66,11 +67,11 @@ class BigDecimalTriangleTest {
         Triangle<BigDecimal> triangle = new BigDecimalTriangle(
             new BigDecimalPoint(), new BigDecimalPoint(), new BigDecimalPoint()
         );
-        assertTriangle(triangle,
+        GeometryAssertions.assertTriangle(triangle,
             new BigDecimalPoint(), new BigDecimalPoint(), new BigDecimalPoint()
         );
         triangle.setB(new BigDecimalPoint(BigDecimal.valueOf(2d)));
-        assertTriangle(triangle,
+        GeometryAssertions.assertTriangle(triangle,
             new BigDecimalPoint(),
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             new BigDecimalPoint()
@@ -82,11 +83,11 @@ class BigDecimalTriangleTest {
         Triangle<BigDecimal> triangle = new BigDecimalTriangle(
             new BigDecimalPoint(), new BigDecimalPoint(), new BigDecimalPoint()
         );
-        assertTriangle(triangle,
+        GeometryAssertions.assertTriangle(triangle,
             new BigDecimalPoint(), new BigDecimalPoint(), new BigDecimalPoint()
         );
         triangle.setC(new BigDecimalPoint(BigDecimal.valueOf(3d)));
-        assertTriangle(triangle,
+        GeometryAssertions.assertTriangle(triangle,
             new BigDecimalPoint(),
             new BigDecimalPoint(),
             new BigDecimalPoint(BigDecimal.valueOf(3d))
@@ -104,16 +105,16 @@ class BigDecimalTriangleTest {
             new BigDecimalPoint(BigDecimal.ONE),
             new BigDecimalPoint(BigDecimal.valueOf(2d))
         );
-        assertLineSegment(
+        GeometryAssertions.assertLineSegment(
             triangle.edgeA(),
             new BigDecimalPoint(BigDecimal.ONE),
             new BigDecimalPoint(BigDecimal.valueOf(2d))
         );
-        assertLineSegment(
+        GeometryAssertions.assertLineSegment(
             triangle.edgeB(),
             new BigDecimalPoint(), new BigDecimalPoint(BigDecimal.valueOf(2d))
         );
-        assertLineSegment(
+        GeometryAssertions.assertLineSegment(
             triangle.edgeC(),
             new BigDecimalPoint(), new BigDecimalPoint(BigDecimal.ONE)
         );
@@ -134,8 +135,8 @@ class BigDecimalTriangleTest {
 
         LineSegment<BigDecimal> altitudeB = triangle.altitudeB();
         assertEquals(
-            BigDecimal.valueOf(Math.sqrt(2d) / 2d)
-                .round(CONTEXT),
+            BigDecimal.valueOf(2d).sqrt(CONTEXT)
+                .divide(BigDecimal.valueOf(2d), CONTEXT),
             altitudeB.length()
         );
         assertEquals(triangle.getB(), altitudeB.getA());
@@ -162,8 +163,7 @@ class BigDecimalTriangleTest {
 
         LineSegment<BigDecimal> altitudeB = triangle.altitudeB();
         assertEquals(
-            BigDecimal.valueOf(Math.sqrt(2d) / 2d)
-                .round(CONTEXT),
+            BigDecimal.valueOf(0.7071067811865475),
             altitudeB.length()
         );
         assertEquals(triangle.getB(), altitudeB.getA());
@@ -187,7 +187,7 @@ class BigDecimalTriangleTest {
             new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ONE)
         );
         assertEquals(
-            BigDecimal.valueOf(0.7853981637), // PI/4
+            BigDecimal.valueOf(0.7853981633974484), // PI/4
             triangle.angleAlpha()
         );
     }
@@ -200,7 +200,7 @@ class BigDecimalTriangleTest {
             new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ONE)
         );
         assertEquals(
-            BigDecimal.valueOf(1.570796326), // PI/2
+            BigDecimal.valueOf(1.570796326794897), // PI/2
             triangle.angleBeta()
         );
     }
@@ -213,7 +213,7 @@ class BigDecimalTriangleTest {
             new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ONE)
         );
         assertEquals(
-            BigDecimal.valueOf(0.7853981637), // PI/4
+            BigDecimal.valueOf(0.7853981633974484), // PI/4
             triangle.angleGamma()
         );
     }
@@ -226,7 +226,7 @@ class BigDecimalTriangleTest {
             new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ONE)
         );
         assertEquals(
-            BigDecimal.valueOf(3.1415926534),
+            new BigDecimal("3.1415926535897938"),
             triangle.angleAlpha()
                 .add(triangle.angleBeta())
                 .add(triangle.angleGamma())
@@ -245,7 +245,7 @@ class BigDecimalTriangleTest {
             new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ONE)
         );
         assertEquals(
-            BigDecimal.valueOf(0.5),
+            BigDecimal.valueOf(0.5000000000000009),
             triangle.area()
         );
     }
@@ -275,7 +275,7 @@ class BigDecimalTriangleTest {
             new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE),
             new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ONE)
         );
-        assertPoint(triangle.centroid(),
+        GeometryAssertions.assertPoint(triangle.centroid(),
             BigDecimal.valueOf(1 / 3d), BigDecimal.valueOf(2d / 3d)
         );
     }
@@ -301,7 +301,7 @@ class BigDecimalTriangleTest {
             new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE),
             new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ONE)
         );
-        assertCircle(
+        GeometryAssertions.assertCircle(
             triangle.circumCircle(),
             new BigDecimalPoint(BigDecimal.valueOf(0.5), BigDecimal.valueOf(-0.5)),
             BigDecimal.valueOf(Math.sqrt(2d) / 2d)
@@ -315,7 +315,7 @@ class BigDecimalTriangleTest {
             new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE),
             new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ONE)
         );
-        assertCircle(
+        GeometryAssertions.assertCircle(
             triangle.inCircle(),
             new BigDecimalPoint(
                 BigDecimal.valueOf(1 - Math.sqrt(2d) / 2d),
@@ -382,7 +382,7 @@ class BigDecimalTriangleTest {
 
     @Test
     void moveOfTriangleWithXYWithXY() {
-        assertTriangle(
+        GeometryAssertions.assertTriangle(
             new BigDecimalTriangle(
                 new BigDecimalPoint(BigDecimal.ZERO),
                 new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ZERO),
@@ -396,7 +396,7 @@ class BigDecimalTriangleTest {
 
     @Test
     void moveOfTriangleWithXYWithXAndY() {
-        assertTriangle(
+        GeometryAssertions.assertTriangle(
             new BigDecimalTriangle(
                 new BigDecimalPoint(BigDecimal.ZERO),
                 new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ZERO),
@@ -410,7 +410,7 @@ class BigDecimalTriangleTest {
 
     @Test
     void moveOfTriangleWithXYWithVector() {
-        assertTriangle(
+        GeometryAssertions.assertTriangle(
             new BigDecimalTriangle(
                 new BigDecimalPoint(BigDecimal.ZERO),
                 new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ZERO),
@@ -424,7 +424,7 @@ class BigDecimalTriangleTest {
 
     @Test
     void rotateOfTriangleWithA00B01C11WithoutCenterWithPiHalf() {
-        assertTriangle(
+        GeometryAssertions.assertTriangle(
             new BigDecimalTriangle(
                 new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ZERO),
                 new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE),
@@ -441,7 +441,7 @@ class BigDecimalTriangleTest {
 
     @Test
     void rotateOfTriangleWithA00B01C11WithCenterXY1WithPiHalf() {
-        assertTriangle(
+        GeometryAssertions.assertTriangle(
             new BigDecimalTriangle(
                 new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ZERO),
                 new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE),

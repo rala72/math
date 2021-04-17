@@ -134,7 +134,7 @@ class BigDecimalLineSegmentTest {
     @Test
     void lengthOfLineSegmentWithTwoDifferenceEach() {
         assertEquals(
-            BigDecimal.valueOf(2d * Math.sqrt(2d)).round(CONTEXT),
+            BigDecimal.valueOf(2d * Math.sqrt(2d)).round(CONTEXT).stripTrailingZeros(),
             new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.valueOf(3d), BigDecimal.valueOf(4d)),
                 new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d))

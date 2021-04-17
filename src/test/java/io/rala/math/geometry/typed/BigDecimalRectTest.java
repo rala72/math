@@ -177,7 +177,7 @@ class BigDecimalRectTest {
     @Test
     void widthOfRectWithPointsAndPositiveSize() {
         assertEquals(
-            BigDecimal.valueOf(Math.sqrt(2d)).round(CONTEXT),
+            BigDecimal.valueOf(2d).sqrt(CONTEXT),
             new BigDecimalRect(
                 new BigDecimalPoint(),
                 new BigDecimalPoint(BigDecimal.ONE),
@@ -189,7 +189,7 @@ class BigDecimalRectTest {
     @Test
     void widthOfRectWithPointsAndNegativeSize() {
         assertEquals(
-            BigDecimal.valueOf(Math.sqrt(2d)).round(CONTEXT),
+            BigDecimal.valueOf(2d).sqrt(CONTEXT),
             new BigDecimalRect(
                 new BigDecimalPoint(),
                 new BigDecimalPoint(BigDecimal.ONE),
@@ -211,7 +211,7 @@ class BigDecimalRectTest {
     @Test
     void diagonaleOfRectWithHeightAndWidth1() {
         assertEquals(
-            BigDecimal.valueOf(Math.sqrt(2d)).round(CONTEXT),
+            BigDecimal.valueOf(2d).sqrt(CONTEXT),
             new BigDecimalRect(
                 BigDecimal.ONE,
                 BigDecimal.ONE
@@ -222,7 +222,7 @@ class BigDecimalRectTest {
     @Test
     void diagonaleOfRectWithHeight1AndWidth2() {
         assertEquals(
-            BigDecimal.valueOf(Math.sqrt(5d)).round(CONTEXT),
+            BigDecimal.valueOf(5d).sqrt(CONTEXT),
             new BigDecimalRect(
                 BigDecimal.ONE,
                 BigDecimal.valueOf(2d)
@@ -233,7 +233,7 @@ class BigDecimalRectTest {
     @Test
     void diagonaleOfRectWithHeight2AndWidth3() {
         assertEquals(
-            BigDecimal.valueOf(Math.sqrt(13d)).round(CONTEXT),
+            BigDecimal.valueOf(13d).sqrt(CONTEXT),
             new BigDecimalRect(
                 BigDecimal.valueOf(2d),
                 BigDecimal.valueOf(3d)

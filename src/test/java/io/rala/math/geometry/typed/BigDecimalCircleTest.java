@@ -170,7 +170,7 @@ class BigDecimalCircleTest {
     @Test
     void areaOfCircleWithRadius2() {
         assertEquals(
-            BigDecimal.valueOf(12.56637062),
+            BigDecimal.valueOf(12.56637061435917),
             new BigDecimalCircle(BigDecimal.valueOf(2d)).area()
         );
     }
@@ -178,7 +178,7 @@ class BigDecimalCircleTest {
     @Test
     void areaOfCircleWithRadius3() {
         assertEquals(
-            BigDecimal.valueOf(28.27433389),
+            BigDecimal.valueOf(28.27433388230814),
             new BigDecimalCircle(BigDecimal.valueOf(3d)).area()
         );
     }
@@ -186,7 +186,7 @@ class BigDecimalCircleTest {
     @Test
     void circumferenceOfCircleWithoutParameter() {
         assertEquals(
-            BigDecimal.valueOf(6.283185308),
+            BigDecimal.valueOf(6.283185307179586),
             new BigDecimalCircle().circumference()
         );
     }
@@ -194,7 +194,7 @@ class BigDecimalCircleTest {
     @Test
     void circumferenceOfCircleWithRadius2() {
         assertEquals(
-            BigDecimal.valueOf(12.56637062),
+            BigDecimal.valueOf(12.56637061435917),
             new BigDecimalCircle(BigDecimal.valueOf(2d)).circumference()
         );
     }
@@ -202,7 +202,7 @@ class BigDecimalCircleTest {
     @Test
     void circumferenceOfCircleWithRadius3() {
         assertEquals(
-            BigDecimal.valueOf(18.84955592),
+            BigDecimal.valueOf(18.84955592153876),
             new BigDecimalCircle(BigDecimal.valueOf(3d)).circumference()
         );
     }

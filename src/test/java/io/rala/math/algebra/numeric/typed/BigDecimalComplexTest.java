@@ -15,7 +15,6 @@ import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSeri
 import static org.junit.jupiter.api.Assertions.*;
 
 class BigDecimalComplexTest {
-    private static final MathContext CONTEXT = new MathContext(10);
     private static final double DELTA = 0.00001;
 
     // region constructors, getter and setter
@@ -110,7 +109,8 @@ class BigDecimalComplexTest {
 
     @Test
     void absoluteValueOfComplexX1Y1() {
-        assertEquals(BigDecimal.valueOf(2).sqrt(CONTEXT),
+        assertEquals(
+            BigDecimal.valueOf(1.414213562373095),
             new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).absoluteValue()
         );
     }
@@ -132,7 +132,7 @@ class BigDecimalComplexTest {
     @Test
     void argumentOfComplexX1Y1() {
         assertEquals(
-            BigDecimal.valueOf(0.7853981631), // PI/4
+            BigDecimal.valueOf(0.7853981633974484d), // PI/4
             new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).argument()
         );
     }
@@ -153,7 +153,7 @@ class BigDecimalComplexTest {
 
     @Test
     void signumOfComplexX1Y1() {
-        BigDecimal sqrt2half = BigDecimal.valueOf(0.7071067814);
+        BigDecimal sqrt2half = BigDecimal.valueOf(0.7071067811865475);
         // Math.sqrt(2d) / 2d
         assertEquals(new BigDecimalComplex(sqrt2half, sqrt2half),
             new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).signum()
@@ -402,8 +402,8 @@ class BigDecimalComplexTest {
     void pow8OfComplexWithRe1Im1() {
         assertEquals(
             new BigDecimalComplex(
-                BigDecimal.valueOf(15.99999997),
-                BigDecimal.valueOf(-3.487338448E-8)
+                BigDecimal.valueOf(16),
+                new BigDecimal("1.029198495793047E-14")
             ),
             new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).pow(8)
         );
@@ -413,7 +413,7 @@ class BigDecimalComplexTest {
     void pow5OfComplexWithRe3Im4() {
         assertEquals(
             new BigDecimalComplex(
-                BigDecimal.valueOf(237).negate(),
+                new BigDecimal("-236.9999999999962"),
                 BigDecimal.valueOf(3116).negate()
             ),
             new BigDecimalComplex(BigDecimal.valueOf(3), BigDecimal.valueOf(4)).pow(5)
@@ -426,12 +426,12 @@ class BigDecimalComplexTest {
             List.of(
                 new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ZERO),
                 new BigDecimalComplex(
-                    BigDecimal.valueOf(0.5000000005).negate(),
-                    BigDecimal.valueOf(0.8660254035)
+                    new BigDecimal("-0.4999999999999994"),
+                    new BigDecimal("0.8660254037844389")
                 ),
                 new BigDecimalComplex(
-                    BigDecimal.valueOf(0.4999999981).negate(),
-                    BigDecimal.valueOf(0.8660254049).negate()
+                    new BigDecimal("-0.5000000000000012"),
+                    new BigDecimal("-0.8660254037844379")
                 )
             ),
             new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ZERO).root(3)
@@ -444,15 +444,15 @@ class BigDecimalComplexTest {
             List.of(
                 new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ZERO),
                 new BigDecimalComplex(
-                    BigDecimal.valueOf(2.051034285E-10).negate(),
+                    new BigDecimal("7.273661547324616E-16"),
                     BigDecimal.ONE
                 ),
                 new BigDecimalComplex(
                     BigDecimal.ONE.negate(),
-                    BigDecimal.valueOf(1.41020694E-9).negate()
+                    new BigDecimal("1.454732309464923E-15")
                 ),
                 new BigDecimalComplex(
-                    BigDecimal.valueOf(3.846897972E-10).negate(),
+                    new BigDecimal("-1.83697019872103E-16"),
                     BigDecimal.ONE.negate()
                 )
             ),
@@ -465,12 +465,12 @@ class BigDecimalComplexTest {
         assertEquals(
             List.of(
                 new BigDecimalComplex(
-                    BigDecimal.valueOf(0.7071067813),
-                    BigDecimal.valueOf(1.224744871)
+                    BigDecimal.valueOf(0.7071067811865471),
+                    BigDecimal.valueOf(1.224744871391589)
                 ),
                 new BigDecimalComplex(
-                    BigDecimal.valueOf(0.7071067807).negate(),
-                    BigDecimal.valueOf(1.224744871).negate()
+                    BigDecimal.valueOf(0.7071067811865469).negate(),
+                    BigDecimal.valueOf(1.224744871391589).negate()
                 )
             ),
             new BigDecimalComplex(
@@ -522,8 +522,8 @@ class BigDecimalComplexTest {
     void ofAb3AndAr50() {
         assertComplex(
             BigDecimalComplex.of(BigDecimal.valueOf(3), BigDecimal.valueOf(50)),
-            BigDecimal.valueOf(2.894898086),
-            BigDecimal.valueOf(0.7871245611).negate()
+            BigDecimal.valueOf(2.89489808547634),
+            BigDecimal.valueOf(0.7871245611117864).negate()
         );
     }
 
