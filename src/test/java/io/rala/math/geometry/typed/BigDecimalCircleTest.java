@@ -3,12 +3,12 @@ package io.rala.math.geometry.typed;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Circle;
 import io.rala.math.geometry.Point;
-import io.rala.math.testUtils.assertion.GeometryAssertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 
+import static io.rala.math.testUtils.assertion.GeometryAssertions.CONTEXT;
 import static io.rala.math.testUtils.assertion.GeometryAssertions.assertCircle;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
 import static org.junit.jupiter.api.Assertions.*;
@@ -162,7 +162,7 @@ class BigDecimalCircleTest {
     @Test
     void areaOfCircleWithoutParameter() {
         assertEquals(
-            BigDecimal.valueOf(Math.PI).round(GeometryAssertions.CONTEXT),
+            BigDecimal.valueOf(Math.PI).round(CONTEXT),
             new BigDecimalCircle().area()
         );
     }

@@ -3,7 +3,6 @@ package io.rala.math.geometry.typed;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Point;
 import io.rala.math.geometry.Rect;
-import io.rala.math.testUtils.assertion.GeometryAssertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -178,7 +177,7 @@ class BigDecimalRectTest {
     @Test
     void widthOfRectWithPointsAndPositiveSize() {
         assertEquals(
-            BigDecimal.valueOf(Math.sqrt(2d)).round(GeometryAssertions.CONTEXT),
+            BigDecimal.valueOf(Math.sqrt(2d)).round(CONTEXT),
             new BigDecimalRect(
                 new BigDecimalPoint(),
                 new BigDecimalPoint(BigDecimal.ONE),
@@ -190,7 +189,7 @@ class BigDecimalRectTest {
     @Test
     void widthOfRectWithPointsAndNegativeSize() {
         assertEquals(
-            BigDecimal.valueOf(Math.sqrt(2d)).round(GeometryAssertions.CONTEXT),
+            BigDecimal.valueOf(Math.sqrt(2d)).round(CONTEXT),
             new BigDecimalRect(
                 new BigDecimalPoint(),
                 new BigDecimalPoint(BigDecimal.ONE),
@@ -212,7 +211,7 @@ class BigDecimalRectTest {
     @Test
     void diagonaleOfRectWithHeightAndWidth1() {
         assertEquals(
-            BigDecimal.valueOf(Math.sqrt(2d)).round(GeometryAssertions.CONTEXT),
+            BigDecimal.valueOf(Math.sqrt(2d)).round(CONTEXT),
             new BigDecimalRect(
                 BigDecimal.ONE,
                 BigDecimal.ONE
@@ -223,7 +222,7 @@ class BigDecimalRectTest {
     @Test
     void diagonaleOfRectWithHeight1AndWidth2() {
         assertEquals(
-            BigDecimal.valueOf(Math.sqrt(5d)).round(GeometryAssertions.CONTEXT),
+            BigDecimal.valueOf(Math.sqrt(5d)).round(CONTEXT),
             new BigDecimalRect(
                 BigDecimal.ONE,
                 BigDecimal.valueOf(2d)
@@ -234,7 +233,7 @@ class BigDecimalRectTest {
     @Test
     void diagonaleOfRectWithHeight2AndWidth3() {
         assertEquals(
-            BigDecimal.valueOf(Math.sqrt(13d)).round(GeometryAssertions.CONTEXT),
+            BigDecimal.valueOf(Math.sqrt(13d)).round(CONTEXT),
             new BigDecimalRect(
                 BigDecimal.valueOf(2d),
                 BigDecimal.valueOf(3d)

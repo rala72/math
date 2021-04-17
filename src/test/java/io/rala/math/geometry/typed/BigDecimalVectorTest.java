@@ -4,12 +4,12 @@ import io.rala.math.algebra.numeric.Complex;
 import io.rala.math.algebra.numeric.typed.BigDecimalComplex;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Vector;
-import io.rala.math.testUtils.assertion.GeometryAssertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 
+import static io.rala.math.testUtils.assertion.GeometryAssertions.CONTEXT;
 import static io.rala.math.testUtils.assertion.GeometryAssertions.assertVector;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
 import static org.junit.jupiter.api.Assertions.*;
@@ -120,7 +120,7 @@ class BigDecimalVectorTest {
     @Test
     void lengthOfVectorXY1() {
         assertEquals(
-            BigDecimal.valueOf(Math.sqrt(2d)).round(GeometryAssertions.CONTEXT),
+            BigDecimal.valueOf(Math.sqrt(2d)).round(CONTEXT),
             new BigDecimalVector(BigDecimal.ONE).length()
         );
     }
@@ -364,7 +364,7 @@ class BigDecimalVectorTest {
     @Test
     void angleBetweenX0Y1AndX1Y0() {
         assertEquals(
-            BigDecimal.valueOf(Math.PI / 2d).round(GeometryAssertions.CONTEXT),
+            BigDecimal.valueOf(Math.PI / 2d).round(CONTEXT),
             new BigDecimalVector(BigDecimal.ZERO, BigDecimal.ONE)
                 .angle(new BigDecimalVector(BigDecimal.ONE, BigDecimal.ZERO))
         );

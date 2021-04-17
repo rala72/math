@@ -3,7 +3,6 @@ package io.rala.math.geometry.typed;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.LineSegment;
 import io.rala.math.geometry.Point;
-import io.rala.math.testUtils.assertion.GeometryAssertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -124,7 +123,7 @@ class BigDecimalLineSegmentTest {
     @Test
     void lengthOfLineSegmentWithInverseParameters() {
         assertEquals(
-            BigDecimal.valueOf(Math.sqrt(2d)).round(GeometryAssertions.CONTEXT),
+            BigDecimal.valueOf(Math.sqrt(2d)).round(CONTEXT),
             new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d)),
                 new BigDecimalPoint(BigDecimal.valueOf(2d), BigDecimal.ONE)
@@ -135,7 +134,7 @@ class BigDecimalLineSegmentTest {
     @Test
     void lengthOfLineSegmentWithTwoDifferenceEach() {
         assertEquals(
-            BigDecimal.valueOf(2d * Math.sqrt(2d)).round(GeometryAssertions.CONTEXT),
+            BigDecimal.valueOf(2d * Math.sqrt(2d)).round(CONTEXT),
             new BigDecimalLineSegment(
                 new BigDecimalPoint(BigDecimal.valueOf(3d), BigDecimal.valueOf(4d)),
                 new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d))

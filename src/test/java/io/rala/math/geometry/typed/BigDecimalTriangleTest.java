@@ -4,7 +4,6 @@ import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.LineSegment;
 import io.rala.math.geometry.Point;
 import io.rala.math.geometry.Triangle;
-import io.rala.math.testUtils.assertion.GeometryAssertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -136,7 +135,7 @@ class BigDecimalTriangleTest {
         LineSegment<BigDecimal> altitudeB = triangle.altitudeB();
         assertEquals(
             BigDecimal.valueOf(Math.sqrt(2d) / 2d)
-                .round(GeometryAssertions.CONTEXT),
+                .round(CONTEXT),
             altitudeB.length()
         );
         assertEquals(triangle.getB(), altitudeB.getA());
@@ -164,7 +163,7 @@ class BigDecimalTriangleTest {
         LineSegment<BigDecimal> altitudeB = triangle.altitudeB();
         assertEquals(
             BigDecimal.valueOf(Math.sqrt(2d) / 2d)
-                .round(GeometryAssertions.CONTEXT),
+                .round(CONTEXT),
             altitudeB.length()
         );
         assertEquals(triangle.getB(), altitudeB.getA());
@@ -260,7 +259,7 @@ class BigDecimalTriangleTest {
         );
         assertEquals(
             BigDecimal.valueOf(2d + Math.sqrt(2d))
-                .round(GeometryAssertions.CONTEXT),
+                .round(CONTEXT),
             triangle.circumference()
         );
     }
