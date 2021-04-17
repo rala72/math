@@ -315,8 +315,8 @@ public class MathX {
     }
 
     /**
-     * calculates nth-root using a {@link MathContext} with
-     * {@link MathContext#DECIMAL64}
+     * calculates nth-root using a {@link MathContext}
+     * with {@link MathContext#DECIMAL64}
      *
      * @param a number to calc root
      * @param n number of root
