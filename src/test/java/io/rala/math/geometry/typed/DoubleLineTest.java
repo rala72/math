@@ -210,7 +210,7 @@ class DoubleLineTest {
 
     @Test
     void intersectionAngleWithLineM1B2AndM2B1() {
-        assertEquals(0.3217505543966422d,
+        assertEquals(0.3217505543966422,
             new DoubleLine(1d, 2d).intersectionAngle(new DoubleLine(2d, 1d))
         );
     }
@@ -224,14 +224,14 @@ class DoubleLineTest {
 
     @Test
     void intersectionAngleWithLineM1B2AndX1() {
-        assertEquals(0.7853981633974483d,
+        assertEquals(0.7853981633974483,
             new DoubleLine(1d, 2d).intersectionAngle(new DoubleLine(1d))
         );
     }
 
     @Test
     void intersectionAngleWithLineX1AndM1B2() {
-        assertEquals(0.7853981633974483d,
+        assertEquals(0.7853981633974483,
             new DoubleLine(1d).intersectionAngle(new DoubleLine(1d, 2d))
         );
     }

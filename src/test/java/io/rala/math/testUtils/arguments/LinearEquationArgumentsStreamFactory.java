@@ -102,7 +102,7 @@ public class LinearEquationArgumentsStreamFactory {
                             3, -2, 1, 14
                         )
                     ),
-                    List.of(2.750000000000001d, -9d, -12.250000000000002d)
+                    List.of(2.750000000000001, -9d, -12.250000000000002)
                 )
             ),
             Arguments.of(
@@ -172,9 +172,9 @@ public class LinearEquationArgumentsStreamFactory {
                         )
                     ),
                     List.of(
-                        1.0000000000000002d,
-                        1.9999999999999998d,
-                        2.999999999999999d
+                        1.0000000000000002,
+                        1.9999999999999998,
+                        2.999999999999999
                     )
                 )
             ),
@@ -189,9 +189,9 @@ public class LinearEquationArgumentsStreamFactory {
                     ),
                     // List.of(465d/52, 87d/52, -45d/104)
                     List.of(
-                        8.942307692307692d,
-                        1.6730769230769234d,
-                        -0.43269230769230765d
+                        8.942307692307692,
+                        1.6730769230769234,
+                        -0.43269230769230765
                     )
                 )
             ),

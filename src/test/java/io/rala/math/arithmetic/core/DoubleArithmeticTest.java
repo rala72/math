@@ -118,7 +118,7 @@ class DoubleArithmeticTest {
 
     @Test
     void quotient12() {
-        assertEquals(0.5d, arithmetic.quotient(1d, 2d));
+        assertEquals(0.5, arithmetic.quotient(1d, 2d));
     }
 
     @Test

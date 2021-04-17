@@ -246,7 +246,7 @@ class BigDecimalTriangleTest {
             new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ONE)
         );
         assertEquals(
-            BigDecimal.valueOf(0.5d),
+            BigDecimal.valueOf(0.5),
             triangle.area()
         );
     }
@@ -304,7 +304,7 @@ class BigDecimalTriangleTest {
         );
         assertCircle(
             triangle.circumCircle(),
-            new BigDecimalPoint(BigDecimal.valueOf(0.5d), BigDecimal.valueOf(-0.5d)),
+            new BigDecimalPoint(BigDecimal.valueOf(0.5), BigDecimal.valueOf(-0.5)),
             BigDecimal.valueOf(Math.sqrt(2d) / 2d)
         );
     }
@@ -436,7 +436,7 @@ class BigDecimalTriangleTest {
                 BigDecimal.ONE.negate(),
                 BigDecimal.valueOf(6.123233995736766e-17d)
             ),
-            new BigDecimalPoint(BigDecimal.valueOf(-0.9999999999999999d), BigDecimal.ONE)
+            new BigDecimalPoint(BigDecimal.valueOf(-0.9999999999999999), BigDecimal.ONE)
         );
     }
 
@@ -453,7 +453,7 @@ class BigDecimalTriangleTest {
             ),
             new BigDecimalPoint(BigDecimal.valueOf(2d), BigDecimal.ZERO),
             new BigDecimalPoint(
-                BigDecimal.valueOf(0.9999999999999999d),
+                BigDecimal.valueOf(0.9999999999999999),
                 BigDecimal.ZERO
             ),
             new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ONE)
@@ -541,8 +541,8 @@ class BigDecimalTriangleTest {
         );
         assertEquals(1,
             triangle.compareTo(new BigDecimalTriangle(
-                new BigDecimalPoint(BigDecimal.valueOf(0.5d), BigDecimal.ONE),
-                new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(0.5d)),
+                new BigDecimalPoint(BigDecimal.valueOf(0.5), BigDecimal.ONE),
+                new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(0.5)),
                 new BigDecimalPoint(BigDecimal.ONE)
             ))
         );

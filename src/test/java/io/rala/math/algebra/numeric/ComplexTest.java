@@ -67,14 +67,14 @@ class ComplexTest {
 
     @Test
     void floatValueOfComplexWithX1_1Y2_2() {
-        assertEquals((float) 1.1d,
+        assertEquals((float) 1.1,
             new TestComplex(1.1, 2.2).floatValue()
         );
     }
 
     @Test
     void doubleValueOfComplexWithX1_1Y2_2() {
-        assertEquals(1.1d,
+        assertEquals(1.1,
             new TestComplex(1.1, 2.2).doubleValue()
         );
     }
@@ -361,7 +361,7 @@ class ComplexTest {
     @Test
     void pow5OfComplexWithRe3Im4() {
         assertEquals(
-            new TestComplex(-236.99999999999898d, -3116d),
+            new TestComplex(-236.99999999999898, -3116d),
             new TestComplex(3, 4).pow(5)
         );
     }

@@ -205,7 +205,7 @@ class DoubleVectorTest {
     @Test
     void normalizedOfVectorWithXY1() {
         Vector<Double> vector = new DoubleVector(1d).normalized();
-        assertVector(vector, 0.7071067811865475d);
+        assertVector(vector, 0.7071067811865475);
         assertEquals(
             1d,
             vector.length(),
@@ -217,7 +217,7 @@ class DoubleVectorTest {
     void normalizedOfVectorWithX1Y2() {
         Vector<Double> vector = new DoubleVector(1d, 2d).normalized();
         assertVector(vector,
-            0.4472135954999579d, 0.8944271909999159d
+            0.4472135954999579, 0.8944271909999159
         );
         assertEquals(
             1d,

@@ -182,7 +182,7 @@ class DoubleRectTest {
     void circumCircleOfRectWithHeightAndWidth1() {
         assertCircle(
             new DoubleRect(1d, 1d).circumCircle(),
-            new DoublePoint(0.5d, 0.5d), Math.sqrt(2d) / 2d
+            new DoublePoint(0.5, 0.5), Math.sqrt(2d) / 2d
         );
     }
 
@@ -291,7 +291,7 @@ class DoubleRectTest {
         assertRect(
             new DoubleRect(new DoublePoint(), new DoublePoint(0d, 1d), 2d)
                 .rotate(new DoublePoint(1d), Math.PI / 2d),
-            new DoublePoint(2d, 0d), new DoublePoint(0.9999999999999999d, 0d), 2d
+            new DoublePoint(2d, 0d), new DoublePoint(0.9999999999999999, 0d), 2d
         );
     }
 

@@ -103,29 +103,29 @@ class DoubleCircleTest {
 
     @Test
     void areaOfCircleWithRadius2() {
-        assertEquals(12.566370614359172d, new DoubleCircle(2d).area());
+        assertEquals(12.566370614359172, new DoubleCircle(2d).area());
     }
 
     @Test
     void areaOfCircleWithRadius3() {
-        assertEquals(28.274333882308138d, new DoubleCircle(3d).area());
+        assertEquals(28.274333882308138, new DoubleCircle(3d).area());
     }
 
     @Test
     void circumferenceOfCircleWithoutParameter() {
-        assertEquals(6.283185307179586d, new DoubleCircle().circumference());
+        assertEquals(6.283185307179586, new DoubleCircle().circumference());
     }
 
     @Test
     void circumferenceOfCircleWithRadius2() {
-        assertEquals(12.566370614359172d,
+        assertEquals(12.566370614359172,
             new DoubleCircle(2d).circumference()
         );
     }
 
     @Test
     void circumferenceOfCircleWithRadius3() {
-        assertEquals(18.84955592153876d,
+        assertEquals(18.84955592153876,
             new DoubleCircle(3d).circumference()
         );
     }
@@ -211,7 +211,7 @@ class DoubleCircleTest {
     void rotateOfCircleWithX1Y2WithoutCenterWithPiHalf() {
         assertCircle(new DoubleCircle(new DoublePoint(1d, 2d))
                 .rotate(Math.PI / 2d),
-            new DoublePoint(-2d, 1.0000000000000002d)
+            new DoublePoint(-2d, 1.0000000000000002)
         );
     }
 

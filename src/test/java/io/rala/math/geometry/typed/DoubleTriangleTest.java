@@ -202,7 +202,7 @@ class DoubleTriangleTest {
             new DoublePoint(), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
         assertEquals(
-            0.5d,
+            0.5,
             triangle.area(),
             GeometryAssertions.DELTA
         );
@@ -247,7 +247,7 @@ class DoubleTriangleTest {
         );
         assertCircle(
             triangle.circumCircle(),
-            new DoublePoint(0.5d, -0.5d),
+            new DoublePoint(0.5, -0.5),
             Math.sqrt(2d) / 2d
         );
     }
@@ -368,7 +368,7 @@ class DoubleTriangleTest {
             ).rotate(Math.PI / 2d),
             new DoublePoint(),
             new DoublePoint(-1d, 6.123233995736766e-17d),
-            new DoublePoint(-0.9999999999999999d, 1d)
+            new DoublePoint(-0.9999999999999999, 1d)
         );
     }
 
@@ -381,7 +381,7 @@ class DoubleTriangleTest {
                 new DoublePoint(1d, 1d)
             ).rotate(new DoublePoint(1d), Math.PI / 2d),
             new DoublePoint(2d, 0d),
-            new DoublePoint(0.9999999999999999d, 0d),
+            new DoublePoint(0.9999999999999999, 0d),
             new DoublePoint(1d, 1d)
         );
     }
@@ -455,7 +455,7 @@ class DoubleTriangleTest {
         );
         assertEquals(1d,
             triangle.compareTo(new DoubleTriangle(
-                new DoublePoint(0.5d, 1d), new DoublePoint(1d, 0.5d), new DoublePoint(1d)
+                new DoublePoint(0.5, 1d), new DoublePoint(1d, 0.5), new DoublePoint(1d)
             ))
         );
     }

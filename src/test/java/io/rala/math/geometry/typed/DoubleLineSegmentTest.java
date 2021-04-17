@@ -98,7 +98,7 @@ class DoubleLineSegmentTest {
     void halvingPointOfLineSegmentWithPXY0AndPXY1() {
         assertPoint(
             new DoubleLineSegment(new DoublePoint(), new DoublePoint(1d)).halvingPoint(),
-            0.5d, 0.5d
+            0.5, 0.5
         );
     }
 
@@ -106,8 +106,8 @@ class DoubleLineSegmentTest {
     void distributionPointComma25OfLineSegmentWithPXY0AndPXY1() {
         assertPoint(
             new DoubleLineSegment(new DoublePoint(), new DoublePoint(1d))
-                .distributionPoint(0.25d),
-            0.25d, 0.25d
+                .distributionPoint(0.25),
+            0.25, 0.25
         );
     }
 
@@ -115,8 +115,8 @@ class DoubleLineSegmentTest {
     void distributionPointComma5OfLineSegmentWithPXY0AndPXY1() {
         assertPoint(
             new DoubleLineSegment(new DoublePoint(), new DoublePoint(1d))
-                .distributionPoint(0.5d),
-            0.5d, 0.5d
+                .distributionPoint(0.5),
+            0.5, 0.5
         );
     }
 
@@ -124,8 +124,8 @@ class DoubleLineSegmentTest {
     void distributionPointComma75OfLineSegmentWithPXY0AndPXY1() {
         assertPoint(
             new DoubleLineSegment(new DoublePoint(), new DoublePoint(1d))
-                .distributionPoint(0.75d),
-            0.75d, 0.75d
+                .distributionPoint(0.75),
+            0.75, 0.75
         );
     }
 
@@ -238,7 +238,7 @@ class DoubleLineSegmentTest {
             new DoubleLineSegment(new DoublePoint(0d, 0d), new DoublePoint(1d, 2d))
                 .rotate(Math.PI / 2d),
             new DoublePoint(),
-            new DoublePoint(-2d, 1.0000000000000002d)
+            new DoublePoint(-2d, 1.0000000000000002)
         );
     }
 

@@ -314,7 +314,7 @@ class BigDecimalRectTest {
     void circumCircleOfRectWithHeightAndWidth1() {
         assertCircle(
             new BigDecimalRect(BigDecimal.ONE, BigDecimal.ONE).circumCircle(),
-            new BigDecimalPoint(BigDecimal.valueOf(0.5d), BigDecimal.valueOf(0.5d)),
+            new BigDecimalPoint(BigDecimal.valueOf(0.5), BigDecimal.valueOf(0.5)),
             BigDecimal.valueOf(Math.sqrt(2d) / 2d)
         );
     }
@@ -459,7 +459,7 @@ class BigDecimalRectTest {
             ),
             new BigDecimalPoint(BigDecimal.valueOf(2d), BigDecimal.ZERO),
             new BigDecimalPoint(
-                BigDecimal.valueOf(0.9999999999999999d),
+                BigDecimal.valueOf(0.9999999999999999),
                 BigDecimal.ZERO
             ),
             BigDecimal.valueOf(2d)

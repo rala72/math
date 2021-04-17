@@ -314,7 +314,7 @@ class BigDecimalVectorTest {
     @Test
     void normalizedOfVectorWithXY1() {
         Vector<BigDecimal> vector = new BigDecimalVector(BigDecimal.ONE).normalized();
-        assertVector(vector, BigDecimal.valueOf(0.7071067811865475d));
+        assertVector(vector, BigDecimal.valueOf(0.7071067811865475));
         assertEquals(1.000000001, vector.length().doubleValue(), DELTA);
     }
 
@@ -324,8 +324,8 @@ class BigDecimalVectorTest {
             BigDecimal.ONE, BigDecimal.valueOf(2d)
         ).normalized();
         assertVector(vector,
-            BigDecimal.valueOf(0.4472135954999579d),
-            BigDecimal.valueOf(0.8944271909999159d)
+            BigDecimal.valueOf(0.4472135954999579),
+            BigDecimal.valueOf(0.8944271909999159)
         );
         assertEquals(1.000000001, vector.length().doubleValue(), DELTA);
     }

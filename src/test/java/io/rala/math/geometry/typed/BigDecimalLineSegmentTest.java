@@ -150,7 +150,7 @@ class BigDecimalLineSegmentTest {
                 new BigDecimalPoint(),
                 new BigDecimalPoint(BigDecimal.ONE)
             ).halvingPoint(),
-            BigDecimal.valueOf(0.5d), BigDecimal.valueOf(0.5d)
+            BigDecimal.valueOf(0.5), BigDecimal.valueOf(0.5)
         );
     }
 
@@ -160,8 +160,8 @@ class BigDecimalLineSegmentTest {
             new BigDecimalLineSegment(
                 new BigDecimalPoint(),
                 new BigDecimalPoint(BigDecimal.ONE)
-            ).distributionPoint(BigDecimal.valueOf(0.25d)),
-            BigDecimal.valueOf(0.25d), BigDecimal.valueOf(0.25d)
+            ).distributionPoint(BigDecimal.valueOf(0.25)),
+            BigDecimal.valueOf(0.25), BigDecimal.valueOf(0.25)
         );
     }
 
@@ -171,8 +171,8 @@ class BigDecimalLineSegmentTest {
             new BigDecimalLineSegment(
                 new BigDecimalPoint(),
                 new BigDecimalPoint(BigDecimal.ONE)
-            ).distributionPoint(BigDecimal.valueOf(0.5d)),
-            BigDecimal.valueOf(0.5d), BigDecimal.valueOf(0.5d)
+            ).distributionPoint(BigDecimal.valueOf(0.5)),
+            BigDecimal.valueOf(0.5), BigDecimal.valueOf(0.5)
         );
     }
 
@@ -181,8 +181,8 @@ class BigDecimalLineSegmentTest {
         assertPoint(
             new BigDecimalLineSegment(
                 new BigDecimalPoint(), new BigDecimalPoint(BigDecimal.ONE)
-            ).distributionPoint(BigDecimal.valueOf(0.75d)),
-            BigDecimal.valueOf(0.75d), BigDecimal.valueOf(0.75d)
+            ).distributionPoint(BigDecimal.valueOf(0.75)),
+            BigDecimal.valueOf(0.75), BigDecimal.valueOf(0.75)
         );
     }
 
@@ -318,7 +318,7 @@ class BigDecimalLineSegmentTest {
             new BigDecimalPoint(),
             new BigDecimalPoint(
                 BigDecimal.valueOf(-2d),
-                BigDecimal.valueOf(1.0000000000000002d)
+                BigDecimal.valueOf(1.0000000000000002)
             )
         );
     }
