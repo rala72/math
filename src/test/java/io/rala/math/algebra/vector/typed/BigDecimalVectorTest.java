@@ -3,7 +3,6 @@ package io.rala.math.algebra.vector.typed;
 import io.rala.math.MathX;
 import io.rala.math.algebra.matrix.typed.BigDecimalMatrix;
 import io.rala.math.algebra.vector.Vector;
-import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 import io.rala.math.exception.NotSupportedException;
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static io.rala.math.testUtils.algebra.TestVector.fillVectorWithTestValues;
+import static io.rala.math.testUtils.assertion.GeometryAssertions.CONTEXT;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
 import static io.rala.math.testUtils.assertion.VectorAssertions.assertVector;
 import static org.junit.jupiter.api.Assertions.*;
@@ -79,7 +79,7 @@ public class BigDecimalVectorTest {
     @Test
     void createWithLength3AndAssertLengthEquals98() {
         assertEquals(
-            BigDecimal.valueOf(9.899494937),
+            BigDecimal.valueOf(9.899494936611665),
             fillVectorWithTestValues(new BigDecimalVector(3)).length()
         );
     }
@@ -743,7 +743,7 @@ public class BigDecimalVectorTest {
     @Test
     void euclideanNormNonEmptyVector() {
         assertEquals(
-            BigDecimal.valueOf(98).sqrt(BigDecimalArithmetic.getInstance().getMathContext()),
+            BigDecimal.valueOf(98).sqrt(CONTEXT),
             fillVectorWithTestValues(new BigDecimalVector(3)).euclideanNorm()
         );
     }
@@ -781,9 +781,9 @@ public class BigDecimalVectorTest {
     @Test
     void unitVectorOfNonEmptyVector() {
         BigDecimalVector expected = new BigDecimalVector(3);
-        expected.setValue(0, BigDecimal.valueOf(0.1010152545));
-        expected.setValue(1, BigDecimal.valueOf(-0.4040610178));
-        expected.setValue(2, BigDecimal.valueOf(0.9091372901));
+        expected.setValue(0, BigDecimal.valueOf(0.1010152544552211));
+        expected.setValue(1, BigDecimal.valueOf(-0.4040610178208843));
+        expected.setValue(2, BigDecimal.valueOf(0.9091372900969897));
         assertEquals(
             expected,
             fillVectorWithTestValues(new BigDecimalVector(3)).normalize()
@@ -804,7 +804,7 @@ public class BigDecimalVectorTest {
     @Test
     void angleBetweenIdenticalVectors() {
         assertEquals(
-            BigDecimal.valueOf(0.00001414213621),
+            BigDecimal.ZERO,
             fillVectorWithTestValues(new BigDecimalVector(3))
                 .angle(fillVectorWithTestValues(new BigDecimalVector(3)))
         );
@@ -813,7 +813,7 @@ public class BigDecimalVectorTest {
     @Test
     void angleBetweenParallelVectors() {
         assertEquals(
-            BigDecimal.ZERO,
+            new BigDecimal("2.107342425544702E-8"),
             fillVectorWithTestValues(new BigDecimalVector(3))
                 .multiply(BigDecimal.valueOf(2))
                 .angle(fillVectorWithTestValues(new BigDecimalVector(3))
@@ -824,7 +824,7 @@ public class BigDecimalVectorTest {
     @Test
     void angleBetweenOppositeVectors() {
         assertEquals(
-            BigDecimal.valueOf(3.141592654),
+            BigDecimal.valueOf(3.141592632516369),
             fillVectorWithTestValues(new BigDecimalVector(3))
                 .multiply(BigDecimal.valueOf(-2))
                 .angle(fillVectorWithTestValues(new BigDecimalVector(3))
@@ -835,9 +835,7 @@ public class BigDecimalVectorTest {
     @Test
     void angleBetweenNonEmptyVectors() {
         assertEquals(
-            BigDecimal.valueOf(Math.PI).divide(BigDecimal.valueOf(2),
-                BigDecimalArithmetic.getInstance().getMathContext()
-            ),
+            BigDecimal.valueOf(1.570796326794897),
             BigDecimalVector.ofValues(BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO)
                 .angle(BigDecimalVector.ofValues(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ONE))
         );

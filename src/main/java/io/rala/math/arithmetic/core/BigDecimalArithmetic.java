@@ -35,13 +35,13 @@ public class BigDecimalArithmetic extends AbstractArithmetic<BigDecimal> {
 
     /**
      * calls {@link #BigDecimalArithmetic(MathContext)}
-     * with a new {@link MathContext} which precision is {@code 10}
+     * with {@link MathContext#DECIMAL64}
      *
      * @see MathContext#MathContext(int)
      * @since 1.0.0
      */
     public BigDecimalArithmetic() {
-        this(new MathContext(10));
+        this(MathContext.DECIMAL64);
     }
 
     /**

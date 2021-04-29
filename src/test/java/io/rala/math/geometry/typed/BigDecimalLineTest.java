@@ -288,7 +288,7 @@ class BigDecimalLineTest {
 
     @Test
     void intersectionAngleWithLineM1B2AndM2B1() {
-        assertEquals(BigDecimal.valueOf(0.3217505544),
+        assertEquals(BigDecimal.valueOf(0.3217505543966422),
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))
                 .intersectionAngle(
                     new BigDecimalLine(BigDecimal.valueOf(2d), BigDecimal.ONE)
@@ -306,7 +306,7 @@ class BigDecimalLineTest {
 
     @Test
     void intersectionAngleWithLineM1B2AndX1() {
-        assertEquals(BigDecimal.valueOf(0.7853981636),
+        assertEquals(BigDecimal.valueOf(0.7853981633974477),
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))
                 .intersectionAngle(new BigDecimalLine(BigDecimal.ONE))
         );
@@ -314,7 +314,7 @@ class BigDecimalLineTest {
 
     @Test
     void intersectionAngleWithLineX1AndM1B2() {
-        assertEquals(BigDecimal.valueOf(0.7853981636),
+        assertEquals(BigDecimal.valueOf(0.7853981633974477),
             new BigDecimalLine(BigDecimal.ONE)
                 .intersectionAngle(
                     new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))

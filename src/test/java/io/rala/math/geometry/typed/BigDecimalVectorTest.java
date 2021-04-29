@@ -4,12 +4,12 @@ import io.rala.math.algebra.numeric.Complex;
 import io.rala.math.algebra.numeric.typed.BigDecimalComplex;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Vector;
-import io.rala.math.testUtils.assertion.GeometryAssertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 
+import static io.rala.math.testUtils.assertion.GeometryAssertions.CONTEXT;
 import static io.rala.math.testUtils.assertion.GeometryAssertions.assertVector;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
 import static org.junit.jupiter.api.Assertions.*;
@@ -120,7 +120,7 @@ class BigDecimalVectorTest {
     @Test
     void lengthOfVectorXY1() {
         assertEquals(
-            BigDecimal.valueOf(Math.sqrt(2d)).round(GeometryAssertions.CONTEXT),
+            BigDecimal.valueOf(Math.sqrt(2d)).round(CONTEXT),
             new BigDecimalVector(BigDecimal.ONE).length()
         );
     }
@@ -314,7 +314,7 @@ class BigDecimalVectorTest {
     @Test
     void normalizedOfVectorWithXY1() {
         Vector<BigDecimal> vector = new BigDecimalVector(BigDecimal.ONE).normalized();
-        assertVector(vector, BigDecimal.valueOf(0.7071067811865475d));
+        assertVector(vector, BigDecimal.valueOf(0.7071067811865475));
         assertEquals(1.000000001, vector.length().doubleValue(), DELTA);
     }
 
@@ -324,8 +324,8 @@ class BigDecimalVectorTest {
             BigDecimal.ONE, BigDecimal.valueOf(2d)
         ).normalized();
         assertVector(vector,
-            BigDecimal.valueOf(0.4472135954999579d),
-            BigDecimal.valueOf(0.8944271909999159d)
+            BigDecimal.valueOf(0.4472135954999579),
+            BigDecimal.valueOf(0.8944271909999159)
         );
         assertEquals(1.000000001, vector.length().doubleValue(), DELTA);
     }
@@ -364,7 +364,7 @@ class BigDecimalVectorTest {
     @Test
     void angleBetweenX0Y1AndX1Y0() {
         assertEquals(
-            BigDecimal.valueOf(Math.PI / 2d).round(GeometryAssertions.CONTEXT),
+            BigDecimal.valueOf(Math.PI / 2d).round(CONTEXT),
             new BigDecimalVector(BigDecimal.ZERO, BigDecimal.ONE)
                 .angle(new BigDecimalVector(BigDecimal.ONE, BigDecimal.ZERO))
         );
@@ -373,7 +373,7 @@ class BigDecimalVectorTest {
     @Test
     void angleBetweenX0Y1AndXY1() {
         assertEquals(
-            BigDecimal.valueOf(0.7853981631), // PI/4
+            BigDecimal.valueOf(0.7853981633974484), // PI/4
             new BigDecimalVector(BigDecimal.ZERO, BigDecimal.ONE)
                 .angle(new BigDecimalVector(BigDecimal.ONE, BigDecimal.ONE))
         );

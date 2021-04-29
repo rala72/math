@@ -1065,7 +1065,7 @@ public class Matrix<T extends Number>
     @Override
     @NotNull
     public String toString() {
-        return getRows() + " " + getCols() + ": " + getMatrix().entrySet().toString();
+        return getRows() + " " + getCols() + ": " + getMatrix().entrySet();
     }
 
     // endregion

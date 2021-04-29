@@ -6,7 +6,6 @@ import org.jetbrains.annotations.Unmodifiable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,8 +19,7 @@ import java.util.stream.Collectors;
  * @since 1.0.0
  */
 public class MathX {
-    private static final MathContext MATH_CONTEXT =
-        new MathContext(10, RoundingMode.HALF_EVEN);
+    private static final MathContext MATH_CONTEXT = MathContext.DECIMAL64;
     private static final String ILLEGAL_ARGUMENT__NUMBER_HAS_TO_BE_POSITIVE =
         "number has to be positive";
 
@@ -320,9 +318,8 @@ public class MathX {
     }
 
     /**
-     * calculates nth-root using a {@link MathContext} with
-     * precision {@code 10} and
-     * rounding mode {@link RoundingMode#HALF_EVEN}
+     * calculates nth-root using a {@link MathContext}
+     * with {@link MathContext#DECIMAL64}
      *
      * @param a number to calc root
      * @param n number of root

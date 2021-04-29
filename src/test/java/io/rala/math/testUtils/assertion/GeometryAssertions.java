@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SuppressWarnings("unused")
 public class GeometryAssertions {
     public static final double DELTA = 0.00001;
-    public static final MathContext CONTEXT = new MathContext(10);
+    public static final MathContext CONTEXT = MathContext.DECIMAL64;
 
     private GeometryAssertions() {
     }

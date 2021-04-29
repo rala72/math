@@ -3,12 +3,12 @@ package io.rala.math.geometry.typed;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Circle;
 import io.rala.math.geometry.Point;
-import io.rala.math.testUtils.assertion.GeometryAssertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 
+import static io.rala.math.testUtils.assertion.GeometryAssertions.CONTEXT;
 import static io.rala.math.testUtils.assertion.GeometryAssertions.assertCircle;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
 import static org.junit.jupiter.api.Assertions.*;
@@ -162,7 +162,7 @@ class BigDecimalCircleTest {
     @Test
     void areaOfCircleWithoutParameter() {
         assertEquals(
-            BigDecimal.valueOf(Math.PI).round(GeometryAssertions.CONTEXT),
+            BigDecimal.valueOf(Math.PI).round(CONTEXT),
             new BigDecimalCircle().area()
         );
     }
@@ -170,7 +170,7 @@ class BigDecimalCircleTest {
     @Test
     void areaOfCircleWithRadius2() {
         assertEquals(
-            BigDecimal.valueOf(12.56637062d),
+            BigDecimal.valueOf(12.56637061435917),
             new BigDecimalCircle(BigDecimal.valueOf(2d)).area()
         );
     }
@@ -178,7 +178,7 @@ class BigDecimalCircleTest {
     @Test
     void areaOfCircleWithRadius3() {
         assertEquals(
-            BigDecimal.valueOf(28.27433389d),
+            BigDecimal.valueOf(28.27433388230814),
             new BigDecimalCircle(BigDecimal.valueOf(3d)).area()
         );
     }
@@ -186,7 +186,7 @@ class BigDecimalCircleTest {
     @Test
     void circumferenceOfCircleWithoutParameter() {
         assertEquals(
-            BigDecimal.valueOf(6.283185308d),
+            BigDecimal.valueOf(6.283185307179586),
             new BigDecimalCircle().circumference()
         );
     }
@@ -194,7 +194,7 @@ class BigDecimalCircleTest {
     @Test
     void circumferenceOfCircleWithRadius2() {
         assertEquals(
-            BigDecimal.valueOf(12.56637062d),
+            BigDecimal.valueOf(12.56637061435917),
             new BigDecimalCircle(BigDecimal.valueOf(2d)).circumference()
         );
     }
@@ -202,7 +202,7 @@ class BigDecimalCircleTest {
     @Test
     void circumferenceOfCircleWithRadius3() {
         assertEquals(
-            BigDecimal.valueOf(18.84955592d),
+            BigDecimal.valueOf(18.84955592153876),
             new BigDecimalCircle(BigDecimal.valueOf(3d)).circumference()
         );
     }
@@ -288,7 +288,7 @@ class BigDecimalCircleTest {
             ).rotate(BigDecimal.valueOf(Math.PI / 2d)),
             new BigDecimalPoint(
                 BigDecimal.valueOf(-2d),
-                BigDecimal.valueOf(1.0000000000000002d)
+                BigDecimal.valueOf(1.0000000000000002)
             )
         );
     }
