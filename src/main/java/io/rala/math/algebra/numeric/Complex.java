@@ -534,7 +534,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
     }
 
     @Override
-    public int compareTo(Complex<T> o) {
+    public int compareTo(@NotNull Complex<T> o) {
         int compare = getArithmetic().compare(getRe(), o.getRe());
         if (compare != 0) return compare;
         return getArithmetic().compare(getIm(), o.getIm());
