@@ -1579,6 +1579,7 @@ public class Matrix<T extends Number>
         }
 
         @Override
+        @NotNull
         public String toString() {
             return getIndex() + ": " + getValue();
         }
