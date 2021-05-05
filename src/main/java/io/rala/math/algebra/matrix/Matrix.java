@@ -92,7 +92,7 @@ public class Matrix<T extends Number>
      * @see #Matrix(AbstractArithmetic, int, Number)
      * @since 1.0.0
      */
-    protected Matrix(@NotNull AbstractArithmetic<T> arithmetic, int size, @Nullable T defaultValue) {
+    protected Matrix(@NotNull AbstractArithmetic<T> arithmetic, int size, @NotNull T defaultValue) {
         this(arithmetic, size, size, defaultValue);
     }
 
@@ -126,7 +126,7 @@ public class Matrix<T extends Number>
      * <i>(in {@link #equals(Object)}, ...)</i>
      * @since 1.0.0
      */
-    protected Matrix(@NotNull AbstractArithmetic<T> arithmetic, int rows, int cols, @Nullable T defaultValue) {
+    protected Matrix(@NotNull AbstractArithmetic<T> arithmetic, int rows, int cols, @NotNull T defaultValue) {
         if (rows <= 0 || cols <= 0)
             throw new IllegalArgumentException("rows and cols have to be greater than 0");
         this.arithmetic = arithmetic;
