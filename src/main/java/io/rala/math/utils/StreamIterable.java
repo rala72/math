@@ -1,5 +1,7 @@
 package io.rala.math.utils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Spliterator;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -17,6 +19,7 @@ public interface StreamIterable<T> extends Iterable<T> {
      * @see StreamSupport#stream(Spliterator, boolean)
      * @since 1.0.0
      */
+    @NotNull
     default Stream<T> stream() {
         return StreamSupport.stream(spliterator(), false);
     }
@@ -26,6 +29,7 @@ public interface StreamIterable<T> extends Iterable<T> {
      * @see StreamSupport#stream(Spliterator, boolean)
      * @since 1.0.0
      */
+    @NotNull
     default Stream<T> parallelStream() {
         return StreamSupport.stream(spliterator(), true);
     }
