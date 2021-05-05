@@ -267,7 +267,7 @@ public class LinearEquationSystem<T extends Number> extends AbstractEquationSyst
     @Override
     @NotNull
     public String toString() {
-        return getMatrix().toString() + " - " + getVector();
+        return getMatrix() + " - " + getVector();
     }
 
     // endregion
