@@ -6,6 +6,7 @@ import io.rala.math.geometry.Vector;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Validatable;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
 import java.util.ArrayList;
@@ -34,29 +35,40 @@ public class Complex<T extends Number> extends Number implements Validatable,
     // region constructors
 
     /**
-     * calls {@link #Complex(AbstractArithmetic, Number, Number)} with {@code 0}
+     * calls {@link #Complex(AbstractArithmetic, Number)} with {@code 0}
      *
      * @param arithmetic arithmetic for calculations
      * @since 1.0.0
      */
     public Complex(@NotNull AbstractArithmetic<T> arithmetic) {
-        this(arithmetic,
-            arithmetic.zero(), arithmetic.zero()
-        );
+        this(arithmetic, arithmetic.zero());
     }
 
     /**
-     * creates a complex number with real and imaginary part
+     * calls {@link #Complex(AbstractArithmetic, Number, Number)}
+     * with given real part and {@code null}
+     *
+     * @param arithmetic arithmetic for calculations
+     * @param re         real part
+     * @since 1.1.0
+     */
+    public Complex(@NotNull AbstractArithmetic<T> arithmetic, @NotNull T re) {
+        this(arithmetic, re, null);
+    }
+
+    /**
+     * creates a complex number with real and imaginary part<br>
+     * imaginary part may be {@code null} - in this case {@code 0} is used
      *
      * @param arithmetic arithmetic for calculations
      * @param re         real part
      * @param im         imaginary part
      * @since 1.0.0
      */
-    public Complex(@NotNull AbstractArithmetic<T> arithmetic, @NotNull T re, @NotNull T im) {
+    public Complex(@NotNull AbstractArithmetic<T> arithmetic, @NotNull T re, @Nullable T im) {
         this.arithmetic = arithmetic;
         setRe(re);
-        setIm(im);
+        setIm(im != null ? im : getArithmetic().zero());
     }
 
     /**

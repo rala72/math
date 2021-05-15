@@ -22,6 +22,11 @@ class ComplexTest {
     }
 
     @Test
+    void constructorWithReParameter() {
+        assertComplex(new TestComplex(2), 2, 0d);
+    }
+
+    @Test
     void constructorWithDifferentReImParameter() {
         assertComplex(new TestComplex(2, 3), 2, 3);
     }

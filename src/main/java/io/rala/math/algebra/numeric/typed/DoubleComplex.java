@@ -24,11 +24,20 @@ public class DoubleComplex extends Complex<Double> {
 
     /**
      * @param re real part
+     * @see Complex#Complex(AbstractArithmetic, Number)
+     * @since 1.1.0
+     */
+    public DoubleComplex(double re) {
+        super(DoubleArithmetic.getInstance(), re);
+    }
+
+    /**
+     * @param re real part
      * @param im imaginary part
      * @see Complex#Complex(AbstractArithmetic, Number, Number)
      * @since 1.0.0
      */
-    public DoubleComplex(double re, double im) {
+    public DoubleComplex(double re, Double im) {
         super(DoubleArithmetic.getInstance(), re, im);
     }
 

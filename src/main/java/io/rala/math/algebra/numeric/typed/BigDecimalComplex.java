@@ -4,6 +4,7 @@ import io.rala.math.algebra.numeric.Complex;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -36,11 +37,20 @@ public class BigDecimalComplex extends Complex<BigDecimal> {
 
     /**
      * @param re real part
+     * @see Complex#Complex(AbstractArithmetic, Number)
+     * @since 1.1.0
+     */
+    public BigDecimalComplex(@NotNull BigDecimal re) {
+        super(BigDecimalArithmetic.getInstance(), re);
+    }
+
+    /**
+     * @param re real part
      * @param im imaginary part
      * @see Complex#Complex(AbstractArithmetic, Number, Number)
      * @since 1.0.0
      */
-    public BigDecimalComplex(@NotNull BigDecimal re, @NotNull BigDecimal im) {
+    public BigDecimalComplex(@NotNull BigDecimal re, @Nullable BigDecimal im) {
         super(BigDecimalArithmetic.getInstance(), re, im);
     }
 
@@ -52,7 +62,7 @@ public class BigDecimalComplex extends Complex<BigDecimal> {
      * @since 1.0.0
      */
     public BigDecimalComplex(
-        @NotNull BigDecimal re, @NotNull BigDecimal im,
+        @NotNull BigDecimal re, @Nullable BigDecimal im,
         @NotNull MathContext context
     ) {
         super(new BigDecimalArithmetic(context), re, im);
