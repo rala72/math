@@ -17,7 +17,8 @@ public class TestGaussSolver<T extends Number> extends GaussSolver<T> {
     }
 
     @Override
-    public @NotNull LinearEquationSystem<T> getWorking() {
+    @NotNull
+    public LinearEquationSystem<T> getWorking() {
         return super.getWorking();
     }
 
