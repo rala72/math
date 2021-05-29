@@ -42,10 +42,13 @@ public abstract class AbstractSolver<E extends AbstractEquationSystem<E>, T exte
 
     /**
      * @return current working instance
+     * @throws IllegalStateException if {@code working} is {@code null}
      * @since 1.0.0
      */
     @NotNull
     protected E getWorking() {
+        if (working == null)
+            throw new IllegalStateException("working not set");
         return working;
     }
 
