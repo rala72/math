@@ -1,6 +1,7 @@
 package io.rala.math.utils;
 
 import io.rala.math.geometry.Vector;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This interface allows to move instances.
@@ -19,7 +20,8 @@ public interface Movable<N extends Number, T> {
      * @see #move(Vector)
      * @since 1.0.0
      */
-    default T move(N xy) {
+    @NotNull
+    default T move(@NotNull N xy) {
         return move(xy, xy);
     }
 
@@ -31,7 +33,8 @@ public interface Movable<N extends Number, T> {
      * @see #move(Vector)
      * @since 1.0.0
      */
-    T move(N x, N y);
+    @NotNull
+    T move(@NotNull N x, @NotNull N y);
 
     /**
      * @param vector vector to use for movement
@@ -42,7 +45,8 @@ public interface Movable<N extends Number, T> {
      * @see #move(Number, Number)
      * @since 1.0.0
      */
-    default T move(Vector<N> vector) {
+    @NotNull
+    default T move(@NotNull Vector<N> vector) {
         return move(vector.getX(), vector.getY());
     }
 }

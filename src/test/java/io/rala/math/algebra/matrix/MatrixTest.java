@@ -1649,17 +1649,8 @@ class MatrixTest {
     }
 
     @Test
-    void isDefaultValueOfMatrixWithDefaultValueNull() {
-        TestMatrix matrix = new TestMatrix(1, null);
-        assertTrue(matrix.isDefaultValue(null));
-        assertFalse(matrix.isDefaultValue(0));
-        assertFalse(matrix.isDefaultValue(1));
-    }
-
-    @Test
     void isDefaultValueOfMatrixWithDefaultValue1() {
         TestMatrix matrix = new TestMatrix(1, 1d);
-        assertFalse(matrix.isDefaultValue(null));
         assertFalse(matrix.isDefaultValue(0));
         assertTrue(matrix.isDefaultValue(1d));
     }

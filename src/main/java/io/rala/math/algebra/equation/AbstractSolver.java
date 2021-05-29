@@ -1,5 +1,7 @@
 package io.rala.math.algebra.equation;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
 /**
@@ -23,7 +25,7 @@ public abstract class AbstractSolver<E extends AbstractEquationSystem<E>, T exte
      * @param equationSystem equationSystem to store
      * @since 1.0.0
      */
-    protected AbstractSolver(E equationSystem) {
+    protected AbstractSolver(@NotNull E equationSystem) {
         this.equationSystem = equationSystem;
     }
 
@@ -33,6 +35,7 @@ public abstract class AbstractSolver<E extends AbstractEquationSystem<E>, T exte
      * @return stored {@link AbstractEquationSystem}
      * @since 1.0.0
      */
+    @NotNull
     public final E getEquationSystem() {
         return equationSystem;
     }
@@ -41,6 +44,7 @@ public abstract class AbstractSolver<E extends AbstractEquationSystem<E>, T exte
      * @return current working instance
      * @since 1.0.0
      */
+    @NotNull
     protected E getWorking() {
         return working;
     }
@@ -49,7 +53,7 @@ public abstract class AbstractSolver<E extends AbstractEquationSystem<E>, T exte
      * @param working new working instance
      * @since 1.0.0
      */
-    protected void setWorking(E working) {
+    protected void setWorking(@NotNull E working) {
         this.working = working;
     }
 
@@ -63,6 +67,7 @@ public abstract class AbstractSolver<E extends AbstractEquationSystem<E>, T exte
      * @return solution of {@link AbstractEquationSystem}
      * @since 1.0.0
      */
+    @NotNull
     public abstract Solution<E, T> solve();
 
     /**
@@ -94,6 +99,7 @@ public abstract class AbstractSolver<E extends AbstractEquationSystem<E>, T exte
     }
 
     @Override
+    @NotNull
     public String toString() {
         return getEquationSystem() + " -> " + getWorking();
     }

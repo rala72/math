@@ -30,6 +30,14 @@ class BigDecimalComplexTest {
     }
 
     @Test
+    void constructorWithReParameter() {
+        assertComplex(
+            new BigDecimalComplex(BigDecimal.valueOf(2)),
+            BigDecimal.valueOf(2), BigDecimal.ZERO
+        );
+    }
+
+    @Test
     void constructorWithDifferentReImParameter() {
         assertComplex(new BigDecimalComplex(
             BigDecimal.valueOf(2), BigDecimal.valueOf(3)

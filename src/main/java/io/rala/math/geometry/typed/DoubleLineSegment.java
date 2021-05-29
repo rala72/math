@@ -4,6 +4,7 @@ import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.core.DoubleArithmetic;
 import io.rala.math.geometry.LineSegment;
 import io.rala.math.geometry.Point;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * class which holds a line segment in a 2d area with points a &amp; b
@@ -20,7 +21,7 @@ public class DoubleLineSegment extends LineSegment<Double> {
      * @see LineSegment#LineSegment(AbstractArithmetic, Point)
      * @since 1.0.0
      */
-    public DoubleLineSegment(Point<Double> b) {
+    public DoubleLineSegment(@NotNull Point<Double> b) {
         super(DoubleArithmetic.getInstance(), b);
     }
 
@@ -30,7 +31,7 @@ public class DoubleLineSegment extends LineSegment<Double> {
      * @see LineSegment#LineSegment(AbstractArithmetic, Point, Point)
      * @since 1.0.0
      */
-    public DoubleLineSegment(Point<Double> a, Point<Double> b) {
+    public DoubleLineSegment(@NotNull Point<Double> a, @NotNull Point<Double> b) {
         super(DoubleArithmetic.getInstance(), a, b);
     }
 

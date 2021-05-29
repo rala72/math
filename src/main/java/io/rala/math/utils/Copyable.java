@@ -1,5 +1,8 @@
 package io.rala.math.utils;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 /**
  * This interface allows to generate copy instances.
  *
@@ -12,5 +15,7 @@ public interface Copyable<T> {
      * @return a new instance with same properties
      * @since 1.0.0
      */
+    @NotNull
+    @Contract(value = "-> new", pure = true)
     T copy();
 }

@@ -46,13 +46,6 @@ class BigIntegerBigDecimalFractionTest {
     }
 
     @Test
-    void constructorWithNullNuParameter() {
-        assertThrows(IllegalArgumentException.class,
-            () -> new BigIntegerBigDecimalFraction((BigInteger) null)
-        ); // assert exception message?
-    }
-
-    @Test
     void constructorWithZeroDeParameter() {
         assertThrows(IllegalArgumentException.class,
             () -> new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.ZERO)
@@ -74,16 +67,6 @@ class BigIntegerBigDecimalFractionTest {
         assertFraction(complex);
         complex.setNumerator(BigInteger.TWO);
         assertFraction(complex, BigInteger.TWO, BigInteger.ONE);
-    }
-
-    @Test
-    void createAndSetNumeratorNull() {
-        BigIntegerBigDecimalFraction complex =
-            new BigIntegerBigDecimalFraction(BigInteger.ONE);
-        assertFraction(complex);
-        assertThrows(IllegalArgumentException.class,
-            () -> complex.setNumerator(null)
-        ); // assert exception message?
     }
 
     @Test

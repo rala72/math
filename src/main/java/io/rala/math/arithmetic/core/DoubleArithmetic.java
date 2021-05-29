@@ -3,6 +3,7 @@ package io.rala.math.arithmetic.core;
 import io.rala.math.MathX;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.exception.NotSupportedException;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * class which handles {@link Double} arithmetic
@@ -18,6 +19,7 @@ public class DoubleArithmetic extends AbstractArithmetic<Double> {
      * @return default instance
      * @since 1.0.0
      */
+    @NotNull
     public static DoubleArithmetic getInstance() {
         if (instance == null) instance = new DoubleArithmetic();
         return instance;
@@ -28,17 +30,19 @@ public class DoubleArithmetic extends AbstractArithmetic<Double> {
     // region fromInt, fromDouble and signum
 
     @Override
+    @NotNull
     public Double fromInt(int a) {
         return (double) a;
     }
 
     @Override
+    @NotNull
     public Double fromDouble(double a) {
         return a;
     }
 
     @Override
-    public double signum(Double a) {
+    public double signum(@NotNull Double a) {
         return Math.signum(a);
     }
 
@@ -47,27 +51,32 @@ public class DoubleArithmetic extends AbstractArithmetic<Double> {
     // region sum, difference, product, quotient and modulo
 
     @Override
-    public Double sum(Double a, Double b) {
+    @NotNull
+    public Double sum(@NotNull Double a, @NotNull Double b) {
         return a + b;
     }
 
     @Override
-    public Double difference(Double a, Double b) {
+    @NotNull
+    public Double difference(@NotNull Double a, @NotNull Double b) {
         return a - b;
     }
 
     @Override
-    public Double product(Double a, Double b) {
+    @NotNull
+    public Double product(@NotNull Double a, @NotNull Double b) {
         return a * b;
     }
 
     @Override
-    public Double quotient(Double a, Double b) {
+    @NotNull
+    public Double quotient(@NotNull Double a, @NotNull Double b) {
         return a / b;
     }
 
     @Override
-    public Double modulo(Double a, Double b) {
+    @NotNull
+    public Double modulo(@NotNull Double a, @NotNull Double b) {
         return a % b;
     }
 
@@ -76,12 +85,14 @@ public class DoubleArithmetic extends AbstractArithmetic<Double> {
     // region power and root
 
     @Override
-    public Double power(Double a, int b) {
+    @NotNull
+    public Double power(@NotNull Double a, int b) {
         return Math.pow(a, b);
     }
 
     @Override
-    public Double root(Double a, int b) {
+    @NotNull
+    public Double root(@NotNull Double a, int b) {
         return MathX.root(a, b);
     }
 
@@ -90,7 +101,8 @@ public class DoubleArithmetic extends AbstractArithmetic<Double> {
     // region gcd
 
     @Override
-    public Double gcd(Double a, Double b) {
+    @NotNull
+    public Double gcd(@NotNull Double a, @NotNull Double b) {
         throw new NotSupportedException();
     }
 

@@ -4,6 +4,7 @@ import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 import io.rala.math.geometry.Point;
 import io.rala.math.geometry.Rect;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -23,7 +24,7 @@ public class BigDecimalRect extends Rect<BigDecimal> {
      * @see Rect#Rect(AbstractArithmetic, Number, Number)
      * @since 1.0.0
      */
-    public BigDecimalRect(BigDecimal height, BigDecimal width) {
+    public BigDecimalRect(@NotNull BigDecimal height, @NotNull BigDecimal width) {
         super(BigDecimalArithmetic.getInstance(), height, width);
     }
 
@@ -34,7 +35,9 @@ public class BigDecimalRect extends Rect<BigDecimal> {
      * @see Rect#Rect(AbstractArithmetic, Number, Number)
      * @since 1.0.0
      */
-    public BigDecimalRect(BigDecimal height, BigDecimal width, MathContext context) {
+    public BigDecimalRect(
+        @NotNull BigDecimal height, @NotNull BigDecimal width, @NotNull MathContext context
+    ) {
         super(new BigDecimalArithmetic(context), height, width);
     }
 
@@ -45,7 +48,9 @@ public class BigDecimalRect extends Rect<BigDecimal> {
      * @see Rect#Rect(AbstractArithmetic, Point, Point, Number)
      * @since 1.0.0
      */
-    public BigDecimalRect(Point<BigDecimal> a, Point<BigDecimal> b, BigDecimal size) {
+    public BigDecimalRect(
+        @NotNull Point<BigDecimal> a, @NotNull Point<BigDecimal> b, @NotNull BigDecimal size
+    ) {
         super(BigDecimalArithmetic.getInstance(), a, b, size);
     }
 
@@ -58,7 +63,8 @@ public class BigDecimalRect extends Rect<BigDecimal> {
      * @since 1.0.0
      */
     public BigDecimalRect(
-        Point<BigDecimal> a, Point<BigDecimal> b, BigDecimal size, MathContext context
+        @NotNull Point<BigDecimal> a, @NotNull Point<BigDecimal> b,
+        @NotNull BigDecimal size, @NotNull MathContext context
     ) {
         super(new BigDecimalArithmetic(context), a, b, size);
     }

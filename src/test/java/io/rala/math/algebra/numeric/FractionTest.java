@@ -25,13 +25,6 @@ class FractionTest {
     }
 
     @Test
-    void constructorWithNullNuParameter() {
-        assertThrows(IllegalArgumentException.class,
-            () -> new TestFraction((Number) null)
-        ); // assert exception message?
-    }
-
-    @Test
     void constructorWithZeroDeParameter() {
         assertThrows(IllegalArgumentException.class,
             () -> new TestFraction(1d, 0d)
@@ -49,15 +42,6 @@ class FractionTest {
         assertFraction(complex);
         complex.setNumerator(2);
         assertFraction(complex, 2, 1d);
-    }
-
-    @Test
-    void createAndSetNumeratorNull() {
-        TestFraction complex = new TestFraction(1d);
-        assertFraction(complex);
-        assertThrows(IllegalArgumentException.class,
-            () -> complex.setNumerator(null)
-        ); // assert exception message?
     }
 
     @Test
@@ -372,14 +356,6 @@ class FractionTest {
     void createFromArithmeticWithDifferentNuDeParameter() {
         TestFraction fraction = new TestFraction(1);
         assertFraction(fraction.createFromArithmetic(2, 3), 2, 3);
-    }
-
-    @Test
-    void createFromArithmeticWithNullNuParameter() {
-        TestFraction fraction = new TestFraction(1);
-        assertThrows(IllegalArgumentException.class,
-            () -> fraction.createFromArithmetic(null, 1)
-        ); // assert exception message?
     }
 
     @Test

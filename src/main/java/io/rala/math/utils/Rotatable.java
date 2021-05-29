@@ -2,6 +2,7 @@ package io.rala.math.utils;
 
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.geometry.Point;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This interface allows to generate rotate instances.
@@ -19,7 +20,8 @@ public interface Rotatable<N extends Number, T> {
      * with {@link Point#Point(AbstractArithmetic)}
      * @since 1.0.0
      */
-    T rotate(N phi);
+    @NotNull
+    T rotate(@NotNull N phi);
 
     /**
      * @param center rotation center to rotate - class without position ignore this value
@@ -27,5 +29,6 @@ public interface Rotatable<N extends Number, T> {
      * @return a new instance with rotated properties
      * @since 1.0.0
      */
-    T rotate(Point<N> center, N phi);
+    @NotNull
+    T rotate(@NotNull Point<N> center, @NotNull N phi);
 }

@@ -23,6 +23,11 @@ class DoubleComplexTest {
     }
 
     @Test
+    void constructorWithReParameter() {
+        assertComplex(new DoubleComplex(2d), 2, 0);
+    }
+
+    @Test
     void constructorWithDifferentReImParameter() {
         assertComplex(new DoubleComplex(2d, 3d), 2, 3);
     }

@@ -45,15 +45,6 @@ class LongDoubleFractionTest {
     }
 
     @Test
-    void createAndSetNumeratorNull() {
-        LongDoubleFraction complex = new LongDoubleFraction(1);
-        assertFraction(complex);
-        assertThrows(IllegalArgumentException.class,
-            () -> complex.setNumerator(null)
-        ); // assert exception message?
-    }
-
-    @Test
     void createAndSetDenominator() {
         LongDoubleFraction complex = new LongDoubleFraction(1);
         assertFraction(complex);

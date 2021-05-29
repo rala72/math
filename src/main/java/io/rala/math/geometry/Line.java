@@ -3,6 +3,8 @@ package io.rala.math.geometry;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Validatable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -39,7 +41,7 @@ public class Line<T extends Number> implements Validatable,
      * @param x          x value of line
      * @since 1.0.0
      */
-    public Line(AbstractArithmetic<T> arithmetic, T x) {
+    public Line(@NotNull AbstractArithmetic<T> arithmetic, T x) {
         this(arithmetic, null, x);
     }
 
@@ -51,7 +53,7 @@ public class Line<T extends Number> implements Validatable,
      * @param b          y-intercept of line
      * @since 1.0.0
      */
-    public Line(AbstractArithmetic<T> arithmetic, T m, T b) {
+    public Line(@NotNull AbstractArithmetic<T> arithmetic, @Nullable T m, @NotNull T b) {
         this.arithmetic = arithmetic;
         setM(m);
         setB(b);
@@ -65,6 +67,7 @@ public class Line<T extends Number> implements Validatable,
      * @return stored arithmetic
      * @since 1.0.0
      */
+    @NotNull
     public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
     }
@@ -73,6 +76,7 @@ public class Line<T extends Number> implements Validatable,
      * @return m value of line - may return {@code null} if {@link #isVertical()}
      * @since 1.0.0
      */
+    @Nullable
     public T getM() {
         return m;
     }
@@ -81,7 +85,7 @@ public class Line<T extends Number> implements Validatable,
      * @param m new m value of line - use {@code null} if {@link #isVertical()}
      * @since 1.0.0
      */
-    public void setM(T m) {
+    public void setM(@Nullable T m) {
         this.m = m != null && getArithmetic().isFinite(m) ? m : null;
     }
 
@@ -89,6 +93,7 @@ public class Line<T extends Number> implements Validatable,
      * @return b value of line
      * @since 1.0.0
      */
+    @NotNull
     public T getB() {
         return b;
     }
@@ -97,7 +102,7 @@ public class Line<T extends Number> implements Validatable,
      * @param b new b value of line
      * @since 1.0.0
      */
-    public void setB(T b) {
+    public void setB(@NotNull T b) {
         this.b = b;
     }
 
@@ -110,7 +115,7 @@ public class Line<T extends Number> implements Validatable,
      * @since 1.0.0
      */
     public boolean isHorizontal() {
-        return !isVertical() && getArithmetic().isZero(getM());
+        return !isVertical() && getM() != null && getArithmetic().isZero(getM());
     }
 
     /**
@@ -134,11 +139,12 @@ public class Line<T extends Number> implements Validatable,
      * and {@code y} is not on line
      * @since 1.0.0
      */
-    public T calculateX(T y) {
+    @Nullable
+    public T calculateX(@NotNull T y) {
         return isVertical() ? getB() : isHorizontal() ?
             getArithmetic().isEqual(getB(), y) ? getB() : null :
             getArithmetic().quotient(
-                getArithmetic().difference(y, getB()), getM()
+                getArithmetic().difference(y, getB()), Objects.requireNonNull(getM())
             );
     }
 
@@ -151,11 +157,12 @@ public class Line<T extends Number> implements Validatable,
      * and {@code x} is not on line
      * @since 1.0.0
      */
-    public T calculateY(T x) {
+    @Nullable
+    public T calculateY(@NotNull T x) {
         return isHorizontal() ? getB() : isVertical() ?
             getArithmetic().isEqual(getB(), x) ? getB() : null :
             getArithmetic().sum(
-                getArithmetic().product(getM(), x),
+                getArithmetic().product(Objects.requireNonNull(getM()), x),
                 getB()
             );
     }
@@ -168,12 +175,13 @@ public class Line<T extends Number> implements Validatable,
      * @return normal line without changing {@link #getB()}
      * @since 1.0.0
      */
+    @NotNull
     public Line<T> normal() {
         T m = isVertical() ? getArithmetic().zero() :
             isHorizontal() ? null :
                 getArithmetic().quotient(
                     getArithmetic().fromInt(-1),
-                    getM()
+                    Objects.requireNonNull(getM())
                 );
         return new Line<>(getArithmetic(), m, getB());
     }
@@ -184,13 +192,17 @@ public class Line<T extends Number> implements Validatable,
      * @see #normal()
      * @since 1.0.0
      */
-    public Line<T> normal(Point<T> point) {
+    @NotNull
+    public Line<T> normal(@NotNull Point<T> point) {
         Line<T> normal = normal();
         normal.setB(
             normal.isVertical() ? point.getX() :
                 getArithmetic().difference(
                     point.getY(),
-                    getArithmetic().product(normal.getM(), point.getX())
+                    getArithmetic().product(
+                        Objects.requireNonNull(normal.getM()),
+                        point.getX()
+                    )
                 )
         );
         return normal;
@@ -205,7 +217,7 @@ public class Line<T extends Number> implements Validatable,
      * @return {@code true} if {@code m} is not equal
      * @since 1.0.0
      */
-    public boolean hasIntersection(Line<T> line) {
+    public boolean hasIntersection(@NotNull Line<T> line) {
         return (!isVertical() || !line.isVertical()) &&
             !getArithmetic().isEqual(getM(), line.getM());
     }
@@ -216,19 +228,29 @@ public class Line<T extends Number> implements Validatable,
      * if {@link #hasIntersection(Line)} is {@code false}
      * @since 1.0.0
      */
-    public Point<T> intersection(Line<T> line) {
+    @Nullable
+    public Point<T> intersection(@NotNull Line<T> line) {
         if (!hasIntersection(line)) return null;
         if (isVertical())
-            return new Point<>(getArithmetic(), getB(), line.calculateY(getB()));
+            return new Point<>(getArithmetic(), getB(),
+                Objects.requireNonNull(line.calculateY(getB()))
+            );
         if (line.isVertical())
-            return new Point<>(getArithmetic(), line.getB(), calculateY(line.getB()));
+            return new Point<>(getArithmetic(), line.getB(),
+                Objects.requireNonNull(calculateY(line.getB()))
+            );
         T x = getArithmetic().quotient(
             getArithmetic().negate(
                 getArithmetic().difference(getB(), line.getB())
             ),
-            getArithmetic().difference(getM(), line.getM())
+            getArithmetic().difference(
+                Objects.requireNonNull(getM()),
+                Objects.requireNonNull(line.getM())
+            )
         );
-        return new Point<>(getArithmetic(), x, calculateY(x));
+        return new Point<>(getArithmetic(), x,
+            Objects.requireNonNull(calculateY(x))
+        );
     }
 
     /**
@@ -237,7 +259,8 @@ public class Line<T extends Number> implements Validatable,
      * if there is no intersection
      * @since 1.0.0
      */
-    public T intersectionAngle(Line<T> line) {
+    @Nullable
+    public T intersectionAngle(@NotNull Line<T> line) {
         if (!hasIntersection(line)) return null;
         if (isVertical() || line.isVertical()) {
             // calculated like y-axis
@@ -247,11 +270,16 @@ public class Line<T extends Number> implements Validatable,
                     getArithmetic().fromDouble(Math.PI),
                     getArithmetic().fromInt(2)
                 ),
-                getArithmetic().atan(getArithmetic().absolute(m))
+                getArithmetic().atan(getArithmetic().absolute(
+                    Objects.requireNonNull(m))
+                )
             );
         }
         T tan = getArithmetic().quotient(
-            getArithmetic().difference(getM(), line.getM()),
+            getArithmetic().difference(
+                Objects.requireNonNull(getM()),
+                Objects.requireNonNull(line.getM())
+            ),
             getArithmetic().sum(
                 getArithmetic().one(),
                 getArithmetic().product(getM(), line.getM())
@@ -269,7 +297,7 @@ public class Line<T extends Number> implements Validatable,
      * @return {@code true} if point is on line
      * @since 1.0.0
      */
-    public boolean hasPoint(Point<T> point) {
+    public boolean hasPoint(@NotNull Point<T> point) {
         return isVertical() && getArithmetic().isEqual(getB(), point.getX()) ||
             getArithmetic().isEqual(calculateX(point.getY()), point.getX()) ||
             getArithmetic().isEqual(calculateY(point.getX()), point.getY());
@@ -286,10 +314,16 @@ public class Line<T extends Number> implements Validatable,
      * @see #calculateY(Number)
      * @since 1.0.0
      */
-    public LineSegment<T> toLineSegmentUsingX(T fromX, T toX) {
+    @NotNull
+    public LineSegment<T> toLineSegmentUsingX(@NotNull T fromX, @NotNull T toX) {
         return new LineSegment<>(
-            getArithmetic(), new Point<>(getArithmetic(), fromX, calculateY(fromX)),
-            new Point<>(getArithmetic(), toX, calculateY(toX))
+            getArithmetic(),
+            new Point<>(getArithmetic(), fromX,
+                Objects.requireNonNull(calculateY(fromX))
+            ),
+            new Point<>(getArithmetic(), toX,
+                Objects.requireNonNull(calculateY(toX))
+            )
         );
     }
 
@@ -300,10 +334,18 @@ public class Line<T extends Number> implements Validatable,
      * @see #calculateX(Number)
      * @since 1.0.0
      */
-    public LineSegment<T> toLineSegmentUsingY(T fromY, T toY) {
+    @NotNull
+    public LineSegment<T> toLineSegmentUsingY(@NotNull T fromY, @NotNull T toY) {
         return new LineSegment<>(
-            getArithmetic(), new Point<>(getArithmetic(), calculateX(fromY), fromY),
-            new Point<>(getArithmetic(), calculateX(toY), toY)
+            getArithmetic(),
+            new Point<>(getArithmetic(),
+                Objects.requireNonNull(calculateX(fromY)),
+                fromY
+            ),
+            new Point<>(getArithmetic(),
+                Objects.requireNonNull(calculateX(toY)),
+                toY
+            )
         );
     }
 
@@ -319,8 +361,9 @@ public class Line<T extends Number> implements Validatable,
      * @return mapped point
      * @since 1.0.0
      */
+    @NotNull
     public <NT extends Number> Line<NT> map(
-        AbstractArithmetic<NT> arithmetic, Function<T, NT> map
+        @NotNull AbstractArithmetic<NT> arithmetic, @NotNull Function<T, NT> map
     ) {
         return new Line<>(
             arithmetic,
@@ -336,6 +379,7 @@ public class Line<T extends Number> implements Validatable,
     }
 
     @Override
+    @NotNull
     public Line<T> copy() {
         return new Line<>(getArithmetic(), getM(), getB());
     }
@@ -359,6 +403,7 @@ public class Line<T extends Number> implements Validatable,
     }
 
     @Override
+    @NotNull
     public String toString() {
         return "y=" + (isVertical() ? "" :
             getM() + "*x" + (getArithmetic().compare(
@@ -369,9 +414,12 @@ public class Line<T extends Number> implements Validatable,
     }
 
     @Override
-    public int compareTo(Line<T> o) {
-        int compare = getArithmetic().compare(getM(), o.getM());
-        if (compare != 0) return compare;
+    public int compareTo(@NotNull Line<T> o) {
+        if (getM() != null && o.getM() != null) {
+            int compare = getArithmetic().compare(getM(), o.getM());
+            if (compare != 0) return compare;
+        } else if (getM() == null) return -1;
+        else if (o.getM() == null) return 1;
         return getArithmetic().compare(getB(), o.getB());
     }
 

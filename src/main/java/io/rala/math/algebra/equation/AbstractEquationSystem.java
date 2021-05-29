@@ -1,5 +1,7 @@
 package io.rala.math.algebra.equation;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * class which stores and allows to solve equation systems
  *
@@ -12,5 +14,6 @@ public abstract class AbstractEquationSystem<T extends AbstractEquationSystem<T>
      * @return new transposed equation system
      * @since 1.0.0
      */
+    @NotNull
     protected abstract T transpose();
 }

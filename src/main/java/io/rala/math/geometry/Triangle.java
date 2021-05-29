@@ -5,6 +5,7 @@ import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
 import io.rala.math.utils.Validatable;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.List;
@@ -43,7 +44,8 @@ public class Triangle<T extends Number> implements Validatable,
      * @since 1.0.0
      */
     public Triangle(
-        AbstractArithmetic<T> arithmetic, Point<T> a, Point<T> b, Point<T> c
+        @NotNull AbstractArithmetic<T> arithmetic,
+        @NotNull Point<T> a, @NotNull Point<T> b, @NotNull Point<T> c
     ) {
         this.arithmetic = arithmetic;
         setA(a);
@@ -59,6 +61,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @return stored arithmetic
      * @since 1.0.0
      */
+    @NotNull
     public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
     }
@@ -67,6 +70,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @return a of triangle
      * @since 1.0.0
      */
+    @NotNull
     public Point<T> getA() {
         return a;
     }
@@ -75,7 +79,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @param a new a of triangle
      * @since 1.0.0
      */
-    public void setA(Point<T> a) {
+    public void setA(@NotNull Point<T> a) {
         this.a = a;
     }
 
@@ -83,6 +87,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @return b of triangle
      * @since 1.0.0
      */
+    @NotNull
     public Point<T> getB() {
         return b;
     }
@@ -91,7 +96,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @param b new b of triangle
      * @since 1.0.0
      */
-    public void setB(Point<T> b) {
+    public void setB(@NotNull Point<T> b) {
         this.b = b;
     }
 
@@ -99,6 +104,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @return c of triangle
      * @since 1.0.0
      */
+    @NotNull
     public Point<T> getC() {
         return c;
     }
@@ -107,7 +113,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @param c new c of triangle
      * @since 1.0.0
      */
-    public void setC(Point<T> c) {
+    public void setC(@NotNull Point<T> c) {
         this.c = c;
     }
 
@@ -119,6 +125,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @return line segment from b to c
      * @since 1.0.0
      */
+    @NotNull
     public LineSegment<T> edgeA() {
         return new LineSegment<>(getArithmetic(), getB(), getC());
     }
@@ -127,6 +134,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @return line segment from a to c
      * @since 1.0.0
      */
+    @NotNull
     public LineSegment<T> edgeB() {
         return new LineSegment<>(getArithmetic(), getA(), getC());
     }
@@ -135,6 +143,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @return line segment from a to b
      * @since 1.0.0
      */
+    @NotNull
     public LineSegment<T> edgeC() {
         return new LineSegment<>(getArithmetic(), getA(), getB());
     }
@@ -143,6 +152,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @return line segment of altitude {@code a} starting at {@link #getA()}
      * @since 1.0.0
      */
+    @NotNull
     public LineSegment<T> altitudeA() {
         return getAltitude(edgeA().toLine(), getA());
     }
@@ -151,6 +161,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @return line segment of altitude {@code b} starting at {@link #getB()}
      * @since 1.0.0
      */
+    @NotNull
     public LineSegment<T> altitudeB() {
         return getAltitude(edgeB().toLine(), getB());
     }
@@ -159,6 +170,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @return line segment of altitude {@code c} starting at {@link #getC()}
      * @since 1.0.0
      */
+    @NotNull
     public LineSegment<T> altitudeC() {
         return getAltitude(edgeC().toLine(), getC());
     }
@@ -170,10 +182,11 @@ public class Triangle<T extends Number> implements Validatable,
      * ending at intersection with {@code edge}
      * @since 1.0.0
      */
-    protected LineSegment<T> getAltitude(Line<T> edge, Point<T> point) {
+    @NotNull
+    protected LineSegment<T> getAltitude(@NotNull Line<T> edge, @NotNull Point<T> point) {
         Line<T> altitudeLine = edge.normal(point);
-        return new LineSegment<>(getArithmetic(),
-            point, altitudeLine.intersection(edge)
+        return new LineSegment<>(getArithmetic(), point,
+            Objects.requireNonNull(altitudeLine.intersection(edge))
         );
     }
 
@@ -187,6 +200,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @return angle in {@code rad} at point {@code A}
      * @since 1.0.0
      */
+    @NotNull
     public T angleAlpha() {
         T dividend = getArithmetic().difference(
             getArithmetic().power(edgeA().length(), 2),
@@ -210,6 +224,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @return angle in {@code rad} at point {@code B}
      * @since 1.0.0
      */
+    @NotNull
     public T angleBeta() {
         T dividend = getArithmetic().difference(
             getArithmetic().power(edgeB().length(), 2),
@@ -233,6 +248,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @return angle in {@code rad} at point {@code C}
      * @since 1.0.0
      */
+    @NotNull
     public T angleGamma() {
         T dividend = getArithmetic().difference(
             getArithmetic().power(edgeC().length(), 2),
@@ -258,6 +274,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @return {@code sqrt(s*(s-a)*(s-b)*(s-c))}
      * @since 1.0.0
      */
+    @NotNull
     public T area() {
         T s = getArithmetic().quotient(
             circumference(),
@@ -278,6 +295,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @return {@code a+b+c}
      * @since 1.0.0
      */
+    @NotNull
     public T circumference() {
         return getArithmetic().sum(
             edgeA().length(), edgeB().length(), edgeC().length()
@@ -292,6 +310,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @return {@code (A+B+C)/3}
      * @since 1.0.0
      */
+    @NotNull
     public Point<T> centroid() {
         return new Point<>(getArithmetic(),
             getArithmetic().quotient(
@@ -314,8 +333,9 @@ public class Triangle<T extends Number> implements Validatable,
      * @see Line#intersection(Line)
      * @since 1.0.0
      */
+    @NotNull
     public Point<T> orthoCenter() {
-        return altitudeA().toLine().intersection(altitudeB().toLine());
+        return Objects.requireNonNull(altitudeA().toLine().intersection(altitudeB().toLine()));
     }
 
     // endregion
@@ -326,6 +346,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @return circum circle of triangle
      * @since 1.0.0
      */
+    @NotNull
     public Circle<T> circumCircle() {
         return new Circle<>(getArithmetic(), circumCirclePoint(), circumCircleRadius());
     }
@@ -334,6 +355,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @return in circle of triangle
      * @since 1.0.0
      */
+    @NotNull
     public Circle<T> inCircle() {
         return new Circle<>(getArithmetic(), inCirclePoint(), inCircleRadius());
     }
@@ -342,6 +364,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @return {@code (a*b*c)/A}
      * @since 1.0.0
      */
+    @NotNull
     protected T circumCircleRadius() {
         return getArithmetic().quotient(
             getArithmetic().product(
@@ -361,6 +384,7 @@ public class Triangle<T extends Number> implements Validatable,
      * and {@code d=Ax*(By-Cy)+Bx*(Cy-Ay)+Cx*(Ay-By)}
      * @since 1.0.0
      */
+    @NotNull
     protected Point<T> circumCirclePoint() {
         T d = getArithmetic().product(getArithmetic().fromInt(2),
             getArithmetic().sum(
@@ -424,6 +448,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @return {@code A/(r/2)}
      * @since 1.0.0
      */
+    @NotNull
     protected T inCircleRadius() {
         return getArithmetic().quotient(area(),
             getArithmetic().quotient(
@@ -437,6 +462,7 @@ public class Triangle<T extends Number> implements Validatable,
      * @return {@code ( (a*xA+b*xB+c*xC)/p, (a*yA+b*yB+c*yC)/p )} where {@code p=a+b+c}
      * @since 1.0.0
      */
+    @NotNull
     protected Point<T> inCirclePoint() {
         T p = circumference();
         return new Point<>(getArithmetic(),
@@ -468,8 +494,9 @@ public class Triangle<T extends Number> implements Validatable,
      * @return mapped triangle
      * @since 1.0.0
      */
+    @NotNull
     public <NT extends Number> Triangle<NT> map(
-        AbstractArithmetic<NT> arithmetic, Function<T, NT> map
+        @NotNull AbstractArithmetic<NT> arithmetic, @NotNull Function<T, NT> map
     ) {
         return new Triangle<>(
             arithmetic,
@@ -494,7 +521,8 @@ public class Triangle<T extends Number> implements Validatable,
     }
 
     @Override
-    public Triangle<T> move(T x, T y) {
+    @NotNull
+    public Triangle<T> move(@NotNull T x, @NotNull T y) {
         return new Triangle<>(getArithmetic(),
             getA().move(x, y), getB()
             .move(x, y), getC().move(x, y)
@@ -502,12 +530,14 @@ public class Triangle<T extends Number> implements Validatable,
     }
 
     @Override
-    public Triangle<T> rotate(T phi) {
+    @NotNull
+    public Triangle<T> rotate(@NotNull T phi) {
         return rotate(new Point<>(getArithmetic()), phi);
     }
 
     @Override
-    public Triangle<T> rotate(Point<T> center, T phi) {
+    @NotNull
+    public Triangle<T> rotate(@NotNull Point<T> center, @NotNull T phi) {
         return new Triangle<>(
             getArithmetic(), getA().rotate(center, phi),
             getB().rotate(center, phi),
@@ -516,6 +546,7 @@ public class Triangle<T extends Number> implements Validatable,
     }
 
     @Override
+    @NotNull
     public Triangle<T> copy() {
         return new Triangle<>(getArithmetic(),
             getA().copy(), getB().copy(), getC().copy()
@@ -542,12 +573,13 @@ public class Triangle<T extends Number> implements Validatable,
     }
 
     @Override
+    @NotNull
     public String toString() {
         return getA() + " " + getB() + " " + getC();
     }
 
     @Override
-    public int compareTo(Triangle<T> o) {
+    public int compareTo(@NotNull Triangle<T> o) {
         int compare = getArithmetic().compare(area(), o.area());
         if (compare != 0) return compare;
         List<Point<T>> s = List.of(getA(), getB(), getC())

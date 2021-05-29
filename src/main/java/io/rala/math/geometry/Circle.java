@@ -5,6 +5,7 @@ import io.rala.math.utils.Copyable;
 import io.rala.math.utils.Movable;
 import io.rala.math.utils.Rotatable;
 import io.rala.math.utils.Validatable;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -37,7 +38,7 @@ public class Circle<T extends Number> implements Validatable,
      * @param arithmetic arithmetic for calculations
      * @since 1.0.0
      */
-    public Circle(AbstractArithmetic<T> arithmetic) {
+    public Circle(@NotNull AbstractArithmetic<T> arithmetic) {
         this(arithmetic, new Point<>(arithmetic));
     }
 
@@ -48,7 +49,7 @@ public class Circle<T extends Number> implements Validatable,
      * @param center     center point of circle
      * @since 1.0.0
      */
-    public Circle(AbstractArithmetic<T> arithmetic, Point<T> center) {
+    public Circle(@NotNull AbstractArithmetic<T> arithmetic, @NotNull Point<T> center) {
         this(arithmetic, center, arithmetic.one());
     }
 
@@ -60,7 +61,7 @@ public class Circle<T extends Number> implements Validatable,
      * @param radius     radius of circle
      * @since 1.0.0
      */
-    public Circle(AbstractArithmetic<T> arithmetic, T radius) {
+    public Circle(@NotNull AbstractArithmetic<T> arithmetic, @NotNull T radius) {
         this(arithmetic, new Point<>(arithmetic), radius);
     }
 
@@ -73,7 +74,7 @@ public class Circle<T extends Number> implements Validatable,
      * @param point      point on circle
      * @since 1.0.0
      */
-    public Circle(AbstractArithmetic<T> arithmetic, Point<T> center, Point<T> point) {
+    public Circle(@NotNull AbstractArithmetic<T> arithmetic, @NotNull Point<T> center, @NotNull Point<T> point) {
         this(arithmetic, center, new LineSegment<>(arithmetic, center, point).length());
     }
 
@@ -85,7 +86,7 @@ public class Circle<T extends Number> implements Validatable,
      * @param radius     radius of circle
      * @since 1.0.0
      */
-    public Circle(AbstractArithmetic<T> arithmetic, Point<T> center, T radius) {
+    public Circle(@NotNull AbstractArithmetic<T> arithmetic, @NotNull Point<T> center, @NotNull T radius) {
         this.arithmetic = arithmetic;
         setCenter(center);
         setRadius(radius);
@@ -99,6 +100,7 @@ public class Circle<T extends Number> implements Validatable,
      * @return stored arithmetic
      * @since 1.0.0
      */
+    @NotNull
     public AbstractArithmetic<T> getArithmetic() {
         return arithmetic;
     }
@@ -107,6 +109,7 @@ public class Circle<T extends Number> implements Validatable,
      * @return center of circle
      * @since 1.0.0
      */
+    @NotNull
     public Point<T> getCenter() {
         return center;
     }
@@ -115,7 +118,7 @@ public class Circle<T extends Number> implements Validatable,
      * @param center new center of circle
      * @since 1.0.0
      */
-    public void setCenter(Point<T> center) {
+    public void setCenter(@NotNull Point<T> center) {
         this.center = center;
     }
 
@@ -123,6 +126,7 @@ public class Circle<T extends Number> implements Validatable,
      * @return radius of circle
      * @since 1.0.0
      */
+    @NotNull
     public T getRadius() {
         return radius;
     }
@@ -131,7 +135,7 @@ public class Circle<T extends Number> implements Validatable,
      * @param radius new radius of circle
      * @since 1.0.0
      */
-    public void setRadius(T radius) {
+    public void setRadius(@NotNull T radius) {
         this.radius = radius;
     }
 
@@ -139,6 +143,7 @@ public class Circle<T extends Number> implements Validatable,
      * @return {@link #getRadius()}{@code *2}
      * @since 1.0.0
      */
+    @NotNull
     public T getDiameter() {
         return getArithmetic().product(
             getRadius(), getArithmetic().fromInt(2)
@@ -152,7 +157,7 @@ public class Circle<T extends Number> implements Validatable,
      * @see #setRadius(Number)
      * @since 1.0.0
      */
-    public void setDiameter(T diameter) {
+    public void setDiameter(@NotNull T diameter) {
         setRadius(getArithmetic().quotient(
             diameter, getArithmetic().fromInt(2)
         ));
@@ -166,6 +171,7 @@ public class Circle<T extends Number> implements Validatable,
      * @return &pi;{@code *r^2}
      * @since 1.0.0
      */
+    @NotNull
     public T area() {
         return getArithmetic().product(
             getArithmetic().fromDouble(Math.PI),
@@ -177,6 +183,7 @@ public class Circle<T extends Number> implements Validatable,
      * @return {@code 2*}&pi;{@code *r}
      * @since 1.0.0
      */
+    @NotNull
     public T circumference() {
         return getArithmetic().product(
             getArithmetic().fromInt(2),
@@ -208,8 +215,9 @@ public class Circle<T extends Number> implements Validatable,
      * @return mapped circle
      * @since 1.0.0
      */
+    @NotNull
     public <NT extends Number> Circle<NT> map(
-        AbstractArithmetic<NT> arithmetic, Function<T, NT> map
+        @NotNull AbstractArithmetic<NT> arithmetic, @NotNull Function<T, NT> map
     ) {
         return new Circle<>(
             arithmetic,
@@ -225,23 +233,27 @@ public class Circle<T extends Number> implements Validatable,
     }
 
     @Override
-    public Circle<T> move(T x, T y) {
+    @NotNull
+    public Circle<T> move(@NotNull T x, @NotNull T y) {
         return new Circle<>(getArithmetic(), getCenter().move(x, y), getRadius());
     }
 
     @Override
-    public Circle<T> rotate(T phi) {
+    @NotNull
+    public Circle<T> rotate(@NotNull T phi) {
         return rotate(new Point<>(getArithmetic()), phi);
     }
 
     @Override
-    public Circle<T> rotate(Point<T> center, T phi) {
+    @NotNull
+    public Circle<T> rotate(@NotNull Point<T> center, @NotNull T phi) {
         return new Circle<>(getArithmetic(),
             getCenter().rotate(center, phi), getRadius()
         );
     }
 
     @Override
+    @NotNull
     public Circle<T> copy() {
         return new Circle<>(getArithmetic(), getCenter().copy(), getRadius());
     }
@@ -265,12 +277,13 @@ public class Circle<T extends Number> implements Validatable,
     }
 
     @Override
+    @NotNull
     public String toString() {
         return getCenter() + " " + getRadius();
     }
 
     @Override
-    public int compareTo(Circle<T> o) {
+    public int compareTo(@NotNull Circle<T> o) {
         int compare = getArithmetic().compare(getRadius(), o.getRadius());
         if (compare != 0) return compare;
         return getCenter().compareTo(o.getCenter());

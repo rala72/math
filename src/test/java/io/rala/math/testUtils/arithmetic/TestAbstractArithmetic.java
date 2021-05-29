@@ -2,22 +2,25 @@ package io.rala.math.testUtils.arithmetic;
 
 import io.rala.math.MathX;
 import io.rala.math.arithmetic.AbstractArithmetic;
+import org.jetbrains.annotations.NotNull;
 
 public class TestAbstractArithmetic extends AbstractArithmetic<Number> {
     // region fromInt, fromDouble and signum
 
     @Override
+    @NotNull
     public Number fromInt(int a) {
         return fromDouble(a);
     }
 
     @Override
+    @NotNull
     public Number fromDouble(double a) {
         return a;
     }
 
     @Override
-    public double signum(Number a) {
+    public double signum(@NotNull Number a) {
         return Math.signum(a.doubleValue());
     }
 
@@ -26,22 +29,26 @@ public class TestAbstractArithmetic extends AbstractArithmetic<Number> {
     // region sum, difference, product and quotient
 
     @Override
-    public Number sum(Number a, Number b) {
+    @NotNull
+    public Number sum(@NotNull Number a, @NotNull Number b) {
         return a.doubleValue() + b.doubleValue();
     }
 
     @Override
-    public Number difference(Number a, Number b) {
+    @NotNull
+    public Number difference(@NotNull Number a, @NotNull Number b) {
         return a.doubleValue() - b.doubleValue();
     }
 
     @Override
-    public Number product(Number a, Number b) {
+    @NotNull
+    public Number product(@NotNull Number a, @NotNull Number b) {
         return a.doubleValue() * b.doubleValue();
     }
 
     @Override
-    public Number quotient(Number a, Number b) {
+    @NotNull
+    public Number quotient(@NotNull Number a, @NotNull Number b) {
         return a.doubleValue() / b.doubleValue();
     }
 
@@ -50,12 +57,14 @@ public class TestAbstractArithmetic extends AbstractArithmetic<Number> {
     // region exponent and root
 
     @Override
-    public Number power(Number a, int b) {
+    @NotNull
+    public Number power(@NotNull Number a, int b) {
         return Math.pow(a.doubleValue(), b);
     }
 
     @Override
-    public Number root(Number a, int b) {
+    @NotNull
+    public Number root(@NotNull Number a, int b) {
         return MathX.root(a.doubleValue(), b);
     }
 
@@ -64,7 +73,8 @@ public class TestAbstractArithmetic extends AbstractArithmetic<Number> {
     // region gcd
 
     @Override
-    public Number gcd(Number a, Number b) {
+    @NotNull
+    public Number gcd(@NotNull Number a, @NotNull Number b) {
         return MathX.gcd(a.longValue(), b.longValue());
     }
 

@@ -26,7 +26,8 @@ class AbstractSolverTest {
     @Test
     void getWorkingOfTestAbstractSolver() {
         TestAbstractSolver solver = new TestAbstractSolver(equationSystem);
-        assertNull(solver.getWorking());
+        //noinspection ResultOfMethodCallIgnored
+        assertThrows(IllegalStateException.class, solver::getWorking);
     }
 
     // endregion
@@ -36,13 +37,14 @@ class AbstractSolverTest {
     @Test
     void solveOfTestAbstractSolver() {
         TestAbstractSolver solver = new TestAbstractSolver(equationSystem);
-        assertNull(solver.solve());
+        assertNotNull(solver.solve());
     }
 
     @Test
     void resetOfTestAbstractSolver() {
         TestAbstractSolver solver = new TestAbstractSolver(equationSystem);
-        assertNull(solver.getWorking());
+        //noinspection ResultOfMethodCallIgnored
+        assertThrows(IllegalStateException.class, solver::getWorking);
         solver.reset();
         assertEquals(equationSystem, solver.getWorking());
     }
@@ -55,7 +57,6 @@ class AbstractSolverTest {
     void equalsOfTestAbstractSolver() {
         TestAbstractSolver solver = new TestAbstractSolver(equationSystem);
         assertEquals(solver, new TestAbstractSolver(equationSystem));
-        assertNotEquals(solver, new TestAbstractSolver(null));
     }
 
     @Test
@@ -70,10 +71,11 @@ class AbstractSolverTest {
     @Test
     void toStringOfTestAbstractSolver() {
         TestAbstractSolver solver = new TestAbstractSolver(equationSystem);
+        solver.reset();
         String toStringPrefix = "io.rala.math.testUtils.algebra.equation.TestAbstractEquationSystem@";
         String toStringSuffix = " -> null";
         assertTrue(solver.toString().startsWith(toStringPrefix));
-        assertTrue(solver.toString().endsWith(toStringSuffix));
+        assertFalse(solver.toString().endsWith(toStringSuffix));
     }
 
     // endregion

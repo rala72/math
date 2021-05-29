@@ -3,6 +3,7 @@ package io.rala.math.algebra.equation.linear.solver;
 import io.rala.math.algebra.equation.Solution;
 import io.rala.math.algebra.equation.linear.AbstractLinearSolver;
 import io.rala.math.algebra.equation.linear.LinearEquationSystem;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -21,7 +22,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
      * @param equationSystem equation system to solve
      * @since 1.0.0
      */
-    public GaussSolver(LinearEquationSystem<T> equationSystem) {
+    public GaussSolver(@NotNull LinearEquationSystem<T> equationSystem) {
         super(equationSystem);
     }
 
@@ -31,6 +32,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
      * @return current swappedCols instance
      * @since 1.0.0
      */
+    @NotNull
     protected Deque<ColPair> getSwappedCols() {
         return swappedCols;
     }
@@ -38,6 +40,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
     // endregion
 
     @Override
+    @NotNull
     public Solution<LinearEquationSystem<T>, T> solve() {
         reset();
         prepareMatrix();
@@ -308,6 +311,7 @@ public class GaussSolver<T extends Number> extends AbstractLinearSolver<T> {
         }
 
         @Override
+        @NotNull
         public String toString() {
             return getCol1() + " <> " + getCol2();
         }

@@ -3,6 +3,7 @@ package io.rala.math.algebra.matrix.typed;
 import io.rala.math.algebra.matrix.Matrix;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.core.DoubleArithmetic;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
@@ -40,7 +41,7 @@ public class DoubleMatrix extends Matrix<Double> {
      * @param matrix matrix to copy
      * @since 1.0.0
      */
-    public DoubleMatrix(Matrix<Double> matrix) {
+    public DoubleMatrix(@NotNull Matrix<Double> matrix) {
         super(matrix);
     }
 
@@ -54,6 +55,7 @@ public class DoubleMatrix extends Matrix<Double> {
      * @see Matrix#identity(AbstractArithmetic, int)
      * @since 1.0.0
      */
+    @NotNull
     public static DoubleMatrix identity(int size) {
         return new DoubleMatrix(
             Matrix.identity(DoubleArithmetic.getInstance(), size)
@@ -66,6 +68,7 @@ public class DoubleMatrix extends Matrix<Double> {
      * @see Matrix#diagonal(AbstractArithmetic, Number[])
      * @since 1.0.0
      */
+    @NotNull
     public static DoubleMatrix diagonal(double... values) {
         Double[] boxed = Arrays.stream(values).boxed().toArray(Double[]::new);
         return new DoubleMatrix(
@@ -88,6 +91,7 @@ public class DoubleMatrix extends Matrix<Double> {
      * @see Matrix#ofValuesByRows(AbstractArithmetic, int, Number[])
      * @since 1.0.0
      */
+    @NotNull
     public static DoubleMatrix ofValuesByRows(int rows, double... values) {
         Double[] boxed = Arrays.stream(values).boxed().toArray(Double[]::new);
         return new DoubleMatrix(Matrix.ofValuesByRows(
@@ -106,6 +110,7 @@ public class DoubleMatrix extends Matrix<Double> {
      * @see Matrix#ofValuesByCols(AbstractArithmetic, int, Number[])
      * @since 1.0.0
      */
+    @NotNull
     public static DoubleMatrix ofValuesByCols(int cols, double... values) {
         Double[] boxed = Arrays.stream(values).boxed().toArray(Double[]::new);
         return new DoubleMatrix(Matrix.ofValuesByCols(

@@ -1,5 +1,8 @@
 package io.rala.math;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Unmodifiable;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
@@ -60,13 +63,12 @@ public class MathX {
     /**
      * @param a numbers of gcd
      * @return greatest common divisor
-     * or {@code null} if parameter is {@code null}
      * @see #gcd(BigInteger, BigInteger)
      * @see BigInteger#gcd(BigInteger)
      * @since 1.0.0
      */
-    public static BigInteger gcd(BigInteger... a) {
-        if (a == null) return null;
+    @NotNull
+    public static BigInteger gcd(@NotNull BigInteger... a) {
         if (a.length == 0) return BigInteger.ZERO;
         if (a.length == 1) return a[0];
         BigInteger current = a[0];
@@ -107,13 +109,13 @@ public class MathX {
      * @param a number1 of gcd
      * @param b number2 of gcd
      * @return greatest common divisor
-     * or {@code null} if parameter is {@code null}
      * @see #gcd(BigInteger...)
      * @see BigInteger#gcd(BigInteger)
      * @since 1.0.0
      */
-    public static BigInteger gcd(BigInteger a, BigInteger b) {
-        return a == null || b == null ? null : a.gcd(b);
+    @NotNull
+    public static BigInteger gcd(@NotNull BigInteger a, @NotNull BigInteger b) {
+        return a.gcd(b);
     }
 
     // endregion
@@ -125,6 +127,8 @@ public class MathX {
      * @return list of factors
      * @since 1.0.0
      */
+    @NotNull
+    @Unmodifiable
     public static List<Integer> factors(int a) {
         return factors((long) a).stream()
             .mapToInt(Long::intValue).boxed()
@@ -136,6 +140,8 @@ public class MathX {
      * @return list of factors
      * @since 1.0.0
      */
+    @NotNull
+    @Unmodifiable
     public static List<Long> factors(long a) {
         // https://stackoverflow.com/a/6233030/2715720
         List<Long> factors = new ArrayList<>();
@@ -181,14 +187,13 @@ public class MathX {
      *
      * @param a number
      * @return factorial
-     * or {@code null} if parameter is {@code null}
      * @since 1.0.0
      */
-    public static BigInteger factorial(BigInteger a) {
-        return a == null ? null :
-            a.compareTo(BigInteger.ZERO) < 0 ? BigInteger.ZERO :
-                a.equals(BigInteger.ZERO) ? BigInteger.ONE :
-                    a.multiply(factorial(a.subtract(BigInteger.ONE)));
+    @NotNull
+    public static BigInteger factorial(@NotNull BigInteger a) {
+        return a.compareTo(BigInteger.ZERO) < 0 ? BigInteger.ZERO :
+            a.equals(BigInteger.ZERO) ? BigInteger.ONE :
+                a.multiply(factorial(a.subtract(BigInteger.ONE)));
     }
 
     // endregion
@@ -234,12 +239,11 @@ public class MathX {
      *
      * @param a numbers of lcm
      * @return least common multiple
-     * or {@code null} if parameter is {@code null}
      * @see #lcm(BigInteger, BigInteger)
      * @since 1.0.0
      */
-    public static BigInteger lcm(BigInteger... a) {
-        if (a == null) return null;
+    @NotNull
+    public static BigInteger lcm(@NotNull BigInteger... a) {
         if (a.length == 0) return BigInteger.ZERO;
         if (a.length == 1) return a[0];
         BigInteger current = a[0];
@@ -284,13 +288,12 @@ public class MathX {
      * @param a number1 of lcm
      * @param b number2 of lcm
      * @return least common multiple
-     * or {@code null} if parameter is {@code null}
      * @see #lcm(BigInteger...)
      * @since 1.0.0
      */
-    public static BigInteger lcm(BigInteger a, BigInteger b) {
-        return a == null || b == null ? null :
-            a.multiply(b).abs().divide(gcd(a, b));
+    @NotNull
+    public static BigInteger lcm(@NotNull BigInteger a, @NotNull BigInteger b) {
+        return a.multiply(b).abs().divide(gcd(a, b));
     }
 
     // endregion
@@ -324,7 +327,8 @@ public class MathX {
      * @see #root(BigDecimal, int)
      * @since 1.0.0
      */
-    public static BigDecimal root(BigDecimal a, int n) {
+    @NotNull
+    public static BigDecimal root(@NotNull BigDecimal a, int n) {
         return root(a, n, MATH_CONTEXT);
     }
 
@@ -335,13 +339,12 @@ public class MathX {
      * @param n       number of root
      * @param context context to use
      * @return calculated root
-     * or {@code null} if parameter is {@code null}
      * @throws IllegalArgumentException if a is not positive
      * @since 1.0.0
      */
-    public static BigDecimal root(BigDecimal a, int n, MathContext context) {
+    @NotNull
+    public static BigDecimal root(@NotNull BigDecimal a, int n, @NotNull MathContext context) {
         // https://stackoverflow.com/a/34074999/2715720
-        if (a == null || context == null) return null;
         if (a.compareTo(BigDecimal.ZERO) < 0)
             throw new IllegalArgumentException(ILLEGAL_ARGUMENT__NUMBER_HAS_TO_BE_POSITIVE);
         if (a.equals(BigDecimal.ZERO)) return BigDecimal.ZERO;

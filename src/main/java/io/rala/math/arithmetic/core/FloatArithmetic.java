@@ -3,6 +3,7 @@ package io.rala.math.arithmetic.core;
 import io.rala.math.MathX;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.exception.NotSupportedException;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * class which handles {@link Float} arithmetic
@@ -18,6 +19,7 @@ public class FloatArithmetic extends AbstractArithmetic<Float> {
      * @return default instance
      * @since 1.0.0
      */
+    @NotNull
     public static FloatArithmetic getInstance() {
         if (instance == null) instance = new FloatArithmetic();
         return instance;
@@ -28,17 +30,19 @@ public class FloatArithmetic extends AbstractArithmetic<Float> {
     // region fromInt, fromDouble and signum
 
     @Override
+    @NotNull
     public Float fromInt(int a) {
         return (float) a;
     }
 
     @Override
+    @NotNull
     public Float fromDouble(double a) {
         return (float) a;
     }
 
     @Override
-    public double signum(Float a) {
+    public double signum(@NotNull Float a) {
         return Math.signum(a);
     }
 
@@ -47,27 +51,32 @@ public class FloatArithmetic extends AbstractArithmetic<Float> {
     // region sum, difference, product, quotient and modulo
 
     @Override
-    public Float sum(Float a, Float b) {
+    @NotNull
+    public Float sum(@NotNull Float a, @NotNull Float b) {
         return a + b;
     }
 
     @Override
-    public Float difference(Float a, Float b) {
+    @NotNull
+    public Float difference(@NotNull Float a, @NotNull Float b) {
         return a - b;
     }
 
     @Override
-    public Float product(Float a, Float b) {
+    @NotNull
+    public Float product(@NotNull Float a, @NotNull Float b) {
         return a * b;
     }
 
     @Override
-    public Float quotient(Float a, Float b) {
+    @NotNull
+    public Float quotient(@NotNull Float a, @NotNull Float b) {
         return a / b;
     }
 
     @Override
-    public Float modulo(Float a, Float b) {
+    @NotNull
+    public Float modulo(@NotNull Float a, @NotNull Float b) {
         return a % b;
     }
 
@@ -76,12 +85,14 @@ public class FloatArithmetic extends AbstractArithmetic<Float> {
     // region power and root
 
     @Override
-    public Float power(Float a, int b) {
+    @NotNull
+    public Float power(@NotNull Float a, int b) {
         return (float) Math.pow(a, b);
     }
 
     @Override
-    public Float root(Float a, int b) {
+    @NotNull
+    public Float root(@NotNull Float a, int b) {
         return (float) MathX.root(a, b);
     }
 
@@ -90,7 +101,8 @@ public class FloatArithmetic extends AbstractArithmetic<Float> {
     // region gcd
 
     @Override
-    public Float gcd(Float a, Float b) {
+    @NotNull
+    public Float gcd(@NotNull Float a, @NotNull Float b) {
         throw new NotSupportedException();
     }
 

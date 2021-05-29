@@ -3,6 +3,8 @@ package io.rala.math.algebra.numeric.typed;
 import io.rala.math.algebra.numeric.Complex;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.core.BigDecimalArithmetic;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -29,8 +31,17 @@ public class BigDecimalComplex extends Complex<BigDecimal> {
      * @see Complex#Complex(AbstractArithmetic)
      * @since 1.0.0
      */
-    public BigDecimalComplex(MathContext context) {
+    public BigDecimalComplex(@NotNull MathContext context) {
         super(new BigDecimalArithmetic(context));
+    }
+
+    /**
+     * @param re real part
+     * @see Complex#Complex(AbstractArithmetic, Number)
+     * @since 1.1.0
+     */
+    public BigDecimalComplex(@NotNull BigDecimal re) {
+        super(BigDecimalArithmetic.getInstance(), re);
     }
 
     /**
@@ -39,7 +50,7 @@ public class BigDecimalComplex extends Complex<BigDecimal> {
      * @see Complex#Complex(AbstractArithmetic, Number, Number)
      * @since 1.0.0
      */
-    public BigDecimalComplex(BigDecimal re, BigDecimal im) {
+    public BigDecimalComplex(@NotNull BigDecimal re, @Nullable BigDecimal im) {
         super(BigDecimalArithmetic.getInstance(), re, im);
     }
 
@@ -50,7 +61,10 @@ public class BigDecimalComplex extends Complex<BigDecimal> {
      * @see Complex#Complex(AbstractArithmetic, Number, Number)
      * @since 1.0.0
      */
-    public BigDecimalComplex(BigDecimal re, BigDecimal im, MathContext context) {
+    public BigDecimalComplex(
+        @NotNull BigDecimal re, @Nullable BigDecimal im,
+        @NotNull MathContext context
+    ) {
         super(new BigDecimalArithmetic(context), re, im);
     }
 
@@ -61,7 +75,7 @@ public class BigDecimalComplex extends Complex<BigDecimal> {
      * @see Complex#Complex(Complex)
      * @since 1.0.0
      */
-    public BigDecimalComplex(Complex<BigDecimal> complex) {
+    public BigDecimalComplex(@NotNull Complex<BigDecimal> complex) {
         super(complex.getArithmetic(), complex.getRe(), complex.getIm());
     }
 
@@ -75,7 +89,10 @@ public class BigDecimalComplex extends Complex<BigDecimal> {
      * @return new complex based on absoluteValue and argument
      * @since 1.0.0
      */
-    public static BigDecimalComplex of(BigDecimal absoluteValue, BigDecimal argument) {
+    @NotNull
+    public static BigDecimalComplex of(
+        @NotNull BigDecimal absoluteValue, @NotNull BigDecimal argument
+    ) {
         return new BigDecimalComplex(
             Complex.of(BigDecimalArithmetic.getInstance(), absoluteValue, argument)
         );

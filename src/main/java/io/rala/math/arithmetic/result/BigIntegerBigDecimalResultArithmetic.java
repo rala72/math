@@ -3,6 +3,7 @@ package io.rala.math.arithmetic.result;
 import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 import io.rala.math.arithmetic.core.BigIntegerArithmetic;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -23,6 +24,7 @@ public class BigIntegerBigDecimalResultArithmetic extends AbstractResultArithmet
      * @return default instance
      * @since 1.0.0
      */
+    @NotNull
     public static BigIntegerBigDecimalResultArithmetic getInstance() {
         if (instance == null) instance = new BigIntegerBigDecimalResultArithmetic();
         return instance;
@@ -49,12 +51,13 @@ public class BigIntegerBigDecimalResultArithmetic extends AbstractResultArithmet
      * @see BigDecimalArithmetic#BigDecimalArithmetic(MathContext)
      * @since 1.0.0
      */
-    public BigIntegerBigDecimalResultArithmetic(MathContext context) {
+    public BigIntegerBigDecimalResultArithmetic(@NotNull MathContext context) {
         super(BigIntegerArithmetic.getInstance(), new BigDecimalArithmetic(context));
     }
 
     @Override
-    public BigDecimal fromT(BigInteger a) {
+    @NotNull
+    public BigDecimal fromT(@NotNull BigInteger a) {
         return new BigDecimal(a);
     }
 }

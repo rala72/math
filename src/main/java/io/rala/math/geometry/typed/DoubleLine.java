@@ -3,6 +3,7 @@ package io.rala.math.geometry.typed;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.core.DoubleArithmetic;
 import io.rala.math.geometry.Line;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * class which holds a line in a 2d area with m &amp; b
@@ -31,7 +32,7 @@ public class DoubleLine extends Line<Double> {
      * @see Line#Line(AbstractArithmetic, Number, Number)
      * @since 1.0.0
      */
-    public DoubleLine(Double m, double b) {
+    public DoubleLine(@Nullable Double m, double b) {
         super(DoubleArithmetic.getInstance(), m, b);
     }
 

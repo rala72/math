@@ -3,6 +3,7 @@ package io.rala.math.arithmetic.result;
 import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.core.DoubleArithmetic;
 import io.rala.math.arithmetic.core.LongArithmetic;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * class which defines required arithmetic for calculations
@@ -19,6 +20,7 @@ public class LongDoubleResultArithmetic extends AbstractResultArithmetic<Long, D
      * @return default instance
      * @since 1.0.0
      */
+    @NotNull
     public static LongDoubleResultArithmetic getInstance() {
         if (instance == null) instance = new LongDoubleResultArithmetic();
         return instance;
@@ -37,7 +39,8 @@ public class LongDoubleResultArithmetic extends AbstractResultArithmetic<Long, D
     }
 
     @Override
-    public Double fromT(Long a) {
+    @NotNull
+    public Double fromT(@NotNull Long a) {
         return (double) a;
     }
 }

@@ -3,6 +3,7 @@ package io.rala.math.geometry.typed;
 import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 import io.rala.math.geometry.Point;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -29,7 +30,7 @@ public class BigDecimalPoint extends Point<BigDecimal> {
      * @see Point#Point(AbstractArithmetic)
      * @since 1.0.0
      */
-    public BigDecimalPoint(MathContext context) {
+    public BigDecimalPoint(@NotNull MathContext context) {
         super(new BigDecimalArithmetic(context));
     }
 
@@ -39,7 +40,7 @@ public class BigDecimalPoint extends Point<BigDecimal> {
      * @see Point#Point(AbstractArithmetic, Number)
      * @since 1.0.0
      */
-    public BigDecimalPoint(BigDecimal xy) {
+    public BigDecimalPoint(@NotNull BigDecimal xy) {
         super(BigDecimalArithmetic.getInstance(), xy);
     }
 
@@ -50,7 +51,10 @@ public class BigDecimalPoint extends Point<BigDecimal> {
      * @see Point#Point(AbstractArithmetic, Number)
      * @since 1.0.0
      */
-    public BigDecimalPoint(BigDecimal xy, MathContext context) {
+    public BigDecimalPoint(
+        @NotNull BigDecimal xy,
+        @NotNull MathContext context
+    ) {
         super(new BigDecimalArithmetic(context), xy);
     }
 
@@ -60,7 +64,7 @@ public class BigDecimalPoint extends Point<BigDecimal> {
      * @see Point#Point(AbstractArithmetic, Number, Number)
      * @since 1.0.0
      */
-    public BigDecimalPoint(BigDecimal x, BigDecimal y) {
+    public BigDecimalPoint(@NotNull BigDecimal x, @NotNull BigDecimal y) {
         super(BigDecimalArithmetic.getInstance(), x, y);
     }
 
@@ -71,7 +75,10 @@ public class BigDecimalPoint extends Point<BigDecimal> {
      * @see Point#Point(AbstractArithmetic, Number, Number)
      * @since 1.0.0
      */
-    public BigDecimalPoint(BigDecimal x, BigDecimal y, MathContext context) {
+    public BigDecimalPoint(
+        @NotNull BigDecimal x, @NotNull BigDecimal y,
+        @NotNull MathContext context
+    ) {
         super(new BigDecimalArithmetic(context), x, y);
     }
 

@@ -4,6 +4,7 @@ import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 import io.rala.math.geometry.Point;
 import io.rala.math.geometry.Triangle;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -25,7 +26,7 @@ public class BigDecimalTriangle extends Triangle<BigDecimal> {
      * @since 1.0.0
      */
     public BigDecimalTriangle(
-        Point<BigDecimal> a, Point<BigDecimal> b, Point<BigDecimal> c
+        @NotNull Point<BigDecimal> a, @NotNull Point<BigDecimal> b, @NotNull Point<BigDecimal> c
     ) {
         super(BigDecimalArithmetic.getInstance(), a, b, c);
     }
@@ -39,8 +40,8 @@ public class BigDecimalTriangle extends Triangle<BigDecimal> {
      * @since 1.0.0
      */
     public BigDecimalTriangle(
-        Point<BigDecimal> a, Point<BigDecimal> b,
-        Point<BigDecimal> c, MathContext context
+        @NotNull Point<BigDecimal> a, @NotNull Point<BigDecimal> b,
+        @NotNull Point<BigDecimal> c, @NotNull MathContext context
     ) {
         super(new BigDecimalArithmetic(context), a, b, c);
     }
