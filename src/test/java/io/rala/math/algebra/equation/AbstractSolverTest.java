@@ -26,7 +26,6 @@ class AbstractSolverTest {
     @Test
     void getWorkingOfTestAbstractSolver() {
         TestAbstractSolver solver = new TestAbstractSolver(equationSystem);
-        //noinspection ResultOfMethodCallIgnored
         assertThrows(IllegalStateException.class, solver::getWorking);
     }
 
@@ -43,7 +42,6 @@ class AbstractSolverTest {
     @Test
     void resetOfTestAbstractSolver() {
         TestAbstractSolver solver = new TestAbstractSolver(equationSystem);
-        //noinspection ResultOfMethodCallIgnored
         assertThrows(IllegalStateException.class, solver::getWorking);
         solver.reset();
         assertEquals(equationSystem, solver.getWorking());

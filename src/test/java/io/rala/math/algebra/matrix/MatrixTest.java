@@ -1368,7 +1368,7 @@ class MatrixTest {
         TestMatrix result = new TestMatrix(2);
         for (int i = 0; i < matrix.size(); i++) {
             matrix.setValue(i, i + 1d);
-            result.setValue(i, (i + 1d) * (i / result.getCols() == 0 ? 1 : 1));
+            result.setValue(i, i + 1d);
         }
         assertEquals(result, matrix.multiplyRow(0, 1d));
     }
@@ -1409,7 +1409,7 @@ class MatrixTest {
         TestMatrix result = new TestMatrix(2);
         for (int i = 0; i < matrix.size(); i++) {
             matrix.setValue(i, i + 1d);
-            result.setValue(i, (i + 1d) * (i % result.getCols() == 0 ? 1 : 1));
+            result.setValue(i, i + 1d);
         }
         assertEquals(result, matrix.multiplyCol(0, 1d));
     }
