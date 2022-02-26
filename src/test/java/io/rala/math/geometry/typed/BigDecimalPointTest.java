@@ -9,7 +9,7 @@ import java.math.MathContext;
 
 import static io.rala.math.testUtils.assertion.GeometryAssertions.assertPoint;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class BigDecimalPointTest {
     // region constructors, getter and setter
@@ -114,14 +114,12 @@ class BigDecimalPointTest {
             BigDecimal.valueOf(0.5), BigDecimal.valueOf(1.5)
         );
         Point<Integer> result = new Point<>(new IntegerArithmetic(), 0, 1);
-        assertEquals(result,
-            point.map(new IntegerArithmetic(), Number::intValue)
-        );
+        assertThat(point.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void isValidWithZeroValues() {
-        assertTrue(new BigDecimalPoint().isValid());
+        assertThat(new BigDecimalPoint().isValid()).isTrue();
     }
 
     @Test
@@ -233,7 +231,7 @@ class BigDecimalPointTest {
         Point<BigDecimal> point = new BigDecimalPoint(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        assertEquals(point, point.copy());
+        assertThat(point.copy()).isEqualTo(point);
     }
 
     // endregion
@@ -245,22 +243,16 @@ class BigDecimalPointTest {
         Point<BigDecimal> point = new BigDecimalPoint(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        assertEquals(point,
-            new BigDecimalPoint(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d))
-        );
-        assertNotEquals(point,
-            new BigDecimalPoint(BigDecimal.valueOf(3d), BigDecimal.valueOf(2d))
-        );
+        assertThat(new BigDecimalPoint(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d))).isEqualTo(point);
+        assertThat(new BigDecimalPoint(BigDecimal.valueOf(3d), BigDecimal.valueOf(2d))).isNotEqualTo(point);
     }
 
     @Test
     void hashCodeOfPointWithXY() {
-        assertEquals(21143,
-            new BigDecimalPoint(
-                BigDecimal.valueOf(2d),
-                BigDecimal.valueOf(3d)
-            ).hashCode()
-        );
+        assertThat(new BigDecimalPoint(
+            BigDecimal.valueOf(2d),
+            BigDecimal.valueOf(3d)
+        ).hashCode()).isEqualTo(21143);
     }
 
     @Test
@@ -268,7 +260,7 @@ class BigDecimalPointTest {
         Point<BigDecimal> point = new BigDecimalPoint(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        assertEquals("2.0|3.0", point.toString());
+        assertThat(point.toString()).isEqualTo("2.0|3.0");
     }
 
     @Test
@@ -276,21 +268,15 @@ class BigDecimalPointTest {
         Point<BigDecimal> point = new BigDecimalPoint(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        assertEquals(0,
-            point.compareTo(new BigDecimalPoint(
-                BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
-            ))
-        );
-        assertEquals(-1,
-            point.compareTo(new BigDecimalPoint(
-                BigDecimal.valueOf(3d), BigDecimal.ONE
-            ))
-        );
-        assertEquals(1,
-            point.compareTo(new BigDecimalPoint(
-                BigDecimal.valueOf(2d), BigDecimal.valueOf(2d)
-            ))
-        );
+        assertThat(point.compareTo(new BigDecimalPoint(
+            BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
+        ))).isEqualTo(0);
+        assertThat(point.compareTo(new BigDecimalPoint(
+            BigDecimal.valueOf(3d), BigDecimal.ONE
+        ))).isEqualTo(-1);
+        assertThat(point.compareTo(new BigDecimalPoint(
+            BigDecimal.valueOf(2d), BigDecimal.valueOf(2d)
+        ))).isEqualTo(1);
     }
 
     @Test

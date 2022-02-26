@@ -2,11 +2,10 @@ package io.rala.math.testUtils.assertion;
 
 import io.rala.math.testUtils.SerializableUtils;
 
-import java.io.IOException;
 import java.io.Serializable;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
 /**
  * {@link Serializable} assertions based on {@link SerializableUtils}
@@ -25,12 +24,10 @@ public class SerializableAssertions {
      * @see SerializableUtils#deserialize(byte[], Class)
      */
     public static <T extends Serializable> void assertSerializable(T t, Class<T> tClass) {
-        try {
+        assertThatCode(() -> {
             byte[] serialize = SerializableUtils.serialize(t);
             T deserialize = SerializableUtils.deserialize(serialize, tClass);
-            assertEquals(t, deserialize);
-        } catch (IOException | ClassNotFoundException e) {
-            fail(e);
-        }
+            assertThat(deserialize).isEqualTo(t);
+        }).doesNotThrowAnyException();
     }
 }

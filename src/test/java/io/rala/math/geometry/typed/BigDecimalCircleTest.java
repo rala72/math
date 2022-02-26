@@ -11,7 +11,7 @@ import java.math.MathContext;
 import static io.rala.math.testUtils.assertion.GeometryAssertions.CONTEXT;
 import static io.rala.math.testUtils.assertion.GeometryAssertions.assertCircle;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class BigDecimalCircleTest {
     // region constructors, getter and setter
@@ -134,25 +134,25 @@ class BigDecimalCircleTest {
     @Test
     void createAndExpectDiameterToBeBigDecimal() {
         Circle<BigDecimal> circle = new BigDecimalCircle();
-        assertEquals(BigDecimal.valueOf(2), circle.getDiameter());
+        assertThat(circle.getDiameter()).isEqualTo(BigDecimal.valueOf(2));
         circle.setRadius(BigDecimal.valueOf(2d));
-        assertEquals(BigDecimal.valueOf(4), circle.getDiameter());
+        assertThat(circle.getDiameter()).isEqualTo(BigDecimal.valueOf(4));
         circle.setDiameter(BigDecimal.valueOf(2d));
-        assertEquals(BigDecimal.valueOf(2), circle.getDiameter());
+        assertThat(circle.getDiameter()).isEqualTo(BigDecimal.valueOf(2));
     }
 
     @Test
     void createAndSetRadiusAndExpectDiameterToBeBigDecimal() {
         Circle<BigDecimal> circle = new BigDecimalCircle();
         circle.setRadius(BigDecimal.valueOf(2d));
-        assertEquals(BigDecimal.valueOf(4), circle.getDiameter());
+        assertThat(circle.getDiameter()).isEqualTo(BigDecimal.valueOf(4));
     }
 
     @Test
     void createAndSetDiameterAndExpectRadiusToBeHalf() {
         Circle<BigDecimal> circle = new BigDecimalCircle();
         circle.setDiameter(BigDecimal.valueOf(2d));
-        assertEquals(BigDecimal.valueOf(2), circle.getDiameter());
+        assertThat(circle.getDiameter()).isEqualTo(BigDecimal.valueOf(2));
     }
 
     // endregion
@@ -161,50 +161,34 @@ class BigDecimalCircleTest {
 
     @Test
     void areaOfCircleWithoutParameter() {
-        assertEquals(
-            BigDecimal.valueOf(Math.PI).round(CONTEXT),
-            new BigDecimalCircle().area()
-        );
+        assertThat(new BigDecimalCircle().area()).isEqualTo(BigDecimal.valueOf(Math.PI).round(CONTEXT));
     }
 
     @Test
     void areaOfCircleWithRadius2() {
-        assertEquals(
-            BigDecimal.valueOf(12.56637061435917),
-            new BigDecimalCircle(BigDecimal.valueOf(2d)).area()
-        );
+        assertThat(new BigDecimalCircle(BigDecimal.valueOf(2d)).area()).isEqualTo(BigDecimal.valueOf(12.56637061435917));
     }
 
     @Test
     void areaOfCircleWithRadius3() {
-        assertEquals(
-            BigDecimal.valueOf(28.27433388230814),
-            new BigDecimalCircle(BigDecimal.valueOf(3d)).area()
-        );
+        assertThat(new BigDecimalCircle(BigDecimal.valueOf(3d)).area()).isEqualTo(BigDecimal.valueOf(28.27433388230814));
     }
 
     @Test
     void circumferenceOfCircleWithoutParameter() {
-        assertEquals(
-            BigDecimal.valueOf(6.283185307179586),
-            new BigDecimalCircle().circumference()
-        );
+        assertThat(new BigDecimalCircle().circumference()).isEqualTo(BigDecimal.valueOf(6.283185307179586));
     }
 
     @Test
     void circumferenceOfCircleWithRadius2() {
-        assertEquals(
-            BigDecimal.valueOf(12.56637061435917),
-            new BigDecimalCircle(BigDecimal.valueOf(2d)).circumference()
-        );
+        assertThat(new BigDecimalCircle(BigDecimal.valueOf(2d)).circumference())
+            .isEqualTo(BigDecimal.valueOf(12.56637061435917));
     }
 
     @Test
     void circumferenceOfCircleWithRadius3() {
-        assertEquals(
-            BigDecimal.valueOf(18.84955592153876),
-            new BigDecimalCircle(BigDecimal.valueOf(3d)).circumference()
-        );
+        assertThat(new BigDecimalCircle(BigDecimal.valueOf(3d)).circumference())
+            .isEqualTo(BigDecimal.valueOf(18.84955592153876));
     }
 
     // endregion
@@ -213,19 +197,17 @@ class BigDecimalCircleTest {
 
     @Test
     void isUnitCircleWithRadius0() {
-        assertFalse(new BigDecimalCircle(BigDecimal.ZERO).isUnitCircle());
+        assertThat(new BigDecimalCircle(BigDecimal.ZERO).isUnitCircle()).isFalse();
     }
 
     @Test
     void isUnitCircleWithRadius1() {
-        assertTrue(new BigDecimalCircle(BigDecimal.ONE).isUnitCircle());
+        assertThat(new BigDecimalCircle(BigDecimal.ONE).isUnitCircle()).isTrue();
     }
 
     @Test
     void isUnitCircleWithRadius2() {
-        assertFalse(
-            new BigDecimalCircle(BigDecimal.valueOf(2d)).isUnitCircle()
-        );
+        assertThat(new BigDecimalCircle(BigDecimal.valueOf(2d)).isUnitCircle()).isFalse();
     }
 
     // endregion
@@ -241,19 +223,17 @@ class BigDecimalCircleTest {
         Circle<Integer> result = new Circle<>(integerArithmetic,
             new Point<>(integerArithmetic, 0), 1
         );
-        assertEquals(result,
-            circle.map(new IntegerArithmetic(), Number::intValue)
-        );
+        assertThat(circle.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void isValidWithZeroValues() {
-        assertTrue(new BigDecimalCircle().isValid());
+        assertThat(new BigDecimalCircle().isValid()).isTrue();
     }
 
     @Test
     void isValidWithNegativeRadius() {
-        assertFalse(new BigDecimalCircle(BigDecimal.ONE.negate()).isValid());
+        assertThat(new BigDecimalCircle(BigDecimal.ONE.negate()).isValid()).isFalse();
     }
 
     @Test
@@ -310,7 +290,7 @@ class BigDecimalCircleTest {
         Circle<BigDecimal> circle = new BigDecimalCircle(
             new BigDecimalPoint(BigDecimal.valueOf(2d)), BigDecimal.valueOf(3d)
         );
-        assertEquals(circle, circle.copy());
+        assertThat(circle.copy()).isEqualTo(circle);
     }
 
     // endregion
@@ -322,28 +302,22 @@ class BigDecimalCircleTest {
         Circle<BigDecimal> circle = new BigDecimalCircle(
             new BigDecimalPoint(BigDecimal.valueOf(2d)), BigDecimal.valueOf(3d)
         );
-        assertEquals(circle,
-            new BigDecimalCircle(
-                new BigDecimalPoint(BigDecimal.valueOf(2d)),
-                BigDecimal.valueOf(3d)
-            )
-        );
-        assertNotEquals(circle,
-            new BigDecimalCircle(
-                new BigDecimalPoint(BigDecimal.valueOf(3d)),
-                BigDecimal.valueOf(2d)
-            )
-        );
+        assertThat(new BigDecimalCircle(
+            new BigDecimalPoint(BigDecimal.valueOf(2d)),
+            BigDecimal.valueOf(3d)
+        )).isEqualTo(circle);
+        assertThat(new BigDecimalCircle(
+            new BigDecimalPoint(BigDecimal.valueOf(3d)),
+            BigDecimal.valueOf(2d)
+        )).isNotEqualTo(circle);
     }
 
     @Test
     void hashCodeOfCircleWithPointAndRadius() {
-        assertEquals(647715,
-            new BigDecimalCircle(
-                new BigDecimalPoint(BigDecimal.valueOf(2d)),
-                BigDecimal.valueOf(3d)
-            ).hashCode()
-        );
+        assertThat(new BigDecimalCircle(
+            new BigDecimalPoint(BigDecimal.valueOf(2d)),
+            BigDecimal.valueOf(3d)
+        ).hashCode()).isEqualTo(647715);
     }
 
     @Test
@@ -352,7 +326,7 @@ class BigDecimalCircleTest {
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             BigDecimal.valueOf(3d)
         );
-        assertEquals("2.0|2.0 3.0", circle.toString());
+        assertThat(circle.toString()).isEqualTo("2.0|2.0 3.0");
     }
 
     @Test
@@ -361,21 +335,15 @@ class BigDecimalCircleTest {
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             BigDecimal.valueOf(3d)
         );
-        assertEquals(0,
-            circle.compareTo(new BigDecimalCircle(
-                new BigDecimalPoint(BigDecimal.valueOf(2d)), BigDecimal.valueOf(3d)
-            ))
-        );
-        assertEquals(-1,
-            circle.compareTo(new BigDecimalCircle(
-                new BigDecimalPoint(BigDecimal.valueOf(3d)), BigDecimal.valueOf(3d)
-            ))
-        );
-        assertEquals(1,
-            circle.compareTo(new BigDecimalCircle(
-                new BigDecimalPoint(BigDecimal.valueOf(2d)), BigDecimal.ONE
-            ))
-        );
+        assertThat(circle.compareTo(new BigDecimalCircle(
+            new BigDecimalPoint(BigDecimal.valueOf(2d)), BigDecimal.valueOf(3d)
+        ))).isEqualTo(0);
+        assertThat(circle.compareTo(new BigDecimalCircle(
+            new BigDecimalPoint(BigDecimal.valueOf(3d)), BigDecimal.valueOf(3d)
+        ))).isEqualTo(-1);
+        assertThat(circle.compareTo(new BigDecimalCircle(
+            new BigDecimalPoint(BigDecimal.valueOf(2d)), BigDecimal.ONE
+        ))).isEqualTo(1);
     }
 
     @Test

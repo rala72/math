@@ -12,7 +12,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class AbstractLinearSolverTest {
     private static LinearEquationSystem<Number> equationSystem;
@@ -30,43 +31,41 @@ class AbstractLinearSolverTest {
     void getArithmeticOfAbstractLinearSolver() {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);
-        assertTrue(solver.getArithmetic() instanceof TestAbstractArithmetic);
+        assertThat(solver.getArithmetic() instanceof TestAbstractArithmetic).isTrue();
     }
 
     @Test
     void getAndSetWorkingEquationSystemOfAbstractLinearSolver() {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);
-        assertThrows(IllegalStateException.class,
-            solver::getWorkingMatrix
-        );
-        assertThrows(IllegalStateException.class,
-            solver::getWorkingVector
-        );
+        assertThatExceptionOfType(IllegalStateException.class)
+            .isThrownBy(solver::getWorkingMatrix);
+        assertThatExceptionOfType(IllegalStateException.class)
+            .isThrownBy(solver::getWorkingVector);
         solver.setWorkingEquationSystem(new LinearEquationSystem<>(
             equationSystem.getMatrix(), equationSystem.getVector())
         );
-        assertNotNull(solver.getWorkingMatrix());
-        assertNotNull(solver.getWorkingVector());
+        assertThat(solver.getWorkingMatrix()).isNotNull();
+        assertThat(solver.getWorkingVector()).isNotNull();
     }
 
     @Test
     void getAndSetWorkingMatrixAndVectorOfAbstractLinearSolver() {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);
-        assertThrows(IllegalStateException.class,
-            solver::getWorkingMatrix
-        );
+        assertThatExceptionOfType(IllegalStateException.class)
+            .isThrownBy(solver::getWorkingMatrix);
         solver.setWorkingEquationSystem(equationSystem.getMatrix(), equationSystem.getVector());
-        assertNotNull(solver.getWorkingMatrix());
-        assertNotNull(solver.getWorkingVector());
+        assertThat(solver.getWorkingMatrix()).isNotNull();
+        assertThat(solver.getWorkingVector()).isNotNull();
     }
 
     @Test
     void toSingleSolutionOfAbstractLinearSolverWithNull() {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);
-        assertThrows(IllegalStateException.class, solver::toSingleSolution);
+        assertThatExceptionOfType(IllegalStateException.class)
+            .isThrownBy(solver::toSingleSolution);
     }
 
     @Test
@@ -77,7 +76,7 @@ class AbstractLinearSolverTest {
 
         Solution<LinearEquationSystem<Number>, Number> expectedSolution =
             Solution.single(equationSystem, List.of(2, 4));
-        assertEquals(expectedSolution, solver.toSingleSolution());
+        assertThat(solver.toSingleSolution()).isEqualTo(expectedSolution);
     }
 
     @Test
@@ -85,9 +84,9 @@ class AbstractLinearSolverTest {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);
         solver.reset();
-        assertEquals(equationSystem.getMatrix(), solver.getWorkingMatrix());
-        assertEquals(equationSystem.getVector(), solver.getWorkingVector());
-        assertEquals(Vector.Type.COLUMN, solver.getWorkingVector().getType());
+        assertThat(solver.getWorkingMatrix()).isEqualTo(equationSystem.getMatrix());
+        assertThat(solver.getWorkingVector()).isEqualTo(equationSystem.getVector());
+        assertThat(solver.getWorkingVector().getType()).isEqualTo(Vector.Type.COLUMN);
     }
 
     @Test
@@ -98,10 +97,10 @@ class AbstractLinearSolverTest {
                 equationSystem.getVector().transpose()
             ));
         solver.reset();
-        assertEquals(equationSystem.getMatrix(), solver.getWorkingMatrix());
-        assertEquals(equationSystem.getVector(), solver.getWorkingVector());
-        assertEquals(Vector.Type.ROW, solver.getEquationSystem().getVector().getType());
-        assertEquals(Vector.Type.COLUMN, solver.getWorkingVector().getType());
+        assertThat(solver.getWorkingMatrix()).isEqualTo(equationSystem.getMatrix());
+        assertThat(solver.getWorkingVector()).isEqualTo(equationSystem.getVector());
+        assertThat(solver.getEquationSystem().getVector().getType()).isEqualTo(Vector.Type.ROW);
+        assertThat(solver.getWorkingVector().getType()).isEqualTo(Vector.Type.COLUMN);
     }
 
     // region protected final utils
@@ -113,7 +112,7 @@ class AbstractLinearSolverTest {
                 TestMatrix.ofValuesByRows(1, 0d, 0d)
             ));
         solver.reset();
-        assertTrue(solver.isZeroRow(0));
+        assertThat(solver.isZeroRow(0)).isTrue();
     }
 
     @Test
@@ -123,35 +122,35 @@ class AbstractLinearSolverTest {
                 TestMatrix.ofValuesByRows(1, 0d, 1d)
             ));
         solver.reset();
-        assertFalse(solver.isZeroRow(0));
+        assertThat(solver.isZeroRow(0)).isFalse();
     }
 
     @Test
     void areAllZeroWithOnlyZeros() {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);
-        assertTrue(solver.areAllZero(List.of(0d, 0d)));
+        assertThat(solver.areAllZero(List.of(0d, 0d))).isTrue();
     }
 
     @Test
     void areAllZeroWithOnlyZerosExceptSolution() {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);
-        assertFalse(solver.areAllZero(List.of(0, 1)));
+        assertThat(solver.areAllZero(List.of(0, 1))).isFalse();
     }
 
     @Test
     void isZeroWithZero() {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);
-        assertTrue(solver.isZero(0d));
+        assertThat(solver.isZero(0d)).isTrue();
     }
 
     @Test
     void isZeroWithNonZero() {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);
-        assertFalse(solver.isZero(1d));
+        assertThat(solver.isZero(1d)).isFalse();
     }
 
     // endregion

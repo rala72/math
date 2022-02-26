@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.GeometryAssertions.*;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class DoubleLineSegmentTest {
     // region constructors, getter and setter
@@ -64,34 +64,26 @@ class DoubleLineSegmentTest {
 
     @Test
     void lengthOfLineSegmentWithTwoEqualPoints() {
-        assertEquals(0d,
-            new DoubleLineSegment(
-                new DoublePoint(1d, 2d),
-                new DoublePoint(1d, 2d)
-            ).length()
-        );
+        assertThat(new DoubleLineSegment(
+            new DoublePoint(1d, 2d),
+            new DoublePoint(1d, 2d)
+        ).length()).isEqualTo(0d);
     }
 
     @Test
     void lengthOfLineSegmentWithInverseParameters() {
-        assertEquals(
-            Math.sqrt(2d),
-            new DoubleLineSegment(
-                new DoublePoint(1d, 2d),
-                new DoublePoint(2d, 1d)
-            ).length()
-        );
+        assertThat(new DoubleLineSegment(
+            new DoublePoint(1d, 2d),
+            new DoublePoint(2d, 1d)
+        ).length()).isEqualTo(Math.sqrt(2d));
     }
 
     @Test
     void lengthOfLineSegmentWithTwoDifferenceEach() {
-        assertEquals(
-            2d * Math.sqrt(2d),
-            new DoubleLineSegment(
-                new DoublePoint(3d, 4d),
-                new DoublePoint(1d, 2d)
-            ).length()
-        );
+        assertThat(new DoubleLineSegment(
+            new DoublePoint(3d, 4d),
+            new DoublePoint(1d, 2d)
+        ).length()).isEqualTo(2d * Math.sqrt(2d));
     }
 
     @Test
@@ -187,24 +179,20 @@ class DoubleLineSegmentTest {
             new Point<>(integerArithmetic, 0),
             new Point<>(integerArithmetic, 1)
         );
-        assertEquals(result,
-            lineSegment.map(new IntegerArithmetic(), Number::intValue)
-        );
+        assertThat(lineSegment.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void isValidWithZeroValues() {
-        assertTrue(new DoubleLineSegment(new DoublePoint()).isValid());
+        assertThat(new DoubleLineSegment(new DoublePoint()).isValid()).isTrue();
     }
 
     @Test
     void isValidWithInfValues() {
-        assertFalse(
-            new DoubleLineSegment(
-                new DoublePoint(Double.POSITIVE_INFINITY),
-                new DoublePoint(Double.POSITIVE_INFINITY)
-            ).isValid()
-        );
+        assertThat(new DoubleLineSegment(
+            new DoublePoint(Double.POSITIVE_INFINITY),
+            new DoublePoint(Double.POSITIVE_INFINITY)
+        ).isValid()).isFalse();
     }
 
     @Test
@@ -257,7 +245,7 @@ class DoubleLineSegmentTest {
         LineSegment<Double> lineSegment = new DoubleLineSegment(
             new DoublePoint(1d, 2d), new DoublePoint(3d, 4d)
         );
-        assertEquals(lineSegment, lineSegment.copy());
+        assertThat(lineSegment.copy()).isEqualTo(lineSegment);
     }
 
     // endregion
@@ -269,19 +257,13 @@ class DoubleLineSegmentTest {
         LineSegment<Double> lineSegment = new DoubleLineSegment(
             new DoublePoint(2d), new DoublePoint(3d)
         );
-        assertEquals(lineSegment,
-            new DoubleLineSegment(new DoublePoint(2d), new DoublePoint(3d))
-        );
-        assertNotEquals(lineSegment,
-            new DoubleLineSegment(new DoublePoint(3d), new DoublePoint(2d))
-        );
+        assertThat(new DoubleLineSegment(new DoublePoint(2d), new DoublePoint(3d))).isEqualTo(lineSegment);
+        assertThat(new DoubleLineSegment(new DoublePoint(3d), new DoublePoint(2d))).isNotEqualTo(lineSegment);
     }
 
     @Test
     void hashCodeOfLineSegmentWithTwoPoints() {
-        assertEquals(16808929,
-            new DoubleLineSegment(new DoublePoint(2d), new DoublePoint(3d)).hashCode()
-        );
+        assertThat(new DoubleLineSegment(new DoublePoint(2d), new DoublePoint(3d)).hashCode()).isEqualTo(16808929);
     }
 
     @Test
@@ -289,7 +271,7 @@ class DoubleLineSegmentTest {
         LineSegment<Double> lineSegment = new DoubleLineSegment(
             new DoublePoint(2d), new DoublePoint(3d)
         );
-        assertEquals("2.0|2.0 3.0|3.0", lineSegment.toString());
+        assertThat(lineSegment.toString()).isEqualTo("2.0|2.0 3.0|3.0");
     }
 
     @Test
@@ -297,21 +279,15 @@ class DoubleLineSegmentTest {
         LineSegment<Double> lineSegment = new DoubleLineSegment(
             new DoublePoint(2d), new DoublePoint(3d)
         );
-        assertEquals(0d,
-            lineSegment.compareTo(new DoubleLineSegment(
-                new DoublePoint(2d), new DoublePoint(3d)
-            ))
-        );
-        assertEquals(-1d,
-            lineSegment.compareTo(new DoubleLineSegment(
-                new DoublePoint(3d), new DoublePoint(4d)
-            ))
-        );
-        assertEquals(1d,
-            lineSegment.compareTo(new DoubleLineSegment(
-                new DoublePoint(1d), new DoublePoint(1d)
-            ))
-        );
+        assertThat(lineSegment.compareTo(new DoubleLineSegment(
+            new DoublePoint(2d), new DoublePoint(3d)
+        ))).isEqualTo(0);
+        assertThat(lineSegment.compareTo(new DoubleLineSegment(
+            new DoublePoint(3d), new DoublePoint(4d)
+        ))).isEqualTo(-1);
+        assertThat(lineSegment.compareTo(new DoubleLineSegment(
+            new DoublePoint(1d), new DoublePoint(1d)
+        ))).isEqualTo(1);
     }
 
     @Test

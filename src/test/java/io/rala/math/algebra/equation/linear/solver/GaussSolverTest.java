@@ -15,14 +15,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class GaussSolverTest {
     @ParameterizedTest
     @MethodSource("getDoubleLinearEquationSystems")
     void solveLinearEquationSystem(Solution<LinearEquationSystem<Double>, Double> solution) {
         GaussSolver<Double> solver = new GaussSolver<>(solution.getEquationSystem());
-        assertEquals(solution, solver.solve());
+        assertThat(solver.solve()).isEqualTo(solution);
     }
 
     // region solve
@@ -36,7 +36,7 @@ class GaussSolverTest {
                     0, 1)
             );
         GaussSolver<Double> solver = new GaussSolver<>(equationSystem);
-        assertEquals(Solution.unsolvable(equationSystem), solver.solve());
+        assertThat(solver.solve()).isEqualTo(Solution.unsolvable(equationSystem));
     }
 
     @Test
@@ -48,7 +48,7 @@ class GaussSolverTest {
                 )
             );
         GaussSolver<Double> solver = new GaussSolver<>(equationSystem);
-        assertEquals(Solution.infinite(equationSystem), solver.solve());
+        assertThat(solver.solve()).isEqualTo(Solution.infinite(equationSystem));
     }
 
     @Test
@@ -62,7 +62,7 @@ class GaussSolverTest {
                 )
             );
         GaussSolver<Double> solver = new GaussSolver<>(equationSystem);
-        assertEquals(Solution.infinite(equationSystem), solver.solve());
+        assertThat(solver.solve()).isEqualTo(Solution.infinite(equationSystem));
     }
 
     // endregion
@@ -78,15 +78,12 @@ class GaussSolverTest {
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
         solver.prepareMatrix();
-        assertEquals(
-            LinearEquationSystem.ofMatrixWithSolutionColumn(
-                DoubleMatrix.ofValuesByRows(2,
-                    1, 0.5,
-                    0, 0
-                )
-            ),
-            solver.getWorking()
-        );
+        assertThat(solver.getWorking()).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
+            DoubleMatrix.ofValuesByRows(2,
+                1, 0.5,
+                0, 0
+            )
+        ));
     }
 
     @Test
@@ -99,16 +96,13 @@ class GaussSolverTest {
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
         solver.prepareMatrix();
-        assertEquals(
-            LinearEquationSystem.ofMatrixWithSolutionColumn(
-                DoubleMatrix.ofValuesByRows(3,
-                    1, 2,
-                    0, -1,
-                    0, -2
-                )
-            ),
-            solver.getWorking()
-        );
+        assertThat(solver.getWorking()).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
+            DoubleMatrix.ofValuesByRows(3,
+                1, 2,
+                0, -1,
+                0, -2
+            )
+        ));
     }
 
     @Test
@@ -120,15 +114,12 @@ class GaussSolverTest {
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
         solver.prepareMatrixBySwappingZeroRowsToBottom();
-        assertEquals(
-            LinearEquationSystem.ofMatrixWithSolutionColumn(
-                DoubleMatrix.ofValuesByRows(2,
-                    1, 1,
-                    0, 0
-                )
-            ),
-            solver.getWorking()
-        );
+        assertThat(solver.getWorking()).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
+            DoubleMatrix.ofValuesByRows(2,
+                1, 1,
+                0, 0
+            )
+        ));
     }
 
     @Test
@@ -140,15 +131,12 @@ class GaussSolverTest {
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
         solver.prepareMatrixBySwapping(0);
-        assertEquals(
-            LinearEquationSystem.ofMatrixWithSolutionColumn(
-                DoubleMatrix.ofValuesByRows(2,
-                    1, 1,
-                    0, 0
-                )
-            ),
-            solver.getWorking()
-        );
+        assertThat(solver.getWorking()).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
+            DoubleMatrix.ofValuesByRows(2,
+                1, 1,
+                0, 0
+            )
+        ));
     }
 
     @Test
@@ -160,16 +148,13 @@ class GaussSolverTest {
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
         solver.prepareMatrixBySwapping(0);
-        assertEquals(
-            LinearEquationSystem.ofMatrixWithSolutionColumn(
-                DoubleMatrix.ofValuesByRows(2,
-                    1, 1,
-                    0, 1
-                )
-            ),
-            solver.getWorking()
-        );
-        assertTrue(solver.getSwappedCols().isEmpty());
+        assertThat(solver.getWorking()).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
+            DoubleMatrix.ofValuesByRows(2,
+                1, 1,
+                0, 1
+            )
+        ));
+        assertThat(solver.getSwappedCols().isEmpty()).isTrue();
     }
 
     @Test
@@ -181,19 +166,16 @@ class GaussSolverTest {
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
         solver.prepareMatrixBySwapping(0);
-        assertEquals(
-            LinearEquationSystem.ofMatrixWithSolutionColumn(
-                DoubleMatrix.ofValuesByRows(2,
-                    1, 0, 0,
-                    1, 0, 0
-                )
-            ),
-            solver.getWorking()
-        );
+        assertThat(solver.getWorking()).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
+            DoubleMatrix.ofValuesByRows(2,
+                1, 0, 0,
+                1, 0, 0
+            )
+        ));
         Deque<GaussSolver.ColPair> expected = new LinkedList<>(
             List.of(new GaussSolver.ColPair(0, 1))
         );
-        assertEquals(expected, solver.getSwappedCols());
+        assertThat(solver.getSwappedCols()).isEqualTo(expected);
     }
 
     @Test
@@ -205,16 +187,13 @@ class GaussSolverTest {
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
         solver.prepareMatrixBySwapping(0);
-        assertEquals(
-            LinearEquationSystem.ofMatrixWithSolutionColumn(
-                DoubleMatrix.ofValuesByRows(2,
-                    0, 0,
-                    0, 1
-                )
-            ),
-            solver.getWorking()
-        );
-        assertTrue(solver.getSwappedCols().isEmpty());
+        assertThat(solver.getWorking()).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
+            DoubleMatrix.ofValuesByRows(2,
+                0, 0,
+                0, 1
+            )
+        ));
+        assertThat(solver.getSwappedCols().isEmpty()).isTrue();
     }
 
     @Test
@@ -226,15 +205,12 @@ class GaussSolverTest {
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
         solver.prepareMatrixByMakingFieldToOne(0);
-        assertEquals(
-            LinearEquationSystem.ofMatrixWithSolutionColumn(
-                DoubleMatrix.ofValuesByRows(2,
-                    1, 1,
-                    0, 0
-                )
-            ),
-            solver.getWorking()
-        );
+        assertThat(solver.getWorking()).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
+            DoubleMatrix.ofValuesByRows(2,
+                1, 1,
+                0, 0
+            )
+        ));
     }
 
     @Test
@@ -246,15 +222,12 @@ class GaussSolverTest {
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
         solver.prepareMatrixByMakingFieldToOne(0);
-        assertEquals(
-            LinearEquationSystem.ofMatrixWithSolutionColumn(
-                DoubleMatrix.ofValuesByRows(2,
-                    1, 0.5,
-                    0, 0
-                )
-            ),
-            solver.getWorking()
-        );
+        assertThat(solver.getWorking()).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
+            DoubleMatrix.ofValuesByRows(2,
+                1, 0.5,
+                0, 0
+            )
+        ));
     }
 
     @Test
@@ -266,15 +239,12 @@ class GaussSolverTest {
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
         solver.prepareMatrixByMakingFieldToOne(0);
-        assertEquals(
-            LinearEquationSystem.ofMatrixWithSolutionColumn(
-                DoubleMatrix.ofValuesByRows(2,
-                    1, 0.3333333333333333,
-                    0, 0
-                )
-            ),
-            solver.getWorking()
-        );
+        assertThat(solver.getWorking()).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
+            DoubleMatrix.ofValuesByRows(2,
+                1, 0.3333333333333333,
+                0, 0
+            )
+        ));
     }
 
     @Test
@@ -287,15 +257,12 @@ class GaussSolverTest {
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
         solver.prepareMatrixByMakingFieldToOne(0);
-        assertEquals(
-            LinearEquationSystem.ofMatrixWithSolutionColumn(
-                DoubleMatrix.ofValuesByRows(2,
-                    1, -0.16249999999999998,
-                    0, 0
-                )
-            ),
-            solver.getWorking()
-        );
+        assertThat(solver.getWorking()).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
+            DoubleMatrix.ofValuesByRows(2,
+                1, -0.16249999999999998,
+                0, 0
+            )
+        ));
     }
 
     @Test
@@ -307,15 +274,12 @@ class GaussSolverTest {
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
         solver.prepareMatrixByMakeColToZero(0);
-        assertEquals(
-            LinearEquationSystem.ofMatrixWithSolutionColumn(
-                DoubleMatrix.ofValuesByRows(2,
-                    1, 0.5,
-                    0, 0
-                )
-            ),
-            solver.getWorking()
-        );
+        assertThat(solver.getWorking()).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
+            DoubleMatrix.ofValuesByRows(2,
+                1, 0.5,
+                0, 0
+            )
+        ));
     }
 
     @Test
@@ -327,15 +291,12 @@ class GaussSolverTest {
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
         solver.prepareMatrixByMakeColToZero(0);
-        assertEquals(
-            LinearEquationSystem.ofMatrixWithSolutionColumn(
-                DoubleMatrix.ofValuesByRows(2,
-                    1, 0.5,
-                    0, 0
-                )
-            ),
-            solver.getWorking()
-        );
+        assertThat(solver.getWorking()).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
+            DoubleMatrix.ofValuesByRows(2,
+                1, 0.5,
+                0, 0
+            )
+        ));
     }
 
     // endregion
@@ -351,15 +312,12 @@ class GaussSolverTest {
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
         solver.solveBottomUp();
-        assertEquals(
-            LinearEquationSystem.ofMatrixWithSolutionColumn(
-                DoubleMatrix.ofValuesByRows(2,
-                    1, 2,
-                    0, 0
-                )
-            ),
-            solver.getWorking()
-        );
+        assertThat(solver.getWorking()).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
+            DoubleMatrix.ofValuesByRows(2,
+                1, 2,
+                0, 0
+            )
+        ));
     }
 
     @Test
@@ -371,15 +329,12 @@ class GaussSolverTest {
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
         solver.solveBottomUp();
-        assertEquals(
-            LinearEquationSystem.ofMatrixWithSolutionColumn(
-                DoubleMatrix.ofValuesByRows(2,
-                    1, 2, 1,
-                    0, 0, 1
-                )
-            ),
-            solver.getWorking()
-        );
+        assertThat(solver.getWorking()).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
+            DoubleMatrix.ofValuesByRows(2,
+                1, 2, 1,
+                0, 0, 1
+            )
+        ));
     }
 
     @Test
@@ -391,15 +346,12 @@ class GaussSolverTest {
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
         solver.solveBottomUp();
-        assertEquals(
-            LinearEquationSystem.ofMatrixWithSolutionColumn(
-                DoubleMatrix.ofValuesByRows(2,
-                    1, 0, 1,
-                    0, 1, 1
-                )
-            ),
-            solver.getWorking()
-        );
+        assertThat(solver.getWorking()).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
+            DoubleMatrix.ofValuesByRows(2,
+                1, 0, 1,
+                0, 1, 1
+            )
+        ));
     }
 
     @Test
@@ -413,16 +365,13 @@ class GaussSolverTest {
         solver.prepareMatrixBySwapping(0);
 
         solver.reSwapCols();
-        assertEquals(
-            LinearEquationSystem.ofMatrixWithSolutionColumn(
-                DoubleMatrix.ofValuesByRows(2,
-                    0, 1,
-                    0, 1
-                )
-            ),
-            solver.getWorking()
-        );
-        assertTrue(solver.getSwappedCols().isEmpty());
+        assertThat(solver.getWorking()).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
+            DoubleMatrix.ofValuesByRows(2,
+                0, 1,
+                0, 1
+            )
+        ));
+        assertThat(solver.getSwappedCols().isEmpty()).isTrue();
     }
 
     @Test
@@ -440,10 +389,7 @@ class GaussSolverTest {
             0, 1, 0, 1,
             0, 0, 1, 1
         );
-        assertEquals(
-            LinearEquationSystem.ofMatrixWithSolutionColumn(expected),
-            solver.getWorking()
-        );
+        assertThat(solver.getWorking()).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(expected));
     }
 
     // endregion
@@ -458,7 +404,7 @@ class GaussSolverTest {
         );
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
-        assertFalse(solver.hasNoSolutions());
+        assertThat(solver.hasNoSolutions()).isFalse();
     }
 
     @Test
@@ -469,7 +415,7 @@ class GaussSolverTest {
         );
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
-        assertTrue(solver.hasNoSolutions());
+        assertThat(solver.hasNoSolutions()).isTrue();
     }
 
     @Test
@@ -480,7 +426,7 @@ class GaussSolverTest {
         );
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
-        assertFalse(solver.hasInfiniteSolutions());
+        assertThat(solver.hasInfiniteSolutions()).isFalse();
     }
 
     @Test
@@ -493,7 +439,7 @@ class GaussSolverTest {
         );
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
-        assertFalse(solver.hasInfiniteSolutions());
+        assertThat(solver.hasInfiniteSolutions()).isFalse();
     }
 
     @Test
@@ -504,7 +450,7 @@ class GaussSolverTest {
         );
         TestGaussSolver<Double> solver = new TestGaussSolver<>(matrix);
         solver.reset();
-        assertTrue(solver.hasInfiniteSolutions());
+        assertThat(solver.hasInfiniteSolutions()).isTrue();
     }
 
     // endregion
@@ -523,8 +469,8 @@ class GaussSolverTest {
     @Test
     void createAndGetterOfColPair() {
         GaussSolver.ColPair pair = new GaussSolver.ColPair(0, 1);
-        assertEquals(0, pair.getCol1());
-        assertEquals(1, pair.getCol2());
+        assertThat(pair.getCol1()).isEqualTo(0);
+        assertThat(pair.getCol2()).isEqualTo(1);
     }
 
     // region override
@@ -532,19 +478,19 @@ class GaussSolverTest {
     @Test
     void equalsOfTestAbstractSolver() {
         GaussSolver.ColPair pair = new GaussSolver.ColPair(0, 1);
-        assertEquals(pair, new GaussSolver.ColPair(0, 1));
-        assertNotEquals(pair, new GaussSolver.ColPair(1, 0));
+        assertThat(new GaussSolver.ColPair(0, 1)).isEqualTo(pair);
+        assertThat(new GaussSolver.ColPair(1, 0)).isNotEqualTo(pair);
     }
 
     @Test
     void hashCodeOfTestAbstractSolver() {
-        assertEquals(962, new GaussSolver.ColPair(0, 1).hashCode());
+        assertThat(new GaussSolver.ColPair(0, 1).hashCode()).isEqualTo(962);
     }
 
     @Test
     void toStringOfTestAbstractSolver() {
         GaussSolver.ColPair pair = new GaussSolver.ColPair(0, 1);
-        assertEquals("0 <> 1", pair.toString());
+        assertThat(pair.toString()).isEqualTo("0 <> 1");
     }
 
     // endregion

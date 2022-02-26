@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.GeometryAssertions.*;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class LineSegmentTest {
     // region constructors, getter and setter
@@ -65,31 +65,23 @@ class LineSegmentTest {
 
     @Test
     void lengthOfLineSegmentWithTwoEqualPoints() {
-        assertEquals(0d,
-            new TestLineSegment(new TestPoint(1, 2), new TestPoint(1, 2)).length()
-        );
+        assertThat(new TestLineSegment(new TestPoint(1, 2), new TestPoint(1, 2)).length()).isEqualTo(0d);
     }
 
     @Test
     void lengthOfLineSegmentWithInverseParameters() {
-        assertEquals(
-            Math.sqrt(2),
-            new TestLineSegment(
-                new TestPoint(1, 2),
-                new TestPoint(2, 1)
-            ).length()
-        );
+        assertThat(new TestLineSegment(
+            new TestPoint(1, 2),
+            new TestPoint(2, 1)
+        ).length()).isEqualTo(Math.sqrt(2));
     }
 
     @Test
     void lengthOfLineSegmentWithTwoDifferenceEach() {
-        assertEquals(
-            2 * Math.sqrt(2),
-            new TestLineSegment(
-                new TestPoint(3, 4),
-                new TestPoint(1, 2)
-            ).length()
-        );
+        assertThat(new TestLineSegment(
+            new TestPoint(3, 4),
+            new TestPoint(1, 2)
+        ).length()).isEqualTo(2 * Math.sqrt(2));
     }
 
     @Test
@@ -185,24 +177,20 @@ class LineSegmentTest {
             new Point<>(integerArithmetic, 0),
             new Point<>(integerArithmetic, 1)
         );
-        assertEquals(result,
-            lineSegment.map(new IntegerArithmetic(), Number::intValue)
-        );
+        assertThat(lineSegment.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void isValidWithZeroValues() {
-        assertTrue(new TestLineSegment(new TestPoint()).isValid());
+        assertThat(new TestLineSegment(new TestPoint()).isValid()).isTrue();
     }
 
     @Test
     void isValidWithInfValues() {
-        assertFalse(
-            new TestLineSegment(
-                new TestPoint(Double.POSITIVE_INFINITY),
-                new TestPoint(Double.POSITIVE_INFINITY)
-            ).isValid()
-        );
+        assertThat(new TestLineSegment(
+            new TestPoint(Double.POSITIVE_INFINITY),
+            new TestPoint(Double.POSITIVE_INFINITY)
+        ).isValid()).isFalse();
     }
 
     @Test
@@ -255,7 +243,7 @@ class LineSegmentTest {
         LineSegment<Number> lineSegment = new TestLineSegment(
             new TestPoint(1, 2), new TestPoint(3, 4)
         );
-        assertEquals(lineSegment, lineSegment.copy());
+        assertThat(lineSegment.copy()).isEqualTo(lineSegment);
     }
 
     // endregion
@@ -267,19 +255,13 @@ class LineSegmentTest {
         LineSegment<Number> lineSegment = new TestLineSegment(
             new TestPoint(2), new TestPoint(3)
         );
-        assertEquals(lineSegment,
-            new TestLineSegment(new TestPoint(2), new TestPoint(3))
-        );
-        assertNotEquals(lineSegment,
-            new TestLineSegment(new TestPoint(3), new TestPoint(2))
-        );
+        assertThat(new TestLineSegment(new TestPoint(2), new TestPoint(3))).isEqualTo(lineSegment);
+        assertThat(new TestLineSegment(new TestPoint(3), new TestPoint(2))).isNotEqualTo(lineSegment);
     }
 
     @Test
     void hashCodeOfLineSegmentWithTwoPoints() {
-        assertEquals(33793,
-            new TestLineSegment(new TestPoint(2), new TestPoint(3)).hashCode()
-        );
+        assertThat(new TestLineSegment(new TestPoint(2), new TestPoint(3)).hashCode()).isEqualTo(33793);
     }
 
     @Test
@@ -287,7 +269,7 @@ class LineSegmentTest {
         LineSegment<Number> lineSegment = new TestLineSegment(
             new TestPoint(2d), new TestPoint(3d)
         );
-        assertEquals("2.0|2.0 3.0|3.0", lineSegment.toString());
+        assertThat(lineSegment.toString()).isEqualTo("2.0|2.0 3.0|3.0");
     }
 
     @Test
@@ -295,21 +277,15 @@ class LineSegmentTest {
         LineSegment<Number> lineSegment = new TestLineSegment(
             new TestPoint(2), new TestPoint(3)
         );
-        assertEquals(0,
-            lineSegment.compareTo(new TestLineSegment(
-                new TestPoint(2), new TestPoint(3)
-            ))
-        );
-        assertEquals(-1,
-            lineSegment.compareTo(new TestLineSegment(
-                new TestPoint(3), new TestPoint(4)
-            ))
-        );
-        assertEquals(1,
-            lineSegment.compareTo(new TestLineSegment(
-                new TestPoint(1), new TestPoint(1)
-            ))
-        );
+        assertThat(lineSegment.compareTo(new TestLineSegment(
+            new TestPoint(2), new TestPoint(3)
+        ))).isEqualTo(0);
+        assertThat(lineSegment.compareTo(new TestLineSegment(
+            new TestPoint(3), new TestPoint(4)
+        ))).isEqualTo(-1);
+        assertThat(lineSegment.compareTo(new TestLineSegment(
+            new TestPoint(1), new TestPoint(1)
+        ))).isEqualTo(1);
     }
 
     @Test

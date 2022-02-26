@@ -3,7 +3,7 @@ package io.rala.math.testUtils.assertion;
 import io.rala.math.algebra.matrix.Matrix;
 import io.rala.math.arithmetic.AbstractArithmetic;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * assertions for {@link io.rala.math.algebra.matrix} package
@@ -26,7 +26,7 @@ public class MatrixAssertions {
     public static <T extends Number> void assertMatrix(
         Matrix<T> matrix, int rows, int cols
     ) {
-        assertEquals(rows, matrix.getRows(), "rows is invalid");
-        assertEquals(cols, matrix.getCols(), "cols is invalid");
+        assertThat(matrix.getRows()).as("rows is invalid").isEqualTo(rows);
+        assertThat(matrix.getCols()).as("cols is invalid").isEqualTo(cols);
     }
 }

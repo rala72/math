@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.GeometryAssertions.assertPoint;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class DoublePointTest {
     // region constructors, getter and setter
@@ -63,22 +63,18 @@ class DoublePointTest {
     void mapOfPointWithX0_5Y1_5() {
         DoublePoint point = new DoublePoint(0.5, 1.5);
         Point<Integer> result = new Point<>(new IntegerArithmetic(), 0, 1);
-        assertEquals(result,
-            point.map(new IntegerArithmetic(), Number::intValue)
-        );
+        assertThat(point.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void isValidWithZeroValues() {
-        assertTrue(new DoublePoint().isValid());
+        assertThat(new DoublePoint().isValid()).isTrue();
     }
 
     @Test
     void isValidWithInfValues() {
-        assertFalse(
-            new DoublePoint(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
-                .isValid()
-        );
+        assertThat(new DoublePoint(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
+            .isValid()).isFalse();
     }
 
     @Test
@@ -166,7 +162,7 @@ class DoublePointTest {
     @Test
     void copyOfPointWithXY() {
         Point<Double> point = new DoublePoint(2d, 3d);
-        assertEquals(point, point.copy());
+        assertThat(point.copy()).isEqualTo(point);
     }
 
     // endregion
@@ -176,27 +172,27 @@ class DoublePointTest {
     @Test
     void equalsOfPointWithXY() {
         Point<Double> point = new DoublePoint(2d, 3d);
-        assertEquals(point, new DoublePoint(2d, 3d));
-        assertNotEquals(point, new DoublePoint(3d, 2d));
+        assertThat(new DoublePoint(2d, 3d)).isEqualTo(point);
+        assertThat(new DoublePoint(3d, 2d)).isNotEqualTo(point);
     }
 
     @Test
     void hashCodeOfPointWithXY() {
-        assertEquals(525249, new DoublePoint(2d, 3d).hashCode());
+        assertThat(new DoublePoint(2d, 3d).hashCode()).isEqualTo(525249);
     }
 
     @Test
     void toStringOfPointWithXY() {
         Point<Double> point = new DoublePoint(2d, 3d);
-        assertEquals("2.0|3.0", point.toString());
+        assertThat(point.toString()).isEqualTo("2.0|3.0");
     }
 
     @Test
     void compareToOfPointWithXY() {
         Point<Double> point = new DoublePoint(2d, 3d);
-        assertEquals(0d, point.compareTo(new DoublePoint(2d, 3d)));
-        assertEquals(-1d, point.compareTo(new DoublePoint(3d, 1d)));
-        assertEquals(1d, point.compareTo(new DoublePoint(2d, 2d)));
+        assertThat(point.compareTo(new DoublePoint(2d, 3d))).isEqualTo(0);
+        assertThat(point.compareTo(new DoublePoint(3d, 1d))).isEqualTo(-1);
+        assertThat(point.compareTo(new DoublePoint(2d, 2d))).isEqualTo(1);
     }
 
     @Test

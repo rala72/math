@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class IntegerArithmeticTest {
     private IntegerArithmetic arithmetic;
@@ -16,24 +16,24 @@ class IntegerArithmeticTest {
 
     @Test
     void getInstance() {
-        assertEquals(arithmetic, IntegerArithmetic.getInstance());
+        assertThat(IntegerArithmetic.getInstance()).isEqualTo(arithmetic);
     }
 
     // region fromInt, fromDouble and signum
 
     @Test
     void fromInt1() {
-        assertEquals(1, arithmetic.fromInt(1));
+        assertThat(arithmetic.fromInt(1)).isEqualTo(1);
     }
 
     @Test
     void fromDouble1_1() {
-        assertEquals(1, arithmetic.fromDouble(1.1));
+        assertThat(arithmetic.fromDouble(1.1)).isEqualTo(1);
     }
 
     @Test
     void signum1() {
-        assertEquals(1, arithmetic.signum(1));
+        assertThat(arithmetic.signum(1)).isEqualTo(1);
     }
 
     // endregion
@@ -42,48 +42,48 @@ class IntegerArithmeticTest {
 
     @Test
     void absoluteM1() {
-        assertEquals(1, arithmetic.absolute(-1));
+        assertThat(arithmetic.absolute(-1)).isEqualTo(1);
     }
 
     @Test
     void negate1() {
-        assertEquals(-1, arithmetic.negate(1));
+        assertThat(arithmetic.negate(1)).isEqualTo(-1);
     }
 
     @Test
     void compare() {
-        assertEquals(0, arithmetic.compare(1, 1));
-        assertEquals(-1, arithmetic.compare(1, 2));
-        assertEquals(1, arithmetic.compare(2, 1));
+        assertThat(arithmetic.compare(1, 1)).isEqualTo(0);
+        assertThat(arithmetic.compare(1, 2)).isEqualTo(-1);
+        assertThat(arithmetic.compare(2, 1)).isEqualTo(1);
     }
 
     @Test
     void min() {
-        assertEquals(1, arithmetic.min(1, 1));
-        assertEquals(1, arithmetic.min(1, 2));
-        assertEquals(1, arithmetic.min(2, 1));
+        assertThat(arithmetic.min(1, 1)).isEqualTo(1);
+        assertThat(arithmetic.min(1, 2)).isEqualTo(1);
+        assertThat(arithmetic.min(2, 1)).isEqualTo(1);
     }
 
     @Test
     void max() {
-        assertEquals(1, arithmetic.max(1, 1));
-        assertEquals(2, arithmetic.max(1, 2));
-        assertEquals(2, arithmetic.max(2, 1));
+        assertThat(arithmetic.max(1, 1)).isEqualTo(1);
+        assertThat(arithmetic.max(1, 2)).isEqualTo(2);
+        assertThat(arithmetic.max(2, 1)).isEqualTo(2);
     }
 
     @Test
     void isZero() {
-        assertTrue(arithmetic.isZero(0));
-        assertTrue(arithmetic.isZero(-0));
-        assertFalse(arithmetic.isZero(1));
+        assertThat(arithmetic.isZero(0)).isTrue();
+        assertThat(arithmetic.isZero(-0)).isTrue();
+        assertThat(arithmetic.isZero(1)).isFalse();
     }
 
     @Test
     void isEqual() {
-        assertTrue(arithmetic.isEqual(0, 0));
-        assertTrue(arithmetic.isEqual(-0, 0));
-        assertTrue(arithmetic.isEqual(-0, -0));
-        assertFalse(arithmetic.isEqual(1, 0));
+        assertThat(arithmetic.isEqual(0, 0)).isTrue();
+        assertThat(arithmetic.isEqual(-0, 0)).isTrue();
+        assertThat(arithmetic.isEqual(-0, -0)).isTrue();
+        assertThat(arithmetic.isEqual(1, 0)).isFalse();
     }
 
     // endregion
@@ -92,37 +92,37 @@ class IntegerArithmeticTest {
 
     @Test
     void sum12() {
-        assertEquals(3, arithmetic.sum(1, 2));
+        assertThat(arithmetic.sum(1, 2)).isEqualTo(3);
     }
 
     @Test
     void sum123() {
-        assertEquals(6, arithmetic.sum(1, 2, 3));
+        assertThat(arithmetic.sum(1, 2, 3)).isEqualTo(6);
     }
 
     @Test
     void difference12() {
-        assertEquals(-1, arithmetic.difference(1, 2));
+        assertThat(arithmetic.difference(1, 2)).isEqualTo(-1);
     }
 
     @Test
     void product12() {
-        assertEquals(2, arithmetic.product(1, 2));
+        assertThat(arithmetic.product(1, 2)).isEqualTo(2);
     }
 
     @Test
     void product123() {
-        assertEquals(6, arithmetic.product(1, 2, 3));
+        assertThat(arithmetic.product(1, 2, 3)).isEqualTo(6);
     }
 
     @Test
     void quotient12() {
-        assertEquals(0, arithmetic.quotient(1, 2));
+        assertThat(arithmetic.quotient(1, 2)).isEqualTo(0);
     }
 
     @Test
     void modulo12() {
-        assertEquals(1, arithmetic.modulo(1, 2));
+        assertThat(arithmetic.modulo(1, 2)).isEqualTo(1);
     }
 
     // endregion
@@ -131,12 +131,12 @@ class IntegerArithmeticTest {
 
     @Test
     void power12() {
-        assertEquals(1, arithmetic.power(1, 2));
+        assertThat(arithmetic.power(1, 2)).isEqualTo(1);
     }
 
     @Test
     void root21() {
-        assertEquals((int) Math.sqrt(1), arithmetic.root2(1));
+        assertThat(arithmetic.root2(1)).isEqualTo((int) Math.sqrt(1));
     }
 
     // endregion
@@ -145,12 +145,12 @@ class IntegerArithmeticTest {
 
     @Test
     void gcd() {
-        assertEquals(1, arithmetic.gcd(3, 4));
+        assertThat(arithmetic.gcd(3, 4)).isEqualTo(1);
     }
 
     @Test
     void lcm() {
-        assertEquals(12, arithmetic.lcm(3, 4));
+        assertThat(arithmetic.lcm(3, 4)).isEqualTo(12);
     }
 
     // endregion
@@ -159,17 +159,17 @@ class IntegerArithmeticTest {
 
     @Test
     void equalsOfArithmetic() {
-        assertEquals(new IntegerArithmetic(), new IntegerArithmetic());
+        assertThat(new IntegerArithmetic()).isEqualTo(new IntegerArithmetic());
     }
 
     @Test
     void hashCodeOfArithmetic() {
-        assertEquals(962, new IntegerArithmetic().hashCode());
+        assertThat(new IntegerArithmetic().hashCode()).isEqualTo(962);
     }
 
     @Test
     void toStringOfArithmetic() {
-        assertEquals("IntegerArithmetic", new IntegerArithmetic().toString());
+        assertThat(new IntegerArithmetic().toString()).isEqualTo("IntegerArithmetic");
     }
 
     @Test

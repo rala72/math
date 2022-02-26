@@ -9,7 +9,8 @@ import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class LinearEquationSystemTest {
     private static Matrix<Number> matrix;
@@ -26,18 +27,17 @@ class LinearEquationSystemTest {
 
     @Test
     void constructorWithNonMatchingMatrixAndVector() {
-        assertThrows(IllegalArgumentException.class,
-            () -> new LinearEquationSystem<>(
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> new LinearEquationSystem<>(
                 new TestMatrix(1), new TestVector(2)
-            )
-        ); // assert exception message?
+            )); // assert exception message?
     }
 
     @Test
     void getMatrixOfLinearEquationSystem() {
         LinearEquationSystem<Number> equationSystem =
             new LinearEquationSystem<>(matrix, vector);
-        assertEquals(matrix, equationSystem.getMatrix());
+        assertThat(equationSystem.getMatrix()).isEqualTo(matrix);
     }
 
     @Test
@@ -46,7 +46,7 @@ class LinearEquationSystemTest {
             new LinearEquationSystem<>(matrix, vector);
         Solution<LinearEquationSystem<Number>, Number> solution =
             equationSystem.solveWithGauss();
-        assertEquals(Solution.unsolvable(equationSystem), solution);
+        assertThat(solution).isEqualTo(Solution.unsolvable(equationSystem));
     }
 
     // region modify
@@ -54,13 +54,11 @@ class LinearEquationSystemTest {
     @Test
     void swapRows() {
         LinearEquationSystem<Number> equation = new LinearEquationSystem<>(matrix, vector);
-        assertEquals(LinearEquationSystem.ofMatrixWithSolutionColumn(
+        assertThat(equation.swapRows(0, 1)).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
             TestMatrix.ofValuesByRows(2,
                 3, 4,
                 1, 2
-            )),
-            equation.swapRows(0, 1)
-        );
+            )));
     }
 
     @Test
@@ -68,49 +66,41 @@ class LinearEquationSystemTest {
         LinearEquationSystem<Number> equation =
             new LinearEquationSystem<>(matrix, vector)
                 .transpose();
-        assertEquals(LinearEquationSystem.ofMatrixWithSolutionRow(
+        assertThat(equation.swapCols(0, 1)).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionRow(
             TestMatrix.ofValuesByCols(2,
                 3, 4,
                 1, 2
-            )).transpose(),
-            equation.swapCols(0, 1)
-        );
+            )).transpose());
     }
 
     @Test
     void multiplyRow() {
         LinearEquationSystem<Number> equation = new LinearEquationSystem<>(matrix, vector);
-        assertEquals(LinearEquationSystem.ofMatrixWithSolutionColumn(
+        assertThat(equation.multiplyRow(0, 2)).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
             TestMatrix.ofValuesByRows(2,
                 2d, 4d,
                 3, 4
-            )),
-            equation.multiplyRow(0, 2)
-        );
+            )));
     }
 
     @Test
     void multiplyCol() {
         LinearEquationSystem<Number> equation = new LinearEquationSystem<>(matrix, vector);
-        assertEquals(LinearEquationSystem.ofMatrixWithSolutionColumn(
+        assertThat(equation.multiplyCol(0, 2)).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
             TestMatrix.ofValuesByRows(2,
                 2d, 2,
                 6d, 4
-            )),
-            equation.multiplyCol(0, 2)
-        );
+            )));
     }
 
     @Test
     void addRowMultipleTimes() {
         LinearEquationSystem<Number> equation = new LinearEquationSystem<>(matrix, vector);
-        assertEquals(LinearEquationSystem.ofMatrixWithSolutionColumn(
+        assertThat(equation.addRowMultipleTimes(0, 1, 2)).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
             TestMatrix.ofValuesByRows(2,
                 7d, 10d,
                 3, 4
-            )),
-            equation.addRowMultipleTimes(0, 1, 2)
-        );
+            )));
     }
 
     @Test
@@ -118,13 +108,11 @@ class LinearEquationSystemTest {
         LinearEquationSystem<Number> equation =
             new LinearEquationSystem<>(matrix, vector)
                 .transpose();
-        assertEquals(LinearEquationSystem.ofMatrixWithSolutionRow(
+        assertThat(equation.addColMultipleTimes(0, 1, 2)).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionRow(
             TestMatrix.ofValuesByCols(2,
                 7d, 2,
                 3, 4
-            )).transpose(),
-            equation.addColMultipleTimes(0, 1, 2)
-        );
+            )).transpose());
     }
 
     // endregion
@@ -135,22 +123,22 @@ class LinearEquationSystemTest {
     void ofMatrixWithSolutionColumn() {
         LinearEquationSystem<Number> equationSystem =
             LinearEquationSystem.ofMatrixWithSolutionColumn(TestMatrix.ofValuesByRows(2,
-                1, 2, 3, 4
+                    1, 2, 3, 4
                 )
             );
-        assertEquals(matrix, equationSystem.getMatrix());
-        assertEquals(vector, equationSystem.getVector());
+        assertThat(equationSystem.getMatrix()).isEqualTo(matrix);
+        assertThat(equationSystem.getVector()).isEqualTo(vector);
     }
 
     @Test
     void ofMatrixWithSolutionRow() {
         LinearEquationSystem<Number> equationSystem =
             LinearEquationSystem.ofMatrixWithSolutionRow(TestMatrix.ofValuesByCols(2,
-                1, 2, 3, 4
+                    1, 2, 3, 4
                 )
             );
-        assertEquals(matrix, equationSystem.getMatrix());
-        assertEquals(vector, equationSystem.getVector());
+        assertThat(equationSystem.getMatrix()).isEqualTo(matrix);
+        assertThat(equationSystem.getVector()).isEqualTo(vector);
     }
 
     // endregion
@@ -161,19 +149,16 @@ class LinearEquationSystemTest {
     void equalsOfTestAbstractSolver() {
         LinearEquationSystem<Number> equationSystem =
             new LinearEquationSystem<>(matrix, vector);
-        assertEquals(equationSystem, new LinearEquationSystem<>(matrix, vector));
-        assertNotEquals(equationSystem, new LinearEquationSystem<>(
-            new TestMatrix(1), new TestVector(1))
-        );
+        assertThat(new LinearEquationSystem<>(matrix, vector)).isEqualTo(equationSystem);
+        assertThat(new LinearEquationSystem<>(
+            new TestMatrix(1), new TestVector(1))).isNotEqualTo(equationSystem);
     }
 
     @Test
     void hashCodeOfTestAbstractSolver() {
         // hashCode changing after every start
-        assertEquals(
-            new LinearEquationSystem<>(matrix, vector).hashCode(),
-            new LinearEquationSystem<>(matrix, vector).hashCode()
-        );
+        assertThat(new LinearEquationSystem<>(matrix, vector).hashCode())
+            .isEqualTo(new LinearEquationSystem<>(matrix, vector).hashCode());
     }
 
     @Test
@@ -181,7 +166,7 @@ class LinearEquationSystemTest {
         LinearEquationSystem<Number> equationSystem =
             new LinearEquationSystem<>(matrix, vector);
         String toString = "2 1: [0={0=1}, 1={0=3}] - 2: [0=2, 1=4]";
-        assertEquals(toString, equationSystem.toString());
+        assertThat(equationSystem.toString()).isEqualTo(toString);
     }
 
     // endregion
@@ -192,10 +177,8 @@ class LinearEquationSystemTest {
     void createLinearEquationMatrix() {
         LinearEquationSystem.LinearEquationMatrix<Number> equationMatrix =
             new LinearEquationSystem.LinearEquationMatrix<>(matrix);
-        assertEquals(equationMatrix, matrix);
-        assertTrue(
-            equationMatrix.getArithmetic() instanceof TestAbstractArithmetic
-        );
+        assertThat(matrix).isEqualTo(equationMatrix);
+        assertThat(equationMatrix.getArithmetic() instanceof TestAbstractArithmetic).isTrue();
     }
 
     @Test
@@ -203,12 +186,12 @@ class LinearEquationSystemTest {
         LinearEquationSystem.LinearEquationMatrix<Number> equationMatrix =
             new LinearEquationSystem.LinearEquationMatrix<>(matrix);
         // asserting, that implementation has not changed to matrix during overriding
-        assertNotNull(equationMatrix.swapRows(0, 0));
-        assertNotNull(equationMatrix.swapCols(0, 0));
-        assertNotNull(equationMatrix.multiplyRow(0, 0));
-        assertNotNull(equationMatrix.multiplyCol(0, 0));
-        assertNotNull(equationMatrix.addRowMultipleTimes(0, 0, 0));
-        assertNotNull(equationMatrix.addColMultipleTimes(0, 0, 0));
+        assertThat(equationMatrix.swapRows(0, 0)).isNotNull();
+        assertThat(equationMatrix.swapCols(0, 0)).isNotNull();
+        assertThat(equationMatrix.multiplyRow(0, 0)).isNotNull();
+        assertThat(equationMatrix.multiplyCol(0, 0)).isNotNull();
+        assertThat(equationMatrix.addRowMultipleTimes(0, 0, 0)).isNotNull();
+        assertThat(equationMatrix.addColMultipleTimes(0, 0, 0)).isNotNull();
     }
 
     // endregion
@@ -219,28 +202,24 @@ class LinearEquationSystemTest {
     void createLinearEquationVector() {
         LinearEquationSystem.LinearEquationVector<Number> equationVector =
             new LinearEquationSystem.LinearEquationVector<>(vector);
-        assertEquals(equationVector, vector);
-        assertTrue(
-            equationVector.getArithmetic() instanceof TestAbstractArithmetic
-        );
+        assertThat(vector).isEqualTo(equationVector);
+        assertThat(equationVector.getArithmetic() instanceof TestAbstractArithmetic).isTrue();
     }
 
     @Test
     void linearEquationVectorSwapValuesUsingInvalidIndex1() {
         LinearEquationSystem.LinearEquationVector<Number> equationVector =
             new LinearEquationSystem.LinearEquationVector<>(vector);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> equationVector.swapValues(-1, 0)
-        ); // assert exception message?
+        assertThatExceptionOfType(IndexOutOfBoundsException.class)
+            .isThrownBy(() -> equationVector.swapValues(-1, 0)); // assert exception message?
     }
 
     @Test
     void linearEquationVectorSwapValuesUsingInvalidIndex2() {
         LinearEquationSystem.LinearEquationVector<Number> equationVector =
             new LinearEquationSystem.LinearEquationVector<>(vector);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> equationVector.swapValues(0, -1)
-        ); // assert exception message?
+        assertThatExceptionOfType(IndexOutOfBoundsException.class)
+            .isThrownBy(() -> equationVector.swapValues(0, -1)); // assert exception message?
     }
 
     @Test
@@ -249,16 +228,15 @@ class LinearEquationSystemTest {
             new LinearEquationSystem.LinearEquationVector<>(vector);
         LinearEquationSystem.LinearEquationVector<Number> result =
             new LinearEquationSystem.LinearEquationVector<>(TestVector.ofValues(4, 2));
-        assertEquals(result, equationVector.swapValues(0, 1));
+        assertThat(equationVector.swapValues(0, 1)).isEqualTo(result);
     }
 
     @Test
     void linearEquationVectorMultiplyValueUsingInvalidIndex() {
         LinearEquationSystem.LinearEquationVector<Number> equationVector =
             new LinearEquationSystem.LinearEquationVector<>(vector);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> equationVector.multiplyValue(-1, 0)
-        ); // assert exception message?
+        assertThatExceptionOfType(IndexOutOfBoundsException.class)
+            .isThrownBy(() -> equationVector.multiplyValue(-1, 0)); // assert exception message?
     }
 
     @Test
@@ -267,14 +245,14 @@ class LinearEquationSystemTest {
             new LinearEquationSystem.LinearEquationVector<>(vector);
         LinearEquationSystem.LinearEquationVector<Number> result =
             new LinearEquationSystem.LinearEquationVector<>(TestVector.ofValues(0d, 4));
-        assertEquals(result, equationVector.multiplyValue(0, 0d));
+        assertThat(equationVector.multiplyValue(0, 0d)).isEqualTo(result);
     }
 
     @Test
     void linearEquationVectorMultiplyValueUsingEmptyVector() {
         LinearEquationSystem.LinearEquationVector<Number> equationVector =
             new LinearEquationSystem.LinearEquationVector<>(new TestVector(2));
-        assertEquals(equationVector, equationVector.multiplyValue(0, 1));
+        assertThat(equationVector.multiplyValue(0, 1)).isEqualTo(equationVector);
     }
 
     @Test
@@ -283,7 +261,7 @@ class LinearEquationSystemTest {
             new LinearEquationSystem.LinearEquationVector<>(vector);
         LinearEquationSystem.LinearEquationVector<Number> result =
             new LinearEquationSystem.LinearEquationVector<>(TestVector.ofValues(2d, 4));
-        assertEquals(result, equationVector.multiplyValue(0, 1));
+        assertThat(equationVector.multiplyValue(0, 1)).isEqualTo(result);
     }
 
     @Test
@@ -292,25 +270,23 @@ class LinearEquationSystemTest {
             new LinearEquationSystem.LinearEquationVector<>(vector);
         LinearEquationSystem.LinearEquationVector<Number> result =
             new LinearEquationSystem.LinearEquationVector<>(TestVector.ofValues(4d, 4));
-        assertEquals(result, equationVector.multiplyValue(0, 2));
+        assertThat(equationVector.multiplyValue(0, 2)).isEqualTo(result);
     }
 
     @Test
     void linearEquationVectorAddValueMultipleTimesUsingInvalidIndex1() {
         LinearEquationSystem.LinearEquationVector<Number> equationVector =
             new LinearEquationSystem.LinearEquationVector<>(vector);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> equationVector.addValueMultiplyTimes(-1, 0, 0)
-        ); // assert exception message?
+        assertThatExceptionOfType(IndexOutOfBoundsException.class)
+            .isThrownBy(() -> equationVector.addValueMultiplyTimes(-1, 0, 0)); // assert exception message?
     }
 
     @Test
     void linearEquationVectorAddValueMultipleTimesUsingInvalidIndex2() {
         LinearEquationSystem.LinearEquationVector<Number> equationVector =
             new LinearEquationSystem.LinearEquationVector<>(vector);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> equationVector.addValueMultiplyTimes(0, -1, 0)
-        ); // assert exception message?
+        assertThatExceptionOfType(IndexOutOfBoundsException.class)
+            .isThrownBy(() -> equationVector.addValueMultiplyTimes(0, -1, 0)); // assert exception message?
     }
 
     @Test
@@ -319,7 +295,7 @@ class LinearEquationSystemTest {
             new LinearEquationSystem.LinearEquationVector<>(vector);
         LinearEquationSystem.LinearEquationVector<Number> result =
             new LinearEquationSystem.LinearEquationVector<>(TestVector.ofValues(10d, 4));
-        assertEquals(result, equationVector.addValueMultiplyTimes(0, 1, 2));
+        assertThat(equationVector.addValueMultiplyTimes(0, 1, 2)).isEqualTo(result);
     }
 
     // endregion

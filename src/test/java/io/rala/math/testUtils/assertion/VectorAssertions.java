@@ -3,7 +3,7 @@ package io.rala.math.testUtils.assertion;
 import io.rala.math.algebra.vector.Vector;
 import io.rala.math.arithmetic.AbstractArithmetic;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * assertions for {@link io.rala.math.algebra.vector} package
@@ -26,9 +26,9 @@ public class VectorAssertions {
     public static <T extends Number> void assertVector(
         Vector<T> vector, int size, Vector.Type type
     ) {
-        assertEquals(size, vector.getSize(), "size is invalid");
-        assertEquals(type, vector.getType(), "type is invalid");
-        assertEquals(Vector.Type.ROW.equals(type), vector.isRow(), "isRow is invalid");
-        assertEquals(Vector.Type.COLUMN.equals(type), vector.isColumn(), "isRow is invalid");
+        assertThat(vector.getSize()).as("size is invalid").isEqualTo(size);
+        assertThat(vector.getType()).as("type is invalid").isEqualTo(type);
+        assertThat(vector.isRow()).as("isRow is invalid").isEqualTo(Vector.Type.ROW.equals(type));
+        assertThat(vector.isColumn()).as("isRow is invalid").isEqualTo(Vector.Type.COLUMN.equals(type));
     }
 }

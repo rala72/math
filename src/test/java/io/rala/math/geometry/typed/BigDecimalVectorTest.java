@@ -12,7 +12,9 @@ import java.math.MathContext;
 import static io.rala.math.testUtils.assertion.GeometryAssertions.CONTEXT;
 import static io.rala.math.testUtils.assertion.GeometryAssertions.assertVector;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.data.Offset.offset;
 
 class BigDecimalVectorTest {
     private static final double DELTA = 0.00001;
@@ -114,22 +116,17 @@ class BigDecimalVectorTest {
 
     @Test
     void lengthOfVectorWithoutParameter() {
-        assertEquals(BigDecimal.ZERO, new BigDecimalVector().length());
+        assertThat(new BigDecimalVector().length()).isEqualTo(BigDecimal.ZERO);
     }
 
     @Test
     void lengthOfVectorXY1() {
-        assertEquals(
-            BigDecimal.valueOf(Math.sqrt(2d)).round(CONTEXT),
-            new BigDecimalVector(BigDecimal.ONE).length()
-        );
+        assertThat(new BigDecimalVector(BigDecimal.ONE).length()).isEqualTo(BigDecimal.valueOf(Math.sqrt(2d)).round(CONTEXT));
     }
 
     @Test
     void lengthOfVectorX1Y0() {
-        assertEquals(BigDecimal.ONE,
-            new BigDecimalVector(BigDecimal.ONE, BigDecimal.ZERO).length()
-        );
+        assertThat(new BigDecimalVector(BigDecimal.ONE, BigDecimal.ZERO).length()).isEqualTo(BigDecimal.ONE);
     }
 
     @Test
@@ -306,16 +303,15 @@ class BigDecimalVectorTest {
 
     @Test
     void normalizedOfVectorWithoutParameter() {
-        assertThrows(ArithmeticException.class,
-            () -> new BigDecimalVector().normalized()
-        ); // assert exception message?
+        assertThatExceptionOfType(ArithmeticException.class)
+            .isThrownBy(() -> new BigDecimalVector().normalized()); // assert exception message?
     }
 
     @Test
     void normalizedOfVectorWithXY1() {
         Vector<BigDecimal> vector = new BigDecimalVector(BigDecimal.ONE).normalized();
         assertVector(vector, BigDecimal.valueOf(0.7071067811865475));
-        assertEquals(1.000000001, vector.length().doubleValue(), DELTA);
+        assertThat(vector.length().doubleValue()).isCloseTo(1.000000001, offset(DELTA));
     }
 
     @Test
@@ -327,7 +323,7 @@ class BigDecimalVectorTest {
             BigDecimal.valueOf(0.4472135954999579),
             BigDecimal.valueOf(0.8944271909999159)
         );
-        assertEquals(1.000000001, vector.length().doubleValue(), DELTA);
+        assertThat(vector.length().doubleValue()).isCloseTo(1.000000001, offset(DELTA));
     }
 
     // endregion
@@ -336,47 +332,36 @@ class BigDecimalVectorTest {
 
     @Test
     void scalarProductOfVectorWithoutParameterAndXY1() {
-        assertEquals(BigDecimal.ZERO,
-            new BigDecimalVector()
-                .scalarProduct(new BigDecimalVector(BigDecimal.ONE))
-        );
+        assertThat(new BigDecimalVector()
+            .scalarProduct(new BigDecimalVector(BigDecimal.ONE))).isEqualTo(BigDecimal.ZERO);
     }
 
     @Test
     void scalarProductOfVectorWithXY1AndXY1() {
-        assertEquals(BigDecimal.valueOf(2),
-            new BigDecimalVector(BigDecimal.ONE)
-                .scalarProduct(new BigDecimalVector(BigDecimal.ONE))
-        );
+        assertThat(new BigDecimalVector(BigDecimal.ONE)
+            .scalarProduct(new BigDecimalVector(BigDecimal.ONE))).isEqualTo(BigDecimal.valueOf(2));
     }
 
     @Test
     void scalarProductOfVectorWithXY2AndX1Y2() {
-        assertEquals(BigDecimal.valueOf(6),
-            new BigDecimalVector(BigDecimal.valueOf(2d))
-                .scalarProduct(new BigDecimalVector(
-                    BigDecimal.ONE,
-                    BigDecimal.valueOf(2d)
-                ))
-        );
+        assertThat(new BigDecimalVector(BigDecimal.valueOf(2d))
+            .scalarProduct(new BigDecimalVector(
+                BigDecimal.ONE,
+                BigDecimal.valueOf(2d)
+            ))).isEqualTo(BigDecimal.valueOf(6));
     }
 
     @Test
     void angleBetweenX0Y1AndX1Y0() {
-        assertEquals(
-            BigDecimal.valueOf(Math.PI / 2d).round(CONTEXT),
-            new BigDecimalVector(BigDecimal.ZERO, BigDecimal.ONE)
-                .angle(new BigDecimalVector(BigDecimal.ONE, BigDecimal.ZERO))
-        );
+        assertThat(new BigDecimalVector(BigDecimal.ZERO, BigDecimal.ONE)
+            .angle(new BigDecimalVector(BigDecimal.ONE, BigDecimal.ZERO)))
+            .isEqualTo(BigDecimal.valueOf(Math.PI / 2d).round(CONTEXT));
     }
 
     @Test
     void angleBetweenX0Y1AndXY1() {
-        assertEquals(
-            BigDecimal.valueOf(0.7853981633974484), // PI/4
-            new BigDecimalVector(BigDecimal.ZERO, BigDecimal.ONE)
-                .angle(new BigDecimalVector(BigDecimal.ONE, BigDecimal.ONE))
-        );
+        assertThat(new BigDecimalVector(BigDecimal.ZERO, BigDecimal.ONE)
+            .angle(new BigDecimalVector(BigDecimal.ONE, BigDecimal.ONE))).isEqualTo(BigDecimal.valueOf(0.7853981633974484));
     }
 
     // endregion
@@ -385,12 +370,12 @@ class BigDecimalVectorTest {
 
     @Test
     void isZeroVectorWithVectorWithoutParameter() {
-        assertTrue(new BigDecimalVector().isZeroVector());
+        assertThat(new BigDecimalVector().isZeroVector()).isTrue();
     }
 
     @Test
     void isZeroVectorWithVectorWithXY1() {
-        assertFalse(new BigDecimalVector(BigDecimal.ONE).isZeroVector());
+        assertThat(new BigDecimalVector(BigDecimal.ONE).isZeroVector()).isFalse();
     }
 
     @Test
@@ -398,9 +383,7 @@ class BigDecimalVectorTest {
         Complex<BigDecimal> complex = new BigDecimalComplex(
             BigDecimal.ONE, BigDecimal.valueOf(2d)
         );
-        assertEquals(complex,
-            new BigDecimalVector(BigDecimal.ONE, BigDecimal.valueOf(2d)).asComplex()
-        );
+        assertThat(new BigDecimalVector(BigDecimal.ONE, BigDecimal.valueOf(2d)).asComplex()).isEqualTo(complex);
     }
 
     // endregion
@@ -413,14 +396,12 @@ class BigDecimalVectorTest {
             BigDecimal.valueOf(0.5), BigDecimal.valueOf(1.5)
         );
         Vector<Integer> result = new Vector<>(new IntegerArithmetic(), 0, 1);
-        assertEquals(result,
-            vector.map(new IntegerArithmetic(), Number::intValue)
-        );
+        assertThat(vector.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void isValidWithZeroValues() {
-        assertTrue(new BigDecimalVector().isValid());
+        assertThat(new BigDecimalVector().isValid()).isTrue();
     }
 
     @Test
@@ -464,7 +445,7 @@ class BigDecimalVectorTest {
         Vector<BigDecimal> vector = new BigDecimalVector(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        assertEquals(vector, vector.copy());
+        assertThat(vector.copy()).isEqualTo(vector);
     }
 
     // endregion
@@ -476,21 +457,15 @@ class BigDecimalVectorTest {
         Vector<BigDecimal> vector = new BigDecimalVector(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        assertEquals(vector,
-            new BigDecimalVector(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d))
-        );
-        assertNotEquals(vector,
-            new BigDecimalVector(BigDecimal.valueOf(3d), BigDecimal.valueOf(2d))
-        );
+        assertThat(new BigDecimalVector(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d))).isEqualTo(vector);
+        assertThat(new BigDecimalVector(BigDecimal.valueOf(3d), BigDecimal.valueOf(2d))).isNotEqualTo(vector);
     }
 
     @Test
     void hashCodeOfVectorWithX2Y3() {
-        assertEquals(21143,
-            new BigDecimalVector(
-                BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
-            ).hashCode()
-        );
+        assertThat(new BigDecimalVector(
+            BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
+        ).hashCode()).isEqualTo(21143);
     }
 
     @Test
@@ -498,7 +473,7 @@ class BigDecimalVectorTest {
         Vector<BigDecimal> vector = new BigDecimalVector(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        assertEquals("2.0:3.0", vector.toString());
+        assertThat(vector.toString()).isEqualTo("2.0:3.0");
     }
 
     @Test
@@ -506,21 +481,15 @@ class BigDecimalVectorTest {
         Vector<BigDecimal> vector = new BigDecimalVector(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        assertEquals(0,
-            vector.compareTo(
-                new BigDecimalVector(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d))
-            )
-        );
-        assertEquals(-1,
-            vector.compareTo(
-                new BigDecimalVector(BigDecimal.valueOf(3d), BigDecimal.ONE)
-            )
-        );
-        assertEquals(1,
-            vector.compareTo(
-                new BigDecimalVector(BigDecimal.ONE, BigDecimal.ZERO)
-            )
-        );
+        assertThat(vector.compareTo(
+            new BigDecimalVector(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d))
+        )).isEqualTo(0);
+        assertThat(vector.compareTo(
+            new BigDecimalVector(BigDecimal.valueOf(3d), BigDecimal.ONE)
+        )).isEqualTo(-1);
+        assertThat(vector.compareTo(
+            new BigDecimalVector(BigDecimal.ONE, BigDecimal.ZERO)
+        )).isEqualTo(1);
     }
 
     @Test

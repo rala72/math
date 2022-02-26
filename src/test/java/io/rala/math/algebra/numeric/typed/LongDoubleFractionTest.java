@@ -9,7 +9,8 @@ import io.rala.math.testUtils.assertion.NumericAssertions;
 import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class LongDoubleFractionTest {
     // region constructors, getter and setter
@@ -26,9 +27,8 @@ class LongDoubleFractionTest {
 
     @Test
     void constructorWithZeroDeParameter() {
-        assertThrows(IllegalArgumentException.class,
-            () -> new LongDoubleFraction(1, 0L)
-        ); // assert exception message?
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> new LongDoubleFraction(1, 0L)); // assert exception message?
     }
 
     @Test
@@ -56,9 +56,8 @@ class LongDoubleFractionTest {
     void createAndSetDenominatorZero() {
         LongDoubleFraction complex = new LongDoubleFraction(1);
         assertFraction(complex);
-        assertThrows(IllegalArgumentException.class,
-            () -> complex.setDenominator(0L)
-        ); // assert exception message?
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> complex.setDenominator(0L)); // assert exception message?
     }
 
     @Test
@@ -75,27 +74,27 @@ class LongDoubleFractionTest {
 
     @Test
     void valueOf1_2() {
-        assertEquals(0.5, new LongDoubleFraction(1, 2L).value());
+        assertThat(new LongDoubleFraction(1, 2L).value()).isEqualTo(0.5);
     }
 
     @Test
     void intValueOf1_2() {
-        assertEquals(0, new LongDoubleFraction(1, 2L).intValue());
+        assertThat(new LongDoubleFraction(1, 2L).intValue()).isEqualTo(0);
     }
 
     @Test
     void longValueOf1_2() {
-        assertEquals(0, new LongDoubleFraction(1, 2L).longValue());
+        assertThat(new LongDoubleFraction(1, 2L).longValue()).isEqualTo(0);
     }
 
     @Test
     void floatValueOf1_2() {
-        assertEquals(0.5, new LongDoubleFraction(1, 2L).floatValue());
+        assertThat(new LongDoubleFraction(1, 2L).floatValue()).isEqualTo(0.5f);
     }
 
     @Test
     void doubleValueOf1_2() {
-        assertEquals(0.5, new LongDoubleFraction(1, 2L).doubleValue());
+        assertThat(new LongDoubleFraction(1, 2L).doubleValue()).isEqualTo(0.5);
     }
 
     // endregion
@@ -126,50 +125,34 @@ class LongDoubleFractionTest {
 
     @Test
     void addWithNumerator() {
-        assertEquals(
-            new LongDoubleFraction(2, 1L),
-            new LongDoubleFraction(1).add(1L, 1L)
-        );
+        assertThat(new LongDoubleFraction(1).add(1L, 1L)).isEqualTo(new LongDoubleFraction(2, 1L));
     }
 
     @Test
     void addWithXAndY() {
-        assertEquals(
-            new LongDoubleFraction(2, 1L),
-            new LongDoubleFraction(1, 1L).add(1L, 1L)
-        );
+        assertThat(new LongDoubleFraction(1, 1L).add(1L, 1L)).isEqualTo(new LongDoubleFraction(2, 1L));
     }
 
     @Test
     void addWithFraction() {
-        assertEquals(new LongDoubleFraction(3, 2L),
-            new LongDoubleFraction(1, 1L)
-                .add(new LongDoubleFraction(1, 2L))
-        );
+        assertThat(new LongDoubleFraction(1, 1L)
+            .add(new LongDoubleFraction(1, 2L))).isEqualTo(new LongDoubleFraction(3, 2L));
     }
 
     @Test
     void subtractWithNumerator() {
-        assertEquals(
-            new LongDoubleFraction(0, 1L),
-            new LongDoubleFraction(2).subtract(2L, 1L)
-        );
+        assertThat(new LongDoubleFraction(2).subtract(2L, 1L)).isEqualTo(new LongDoubleFraction(0, 1L));
     }
 
     @Test
     void subtractWithXAndY() {
-        assertEquals(
-            new LongDoubleFraction(1, 1L),
-            new LongDoubleFraction(2, 1L).subtract(1L, 1L)
-        );
+        assertThat(new LongDoubleFraction(2, 1L).subtract(1L, 1L)).isEqualTo(new LongDoubleFraction(1, 1L));
     }
 
     @Test
     void subtractWithFraction() {
-        assertEquals(new LongDoubleFraction(3, 2L),
-            new LongDoubleFraction(2, 1L)
-                .subtract(new LongDoubleFraction(1, 2L))
-        );
+        assertThat(new LongDoubleFraction(2, 1L)
+            .subtract(new LongDoubleFraction(1, 2L))).isEqualTo(new LongDoubleFraction(3, 2L));
     }
 
     // endregion
@@ -178,50 +161,34 @@ class LongDoubleFractionTest {
 
     @Test
     void multiplyWithNumerator() {
-        assertEquals(
-            new LongDoubleFraction(2, 1L),
-            new LongDoubleFraction(1).multiply(2L)
-        );
+        assertThat(new LongDoubleFraction(1).multiply(2L)).isEqualTo(new LongDoubleFraction(2, 1L));
     }
 
     @Test
     void multiplyWithXAndY() {
-        assertEquals(
-            new LongDoubleFraction(3, 8L),
-            new LongDoubleFraction(1, 2L).multiply(3L, 4L)
-        );
+        assertThat(new LongDoubleFraction(1, 2L).multiply(3L, 4L)).isEqualTo(new LongDoubleFraction(3, 8L));
     }
 
     @Test
     void multiplyWithFraction() {
-        assertEquals(new LongDoubleFraction(4, 6L),
-            new LongDoubleFraction(1, 2L)
-                .multiply(new LongDoubleFraction(4, 3L))
-        );
+        assertThat(new LongDoubleFraction(1, 2L)
+            .multiply(new LongDoubleFraction(4, 3L))).isEqualTo(new LongDoubleFraction(4, 6L));
     }
 
     @Test
     void divideWithNumerator() {
-        assertEquals(
-            new LongDoubleFraction(1, 2L),
-            new LongDoubleFraction(1).divide(2L)
-        );
+        assertThat(new LongDoubleFraction(1).divide(2L)).isEqualTo(new LongDoubleFraction(1, 2L));
     }
 
     @Test
     void divideWithXAndY() {
-        assertEquals(
-            new LongDoubleFraction(4, 6L),
-            new LongDoubleFraction(1, 2L).divide(3L, 4L)
-        );
+        assertThat(new LongDoubleFraction(1, 2L).divide(3L, 4L)).isEqualTo(new LongDoubleFraction(4, 6L));
     }
 
     @Test
     void divideWithFraction() {
-        assertEquals(new LongDoubleFraction(3, 8L),
-            new LongDoubleFraction(1, 2L)
-                .divide(new LongDoubleFraction(4, 3L))
-        );
+        assertThat(new LongDoubleFraction(1, 2L)
+            .divide(new LongDoubleFraction(4, 3L))).isEqualTo(new LongDoubleFraction(3, 8L));
     }
 
     // endregion
@@ -248,9 +215,9 @@ class LongDoubleFractionTest {
         Fraction<Integer, Integer> result = new Fraction<>(
             new IntegerArithmetic().toResultArithmetic(), 0, 1
         );
-        assertEquals(result, fraction.map(
+        assertThat(fraction.map(
             new IntegerArithmetic().toResultArithmetic(), Number::intValue
-        ));
+        )).isEqualTo(result);
     }
 
     @Test
@@ -261,9 +228,9 @@ class LongDoubleFractionTest {
                 new IntegerArithmetic(), new DoubleArithmetic(), Integer::doubleValue
             ), 0, 1
         );
-        assertEquals(result, fraction.mapValues(
+        assertThat(fraction.mapValues(
             new IntegerArithmetic(), Long::intValue, Integer::doubleValue
-        ));
+        )).isEqualTo(result);
     }
 
     @Test
@@ -274,11 +241,11 @@ class LongDoubleFractionTest {
                 new IntegerArithmetic(), new DoubleArithmetic(), Integer::doubleValue
             ), 0, 1
         );
-        assertEquals(result, fraction.mapValues(
+        assertThat(fraction.mapValues(
             AbstractResultArithmetic.of(
                 new IntegerArithmetic(), new DoubleArithmetic(), Integer::doubleValue
             ), Number::intValue
-        ));
+        )).isEqualTo(result);
     }
 
     @Test
@@ -289,15 +256,15 @@ class LongDoubleFractionTest {
                 new LongArithmetic(), new IntegerArithmetic(), Long::intValue
             ), 0L, 1L
         );
-        assertEquals(result, fraction.mapValue(
+        assertThat(fraction.mapValue(
             new IntegerArithmetic(), Number::intValue
-        ));
+        )).isEqualTo(result);
     }
 
     @Test
     void copyOfFractionWithNuDe() {
         LongDoubleFraction complex = new LongDoubleFraction(2, 3L);
-        assertEquals(complex, complex.copy());
+        assertThat(complex.copy()).isEqualTo(complex);
     }
 
     // endregion
@@ -307,27 +274,27 @@ class LongDoubleFractionTest {
     @Test
     void equalsOfFractionWithNuDe() {
         LongDoubleFraction complex = new LongDoubleFraction(2, 3L);
-        assertEquals(complex, new LongDoubleFraction(2, 3L));
-        assertNotEquals(complex, new LongDoubleFraction(3, 2L));
+        assertThat(new LongDoubleFraction(2, 3L)).isEqualTo(complex);
+        assertThat(new LongDoubleFraction(3, 2L)).isNotEqualTo(complex);
     }
 
     @Test
     void hashCodeOfFractionWithNuDe() {
-        assertEquals(1026, new LongDoubleFraction(2, 3L).hashCode());
+        assertThat(new LongDoubleFraction(2, 3L).hashCode()).isEqualTo(1026);
     }
 
     @Test
     void toStringOfFractionWithNuDe() {
         LongDoubleFraction complex = new LongDoubleFraction(2, 3L);
-        assertEquals("2/3", complex.toString());
+        assertThat(complex.toString()).isEqualTo("2/3");
     }
 
     @Test
     void compareToOfFractionWithNuDe() {
         LongDoubleFraction complex = new LongDoubleFraction(2, 3L);
-        assertEquals(0, complex.compareTo(new LongDoubleFraction(2, 3L)));
-        assertEquals(-1, complex.compareTo(new LongDoubleFraction(3, 1L)));
-        assertEquals(1, complex.compareTo(new LongDoubleFraction(1, 2L)));
+        assertThat(complex.compareTo(new LongDoubleFraction(2, 3L))).isEqualTo(0);
+        assertThat(complex.compareTo(new LongDoubleFraction(3, 1L))).isEqualTo(-1);
+        assertThat(complex.compareTo(new LongDoubleFraction(1, 2L))).isEqualTo(1);
     }
 
     @Test

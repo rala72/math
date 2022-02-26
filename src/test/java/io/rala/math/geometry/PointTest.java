@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.GeometryAssertions.assertPoint;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class PointTest {
     // region constructors, getter and setter
@@ -64,22 +64,18 @@ class PointTest {
     void mapOfPointWithX0_5Y1_5() {
         TestPoint point = new TestPoint(0.5, 1.5);
         Point<Integer> result = new Point<>(new IntegerArithmetic(), 0, 1);
-        assertEquals(result,
-            point.map(new IntegerArithmetic(), Number::intValue)
-        );
+        assertThat(point.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void isValidWithZeroValues() {
-        assertTrue(new TestPoint().isValid());
+        assertThat(new TestPoint().isValid()).isTrue();
     }
 
     @Test
     void isValidWithInfValues() {
-        assertFalse(
-            new TestPoint(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
-                .isValid()
-        );
+        assertThat(new TestPoint(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
+            .isValid()).isFalse();
     }
 
     @Test
@@ -155,7 +151,7 @@ class PointTest {
     @Test
     void copyOfPointWithXY() {
         Point<Number> point = new TestPoint(2, 3);
-        assertEquals(point, point.copy());
+        assertThat(point.copy()).isEqualTo(point);
     }
 
     // endregion
@@ -165,27 +161,27 @@ class PointTest {
     @Test
     void equalsOfPointWithXY() {
         Point<Number> point = new TestPoint(2, 3);
-        assertEquals(point, new TestPoint(2, 3));
-        assertNotEquals(point, new TestPoint(3, 2));
+        assertThat(new TestPoint(2, 3)).isEqualTo(point);
+        assertThat(new TestPoint(3, 2)).isNotEqualTo(point);
     }
 
     @Test
     void hashCodeOfPointWithXY() {
-        assertEquals(1026, new TestPoint(2, 3).hashCode());
+        assertThat(new TestPoint(2, 3).hashCode()).isEqualTo(1026);
     }
 
     @Test
     void toStringOfPointWithXY() {
         Point<Number> point = new TestPoint(2, 3);
-        assertEquals("2|3", point.toString());
+        assertThat(point.toString()).isEqualTo("2|3");
     }
 
     @Test
     void compareToOfPointWithXY() {
         Point<Number> point = new TestPoint(2, 3);
-        assertEquals(0, point.compareTo(new TestPoint(2, 3)));
-        assertEquals(-1, point.compareTo(new TestPoint(3, 1)));
-        assertEquals(1, point.compareTo(new TestPoint(2, 2)));
+        assertThat(point.compareTo(new TestPoint(2, 3))).isEqualTo(0);
+        assertThat(point.compareTo(new TestPoint(3, 1))).isEqualTo(-1);
+        assertThat(point.compareTo(new TestPoint(2, 2))).isEqualTo(1);
     }
 
     @Test

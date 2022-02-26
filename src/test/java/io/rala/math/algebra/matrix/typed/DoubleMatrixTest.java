@@ -11,16 +11,16 @@ import java.util.List;
 
 import static io.rala.math.testUtils.assertion.MatrixAssertions.assertMatrix;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class DoubleMatrixTest {
     // region constructors
 
     @Test
     void constructorWithNegativeSize() {
-        assertThrows(IllegalArgumentException.class,
-            () -> new DoubleMatrix(-1)
-        ); // assert exception message?
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> new DoubleMatrix(-1)); // assert exception message?
     }
 
     @Test
@@ -28,7 +28,7 @@ class DoubleMatrixTest {
         DoubleMatrix matrix = new DoubleMatrix(Integer.MAX_VALUE);
 
         long expectedSize = (long) Integer.MAX_VALUE * Integer.MAX_VALUE;
-        assertEquals(expectedSize, matrix.size());
+        assertThat(matrix.size()).isEqualTo(expectedSize);
     }
 
     @Test
@@ -62,22 +62,22 @@ class DoubleMatrixTest {
 
     @Test
     void createWithSize1AndAssertSizeEquals1() {
-        assertEquals(1, new DoubleMatrix(1).size());
+        assertThat(new DoubleMatrix(1).size()).isEqualTo(1);
     }
 
     @Test
     void createWithSize2AndAssertSizeEquals4() {
-        assertEquals(4, new DoubleMatrix(2).size());
+        assertThat(new DoubleMatrix(2).size()).isEqualTo(4);
     }
 
     @Test
     void createWithRow1Col2AndAssertSizeEquals2() {
-        assertEquals(2, new DoubleMatrix(1, 2).size());
+        assertThat(new DoubleMatrix(1, 2).size()).isEqualTo(2);
     }
 
     @Test
     void createWithRow2Col3AndAssertSizeEquals6() {
-        assertEquals(6, new DoubleMatrix(2, 3).size());
+        assertThat(new DoubleMatrix(2, 3).size()).isEqualTo(6);
     }
 
     // endregion
@@ -87,9 +87,8 @@ class DoubleMatrixTest {
     @Test
     void getRowFieldsM1OfMatrix() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.getRowFields(-1)
-        ); // assert exception message?
+        assertThatExceptionOfType(IndexOutOfBoundsException.class)
+            .isThrownBy(() -> matrix.getRowFields(-1)); // assert exception message?
     }
 
     @Test
@@ -98,12 +97,12 @@ class DoubleMatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, (double) i);
         List<Matrix<Double>.Field> row0 = matrix.getRowFields(0);
-        assertEquals(2, row0.size());
+        assertThat(row0.size()).isEqualTo(2);
         for (int i = 0; i < row0.size(); i++) {
             Matrix<Double>.Field field = row0.get(i);
-            assertEquals(0, field.getRow());
-            assertEquals(i, field.getCol());
-            assertEquals(i, field.getValue());
+            assertThat(field.getRow()).isEqualTo(0);
+            assertThat(field.getCol()).isEqualTo(i);
+            assertThat(field.getValue()).isEqualTo(i);
         }
     }
 
@@ -113,17 +112,16 @@ class DoubleMatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, (double) i);
         List<Double> row0 = matrix.getRow(0);
-        assertEquals(2, row0.size());
+        assertThat(row0.size()).isEqualTo(2);
         for (int i = 0; i < row0.size(); i++)
-            assertEquals(i, row0.get(i));
+            assertThat(row0.get(i)).isEqualTo(i);
     }
 
     @Test
     void getColFieldsM1OfMatrix() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.getColFields(-1)
-        ); // assert exception message?
+        assertThatExceptionOfType(IndexOutOfBoundsException.class)
+            .isThrownBy(() -> matrix.getColFields(-1)); // assert exception message?
     }
 
     @Test
@@ -132,12 +130,12 @@ class DoubleMatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, (double) i);
         List<Matrix<Double>.Field> col0 = matrix.getColFields(0);
-        assertEquals(2, col0.size());
+        assertThat(col0.size()).isEqualTo(2);
         for (int i = 0; i < col0.size(); i++) {
             Matrix<Double>.Field field = col0.get(i);
-            assertEquals(0, field.getCol());
-            assertEquals(i, field.getRow());
-            assertEquals(i * 2, field.getValue());
+            assertThat(field.getCol()).isEqualTo(0);
+            assertThat(field.getRow()).isEqualTo(i);
+            assertThat(field.getValue()).isEqualTo(i * 2);
         }
     }
 
@@ -147,9 +145,9 @@ class DoubleMatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, (double) i);
         List<Double> col0 = matrix.getCol(0);
-        assertEquals(2, col0.size());
+        assertThat(col0.size()).isEqualTo(2);
         for (int i = 0; i < col0.size(); i++)
-            assertEquals(i * 2, col0.get(i));
+            assertThat(col0.get(i)).isEqualTo(i * 2);
     }
 
     // endregion
@@ -159,84 +157,78 @@ class DoubleMatrixTest {
     @Test
     void getValueByIndexMinus1() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.getValue(-1)
-        ); // assert exception message?
+        assertThatExceptionOfType(IndexOutOfBoundsException.class)
+            .isThrownBy(() -> matrix.getValue(-1)); // assert exception message?
     }
 
     @Test
     void getValueByRowMinus1Col0() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.getValue(-1, 0)
-        ); // assert exception message?
+        assertThatExceptionOfType(IndexOutOfBoundsException.class)
+            .isThrownBy(() -> matrix.getValue(-1, 0)); // assert exception message?
     }
 
     @Test
     void getValueByRow0ColMinus1() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.getValue(0, -1)
-        ); // assert exception message?
+        assertThatExceptionOfType(IndexOutOfBoundsException.class)
+            .isThrownBy(() -> matrix.getValue(0, -1)); // assert exception message?
     }
 
     @Test
     void setValueByIndexMinus1() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.setValue(-1, 0d)
-        ); // assert exception message?
+        assertThatExceptionOfType(IndexOutOfBoundsException.class)
+            .isThrownBy(() -> matrix.setValue(-1, 0d)); // assert exception message?
     }
 
     @Test
     void setValueByIndex0WhichWasUnset() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertEquals(0d, matrix.setValue(0, 1d));
-        assertEquals(1, matrix.getValue(0));
-        assertEquals(1, matrix.getValue(0, 0));
+        assertThat(matrix.setValue(0, 1d)).isEqualTo(0d);
+        assertThat(matrix.getValue(0)).isEqualTo(1);
+        assertThat(matrix.getValue(0, 0)).isEqualTo(1);
         // assert all other are unset
     }
 
     @Test
     void setValueByIndex3WhichWasUnset() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertEquals(0d, matrix.setValue(3, 1d));
-        assertEquals(1, matrix.getValue(3));
-        assertEquals(1, matrix.getValue(1, 1));
+        assertThat(matrix.setValue(3, 1d)).isEqualTo(0d);
+        assertThat(matrix.getValue(3)).isEqualTo(1);
+        assertThat(matrix.getValue(1, 1)).isEqualTo(1);
         // assert all other are unset
     }
 
     @Test
     void setValueByRowMinus1Col0() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.setValue(-1, 0, 0d)
-        ); // assert exception message?
+        assertThatExceptionOfType(IndexOutOfBoundsException.class)
+            .isThrownBy(() -> matrix.setValue(-1, 0, 0d)); // assert exception message?
     }
 
     @Test
     void setValueByRow0ColMinus1() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.setValue(0, -1, 0d)
-        ); // assert exception message?
+        assertThatExceptionOfType(IndexOutOfBoundsException.class)
+            .isThrownBy(() -> matrix.setValue(0, -1, 0d)); // assert exception message?
     }
 
     @Test
     void setValueByRow0Col0WhichWasUnset() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertEquals(0d, matrix.setValue(0, 0, 1d));
-        assertEquals(1, matrix.getValue(0));
-        assertEquals(1, matrix.getValue(0, 0));
+        assertThat(matrix.setValue(0, 0, 1d)).isEqualTo(0d);
+        assertThat(matrix.getValue(0)).isEqualTo(1);
+        assertThat(matrix.getValue(0, 0)).isEqualTo(1);
         // assert all other are unset
     }
 
     @Test
     void setValueByRow1Col0WhichWasUnset() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertEquals(0d, matrix.setValue(1, 0, 1d));
-        assertEquals(1, matrix.getValue(1, 0));
-        assertEquals(1, matrix.getValue(2));
+        assertThat(matrix.setValue(1, 0, 1d)).isEqualTo(0d);
+        assertThat(matrix.getValue(1, 0)).isEqualTo(1);
+        assertThat(matrix.getValue(2)).isEqualTo(1);
         // assert all other are unset
     }
 
@@ -244,51 +236,48 @@ class DoubleMatrixTest {
     void setValueByIndex2WichWasSet() {
         DoubleMatrix matrix = new DoubleMatrix(2);
         matrix.setValue(2, 1d);
-        assertEquals(1, matrix.getValue(2));
-        assertEquals(1, matrix.setValue(2, 2d));
+        assertThat(matrix.getValue(2)).isEqualTo(1);
+        assertThat(matrix.setValue(2, 2d)).isEqualTo(1);
     }
 
     @Test
     void removeValueByIndexMinus1() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.removeValue(-1)
-        ); // assert exception message?
+        assertThatExceptionOfType(IndexOutOfBoundsException.class)
+            .isThrownBy(() -> matrix.removeValue(-1)); // assert exception message?
     }
 
     @Test
     void removeValueByIndex0WhichWasUnset() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertEquals(0d, matrix.removeValue(0));
+        assertThat(matrix.removeValue(0)).isEqualTo(0d);
     }
 
     @Test
     void removeValueByRowMinus1Col0() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.removeValue(-1, 0)
-        ); // assert exception message?
+        assertThatExceptionOfType(IndexOutOfBoundsException.class)
+            .isThrownBy(() -> matrix.removeValue(-1, 0)); // assert exception message?
     }
 
     @Test
     void removeValueByRow0ColMinus1() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertThrows(IndexOutOfBoundsException.class,
-            () -> matrix.removeValue(0, -1)
-        ); // assert exception message?
+        assertThatExceptionOfType(IndexOutOfBoundsException.class)
+            .isThrownBy(() -> matrix.removeValue(0, -1)); // assert exception message?
     }
 
     @Test
     void removeValueByRow0Col0WhichWasUnset() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertEquals(0d, matrix.removeValue(0, 0));
+        assertThat(matrix.removeValue(0, 0)).isEqualTo(0d);
     }
 
     @Test
     void removeValueByIndex2WhichWasSet() {
         DoubleMatrix matrix = new DoubleMatrix(2);
         matrix.setValue(2, 1d);
-        assertEquals(1, matrix.removeValue(2));
+        assertThat(matrix.removeValue(2)).isEqualTo(1);
     }
 
     // endregion
@@ -298,76 +287,76 @@ class DoubleMatrixTest {
     @Test
     void computeWithUnaryOperatorByIndex0WhichWasUnset() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertEquals(0d, matrix.compute(0, number -> 1d));
-        assertEquals(1, matrix.getValue(0));
-        assertEquals(1, matrix.getValue(0, 0));
+        assertThat(matrix.compute(0, number -> 1d)).isEqualTo(0d);
+        assertThat(matrix.getValue(0)).isEqualTo(1);
+        assertThat(matrix.getValue(0, 0)).isEqualTo(1);
     }
 
     @Test
     void computeWithUnaryOperatorByIndex3WhichWasUnset() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertEquals(0d, matrix.compute(3, number -> 1d));
-        assertEquals(1, matrix.getValue(3));
-        assertEquals(1, matrix.getValue(1, 1));
+        assertThat(matrix.compute(3, number -> 1d)).isEqualTo(0d);
+        assertThat(matrix.getValue(3)).isEqualTo(1);
+        assertThat(matrix.getValue(1, 1)).isEqualTo(1);
     }
 
     @Test
     void computeWithUnaryOperatorByRow0Col0WhichWasUnset() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertEquals(0d, matrix.compute(0, 0, number -> 1d));
-        assertEquals(1, matrix.getValue(0));
-        assertEquals(1, matrix.getValue(0, 0));
+        assertThat(matrix.compute(0, 0, number -> 1d)).isEqualTo(0d);
+        assertThat(matrix.getValue(0)).isEqualTo(1);
+        assertThat(matrix.getValue(0, 0)).isEqualTo(1);
         // assert all other are unset
     }
 
     @Test
     void computeWithUnaryOperatorByRow1Col1WhichWasUnset() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertEquals(0d, matrix.compute(1, 0, number -> 1d));
-        assertEquals(1, matrix.getValue(1, 0));
-        assertEquals(1, matrix.getValue(2));
+        assertThat(matrix.compute(1, 0, number -> 1d)).isEqualTo(0d);
+        assertThat(matrix.getValue(1, 0)).isEqualTo(1);
+        assertThat(matrix.getValue(2)).isEqualTo(1);
         // assert all other are unset
     }
 
     @Test
     void computeWithBinaryOperatorByIndex0WhichWasUnset() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertEquals(0d, matrix.compute(0,
+        assertThat(matrix.compute(0,
             1d, matrix.getArithmetic()::sum
-        ));
-        assertEquals(1d, matrix.getValue(0));
-        assertEquals(1d, matrix.getValue(0, 0));
+        )).isEqualTo(0d);
+        assertThat(matrix.getValue(0)).isEqualTo(1d);
+        assertThat(matrix.getValue(0, 0)).isEqualTo(1d);
     }
 
     @Test
     void computeWithBinaryOperatorByIndex3WhichWasUnset() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertEquals(0d, matrix.compute(3,
+        assertThat(matrix.compute(3,
             1d, matrix.getArithmetic()::sum
-        ));
-        assertEquals(1d, matrix.getValue(3));
-        assertEquals(1d, matrix.getValue(1, 1));
+        )).isEqualTo(0d);
+        assertThat(matrix.getValue(3)).isEqualTo(1d);
+        assertThat(matrix.getValue(1, 1)).isEqualTo(1d);
     }
 
     @Test
     void computeWithBinaryOperatorByRow0Col0WhichWasUnset() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertEquals(0d, matrix.compute(0, 0,
+        assertThat(matrix.compute(0, 0,
             1d, matrix.getArithmetic()::sum
-        ));
-        assertEquals(1d, matrix.getValue(0));
-        assertEquals(1d, matrix.getValue(0, 0));
+        )).isEqualTo(0d);
+        assertThat(matrix.getValue(0)).isEqualTo(1d);
+        assertThat(matrix.getValue(0, 0)).isEqualTo(1d);
         // assert all other are unset
     }
 
     @Test
     void computeWithBinaryOperatorByRow1Col1WhichWasUnset() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertEquals(0d, matrix.compute(1, 0,
+        assertThat(matrix.compute(1, 0,
             1d, matrix.getArithmetic()::sum
-        ));
-        assertEquals(1d, matrix.getValue(1, 0));
-        assertEquals(1d, matrix.getValue(2));
+        )).isEqualTo(0d);
+        assertThat(matrix.getValue(1, 0)).isEqualTo(1d);
+        assertThat(matrix.getValue(2)).isEqualTo(1d);
         // assert all other are unset
     }
 
@@ -377,18 +366,18 @@ class DoubleMatrixTest {
         matrix.computeAll(field ->
             matrix.getArithmetic().sum(field.getValue(), 1d)
         );
-        assertTrue(matrix.stream().allMatch(field ->
+        assertThat(matrix.stream().allMatch(field ->
             matrix.getArithmetic().isEqual(field.getValue(), 1d)
-        ));
+        )).isTrue();
     }
 
     @Test
     void computeAllWithFunctionAndBinaryOperatorOfEmptyMatrix() {
         DoubleMatrix matrix = new DoubleMatrix(2);
         matrix.computeAll(field -> 1d, matrix.getArithmetic()::sum);
-        assertTrue(matrix.stream().allMatch(field ->
+        assertThat(matrix.stream().allMatch(field ->
             matrix.getArithmetic().isEqual(field.getValue(), 1d)
-        ));
+        )).isTrue();
     }
 
     // endregion
@@ -397,32 +386,32 @@ class DoubleMatrixTest {
 
     @Test
     void isSquareOfMatrixWithRow1Col2() {
-        assertFalse(new DoubleMatrix(1, 2).isDiagonal());
+        assertThat(new DoubleMatrix(1, 2).isDiagonal()).isFalse();
     }
 
     @Test
     void isSquareOfMatrixWithSize2() {
-        assertTrue(new DoubleMatrix(2).isDiagonal());
+        assertThat(new DoubleMatrix(2).isDiagonal()).isTrue();
     }
 
     @Test
     void isDiagonalOfMatrixWithRow1Col2() {
-        assertFalse(new DoubleMatrix(1, 2).isDiagonal());
+        assertThat(new DoubleMatrix(1, 2).isDiagonal()).isFalse();
     }
 
     @Test
     void isDiagonalOfMatrixOfValidValues() {
-        assertTrue(DoubleMatrix.ofValuesByRows(2, 1, 0, 0, 4).isDiagonal());
+        assertThat(DoubleMatrix.ofValuesByRows(2, 1, 0, 0, 4).isDiagonal()).isTrue();
     }
 
     @Test
     void isDiagonalOfMatrixOfInvalidValues() {
-        assertFalse(DoubleMatrix.ofValuesByRows(2, 1, 2, 3, 4).isDiagonal());
+        assertThat(DoubleMatrix.ofValuesByRows(2, 1, 2, 3, 4).isDiagonal()).isFalse();
     }
 
     @Test
     void isDiagonalOfDiagonalMatrix() {
-        assertTrue(DoubleMatrix.diagonal(1, 2, 3).isDiagonal());
+        assertThat(DoubleMatrix.diagonal(1, 2, 3).isDiagonal()).isTrue();
     }
 
     @Test
@@ -432,9 +421,9 @@ class DoubleMatrixTest {
         matrix.setValue(1, 2d);
         matrix.setValue(2, 2d);
         matrix.setValue(3, 4d);
-        assertTrue(matrix.isSquare());
-        assertTrue(matrix.getArithmetic().isZero(matrix.determinante()));
-        assertFalse(matrix.isInvertible());
+        assertThat(matrix.isSquare()).isTrue();
+        assertThat(matrix.getArithmetic().isZero(matrix.determinante())).isTrue();
+        assertThat(matrix.isInvertible()).isFalse();
     }
 
     @Test
@@ -444,9 +433,9 @@ class DoubleMatrixTest {
         matrix.setValue(1, 0d);
         matrix.setValue(2, 0d);
         matrix.setValue(3, 4d);
-        assertTrue(matrix.isSquare());
-        assertFalse(matrix.getArithmetic().isZero(matrix.determinante()));
-        assertTrue(matrix.isInvertible());
+        assertThat(matrix.isSquare()).isTrue();
+        assertThat(matrix.getArithmetic().isZero(matrix.determinante())).isFalse();
+        assertThat(matrix.isInvertible()).isTrue();
     }
 
     // endregion
@@ -455,18 +444,16 @@ class DoubleMatrixTest {
 
     @Test
     void addOfEmptyMatrixWithSize1AndEmptyMatrixWithRows2Cols1() {
-        assertThrows(IllegalArgumentException.class,
-            () -> new DoubleMatrix(1)
-                .add(new DoubleMatrix(2, 1))
-        ); // assert exception message?
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> new DoubleMatrix(1)
+                .add(new DoubleMatrix(2, 1))); // assert exception message?
     }
 
     @Test
     void addOfEmptyMatrixWithSize1AndEmptyMatrixWithRows1Cols2() {
-        assertThrows(IllegalArgumentException.class,
-            () -> new DoubleMatrix(1)
-                .add(new DoubleMatrix(1, 2))
-        ); // assert exception message?
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> new DoubleMatrix(1)
+                .add(new DoubleMatrix(1, 2))); // assert exception message?
     }
 
     @Test
@@ -474,7 +461,7 @@ class DoubleMatrixTest {
         DoubleMatrix matrix1 = new DoubleMatrix(2);
         DoubleMatrix matrix2 = new DoubleMatrix(2);
         DoubleMatrix result = new DoubleMatrix(2);
-        assertEquals(result, matrix1.add(matrix2));
+        assertThat(matrix1.add(matrix2)).isEqualTo(result);
     }
 
     @Test
@@ -485,14 +472,14 @@ class DoubleMatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, 2 * (i + 1d));
         }
-        assertEquals(result, matrix.add(matrix));
+        assertThat(matrix.add(matrix)).isEqualTo(result);
     }
 
     @Test
     void multiplyOfEmptyMatrixWithSize2With2() {
         DoubleMatrix matrix = new DoubleMatrix(2);
         DoubleMatrix result = new DoubleMatrix(2);
-        assertEquals(result, matrix.multiply(2d));
+        assertThat(matrix.multiply(2d)).isEqualTo(result);
     }
 
     @Test
@@ -503,7 +490,7 @@ class DoubleMatrixTest {
             matrix.setValue(i, (i + 1d));
             result.setValue(i, (i + 1d) * 2);
         }
-        assertEquals(result, matrix.multiply(2d));
+        assertThat(matrix.multiply(2d)).isEqualTo(result);
     }
 
     @Test
@@ -511,7 +498,7 @@ class DoubleMatrixTest {
         DoubleMatrix matrix1 = new DoubleMatrix(2);
         DoubleMatrix matrix2 = new DoubleMatrix(2);
         DoubleMatrix result = new DoubleMatrix(2);
-        assertEquals(result, matrix1.multiply(matrix2));
+        assertThat(matrix1.multiply(matrix2)).isEqualTo(result);
     }
 
     @Test
@@ -519,16 +506,15 @@ class DoubleMatrixTest {
         DoubleMatrix matrix1 = new DoubleMatrix(1, 2);
         DoubleMatrix matrix2 = new DoubleMatrix(2, 3);
         DoubleMatrix result = new DoubleMatrix(1, 3);
-        assertEquals(result, matrix1.multiply(matrix2));
+        assertThat(matrix1.multiply(matrix2)).isEqualTo(result);
     }
 
     @Test
     void multiplyOfEmptyMatrixWithRow2Col3AndEmptyMatrixWithRow1Col2() {
         DoubleMatrix matrix1 = new DoubleMatrix(2, 3);
         DoubleMatrix matrix2 = new DoubleMatrix(1, 2);
-        assertThrows(IllegalArgumentException.class,
-            () -> matrix1.multiply(matrix2)
-        ); // assert exception message?
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> matrix1.multiply(matrix2)); // assert exception message?
     }
 
     @Test
@@ -536,12 +522,9 @@ class DoubleMatrixTest {
         DoubleMatrix matrix = new DoubleMatrix(2);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i + 1d);
-        assertEquals(
-            DoubleMatrix.ofValuesByRows(2,
-                7, 10, 15, 22
-            ),
-            matrix.multiply(matrix)
-        );
+        assertThat(matrix.multiply(matrix)).isEqualTo(DoubleMatrix.ofValuesByRows(2,
+            7, 10, 15, 22
+        ));
     }
 
     @Test
@@ -549,7 +532,7 @@ class DoubleMatrixTest {
         DoubleMatrix matrix1 = new DoubleMatrix(1, 2);
         DoubleMatrix matrix2 = new DoubleMatrix(2, 3);
         DoubleMatrix result = new DoubleMatrix(1, 3);
-        assertEquals(result, matrix1.multiplyTolerant(matrix2));
+        assertThat(matrix1.multiplyTolerant(matrix2)).isEqualTo(result);
     }
 
     @Test
@@ -557,16 +540,15 @@ class DoubleMatrixTest {
         DoubleMatrix matrix1 = new DoubleMatrix(2, 3);
         DoubleMatrix matrix2 = new DoubleMatrix(1, 2);
         DoubleMatrix result = new DoubleMatrix(1, 3);
-        assertEquals(result, matrix1.multiplyTolerant(matrix2));
+        assertThat(matrix1.multiplyTolerant(matrix2)).isEqualTo(result);
     }
 
     @Test
     void multiplyTolerantOfEmptyMatrixWithRow1Col2AndEmptyMatrixWithRow3Col4() {
         DoubleMatrix matrix1 = new DoubleMatrix(1, 2);
         DoubleMatrix matrix2 = new DoubleMatrix(3, 4);
-        assertThrows(IllegalArgumentException.class,
-            () -> matrix1.multiplyTolerant(matrix2)
-        );
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> matrix1.multiplyTolerant(matrix2));
     }
 
     @Test
@@ -574,12 +556,9 @@ class DoubleMatrixTest {
         DoubleMatrix matrix = new DoubleMatrix(2);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i + 1d);
-        assertEquals(
-            DoubleMatrix.ofValuesByRows(2,
-                7, 10, 15, 22
-            ),
-            matrix.multiplyTolerant(matrix)
-        );
+        assertThat(matrix.multiplyTolerant(matrix)).isEqualTo(DoubleMatrix.ofValuesByRows(2,
+            7, 10, 15, 22
+        ));
     }
 
     // endregion
@@ -588,14 +567,13 @@ class DoubleMatrixTest {
 
     @Test
     void inverseOfEmptyMatrixWichIsNoSquare() {
-        assertThrows(NotSupportedException.class,
-            () -> new DoubleMatrix(1, 2).inverse()
-        ); // assert exception message?
+        assertThatExceptionOfType(NotSupportedException.class)
+            .isThrownBy(() -> new DoubleMatrix(1, 2).inverse()); // assert exception message?
     }
 
     @Test
     void inverseOfEmptyMatrixWithSize2() {
-        assertNull(new DoubleMatrix(2).inverse());
+        assertThat(new DoubleMatrix(2).inverse()).isNull();
     }
 
     @Test
@@ -606,7 +584,7 @@ class DoubleMatrixTest {
         DoubleMatrix result = DoubleMatrix.ofValuesByRows(2,
             3, -5, -1, 2
         );
-        assertEquals(result, matrix.inverse());
+        assertThat(matrix.inverse()).isEqualTo(result);
     }
 
     @Test
@@ -617,13 +595,13 @@ class DoubleMatrixTest {
         DoubleMatrix result = DoubleMatrix.ofValuesByRows(3,
             2, 8, -21, -1, -5, 13, 0, 1, -2
         );
-        assertEquals(result, matrix.inverse());
+        assertThat(matrix.inverse()).isEqualTo(result);
     }
 
     @Test
     void transposeOfEmptyMatrixWithSize2() {
         DoubleMatrix result = new DoubleMatrix(2);
-        assertEquals(result, new DoubleMatrix(2).transpose());
+        assertThat(new DoubleMatrix(2).transpose()).isEqualTo(result);
     }
 
     @Test
@@ -636,13 +614,13 @@ class DoubleMatrixTest {
                 matrix.setValue(i, i + 1d);
                 result.setValue(TestMatrix.getIndexOfRowAndCol(result, c, r), i + 1d);
             }
-        assertEquals(result, matrix.transpose());
+        assertThat(matrix.transpose()).isEqualTo(result);
     }
 
     @Test
     void determinanteOfEmptyMatrixWithSize2() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertEquals(0, matrix.determinante());
+        assertThat(matrix.determinante()).isEqualTo(0);
     }
 
     @Test
@@ -650,7 +628,7 @@ class DoubleMatrixTest {
         DoubleMatrix matrix = new DoubleMatrix(2);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i + 1d);
-        assertEquals(-2, matrix.determinante());
+        assertThat(matrix.determinante()).isEqualTo(-2);
     }
 
     @Test
@@ -658,7 +636,7 @@ class DoubleMatrixTest {
         DoubleMatrix matrix = new DoubleMatrix(3);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i + 1d);
-        assertEquals(0, matrix.determinante());
+        assertThat(matrix.determinante()).isEqualTo(0);
     }
 
     @Test
@@ -667,7 +645,7 @@ class DoubleMatrixTest {
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, r == c ? 2d : 1d);
-        assertEquals(4, matrix.determinante());
+        assertThat(matrix.determinante()).isEqualTo(4);
     }
 
     @Test
@@ -676,7 +654,7 @@ class DoubleMatrixTest {
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, r == c ? 2d : 1d);
-        assertEquals(5, matrix.determinante());
+        assertThat(matrix.determinante()).isEqualTo(5);
     }
 
     @Test
@@ -685,7 +663,7 @@ class DoubleMatrixTest {
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, c != 0 && (r == c || r == 0) ? 0d : 1d);
-        assertEquals(2, matrix.determinante());
+        assertThat(matrix.determinante()).isEqualTo(2);
     }
 
     @Test
@@ -694,7 +672,7 @@ class DoubleMatrixTest {
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, r != 0 && (r == c || c == 0) ? 0d : 1d);
-        assertEquals(2, matrix.determinante());
+        assertThat(matrix.determinante()).isEqualTo(2);
     }
 
     // endregion
@@ -704,33 +682,33 @@ class DoubleMatrixTest {
     @Test
     void identityOfSize1() {
         DoubleMatrix matrix = DoubleMatrix.identity(1);
-        assertEquals(1, matrix.size());
+        assertThat(matrix.size()).isEqualTo(1);
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
-            assertEquals(1, matrix.getValue(i, i));
+            assertThat(matrix.getValue(i, i)).isEqualTo(1);
     }
 
     @Test
     void identityOfSize2() {
         DoubleMatrix matrix = DoubleMatrix.identity(2);
-        assertEquals(2 * 2, matrix.size());
+        assertThat(matrix.size()).isEqualTo(2 * 2);
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
-            assertEquals(1, matrix.getValue(i, i));
+            assertThat(matrix.getValue(i, i)).isEqualTo(1);
     }
 
     @Test
     void diagonalOfSize1() {
         DoubleMatrix matrix = DoubleMatrix.diagonal(1);
-        assertEquals(1, matrix.size());
+        assertThat(matrix.size()).isEqualTo(1);
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
-            assertEquals(1, matrix.getValue(i, i));
+            assertThat(matrix.getValue(i, i)).isEqualTo(1);
     }
 
     @Test
     void diagonalOfSize2() {
         DoubleMatrix matrix = DoubleMatrix.diagonal(2, 2);
-        assertEquals(2 * 2, matrix.size());
+        assertThat(matrix.size()).isEqualTo(2 * 2);
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
-            assertEquals(2, matrix.getValue(i, i));
+            assertThat(matrix.getValue(i, i)).isEqualTo(2);
     }
 
     // endregion
@@ -739,30 +717,28 @@ class DoubleMatrixTest {
 
     @Test
     void ofValuesByRows2WithInvalidParamCount() {
-        assertThrows(IllegalArgumentException.class,
-            () -> DoubleMatrix.ofValuesByRows(2, 1)
-        );
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> DoubleMatrix.ofValuesByRows(2, 1));
     }
 
     @Test
     void ofValuesByRows2WithValidParamCount() {
         DoubleMatrix matrix = DoubleMatrix.ofValuesByRows(2, 1, 2);
         for (int i = 0; i < matrix.size(); i++)
-            assertEquals(i + 1, matrix.getValue(i), "index: " + i);
+            assertThat(matrix.getValue(i)).as("index: " + i).isEqualTo(i + 1);
     }
 
     @Test
     void ofValuesByCols2WithInvalidParamCount() {
-        assertThrows(IllegalArgumentException.class,
-            () -> DoubleMatrix.ofValuesByCols(2, 1)
-        );
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> DoubleMatrix.ofValuesByCols(2, 1));
     }
 
     @Test
     void ofValuesByCols2WithValidParamCount() {
         DoubleMatrix matrix = DoubleMatrix.ofValuesByCols(2, 1, 2);
         for (int i = 0; i < matrix.size(); i++)
-            assertEquals(i + 1d, matrix.getValue(i), "index: " + i);
+            assertThat(matrix.getValue(i)).as("index: " + i).isEqualTo(i + 1d);
     }
 
     // endregion
@@ -780,15 +756,13 @@ class DoubleMatrixTest {
                 result.setValue(r, c, r + c);
             }
 
-        assertEquals(result,
-            matrix.map(new IntegerArithmetic(), Number::intValue)
-        );
+        assertThat(matrix.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void copyOfMatrixWithSize2() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertEquals(matrix, matrix.copy());
+        assertThat(matrix.copy()).isEqualTo(matrix);
     }
 
     // endregion
@@ -801,39 +775,39 @@ class DoubleMatrixTest {
         List<DoubleMatrix.Field> values = new ArrayList<>();
         for (DoubleMatrix.Field d : matrix) {
             values.add(d);
-            assertEquals(0d, d.getValue());
+            assertThat(d.getValue()).isEqualTo(0d);
         }
-        assertEquals(matrix.size(), values.size());
+        assertThat(values.size()).isEqualTo(matrix.size());
     }
 
     @Test
     void streamOfEmptyMatrix() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertEquals(4, matrix.stream().count());
+        assertThat(matrix.stream().count()).isEqualTo(4);
     }
 
     @Test
     void parallelStreamOfEmptyMatrix() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertEquals(4, matrix.parallelStream().count());
+        assertThat(matrix.parallelStream().count()).isEqualTo(4);
     }
 
     @Test
     void equalsOfDoubleMatrixWithRow2Col3() {
         DoubleMatrix matrix = new DoubleMatrix(2, 3);
-        assertEquals(matrix, new DoubleMatrix(2, 3));
-        assertNotEquals(matrix, new DoubleMatrix(3, 2));
+        assertThat(new DoubleMatrix(2, 3)).isEqualTo(matrix);
+        assertThat(new DoubleMatrix(3, 2)).isNotEqualTo(matrix);
     }
 
     @Test
     void hashCodeOfDoubleMatrixWithRow2Col3() {
-        assertEquals(925536, new DoubleMatrix(2, 3).hashCode());
+        assertThat(new DoubleMatrix(2, 3).hashCode()).isEqualTo(925536);
     }
 
     @Test
     void toStringOfDoubleMatrixWithRow2Col3() {
         DoubleMatrix matrix = new DoubleMatrix(2, 3);
-        assertEquals("2 3: []", matrix.toString());
+        assertThat(matrix.toString()).isEqualTo("2 3: []");
     }
 
     @Test

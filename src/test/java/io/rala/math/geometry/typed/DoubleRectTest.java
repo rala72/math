@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.GeometryAssertions.*;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class DoubleRectTest {
     // region constructors, getter and setter
@@ -89,55 +89,47 @@ class DoubleRectTest {
 
     @Test
     void heightOfRectWithPointsAndPositiveSize() {
-        assertEquals(1d,
-            new DoubleRect(new DoublePoint(), new DoublePoint(1d), 1d).height()
-        );
+        assertThat(new DoubleRect(new DoublePoint(), new DoublePoint(1d), 1d).height()).isEqualTo(1d);
     }
 
     @Test
     void heightOfRectWithPointsAndNegativeSize() {
-        assertEquals(1d,
-            new DoubleRect(new DoublePoint(), new DoublePoint(1d), -1d).height()
-        );
+        assertThat(new DoubleRect(new DoublePoint(), new DoublePoint(1d), -1d).height()).isEqualTo(1d);
     }
 
     @Test
     void heightOfRectWithHeight1AndWidth0() {
-        assertEquals(0d, new DoubleRect(1d, 0d).height());
+        assertThat(new DoubleRect(1d, 0d).height()).isEqualTo(0d);
     }
 
     @Test
     void widthOfRectWithPointsAndPositiveSize() {
-        assertEquals(Math.sqrt(2d),
-            new DoubleRect(new DoublePoint(), new DoublePoint(1d), 1d).width()
-        );
+        assertThat(new DoubleRect(new DoublePoint(), new DoublePoint(1d), 1d).width()).isEqualTo(Math.sqrt(2d));
     }
 
     @Test
     void widthOfRectWithPointsAndNegativeSize() {
-        assertEquals(Math.sqrt(2d),
-            new DoubleRect(new DoublePoint(), new DoublePoint(1d), -1d).width()
-        );
+        assertThat(new DoubleRect(new DoublePoint(), new DoublePoint(1d), -1d).width()).isEqualTo(Math.sqrt(2d));
     }
 
     @Test
     void widthOfRectWithHeight1AndWidth0() {
-        assertEquals(1d, new DoubleRect(1d, 0d).width());
+        assertThat(new DoubleRect(1d, 0d).width()).isEqualTo(1d);
     }
 
     @Test
     void diagonaleOfRectWithHeightAndWidth1() {
-        assertEquals(Math.sqrt(2d), new DoubleRect(1d, 1d).diagonale());
+        assertThat(new DoubleRect(1d, 1d).diagonale()).isEqualTo(Math.sqrt(2d));
     }
 
     @Test
     void diagonaleOfRectWithHeight1AndWidth2() {
-        assertEquals(Math.sqrt(5d), new DoubleRect(1d, 2d).diagonale());
+        assertThat(new DoubleRect(1d, 2d).diagonale()).isEqualTo(Math.sqrt(5d));
     }
 
     @Test
     void diagonaleOfRectWithHeight2AndWidth3() {
-        assertEquals(Math.sqrt(13d), new DoubleRect(2d, 3d).diagonale());
+        assertThat(new DoubleRect(2d, 3d).diagonale()).isEqualTo(Math.sqrt(13d));
     }
 
     // endregion
@@ -146,32 +138,32 @@ class DoubleRectTest {
 
     @Test
     void areaOfRectWithHeightAndWidth1() {
-        assertEquals(1d, new DoubleRect(1d, 1d).area());
+        assertThat(new DoubleRect(1d, 1d).area()).isEqualTo(1d);
     }
 
     @Test
     void areaOfRectWithHeight1AndWidth2() {
-        assertEquals(2d, new DoubleRect(1d, 2d).area());
+        assertThat(new DoubleRect(1d, 2d).area()).isEqualTo(2d);
     }
 
     @Test
     void areaOfRectWithHeight2AndWidth3() {
-        assertEquals(6d, new DoubleRect(2d, 3d).area());
+        assertThat(new DoubleRect(2d, 3d).area()).isEqualTo(6d);
     }
 
     @Test
     void circumferenceOfRectWithHeightAndWidth1() {
-        assertEquals(4d, new DoubleRect(1d, 1d).circumference());
+        assertThat(new DoubleRect(1d, 1d).circumference()).isEqualTo(4d);
     }
 
     @Test
     void circumferenceOfRectWithHeight1AndWidth2() {
-        assertEquals(6d, new DoubleRect(1d, 2d).circumference());
+        assertThat(new DoubleRect(1d, 2d).circumference()).isEqualTo(6d);
     }
 
     @Test
     void circumferenceOfRectWithHeight2AndWidth3() {
-        assertEquals(10d, new DoubleRect(2d, 3d).circumference());
+        assertThat(new DoubleRect(2d, 3d).circumference()).isEqualTo(10d);
     }
 
     // endregion
@@ -192,12 +184,12 @@ class DoubleRectTest {
 
     @Test
     void isSquareWithEqualHeightAndWidth() {
-        assertTrue(new DoubleRect(1d, 1d).isSquare());
+        assertThat(new DoubleRect(1d, 1d).isSquare()).isTrue();
     }
 
     @Test
     void isSquareWithUnequalHeightAndWidth() {
-        assertFalse(new DoubleRect(1d, 2d).isSquare());
+        assertThat(new DoubleRect(1d, 2d).isSquare()).isFalse();
     }
 
     // endregion
@@ -215,42 +207,38 @@ class DoubleRectTest {
             new Point<>(integerArithmetic, 1),
             2
         );
-        assertEquals(result,
-            rect.map(new IntegerArithmetic(), Number::intValue)
-        );
+        assertThat(rect.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void isValidWithPositiveValues() {
-        assertTrue(new DoubleRect(1d, 1d).isValid());
+        assertThat(new DoubleRect(1d, 1d).isValid()).isTrue();
     }
 
     @Test
     void isValidWithZeroValues() {
-        assertFalse(new DoubleRect(0d, 0d).isValid());
+        assertThat(new DoubleRect(0d, 0d).isValid()).isFalse();
     }
 
     @Test
     void isValidWithZeroHeight() {
-        assertFalse(new DoubleRect(0d, 1d).isValid());
+        assertThat(new DoubleRect(0d, 1d).isValid()).isFalse();
     }
 
     @Test
     void isValidWithZeroWidth() {
-        assertFalse(new DoubleRect(1d, 0d).isValid());
+        assertThat(new DoubleRect(1d, 0d).isValid()).isFalse();
     }
 
     @Test
     void isValidWithNegativeValues() {
-        assertTrue(new DoubleRect(-1d, -1d).isValid());
+        assertThat(new DoubleRect(-1d, -1d).isValid()).isTrue();
     }
 
     @Test
     void isValidWithInfValues() {
-        assertFalse(
-            new DoubleRect(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
-                .isValid()
-        );
+        assertThat(new DoubleRect(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
+            .isValid()).isFalse();
     }
 
     @Test
@@ -298,7 +286,7 @@ class DoubleRectTest {
     @Test
     void copyOfRectWithPointHeightAndWidth() {
         Rect<Double> rect = new DoubleRect(new DoublePoint(2d), new DoublePoint(3d), 4d);
-        assertEquals(rect, rect.copy());
+        assertThat(rect.copy()).isEqualTo(rect);
     }
 
     // endregion
@@ -308,33 +296,27 @@ class DoubleRectTest {
     @Test
     void equalsOfRectWithPointHeightAndWidth() {
         Rect<Double> rect = new DoubleRect(new DoublePoint(2d), new DoublePoint(3d), 4d);
-        assertEquals(rect,
-            new DoubleRect(new DoublePoint(2d), new DoublePoint(3d), 4d)
-        );
-        assertNotEquals(rect,
-            new DoubleRect(new DoublePoint(2d), new DoublePoint(4d), 3d)
-        );
+        assertThat(new DoubleRect(new DoublePoint(2d), new DoublePoint(3d), 4d)).isEqualTo(rect);
+        assertThat(new DoubleRect(new DoublePoint(2d), new DoublePoint(4d), 3d)).isNotEqualTo(rect);
     }
 
     @Test
     void hashCodeOfRectWithPointHeightAndWidth() {
-        assertEquals(1595867199,
-            new DoubleRect(new DoublePoint(2d), new DoublePoint(3d), 4d).hashCode()
-        );
+        assertThat(new DoubleRect(new DoublePoint(2d), new DoublePoint(3d), 4d).hashCode()).isEqualTo(1595867199);
     }
 
     @Test
     void toStringOfRectWithPointHeightAndWidth() {
         Rect<Double> rect = new DoubleRect(new DoublePoint(2d), new DoublePoint(3d), 4d);
-        assertEquals("2.0|2.0 3.0|3.0 4.0", rect.toString());
+        assertThat(rect.toString()).isEqualTo("2.0|2.0 3.0|3.0 4.0");
     }
 
     @Test
     void compareToOfRectWithPointHeightAndWidth() {
         Rect<Double> rect = new DoubleRect(1d, 2d);
-        assertEquals(0d, rect.compareTo(new DoubleRect(1d, 2d)));
-        assertEquals(-1d, rect.compareTo(new DoubleRect(2d, 3d)));
-        assertEquals(1d, rect.compareTo(new DoubleRect(1d, 1d)));
+        assertThat(rect.compareTo(new DoubleRect(1d, 2d))).isEqualTo(0);
+        assertThat(rect.compareTo(new DoubleRect(2d, 3d))).isEqualTo(-1);
+        assertThat(rect.compareTo(new DoubleRect(1d, 1d))).isEqualTo(1);
     }
 
     @Test

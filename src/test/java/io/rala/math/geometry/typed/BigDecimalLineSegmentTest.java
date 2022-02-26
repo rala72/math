@@ -10,7 +10,7 @@ import java.math.MathContext;
 
 import static io.rala.math.testUtils.assertion.GeometryAssertions.*;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class BigDecimalLineSegmentTest {
     // region constructors, getter and setter
@@ -112,34 +112,26 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void lengthOfLineSegmentWithTwoEqualPoints() {
-        assertEquals(BigDecimal.ZERO,
-            new BigDecimalLineSegment(
-                new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d)),
-                new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d))
-            ).length()
-        );
+        assertThat(new BigDecimalLineSegment(
+            new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d)),
+            new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d))
+        ).length()).isEqualTo(BigDecimal.ZERO);
     }
 
     @Test
     void lengthOfLineSegmentWithInverseParameters() {
-        assertEquals(
-            BigDecimal.valueOf(Math.sqrt(2d)).round(CONTEXT),
-            new BigDecimalLineSegment(
-                new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d)),
-                new BigDecimalPoint(BigDecimal.valueOf(2d), BigDecimal.ONE)
-            ).length()
-        );
+        assertThat(new BigDecimalLineSegment(
+            new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d)),
+            new BigDecimalPoint(BigDecimal.valueOf(2d), BigDecimal.ONE)
+        ).length()).isEqualTo(BigDecimal.valueOf(Math.sqrt(2d)).round(CONTEXT));
     }
 
     @Test
     void lengthOfLineSegmentWithTwoDifferenceEach() {
-        assertEquals(
-            BigDecimal.valueOf(2d * Math.sqrt(2d)).round(CONTEXT).stripTrailingZeros(),
-            new BigDecimalLineSegment(
-                new BigDecimalPoint(BigDecimal.valueOf(3d), BigDecimal.valueOf(4d)),
-                new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d))
-            ).length()
-        );
+        assertThat(new BigDecimalLineSegment(
+            new BigDecimalPoint(BigDecimal.valueOf(3d), BigDecimal.valueOf(4d)),
+            new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d))
+        ).length()).isEqualTo(BigDecimal.valueOf(2d * Math.sqrt(2d)).round(CONTEXT).stripTrailingZeros());
     }
 
     @Test
@@ -259,16 +251,12 @@ class BigDecimalLineSegmentTest {
             new Point<>(integerArithmetic, 0),
             new Point<>(integerArithmetic, 1)
         );
-        assertEquals(result,
-            lineSegment.map(new IntegerArithmetic(), Number::intValue)
-        );
+        assertThat(lineSegment.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void isValidWithZeroValues() {
-        assertTrue(
-            new BigDecimalLineSegment(new BigDecimalPoint()).isValid()
-        );
+        assertThat(new BigDecimalLineSegment(new BigDecimalPoint()).isValid()).isTrue();
     }
 
     @Test
@@ -343,7 +331,7 @@ class BigDecimalLineSegmentTest {
             new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d)),
             new BigDecimalPoint(BigDecimal.valueOf(3d), BigDecimal.valueOf(4d))
         );
-        assertEquals(lineSegment, lineSegment.copy());
+        assertThat(lineSegment.copy()).isEqualTo(lineSegment);
     }
 
     // endregion
@@ -356,24 +344,18 @@ class BigDecimalLineSegmentTest {
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             new BigDecimalPoint(BigDecimal.valueOf(3d))
         );
-        assertEquals(lineSegment,
-            new BigDecimalLineSegment(new BigDecimalPoint(BigDecimal.valueOf(2d)),
-                new BigDecimalPoint(BigDecimal.valueOf(3d)))
-        );
-        assertNotEquals(lineSegment,
-            new BigDecimalLineSegment(new BigDecimalPoint(BigDecimal.valueOf(3d)),
-                new BigDecimalPoint(BigDecimal.valueOf(2d)))
-        );
+        assertThat(new BigDecimalLineSegment(new BigDecimalPoint(BigDecimal.valueOf(2d)),
+            new BigDecimalPoint(BigDecimal.valueOf(3d)))).isEqualTo(lineSegment);
+        assertThat(new BigDecimalLineSegment(new BigDecimalPoint(BigDecimal.valueOf(3d)),
+            new BigDecimalPoint(BigDecimal.valueOf(2d)))).isNotEqualTo(lineSegment);
     }
 
     @Test
     void hashCodeOfLineSegmentWithTwoPoints() {
-        assertEquals(677537,
-            new BigDecimalLineSegment(
-                new BigDecimalPoint(BigDecimal.valueOf(2d)),
-                new BigDecimalPoint(BigDecimal.valueOf(3d))
-            ).hashCode()
-        );
+        assertThat(new BigDecimalLineSegment(
+            new BigDecimalPoint(BigDecimal.valueOf(2d)),
+            new BigDecimalPoint(BigDecimal.valueOf(3d))
+        ).hashCode()).isEqualTo(677537);
     }
 
     @Test
@@ -382,7 +364,7 @@ class BigDecimalLineSegmentTest {
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             new BigDecimalPoint(BigDecimal.valueOf(3d))
         );
-        assertEquals("2.0|2.0 3.0|3.0", lineSegment.toString());
+        assertThat(lineSegment.toString()).isEqualTo("2.0|2.0 3.0|3.0");
     }
 
     @Test
@@ -391,24 +373,18 @@ class BigDecimalLineSegmentTest {
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             new BigDecimalPoint(BigDecimal.valueOf(3d))
         );
-        assertEquals(0,
-            lineSegment.compareTo(new BigDecimalLineSegment(
-                new BigDecimalPoint(BigDecimal.valueOf(2d)),
-                new BigDecimalPoint(BigDecimal.valueOf(3d))
-            ))
-        );
-        assertEquals(-1,
-            lineSegment.compareTo(new BigDecimalLineSegment(
-                new BigDecimalPoint(BigDecimal.valueOf(3d)),
-                new BigDecimalPoint(BigDecimal.valueOf(4d))
-            ))
-        );
-        assertEquals(1,
-            lineSegment.compareTo(new BigDecimalLineSegment(
-                new BigDecimalPoint(BigDecimal.ONE),
-                new BigDecimalPoint(BigDecimal.ONE)
-            ))
-        );
+        assertThat(lineSegment.compareTo(new BigDecimalLineSegment(
+            new BigDecimalPoint(BigDecimal.valueOf(2d)),
+            new BigDecimalPoint(BigDecimal.valueOf(3d))
+        ))).isEqualTo(0);
+        assertThat(lineSegment.compareTo(new BigDecimalLineSegment(
+            new BigDecimalPoint(BigDecimal.valueOf(3d)),
+            new BigDecimalPoint(BigDecimal.valueOf(4d))
+        ))).isEqualTo(-1);
+        assertThat(lineSegment.compareTo(new BigDecimalLineSegment(
+            new BigDecimalPoint(BigDecimal.ONE),
+            new BigDecimalPoint(BigDecimal.ONE)
+        ))).isEqualTo(1);
     }
 
     @Test

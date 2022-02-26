@@ -6,8 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class LongDoubleResultArithmeticTest {
     private LongDoubleResultArithmetic arithmetic;
@@ -19,16 +18,14 @@ class LongDoubleResultArithmeticTest {
 
     @Test
     void getInstance() {
-        assertEquals(arithmetic,
-            LongDoubleResultArithmetic.getInstance()
-        );
+        assertThat(LongDoubleResultArithmetic.getInstance()).isEqualTo(arithmetic);
     }
 
     // region fromT
 
     @Test
     void fromT1() {
-        assertEquals(1, arithmetic.fromT(1L));
+        assertThat(arithmetic.fromT(1L)).isEqualTo(1);
     }
 
     // endregion
@@ -37,37 +34,37 @@ class LongDoubleResultArithmeticTest {
 
     @Test
     void sum12() {
-        assertEquals(3, arithmetic.sum(1L, 2L));
+        assertThat(arithmetic.sum(1L, 2L)).isEqualTo(3);
     }
 
     @Test
     void sum123() {
-        assertEquals(6, arithmetic.sum(1L, 2L, 3L));
+        assertThat(arithmetic.sum(1L, 2L, 3L)).isEqualTo(6);
     }
 
     @Test
     void difference12() {
-        assertEquals(-1, arithmetic.difference(1L, 2L));
+        assertThat(arithmetic.difference(1L, 2L)).isEqualTo(-1);
     }
 
     @Test
     void product12() {
-        assertEquals(2, arithmetic.product(1L, 2L));
+        assertThat(arithmetic.product(1L, 2L)).isEqualTo(2);
     }
 
     @Test
     void product123() {
-        assertEquals(6, arithmetic.product(1L, 2L, 3L));
+        assertThat(arithmetic.product(1L, 2L, 3L)).isEqualTo(6);
     }
 
     @Test
     void quotient12() {
-        assertEquals(0.5, arithmetic.quotient(1L, 2L));
+        assertThat(arithmetic.quotient(1L, 2L)).isEqualTo(0.5);
     }
 
     @Test
     void modulo12() {
-        assertEquals(1, arithmetic.modulo(1L, 2L));
+        assertThat(arithmetic.modulo(1L, 2L)).isEqualTo(1);
     }
 
     // endregion
@@ -78,22 +75,18 @@ class LongDoubleResultArithmeticTest {
     void mapToInteger() {
         AbstractResultArithmetic<Integer, Double> mapped =
             arithmetic.map(new IntegerArithmetic(), Number::doubleValue);
-        assertTrue(mapped.getTArithmetic() instanceof IntegerArithmetic);
-        assertEquals(0.5,
-            arithmetic.quotient(1L, 2L)
-        );
-        assertEquals(0.5,
-            mapped.quotient(1, 2)
-        );
+        assertThat(mapped.getTArithmetic() instanceof IntegerArithmetic).isTrue();
+        assertThat(arithmetic.quotient(1L, 2L)).isEqualTo(0.5);
+        assertThat(mapped.quotient(1, 2)).isEqualTo(0.5);
     }
 
     @Test
     void mapResultToInteger() {
         AbstractResultArithmetic<Long, Integer> mapped =
             arithmetic.mapResult(new IntegerArithmetic(), Long::intValue);
-        assertTrue(mapped.getRArithmetic() instanceof IntegerArithmetic);
-        assertEquals(0.5, arithmetic.quotient(1L, 2L));
-        assertEquals(0, mapped.quotient(1L, 2L));
+        assertThat(mapped.getRArithmetic() instanceof IntegerArithmetic).isTrue();
+        assertThat(arithmetic.quotient(1L, 2L)).isEqualTo(0.5);
+        assertThat(mapped.quotient(1L, 2L)).isEqualTo(0);
     }
 
     // endregion
@@ -102,15 +95,12 @@ class LongDoubleResultArithmeticTest {
 
     @Test
     void equalsOfAbstractResultArithmetic() {
-        assertEquals(
-            new LongDoubleResultArithmetic(),
-            new LongDoubleResultArithmetic()
-        );
+        assertThat(new LongDoubleResultArithmetic()).isEqualTo(new LongDoubleResultArithmetic());
     }
 
     @Test
     void hashCodeOfAbstractResultArithmetic() {
-        assertEquals(1072724992, new LongDoubleResultArithmetic().hashCode());
+        assertThat(new LongDoubleResultArithmetic().hashCode()).isEqualTo(1072724992);
     }
 
     @Test
@@ -118,9 +108,7 @@ class LongDoubleResultArithmeticTest {
         String toString = "LongDoubleResultArithmetic{" +
             "tArithmetic=LongArithmetic, " +
             "rArithmetic=DoubleArithmetic}";
-        assertEquals(toString,
-            new LongDoubleResultArithmetic().toString()
-        );
+        assertThat(new LongDoubleResultArithmetic().toString()).isEqualTo(toString);
     }
 
     @Test

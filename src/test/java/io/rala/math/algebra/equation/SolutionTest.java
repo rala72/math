@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SolutionTest {
     private static TestAbstractEquationSystem equationSystem;
@@ -22,24 +22,21 @@ class SolutionTest {
     void equalsOfTestAbstractSolver() {
         Solution<TestAbstractEquationSystem, Number> solution =
             Solution.unsolvable(equationSystem);
-        assertEquals(solution, Solution.unsolvable(equationSystem));
-        assertNotEquals(solution, Solution.infinite(equationSystem));
+        assertThat(Solution.unsolvable(equationSystem)).isEqualTo(solution);
+        assertThat(Solution.infinite(equationSystem)).isNotEqualTo(solution);
     }
 
     @Test
     void hashCodeOfTestAbstractSolver() {
         // hashCode of State changing after every start
-        assertEquals(
-            Solution.infinite(equationSystem).hashCode(),
-            Solution.infinite(equationSystem).hashCode()
-        );
+        assertThat(Solution.infinite(equationSystem).hashCode()).isEqualTo(Solution.infinite(equationSystem).hashCode());
     }
 
     @Test
     void toStringOfTestAbstractSolver() {
         Solution<TestAbstractEquationSystem, Number> solution =
             Solution.single(equationSystem, List.of(1));
-        assertEquals("SINGLE: [1]", solution.toString());
+        assertThat(solution.toString()).isEqualTo("SINGLE: [1]");
     }
 
     // endregion
@@ -51,27 +48,27 @@ class SolutionTest {
         Solution<TestAbstractEquationSystem, Number> solution = Solution.single(
             equationSystem, List.of(1)
         );
-        assertEquals(equationSystem, solution.getEquationSystem());
-        assertEquals(List.of(1), solution.getSolution());
-        assertEquals(Solution.State.SINGLE, solution.getState());
+        assertThat(solution.getEquationSystem()).isEqualTo(equationSystem);
+        assertThat(solution.getSolution()).isEqualTo(List.of(1));
+        assertThat(solution.getState()).isEqualTo(Solution.State.SINGLE);
     }
 
     @Test
     void createStaticUnsolvable() {
         Solution<TestAbstractEquationSystem, Number> solution =
             Solution.unsolvable(equationSystem);
-        assertEquals(equationSystem, solution.getEquationSystem());
-        assertTrue(solution.getSolution().isEmpty());
-        assertEquals(Solution.State.UNSOLVABLE, solution.getState());
+        assertThat(solution.getEquationSystem()).isEqualTo(equationSystem);
+        assertThat(solution.getSolution().isEmpty()).isTrue();
+        assertThat(solution.getState()).isEqualTo(Solution.State.UNSOLVABLE);
     }
 
     @Test
     void createStaticInfinite() {
         Solution<TestAbstractEquationSystem, Number> solution =
             Solution.infinite(equationSystem);
-        assertEquals(equationSystem, solution.getEquationSystem());
-        assertTrue(solution.getSolution().isEmpty());
-        assertEquals(Solution.State.INFINITE, solution.getState());
+        assertThat(solution.getEquationSystem()).isEqualTo(equationSystem);
+        assertThat(solution.getSolution().isEmpty()).isTrue();
+        assertThat(solution.getState()).isEqualTo(Solution.State.INFINITE);
     }
 
     // endregion

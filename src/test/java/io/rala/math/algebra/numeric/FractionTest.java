@@ -9,7 +9,8 @@ import io.rala.math.testUtils.assertion.NumericAssertions;
 import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class FractionTest {
     // region constructors, getter and setter
@@ -26,9 +27,8 @@ class FractionTest {
 
     @Test
     void constructorWithZeroDeParameter() {
-        assertThrows(IllegalArgumentException.class,
-            () -> new TestFraction(1d, 0d)
-        ); // assert exception message?
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> new TestFraction(1d, 0d)); // assert exception message?
     }
 
     @Test
@@ -56,9 +56,8 @@ class FractionTest {
     void createAndSetDenominatorZero() {
         TestFraction complex = new TestFraction(1);
         assertFraction(complex, 1, 1d);
-        assertThrows(IllegalArgumentException.class,
-            () -> complex.setDenominator(0d)
-        ); // assert exception message?
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> complex.setDenominator(0d)); // assert exception message?
     }
 
     @Test
@@ -75,27 +74,27 @@ class FractionTest {
 
     @Test
     void valueOf1_2() {
-        assertEquals(0.5, new TestFraction(1, 2).value());
+        assertThat(new TestFraction(1, 2).value()).isEqualTo(0.5);
     }
 
     @Test
     void intValueOf1_2() {
-        assertEquals(0, new TestFraction(1, 2).intValue());
+        assertThat(new TestFraction(1, 2).intValue()).isEqualTo(0);
     }
 
     @Test
     void longValueOf1_2() {
-        assertEquals(0, new TestFraction(1, 2).longValue());
+        assertThat(new TestFraction(1, 2).longValue()).isEqualTo(0);
     }
 
     @Test
     void floatValueOf1_2() {
-        assertEquals(0.5, new TestFraction(1, 2).floatValue());
+        assertThat(new TestFraction(1, 2).floatValue()).isEqualTo(0.5f);
     }
 
     @Test
     void doubleValueOf1_2() {
-        assertEquals(0.5, new TestFraction(1, 2).doubleValue());
+        assertThat(new TestFraction(1, 2).doubleValue()).isEqualTo(0.5);
     }
 
     // endregion
@@ -122,7 +121,7 @@ class FractionTest {
         Fraction<Double, Double> fraction = new Fraction<>(
             new DoubleArithmetic().toResultArithmetic(), 2d, 4d
         );
-        assertEquals(fraction, fraction.simplify());
+        assertThat(fraction.simplify()).isEqualTo(fraction);
     }
 
     // endregion
@@ -131,58 +130,40 @@ class FractionTest {
 
     @Test
     void addWithNumerator() {
-        assertEquals(
-            new TestFraction(2d, 1d),
-            new TestFraction(1).add(1, 1)
-        );
+        assertThat(new TestFraction(1).add(1, 1)).isEqualTo(new TestFraction(2d, 1d));
     }
 
     @Test
     void addWithXAndY() {
-        assertEquals(
-            new TestFraction(2d, 1d),
-            new TestFraction(1, 1).add(1, 1)
-        );
+        assertThat(new TestFraction(1, 1).add(1, 1)).isEqualTo(new TestFraction(2d, 1d));
     }
 
     @Test
     void addWithFraction() {
-        assertEquals(new TestFraction(3d, 2d),
-            new TestFraction(1, 1).add(new TestFraction(1, 2))
-        );
+        assertThat(new TestFraction(1, 1).add(new TestFraction(1, 2))).isEqualTo(new TestFraction(3d, 2d));
     }
 
     @Test
     void addWithDoubleFraction() {
         AbstractResultArithmetic<Double, Double> arithmetic =
             new DoubleArithmetic().toResultArithmetic();
-        assertEquals(new Fraction<>(arithmetic, 3d, 2d),
-            new Fraction<>(arithmetic, 1d, 1d)
-                .add(new Fraction<>(arithmetic, 1d, 2d))
-        );
+        assertThat(new Fraction<>(arithmetic, 1d, 1d)
+            .add(new Fraction<>(arithmetic, 1d, 2d))).isEqualTo(new Fraction<>(arithmetic, 3d, 2d));
     }
 
     @Test
     void subtractWithNumerator() {
-        assertEquals(
-            new TestFraction(0d, 1d),
-            new TestFraction(2).subtract(2, 1)
-        );
+        assertThat(new TestFraction(2).subtract(2, 1)).isEqualTo(new TestFraction(0d, 1d));
     }
 
     @Test
     void subtractWithXAndY() {
-        assertEquals(
-            new TestFraction(1d, 1d),
-            new TestFraction(2, 1).subtract(1, 1)
-        );
+        assertThat(new TestFraction(2, 1).subtract(1, 1)).isEqualTo(new TestFraction(1d, 1d));
     }
 
     @Test
     void subtractWithFraction() {
-        assertEquals(new TestFraction(3d, 2d),
-            new TestFraction(2, 1).subtract(new TestFraction(1, 2))
-        );
+        assertThat(new TestFraction(2, 1).subtract(new TestFraction(1, 2))).isEqualTo(new TestFraction(3d, 2d));
     }
 
     // endregion
@@ -191,50 +172,34 @@ class FractionTest {
 
     @Test
     void multiplyWithNumerator() {
-        assertEquals(
-            new TestFraction(2d, 1d),
-            new TestFraction(1).multiply(2)
-        );
+        assertThat(new TestFraction(1).multiply(2)).isEqualTo(new TestFraction(2d, 1d));
     }
 
     @Test
     void multiplyWithXAndY() {
-        assertEquals(
-            new TestFraction(3d, 8d),
-            new TestFraction(1, 2).multiply(3, 4)
-        );
+        assertThat(new TestFraction(1, 2).multiply(3, 4)).isEqualTo(new TestFraction(3d, 8d));
     }
 
     @Test
     void multiplyWithFraction() {
-        assertEquals(new TestFraction(4d, 6d),
-            new TestFraction(1, 2)
-                .multiply(new TestFraction(4, 3))
-        );
+        assertThat(new TestFraction(1, 2)
+            .multiply(new TestFraction(4, 3))).isEqualTo(new TestFraction(4d, 6d));
     }
 
     @Test
     void divideWithNumerator() {
-        assertEquals(
-            new TestFraction(1d, 2d),
-            new TestFraction(1).divide(2)
-        );
+        assertThat(new TestFraction(1).divide(2)).isEqualTo(new TestFraction(1d, 2d));
     }
 
     @Test
     void divideWithXAndY() {
-        assertEquals(
-            new TestFraction(4d, 6d),
-            new TestFraction(1, 2).divide(3, 4)
-        );
+        assertThat(new TestFraction(1, 2).divide(3, 4)).isEqualTo(new TestFraction(4d, 6d));
     }
 
     @Test
     void divideWithFraction() {
-        assertEquals(new TestFraction(3d, 8d),
-            new TestFraction(1, 2)
-                .divide(new TestFraction(4, 3))
-        );
+        assertThat(new TestFraction(1, 2)
+            .divide(new TestFraction(4, 3))).isEqualTo(new TestFraction(3d, 8d));
     }
 
     // endregion
@@ -261,9 +226,9 @@ class FractionTest {
         Fraction<Integer, Integer> result = new Fraction<>(
             new IntegerArithmetic().toResultArithmetic(), 0, 1
         );
-        assertEquals(result, fraction.map(
+        assertThat(fraction.map(
             new IntegerArithmetic().toResultArithmetic(), Number::intValue
-        ));
+        )).isEqualTo(result);
     }
 
     @Test
@@ -274,9 +239,9 @@ class FractionTest {
                 new IntegerArithmetic(), new TestAbstractArithmetic(), Number::intValue
             ), 0, 1
         );
-        assertEquals(result, fraction.mapValues(
+        assertThat(fraction.mapValues(
             new IntegerArithmetic(), Number::intValue, Integer::intValue
-        ));
+        )).isEqualTo(result);
     }
 
     @Test
@@ -287,11 +252,11 @@ class FractionTest {
                 new IntegerArithmetic(), new TestAbstractArithmetic(), Number::intValue
             ), 0, 1
         );
-        assertEquals(result, fraction.mapValues(
+        assertThat(fraction.mapValues(
             AbstractResultArithmetic.of(
                 new IntegerArithmetic(), new TestAbstractArithmetic(), Number::intValue
             ), Number::intValue
-        ));
+        )).isEqualTo(result);
     }
 
     @Test
@@ -302,15 +267,15 @@ class FractionTest {
                 new TestAbstractArithmetic(), new IntegerArithmetic(), Number::intValue
             ), 0.5, 1.5
         );
-        assertEquals(result, fraction.mapValue(
+        assertThat(fraction.mapValue(
             new IntegerArithmetic(), Number::intValue
-        ));
+        )).isEqualTo(result);
     }
 
     @Test
     void copyOfFractionWithNuDe() {
         TestFraction complex = new TestFraction(2, 3);
-        assertEquals(complex, complex.copy());
+        assertThat(complex.copy()).isEqualTo(complex);
     }
 
     // endregion
@@ -320,27 +285,27 @@ class FractionTest {
     @Test
     void equalsOfFractionWithNuDe() {
         TestFraction complex = new TestFraction(2, 3);
-        assertEquals(complex, new TestFraction(2, 3));
-        assertNotEquals(complex, new TestFraction(3, 2));
+        assertThat(new TestFraction(2, 3)).isEqualTo(complex);
+        assertThat(new TestFraction(3, 2)).isNotEqualTo(complex);
     }
 
     @Test
     void hashCodeOfFractionWithNuDe() {
-        assertEquals(1026, new TestFraction(2, 3).hashCode());
+        assertThat(new TestFraction(2, 3).hashCode()).isEqualTo(1026);
     }
 
     @Test
     void toStringOfFractionWithNuDe() {
         TestFraction complex = new TestFraction(2, 3);
-        assertEquals("2/3", complex.toString());
+        assertThat(complex.toString()).isEqualTo("2/3");
     }
 
     @Test
     void compareToOfFractionWithNuDe() {
         TestFraction complex = new TestFraction(2, 3);
-        assertEquals(0, complex.compareTo(new TestFraction(2, 3)));
-        assertEquals(-1, complex.compareTo(new TestFraction(3, 1)));
-        assertEquals(1, complex.compareTo(new TestFraction(1, 2)));
+        assertThat(complex.compareTo(new TestFraction(2, 3))).isEqualTo(0);
+        assertThat(complex.compareTo(new TestFraction(3, 1))).isEqualTo(-1);
+        assertThat(complex.compareTo(new TestFraction(1, 2))).isEqualTo(1);
     }
 
     @Test
@@ -361,9 +326,8 @@ class FractionTest {
     @Test
     void createFromArithmeticWithZeroDeParameter() {
         TestFraction fraction = new TestFraction(1);
-        assertThrows(ArithmeticException.class,
-            () -> fraction.createFromArithmetic(1d, 0d)
-        ); // assert exception message?
+        assertThatExceptionOfType(ArithmeticException.class)
+            .isThrownBy(() -> fraction.createFromArithmetic(1d, 0d)); // assert exception message?
     }
 
     @Test

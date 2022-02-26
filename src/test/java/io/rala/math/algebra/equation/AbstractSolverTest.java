@@ -5,7 +5,8 @@ import io.rala.math.testUtils.algebra.equation.TestAbstractSolver;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class AbstractSolverTest {
     private static TestAbstractEquationSystem equationSystem;
@@ -20,13 +21,14 @@ class AbstractSolverTest {
     @Test
     void getEquationSystemOfTestAbstractSolver() {
         TestAbstractSolver solver = new TestAbstractSolver(equationSystem);
-        assertEquals(equationSystem, solver.getEquationSystem());
+        assertThat(solver.getEquationSystem()).isEqualTo(equationSystem);
     }
 
     @Test
     void getWorkingOfTestAbstractSolver() {
         TestAbstractSolver solver = new TestAbstractSolver(equationSystem);
-        assertThrows(IllegalStateException.class, solver::getWorking);
+        assertThatExceptionOfType(IllegalStateException.class)
+            .isThrownBy(solver::getWorking);
     }
 
     // endregion
@@ -36,15 +38,16 @@ class AbstractSolverTest {
     @Test
     void solveOfTestAbstractSolver() {
         TestAbstractSolver solver = new TestAbstractSolver(equationSystem);
-        assertNotNull(solver.solve());
+        assertThat(solver.solve()).isNotNull();
     }
 
     @Test
     void resetOfTestAbstractSolver() {
         TestAbstractSolver solver = new TestAbstractSolver(equationSystem);
-        assertThrows(IllegalStateException.class, solver::getWorking);
+        assertThatExceptionOfType(IllegalStateException.class)
+            .isThrownBy(solver::getWorking);
         solver.reset();
-        assertEquals(equationSystem, solver.getWorking());
+        assertThat(solver.getWorking()).isEqualTo(equationSystem);
     }
 
     // endregion
@@ -54,16 +57,14 @@ class AbstractSolverTest {
     @Test
     void equalsOfTestAbstractSolver() {
         TestAbstractSolver solver = new TestAbstractSolver(equationSystem);
-        assertEquals(solver, new TestAbstractSolver(equationSystem));
+        assertThat(new TestAbstractSolver(equationSystem)).isEqualTo(solver);
     }
 
     @Test
     void hashCodeOfTestAbstractSolver() {
         // hashCode changing after every start
-        assertEquals(
-            new TestAbstractSolver(equationSystem).hashCode(),
-            new TestAbstractSolver(equationSystem).hashCode()
-        );
+        assertThat(new TestAbstractSolver(equationSystem).hashCode())
+            .isEqualTo(new TestAbstractSolver(equationSystem).hashCode());
     }
 
     @Test
@@ -72,8 +73,8 @@ class AbstractSolverTest {
         solver.reset();
         String toStringPrefix = "io.rala.math.testUtils.algebra.equation.TestAbstractEquationSystem@";
         String toStringSuffix = " -> null";
-        assertTrue(solver.toString().startsWith(toStringPrefix));
-        assertFalse(solver.toString().endsWith(toStringSuffix));
+        assertThat(solver.toString().startsWith(toStringPrefix)).isTrue();
+        assertThat(solver.toString().endsWith(toStringSuffix)).isFalse();
     }
 
     // endregion

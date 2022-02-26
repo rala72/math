@@ -9,7 +9,8 @@ import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.GeometryAssertions.*;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.data.Offset.offset;
 
 class DoubleTriangleTest {
     // region constructors, getter and setter
@@ -100,19 +101,19 @@ class DoubleTriangleTest {
         );
 
         LineSegment<Double> altitudeA = triangle.altitudeA();
-        assertEquals(1d, altitudeA.length());
-        assertEquals(triangle.getA(), altitudeA.getA());
-        assertEquals(triangle.getB(), altitudeA.getB());
+        assertThat(altitudeA.length()).isEqualTo(1d);
+        assertThat(altitudeA.getA()).isEqualTo(triangle.getA());
+        assertThat(altitudeA.getB()).isEqualTo(triangle.getB());
 
         LineSegment<Double> altitudeB = triangle.altitudeB();
-        assertEquals(Math.sqrt(2d) / 2d, altitudeB.length());
-        assertEquals(triangle.getB(), altitudeB.getA());
-        assertEquals(triangle.edgeB().halvingPoint(), altitudeB.getB());
+        assertThat(altitudeB.length()).isEqualTo(Math.sqrt(2d) / 2d);
+        assertThat(altitudeB.getA()).isEqualTo(triangle.getB());
+        assertThat(altitudeB.getB()).isEqualTo(triangle.edgeB().halvingPoint());
 
         LineSegment<Double> altitudeC = triangle.altitudeC();
-        assertEquals(1d, altitudeC.length());
-        assertEquals(triangle.getC(), altitudeC.getA());
-        assertEquals(triangle.getB(), altitudeC.getB());
+        assertThat(altitudeC.length()).isEqualTo(1d);
+        assertThat(altitudeC.getA()).isEqualTo(triangle.getC());
+        assertThat(altitudeC.getB()).isEqualTo(triangle.getB());
     }
 
     @Test
@@ -124,19 +125,19 @@ class DoubleTriangleTest {
         );
 
         LineSegment<Double> altitudeA = triangle.altitudeA();
-        assertEquals(1d, altitudeA.length());
-        assertEquals(triangle.getA(), altitudeA.getA());
-        assertEquals(triangle.getB(), altitudeA.getB());
+        assertThat(altitudeA.length()).isEqualTo(1d);
+        assertThat(altitudeA.getA()).isEqualTo(triangle.getA());
+        assertThat(altitudeA.getB()).isEqualTo(triangle.getB());
 
         LineSegment<Double> altitudeB = triangle.altitudeB();
-        assertEquals(Math.sqrt(2d) / 2d, altitudeB.length());
-        assertEquals(triangle.getB(), altitudeB.getA());
-        assertEquals(triangle.edgeB().halvingPoint(), altitudeB.getB());
+        assertThat(altitudeB.length()).isEqualTo(Math.sqrt(2d) / 2d);
+        assertThat(altitudeB.getA()).isEqualTo(triangle.getB());
+        assertThat(altitudeB.getB()).isEqualTo(triangle.edgeB().halvingPoint());
 
         LineSegment<Double> altitudeC = triangle.altitudeC();
-        assertEquals(1d, altitudeC.length());
-        assertEquals(triangle.getC(), altitudeC.getA());
-        assertEquals(triangle.getB(), altitudeC.getB());
+        assertThat(altitudeC.length()).isEqualTo(1d);
+        assertThat(altitudeC.getA()).isEqualTo(triangle.getC());
+        assertThat(altitudeC.getB()).isEqualTo(triangle.getB());
     }
 
     // endregion
@@ -148,11 +149,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(0d, 0d), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
-        assertEquals(
-            Math.PI / 4d,
-            triangle.angleAlpha(),
-            GeometryAssertions.DELTA
-        );
+        assertThat(triangle.angleAlpha()).isCloseTo(Math.PI / 4d, offset(GeometryAssertions.DELTA));
     }
 
     @Test
@@ -160,11 +157,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(0d, 0d), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
-        assertEquals(
-            Math.PI / 2d,
-            triangle.angleBeta(),
-            GeometryAssertions.DELTA
-        );
+        assertThat(triangle.angleBeta()).isCloseTo(Math.PI / 2d, offset(GeometryAssertions.DELTA));
     }
 
     @Test
@@ -172,11 +165,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(0d, 0d), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
-        assertEquals(
-            Math.PI / 4d,
-            triangle.angleGamma(),
-            GeometryAssertions.DELTA
-        );
+        assertThat(triangle.angleGamma()).isCloseTo(Math.PI / 4d, offset(GeometryAssertions.DELTA));
     }
 
     @Test
@@ -184,12 +173,9 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(0d, 0d), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
-        assertEquals(
-            Math.PI,
-            triangle.angleAlpha() +
-                triangle.angleBeta() +
-                triangle.angleGamma()
-        );
+        assertThat(triangle.angleAlpha() +
+            triangle.angleBeta() +
+            triangle.angleGamma()).isEqualTo(Math.PI);
     }
 
     // endregion
@@ -201,11 +187,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
-        assertEquals(
-            0.5,
-            triangle.area(),
-            GeometryAssertions.DELTA
-        );
+        assertThat(triangle.area()).isCloseTo(0.5, offset(GeometryAssertions.DELTA));
     }
 
     @Test
@@ -213,7 +195,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
-        assertEquals(2d + Math.sqrt(2d), triangle.circumference());
+        assertThat(triangle.circumference()).isEqualTo(2d + Math.sqrt(2d));
     }
 
     // endregion
@@ -233,7 +215,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
-        assertEquals(triangle.getB(), triangle.orthoCenter());
+        assertThat(triangle.orthoCenter()).isEqualTo(triangle.getB());
     }
 
     // endregion
@@ -279,47 +261,37 @@ class DoubleTriangleTest {
             new Point<>(integerArithmetic, 1),
             new Point<>(integerArithmetic, 2)
         );
-        assertEquals(result,
-            triangle.map(new IntegerArithmetic(), Number::intValue)
-        );
+        assertThat(triangle.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void isValidWithPositiveValues() {
-        assertTrue(
-            new DoubleTriangle(
-                new DoublePoint(1d), new DoublePoint(1d, 2d), new DoublePoint(2d)
-            ).isValid()
-        );
+        assertThat(new DoubleTriangle(
+            new DoublePoint(1d), new DoublePoint(1d, 2d), new DoublePoint(2d)
+        ).isValid()).isTrue();
     }
 
     @Test
     void isValidWithLineValues() {
-        assertFalse(
-            new DoubleTriangle(
-                new DoublePoint(0d), new DoublePoint(1d), new DoublePoint(2d)
-            ).isValid()
-        );
+        assertThat(new DoubleTriangle(
+            new DoublePoint(0d), new DoublePoint(1d), new DoublePoint(2d)
+        ).isValid()).isFalse();
     }
 
     @Test
     void isValidWithZeroValues() {
-        assertFalse(
-            new DoubleTriangle(
-                new DoublePoint(0d), new DoublePoint(0d), new DoublePoint(0d)
-            ).isValid()
-        );
+        assertThat(new DoubleTriangle(
+            new DoublePoint(0d), new DoublePoint(0d), new DoublePoint(0d)
+        ).isValid()).isFalse();
     }
 
     @Test
     void isValidWithInfValues() {
-        assertFalse(
-            new DoubleTriangle(
-                new DoublePoint(Double.POSITIVE_INFINITY),
-                new DoublePoint(Double.POSITIVE_INFINITY),
-                new DoublePoint(Double.POSITIVE_INFINITY)
-            ).isValid()
-        );
+        assertThat(new DoubleTriangle(
+            new DoublePoint(Double.POSITIVE_INFINITY),
+            new DoublePoint(Double.POSITIVE_INFINITY),
+            new DoublePoint(Double.POSITIVE_INFINITY)
+        ).isValid()).isFalse();
     }
 
     @Test
@@ -391,7 +363,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(1d, 2d), new DoublePoint(3d, 4d), new DoublePoint(5d, 6d)
         );
-        assertEquals(triangle, triangle.copy());
+        assertThat(triangle.copy()).isEqualTo(triangle);
     }
 
     // endregion
@@ -405,29 +377,23 @@ class DoubleTriangleTest {
             new DoublePoint(3d),
             new DoublePoint(4d)
         );
-        assertEquals(triangle,
-            new DoubleTriangle(
-                new DoublePoint(2d),
-                new DoublePoint(3d),
-                new DoublePoint(4d)
-            )
-        );
-        assertNotEquals(triangle,
-            new DoubleTriangle(
-                new DoublePoint(3d),
-                new DoublePoint(2d),
-                new DoublePoint(4d)
-            )
-        );
+        assertThat(new DoubleTriangle(
+            new DoublePoint(2d),
+            new DoublePoint(3d),
+            new DoublePoint(4d)
+        )).isEqualTo(triangle);
+        assertThat(new DoubleTriangle(
+            new DoublePoint(3d),
+            new DoublePoint(2d),
+            new DoublePoint(4d)
+        )).isNotEqualTo(triangle);
     }
 
     @Test
     void hashCodeOfTriangleWithA2B3C4() {
-        assertEquals(554632192,
-            new DoubleTriangle(
-                new DoublePoint(2d), new DoublePoint(3d), new DoublePoint(4d)
-            ).hashCode()
-        );
+        assertThat(new DoubleTriangle(
+            new DoublePoint(2d), new DoublePoint(3d), new DoublePoint(4d)
+        ).hashCode()).isEqualTo(554632192);
     }
 
     @Test
@@ -435,7 +401,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(2d), new DoublePoint(3d), new DoublePoint(4d)
         );
-        assertEquals("2.0|2.0 3.0|3.0 4.0|4.0", triangle.toString());
+        assertThat(triangle.toString()).isEqualTo("2.0|2.0 3.0|3.0 4.0|4.0");
     }
 
     @Test
@@ -443,21 +409,15 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(0d), new DoublePoint(1d, 0d), new DoublePoint(1d)
         );
-        assertEquals(0d,
-            triangle.compareTo(new DoubleTriangle(
-                new DoublePoint(0d), new DoublePoint(1d, 0d), new DoublePoint(1d)
-            ))
-        );
-        assertEquals(-1d,
-            triangle.compareTo(new DoubleTriangle(
-                new DoublePoint(-1d), new DoublePoint(1d, 0d), new DoublePoint(1d)
-            ))
-        );
-        assertEquals(1d,
-            triangle.compareTo(new DoubleTriangle(
-                new DoublePoint(0.5, 1d), new DoublePoint(1d, 0.5), new DoublePoint(1d)
-            ))
-        );
+        assertThat(triangle.compareTo(new DoubleTriangle(
+            new DoublePoint(0d), new DoublePoint(1d, 0d), new DoublePoint(1d)
+        ))).isEqualTo(0);
+        assertThat(triangle.compareTo(new DoubleTriangle(
+            new DoublePoint(-1d), new DoublePoint(1d, 0d), new DoublePoint(1d)
+        ))).isEqualTo(-1);
+        assertThat(triangle.compareTo(new DoubleTriangle(
+            new DoublePoint(0.5, 1d), new DoublePoint(1d, 0.5), new DoublePoint(1d)
+        ))).isEqualTo(1);
     }
 
     @Test

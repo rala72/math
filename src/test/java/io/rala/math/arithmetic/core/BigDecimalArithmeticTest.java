@@ -8,7 +8,8 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class BigDecimalArithmeticTest {
     private BigDecimalArithmetic arithmetic;
@@ -20,24 +21,24 @@ class BigDecimalArithmeticTest {
 
     @Test
     void getInstance() {
-        assertEquals(arithmetic, BigDecimalArithmetic.getInstance());
+        assertThat(BigDecimalArithmetic.getInstance()).isEqualTo(arithmetic);
     }
 
     // region fromInt, fromDouble and signum
 
     @Test
     void fromInt1() {
-        assertEquals(BigDecimal.ONE, arithmetic.fromInt(1));
+        assertThat(arithmetic.fromInt(1)).isEqualTo(BigDecimal.ONE);
     }
 
     @Test
     void fromDouble1_1() {
-        assertEquals(BigDecimal.valueOf(1.1), arithmetic.fromDouble(1.1));
+        assertThat(arithmetic.fromDouble(1.1)).isEqualTo(BigDecimal.valueOf(1.1));
     }
 
     @Test
     void signum1() {
-        assertEquals(1, arithmetic.signum(BigDecimal.ONE));
+        assertThat(arithmetic.signum(BigDecimal.ONE)).isEqualTo(1);
     }
 
     // endregion
@@ -46,78 +47,48 @@ class BigDecimalArithmeticTest {
 
     @Test
     void absoluteM1() {
-        assertEquals(BigDecimal.ONE,
-            arithmetic.absolute(BigDecimal.ONE.negate())
-        );
+        assertThat(arithmetic.absolute(BigDecimal.ONE.negate())).isEqualTo(BigDecimal.ONE);
     }
 
     @Test
     void negate1() {
-        assertEquals(BigDecimal.ONE.negate(),
-            arithmetic.negate(BigDecimal.ONE)
-        );
+        assertThat(arithmetic.negate(BigDecimal.ONE)).isEqualTo(BigDecimal.ONE.negate());
     }
 
     @Test
     void compare() {
-        assertEquals(0,
-            arithmetic.compare(BigDecimal.ONE, BigDecimal.ONE)
-        );
-        assertEquals(-1,
-            arithmetic.compare(BigDecimal.ONE, BigDecimal.valueOf(2))
-        );
-        assertEquals(1,
-            arithmetic.compare(BigDecimal.valueOf(2), BigDecimal.ONE)
-        );
+        assertThat(arithmetic.compare(BigDecimal.ONE, BigDecimal.ONE)).isEqualTo(0);
+        assertThat(arithmetic.compare(BigDecimal.ONE, BigDecimal.valueOf(2))).isEqualTo(-1);
+        assertThat(arithmetic.compare(BigDecimal.valueOf(2), BigDecimal.ONE)).isEqualTo(1);
     }
 
     @Test
     void min() {
-        assertEquals(BigDecimal.ONE,
-            arithmetic.min(BigDecimal.ONE, BigDecimal.ONE)
-        );
-        assertEquals(BigDecimal.ONE,
-            arithmetic.min(BigDecimal.ONE, BigDecimal.valueOf(2))
-        );
-        assertEquals(BigDecimal.ONE,
-            arithmetic.min(BigDecimal.valueOf(2), BigDecimal.ONE)
-        );
+        assertThat(arithmetic.min(BigDecimal.ONE, BigDecimal.ONE)).isEqualTo(BigDecimal.ONE);
+        assertThat(arithmetic.min(BigDecimal.ONE, BigDecimal.valueOf(2))).isEqualTo(BigDecimal.ONE);
+        assertThat(arithmetic.min(BigDecimal.valueOf(2), BigDecimal.ONE)).isEqualTo(BigDecimal.ONE);
     }
 
     @Test
     void max() {
-        assertEquals(BigDecimal.ONE,
-            arithmetic.max(BigDecimal.ONE, BigDecimal.ONE)
-        );
-        assertEquals(BigDecimal.valueOf(2),
-            arithmetic.max(BigDecimal.ONE, BigDecimal.valueOf(2))
-        );
-        assertEquals(BigDecimal.valueOf(2),
-            arithmetic.max(BigDecimal.valueOf(2), BigDecimal.ONE)
-        );
+        assertThat(arithmetic.max(BigDecimal.ONE, BigDecimal.ONE)).isEqualTo(BigDecimal.ONE);
+        assertThat(arithmetic.max(BigDecimal.ONE, BigDecimal.valueOf(2))).isEqualTo(BigDecimal.valueOf(2));
+        assertThat(arithmetic.max(BigDecimal.valueOf(2), BigDecimal.ONE)).isEqualTo(BigDecimal.valueOf(2));
     }
 
     @Test
     void isZero() {
-        assertTrue(arithmetic.isZero(BigDecimal.ZERO));
-        assertTrue(arithmetic.isZero(BigDecimal.ZERO.negate()));
-        assertFalse(arithmetic.isZero(BigDecimal.ONE));
+        assertThat(arithmetic.isZero(BigDecimal.ZERO)).isTrue();
+        assertThat(arithmetic.isZero(BigDecimal.ZERO.negate())).isTrue();
+        assertThat(arithmetic.isZero(BigDecimal.ONE)).isFalse();
     }
 
     @Test
     void isEqual() {
-        assertTrue(
-            arithmetic.isEqual(BigDecimal.ZERO, BigDecimal.ZERO)
-        );
-        assertTrue(
-            arithmetic.isEqual(BigDecimal.ZERO.negate(), BigDecimal.ZERO)
-        );
-        assertTrue(
-            arithmetic.isEqual(BigDecimal.ZERO.negate(), BigDecimal.ZERO.negate())
-        );
-        assertFalse(
-            arithmetic.isEqual(BigDecimal.ONE, BigDecimal.ZERO)
-        );
+        assertThat(arithmetic.isEqual(BigDecimal.ZERO, BigDecimal.ZERO)).isTrue();
+        assertThat(arithmetic.isEqual(BigDecimal.ZERO.negate(), BigDecimal.ZERO)).isTrue();
+        assertThat(arithmetic.isEqual(BigDecimal.ZERO.negate(), BigDecimal.ZERO.negate())).isTrue();
+        assertThat(arithmetic.isEqual(BigDecimal.ONE, BigDecimal.ZERO)).isFalse();
     }
 
     // endregion
@@ -126,55 +97,42 @@ class BigDecimalArithmeticTest {
 
     @Test
     void sum12() {
-        assertEquals(BigDecimal.valueOf(3),
-            arithmetic.sum(BigDecimal.ONE, BigDecimal.valueOf(2))
-        );
+        assertThat(arithmetic.sum(BigDecimal.ONE, BigDecimal.valueOf(2))).isEqualTo(BigDecimal.valueOf(3));
     }
 
     @Test
     void sum123() {
-        assertEquals(BigDecimal.valueOf(6),
-            arithmetic.sum(BigDecimal.ONE, BigDecimal.valueOf(2), BigDecimal.valueOf(3))
-        );
+        assertThat(arithmetic.sum(BigDecimal.ONE, BigDecimal.valueOf(2), BigDecimal.valueOf(3)))
+            .isEqualTo(BigDecimal.valueOf(6));
     }
 
     @Test
     void difference12() {
-        assertEquals(BigDecimal.valueOf(-1),
-            arithmetic.difference(BigDecimal.ONE, BigDecimal.valueOf(2))
-        );
+        assertThat(arithmetic.difference(BigDecimal.ONE, BigDecimal.valueOf(2))).isEqualTo(BigDecimal.valueOf(-1));
     }
 
     @Test
     void product12() {
-        assertEquals(BigDecimal.valueOf(2),
-            arithmetic.product(BigDecimal.ONE, BigDecimal.valueOf(2))
-        );
+        assertThat(arithmetic.product(BigDecimal.ONE, BigDecimal.valueOf(2))).isEqualTo(BigDecimal.valueOf(2));
     }
 
     @Test
     void product123() {
-        assertEquals(BigDecimal.valueOf(6),
-            arithmetic.product(
-                BigDecimal.ONE,
-                BigDecimal.valueOf(2),
-                BigDecimal.valueOf(3)
-            )
-        );
+        assertThat(arithmetic.product(
+            BigDecimal.ONE,
+            BigDecimal.valueOf(2),
+            BigDecimal.valueOf(3)
+        )).isEqualTo(BigDecimal.valueOf(6));
     }
 
     @Test
     void quotient12() {
-        assertEquals(BigDecimal.valueOf(0.5),
-            arithmetic.quotient(BigDecimal.ONE, BigDecimal.valueOf(2))
-        );
+        assertThat(arithmetic.quotient(BigDecimal.ONE, BigDecimal.valueOf(2))).isEqualTo(BigDecimal.valueOf(0.5));
     }
 
     @Test
     void modulo12() {
-        assertEquals(BigDecimal.ONE,
-            arithmetic.modulo(BigDecimal.ONE, BigDecimal.valueOf(2))
-        );
+        assertThat(arithmetic.modulo(BigDecimal.ONE, BigDecimal.valueOf(2))).isEqualTo(BigDecimal.ONE);
     }
 
     // endregion
@@ -183,15 +141,12 @@ class BigDecimalArithmeticTest {
 
     @Test
     void power12() {
-        assertEquals(BigDecimal.ONE, arithmetic.power(BigDecimal.ONE, 2));
+        assertThat(arithmetic.power(BigDecimal.ONE, 2)).isEqualTo(BigDecimal.ONE);
     }
 
     @Test
     void root21() {
-        assertEquals(
-            BigDecimal.ONE.sqrt(new MathContext(10)),
-            arithmetic.root2(BigDecimal.ONE)
-        );
+        assertThat(arithmetic.root2(BigDecimal.ONE)).isEqualTo(BigDecimal.ONE.sqrt(new MathContext(10)));
     }
 
     // endregion
@@ -200,16 +155,14 @@ class BigDecimalArithmeticTest {
 
     @Test
     void gcd() {
-        assertThrows(NotSupportedException.class,
-            () -> arithmetic.gcd(BigDecimal.valueOf(3), BigDecimal.valueOf(4))
-        ); // assert exception message?
+        assertThatExceptionOfType(NotSupportedException.class)
+            .isThrownBy(() -> arithmetic.gcd(BigDecimal.valueOf(3), BigDecimal.valueOf(4))); // assert exception message?
     }
 
     @Test
     void lcm() {
-        assertThrows(NotSupportedException.class,
-            () -> arithmetic.gcd(BigDecimal.valueOf(3), BigDecimal.valueOf(4))
-        ); // assert exception message?
+        assertThatExceptionOfType(NotSupportedException.class)
+            .isThrownBy(() -> arithmetic.gcd(BigDecimal.valueOf(3), BigDecimal.valueOf(4))); // assert exception message?
     }
 
     // endregion
@@ -218,26 +171,19 @@ class BigDecimalArithmeticTest {
 
     @Test
     void equalsOfArithmetic() {
-        assertEquals(new BigDecimalArithmetic(), new BigDecimalArithmetic());
-        assertNotEquals(new BigDecimalArithmetic(),
-            new BigDecimalArithmetic(new MathContext(5))
-        );
+        assertThat(new BigDecimalArithmetic()).isEqualTo(new BigDecimalArithmetic());
+        assertThat(new BigDecimalArithmetic(new MathContext(5))).isNotEqualTo(new BigDecimalArithmetic());
     }
 
     @Test
     void hashCodeOfArithmetic() {
         // hashCode of RoundingMode enum changing after every start
-        assertEquals(
-            new BigDecimalArithmetic().hashCode(),
-            new BigDecimalArithmetic().hashCode()
-        );
+        assertThat(new BigDecimalArithmetic().hashCode()).isEqualTo(new BigDecimalArithmetic().hashCode());
     }
 
     @Test
     void toStringOfArithmetic() {
-        assertEquals("BigDecimalArithmetic",
-            new BigDecimalArithmetic().toString()
-        );
+        assertThat(new BigDecimalArithmetic().toString()).isEqualTo("BigDecimalArithmetic");
     }
 
     @Test

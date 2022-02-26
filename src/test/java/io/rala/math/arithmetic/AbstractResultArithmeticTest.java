@@ -7,8 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class AbstractResultArithmeticTest {
     private AbstractResultArithmetic<Number, Number> arithmetic;
@@ -20,49 +19,45 @@ class AbstractResultArithmeticTest {
 
     @Test
     void getArithmetic() {
-        assertTrue(
-            arithmetic.getTArithmetic() instanceof TestAbstractArithmetic
-        );
-        assertTrue(
-            arithmetic.getRArithmetic() instanceof TestAbstractArithmetic
-        );
+        assertThat(arithmetic.getTArithmetic() instanceof TestAbstractArithmetic).isTrue();
+        assertThat(arithmetic.getRArithmetic() instanceof TestAbstractArithmetic).isTrue();
     }
 
     // region sum, difference, product, quotient and modulo
 
     @Test
     void sum12() {
-        assertEquals(3d, arithmetic.sum(1, 2));
+        assertThat(arithmetic.sum(1, 2)).isEqualTo(3d);
     }
 
     @Test
     void sum123() {
-        assertEquals(6d, arithmetic.sum(1, 2, 3));
+        assertThat(arithmetic.sum(1, 2, 3)).isEqualTo(6d);
     }
 
     @Test
     void difference12() {
-        assertEquals(-1d, arithmetic.difference(1, 2));
+        assertThat(arithmetic.difference(1, 2)).isEqualTo(-1d);
     }
 
     @Test
     void product12() {
-        assertEquals(2d, arithmetic.product(1, 2));
+        assertThat(arithmetic.product(1, 2)).isEqualTo(2d);
     }
 
     @Test
     void product123() {
-        assertEquals(6d, arithmetic.product(1, 2, 3));
+        assertThat(arithmetic.product(1, 2, 3)).isEqualTo(6d);
     }
 
     @Test
     void quotient12() {
-        assertEquals(0.5, arithmetic.quotient(1, 2));
+        assertThat(arithmetic.quotient(1, 2)).isEqualTo(0.5);
     }
 
     @Test
     void modulo12() {
-        assertEquals(0d, arithmetic.modulo(1, 2));
+        assertThat(arithmetic.modulo(1, 2)).isEqualTo(0d);
     }
 
     // endregion
@@ -73,18 +68,18 @@ class AbstractResultArithmeticTest {
     void mapToInteger() {
         AbstractResultArithmetic<Integer, Number> mapped =
             arithmetic.map(new IntegerArithmetic(), Number::intValue);
-        assertTrue(mapped.getTArithmetic() instanceof IntegerArithmetic);
-        assertEquals(0.5, arithmetic.quotient(1, 2));
-        assertEquals(0.5, mapped.quotient(1, 2));
+        assertThat(mapped.getTArithmetic() instanceof IntegerArithmetic).isTrue();
+        assertThat(arithmetic.quotient(1, 2)).isEqualTo(0.5);
+        assertThat(mapped.quotient(1, 2)).isEqualTo(0.5);
     }
 
     @Test
     void mapResultToInteger() {
         AbstractResultArithmetic<Number, Integer> mapped =
             arithmetic.mapResult(new IntegerArithmetic(), Number::intValue);
-        assertTrue(mapped.getRArithmetic() instanceof IntegerArithmetic);
-        assertEquals(0.5, arithmetic.quotient(1, 2));
-        assertEquals(0, mapped.quotient(1, 2));
+        assertThat(mapped.getRArithmetic() instanceof IntegerArithmetic).isTrue();
+        assertThat(arithmetic.quotient(1, 2)).isEqualTo(0.5);
+        assertThat(mapped.quotient(1, 2)).isEqualTo(0);
     }
 
     // endregion
@@ -99,14 +94,10 @@ class AbstractResultArithmeticTest {
                 new TestAbstractArithmetic(),
                 number -> number
             );
-        assertTrue(
-            ofArithmetic.getTArithmetic() instanceof TestAbstractArithmetic
-        );
-        assertTrue(
-            ofArithmetic.getRArithmetic() instanceof TestAbstractArithmetic
-        );
-        assertEquals(0, ofArithmetic.fromT(0));
-        assertEquals(-0d, ofArithmetic.fromT(-0d));
+        assertThat(ofArithmetic.getTArithmetic() instanceof TestAbstractArithmetic).isTrue();
+        assertThat(ofArithmetic.getRArithmetic() instanceof TestAbstractArithmetic).isTrue();
+        assertThat(ofArithmetic.fromT(0)).isEqualTo(0);
+        assertThat(ofArithmetic.fromT(-0d)).isEqualTo(-0d);
     }
 
     // endregion
@@ -115,15 +106,12 @@ class AbstractResultArithmeticTest {
 
     @Test
     void equalsOfAbstractResultArithmetic() {
-        assertEquals(
-            new TestAbstractResultArithmetic(),
-            new TestAbstractResultArithmetic()
-        );
+        assertThat(new TestAbstractResultArithmetic()).isEqualTo(new TestAbstractResultArithmetic());
     }
 
     @Test
     void hashCodeOfAbstractResultArithmetic() {
-        assertEquals(-33522719, new TestAbstractResultArithmetic().hashCode());
+        assertThat(new TestAbstractResultArithmetic().hashCode()).isEqualTo(-33522719);
     }
 
     @Test
@@ -131,9 +119,7 @@ class AbstractResultArithmeticTest {
         String toString = "TestAbstractResultArithmetic{" +
             "tArithmetic=TestAbstractArithmetic, " +
             "rArithmetic=TestAbstractArithmetic}";
-        assertEquals(toString,
-            new TestAbstractResultArithmetic().toString()
-        );
+        assertThat(new TestAbstractResultArithmetic().toString()).isEqualTo(toString);
     }
 
     @Test

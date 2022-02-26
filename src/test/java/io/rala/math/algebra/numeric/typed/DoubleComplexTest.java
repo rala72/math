@@ -10,7 +10,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.data.Offset.offset;
 
 class DoubleComplexTest {
     private static final double DELTA = 0.00001;
@@ -59,26 +60,22 @@ class DoubleComplexTest {
 
     @Test
     void intValueOfComplexWithX1_1Y2_2() {
-        assertEquals(1, new DoubleComplex(1.1, 2.2).intValue());
+        assertThat(new DoubleComplex(1.1, 2.2).intValue()).isEqualTo(1);
     }
 
     @Test
     void longValueOfComplexWithX1_1Y2_2() {
-        assertEquals(1, new DoubleComplex(1.1, 2.2).longValue());
+        assertThat(new DoubleComplex(1.1, 2.2).longValue()).isEqualTo(1);
     }
 
     @Test
     void floatValueOfComplexWithX1_1Y2_2() {
-        assertEquals((float) 1.1,
-            new DoubleComplex(1.1, 2.2).floatValue()
-        );
+        assertThat(new DoubleComplex(1.1, 2.2).floatValue()).isEqualTo((float) 1.1);
     }
 
     @Test
     void doubleValueOfComplexWithX1_1Y2_2() {
-        assertEquals(1.1,
-            new DoubleComplex(1.1, 2.2).doubleValue()
-        );
+        assertThat(new DoubleComplex(1.1, 2.2).doubleValue()).isEqualTo(1.1);
     }
 
     // endregion
@@ -87,124 +84,93 @@ class DoubleComplexTest {
 
     @Test
     void absoluteValueOfComplexWithoutParameter() {
-        assertEquals(0, new DoubleComplex().absoluteValue());
+        assertThat(new DoubleComplex().absoluteValue()).isEqualTo(0);
     }
 
     @Test
     void absoluteValueOfComplexX1Y1() {
-        assertEquals(Math.sqrt(2d),
-            new DoubleComplex(1d, 1d).absoluteValue()
-        );
+        assertThat(new DoubleComplex(1d, 1d).absoluteValue()).isEqualTo(Math.sqrt(2d));
     }
 
     @Test
     void absoluteValueOfComplexX1Y0() {
-        assertEquals(1, new DoubleComplex(1d, 0d).absoluteValue());
+        assertThat(new DoubleComplex(1d, 0d).absoluteValue()).isEqualTo(1);
     }
 
     @Test
     void argumentOfComplexWithoutParameter() {
-        assertEquals(Double.NaN, new DoubleComplex().argument());
+        assertThat(new DoubleComplex().argument()).isNaN();
     }
 
     @Test
     void argumentOfComplexX1Y1() {
-        assertEquals(Math.PI / 4,
-            new DoubleComplex(1d, 1d).argument(),
-            DELTA
-        );
+        assertThat(new DoubleComplex(1d, 1d).argument()).isCloseTo(Math.PI / 4, offset(DELTA));
     }
 
     @Test
     void argumentOfComplexX1Y0() {
-        assertEquals(0, new DoubleComplex(1d, 0d).argument());
+        assertThat(new DoubleComplex(1d, 0d).argument()).isEqualTo(0);
     }
 
     @Test
     void signumOfComplexWithoutParameter() {
-        assertEquals(new DoubleComplex(),
-            new DoubleComplex().signum()
-        );
+        assertThat(new DoubleComplex().signum()).isEqualTo(new DoubleComplex());
     }
 
     @Test
     void signumOfComplexX1Y1() {
         double sqrt2half = 0.7071067811865475; // Math.sqrt(2d) / 2
-        assertEquals(new DoubleComplex(sqrt2half, sqrt2half),
-            new DoubleComplex(1d, 1d).signum()
-        );
+        assertThat(new DoubleComplex(1d, 1d).signum()).isEqualTo(new DoubleComplex(sqrt2half, sqrt2half));
     }
 
     @Test
     void signumOfComplexX1Y0() {
-        assertEquals(new DoubleComplex(1d, 0d),
-            new DoubleComplex(1d, 0d).signum()
-        );
+        assertThat(new DoubleComplex(1d, 0d).signum()).isEqualTo(new DoubleComplex(1d, 0d));
     }
 
     @Test
     void complexSignumOfComplexWithoutParameter() {
-        assertEquals(0,
-            new DoubleComplex().complexSignum()
-        );
+        assertThat(new DoubleComplex().complexSignum()).isEqualTo(0);
     }
 
     @Test
     void complexSignumOfComplexX1Y1() {
-        assertEquals(1,
-            new DoubleComplex(1d, 1d).complexSignum()
-        );
+        assertThat(new DoubleComplex(1d, 1d).complexSignum()).isEqualTo(1);
     }
 
     @Test
     void complexSignumOfComplexXMinus1Y0() {
-        assertEquals(-1,
-            new DoubleComplex(-1d, 0d).complexSignum()
-        );
+        assertThat(new DoubleComplex(-1d, 0d).complexSignum()).isEqualTo(-1);
     }
 
     @Test
     void complexSignumOfComplexX0Y1() {
-        assertEquals(1,
-            new DoubleComplex(0d, 1d).complexSignum()
-        );
+        assertThat(new DoubleComplex(0d, 1d).complexSignum()).isEqualTo(1);
     }
 
     @Test
     void complexSignumOfComplexX0YMinus1() {
-        assertEquals(-1,
-            new DoubleComplex(0d, -1d).complexSignum()
-        );
+        assertThat(new DoubleComplex(0d, -1d).complexSignum()).isEqualTo(-1);
     }
 
     @Test
     void conjugationOfComplexWithRe1Im2() {
-        assertEquals(
-            new DoubleComplex(1d, -2d),
-            new DoubleComplex(1d, 2d).conjugation()
-        );
+        assertThat(new DoubleComplex(1d, 2d).conjugation()).isEqualTo(new DoubleComplex(1d, -2d));
     }
 
     @Test
     void reciprocalOfComplexWithoutParameter() {
-        assertEquals(
-            new DoubleComplex(Double.NaN, Double.NaN),
-            new DoubleComplex().reciprocal()
-        );
+        assertThat(new DoubleComplex().reciprocal()).isEqualTo(new DoubleComplex(Double.NaN, Double.NaN));
     }
 
     @Test
     void reciprocalOfComplexX1Y1() {
-        assertEquals(new DoubleComplex(0.5, -0.5),
-            new DoubleComplex(1d, 1d).reciprocal()
-        );
+        assertThat(new DoubleComplex(1d, 1d).reciprocal()).isEqualTo(new DoubleComplex(0.5, -0.5));
     }
 
     @Test
     void reciprocalOfComplexX1Y0() {
-        assertEquals(new DoubleComplex(1d, -0d),
-            new DoubleComplex(1d, 0d).reciprocal()
-        );
+        assertThat(new DoubleComplex(1d, 0d).reciprocal()).isEqualTo(new DoubleComplex(1d, -0d));
     }
 
     // endregion
@@ -213,49 +179,32 @@ class DoubleComplexTest {
 
     @Test
     void addWithXY() {
-        assertEquals(
-            new DoubleComplex(2d, 2d),
-            new DoubleComplex().add(2d, 2d)
-        );
+        assertThat(new DoubleComplex().add(2d, 2d)).isEqualTo(new DoubleComplex(2d, 2d));
     }
 
     @Test
     void addWithXAndY() {
-        assertEquals(
-            new DoubleComplex(2d, 2d),
-            new DoubleComplex(1d, 1d).add(1d, 1d)
-        );
+        assertThat(new DoubleComplex(1d, 1d).add(1d, 1d)).isEqualTo(new DoubleComplex(2d, 2d));
     }
 
     @Test
     void addWithDoubleComplex() {
-        assertEquals(new DoubleComplex(2d, 2d),
-            new DoubleComplex(1d, 0d).add(new DoubleComplex(1d, 2d))
-        );
+        assertThat(new DoubleComplex(1d, 0d).add(new DoubleComplex(1d, 2d))).isEqualTo(new DoubleComplex(2d, 2d));
     }
 
     @Test
     void subtractWithXY() {
-        assertEquals(
-            new DoubleComplex(),
-            new DoubleComplex(2d, 2d).subtract(2d, 2d)
-        );
+        assertThat(new DoubleComplex(2d, 2d).subtract(2d, 2d)).isEqualTo(new DoubleComplex());
     }
 
     @Test
     void subtractWithXAndY() {
-        assertEquals(
-            new DoubleComplex(1d, 1d),
-            new DoubleComplex(2d, 2d).subtract(1d, 1d)
-        );
+        assertThat(new DoubleComplex(2d, 2d).subtract(1d, 1d)).isEqualTo(new DoubleComplex(1d, 1d));
     }
 
     @Test
     void subtractWithDoubleComplex() {
-        assertEquals(
-            new DoubleComplex(1d, 0d),
-            new DoubleComplex(2d, 2d).subtract(new DoubleComplex(1d, 2d))
-        );
+        assertThat(new DoubleComplex(2d, 2d).subtract(new DoubleComplex(1d, 2d))).isEqualTo(new DoubleComplex(1d, 0d));
     }
 
     // endregion
@@ -264,85 +213,55 @@ class DoubleComplexTest {
 
     @Test
     void multiplyZeroComplexWith1() {
-        assertEquals(
-            new DoubleComplex(),
-            new DoubleComplex().multiply(1d)
-        );
+        assertThat(new DoubleComplex().multiply(1d)).isEqualTo(new DoubleComplex());
     }
 
     @Test
     void multiplyComplexWith0() {
-        assertEquals(
-            new DoubleComplex(),
-            new DoubleComplex(1d, 1d).multiply(0d)
-        );
+        assertThat(new DoubleComplex(1d, 1d).multiply(0d)).isEqualTo(new DoubleComplex());
     }
 
     @Test
     void multiplyComplexWith1() {
-        assertEquals(
-            new DoubleComplex(1d, 1d),
-            new DoubleComplex(1d, 1d).multiply(1d)
-        );
+        assertThat(new DoubleComplex(1d, 1d).multiply(1d)).isEqualTo(new DoubleComplex(1d, 1d));
     }
 
     @Test
     void multiplyComplexWithMinus1() {
-        assertEquals(
-            new DoubleComplex(-2d, -1d),
-            new DoubleComplex(2d, 1d).multiply(-1d)
-        );
+        assertThat(new DoubleComplex(2d, 1d).multiply(-1d)).isEqualTo(new DoubleComplex(-2d, -1d));
     }
 
     @Test
     void multiplyComplexWithDoubleComplex() {
-        assertEquals(
-            new DoubleComplex(0d, 5d),
-            new DoubleComplex(1d, 2d).multiply(new DoubleComplex(2d, 1d))
-        );
+        assertThat(new DoubleComplex(1d, 2d).multiply(new DoubleComplex(2d, 1d))).isEqualTo(new DoubleComplex(0d, 5d));
     }
 
     @Test
     void divideZeroComplexWith1() {
-        assertEquals(
-            new DoubleComplex(),
-            new DoubleComplex().divide(1d)
-        );
+        assertThat(new DoubleComplex().divide(1d)).isEqualTo(new DoubleComplex());
     }
 
     @Test
     void divideComplexWith0() {
-        assertEquals(
-            new DoubleComplex(
-                Double.POSITIVE_INFINITY,
-                Double.POSITIVE_INFINITY
-            ),
-            new DoubleComplex(1d, 1d).divide(0d)
-        );
+        assertThat(new DoubleComplex(1d, 1d).divide(0d)).isEqualTo(new DoubleComplex(
+            Double.POSITIVE_INFINITY,
+            Double.POSITIVE_INFINITY
+        ));
     }
 
     @Test
     void divideComplexWith1() {
-        assertEquals(
-            new DoubleComplex(1d, 1d),
-            new DoubleComplex(1d, 1d).divide(1d)
-        );
+        assertThat(new DoubleComplex(1d, 1d).divide(1d)).isEqualTo(new DoubleComplex(1d, 1d));
     }
 
     @Test
     void divideComplexWithMinus1() {
-        assertEquals(
-            new DoubleComplex(-2d, -1d),
-            new DoubleComplex(2d, 1d).divide(-1d)
-        );
+        assertThat(new DoubleComplex(2d, 1d).divide(-1d)).isEqualTo(new DoubleComplex(-2d, -1d));
     }
 
     @Test
     void divideComplexWithDoubleComplex() {
-        assertEquals(
-            new DoubleComplex(0.8, 0.6),
-            new DoubleComplex(1d, 2d).divide(new DoubleComplex(2d, 1d))
-        );
+        assertThat(new DoubleComplex(1d, 2d).divide(new DoubleComplex(2d, 1d))).isEqualTo(new DoubleComplex(0.8, 0.6));
     }
 
     // endregion
@@ -351,54 +270,39 @@ class DoubleComplexTest {
 
     @Test
     void pow8OfComplexWithRe1Im1() {
-        assertEquals(
-            new DoubleComplex(16.000000000000007, 1.0291984957930479E-14),
-            new DoubleComplex(1d, 1d).pow(8)
-        );
+        assertThat(new DoubleComplex(1d, 1d).pow(8)).isEqualTo(new DoubleComplex(16.000000000000007, 1.0291984957930479E-14));
     }
 
     @Test
     void pow5OfComplexWithRe3Im4() {
-        assertEquals(
-            new DoubleComplex(-236.99999999999898, -3116d),
-            new DoubleComplex(3d, 4d).pow(5)
-        );
+        assertThat(new DoubleComplex(3d, 4d).pow(5)).isEqualTo(new DoubleComplex(-236.99999999999898, -3116d));
     }
 
     @Test
     void root3OfComplexWithRe1Im0() {
-        assertEquals(
-            List.of(
-                new DoubleComplex(1d, 0d),
-                new DoubleComplex(-0.4999999999999998, 0.8660254037844387),
-                new DoubleComplex(-0.5000000000000004, -0.8660254037844384)
-            ),
-            new DoubleComplex(1d, 0d).root(3)
-        );
+        assertThat(new DoubleComplex(1d, 0d).root(3)).isEqualTo(List.of(
+            new DoubleComplex(1d, 0d),
+            new DoubleComplex(-0.4999999999999998, 0.8660254037844387),
+            new DoubleComplex(-0.5000000000000004, -0.8660254037844384)
+        ));
     }
 
     @Test
     void root4OfComplexWithRe1Im0() {
-        assertEquals(
-            List.of(
-                new DoubleComplex(1d, 0d),
-                new DoubleComplex(6.123233995736766E-17, 1d),
-                new DoubleComplex(-1d, 1.2246467991473532E-16),
-                new DoubleComplex(-1.8369701987210297E-16, -1d)
-            ),
-            new DoubleComplex(1d, 0d).root(4)
-        );
+        assertThat(new DoubleComplex(1d, 0d).root(4)).isEqualTo(List.of(
+            new DoubleComplex(1d, 0d),
+            new DoubleComplex(6.123233995736766E-17, 1d),
+            new DoubleComplex(-1d, 1.2246467991473532E-16),
+            new DoubleComplex(-1.8369701987210297E-16, -1d)
+        ));
     }
 
     @Test
     void root2OfComplexWithReMinus1ImSqrt3() {
-        assertEquals(
-            List.of(
-                new DoubleComplex(0.7071067811865474, 1.224744871391589),
-                new DoubleComplex(-0.7071067811865469, -1.2247448713915892)
-            ),
-            new DoubleComplex(-1d, Math.sqrt(3)).root(2)
-        );
+        assertThat(new DoubleComplex(-1d, Math.sqrt(3)).root(2)).isEqualTo(List.of(
+            new DoubleComplex(0.7071067811865474, 1.224744871391589),
+            new DoubleComplex(-0.7071067811865469, -1.2247448713915892)
+        ));
     }
 
     // endregion
@@ -407,26 +311,17 @@ class DoubleComplexTest {
 
     @Test
     void inverseReOfComplexWithRe1Im2() {
-        assertEquals(
-            new DoubleComplex(-1d, 2d),
-            new DoubleComplex(1d, 2d).inverseRe()
-        );
+        assertThat(new DoubleComplex(1d, 2d).inverseRe()).isEqualTo(new DoubleComplex(-1d, 2d));
     }
 
     @Test
     void inverseImOfComplexWithRe1Im2() {
-        assertEquals(
-            new DoubleComplex(1d, -2d),
-            new DoubleComplex(1d, 2d).inverseIm()
-        );
+        assertThat(new DoubleComplex(1d, 2d).inverseIm()).isEqualTo(new DoubleComplex(1d, -2d));
     }
 
     @Test
     void inverseReImOfComplexWithRe1Im2() {
-        assertEquals(
-            new DoubleComplex(-1d, -2d),
-            new DoubleComplex(1d, 2d).inverse()
-        );
+        assertThat(new DoubleComplex(1d, 2d).inverse()).isEqualTo(new DoubleComplex(-1d, -2d));
     }
 
     // endregion
@@ -445,16 +340,13 @@ class DoubleComplexTest {
     @Test
     void ofWithSelfValidation() {
         Complex<Double> complex = DoubleComplex.of(1d, 2d);
-        assertEquals(1, complex.absoluteValue());
-        assertEquals(2, complex.argument());
+        assertThat(complex.absoluteValue()).isEqualTo(1);
+        assertThat(complex.argument()).isEqualTo(2);
     }
 
     @Test
     void asVectorOfComplexWithRe1Im2() {
-        assertEquals(
-            new Vector<>(new DoubleArithmetic(), 1d, 2d),
-            new DoubleComplex(1d, 2d).asVector()
-        );
+        assertThat(new DoubleComplex(1d, 2d).asVector()).isEqualTo(new Vector<>(new DoubleArithmetic(), 1d, 2d));
     }
 
     // endregion
@@ -466,30 +358,26 @@ class DoubleComplexTest {
         DoubleComplex complex = new DoubleComplex(0.5, 1.5);
         Complex<Integer> result =
             new Complex<>(new IntegerArithmetic(), 0, 1);
-        assertEquals(result,
-            complex.map(new IntegerArithmetic(), Number::intValue)
-        );
+        assertThat(complex.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void isValidWithZero() {
-        assertTrue(new DoubleComplex().isValid());
+        assertThat(new DoubleComplex().isValid()).isTrue();
     }
 
     @Test
     void isValidWithInfValues() {
-        assertFalse(
-            new DoubleComplex(
-                Double.POSITIVE_INFINITY,
-                Double.POSITIVE_INFINITY
-            ).isValid()
-        );
+        assertThat(new DoubleComplex(
+            Double.POSITIVE_INFINITY,
+            Double.POSITIVE_INFINITY
+        ).isValid()).isFalse();
     }
 
     @Test
     void copyOfComplexWithReIm() {
         Complex<Double> complex = new DoubleComplex(2d, 3d);
-        assertEquals(complex, complex.copy());
+        assertThat(complex.copy()).isEqualTo(complex);
     }
 
     // endregion
@@ -499,27 +387,27 @@ class DoubleComplexTest {
     @Test
     void equalsOfComplexWithReIm() {
         Complex<Double> complex = new DoubleComplex(2d, 3d);
-        assertEquals(complex, new DoubleComplex(2d, 3d));
-        assertNotEquals(complex, new DoubleComplex(3d, 2d));
+        assertThat(new DoubleComplex(2d, 3d)).isEqualTo(complex);
+        assertThat(new DoubleComplex(3d, 2d)).isNotEqualTo(complex);
     }
 
     @Test
     void hashCodeOfComplexWithReIm() {
-        assertEquals(525249, new DoubleComplex(2d, 3d).hashCode());
+        assertThat(new DoubleComplex(2d, 3d).hashCode()).isEqualTo(525249);
     }
 
     @Test
     void toStringOfComplexWithReIm() {
         Complex<Double> complex = new DoubleComplex(2d, 3d);
-        assertEquals("2.0+3.0*i", complex.toString());
+        assertThat(complex.toString()).isEqualTo("2.0+3.0*i");
     }
 
     @Test
     void compareToOfComplexWithReIm() {
         Complex<Double> complex = new DoubleComplex(2d, 3d);
-        assertEquals(0, complex.compareTo(new DoubleComplex(2d, 3d)));
-        assertEquals(-1, complex.compareTo(new DoubleComplex(3d, 1d)));
-        assertEquals(1, complex.compareTo(new DoubleComplex(2d, 1d)));
+        assertThat(complex.compareTo(new DoubleComplex(2d, 3d))).isEqualTo(0);
+        assertThat(complex.compareTo(new DoubleComplex(3d, 1d))).isEqualTo(-1);
+        assertThat(complex.compareTo(new DoubleComplex(2d, 1d))).isEqualTo(1);
     }
 
     @Test

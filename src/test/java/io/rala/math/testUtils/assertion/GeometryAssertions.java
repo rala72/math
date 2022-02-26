@@ -6,7 +6,9 @@ import org.opentest4j.AssertionFailedError;
 
 import java.math.MathContext;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.data.Offset.offset;
 
 /**
  * assertions for {@link io.rala.math.geometry} package
@@ -52,9 +54,7 @@ public class GeometryAssertions {
         Circle<T> circle, Point<T> center, T radius
     ) {
         assertEqualsPoint(center, circle.getCenter(), "center is invalid");
-        assertEquals(radius.doubleValue(), circle.getRadius().doubleValue(),
-            DELTA, "radius is invalid"
-        );
+        assertThat(circle.getRadius().doubleValue()).as("radius is invalid").isCloseTo(radius.doubleValue(), offset(DELTA));
     }
 
     // endregion
@@ -89,8 +89,8 @@ public class GeometryAssertions {
      * asserts that line has expected values
      */
     public static <T extends Number> void assertLine(Line<T> line, T m, T b) {
-        assertEquals(m, line.getM(), "m is invalid");
-        assertEquals(b, line.getB(), "b is invalid");
+        assertThat(line.getM()).as("m is invalid").isEqualTo(m);
+        assertThat(line.getB()).as("b is invalid").isEqualTo(b);
     }
 
     // endregion
@@ -117,13 +117,9 @@ public class GeometryAssertions {
      * asserts that point has expected values
      */
     public static <T extends Number> void assertPoint(Point<T> point, T x, T y) {
-        assertNotNull(point);
-        assertEquals(x.doubleValue(), point.getX().doubleValue(),
-            DELTA, "x is invalid"
-        );
-        assertEquals(y.doubleValue(), point.getY().doubleValue(),
-            DELTA, "y is invalid"
-        );
+        assertThat(point).isNotNull();
+        assertThat(point.getX().doubleValue()).as("x is invalid").isCloseTo(x.doubleValue(), offset(DELTA));
+        assertThat(point.getY().doubleValue()).as("y is invalid").isCloseTo(y.doubleValue(), offset(DELTA));
     }
 
     // endregion
@@ -150,9 +146,7 @@ public class GeometryAssertions {
     ) {
         assertEqualsPoint(a, rect.getA(), "a is invalid");
         assertEqualsPoint(b, rect.getB(), "b is invalid");
-        assertEquals(size.doubleValue(), rect.getSize().doubleValue(),
-            DELTA, "size is invalid"
-        );
+        assertThat(rect.getSize().doubleValue()).as("size is invalid").isCloseTo(size.doubleValue(), offset(DELTA));
     }
 
     // endregion
@@ -194,14 +188,8 @@ public class GeometryAssertions {
      * asserts that vector has expected values
      */
     public static <T extends Number> void assertVector(Vector<T> vector, T x, T y) {
-        assertEquals(
-            x.doubleValue(), vector.getX().doubleValue(),
-            DELTA, "x is invalid"
-        );
-        assertEquals(
-            y.doubleValue(), vector.getY().doubleValue(),
-            DELTA, "y is invalid"
-        );
+        assertThat(vector.getX().doubleValue()).as("x is invalid").isCloseTo(x.doubleValue(), offset(DELTA));
+        assertThat(vector.getY().doubleValue()).as("y is invalid").isCloseTo(y.doubleValue(), offset(DELTA));
     }
 
     // endregion
@@ -217,10 +205,7 @@ public class GeometryAssertions {
     ) {
         if (message == null) message = "point is invalid";
         try {
-            assertPoint(actual,
-                expected.getX(),
-                expected.getY()
-            );
+            assertPoint(actual, expected.getX(), expected.getY());
         } catch (AssertionFailedError error) { // better way?
             fail(message + " [" + error.getMessage() + "]", error);
         }

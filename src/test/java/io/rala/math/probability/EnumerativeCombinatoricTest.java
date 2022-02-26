@@ -7,55 +7,43 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class EnumerativeCombinatoricTest {
     @ParameterizedTest
     @MethodSource("getPermutationsWithoutRepetitionArguments")
     void permutationsWithoutRepetition(int n, long expected) {
-        assertEquals(expected,
-            EnumerativeCombinatoric.permutationsWithoutRepetition(n)
-        );
+        assertThat(EnumerativeCombinatoric.permutationsWithoutRepetition(n)).isEqualTo(expected);
     }
 
     @ParameterizedTest
     @MethodSource("getPermutationsWithRepetitionArguments")
     void permutationsWithRepetition(long expected, int n, int... k) {
-        assertEquals(expected,
-            EnumerativeCombinatoric.permutationsWithRepetition(n, k)
-        );
+        assertThat(EnumerativeCombinatoric.permutationsWithRepetition(n, k)).isEqualTo(expected);
     }
 
     @ParameterizedTest
     @MethodSource("getVariationsWithoutRepetitionArguments")
     void variationsWithoutRepetition(int n, int k, long expected) {
-        assertEquals(expected,
-            EnumerativeCombinatoric.variationsWithoutRepetition(n, k)
-        );
+        assertThat(EnumerativeCombinatoric.variationsWithoutRepetition(n, k)).isEqualTo(expected);
     }
 
     @ParameterizedTest
     @MethodSource("getVariationsWithRepetitionArguments")
     void variationsWithRepetition(int n, int k, long expected) {
-        assertEquals(expected,
-            EnumerativeCombinatoric.variationsWithRepetition(n, k)
-        );
+        assertThat(EnumerativeCombinatoric.variationsWithRepetition(n, k)).isEqualTo(expected);
     }
 
     @ParameterizedTest
     @MethodSource("getCombinationsWithoutRepetitionArguments")
     void combinationsWithoutRepetition(int n, int k, long expected) {
-        assertEquals(expected,
-            EnumerativeCombinatoric.combinationsWithoutRepetition(n, k)
-        );
+        assertThat(EnumerativeCombinatoric.combinationsWithoutRepetition(n, k)).isEqualTo(expected);
     }
 
     @ParameterizedTest
     @MethodSource("getCombinationsWithRepetitionArguments")
     void combinationsWithRepetition(int n, int k, long expected) {
-        assertEquals(expected,
-            EnumerativeCombinatoric.combinationsWithRepetition(n, k)
-        );
+        assertThat(EnumerativeCombinatoric.combinationsWithRepetition(n, k)).isEqualTo(expected);
     }
 
     // region argument streams

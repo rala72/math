@@ -11,8 +11,7 @@ import java.math.BigInteger;
 import java.math.MathContext;
 
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class BigIntegerBigDecimalResultArithmeticTest {
     private BigIntegerBigDecimalResultArithmetic arithmetic;
@@ -24,28 +23,24 @@ class BigIntegerBigDecimalResultArithmeticTest {
 
     @Test
     void getInstance() {
-        assertEquals(arithmetic,
-            BigIntegerBigDecimalResultArithmetic.getInstance()
-        );
+        assertThat(BigIntegerBigDecimalResultArithmetic.getInstance()).isEqualTo(arithmetic);
     }
 
     @Test
     void constructorWithMathContext() {
         BigIntegerBigDecimalResultArithmetic arithmetic =
             new BigIntegerBigDecimalResultArithmetic(new MathContext(5));
-        assertTrue(
-            arithmetic.getRArithmetic() instanceof BigDecimalArithmetic
-        );
+        assertThat(arithmetic.getRArithmetic() instanceof BigDecimalArithmetic).isTrue();
         BigDecimalArithmetic rArithmetic =
             (BigDecimalArithmetic) arithmetic.getRArithmetic();
-        assertEquals(5, rArithmetic.getMathContext().getPrecision());
+        assertThat(rArithmetic.getMathContext().getPrecision()).isEqualTo(5);
     }
 
     // region fromT
 
     @Test
     void fromT1() {
-        assertEquals(BigDecimal.ONE, arithmetic.fromT(BigInteger.ONE));
+        assertThat(arithmetic.fromT(BigInteger.ONE)).isEqualTo(BigDecimal.ONE);
     }
 
     // endregion
@@ -54,55 +49,42 @@ class BigIntegerBigDecimalResultArithmeticTest {
 
     @Test
     void sum12() {
-        assertEquals(BigDecimal.valueOf(3),
-            arithmetic.sum(BigInteger.ONE, BigInteger.valueOf(2))
-        );
+        assertThat(arithmetic.sum(BigInteger.ONE, BigInteger.valueOf(2))).isEqualTo(BigDecimal.valueOf(3));
     }
 
     @Test
     void sum123() {
-        assertEquals(BigDecimal.valueOf(6),
-            arithmetic.sum(BigInteger.ONE, BigInteger.valueOf(2), BigInteger.valueOf(3))
-        );
+        assertThat(arithmetic.sum(BigInteger.ONE, BigInteger.valueOf(2), BigInteger.valueOf(3)))
+            .isEqualTo(BigDecimal.valueOf(6));
     }
 
     @Test
     void difference12() {
-        assertEquals(BigDecimal.valueOf(-1),
-            arithmetic.difference(BigInteger.ONE, BigInteger.valueOf(2))
-        );
+        assertThat(arithmetic.difference(BigInteger.ONE, BigInteger.valueOf(2))).isEqualTo(BigDecimal.valueOf(-1));
     }
 
     @Test
     void product12() {
-        assertEquals(BigDecimal.valueOf(2),
-            arithmetic.product(BigInteger.ONE, BigInteger.valueOf(2))
-        );
+        assertThat(arithmetic.product(BigInteger.ONE, BigInteger.valueOf(2))).isEqualTo(BigDecimal.valueOf(2));
     }
 
     @Test
     void product123() {
-        assertEquals(BigDecimal.valueOf(6),
-            arithmetic.product(
-                BigInteger.ONE,
-                BigInteger.valueOf(2),
-                BigInteger.valueOf(3)
-            )
-        );
+        assertThat(arithmetic.product(
+            BigInteger.ONE,
+            BigInteger.valueOf(2),
+            BigInteger.valueOf(3)
+        )).isEqualTo(BigDecimal.valueOf(6));
     }
 
     @Test
     void quotient12() {
-        assertEquals(BigDecimal.valueOf(0.5),
-            arithmetic.quotient(BigInteger.ONE, BigInteger.valueOf(2))
-        );
+        assertThat(arithmetic.quotient(BigInteger.ONE, BigInteger.valueOf(2))).isEqualTo(BigDecimal.valueOf(0.5));
     }
 
     @Test
     void modulo12() {
-        assertEquals(BigDecimal.ONE,
-            arithmetic.modulo(BigInteger.ONE, BigInteger.valueOf(2))
-        );
+        assertThat(arithmetic.modulo(BigInteger.ONE, BigInteger.valueOf(2))).isEqualTo(BigDecimal.ONE);
     }
 
     // endregion
@@ -113,26 +95,18 @@ class BigIntegerBigDecimalResultArithmeticTest {
     void mapToInteger() {
         AbstractResultArithmetic<Integer, BigDecimal> mapped =
             arithmetic.map(new IntegerArithmetic(), BigDecimal::valueOf);
-        assertTrue(mapped.getTArithmetic() instanceof IntegerArithmetic);
-        assertEquals(BigDecimal.valueOf(0.5),
-            arithmetic.quotient(BigInteger.ONE, BigInteger.TWO)
-        );
-        assertEquals(BigDecimal.valueOf(0.5),
-            mapped.quotient(1, 2)
-        );
+        assertThat(mapped.getTArithmetic() instanceof IntegerArithmetic).isTrue();
+        assertThat(arithmetic.quotient(BigInteger.ONE, BigInteger.TWO)).isEqualTo(BigDecimal.valueOf(0.5));
+        assertThat(mapped.quotient(1, 2)).isEqualTo(BigDecimal.valueOf(0.5));
     }
 
     @Test
     void mapResultToInteger() {
         AbstractResultArithmetic<BigInteger, Integer> mapped =
             arithmetic.mapResult(new IntegerArithmetic(), BigInteger::intValue);
-        assertTrue(mapped.getRArithmetic() instanceof IntegerArithmetic);
-        assertEquals(BigDecimal.valueOf(0.5),
-            arithmetic.quotient(BigInteger.ONE, BigInteger.TWO)
-        );
-        assertEquals(0,
-            mapped.quotient(BigInteger.ONE, BigInteger.TWO)
-        );
+        assertThat(mapped.getRArithmetic() instanceof IntegerArithmetic).isTrue();
+        assertThat(arithmetic.quotient(BigInteger.ONE, BigInteger.TWO)).isEqualTo(BigDecimal.valueOf(0.5));
+        assertThat(mapped.quotient(BigInteger.ONE, BigInteger.TWO)).isEqualTo(0);
     }
 
     // endregion
@@ -141,19 +115,14 @@ class BigIntegerBigDecimalResultArithmeticTest {
 
     @Test
     void equalsOfAbstractResultArithmetic() {
-        assertEquals(
-            new BigIntegerBigDecimalResultArithmetic(),
-            new BigIntegerBigDecimalResultArithmetic()
-        );
+        assertThat(new BigIntegerBigDecimalResultArithmetic()).isEqualTo(new BigIntegerBigDecimalResultArithmetic());
     }
 
     @Test
     void hashCodeOfAbstractResultArithmetic() {
         // hashCode of RoundingMode enum changing after every start
-        assertEquals(
-            new BigIntegerBigDecimalResultArithmetic().hashCode(),
-            new BigIntegerBigDecimalResultArithmetic().hashCode()
-        );
+        assertThat(new BigIntegerBigDecimalResultArithmetic().hashCode())
+            .isEqualTo(new BigIntegerBigDecimalResultArithmetic().hashCode());
     }
 
     @Test
@@ -161,9 +130,7 @@ class BigIntegerBigDecimalResultArithmeticTest {
         String toString = "BigIntegerBigDecimalResultArithmetic{" +
             "tArithmetic=BigIntegerArithmetic, " +
             "rArithmetic=BigDecimalArithmetic}";
-        assertEquals(toString,
-            new BigIntegerBigDecimalResultArithmetic().toString()
-        );
+        assertThat(new BigIntegerBigDecimalResultArithmetic().toString()).isEqualTo(toString);
     }
 
     @Test

@@ -5,7 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class DoubleArithmeticTest {
     private DoubleArithmetic arithmetic;
@@ -17,24 +18,24 @@ class DoubleArithmeticTest {
 
     @Test
     void getInstance() {
-        assertEquals(arithmetic, DoubleArithmetic.getInstance());
+        assertThat(DoubleArithmetic.getInstance()).isEqualTo(arithmetic);
     }
 
     // region fromInt, fromDouble and signum
 
     @Test
     void fromInt1() {
-        assertEquals(1, arithmetic.fromInt(1));
+        assertThat(arithmetic.fromInt(1)).isEqualTo(1);
     }
 
     @Test
     void fromDouble1_1() {
-        assertEquals(1.1, arithmetic.fromDouble(1.1));
+        assertThat(arithmetic.fromDouble(1.1)).isEqualTo(1.1);
     }
 
     @Test
     void signum1() {
-        assertEquals(1, arithmetic.signum(1d));
+        assertThat(arithmetic.signum(1d)).isEqualTo(1);
     }
 
     // endregion
@@ -43,48 +44,48 @@ class DoubleArithmeticTest {
 
     @Test
     void absoluteM1() {
-        assertEquals(1, arithmetic.absolute(-1d));
+        assertThat(arithmetic.absolute(-1d)).isEqualTo(1);
     }
 
     @Test
     void negate1() {
-        assertEquals(-1, arithmetic.negate(1d));
+        assertThat(arithmetic.negate(1d)).isEqualTo(-1);
     }
 
     @Test
     void compare() {
-        assertEquals(0, arithmetic.compare(1d, 1d));
-        assertEquals(-1, arithmetic.compare(1d, 2d));
-        assertEquals(1, arithmetic.compare(2d, 1d));
+        assertThat(arithmetic.compare(1d, 1d)).isEqualTo(0);
+        assertThat(arithmetic.compare(1d, 2d)).isEqualTo(-1);
+        assertThat(arithmetic.compare(2d, 1d)).isEqualTo(1);
     }
 
     @Test
     void min() {
-        assertEquals(1, arithmetic.min(1d, 1d));
-        assertEquals(1, arithmetic.min(1d, 2d));
-        assertEquals(1, arithmetic.min(2d, 1d));
+        assertThat(arithmetic.min(1d, 1d)).isEqualTo(1);
+        assertThat(arithmetic.min(1d, 2d)).isEqualTo(1);
+        assertThat(arithmetic.min(2d, 1d)).isEqualTo(1);
     }
 
     @Test
     void max() {
-        assertEquals(1, arithmetic.max(1d, 1d));
-        assertEquals(2, arithmetic.max(1d, 2d));
-        assertEquals(2, arithmetic.max(2d, 1d));
+        assertThat(arithmetic.max(1d, 1d)).isEqualTo(1);
+        assertThat(arithmetic.max(1d, 2d)).isEqualTo(2);
+        assertThat(arithmetic.max(2d, 1d)).isEqualTo(2);
     }
 
     @Test
     void isZero() {
-        assertTrue(arithmetic.isZero(0d));
-        assertTrue(arithmetic.isZero(-0d));
-        assertFalse(arithmetic.isZero(1d));
+        assertThat(arithmetic.isZero(0d)).isTrue();
+        assertThat(arithmetic.isZero(-0d)).isTrue();
+        assertThat(arithmetic.isZero(1d)).isFalse();
     }
 
     @Test
     void isEqual() {
-        assertTrue(arithmetic.isEqual(0d, 0d));
-        assertTrue(arithmetic.isEqual(-0d, 0d));
-        assertTrue(arithmetic.isEqual(-0d, -0d));
-        assertFalse(arithmetic.isEqual(1d, 0d));
+        assertThat(arithmetic.isEqual(0d, 0d)).isTrue();
+        assertThat(arithmetic.isEqual(-0d, 0d)).isTrue();
+        assertThat(arithmetic.isEqual(-0d, -0d)).isTrue();
+        assertThat(arithmetic.isEqual(1d, 0d)).isFalse();
     }
 
     // endregion
@@ -93,37 +94,37 @@ class DoubleArithmeticTest {
 
     @Test
     void sum12() {
-        assertEquals(3, arithmetic.sum(1d, 2d));
+        assertThat(arithmetic.sum(1d, 2d)).isEqualTo(3);
     }
 
     @Test
     void sum123() {
-        assertEquals(6, arithmetic.sum(1d, 2d, 3d));
+        assertThat(arithmetic.sum(1d, 2d, 3d)).isEqualTo(6);
     }
 
     @Test
     void difference12() {
-        assertEquals(-1, arithmetic.difference(1d, 2d));
+        assertThat(arithmetic.difference(1d, 2d)).isEqualTo(-1);
     }
 
     @Test
     void product12() {
-        assertEquals(2, arithmetic.product(1d, 2d));
+        assertThat(arithmetic.product(1d, 2d)).isEqualTo(2);
     }
 
     @Test
     void product123() {
-        assertEquals(6, arithmetic.product(1d, 2d, 3d));
+        assertThat(arithmetic.product(1d, 2d, 3d)).isEqualTo(6);
     }
 
     @Test
     void quotient12() {
-        assertEquals(0.5, arithmetic.quotient(1d, 2d));
+        assertThat(arithmetic.quotient(1d, 2d)).isEqualTo(0.5);
     }
 
     @Test
     void modulo12() {
-        assertEquals(1, arithmetic.modulo(1d, 2d));
+        assertThat(arithmetic.modulo(1d, 2d)).isEqualTo(1);
     }
 
     // endregion
@@ -132,12 +133,12 @@ class DoubleArithmeticTest {
 
     @Test
     void power12() {
-        assertEquals(1, arithmetic.power(1d, 2));
+        assertThat(arithmetic.power(1d, 2)).isEqualTo(1);
     }
 
     @Test
     void root21() {
-        assertEquals(Math.sqrt(1), arithmetic.root2(1d));
+        assertThat(arithmetic.root2(1d)).isEqualTo(Math.sqrt(1));
     }
 
     // endregion
@@ -146,16 +147,14 @@ class DoubleArithmeticTest {
 
     @Test
     void gcd() {
-        assertThrows(NotSupportedException.class,
-            () -> arithmetic.gcd(3d, 4d)
-        ); // assert exception message?
+        assertThatExceptionOfType(NotSupportedException.class)
+            .isThrownBy(() -> arithmetic.gcd(3d, 4d)); // assert exception message?
     }
 
     @Test
     void lcm() {
-        assertThrows(NotSupportedException.class,
-            () -> arithmetic.lcm(3d, 4d)
-        ); // assert exception message?
+        assertThatExceptionOfType(NotSupportedException.class)
+            .isThrownBy(() -> arithmetic.lcm(3d, 4d)); // assert exception message?
     }
 
     // endregion
@@ -164,17 +163,17 @@ class DoubleArithmeticTest {
 
     @Test
     void equalsOfArithmetic() {
-        assertEquals(new DoubleArithmetic(), new DoubleArithmetic());
+        assertThat(new DoubleArithmetic()).isEqualTo(new DoubleArithmetic());
     }
 
     @Test
     void hashCodeOfArithmetic() {
-        assertEquals(1072694209, new DoubleArithmetic().hashCode());
+        assertThat(new DoubleArithmetic().hashCode()).isEqualTo(1072694209);
     }
 
     @Test
     void toStringOfArithmetic() {
-        assertEquals("DoubleArithmetic", new DoubleArithmetic().toString());
+        assertThat(new DoubleArithmetic().toString()).isEqualTo("DoubleArithmetic");
     }
 
     @Test

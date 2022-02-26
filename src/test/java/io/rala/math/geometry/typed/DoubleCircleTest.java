@@ -8,7 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.GeometryAssertions.assertCircle;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.data.Offset.offset;
 
 class DoubleCircleTest {
     // region constructors, getter and setter
@@ -67,25 +68,25 @@ class DoubleCircleTest {
     @Test
     void createAndExpectDiameterToBeDouble() {
         Circle<Double> circle = new DoubleCircle();
-        assertEquals(2d, circle.getDiameter());
+        assertThat(circle.getDiameter()).isEqualTo(2d);
         circle.setRadius(2d);
-        assertEquals(4d, circle.getDiameter());
+        assertThat(circle.getDiameter()).isEqualTo(4d);
         circle.setDiameter(2d);
-        assertEquals(2d, circle.getDiameter());
+        assertThat(circle.getDiameter()).isEqualTo(2d);
     }
 
     @Test
     void createAndSetRadiusAndExpectDiameterToBeDouble() {
         Circle<Double> circle = new DoubleCircle();
         circle.setRadius(2d);
-        assertEquals(4d, circle.getDiameter());
+        assertThat(circle.getDiameter()).isEqualTo(4d);
     }
 
     @Test
     void createAndSetDiameterAndExpectRadiusToBeHalf() {
         Circle<Double> circle = new DoubleCircle();
         circle.setDiameter(2d);
-        assertEquals(2d, circle.getDiameter());
+        assertThat(circle.getDiameter()).isEqualTo(2d);
     }
 
     // endregion
@@ -94,40 +95,32 @@ class DoubleCircleTest {
 
     @Test
     void areaOfCircleWithoutParameter() {
-        assertEquals(
-            Math.PI,
-            new DoubleCircle().area(),
-            GeometryAssertions.DELTA
-        );
+        assertThat(new DoubleCircle().area()).isCloseTo(Math.PI, offset(GeometryAssertions.DELTA));
     }
 
     @Test
     void areaOfCircleWithRadius2() {
-        assertEquals(12.566370614359172, new DoubleCircle(2d).area());
+        assertThat(new DoubleCircle(2d).area()).isEqualTo(12.566370614359172);
     }
 
     @Test
     void areaOfCircleWithRadius3() {
-        assertEquals(28.274333882308138, new DoubleCircle(3d).area());
+        assertThat(new DoubleCircle(3d).area()).isEqualTo(28.274333882308138);
     }
 
     @Test
     void circumferenceOfCircleWithoutParameter() {
-        assertEquals(6.283185307179586, new DoubleCircle().circumference());
+        assertThat(new DoubleCircle().circumference()).isEqualTo(6.283185307179586);
     }
 
     @Test
     void circumferenceOfCircleWithRadius2() {
-        assertEquals(12.566370614359172,
-            new DoubleCircle(2d).circumference()
-        );
+        assertThat(new DoubleCircle(2d).circumference()).isEqualTo(12.566370614359172);
     }
 
     @Test
     void circumferenceOfCircleWithRadius3() {
-        assertEquals(18.84955592153876,
-            new DoubleCircle(3d).circumference()
-        );
+        assertThat(new DoubleCircle(3d).circumference()).isEqualTo(18.84955592153876);
     }
 
     // endregion
@@ -136,17 +129,17 @@ class DoubleCircleTest {
 
     @Test
     void isUnitCircleWithRadius0() {
-        assertFalse(new DoubleCircle(0d).isUnitCircle());
+        assertThat(new DoubleCircle(0d).isUnitCircle()).isFalse();
     }
 
     @Test
     void isUnitCircleWithRadius1() {
-        assertTrue(new DoubleCircle(1d).isUnitCircle());
+        assertThat(new DoubleCircle(1d).isUnitCircle()).isTrue();
     }
 
     @Test
     void isUnitCircleWithRadius2() {
-        assertFalse(new DoubleCircle(2d).isUnitCircle());
+        assertThat(new DoubleCircle(2d).isUnitCircle()).isFalse();
     }
 
     // endregion
@@ -160,27 +153,24 @@ class DoubleCircleTest {
         Circle<Integer> result = new Circle<>(integerArithmetic,
             new Point<>(integerArithmetic, 0), 1
         );
-        assertEquals(result,
-            circle.map(new IntegerArithmetic(), Number::intValue)
-        );
+        assertThat(circle.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void isValidWithZeroValues() {
-        assertTrue(new DoubleCircle().isValid());
+        assertThat(new DoubleCircle().isValid()).isTrue();
     }
 
     @Test
     void isValidWithNegativeRadius() {
-        assertFalse(new DoubleCircle(-1d).isValid());
+        assertThat(new DoubleCircle(-1d).isValid()).isFalse();
     }
 
     @Test
     void isValidWithInfValues() {
-        assertFalse(new DoubleCircle(
+        assertThat(new DoubleCircle(
             new DoublePoint(Double.POSITIVE_INFINITY), Double.POSITIVE_INFINITY)
-            .isValid()
-        );
+            .isValid()).isFalse();
     }
 
     @Test
@@ -226,7 +216,7 @@ class DoubleCircleTest {
     @Test
     void copyOfCircleWithPointAndRadius() {
         Circle<Double> circle = new DoubleCircle(new DoublePoint(2d), 3d);
-        assertEquals(circle, circle.copy());
+        assertThat(circle.copy()).isEqualTo(circle);
     }
 
     // endregion
@@ -236,39 +226,27 @@ class DoubleCircleTest {
     @Test
     void equalsOfCircleWithPointAndRadius() {
         Circle<Double> circle = new DoubleCircle(new DoublePoint(2d), 3d);
-        assertEquals(circle,
-            new DoubleCircle(new DoublePoint(2d), 3d)
-        );
-        assertNotEquals(circle,
-            new DoubleCircle(new DoublePoint(3d), 2d)
-        );
+        assertThat(new DoubleCircle(new DoublePoint(2d), 3d)).isEqualTo(circle);
+        assertThat(new DoubleCircle(new DoublePoint(3d), 2d)).isNotEqualTo(circle);
     }
 
     @Test
     void hashCodeOfCircleWithPointAndRadius() {
-        assertEquals(1074296864,
-            new DoubleCircle(new DoublePoint(2d), 3d).hashCode()
-        );
+        assertThat(new DoubleCircle(new DoublePoint(2d), 3d).hashCode()).isEqualTo(1074296864);
     }
 
     @Test
     void toStringOfCircleWithPointAndRadius() {
         Circle<Double> circle = new DoubleCircle(new DoublePoint(2d), 3d);
-        assertEquals("2.0|2.0 3.0", circle.toString());
+        assertThat(circle.toString()).isEqualTo("2.0|2.0 3.0");
     }
 
     @Test
     void compareToOfCircleWithCenterAndRadius() {
         Circle<Double> circle = new DoubleCircle(new DoublePoint(2d), 3d);
-        assertEquals(0d,
-            circle.compareTo(new DoubleCircle(new DoublePoint(2d), 3d))
-        );
-        assertEquals(-1d,
-            circle.compareTo(new DoubleCircle(new DoublePoint(3d), 3d))
-        );
-        assertEquals(1d,
-            circle.compareTo(new DoubleCircle(new DoublePoint(2d), 1d))
-        );
+        assertThat(circle.compareTo(new DoubleCircle(new DoublePoint(2d), 3d))).isEqualTo(0);
+        assertThat(circle.compareTo(new DoubleCircle(new DoublePoint(3d), 3d))).isEqualTo(-1);
+        assertThat(circle.compareTo(new DoubleCircle(new DoublePoint(2d), 1d))).isEqualTo(1);
     }
 
     @Test

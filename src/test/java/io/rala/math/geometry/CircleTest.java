@@ -9,7 +9,8 @@ import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.GeometryAssertions.assertCircle;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.data.Offset.offset;
 
 class CircleTest {
     // region constructors, getter and setter
@@ -65,25 +66,25 @@ class CircleTest {
     @Test
     void createAndExpectDiameterToBeDouble() {
         Circle<Number> circle = new TestCircle();
-        assertEquals(2d, circle.getDiameter());
+        assertThat(circle.getDiameter()).isEqualTo(2d);
         circle.setRadius(2);
-        assertEquals(4d, circle.getDiameter());
+        assertThat(circle.getDiameter()).isEqualTo(4d);
         circle.setDiameter(2);
-        assertEquals(2d, circle.getDiameter());
+        assertThat(circle.getDiameter()).isEqualTo(2d);
     }
 
     @Test
     void createAndSetRadiusAndExpectDiameterToBeDouble() {
         Circle<Number> circle = new TestCircle();
         circle.setRadius(2);
-        assertEquals(4d, circle.getDiameter());
+        assertThat(circle.getDiameter()).isEqualTo(4d);
     }
 
     @Test
     void createAndSetDiameterAndExpectRadiusToBeHalf() {
         Circle<Number> circle = new TestCircle();
         circle.setDiameter(2);
-        assertEquals(2d, circle.getDiameter());
+        assertThat(circle.getDiameter()).isEqualTo(2d);
     }
 
     // endregion
@@ -92,36 +93,32 @@ class CircleTest {
 
     @Test
     void areaOfCircleWithoutParameter() {
-        assertEquals(
-            Math.PI,
-            new TestCircle().area().doubleValue(),
-            GeometryAssertions.DELTA
-        );
+        assertThat(new TestCircle().area().doubleValue()).isCloseTo(Math.PI, offset(GeometryAssertions.DELTA));
     }
 
     @Test
     void areaOfCircleWithRadius2() {
-        assertEquals(12.566370614359172, new TestCircle(2).area());
+        assertThat(new TestCircle(2).area()).isEqualTo(12.566370614359172);
     }
 
     @Test
     void areaOfCircleWithRadius3() {
-        assertEquals(28.274333882308138, new TestCircle(3).area());
+        assertThat(new TestCircle(3).area()).isEqualTo(28.274333882308138);
     }
 
     @Test
     void circumferenceOfCircleWithoutParameter() {
-        assertEquals(6.283185307179586, new TestCircle().circumference());
+        assertThat(new TestCircle().circumference()).isEqualTo(6.283185307179586);
     }
 
     @Test
     void circumferenceOfCircleWithRadius2() {
-        assertEquals(12.566370614359172, new TestCircle(2).circumference());
+        assertThat(new TestCircle(2).circumference()).isEqualTo(12.566370614359172);
     }
 
     @Test
     void circumferenceOfCircleWithRadius3() {
-        assertEquals(18.84955592153876, new TestCircle(3).circumference());
+        assertThat(new TestCircle(3).circumference()).isEqualTo(18.84955592153876);
     }
 
     // endregion
@@ -130,17 +127,17 @@ class CircleTest {
 
     @Test
     void isUnitCircleWithRadius0() {
-        assertFalse(new TestCircle(0).isUnitCircle());
+        assertThat(new TestCircle(0).isUnitCircle()).isFalse();
     }
 
     @Test
     void isUnitCircleWithRadius1() {
-        assertTrue(new TestCircle(1d).isUnitCircle());
+        assertThat(new TestCircle(1d).isUnitCircle()).isTrue();
     }
 
     @Test
     void isUnitCircleWithRadius2() {
-        assertFalse(new TestCircle(2).isUnitCircle());
+        assertThat(new TestCircle(2).isUnitCircle()).isFalse();
     }
 
     // endregion
@@ -154,27 +151,24 @@ class CircleTest {
         Circle<Integer> result = new Circle<>(integerArithmetic,
             new Point<>(integerArithmetic, 0), 1
         );
-        assertEquals(result,
-            circle.map(new IntegerArithmetic(), Number::intValue)
-        );
+        assertThat(circle.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void isValidWithZeroValues() {
-        assertTrue(new TestCircle().isValid());
+        assertThat(new TestCircle().isValid()).isTrue();
     }
 
     @Test
     void isValidWithNegativeRadius() {
-        assertFalse(new TestCircle(-1).isValid());
+        assertThat(new TestCircle(-1).isValid()).isFalse();
     }
 
     @Test
     void isValidWithInfValues() {
-        assertFalse(new TestCircle(
+        assertThat(new TestCircle(
             new TestPoint(Double.POSITIVE_INFINITY), Double.POSITIVE_INFINITY)
-            .isValid()
-        );
+            .isValid()).isFalse();
     }
 
     @Test
@@ -214,7 +208,7 @@ class CircleTest {
     @Test
     void copyOfCircleWithPointAndRadius() {
         Circle<Number> circle = new TestCircle(new TestPoint(2), 3);
-        assertEquals(circle, circle.copy());
+        assertThat(circle.copy()).isEqualTo(circle);
     }
 
     // endregion
@@ -224,33 +218,27 @@ class CircleTest {
     @Test
     void equalsOfCircleWithPointAndRadius() {
         Circle<Number> circle = new TestCircle(new TestPoint(2), 3);
-        assertEquals(circle, new TestCircle(new TestPoint(2), 3));
-        assertNotEquals(circle, new TestCircle(new TestPoint(3), 2));
+        assertThat(new TestCircle(new TestPoint(2), 3)).isEqualTo(circle);
+        assertThat(new TestCircle(new TestPoint(3), 2)).isNotEqualTo(circle);
     }
 
     @Test
     void hashCodeOfCircleWithPointAndRadius() {
-        assertEquals(32739, new TestCircle(new TestPoint(2), 3).hashCode());
+        assertThat(new TestCircle(new TestPoint(2), 3).hashCode()).isEqualTo(32739);
     }
 
     @Test
     void toStringOfCircleWithPointAndRadius() {
         Circle<Number> circle = new TestCircle(new TestPoint(2d), 3d);
-        assertEquals("2.0|2.0 3.0", circle.toString());
+        assertThat(circle.toString()).isEqualTo("2.0|2.0 3.0");
     }
 
     @Test
     void compareToOfCircleWithCenterAndRadius() {
         Circle<Number> circle = new TestCircle(new TestPoint(2), 3);
-        assertEquals(0,
-            circle.compareTo(new TestCircle(new TestPoint(2), 3))
-        );
-        assertEquals(-1,
-            circle.compareTo(new TestCircle(new TestPoint(3), 3))
-        );
-        assertEquals(1,
-            circle.compareTo(new TestCircle(new TestPoint(2), 1))
-        );
+        assertThat(circle.compareTo(new TestCircle(new TestPoint(2), 3))).isEqualTo(0);
+        assertThat(circle.compareTo(new TestCircle(new TestPoint(3), 3))).isEqualTo(-1);
+        assertThat(circle.compareTo(new TestCircle(new TestPoint(2), 1))).isEqualTo(1);
     }
 
     @Test
