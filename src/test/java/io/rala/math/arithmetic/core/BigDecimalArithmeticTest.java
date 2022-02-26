@@ -57,7 +57,7 @@ class BigDecimalArithmeticTest {
 
     @Test
     void compare() {
-        assertThat(arithmetic.compare(BigDecimal.ONE, BigDecimal.ONE)).isEqualTo(0);
+        assertThat(arithmetic.compare(BigDecimal.ONE, BigDecimal.ONE)).isZero();
         assertThat(arithmetic.compare(BigDecimal.ONE, BigDecimal.valueOf(2))).isEqualTo(-1);
         assertThat(arithmetic.compare(BigDecimal.valueOf(2), BigDecimal.ONE)).isEqualTo(1);
     }
@@ -178,12 +178,12 @@ class BigDecimalArithmeticTest {
     @Test
     void hashCodeOfArithmetic() {
         // hashCode of RoundingMode enum changing after every start
-        assertThat(new BigDecimalArithmetic().hashCode()).isEqualTo(new BigDecimalArithmetic().hashCode());
+        assertThat(new BigDecimalArithmetic()).hasSameHashCodeAs(new BigDecimalArithmetic());
     }
 
     @Test
     void toStringOfArithmetic() {
-        assertThat(new BigDecimalArithmetic().toString()).isEqualTo("BigDecimalArithmetic");
+        assertThat(new BigDecimalArithmetic()).hasToString("BigDecimalArithmetic");
     }
 
     @Test

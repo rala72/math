@@ -260,7 +260,7 @@ class BigDecimalPointTest {
         Point<BigDecimal> point = new BigDecimalPoint(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        assertThat(point.toString()).isEqualTo("2.0|3.0");
+        assertThat(point).hasToString("2.0|3.0");
     }
 
     @Test
@@ -268,15 +268,16 @@ class BigDecimalPointTest {
         Point<BigDecimal> point = new BigDecimalPoint(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        assertThat(point.compareTo(new BigDecimalPoint(
-            BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
-        ))).isEqualTo(0);
-        assertThat(point.compareTo(new BigDecimalPoint(
-            BigDecimal.valueOf(3d), BigDecimal.ONE
-        ))).isEqualTo(-1);
-        assertThat(point.compareTo(new BigDecimalPoint(
-            BigDecimal.valueOf(2d), BigDecimal.valueOf(2d)
-        ))).isEqualTo(1);
+        assertThat(point)
+            .isEqualByComparingTo(new BigDecimalPoint(
+                BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
+            ))
+            .isLessThan(new BigDecimalPoint(
+                BigDecimal.valueOf(3d), BigDecimal.ONE
+            ))
+            .isGreaterThan(new BigDecimalPoint(
+                BigDecimal.valueOf(2d), BigDecimal.valueOf(2d)
+            ));
     }
 
     @Test

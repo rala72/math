@@ -473,7 +473,7 @@ class BigDecimalVectorTest {
         Vector<BigDecimal> vector = new BigDecimalVector(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        assertThat(vector.toString()).isEqualTo("2.0:3.0");
+        assertThat(vector).hasToString("2.0:3.0");
     }
 
     @Test
@@ -481,15 +481,10 @@ class BigDecimalVectorTest {
         Vector<BigDecimal> vector = new BigDecimalVector(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        assertThat(vector.compareTo(
-            new BigDecimalVector(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d))
-        )).isEqualTo(0);
-        assertThat(vector.compareTo(
-            new BigDecimalVector(BigDecimal.valueOf(3d), BigDecimal.ONE)
-        )).isEqualTo(-1);
-        assertThat(vector.compareTo(
-            new BigDecimalVector(BigDecimal.ONE, BigDecimal.ZERO)
-        )).isEqualTo(1);
+        assertThat(vector)
+            .isEqualByComparingTo(new BigDecimalVector(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)))
+            .isLessThan(new BigDecimalVector(BigDecimal.valueOf(3d), BigDecimal.ONE))
+            .isGreaterThan(new BigDecimalVector(BigDecimal.ONE, BigDecimal.ZERO));
     }
 
     @Test

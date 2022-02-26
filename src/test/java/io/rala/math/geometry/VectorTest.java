@@ -340,15 +340,16 @@ class VectorTest {
     @Test
     void toStringOfVectorWithX2Y3() {
         Vector<Number> vector = new TestVector(2, 3);
-        assertThat(vector.toString()).isEqualTo("2:3");
+        assertThat(vector).hasToString("2:3");
     }
 
     @Test
     void compareToOfVectorWithX2Y3() {
         Vector<Number> vector = new TestVector(2, 3);
-        assertThat(vector.compareTo(new TestVector(2, 3))).isEqualTo(0);
-        assertThat(vector.compareTo(new TestVector(3, 1))).isEqualTo(-1);
-        assertThat(vector.compareTo(new TestVector(1, 0))).isEqualTo(1);
+        assertThat(vector)
+            .isEqualByComparingTo(new TestVector(2, 3))
+            .isLessThan(new TestVector(3, 1))
+            .isGreaterThan(new TestVector(1, 0));
     }
 
     @Test

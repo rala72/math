@@ -54,7 +54,7 @@ class DoubleArithmeticTest {
 
     @Test
     void compare() {
-        assertThat(arithmetic.compare(1d, 1d)).isEqualTo(0);
+        assertThat(arithmetic.compare(1d, 1d)).isZero();
         assertThat(arithmetic.compare(1d, 2d)).isEqualTo(-1);
         assertThat(arithmetic.compare(2d, 1d)).isEqualTo(1);
     }
@@ -173,7 +173,7 @@ class DoubleArithmeticTest {
 
     @Test
     void toStringOfArithmetic() {
-        assertThat(new DoubleArithmetic().toString()).isEqualTo("DoubleArithmetic");
+        assertThat(new DoubleArithmetic()).hasToString("DoubleArithmetic");
     }
 
     @Test

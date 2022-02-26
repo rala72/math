@@ -97,10 +97,10 @@ class DoubleMatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, (double) i);
         List<Matrix<Double>.Field> row0 = matrix.getRowFields(0);
-        assertThat(row0.size()).isEqualTo(2);
+        assertThat(row0).hasSize(2);
         for (int i = 0; i < row0.size(); i++) {
             Matrix<Double>.Field field = row0.get(i);
-            assertThat(field.getRow()).isEqualTo(0);
+            assertThat(field.getRow()).isZero();
             assertThat(field.getCol()).isEqualTo(i);
             assertThat(field.getValue()).isEqualTo(i);
         }
@@ -112,7 +112,7 @@ class DoubleMatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, (double) i);
         List<Double> row0 = matrix.getRow(0);
-        assertThat(row0.size()).isEqualTo(2);
+        assertThat(row0).hasSize(2);
         for (int i = 0; i < row0.size(); i++)
             assertThat(row0.get(i)).isEqualTo(i);
     }
@@ -130,10 +130,10 @@ class DoubleMatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, (double) i);
         List<Matrix<Double>.Field> col0 = matrix.getColFields(0);
-        assertThat(col0.size()).isEqualTo(2);
+        assertThat(col0).hasSize(2);
         for (int i = 0; i < col0.size(); i++) {
             Matrix<Double>.Field field = col0.get(i);
-            assertThat(field.getCol()).isEqualTo(0);
+            assertThat(field.getCol()).isZero();
             assertThat(field.getRow()).isEqualTo(i);
             assertThat(field.getValue()).isEqualTo(i * 2);
         }
@@ -145,7 +145,7 @@ class DoubleMatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, (double) i);
         List<Double> col0 = matrix.getCol(0);
-        assertThat(col0.size()).isEqualTo(2);
+        assertThat(col0).hasSize(2);
         for (int i = 0; i < col0.size(); i++)
             assertThat(col0.get(i)).isEqualTo(i * 2);
     }
@@ -620,7 +620,7 @@ class DoubleMatrixTest {
     @Test
     void determinanteOfEmptyMatrixWithSize2() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertThat(matrix.determinante()).isEqualTo(0);
+        assertThat(matrix.determinante()).isZero();
     }
 
     @Test
@@ -636,7 +636,7 @@ class DoubleMatrixTest {
         DoubleMatrix matrix = new DoubleMatrix(3);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i + 1d);
-        assertThat(matrix.determinante()).isEqualTo(0);
+        assertThat(matrix.determinante()).isZero();
     }
 
     @Test
@@ -777,7 +777,7 @@ class DoubleMatrixTest {
             values.add(d);
             assertThat(d.getValue()).isEqualTo(0d);
         }
-        assertThat(values.size()).isEqualTo(matrix.size());
+        assertThat(values).hasSize((int) matrix.size());
     }
 
     @Test
@@ -807,7 +807,7 @@ class DoubleMatrixTest {
     @Test
     void toStringOfDoubleMatrixWithRow2Col3() {
         DoubleMatrix matrix = new DoubleMatrix(2, 3);
-        assertThat(matrix.toString()).isEqualTo("2 3: []");
+        assertThat(matrix).hasToString("2 3: []");
     }
 
     @Test

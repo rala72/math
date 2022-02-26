@@ -30,7 +30,7 @@ class BigIntegerBigDecimalResultArithmeticTest {
     void constructorWithMathContext() {
         BigIntegerBigDecimalResultArithmetic arithmetic =
             new BigIntegerBigDecimalResultArithmetic(new MathContext(5));
-        assertThat(arithmetic.getRArithmetic() instanceof BigDecimalArithmetic).isTrue();
+        assertThat(arithmetic.getRArithmetic()).isInstanceOf(BigDecimalArithmetic.class);
         BigDecimalArithmetic rArithmetic =
             (BigDecimalArithmetic) arithmetic.getRArithmetic();
         assertThat(rArithmetic.getMathContext().getPrecision()).isEqualTo(5);
@@ -95,7 +95,7 @@ class BigIntegerBigDecimalResultArithmeticTest {
     void mapToInteger() {
         AbstractResultArithmetic<Integer, BigDecimal> mapped =
             arithmetic.map(new IntegerArithmetic(), BigDecimal::valueOf);
-        assertThat(mapped.getTArithmetic() instanceof IntegerArithmetic).isTrue();
+        assertThat(mapped.getTArithmetic()).isInstanceOf(IntegerArithmetic.class);
         assertThat(arithmetic.quotient(BigInteger.ONE, BigInteger.TWO)).isEqualTo(BigDecimal.valueOf(0.5));
         assertThat(mapped.quotient(1, 2)).isEqualTo(BigDecimal.valueOf(0.5));
     }
@@ -104,9 +104,9 @@ class BigIntegerBigDecimalResultArithmeticTest {
     void mapResultToInteger() {
         AbstractResultArithmetic<BigInteger, Integer> mapped =
             arithmetic.mapResult(new IntegerArithmetic(), BigInteger::intValue);
-        assertThat(mapped.getRArithmetic() instanceof IntegerArithmetic).isTrue();
+        assertThat(mapped.getRArithmetic()).isInstanceOf(IntegerArithmetic.class);
         assertThat(arithmetic.quotient(BigInteger.ONE, BigInteger.TWO)).isEqualTo(BigDecimal.valueOf(0.5));
-        assertThat(mapped.quotient(BigInteger.ONE, BigInteger.TWO)).isEqualTo(0);
+        assertThat(mapped.quotient(BigInteger.ONE, BigInteger.TWO)).isZero();
     }
 
     // endregion
@@ -121,8 +121,8 @@ class BigIntegerBigDecimalResultArithmeticTest {
     @Test
     void hashCodeOfAbstractResultArithmetic() {
         // hashCode of RoundingMode enum changing after every start
-        assertThat(new BigIntegerBigDecimalResultArithmetic().hashCode())
-            .isEqualTo(new BigIntegerBigDecimalResultArithmetic().hashCode());
+        assertThat(new BigIntegerBigDecimalResultArithmetic())
+            .hasSameHashCodeAs(new BigIntegerBigDecimalResultArithmetic());
     }
 
     @Test
@@ -130,7 +130,7 @@ class BigIntegerBigDecimalResultArithmeticTest {
         String toString = "BigIntegerBigDecimalResultArithmetic{" +
             "tArithmetic=BigIntegerArithmetic, " +
             "rArithmetic=BigDecimalArithmetic}";
-        assertThat(new BigIntegerBigDecimalResultArithmetic().toString()).isEqualTo(toString);
+        assertThat(new BigIntegerBigDecimalResultArithmetic()).hasToString(toString);
     }
 
     @Test

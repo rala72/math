@@ -129,7 +129,7 @@ class ComplexTest {
 
     @Test
     void complexSignumOfComplexWithoutParameter() {
-        assertThat(new TestComplex().complexSignum()).isEqualTo(0);
+        assertThat(new TestComplex().complexSignum()).isZero();
     }
 
     @Test
@@ -144,12 +144,12 @@ class ComplexTest {
 
     @Test
     void complexSignumOfComplexX0Y1() {
-        assertThat(new TestComplex(0, 1).complexSignum()).isEqualTo(0);
+        assertThat(new TestComplex(0, 1).complexSignum()).isZero();
     }
 
     @Test
     void complexSignumOfComplexX0YMinus1() {
-        assertThat(new TestComplex(0, -1).complexSignum()).isEqualTo(0);
+        assertThat(new TestComplex(0, -1).complexSignum()).isZero();
     }
 
     // endregion
@@ -407,15 +407,16 @@ class ComplexTest {
     @Test
     void toStringOfComplexWithReIm() {
         TestComplex complex = new TestComplex(2, 3);
-        assertThat(complex.toString()).isEqualTo("2+3*i");
+        assertThat(complex).hasToString("2+3*i");
     }
 
     @Test
     void compareToOfComplexWithReIm() {
         TestComplex complex = new TestComplex(2, 3);
-        assertThat(complex.compareTo(new TestComplex(2, 3))).isEqualTo(0);
-        assertThat(complex.compareTo(new TestComplex(3, 1))).isEqualTo(-1);
-        assertThat(complex.compareTo(new TestComplex(2, 1))).isEqualTo(1);
+        assertThat(complex)
+            .isEqualByComparingTo(new TestComplex(2, 3))
+            .isLessThan(new TestComplex(3, 1))
+            .isGreaterThan(new TestComplex(2, 1));
     }
 
     @Test

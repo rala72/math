@@ -476,7 +476,7 @@ class BigDecimalTriangleTest {
             new BigDecimalPoint(BigDecimal.valueOf(3d)),
             new BigDecimalPoint(BigDecimal.valueOf(4d))
         );
-        assertThat(triangle.toString()).isEqualTo("2.0|2.0 3.0|3.0 4.0|4.0");
+        assertThat(triangle).hasToString("2.0|2.0 3.0|3.0 4.0|4.0");
     }
 
     @Test
@@ -486,21 +486,22 @@ class BigDecimalTriangleTest {
             new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ZERO),
             new BigDecimalPoint(BigDecimal.ONE)
         );
-        assertThat(triangle.compareTo(new BigDecimalTriangle(
-            new BigDecimalPoint(BigDecimal.ZERO),
-            new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ZERO),
-            new BigDecimalPoint(BigDecimal.ONE)
-        ))).isEqualTo(0);
-        assertThat(triangle.compareTo(new BigDecimalTriangle(
-            new BigDecimalPoint(BigDecimal.ONE.negate()),
-            new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ZERO),
-            new BigDecimalPoint(BigDecimal.ONE)
-        ))).isEqualTo(-1);
-        assertThat(triangle.compareTo(new BigDecimalTriangle(
-            new BigDecimalPoint(BigDecimal.valueOf(0.5), BigDecimal.ONE),
-            new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(0.5)),
-            new BigDecimalPoint(BigDecimal.ONE)
-        ))).isEqualTo(1);
+        assertThat(triangle)
+            .isEqualByComparingTo(new BigDecimalTriangle(
+                new BigDecimalPoint(BigDecimal.ZERO),
+                new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ZERO),
+                new BigDecimalPoint(BigDecimal.ONE)
+            ))
+            .isLessThan(new BigDecimalTriangle(
+                new BigDecimalPoint(BigDecimal.ONE.negate()),
+                new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ZERO),
+                new BigDecimalPoint(BigDecimal.ONE)
+            ))
+            .isGreaterThan(new BigDecimalTriangle(
+                new BigDecimalPoint(BigDecimal.valueOf(0.5), BigDecimal.ONE),
+                new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(0.5)),
+                new BigDecimalPoint(BigDecimal.ONE)
+            ));
     }
 
     @Test

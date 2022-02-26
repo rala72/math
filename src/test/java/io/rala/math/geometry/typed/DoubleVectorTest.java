@@ -348,15 +348,16 @@ class DoubleVectorTest {
     @Test
     void toStringOfVectorWithX2Y3() {
         Vector<Double> vector = new DoubleVector(2d, 3d);
-        assertThat(vector.toString()).isEqualTo("2.0:3.0");
+        assertThat(vector).hasToString("2.0:3.0");
     }
 
     @Test
     void compareToOfVectorWithX2Y3() {
         Vector<Double> vector = new DoubleVector(2d, 3d);
-        assertThat(vector.compareTo(new DoubleVector(2d, 3d))).isEqualTo(0);
-        assertThat(vector.compareTo(new DoubleVector(3d, 1d))).isEqualTo(-1);
-        assertThat(vector.compareTo(new DoubleVector(1d, 0d))).isEqualTo(1);
+        assertThat(vector)
+            .isEqualByComparingTo(new DoubleVector(2d, 3d))
+            .isLessThan(new DoubleVector(3d, 1d))
+            .isGreaterThan(new DoubleVector(1d, 0d));
     }
 
     @Test

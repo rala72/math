@@ -79,12 +79,12 @@ class FractionTest {
 
     @Test
     void intValueOf1_2() {
-        assertThat(new TestFraction(1, 2).intValue()).isEqualTo(0);
+        assertThat(new TestFraction(1, 2).intValue()).isZero();
     }
 
     @Test
     void longValueOf1_2() {
-        assertThat(new TestFraction(1, 2).longValue()).isEqualTo(0);
+        assertThat(new TestFraction(1, 2).longValue()).isZero();
     }
 
     @Test
@@ -297,15 +297,16 @@ class FractionTest {
     @Test
     void toStringOfFractionWithNuDe() {
         TestFraction complex = new TestFraction(2, 3);
-        assertThat(complex.toString()).isEqualTo("2/3");
+        assertThat(complex).hasToString("2/3");
     }
 
     @Test
     void compareToOfFractionWithNuDe() {
         TestFraction complex = new TestFraction(2, 3);
-        assertThat(complex.compareTo(new TestFraction(2, 3))).isEqualTo(0);
-        assertThat(complex.compareTo(new TestFraction(3, 1))).isEqualTo(-1);
-        assertThat(complex.compareTo(new TestFraction(1, 2))).isEqualTo(1);
+        assertThat(complex)
+            .isEqualByComparingTo(new TestFraction(2, 3))
+            .isLessThan(new TestFraction(3, 1))
+            .isGreaterThan(new TestFraction(1, 2));
     }
 
     @Test

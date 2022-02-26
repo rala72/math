@@ -63,8 +63,8 @@ class AbstractSolverTest {
     @Test
     void hashCodeOfTestAbstractSolver() {
         // hashCode changing after every start
-        assertThat(new TestAbstractSolver(equationSystem).hashCode())
-            .isEqualTo(new TestAbstractSolver(equationSystem).hashCode());
+        assertThat(new TestAbstractSolver(equationSystem))
+            .hasSameHashCodeAs(new TestAbstractSolver(equationSystem));
     }
 
     @Test
@@ -73,8 +73,9 @@ class AbstractSolverTest {
         solver.reset();
         String toStringPrefix = "io.rala.math.testUtils.algebra.equation.TestAbstractEquationSystem@";
         String toStringSuffix = " -> null";
-        assertThat(solver.toString().startsWith(toStringPrefix)).isTrue();
-        assertThat(solver.toString().endsWith(toStringSuffix)).isFalse();
+        assertThat(solver.toString())
+            .startsWith(toStringPrefix)
+            .doesNotEndWith(toStringSuffix);
     }
 
     // endregion

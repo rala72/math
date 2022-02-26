@@ -84,7 +84,7 @@ class DoubleComplexTest {
 
     @Test
     void absoluteValueOfComplexWithoutParameter() {
-        assertThat(new DoubleComplex().absoluteValue()).isEqualTo(0);
+        assertThat(new DoubleComplex().absoluteValue()).isZero();
     }
 
     @Test
@@ -109,7 +109,7 @@ class DoubleComplexTest {
 
     @Test
     void argumentOfComplexX1Y0() {
-        assertThat(new DoubleComplex(1d, 0d).argument()).isEqualTo(0);
+        assertThat(new DoubleComplex(1d, 0d).argument()).isZero();
     }
 
     @Test
@@ -130,7 +130,7 @@ class DoubleComplexTest {
 
     @Test
     void complexSignumOfComplexWithoutParameter() {
-        assertThat(new DoubleComplex().complexSignum()).isEqualTo(0);
+        assertThat(new DoubleComplex().complexSignum()).isZero();
     }
 
     @Test
@@ -399,15 +399,16 @@ class DoubleComplexTest {
     @Test
     void toStringOfComplexWithReIm() {
         Complex<Double> complex = new DoubleComplex(2d, 3d);
-        assertThat(complex.toString()).isEqualTo("2.0+3.0*i");
+        assertThat(complex).hasToString("2.0+3.0*i");
     }
 
     @Test
     void compareToOfComplexWithReIm() {
         Complex<Double> complex = new DoubleComplex(2d, 3d);
-        assertThat(complex.compareTo(new DoubleComplex(2d, 3d))).isEqualTo(0);
-        assertThat(complex.compareTo(new DoubleComplex(3d, 1d))).isEqualTo(-1);
-        assertThat(complex.compareTo(new DoubleComplex(2d, 1d))).isEqualTo(1);
+        assertThat(complex)
+            .isEqualByComparingTo(new DoubleComplex(2d, 3d))
+            .isLessThan(new DoubleComplex(3d, 1d))
+            .isGreaterThan(new DoubleComplex(2d, 1d));
     }
 
     @Test

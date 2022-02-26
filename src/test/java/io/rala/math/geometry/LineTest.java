@@ -328,24 +328,24 @@ class LineTest {
     @Test
     void toStringOfLineWithMB() {
         Line<Number> line = new TestLine(2d, 3d);
-        assertThat(line.toString()).isEqualTo("y=2.0*x+3.0");
+        assertThat(line).hasToString("y=2.0*x+3.0");
     }
 
     @Test
     void toStringOfVerticalLine() {
         Line<Number> line = new TestLine(1d);
-        assertThat(line.toString()).isEqualTo("y=1.0");
+        assertThat(line).hasToString("y=1.0");
     }
 
     @Test
     void compareToOfLineWithMB() {
         Line<Number> line = new TestLine(2, 3);
-        assertThat(line.compareTo(new TestLine(2, 3))).isEqualTo(0);
-        assertThat(line.compareTo(new TestLine(3, 1))).isEqualTo(-1);
-        assertThat(line.compareTo(new TestLine(2, 1))).isEqualTo(1);
-
-        assertThat(line.compareTo(new TestLine(null, 1))).isEqualTo(1);
-        assertThat(new TestLine(null, 1).compareTo(line)).isEqualTo(-1);
+        assertThat(line)
+            .isEqualByComparingTo(new TestLine(2, 3))
+            .isLessThan(new TestLine(3, 1))
+            .isGreaterThan(new TestLine(2, 1))
+            .isGreaterThan(new TestLine(null, 1));
+        assertThat((Line<Number>) new TestLine(null, 1)).isLessThan(line);
     }
 
     @Test

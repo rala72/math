@@ -75,7 +75,7 @@ class LongDoubleResultArithmeticTest {
     void mapToInteger() {
         AbstractResultArithmetic<Integer, Double> mapped =
             arithmetic.map(new IntegerArithmetic(), Number::doubleValue);
-        assertThat(mapped.getTArithmetic() instanceof IntegerArithmetic).isTrue();
+        assertThat(mapped.getTArithmetic()).isInstanceOf(IntegerArithmetic.class);
         assertThat(arithmetic.quotient(1L, 2L)).isEqualTo(0.5);
         assertThat(mapped.quotient(1, 2)).isEqualTo(0.5);
     }
@@ -84,9 +84,9 @@ class LongDoubleResultArithmeticTest {
     void mapResultToInteger() {
         AbstractResultArithmetic<Long, Integer> mapped =
             arithmetic.mapResult(new IntegerArithmetic(), Long::intValue);
-        assertThat(mapped.getRArithmetic() instanceof IntegerArithmetic).isTrue();
+        assertThat(mapped.getRArithmetic()).isInstanceOf(IntegerArithmetic.class);
         assertThat(arithmetic.quotient(1L, 2L)).isEqualTo(0.5);
-        assertThat(mapped.quotient(1L, 2L)).isEqualTo(0);
+        assertThat(mapped.quotient(1L, 2L)).isZero();
     }
 
     // endregion
@@ -108,7 +108,7 @@ class LongDoubleResultArithmeticTest {
         String toString = "LongDoubleResultArithmetic{" +
             "tArithmetic=LongArithmetic, " +
             "rArithmetic=DoubleArithmetic}";
-        assertThat(new LongDoubleResultArithmetic().toString()).isEqualTo(toString);
+        assertThat(new LongDoubleResultArithmetic()).hasToString(toString);
     }
 
     @Test

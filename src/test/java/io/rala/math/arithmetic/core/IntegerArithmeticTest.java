@@ -52,7 +52,7 @@ class IntegerArithmeticTest {
 
     @Test
     void compare() {
-        assertThat(arithmetic.compare(1, 1)).isEqualTo(0);
+        assertThat(arithmetic.compare(1, 1)).isZero();
         assertThat(arithmetic.compare(1, 2)).isEqualTo(-1);
         assertThat(arithmetic.compare(2, 1)).isEqualTo(1);
     }
@@ -117,7 +117,7 @@ class IntegerArithmeticTest {
 
     @Test
     void quotient12() {
-        assertThat(arithmetic.quotient(1, 2)).isEqualTo(0);
+        assertThat(arithmetic.quotient(1, 2)).isZero();
     }
 
     @Test
@@ -169,7 +169,7 @@ class IntegerArithmeticTest {
 
     @Test
     void toStringOfArithmetic() {
-        assertThat(new IntegerArithmetic().toString()).isEqualTo("IntegerArithmetic");
+        assertThat(new IntegerArithmetic()).hasToString("IntegerArithmetic");
     }
 
     @Test

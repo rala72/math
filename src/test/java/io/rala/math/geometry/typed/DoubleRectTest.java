@@ -308,15 +308,16 @@ class DoubleRectTest {
     @Test
     void toStringOfRectWithPointHeightAndWidth() {
         Rect<Double> rect = new DoubleRect(new DoublePoint(2d), new DoublePoint(3d), 4d);
-        assertThat(rect.toString()).isEqualTo("2.0|2.0 3.0|3.0 4.0");
+        assertThat(rect).hasToString("2.0|2.0 3.0|3.0 4.0");
     }
 
     @Test
     void compareToOfRectWithPointHeightAndWidth() {
         Rect<Double> rect = new DoubleRect(1d, 2d);
-        assertThat(rect.compareTo(new DoubleRect(1d, 2d))).isEqualTo(0);
-        assertThat(rect.compareTo(new DoubleRect(2d, 3d))).isEqualTo(-1);
-        assertThat(rect.compareTo(new DoubleRect(1d, 1d))).isEqualTo(1);
+        assertThat(rect)
+            .isEqualByComparingTo(new DoubleRect(1d, 2d))
+            .isLessThan(new DoubleRect(2d, 3d))
+            .isGreaterThan(new DoubleRect(1d, 1d));
     }
 
     @Test

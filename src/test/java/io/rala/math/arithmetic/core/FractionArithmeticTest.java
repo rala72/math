@@ -53,7 +53,7 @@ class FractionArithmeticTest {
     @Test
     void compare() {
         TestFraction complex = new TestFraction(2, 3);
-        assertThat(arithmetic.compare(complex, new TestFraction(2, 3))).isEqualTo(0);
+        assertThat(arithmetic.compare(complex, new TestFraction(2, 3))).isZero();
         assertThat(arithmetic.compare(complex, new TestFraction(3, 1))).isEqualTo(-1);
         assertThat(arithmetic.compare(complex, new TestFraction(1, 2))).isEqualTo(1);
     }
@@ -215,7 +215,7 @@ class FractionArithmeticTest {
 
     @Test
     void toStringOfArithmetic() {
-        assertThat(new TestFractionArithmetic().toString()).isEqualTo("TestFractionArithmetic");
+        assertThat(new TestFractionArithmetic()).hasToString("TestFractionArithmetic");
     }
 
     @Test

@@ -79,12 +79,12 @@ class LongDoubleFractionTest {
 
     @Test
     void intValueOf1_2() {
-        assertThat(new LongDoubleFraction(1, 2L).intValue()).isEqualTo(0);
+        assertThat(new LongDoubleFraction(1, 2L).intValue()).isZero();
     }
 
     @Test
     void longValueOf1_2() {
-        assertThat(new LongDoubleFraction(1, 2L).longValue()).isEqualTo(0);
+        assertThat(new LongDoubleFraction(1, 2L).longValue()).isZero();
     }
 
     @Test
@@ -286,15 +286,16 @@ class LongDoubleFractionTest {
     @Test
     void toStringOfFractionWithNuDe() {
         LongDoubleFraction complex = new LongDoubleFraction(2, 3L);
-        assertThat(complex.toString()).isEqualTo("2/3");
+        assertThat(complex).hasToString("2/3");
     }
 
     @Test
     void compareToOfFractionWithNuDe() {
         LongDoubleFraction complex = new LongDoubleFraction(2, 3L);
-        assertThat(complex.compareTo(new LongDoubleFraction(2, 3L))).isEqualTo(0);
-        assertThat(complex.compareTo(new LongDoubleFraction(3, 1L))).isEqualTo(-1);
-        assertThat(complex.compareTo(new LongDoubleFraction(1, 2L))).isEqualTo(1);
+        assertThat(complex)
+            .isEqualByComparingTo(new LongDoubleFraction(2, 3L))
+            .isLessThan(new LongDoubleFraction(3, 1L))
+            .isGreaterThan(new LongDoubleFraction(1, 2L));
     }
 
     @Test

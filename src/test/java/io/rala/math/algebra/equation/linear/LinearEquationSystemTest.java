@@ -157,8 +157,8 @@ class LinearEquationSystemTest {
     @Test
     void hashCodeOfTestAbstractSolver() {
         // hashCode changing after every start
-        assertThat(new LinearEquationSystem<>(matrix, vector).hashCode())
-            .isEqualTo(new LinearEquationSystem<>(matrix, vector).hashCode());
+        assertThat(new LinearEquationSystem<>(matrix, vector))
+            .hasSameHashCodeAs(new LinearEquationSystem<>(matrix, vector));
     }
 
     @Test
@@ -166,7 +166,7 @@ class LinearEquationSystemTest {
         LinearEquationSystem<Number> equationSystem =
             new LinearEquationSystem<>(matrix, vector);
         String toString = "2 1: [0={0=1}, 1={0=3}] - 2: [0=2, 1=4]";
-        assertThat(equationSystem.toString()).isEqualTo(toString);
+        assertThat(equationSystem).hasToString(toString);
     }
 
     // endregion
@@ -178,7 +178,7 @@ class LinearEquationSystemTest {
         LinearEquationSystem.LinearEquationMatrix<Number> equationMatrix =
             new LinearEquationSystem.LinearEquationMatrix<>(matrix);
         assertThat(matrix).isEqualTo(equationMatrix);
-        assertThat(equationMatrix.getArithmetic() instanceof TestAbstractArithmetic).isTrue();
+        assertThat(equationMatrix.getArithmetic()).isInstanceOf(TestAbstractArithmetic.class);
     }
 
     @Test
@@ -203,7 +203,7 @@ class LinearEquationSystemTest {
         LinearEquationSystem.LinearEquationVector<Number> equationVector =
             new LinearEquationSystem.LinearEquationVector<>(vector);
         assertThat(vector).isEqualTo(equationVector);
-        assertThat(equationVector.getArithmetic() instanceof TestAbstractArithmetic).isTrue();
+        assertThat(equationVector.getArithmetic()).isInstanceOf(TestAbstractArithmetic.class);
     }
 
     @Test

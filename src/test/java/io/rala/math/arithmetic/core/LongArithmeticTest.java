@@ -52,7 +52,7 @@ class LongArithmeticTest {
 
     @Test
     void compare() {
-        assertThat(arithmetic.compare(1L, 1L)).isEqualTo(0);
+        assertThat(arithmetic.compare(1L, 1L)).isZero();
         assertThat(arithmetic.compare(1L, 2L)).isEqualTo(-1);
         assertThat(arithmetic.compare(2L, 1L)).isEqualTo(1);
     }
@@ -117,7 +117,7 @@ class LongArithmeticTest {
 
     @Test
     void quotient12() {
-        assertThat(arithmetic.quotient(1L, 2L)).isEqualTo(0);
+        assertThat(arithmetic.quotient(1L, 2L)).isZero();
     }
 
     @Test
@@ -169,7 +169,7 @@ class LongArithmeticTest {
 
     @Test
     void toStringOfArithmetic() {
-        assertThat(new LongArithmetic().toString()).isEqualTo("LongArithmetic");
+        assertThat(new LongArithmetic()).hasToString("LongArithmetic");
     }
 
     @Test

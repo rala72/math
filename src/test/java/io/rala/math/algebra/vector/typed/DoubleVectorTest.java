@@ -15,7 +15,7 @@ import static io.rala.math.testUtils.assertion.VectorAssertions.assertVector;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-public class DoubleVectorTest {
+class DoubleVectorTest {
     // region constructors
 
     @Test
@@ -656,7 +656,7 @@ public class DoubleVectorTest {
             values.add(d);
             assertThat(d.getValue()).isEqualTo(0d);
         }
-        assertThat(values.size()).isEqualTo(vector.getSize());
+        assertThat(values).hasSize(vector.getSize());
     }
 
     @Test
@@ -681,13 +681,13 @@ public class DoubleVectorTest {
     @Test
     void hashCodeOfDoubleVectorWithSize2() {
         // hashCode changing after every start
-        assertThat(new DoubleVector(2).hashCode()).isEqualTo(new DoubleVector(2).hashCode());
+        assertThat(new DoubleVector(2)).hasSameHashCodeAs(new DoubleVector(2));
     }
 
     @Test
     void toStringOfDoubleVectorWithSize2() {
         DoubleVector vector = new DoubleVector(2);
-        assertThat(vector.toString()).isEqualTo("2: []");
+        assertThat(vector).hasToString("2: []");
     }
 
     @Test

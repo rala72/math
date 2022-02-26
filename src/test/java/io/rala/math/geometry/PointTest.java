@@ -173,15 +173,16 @@ class PointTest {
     @Test
     void toStringOfPointWithXY() {
         Point<Number> point = new TestPoint(2, 3);
-        assertThat(point.toString()).isEqualTo("2|3");
+        assertThat(point).hasToString("2|3");
     }
 
     @Test
     void compareToOfPointWithXY() {
         Point<Number> point = new TestPoint(2, 3);
-        assertThat(point.compareTo(new TestPoint(2, 3))).isEqualTo(0);
-        assertThat(point.compareTo(new TestPoint(3, 1))).isEqualTo(-1);
-        assertThat(point.compareTo(new TestPoint(2, 2))).isEqualTo(1);
+        assertThat(point)
+            .isEqualByComparingTo(new TestPoint(2, 3))
+            .isLessThan(new TestPoint(3, 1))
+            .isGreaterThan(new TestPoint(2, 2));
     }
 
     @Test

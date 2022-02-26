@@ -230,15 +230,16 @@ class CircleTest {
     @Test
     void toStringOfCircleWithPointAndRadius() {
         Circle<Number> circle = new TestCircle(new TestPoint(2d), 3d);
-        assertThat(circle.toString()).isEqualTo("2.0|2.0 3.0");
+        assertThat(circle).hasToString("2.0|2.0 3.0");
     }
 
     @Test
     void compareToOfCircleWithCenterAndRadius() {
         Circle<Number> circle = new TestCircle(new TestPoint(2), 3);
-        assertThat(circle.compareTo(new TestCircle(new TestPoint(2), 3))).isEqualTo(0);
-        assertThat(circle.compareTo(new TestCircle(new TestPoint(3), 3))).isEqualTo(-1);
-        assertThat(circle.compareTo(new TestCircle(new TestPoint(2), 1))).isEqualTo(1);
+        assertThat(circle)
+            .isEqualByComparingTo(new TestCircle(new TestPoint(2), 3))
+            .isLessThan(new TestCircle(new TestPoint(3), 3))
+            .isGreaterThan(new TestCircle(new TestPoint(2), 1));
     }
 
     @Test

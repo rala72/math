@@ -326,7 +326,7 @@ class BigDecimalCircleTest {
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             BigDecimal.valueOf(3d)
         );
-        assertThat(circle.toString()).isEqualTo("2.0|2.0 3.0");
+        assertThat(circle).hasToString("2.0|2.0 3.0");
     }
 
     @Test
@@ -335,15 +335,16 @@ class BigDecimalCircleTest {
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             BigDecimal.valueOf(3d)
         );
-        assertThat(circle.compareTo(new BigDecimalCircle(
-            new BigDecimalPoint(BigDecimal.valueOf(2d)), BigDecimal.valueOf(3d)
-        ))).isEqualTo(0);
-        assertThat(circle.compareTo(new BigDecimalCircle(
-            new BigDecimalPoint(BigDecimal.valueOf(3d)), BigDecimal.valueOf(3d)
-        ))).isEqualTo(-1);
-        assertThat(circle.compareTo(new BigDecimalCircle(
-            new BigDecimalPoint(BigDecimal.valueOf(2d)), BigDecimal.ONE
-        ))).isEqualTo(1);
+        assertThat(circle)
+            .isEqualByComparingTo(new BigDecimalCircle(
+                new BigDecimalPoint(BigDecimal.valueOf(2d)), BigDecimal.valueOf(3d)
+            ))
+            .isLessThan(new BigDecimalCircle(
+                new BigDecimalPoint(BigDecimal.valueOf(3d)), BigDecimal.valueOf(3d)
+            ))
+            .isGreaterThan(new BigDecimalCircle(
+                new BigDecimalPoint(BigDecimal.valueOf(2d)), BigDecimal.ONE
+            ));
     }
 
     @Test

@@ -238,15 +238,16 @@ class DoubleCircleTest {
     @Test
     void toStringOfCircleWithPointAndRadius() {
         Circle<Double> circle = new DoubleCircle(new DoublePoint(2d), 3d);
-        assertThat(circle.toString()).isEqualTo("2.0|2.0 3.0");
+        assertThat(circle).hasToString("2.0|2.0 3.0");
     }
 
     @Test
     void compareToOfCircleWithCenterAndRadius() {
         Circle<Double> circle = new DoubleCircle(new DoublePoint(2d), 3d);
-        assertThat(circle.compareTo(new DoubleCircle(new DoublePoint(2d), 3d))).isEqualTo(0);
-        assertThat(circle.compareTo(new DoubleCircle(new DoublePoint(3d), 3d))).isEqualTo(-1);
-        assertThat(circle.compareTo(new DoubleCircle(new DoublePoint(2d), 1d))).isEqualTo(1);
+        assertThat(circle)
+            .isEqualByComparingTo(new DoubleCircle(new DoublePoint(2d), 3d))
+            .isLessThan(new DoubleCircle(new DoublePoint(3d), 3d))
+            .isGreaterThan(new DoubleCircle(new DoublePoint(2d), 1d));
     }
 
     @Test

@@ -154,7 +154,7 @@ class GaussSolverTest {
                 0, 1
             )
         ));
-        assertThat(solver.getSwappedCols().isEmpty()).isTrue();
+        assertThat(solver.getSwappedCols()).isEmpty();
     }
 
     @Test
@@ -193,7 +193,7 @@ class GaussSolverTest {
                 0, 1
             )
         ));
-        assertThat(solver.getSwappedCols().isEmpty()).isTrue();
+        assertThat(solver.getSwappedCols()).isEmpty();
     }
 
     @Test
@@ -371,7 +371,7 @@ class GaussSolverTest {
                 0, 1
             )
         ));
-        assertThat(solver.getSwappedCols().isEmpty()).isTrue();
+        assertThat(solver.getSwappedCols()).isEmpty();
     }
 
     @Test
@@ -469,7 +469,7 @@ class GaussSolverTest {
     @Test
     void createAndGetterOfColPair() {
         GaussSolver.ColPair pair = new GaussSolver.ColPair(0, 1);
-        assertThat(pair.getCol1()).isEqualTo(0);
+        assertThat(pair.getCol1()).isZero();
         assertThat(pair.getCol2()).isEqualTo(1);
     }
 
@@ -490,7 +490,7 @@ class GaussSolverTest {
     @Test
     void toStringOfTestAbstractSolver() {
         GaussSolver.ColPair pair = new GaussSolver.ColPair(0, 1);
-        assertThat(pair.toString()).isEqualTo("0 <> 1");
+        assertThat(pair).hasToString("0 <> 1");
     }
 
     // endregion

@@ -364,7 +364,7 @@ class BigDecimalLineSegmentTest {
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             new BigDecimalPoint(BigDecimal.valueOf(3d))
         );
-        assertThat(lineSegment.toString()).isEqualTo("2.0|2.0 3.0|3.0");
+        assertThat(lineSegment).hasToString("2.0|2.0 3.0|3.0");
     }
 
     @Test
@@ -373,18 +373,19 @@ class BigDecimalLineSegmentTest {
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             new BigDecimalPoint(BigDecimal.valueOf(3d))
         );
-        assertThat(lineSegment.compareTo(new BigDecimalLineSegment(
-            new BigDecimalPoint(BigDecimal.valueOf(2d)),
-            new BigDecimalPoint(BigDecimal.valueOf(3d))
-        ))).isEqualTo(0);
-        assertThat(lineSegment.compareTo(new BigDecimalLineSegment(
-            new BigDecimalPoint(BigDecimal.valueOf(3d)),
-            new BigDecimalPoint(BigDecimal.valueOf(4d))
-        ))).isEqualTo(-1);
-        assertThat(lineSegment.compareTo(new BigDecimalLineSegment(
-            new BigDecimalPoint(BigDecimal.ONE),
-            new BigDecimalPoint(BigDecimal.ONE)
-        ))).isEqualTo(1);
+        assertThat(lineSegment)
+            .isEqualByComparingTo(new BigDecimalLineSegment(
+                new BigDecimalPoint(BigDecimal.valueOf(2d)),
+                new BigDecimalPoint(BigDecimal.valueOf(3d))
+            ))
+            .isLessThan(new BigDecimalLineSegment(
+                new BigDecimalPoint(BigDecimal.valueOf(3d)),
+                new BigDecimalPoint(BigDecimal.valueOf(4d))
+            ))
+            .isGreaterThan(new BigDecimalLineSegment(
+                new BigDecimalPoint(BigDecimal.ONE),
+                new BigDecimalPoint(BigDecimal.ONE)
+            ));
     }
 
     @Test

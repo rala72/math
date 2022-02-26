@@ -18,7 +18,7 @@ import static io.rala.math.testUtils.assertion.VectorAssertions.assertVector;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-public class BigDecimalVectorTest {
+class BigDecimalVectorTest {
     // region constructors
 
     @Test
@@ -703,7 +703,7 @@ public class BigDecimalVectorTest {
             values.add(d);
             assertThat(d.getValue()).isEqualTo(BigDecimal.ZERO);
         }
-        assertThat(values.size()).isEqualTo(vector.getSize());
+        assertThat(values).hasSize(vector.getSize());
     }
 
     @Test
@@ -728,13 +728,13 @@ public class BigDecimalVectorTest {
     @Test
     void hashCodeOfBigDecimalVectorWithSize2() {
         // hashCode changing after every start
-        assertThat(new BigDecimalVector(2).hashCode()).isEqualTo(new BigDecimalVector(2).hashCode());
+        assertThat(new BigDecimalVector(2)).hasSameHashCodeAs(new BigDecimalVector(2));
     }
 
     @Test
     void toStringOfBigDecimalVectorWithSize2() {
         BigDecimalVector vector = new BigDecimalVector(2);
-        assertThat(vector.toString()).isEqualTo("2: []");
+        assertThat(vector).hasToString("2: []");
     }
 
     @Test

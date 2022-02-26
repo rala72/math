@@ -184,15 +184,16 @@ class DoublePointTest {
     @Test
     void toStringOfPointWithXY() {
         Point<Double> point = new DoublePoint(2d, 3d);
-        assertThat(point.toString()).isEqualTo("2.0|3.0");
+        assertThat(point).hasToString("2.0|3.0");
     }
 
     @Test
     void compareToOfPointWithXY() {
         Point<Double> point = new DoublePoint(2d, 3d);
-        assertThat(point.compareTo(new DoublePoint(2d, 3d))).isEqualTo(0);
-        assertThat(point.compareTo(new DoublePoint(3d, 1d))).isEqualTo(-1);
-        assertThat(point.compareTo(new DoublePoint(2d, 2d))).isEqualTo(1);
+        assertThat(point)
+            .isEqualByComparingTo(new DoublePoint(2d, 3d))
+            .isLessThan(new DoublePoint(3d, 1d))
+            .isGreaterThan(new DoublePoint(2d, 2d));
     }
 
     @Test

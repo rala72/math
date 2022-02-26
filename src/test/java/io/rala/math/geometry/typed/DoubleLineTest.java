@@ -327,21 +327,22 @@ class DoubleLineTest {
     @Test
     void toStringOfLineWithMB() {
         Line<Double> line = new DoubleLine(2d, 3d);
-        assertThat(line.toString()).isEqualTo("y=2.0*x+3.0");
+        assertThat(line).hasToString("y=2.0*x+3.0");
     }
 
     @Test
     void toStringOfVerticalLine() {
         Line<Double> line = new DoubleLine(1d);
-        assertThat(line.toString()).isEqualTo("y=1.0");
+        assertThat(line).hasToString("y=1.0");
     }
 
     @Test
     void compareToOfLineWithMB() {
         Line<Double> line = new DoubleLine(2d, 3d);
-        assertThat(line.compareTo(new DoubleLine(2d, 3d))).isEqualTo(0);
-        assertThat(line.compareTo(new DoubleLine(3d, 1d))).isEqualTo(-1);
-        assertThat(line.compareTo(new DoubleLine(2d, 1d))).isEqualTo(1);
+        assertThat(line)
+            .isEqualByComparingTo(new DoubleLine(2d, 3d))
+            .isLessThan(new DoubleLine(3d, 1d))
+            .isGreaterThan(new DoubleLine(2d, 1d));
     }
 
     @Test

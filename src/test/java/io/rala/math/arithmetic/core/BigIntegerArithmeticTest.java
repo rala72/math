@@ -54,7 +54,7 @@ class BigIntegerArithmeticTest {
 
     @Test
     void compare() {
-        assertThat(arithmetic.compare(BigInteger.ONE, BigInteger.ONE)).isEqualTo(0);
+        assertThat(arithmetic.compare(BigInteger.ONE, BigInteger.ONE)).isZero();
         assertThat(arithmetic.compare(BigInteger.ONE, BigInteger.TWO)).isEqualTo(-1);
         assertThat(arithmetic.compare(BigInteger.TWO, BigInteger.ONE)).isEqualTo(1);
     }
@@ -171,7 +171,7 @@ class BigIntegerArithmeticTest {
 
     @Test
     void toStringOfArithmetic() {
-        assertThat(new BigIntegerArithmetic().toString()).isEqualTo("BigIntegerArithmetic");
+        assertThat(new BigIntegerArithmetic()).hasToString("BigIntegerArithmetic");
     }
 
     @Test

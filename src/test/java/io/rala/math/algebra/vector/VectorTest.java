@@ -16,7 +16,7 @@ import static io.rala.math.testUtils.assertion.VectorAssertions.assertVector;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-public class VectorTest {
+class VectorTest {
     // region constructors
 
     @Test
@@ -665,7 +665,7 @@ public class VectorTest {
             values.add(d);
             assertThat(d.getValue()).isEqualTo(0d);
         }
-        assertThat(values.size()).isEqualTo(vector.getSize());
+        assertThat(values).hasSize(vector.getSize());
     }
 
     @Test
@@ -698,13 +698,13 @@ public class VectorTest {
     @Test
     void hashCodeOfTestVectorWithSize2() {
         // hashCode changing after every start
-        assertThat(new TestVector(2).hashCode()).isEqualTo(new TestVector(2).hashCode());
+        assertThat(new TestVector(2)).hasSameHashCodeAs(new TestVector(2));
     }
 
     @Test
     void toStringOfTestVectorWithSize2() {
         TestVector vector = new TestVector(2);
-        assertThat(vector.toString()).isEqualTo("2: []");
+        assertThat(vector).hasToString("2: []");
     }
 
     @Test
@@ -757,8 +757,8 @@ public class VectorTest {
         for (Vector<Number>.Entry entry : vector) {
             if (previous != null) assertThat(entry).isNotEqualTo(previous);
             else assertThat(entry).isEqualTo(vector.new Entry(entry.getIndex(), entry.getValue()));
-            assertThat(0 < entry.hashCode()).isTrue();
-            assertThat(entry.toString()).isEqualTo(entry.getIndex() + ": " + entry.getValue());
+            assertThat(entry.hashCode()).isPositive();
+            assertThat(entry).hasToString(entry.getIndex() + ": " + entry.getValue());
             previous = entry;
         }
 

@@ -29,14 +29,14 @@ class SolutionTest {
     @Test
     void hashCodeOfTestAbstractSolver() {
         // hashCode of State changing after every start
-        assertThat(Solution.infinite(equationSystem).hashCode()).isEqualTo(Solution.infinite(equationSystem).hashCode());
+        assertThat(Solution.infinite(equationSystem)).hasSameHashCodeAs(Solution.infinite(equationSystem));
     }
 
     @Test
     void toStringOfTestAbstractSolver() {
         Solution<TestAbstractEquationSystem, Number> solution =
             Solution.single(equationSystem, List.of(1));
-        assertThat(solution.toString()).isEqualTo("SINGLE: [1]");
+        assertThat(solution).hasToString("SINGLE: [1]");
     }
 
     // endregion
@@ -58,7 +58,7 @@ class SolutionTest {
         Solution<TestAbstractEquationSystem, Number> solution =
             Solution.unsolvable(equationSystem);
         assertThat(solution.getEquationSystem()).isEqualTo(equationSystem);
-        assertThat(solution.getSolution().isEmpty()).isTrue();
+        assertThat(solution.getSolution()).isEmpty();
         assertThat(solution.getState()).isEqualTo(Solution.State.UNSOLVABLE);
     }
 
@@ -67,7 +67,7 @@ class SolutionTest {
         Solution<TestAbstractEquationSystem, Number> solution =
             Solution.infinite(equationSystem);
         assertThat(solution.getEquationSystem()).isEqualTo(equationSystem);
-        assertThat(solution.getSolution().isEmpty()).isTrue();
+        assertThat(solution.getSolution()).isEmpty();
         assertThat(solution.getState()).isEqualTo(Solution.State.INFINITE);
     }
 

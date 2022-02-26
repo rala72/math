@@ -31,7 +31,7 @@ class AbstractLinearSolverTest {
     void getArithmeticOfAbstractLinearSolver() {
         TestAbstractLinearSolver solver =
             new TestAbstractLinearSolver(equationSystem);
-        assertThat(solver.getArithmetic() instanceof TestAbstractArithmetic).isTrue();
+        assertThat(solver.getArithmetic()).isInstanceOf(TestAbstractArithmetic.class);
     }
 
     @Test

@@ -310,15 +310,16 @@ class RectTest {
     @Test
     void toStringOfRectWithPointHeightAndWidth() {
         Rect<Number> rect = new TestRect(new TestPoint(2d), new TestPoint(3d), 4d);
-        assertThat(rect.toString()).isEqualTo("2.0|2.0 3.0|3.0 4.0");
+        assertThat(rect).hasToString("2.0|2.0 3.0|3.0 4.0");
     }
 
     @Test
     void compareToOfRectWithPointHeightAndWidth() {
         Rect<Number> rect = new TestRect(1, 2);
-        assertThat(rect.compareTo(new TestRect(1, 2))).isEqualTo(0);
-        assertThat(rect.compareTo(new TestRect(2, 3))).isEqualTo(-1);
-        assertThat(rect.compareTo(new TestRect(1, 1))).isEqualTo(1);
+        assertThat(rect)
+            .isEqualByComparingTo(new TestRect(1, 2))
+            .isLessThan(new TestRect(2, 3))
+            .isGreaterThan(new TestRect(1, 1));
     }
 
     @Test

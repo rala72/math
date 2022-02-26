@@ -271,7 +271,7 @@ class DoubleLineSegmentTest {
         LineSegment<Double> lineSegment = new DoubleLineSegment(
             new DoublePoint(2d), new DoublePoint(3d)
         );
-        assertThat(lineSegment.toString()).isEqualTo("2.0|2.0 3.0|3.0");
+        assertThat(lineSegment).hasToString("2.0|2.0 3.0|3.0");
     }
 
     @Test
@@ -279,15 +279,16 @@ class DoubleLineSegmentTest {
         LineSegment<Double> lineSegment = new DoubleLineSegment(
             new DoublePoint(2d), new DoublePoint(3d)
         );
-        assertThat(lineSegment.compareTo(new DoubleLineSegment(
-            new DoublePoint(2d), new DoublePoint(3d)
-        ))).isEqualTo(0);
-        assertThat(lineSegment.compareTo(new DoubleLineSegment(
-            new DoublePoint(3d), new DoublePoint(4d)
-        ))).isEqualTo(-1);
-        assertThat(lineSegment.compareTo(new DoubleLineSegment(
-            new DoublePoint(1d), new DoublePoint(1d)
-        ))).isEqualTo(1);
+        assertThat(lineSegment)
+            .isEqualByComparingTo(new DoubleLineSegment(
+                new DoublePoint(2d), new DoublePoint(3d)
+            ))
+            .isLessThan(new DoubleLineSegment(
+                new DoublePoint(3d), new DoublePoint(4d)
+            ))
+            .isGreaterThan(new DoubleLineSegment(
+                new DoublePoint(1d), new DoublePoint(1d)
+            ));
     }
 
     @Test

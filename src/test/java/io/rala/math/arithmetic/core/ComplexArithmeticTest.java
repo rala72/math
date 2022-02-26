@@ -51,7 +51,7 @@ class ComplexArithmeticTest {
 
     @Test
     void compare() {
-        assertThat(arithmetic.compare(create(1, 1), create(1, 1))).isEqualTo(0);
+        assertThat(arithmetic.compare(create(1, 1), create(1, 1))).isZero();
         assertThat(arithmetic.compare(create(1, 1), create(2, 2))).isEqualTo(-1);
         assertThat(arithmetic.compare(create(2, 2), create(1, 1))).isEqualTo(1);
     }
@@ -260,7 +260,7 @@ class ComplexArithmeticTest {
 
     @Test
     void toStringOfArithmetic() {
-        assertThat(new TestComplexArithmetic().toString()).isEqualTo("TestComplexArithmetic");
+        assertThat(new TestComplexArithmetic()).hasToString("TestComplexArithmetic");
     }
 
     @Test

@@ -164,7 +164,7 @@ class BigDecimalComplexTest {
 
     @Test
     void complexSignumOfComplexWithoutParameter() {
-        assertThat(new BigDecimalComplex().complexSignum()).isEqualTo(0);
+        assertThat(new BigDecimalComplex().complexSignum()).isZero();
     }
 
     @Test
@@ -514,7 +514,7 @@ class BigDecimalComplexTest {
         Complex<BigDecimal> complex = new BigDecimalComplex(
             BigDecimal.valueOf(2), BigDecimal.valueOf(3)
         );
-        assertThat(complex.toString()).isEqualTo("2+3*i");
+        assertThat(complex).hasToString("2+3*i");
     }
 
     @Test
@@ -522,15 +522,16 @@ class BigDecimalComplexTest {
         Complex<BigDecimal> complex = new BigDecimalComplex(
             BigDecimal.valueOf(2), BigDecimal.valueOf(3)
         );
-        assertThat(complex.compareTo(new BigDecimalComplex(
-            BigDecimal.valueOf(2), BigDecimal.valueOf(3)
-        ))).isEqualTo(0);
-        assertThat(complex.compareTo(new BigDecimalComplex(
-            BigDecimal.valueOf(3), BigDecimal.ONE
-        ))).isEqualTo(-1);
-        assertThat(complex.compareTo(new BigDecimalComplex(
-            BigDecimal.valueOf(2), BigDecimal.ONE
-        ))).isEqualTo(1);
+        assertThat(complex)
+            .isEqualByComparingTo(new BigDecimalComplex(
+                BigDecimal.valueOf(2), BigDecimal.valueOf(3)
+            ))
+            .isLessThan(new BigDecimalComplex(
+                BigDecimal.valueOf(3), BigDecimal.ONE
+            ))
+            .isGreaterThan(new BigDecimalComplex(
+                BigDecimal.valueOf(2), BigDecimal.ONE
+            ));
     }
 
     @Test

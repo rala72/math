@@ -401,7 +401,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(2d), new DoublePoint(3d), new DoublePoint(4d)
         );
-        assertThat(triangle.toString()).isEqualTo("2.0|2.0 3.0|3.0 4.0|4.0");
+        assertThat(triangle).hasToString("2.0|2.0 3.0|3.0 4.0|4.0");
     }
 
     @Test
@@ -409,15 +409,16 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(0d), new DoublePoint(1d, 0d), new DoublePoint(1d)
         );
-        assertThat(triangle.compareTo(new DoubleTriangle(
-            new DoublePoint(0d), new DoublePoint(1d, 0d), new DoublePoint(1d)
-        ))).isEqualTo(0);
-        assertThat(triangle.compareTo(new DoubleTriangle(
-            new DoublePoint(-1d), new DoublePoint(1d, 0d), new DoublePoint(1d)
-        ))).isEqualTo(-1);
-        assertThat(triangle.compareTo(new DoubleTriangle(
-            new DoublePoint(0.5, 1d), new DoublePoint(1d, 0.5), new DoublePoint(1d)
-        ))).isEqualTo(1);
+        assertThat(triangle)
+            .isEqualByComparingTo(new DoubleTriangle(
+                new DoublePoint(0d), new DoublePoint(1d, 0d), new DoublePoint(1d)
+            ))
+            .isLessThan(new DoubleTriangle(
+                new DoublePoint(-1d), new DoublePoint(1d, 0d), new DoublePoint(1d)
+            ))
+            .isGreaterThan(new DoubleTriangle(
+                new DoublePoint(0.5, 1d), new DoublePoint(1d, 0.5), new DoublePoint(1d)
+            ));
     }
 
     @Test

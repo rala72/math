@@ -116,10 +116,10 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i);
         List<Matrix<Number>.Field> row0 = matrix.getRowFields(0);
-        assertThat(row0.size()).isEqualTo(2);
+        assertThat(row0).hasSize(2);
         for (int i = 0; i < row0.size(); i++) {
             Matrix<Number>.Field field = row0.get(i);
-            assertThat(field.getRow()).isEqualTo(0);
+            assertThat(field.getRow()).isZero();
             assertThat(field.getCol()).isEqualTo(i);
             assertThat(field.getValue()).isEqualTo(i);
         }
@@ -131,7 +131,7 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i);
         List<Number> row0 = matrix.getRow(0);
-        assertThat(row0.size()).isEqualTo(2);
+        assertThat(row0).hasSize(2);
         for (int i = 0; i < row0.size(); i++)
             assertThat(row0.get(i)).isEqualTo(i);
     }
@@ -149,10 +149,10 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i);
         List<Matrix<Number>.Field> col0 = matrix.getColFields(0);
-        assertThat(col0.size()).isEqualTo(2);
+        assertThat(col0).hasSize(2);
         for (int i = 0; i < col0.size(); i++) {
             Matrix<Number>.Field field = col0.get(i);
-            assertThat(field.getCol()).isEqualTo(0);
+            assertThat(field.getCol()).isZero();
             assertThat(field.getRow()).isEqualTo(i);
             assertThat(field.getValue()).isEqualTo(i * 2);
         }
@@ -164,7 +164,7 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i);
         List<Number> col0 = matrix.getCol(0);
-        assertThat(col0.size()).isEqualTo(2);
+        assertThat(col0).hasSize(2);
         for (int i = 0; i < col0.size(); i++)
             assertThat(col0.get(i)).isEqualTo(i * 2);
     }
@@ -733,7 +733,7 @@ class MatrixTest {
     // region rank and rowEchelonForm
 
     @Test
-    public void rankOfSquareMatrixWithZeroRowInSolution() {
+    void rankOfSquareMatrixWithZeroRowInSolution() {
         TestMatrix matrix = TestMatrix.ofValuesByRows(3,
             2, -1, 0,
             -2, 2, -2,
@@ -743,7 +743,7 @@ class MatrixTest {
     }
 
     @Test
-    public void rankOfSquareMatrixWithoutZeroRowInSolution() {
+    void rankOfSquareMatrixWithoutZeroRowInSolution() {
         TestMatrix matrix = TestMatrix.ofValuesByRows(3,
             1, -1, 2,
             -2, 1, -6,
@@ -753,7 +753,7 @@ class MatrixTest {
     }
 
     @Test
-    public void rankOfNonSquareMatrix() {
+    void rankOfNonSquareMatrix() {
         TestMatrix matrix = TestMatrix.ofValuesByRows(3,
             0d, -2, 2, 4,
             2, -1, -1, 1,
@@ -763,7 +763,7 @@ class MatrixTest {
     }
 
     @Test
-    public void rowEchelonFormOfSquareMatrixWithZeroRowInSolution() {
+    void rowEchelonFormOfSquareMatrixWithZeroRowInSolution() {
         TestMatrix matrix = TestMatrix.ofValuesByRows(3,
             2, -1, 0,
             -2, 2, -2,
@@ -777,7 +777,7 @@ class MatrixTest {
     }
 
     @Test
-    public void rowEchelonFormOfSquareMatrixWithoutZeroRowInSolution() {
+    void rowEchelonFormOfSquareMatrixWithoutZeroRowInSolution() {
         TestMatrix matrix = TestMatrix.ofValuesByRows(3,
             1, -1, 2,
             -2, 1, -6,
@@ -791,7 +791,7 @@ class MatrixTest {
     }
 
     @Test
-    public void rowEchelonFormOfNonSquareMatrix() {
+    void rowEchelonFormOfNonSquareMatrix() {
         TestMatrix matrix = TestMatrix.ofValuesByRows(3,
             0d, -2, 2, 4,
             2, -1, -1, 1,
@@ -967,15 +967,15 @@ class MatrixTest {
         assertThat(mapped).isEqualTo(matrix);
         matrix.forEach(field -> {
             if (field.getRow() == field.getCol()) {
-                assertThat(matrix.getMatrix().get(field.getRow())
-                    .containsKey(field.getCol())).isTrue();
-                assertThat(mapped.getMatrix().get(field.getRow())
-                    .containsKey(field.getCol())).isFalse();
+                assertThat(matrix.getMatrix().get(field.getRow()))
+                    .containsKey(field.getCol());
+                assertThat(mapped.getMatrix().get(field.getRow()))
+                    .doesNotContainKey(field.getCol());
             } else {
-                assertThat(matrix.getMatrix().get(field.getRow())
-                    .containsKey(field.getCol())).isFalse();
-                assertThat(mapped.getMatrix().get(field.getRow())
-                    .containsKey(field.getCol())).isTrue();
+                assertThat(matrix.getMatrix().get(field.getRow()))
+                    .doesNotContainKey(field.getCol());
+                assertThat(mapped.getMatrix().get(field.getRow()))
+                    .containsKey(field.getCol());
             }
         });
     }
@@ -987,13 +987,11 @@ class MatrixTest {
         assertThat(mapped).isEqualTo(matrix);
         matrix.forEach(field -> {
             if (field.getRow() == 0) {
-                assertThat(matrix.getMatrix().containsKey(field.getRow())).isFalse();
-                assertThat(mapped.getMatrix().get(field.getRow())
-                    .containsKey(field.getCol())).isTrue();
+                assertThat(matrix.getMatrix()).doesNotContainKey(field.getRow());
+                assertThat(mapped.getMatrix().get(field.getRow())).containsKey(field.getCol());
             } else {
-                assertThat(matrix.getMatrix().get(field.getRow())
-                    .containsKey(field.getCol())).isTrue();
-                assertThat(mapped.getMatrix().containsKey(field.getRow())).isFalse();
+                assertThat(matrix.getMatrix().get(field.getRow())).containsKey(field.getCol());
+                assertThat(mapped.getMatrix()).doesNotContainKey(field.getRow());
             }
         });
     }
@@ -1016,7 +1014,7 @@ class MatrixTest {
             values.add(d);
             assertThat(d.getValue()).isEqualTo(0d);
         }
-        assertThat(values.size()).isEqualTo(matrix.size());
+        assertThat(values).hasSize((int) matrix.size());
     }
 
     @Test
@@ -1054,7 +1052,7 @@ class MatrixTest {
     @Test
     void toStringOfTestMatrixWithRow2Col3() {
         TestMatrix matrix = new TestMatrix(2, 3);
-        assertThat(matrix.toString()).isEqualTo("2 3: []");
+        assertThat(matrix).hasToString("2 3: []");
     }
 
     @Test
@@ -1496,8 +1494,9 @@ class MatrixTest {
             -2, 2, -2,
             2, -1, 0
         );
-        assertThat(matrix.swapZeroRowsToBottom()).isNotEqualTo(matrix);
-        assertThat(matrix.swapZeroRowsToBottom()).isEqualTo(matrix.swapRows(0, 1).swapRows(1, 2));
+        assertThat(matrix.swapZeroRowsToBottom())
+            .isNotEqualTo(matrix)
+            .isEqualTo(matrix.swapRows(0, 1).swapRows(1, 2));
     }
 
     @Test
@@ -1517,8 +1516,9 @@ class MatrixTest {
             2, -1, 0d,
             2, 0d, 0d
         );
-        assertThat(matrix.ensureDiagonalFieldsAreNonZero(true)).isNotEqualTo(matrix);
-        assertThat(matrix.ensureDiagonalFieldsAreNonZero(true)).isEqualTo(matrix.swapRows(0, 1).swapCols(1, 2));
+        assertThat(matrix.ensureDiagonalFieldsAreNonZero(true))
+            .isNotEqualTo(matrix)
+            .isEqualTo(matrix.swapRows(0, 1).swapCols(1, 2));
     }
 
     // endregion
@@ -1607,8 +1607,8 @@ class MatrixTest {
         for (Matrix<Number>.Field field : matrix) {
             if (previous != null) assertThat(field).isNotEqualTo(previous);
             else assertThat(field).isEqualTo(matrix.new Field(field.getIndex(), field.getValue()));
-            assertThat(0 < field.hashCode()).isTrue();
-            assertThat(field.toString()).isEqualTo(field.getIndex() + ": " + field.getValue());
+            assertThat(field.hashCode()).isPositive();
+            assertThat(field).hasToString(field.getIndex() + ": " + field.getValue());
             previous = field;
         }
 

@@ -414,7 +414,7 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(2d), new TestPoint(3d), new TestPoint(4d)
         );
-        assertThat(triangle.toString()).isEqualTo("2.0|2.0 3.0|3.0 4.0|4.0");
+        assertThat(triangle).hasToString("2.0|2.0 3.0|3.0 4.0|4.0");
     }
 
     @Test
@@ -422,15 +422,16 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(0), new TestPoint(1, 0), new TestPoint(1)
         );
-        assertThat(triangle.compareTo(new TestTriangle(
-            new TestPoint(0), new TestPoint(1, 0), new TestPoint(1)
-        ))).isEqualTo(0);
-        assertThat(triangle.compareTo(new TestTriangle(
-            new TestPoint(-1), new TestPoint(1, 0), new TestPoint(1)
-        ))).isEqualTo(-1);
-        assertThat(triangle.compareTo(new TestTriangle(
-            new TestPoint(0.5, 1), new TestPoint(1, 0.5), new TestPoint(1)
-        ))).isEqualTo(1);
+        assertThat(triangle)
+            .isEqualByComparingTo(new TestTriangle(
+                new TestPoint(0), new TestPoint(1, 0), new TestPoint(1)
+            ))
+            .isLessThan(new TestTriangle(
+                new TestPoint(-1), new TestPoint(1, 0), new TestPoint(1)
+            ))
+            .isGreaterThan(new TestTriangle(
+                new TestPoint(0.5, 1), new TestPoint(1, 0.5), new TestPoint(1)
+            ));
     }
 
     @Test

@@ -413,13 +413,13 @@ class BigDecimalLineTest {
         Line<BigDecimal> line = new BigDecimalLine(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        assertThat(line.toString()).isEqualTo("y=2.0*x+3.0");
+        assertThat(line).hasToString("y=2.0*x+3.0");
     }
 
     @Test
     void toStringOfVerticalLine() {
         Line<BigDecimal> line = new BigDecimalLine(BigDecimal.ONE);
-        assertThat(line.toString()).isEqualTo("y=1");
+        assertThat(line).hasToString("y=1");
     }
 
     @Test
@@ -427,15 +427,16 @@ class BigDecimalLineTest {
         Line<BigDecimal> line = new BigDecimalLine(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        assertThat(line.compareTo(new BigDecimalLine(
-            BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
-        ))).isEqualTo(0);
-        assertThat(line.compareTo(new BigDecimalLine(
-            BigDecimal.valueOf(3d), BigDecimal.ONE
-        ))).isEqualTo(-1);
-        assertThat(line.compareTo(new BigDecimalLine(
-            BigDecimal.valueOf(2d), BigDecimal.ONE
-        ))).isEqualTo(1);
+        assertThat(line)
+            .isEqualByComparingTo(new BigDecimalLine(
+                BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
+            ))
+            .isLessThan(new BigDecimalLine(
+                BigDecimal.valueOf(3d), BigDecimal.ONE
+            ))
+            .isGreaterThan(new BigDecimalLine(
+                BigDecimal.valueOf(2d), BigDecimal.ONE
+            ));
     }
 
     @Test

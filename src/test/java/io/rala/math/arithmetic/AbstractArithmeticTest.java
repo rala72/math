@@ -66,7 +66,7 @@ class AbstractArithmeticTest {
 
     @Test
     void compare() {
-        assertThat(arithmetic.compare(1, 1)).isEqualTo(0);
+        assertThat(arithmetic.compare(1, 1)).isZero();
         assertThat(arithmetic.compare(1, 2)).isEqualTo(-1);
         assertThat(arithmetic.compare(2, 1)).isEqualTo(1);
     }
@@ -274,8 +274,8 @@ class AbstractArithmeticTest {
             arithmetic.toResultArithmetic(targetArithmetic, Number::intValue);
         assertThat(resultArithmetic.getTArithmetic()).isEqualTo(arithmetic);
         assertThat(resultArithmetic.getRArithmetic()).isEqualTo(targetArithmetic);
-        assertThat(resultArithmetic.fromT(0)).isEqualTo(0);
-        assertThat(resultArithmetic.fromT(-0d)).isEqualTo(0);
+        assertThat(resultArithmetic.fromT(0)).isZero();
+        assertThat(resultArithmetic.fromT(-0d)).isZero();
     }
 
     // endregion
@@ -294,7 +294,7 @@ class AbstractArithmeticTest {
 
     @Test
     void toStringOfAbstractArithmetic() {
-        assertThat(new TestAbstractArithmetic().toString()).isEqualTo("TestAbstractArithmetic");
+        assertThat(new TestAbstractArithmetic()).hasToString("TestAbstractArithmetic");
     }
 
     @Test

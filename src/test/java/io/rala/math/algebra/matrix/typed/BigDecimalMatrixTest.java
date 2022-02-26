@@ -109,10 +109,10 @@ class BigDecimalMatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, BigDecimal.valueOf(i));
         List<Matrix<BigDecimal>.Field> row0 = matrix.getRowFields(0);
-        assertThat(row0.size()).isEqualTo(2);
+        assertThat(row0).hasSize(2);
         for (int i = 0; i < row0.size(); i++) {
             Matrix<BigDecimal>.Field field = row0.get(i);
-            assertThat(field.getRow()).isEqualTo(0);
+            assertThat(field.getRow()).isZero();
             assertThat(field.getCol()).isEqualTo(i);
             assertThat(field.getValue()).isEqualTo(BigDecimal.valueOf(i));
         }
@@ -124,7 +124,7 @@ class BigDecimalMatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, BigDecimal.valueOf(i));
         List<BigDecimal> row0 = matrix.getRow(0);
-        assertThat(row0.size()).isEqualTo(2);
+        assertThat(row0).hasSize(2);
         for (int i = 0; i < row0.size(); i++)
             assertThat(row0.get(i)).isEqualTo(BigDecimal.valueOf(i));
     }
@@ -142,10 +142,10 @@ class BigDecimalMatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, BigDecimal.valueOf(i));
         List<Matrix<BigDecimal>.Field> col0 = matrix.getColFields(0);
-        assertThat(col0.size()).isEqualTo(2);
+        assertThat(col0).hasSize(2);
         for (int i = 0; i < col0.size(); i++) {
             Matrix<BigDecimal>.Field field = col0.get(i);
-            assertThat(field.getCol()).isEqualTo(0);
+            assertThat(field.getCol()).isZero();
             assertThat(field.getRow()).isEqualTo(i);
             assertThat(field.getValue()).isEqualTo(BigDecimal.valueOf(i * 2L));
         }
@@ -157,7 +157,7 @@ class BigDecimalMatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, BigDecimal.valueOf(i));
         List<BigDecimal> col0 = matrix.getCol(0);
-        assertThat(col0.size()).isEqualTo(2);
+        assertThat(col0).hasSize(2);
         for (int i = 0; i < col0.size(); i++)
             assertThat(col0.get(i)).isEqualTo(BigDecimal.valueOf(i * 2L));
     }
@@ -832,7 +832,7 @@ class BigDecimalMatrixTest {
             values.add(d);
             assertThat(d.getValue()).isEqualTo(BigDecimal.ZERO);
         }
-        assertThat(values.size()).isEqualTo(matrix.size());
+        assertThat(values).hasSize((int) matrix.size());
     }
 
     @Test
@@ -862,7 +862,7 @@ class BigDecimalMatrixTest {
     @Test
     void toStringOfBigDecimalMatrixWithRow2Col3() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2, 3);
-        assertThat(matrix.toString()).isEqualTo("2 3: []");
+        assertThat(matrix).hasToString("2 3: []");
     }
 
     @Test

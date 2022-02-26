@@ -109,13 +109,13 @@ class BigIntegerBigDecimalFractionTest {
     @Test
     void intValueOf1_2() {
         assertThat(new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO)
-            .intValue()).isEqualTo(0);
+            .intValue()).isZero();
     }
 
     @Test
     void longValueOf1_2() {
         assertThat(new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO)
-            .longValue()).isEqualTo(0);
+            .longValue()).isZero();
     }
 
     @Test
@@ -368,22 +368,23 @@ class BigIntegerBigDecimalFractionTest {
     void toStringOfFractionWithNuDe() {
         BigIntegerBigDecimalFraction complex =
             new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.valueOf(3));
-        assertThat(complex.toString()).isEqualTo("2/3");
+        assertThat(complex).hasToString("2/3");
     }
 
     @Test
     void compareToOfFractionWithNuDe() {
         BigIntegerBigDecimalFraction complex =
             new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.valueOf(3));
-        assertThat(complex.compareTo(new BigIntegerBigDecimalFraction(
-            BigInteger.TWO, BigInteger.valueOf(3)
-        ))).isEqualTo(0);
-        assertThat(complex.compareTo(new BigIntegerBigDecimalFraction(
-            BigInteger.valueOf(3), BigInteger.ONE
-        ))).isEqualTo(-1);
-        assertThat(complex.compareTo(new BigIntegerBigDecimalFraction(
-            BigInteger.ONE, BigInteger.valueOf(3)
-        ))).isEqualTo(1);
+        assertThat(complex)
+            .isEqualByComparingTo(new BigIntegerBigDecimalFraction(
+                BigInteger.TWO, BigInteger.valueOf(3)
+            ))
+            .isLessThan(new BigIntegerBigDecimalFraction(
+                BigInteger.valueOf(3), BigInteger.ONE
+            ))
+            .isGreaterThan(new BigIntegerBigDecimalFraction(
+                BigInteger.ONE, BigInteger.valueOf(3)
+            ));
     }
 
     @Test

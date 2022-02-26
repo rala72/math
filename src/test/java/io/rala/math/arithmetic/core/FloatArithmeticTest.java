@@ -54,7 +54,7 @@ class FloatArithmeticTest {
 
     @Test
     void compare() {
-        assertThat(arithmetic.compare(1f, 1f)).isEqualTo(0);
+        assertThat(arithmetic.compare(1f, 1f)).isZero();
         assertThat(arithmetic.compare(1f, 2f)).isEqualTo(-1);
         assertThat(arithmetic.compare(2f, 1f)).isEqualTo(1);
     }
@@ -173,7 +173,7 @@ class FloatArithmeticTest {
 
     @Test
     void toStringOfArithmetic() {
-        assertThat(new FloatArithmetic().toString()).isEqualTo("FloatArithmetic");
+        assertThat(new FloatArithmetic()).hasToString("FloatArithmetic");
     }
 
     @Test

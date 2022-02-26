@@ -19,8 +19,8 @@ class AbstractResultArithmeticTest {
 
     @Test
     void getArithmetic() {
-        assertThat(arithmetic.getTArithmetic() instanceof TestAbstractArithmetic).isTrue();
-        assertThat(arithmetic.getRArithmetic() instanceof TestAbstractArithmetic).isTrue();
+        assertThat(arithmetic.getTArithmetic()).isInstanceOf(TestAbstractArithmetic.class);
+        assertThat(arithmetic.getRArithmetic()).isInstanceOf(TestAbstractArithmetic.class);
     }
 
     // region sum, difference, product, quotient and modulo
@@ -68,7 +68,7 @@ class AbstractResultArithmeticTest {
     void mapToInteger() {
         AbstractResultArithmetic<Integer, Number> mapped =
             arithmetic.map(new IntegerArithmetic(), Number::intValue);
-        assertThat(mapped.getTArithmetic() instanceof IntegerArithmetic).isTrue();
+        assertThat(mapped.getTArithmetic()).isInstanceOf(IntegerArithmetic.class);
         assertThat(arithmetic.quotient(1, 2)).isEqualTo(0.5);
         assertThat(mapped.quotient(1, 2)).isEqualTo(0.5);
     }
@@ -77,9 +77,9 @@ class AbstractResultArithmeticTest {
     void mapResultToInteger() {
         AbstractResultArithmetic<Number, Integer> mapped =
             arithmetic.mapResult(new IntegerArithmetic(), Number::intValue);
-        assertThat(mapped.getRArithmetic() instanceof IntegerArithmetic).isTrue();
+        assertThat(mapped.getRArithmetic()).isInstanceOf(IntegerArithmetic.class);
         assertThat(arithmetic.quotient(1, 2)).isEqualTo(0.5);
-        assertThat(mapped.quotient(1, 2)).isEqualTo(0);
+        assertThat(mapped.quotient(1, 2)).isZero();
     }
 
     // endregion
@@ -94,8 +94,8 @@ class AbstractResultArithmeticTest {
                 new TestAbstractArithmetic(),
                 number -> number
             );
-        assertThat(ofArithmetic.getTArithmetic() instanceof TestAbstractArithmetic).isTrue();
-        assertThat(ofArithmetic.getRArithmetic() instanceof TestAbstractArithmetic).isTrue();
+        assertThat(ofArithmetic.getTArithmetic()).isInstanceOf(TestAbstractArithmetic.class);
+        assertThat(ofArithmetic.getRArithmetic()).isInstanceOf(TestAbstractArithmetic.class);
         assertThat(ofArithmetic.fromT(0)).isEqualTo(0);
         assertThat(ofArithmetic.fromT(-0d)).isEqualTo(-0d);
     }
@@ -119,7 +119,7 @@ class AbstractResultArithmeticTest {
         String toString = "TestAbstractResultArithmetic{" +
             "tArithmetic=TestAbstractArithmetic, " +
             "rArithmetic=TestAbstractArithmetic}";
-        assertThat(new TestAbstractResultArithmetic().toString()).isEqualTo(toString);
+        assertThat(new TestAbstractResultArithmetic()).hasToString(toString);
     }
 
     @Test

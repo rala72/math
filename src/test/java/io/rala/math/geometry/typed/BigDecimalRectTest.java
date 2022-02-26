@@ -462,7 +462,7 @@ class BigDecimalRectTest {
             new BigDecimalPoint(BigDecimal.valueOf(3d)),
             BigDecimal.valueOf(4d)
         );
-        assertThat(rect.toString()).isEqualTo("2.0|2.0 3.0|3.0 4.0");
+        assertThat(rect).hasToString("2.0|2.0 3.0|3.0 4.0");
     }
 
     @Test
@@ -470,15 +470,16 @@ class BigDecimalRectTest {
         Rect<BigDecimal> rect = new BigDecimalRect(
             BigDecimal.ONE, BigDecimal.valueOf(2d)
         );
-        assertThat(rect.compareTo(new BigDecimalRect(
-            BigDecimal.ONE, BigDecimal.valueOf(2d)
-        ))).isEqualTo(0);
-        assertThat(rect.compareTo(new BigDecimalRect(
-            BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
-        ))).isEqualTo(-1);
-        assertThat(rect.compareTo(new BigDecimalRect(
-            BigDecimal.ONE, BigDecimal.ONE
-        ))).isEqualTo(1);
+        assertThat(rect)
+            .isEqualByComparingTo(new BigDecimalRect(
+                BigDecimal.ONE, BigDecimal.valueOf(2d)
+            ))
+            .isLessThan(new BigDecimalRect(
+                BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
+            ))
+            .isGreaterThan(new BigDecimalRect(
+                BigDecimal.ONE, BigDecimal.ONE
+            ));
     }
 
     @Test

@@ -269,7 +269,7 @@ class LineSegmentTest {
         LineSegment<Number> lineSegment = new TestLineSegment(
             new TestPoint(2d), new TestPoint(3d)
         );
-        assertThat(lineSegment.toString()).isEqualTo("2.0|2.0 3.0|3.0");
+        assertThat(lineSegment).hasToString("2.0|2.0 3.0|3.0");
     }
 
     @Test
@@ -277,15 +277,16 @@ class LineSegmentTest {
         LineSegment<Number> lineSegment = new TestLineSegment(
             new TestPoint(2), new TestPoint(3)
         );
-        assertThat(lineSegment.compareTo(new TestLineSegment(
-            new TestPoint(2), new TestPoint(3)
-        ))).isEqualTo(0);
-        assertThat(lineSegment.compareTo(new TestLineSegment(
-            new TestPoint(3), new TestPoint(4)
-        ))).isEqualTo(-1);
-        assertThat(lineSegment.compareTo(new TestLineSegment(
-            new TestPoint(1), new TestPoint(1)
-        ))).isEqualTo(1);
+        assertThat(lineSegment)
+            .isEqualByComparingTo(new TestLineSegment(
+                new TestPoint(2), new TestPoint(3)
+            ))
+            .isLessThan(new TestLineSegment(
+                new TestPoint(3), new TestPoint(4)
+            ))
+            .isGreaterThan(new TestLineSegment(
+                new TestPoint(1), new TestPoint(1)
+            ));
     }
 
     @Test
