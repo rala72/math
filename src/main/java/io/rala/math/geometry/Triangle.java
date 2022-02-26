@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * class which holds a triangle in a 2d area with points a, b &amp; c
@@ -582,10 +583,10 @@ public class Triangle<T extends Number> implements Validatable,
     public int compareTo(@NotNull Triangle<T> o) {
         int compare = getArithmetic().compare(area(), o.area());
         if (compare != 0) return compare;
-        List<Point<T>> s = List.of(getA(), getB(), getC())
-            .stream().sorted().collect(Collectors.toList());
-        List<Point<T>> sO = List.of(o.getA(), o.getB(), o.getC())
-            .stream().sorted().collect(Collectors.toList());
+        List<Point<T>> s = Stream.of(getA(), getB(), getC())
+            .sorted().collect(Collectors.toList());
+        List<Point<T>> sO = Stream.of(o.getA(), o.getB(), o.getC())
+            .sorted().collect(Collectors.toList());
         for (int i = 0; i < s.size(); i++) {
             Point<T> p = s.get(i);
             Point<T> pO = sO.get(i);

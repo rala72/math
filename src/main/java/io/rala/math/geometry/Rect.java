@@ -8,9 +8,9 @@ import io.rala.math.utils.Validatable;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 /**
  * class which holds a rect in 2d area with point a, b &amp; size
@@ -374,15 +374,15 @@ public class Rect<T extends Number> implements Validatable,
     public int compareTo(@NotNull Rect<T> o) {
         int compare = getArithmetic().compare(getSize(), o.getSize());
         if (compare != 0) return compare;
-        Point<T> min = List.of(getA(), getB()).stream()
+        Point<T> min = Stream.of(getA(), getB())
             .min(Point::compareTo).orElse(getA());
-        Point<T> minO = List.of(o.getA(), o.getB()).stream()
+        Point<T> minO = Stream.of(o.getA(), o.getB())
             .min(Point::compareTo).orElse(o.getA());
         int a = min.compareTo(minO);
         if (a != 0) return a;
-        Point<T> max = List.of(getA(), getB()).stream()
+        Point<T> max = Stream.of(getA(), getB())
             .max(Point::compareTo).orElse(getB());
-        Point<T> maxO = List.of(o.getA(), o.getB()).stream()
+        Point<T> maxO = Stream.of(o.getA(), o.getB())
             .max(Point::compareTo).orElse(o.getB());
         return max.compareTo(maxO);
     }

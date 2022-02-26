@@ -8,9 +8,9 @@ import io.rala.math.utils.Validatable;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 /**
  * class which holds a line segment in a 2d area with points a &amp; b
@@ -298,12 +298,12 @@ public class LineSegment<T extends Number> implements Validatable,
 
     @Override
     public int compareTo(@NotNull LineSegment<T> o) {
-        Point<T> min = List.of(getA(), getB()).stream().min(Point::compareTo).get();
-        Point<T> minO = List.of(o.getA(), o.getB()).stream().min(Point::compareTo).get();
+        Point<T> min = Stream.of(getA(), getB()).min(Point::compareTo).get();
+        Point<T> minO = Stream.of(o.getA(), o.getB()).min(Point::compareTo).get();
         int i = min.compareTo(minO);
         if (i != 0) return i;
-        Point<T> max = List.of(getA(), getB()).stream().max(Point::compareTo).get();
-        Point<T> maxO = List.of(o.getA(), o.getB()).stream().max(Point::compareTo).get();
+        Point<T> max = Stream.of(getA(), getB()).max(Point::compareTo).get();
+        Point<T> maxO = Stream.of(o.getA(), o.getB()).max(Point::compareTo).get();
         return max.compareTo(maxO);
     }
 
