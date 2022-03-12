@@ -60,12 +60,12 @@ class DoubleComplexTest {
 
     @Test
     void intValueOfComplexWithX1_1Y2_2() {
-        assertThat(new DoubleComplex(1.1, 2.2).intValue()).isEqualTo(1);
+        assertThat(new DoubleComplex(1.1, 2.2).intValue()).isOne();
     }
 
     @Test
     void longValueOfComplexWithX1_1Y2_2() {
-        assertThat(new DoubleComplex(1.1, 2.2).longValue()).isEqualTo(1);
+        assertThat(new DoubleComplex(1.1, 2.2).longValue()).isOne();
     }
 
     @Test
@@ -94,7 +94,7 @@ class DoubleComplexTest {
 
     @Test
     void absoluteValueOfComplexX1Y0() {
-        assertThat(new DoubleComplex(1d, 0d).absoluteValue()).isEqualTo(1);
+        assertThat(new DoubleComplex(1d, 0d).absoluteValue()).isOne();
     }
 
     @Test
@@ -135,7 +135,7 @@ class DoubleComplexTest {
 
     @Test
     void complexSignumOfComplexX1Y1() {
-        assertThat(new DoubleComplex(1d, 1d).complexSignum()).isEqualTo(1);
+        assertThat(new DoubleComplex(1d, 1d).complexSignum()).isOne();
     }
 
     @Test
@@ -145,7 +145,7 @@ class DoubleComplexTest {
 
     @Test
     void complexSignumOfComplexX0Y1() {
-        assertThat(new DoubleComplex(0d, 1d).complexSignum()).isEqualTo(1);
+        assertThat(new DoubleComplex(0d, 1d).complexSignum()).isOne();
     }
 
     @Test
@@ -340,7 +340,7 @@ class DoubleComplexTest {
     @Test
     void ofWithSelfValidation() {
         Complex<Double> complex = DoubleComplex.of(1d, 2d);
-        assertThat(complex.absoluteValue()).isEqualTo(1);
+        assertThat(complex.absoluteValue()).isOne();
         assertThat(complex.argument()).isEqualTo(2);
     }
 

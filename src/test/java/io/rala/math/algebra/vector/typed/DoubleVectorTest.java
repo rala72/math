@@ -87,7 +87,7 @@ class DoubleVectorTest {
     void setValueByIndex0WhichWasUnset() {
         DoubleVector vector = new DoubleVector(2);
         assertThat(vector.setValue(0, 1d)).isEqualTo(0d);
-        assertThat(vector.getValue(0)).isEqualTo(1);
+        assertThat(vector.getValue(0)).isOne();
     }
 
     @Test

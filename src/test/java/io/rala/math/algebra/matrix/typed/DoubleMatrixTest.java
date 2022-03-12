@@ -62,7 +62,7 @@ class DoubleMatrixTest {
 
     @Test
     void createWithSize1AndAssertSizeEquals1() {
-        assertThat(new DoubleMatrix(1).size()).isEqualTo(1);
+        assertThat(new DoubleMatrix(1).size()).isOne();
     }
 
     @Test
@@ -186,8 +186,8 @@ class DoubleMatrixTest {
     void setValueByIndex0WhichWasUnset() {
         DoubleMatrix matrix = new DoubleMatrix(2);
         assertThat(matrix.setValue(0, 1d)).isEqualTo(0d);
-        assertThat(matrix.getValue(0)).isEqualTo(1);
-        assertThat(matrix.getValue(0, 0)).isEqualTo(1);
+        assertThat(matrix.getValue(0)).isOne();
+        assertThat(matrix.getValue(0, 0)).isOne();
         // assert all other are unset
     }
 
@@ -195,8 +195,8 @@ class DoubleMatrixTest {
     void setValueByIndex3WhichWasUnset() {
         DoubleMatrix matrix = new DoubleMatrix(2);
         assertThat(matrix.setValue(3, 1d)).isEqualTo(0d);
-        assertThat(matrix.getValue(3)).isEqualTo(1);
-        assertThat(matrix.getValue(1, 1)).isEqualTo(1);
+        assertThat(matrix.getValue(3)).isOne();
+        assertThat(matrix.getValue(1, 1)).isOne();
         // assert all other are unset
     }
 
@@ -218,8 +218,8 @@ class DoubleMatrixTest {
     void setValueByRow0Col0WhichWasUnset() {
         DoubleMatrix matrix = new DoubleMatrix(2);
         assertThat(matrix.setValue(0, 0, 1d)).isEqualTo(0d);
-        assertThat(matrix.getValue(0)).isEqualTo(1);
-        assertThat(matrix.getValue(0, 0)).isEqualTo(1);
+        assertThat(matrix.getValue(0)).isOne();
+        assertThat(matrix.getValue(0, 0)).isOne();
         // assert all other are unset
     }
 
@@ -227,8 +227,8 @@ class DoubleMatrixTest {
     void setValueByRow1Col0WhichWasUnset() {
         DoubleMatrix matrix = new DoubleMatrix(2);
         assertThat(matrix.setValue(1, 0, 1d)).isEqualTo(0d);
-        assertThat(matrix.getValue(1, 0)).isEqualTo(1);
-        assertThat(matrix.getValue(2)).isEqualTo(1);
+        assertThat(matrix.getValue(1, 0)).isOne();
+        assertThat(matrix.getValue(2)).isOne();
         // assert all other are unset
     }
 
@@ -236,8 +236,8 @@ class DoubleMatrixTest {
     void setValueByIndex2WichWasSet() {
         DoubleMatrix matrix = new DoubleMatrix(2);
         matrix.setValue(2, 1d);
-        assertThat(matrix.getValue(2)).isEqualTo(1);
-        assertThat(matrix.setValue(2, 2d)).isEqualTo(1);
+        assertThat(matrix.getValue(2)).isOne();
+        assertThat(matrix.setValue(2, 2d)).isOne();
     }
 
     @Test
@@ -277,7 +277,7 @@ class DoubleMatrixTest {
     void removeValueByIndex2WhichWasSet() {
         DoubleMatrix matrix = new DoubleMatrix(2);
         matrix.setValue(2, 1d);
-        assertThat(matrix.removeValue(2)).isEqualTo(1);
+        assertThat(matrix.removeValue(2)).isOne();
     }
 
     // endregion
@@ -288,24 +288,24 @@ class DoubleMatrixTest {
     void computeWithUnaryOperatorByIndex0WhichWasUnset() {
         DoubleMatrix matrix = new DoubleMatrix(2);
         assertThat(matrix.compute(0, number -> 1d)).isEqualTo(0d);
-        assertThat(matrix.getValue(0)).isEqualTo(1);
-        assertThat(matrix.getValue(0, 0)).isEqualTo(1);
+        assertThat(matrix.getValue(0)).isOne();
+        assertThat(matrix.getValue(0, 0)).isOne();
     }
 
     @Test
     void computeWithUnaryOperatorByIndex3WhichWasUnset() {
         DoubleMatrix matrix = new DoubleMatrix(2);
         assertThat(matrix.compute(3, number -> 1d)).isEqualTo(0d);
-        assertThat(matrix.getValue(3)).isEqualTo(1);
-        assertThat(matrix.getValue(1, 1)).isEqualTo(1);
+        assertThat(matrix.getValue(3)).isOne();
+        assertThat(matrix.getValue(1, 1)).isOne();
     }
 
     @Test
     void computeWithUnaryOperatorByRow0Col0WhichWasUnset() {
         DoubleMatrix matrix = new DoubleMatrix(2);
         assertThat(matrix.compute(0, 0, number -> 1d)).isEqualTo(0d);
-        assertThat(matrix.getValue(0)).isEqualTo(1);
-        assertThat(matrix.getValue(0, 0)).isEqualTo(1);
+        assertThat(matrix.getValue(0)).isOne();
+        assertThat(matrix.getValue(0, 0)).isOne();
         // assert all other are unset
     }
 
@@ -313,8 +313,8 @@ class DoubleMatrixTest {
     void computeWithUnaryOperatorByRow1Col1WhichWasUnset() {
         DoubleMatrix matrix = new DoubleMatrix(2);
         assertThat(matrix.compute(1, 0, number -> 1d)).isEqualTo(0d);
-        assertThat(matrix.getValue(1, 0)).isEqualTo(1);
-        assertThat(matrix.getValue(2)).isEqualTo(1);
+        assertThat(matrix.getValue(1, 0)).isOne();
+        assertThat(matrix.getValue(2)).isOne();
         // assert all other are unset
     }
 
@@ -682,9 +682,9 @@ class DoubleMatrixTest {
     @Test
     void identityOfSize1() {
         DoubleMatrix matrix = DoubleMatrix.identity(1);
-        assertThat(matrix.size()).isEqualTo(1);
+        assertThat(matrix.size()).isOne();
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
-            assertThat(matrix.getValue(i, i)).isEqualTo(1);
+            assertThat(matrix.getValue(i, i)).isOne();
     }
 
     @Test
@@ -692,15 +692,15 @@ class DoubleMatrixTest {
         DoubleMatrix matrix = DoubleMatrix.identity(2);
         assertThat(matrix.size()).isEqualTo(2 * 2);
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
-            assertThat(matrix.getValue(i, i)).isEqualTo(1);
+            assertThat(matrix.getValue(i, i)).isOne();
     }
 
     @Test
     void diagonalOfSize1() {
         DoubleMatrix matrix = DoubleMatrix.diagonal(1);
-        assertThat(matrix.size()).isEqualTo(1);
+        assertThat(matrix.size()).isOne();
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
-            assertThat(matrix.getValue(i, i)).isEqualTo(1);
+            assertThat(matrix.getValue(i, i)).isOne();
     }
 
     @Test

@@ -23,17 +23,17 @@ class IntegerArithmeticTest {
 
     @Test
     void fromInt1() {
-        assertThat(arithmetic.fromInt(1)).isEqualTo(1);
+        assertThat(arithmetic.fromInt(1)).isOne();
     }
 
     @Test
     void fromDouble1_1() {
-        assertThat(arithmetic.fromDouble(1.1)).isEqualTo(1);
+        assertThat(arithmetic.fromDouble(1.1)).isOne();
     }
 
     @Test
     void signum1() {
-        assertThat(arithmetic.signum(1)).isEqualTo(1);
+        assertThat(arithmetic.signum(1)).isOne();
     }
 
     // endregion
@@ -42,7 +42,7 @@ class IntegerArithmeticTest {
 
     @Test
     void absoluteM1() {
-        assertThat(arithmetic.absolute(-1)).isEqualTo(1);
+        assertThat(arithmetic.absolute(-1)).isOne();
     }
 
     @Test
@@ -54,19 +54,19 @@ class IntegerArithmeticTest {
     void compare() {
         assertThat(arithmetic.compare(1, 1)).isZero();
         assertThat(arithmetic.compare(1, 2)).isEqualTo(-1);
-        assertThat(arithmetic.compare(2, 1)).isEqualTo(1);
+        assertThat(arithmetic.compare(2, 1)).isOne();
     }
 
     @Test
     void min() {
-        assertThat(arithmetic.min(1, 1)).isEqualTo(1);
-        assertThat(arithmetic.min(1, 2)).isEqualTo(1);
-        assertThat(arithmetic.min(2, 1)).isEqualTo(1);
+        assertThat(arithmetic.min(1, 1)).isOne();
+        assertThat(arithmetic.min(1, 2)).isOne();
+        assertThat(arithmetic.min(2, 1)).isOne();
     }
 
     @Test
     void max() {
-        assertThat(arithmetic.max(1, 1)).isEqualTo(1);
+        assertThat(arithmetic.max(1, 1)).isOne();
         assertThat(arithmetic.max(1, 2)).isEqualTo(2);
         assertThat(arithmetic.max(2, 1)).isEqualTo(2);
     }
@@ -122,7 +122,7 @@ class IntegerArithmeticTest {
 
     @Test
     void modulo12() {
-        assertThat(arithmetic.modulo(1, 2)).isEqualTo(1);
+        assertThat(arithmetic.modulo(1, 2)).isOne();
     }
 
     // endregion
@@ -131,7 +131,7 @@ class IntegerArithmeticTest {
 
     @Test
     void power12() {
-        assertThat(arithmetic.power(1, 2)).isEqualTo(1);
+        assertThat(arithmetic.power(1, 2)).isOne();
     }
 
     @Test
@@ -145,7 +145,7 @@ class IntegerArithmeticTest {
 
     @Test
     void gcd() {
-        assertThat(arithmetic.gcd(3, 4)).isEqualTo(1);
+        assertThat(arithmetic.gcd(3, 4)).isOne();
     }
 
     @Test

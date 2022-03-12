@@ -74,7 +74,7 @@ class BigDecimalMatrixTest {
 
     @Test
     void createWithSize1AndAssertSizeEquals1() {
-        assertThat(new BigDecimalMatrix(1).size()).isEqualTo(1);
+        assertThat(new BigDecimalMatrix(1).size()).isOne();
     }
 
     @Test
@@ -731,7 +731,7 @@ class BigDecimalMatrixTest {
     @Test
     void identityOfSize1() {
         BigDecimalMatrix matrix = BigDecimalMatrix.identity(1);
-        assertThat(matrix.size()).isEqualTo(1);
+        assertThat(matrix.size()).isOne();
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
             assertThat(matrix.getValue(i, i)).isEqualTo(BigDecimal.ONE);
     }
@@ -747,7 +747,7 @@ class BigDecimalMatrixTest {
     @Test
     void diagonalOfSize1() {
         BigDecimalMatrix matrix = BigDecimalMatrix.diagonal(BigDecimal.ONE);
-        assertThat(matrix.size()).isEqualTo(1);
+        assertThat(matrix.size()).isOne();
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
             assertThat(matrix.getValue(i, i)).isEqualTo(BigDecimal.ONE);
     }

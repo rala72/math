@@ -83,13 +83,13 @@ class BigDecimalComplexTest {
     @Test
     void intValueOfComplexWithX1_1Y2_2() {
         assertThat(new BigDecimalComplex(
-            BigDecimal.valueOf(1.1), BigDecimal.valueOf(2.2)).intValue()).isEqualTo(1);
+            BigDecimal.valueOf(1.1), BigDecimal.valueOf(2.2)).intValue()).isOne();
     }
 
     @Test
     void longValueOfComplexWithX1_1Y2_2() {
         assertThat(new BigDecimalComplex(
-            BigDecimal.valueOf(1.1), BigDecimal.valueOf(2.2)).longValue()).isEqualTo(1);
+            BigDecimal.valueOf(1.1), BigDecimal.valueOf(2.2)).longValue()).isOne();
     }
 
     @Test
@@ -169,7 +169,7 @@ class BigDecimalComplexTest {
 
     @Test
     void complexSignumOfComplexX1Y1() {
-        assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).complexSignum()).isEqualTo(1);
+        assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).complexSignum()).isOne();
     }
 
     @Test
@@ -180,7 +180,7 @@ class BigDecimalComplexTest {
 
     @Test
     void complexSignumOfComplexX0Y1() {
-        assertThat(new BigDecimalComplex(BigDecimal.ZERO, BigDecimal.ONE).complexSignum()).isEqualTo(1);
+        assertThat(new BigDecimalComplex(BigDecimal.ZERO, BigDecimal.ONE).complexSignum()).isOne();
     }
 
     @Test

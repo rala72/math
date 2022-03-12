@@ -25,7 +25,7 @@ class LongDoubleResultArithmeticTest {
 
     @Test
     void fromT1() {
-        assertThat(arithmetic.fromT(1L)).isEqualTo(1);
+        assertThat(arithmetic.fromT(1L)).isOne();
     }
 
     // endregion
@@ -64,7 +64,7 @@ class LongDoubleResultArithmeticTest {
 
     @Test
     void modulo12() {
-        assertThat(arithmetic.modulo(1L, 2L)).isEqualTo(1);
+        assertThat(arithmetic.modulo(1L, 2L)).isOne();
     }
 
     // endregion

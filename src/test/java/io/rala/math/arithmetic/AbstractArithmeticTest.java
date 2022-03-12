@@ -33,7 +33,7 @@ class AbstractArithmeticTest {
 
     @Test
     void signum1() {
-        assertThat(arithmetic.signum(1)).isEqualTo(1);
+        assertThat(arithmetic.signum(1)).isOne();
     }
 
     // endregion
@@ -68,7 +68,7 @@ class AbstractArithmeticTest {
     void compare() {
         assertThat(arithmetic.compare(1, 1)).isZero();
         assertThat(arithmetic.compare(1, 2)).isEqualTo(-1);
-        assertThat(arithmetic.compare(2, 1)).isEqualTo(1);
+        assertThat(arithmetic.compare(2, 1)).isOne();
     }
 
     @Test

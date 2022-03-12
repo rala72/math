@@ -33,7 +33,7 @@ class FractionArithmeticTest {
 
     @Test
     void signum1() {
-        assertThat(arithmetic.signum(new TestFraction(1))).isEqualTo(1);
+        assertThat(arithmetic.signum(new TestFraction(1))).isOne();
     }
 
     // endregion
@@ -55,7 +55,7 @@ class FractionArithmeticTest {
         TestFraction complex = new TestFraction(2, 3);
         assertThat(arithmetic.compare(complex, new TestFraction(2, 3))).isZero();
         assertThat(arithmetic.compare(complex, new TestFraction(3, 1))).isEqualTo(-1);
-        assertThat(arithmetic.compare(complex, new TestFraction(1, 2))).isEqualTo(1);
+        assertThat(arithmetic.compare(complex, new TestFraction(1, 2))).isOne();
     }
 
     @Test
@@ -185,8 +185,8 @@ class FractionArithmeticTest {
             Fraction.of(new IntegerArithmetic(), 1);
         assertThat(ofArithmetic.getNumerator()).isNotNull();
         assertThat(ofArithmetic.getDenominator()).isNotNull();
-        assertThat(ofArithmetic.getNumerator()).isEqualTo(1);
-        assertThat(ofArithmetic.getDenominator()).isEqualTo(1);
+        assertThat(ofArithmetic.getNumerator()).isOne();
+        assertThat(ofArithmetic.getDenominator()).isOne();
     }
 
     @Test
@@ -195,7 +195,7 @@ class FractionArithmeticTest {
             Fraction.of(new IntegerArithmetic(), 1, 2);
         assertThat(ofArithmetic.getNumerator()).isNotNull();
         assertThat(ofArithmetic.getDenominator()).isNotNull();
-        assertThat(ofArithmetic.getNumerator()).isEqualTo(1);
+        assertThat(ofArithmetic.getNumerator()).isOne();
         assertThat(ofArithmetic.getDenominator()).isEqualTo(2);
     }
 

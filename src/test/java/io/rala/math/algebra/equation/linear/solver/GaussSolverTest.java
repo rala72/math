@@ -470,7 +470,7 @@ class GaussSolverTest {
     void createAndGetterOfColPair() {
         GaussSolver.ColPair pair = new GaussSolver.ColPair(0, 1);
         assertThat(pair.getCol1()).isZero();
-        assertThat(pair.getCol2()).isEqualTo(1);
+        assertThat(pair.getCol2()).isOne();
     }
 
     // region override

@@ -25,7 +25,7 @@ class DoubleArithmeticTest {
 
     @Test
     void fromInt1() {
-        assertThat(arithmetic.fromInt(1)).isEqualTo(1);
+        assertThat(arithmetic.fromInt(1)).isOne();
     }
 
     @Test
@@ -35,7 +35,7 @@ class DoubleArithmeticTest {
 
     @Test
     void signum1() {
-        assertThat(arithmetic.signum(1d)).isEqualTo(1);
+        assertThat(arithmetic.signum(1d)).isOne();
     }
 
     // endregion
@@ -44,7 +44,7 @@ class DoubleArithmeticTest {
 
     @Test
     void absoluteM1() {
-        assertThat(arithmetic.absolute(-1d)).isEqualTo(1);
+        assertThat(arithmetic.absolute(-1d)).isOne();
     }
 
     @Test
@@ -56,19 +56,19 @@ class DoubleArithmeticTest {
     void compare() {
         assertThat(arithmetic.compare(1d, 1d)).isZero();
         assertThat(arithmetic.compare(1d, 2d)).isEqualTo(-1);
-        assertThat(arithmetic.compare(2d, 1d)).isEqualTo(1);
+        assertThat(arithmetic.compare(2d, 1d)).isOne();
     }
 
     @Test
     void min() {
-        assertThat(arithmetic.min(1d, 1d)).isEqualTo(1);
-        assertThat(arithmetic.min(1d, 2d)).isEqualTo(1);
-        assertThat(arithmetic.min(2d, 1d)).isEqualTo(1);
+        assertThat(arithmetic.min(1d, 1d)).isOne();
+        assertThat(arithmetic.min(1d, 2d)).isOne();
+        assertThat(arithmetic.min(2d, 1d)).isOne();
     }
 
     @Test
     void max() {
-        assertThat(arithmetic.max(1d, 1d)).isEqualTo(1);
+        assertThat(arithmetic.max(1d, 1d)).isOne();
         assertThat(arithmetic.max(1d, 2d)).isEqualTo(2);
         assertThat(arithmetic.max(2d, 1d)).isEqualTo(2);
     }
@@ -124,7 +124,7 @@ class DoubleArithmeticTest {
 
     @Test
     void modulo12() {
-        assertThat(arithmetic.modulo(1d, 2d)).isEqualTo(1);
+        assertThat(arithmetic.modulo(1d, 2d)).isOne();
     }
 
     // endregion
@@ -133,7 +133,7 @@ class DoubleArithmeticTest {
 
     @Test
     void power12() {
-        assertThat(arithmetic.power(1d, 2)).isEqualTo(1);
+        assertThat(arithmetic.power(1d, 2)).isOne();
     }
 
     @Test

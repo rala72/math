@@ -32,7 +32,7 @@ class ComplexArithmeticTest {
 
     @Test
     void signum() {
-        assertThat(arithmetic.signum(create(1, 1))).isEqualTo(1);
+        assertThat(arithmetic.signum(create(1, 1))).isOne();
     }
 
     // endregion
@@ -53,7 +53,7 @@ class ComplexArithmeticTest {
     void compare() {
         assertThat(arithmetic.compare(create(1, 1), create(1, 1))).isZero();
         assertThat(arithmetic.compare(create(1, 1), create(2, 2))).isEqualTo(-1);
-        assertThat(arithmetic.compare(create(2, 2), create(1, 1))).isEqualTo(1);
+        assertThat(arithmetic.compare(create(2, 2), create(1, 1))).isOne();
     }
 
     @Test

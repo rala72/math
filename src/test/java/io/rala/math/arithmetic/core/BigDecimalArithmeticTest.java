@@ -38,7 +38,7 @@ class BigDecimalArithmeticTest {
 
     @Test
     void signum1() {
-        assertThat(arithmetic.signum(BigDecimal.ONE)).isEqualTo(1);
+        assertThat(arithmetic.signum(BigDecimal.ONE)).isOne();
     }
 
     // endregion
@@ -59,7 +59,7 @@ class BigDecimalArithmeticTest {
     void compare() {
         assertThat(arithmetic.compare(BigDecimal.ONE, BigDecimal.ONE)).isZero();
         assertThat(arithmetic.compare(BigDecimal.ONE, BigDecimal.valueOf(2))).isEqualTo(-1);
-        assertThat(arithmetic.compare(BigDecimal.valueOf(2), BigDecimal.ONE)).isEqualTo(1);
+        assertThat(arithmetic.compare(BigDecimal.valueOf(2), BigDecimal.ONE)).isOne();
     }
 
     @Test

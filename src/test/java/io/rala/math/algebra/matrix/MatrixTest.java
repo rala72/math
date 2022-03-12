@@ -81,7 +81,7 @@ class MatrixTest {
 
     @Test
     void createWithSize1AndAssertSizeEquals1() {
-        assertThat(new TestMatrix(1).size()).isEqualTo(1);
+        assertThat(new TestMatrix(1).size()).isOne();
     }
 
     @Test
@@ -883,7 +883,7 @@ class MatrixTest {
     @Test
     void identityOfSize1() {
         TestMatrix matrix = TestMatrix.identity(1);
-        assertThat(matrix.size()).isEqualTo(1);
+        assertThat(matrix.size()).isOne();
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
             assertThat(matrix.getValue(i, i)).as(String.valueOf(i)).isEqualTo(1d);
     }
@@ -899,7 +899,7 @@ class MatrixTest {
     @Test
     void diagonalOfSize1() {
         TestMatrix matrix = TestMatrix.diagonal(1);
-        assertThat(matrix.size()).isEqualTo(1);
+        assertThat(matrix.size()).isOne();
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
             assertThat(matrix.getValue(i, i)).isEqualTo(1);
     }
@@ -1084,7 +1084,7 @@ class MatrixTest {
 
     @Test
     void subMatrixR0C0OfMatrixWithSize1() {
-        assertThat(new TestMatrix(2).subMatrix(0, 0).size()).isEqualTo(1);
+        assertThat(new TestMatrix(2).subMatrix(0, 0).size()).isOne();
     }
 
     @Test
@@ -1093,7 +1093,7 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i);
         Matrix<Number> subMatrix = matrix.subMatrix(0, 0);
-        assertThat(subMatrix.size()).isEqualTo(1);
+        assertThat(subMatrix.size()).isOne();
         assertThat(subMatrix.getValue(0)).isEqualTo(3);
     }
 
@@ -1103,7 +1103,7 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i);
         Matrix<Number> subMatrix = matrix.subMatrix(0, 1);
-        assertThat(subMatrix.size()).isEqualTo(1);
+        assertThat(subMatrix.size()).isOne();
         assertThat(subMatrix.getValue(0)).isEqualTo(2);
     }
 
@@ -1113,7 +1113,7 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i);
         Matrix<Number> subMatrix = matrix.subMatrix(1, 0);
-        assertThat(subMatrix.size()).isEqualTo(1);
+        assertThat(subMatrix.size()).isOne();
         assertThat(subMatrix.getValue(0)).isEqualTo(1);
     }
 
@@ -1123,7 +1123,7 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i);
         Matrix<Number> subMatrix = matrix.subMatrix(1, 1);
-        assertThat(subMatrix.size()).isEqualTo(1);
+        assertThat(subMatrix.size()).isOne();
         assertThat(subMatrix.getValue(0)).isEqualTo(0);
     }
 
@@ -1191,7 +1191,7 @@ class MatrixTest {
 
     @Test
     void signumFactorOfR0C0() {
-        assertThat(Matrix.signumFactor(0, 0)).isEqualTo(1);
+        assertThat(Matrix.signumFactor(0, 0)).isOne();
     }
 
     @Test
@@ -1206,7 +1206,7 @@ class MatrixTest {
 
     @Test
     void signumFactorOfR1C1() {
-        assertThat(Matrix.signumFactor(1, 1)).isEqualTo(1);
+        assertThat(Matrix.signumFactor(1, 1)).isOne();
     }
 
     // endregion

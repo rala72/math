@@ -25,7 +25,7 @@ class FloatArithmeticTest {
 
     @Test
     void fromInt1() {
-        assertThat(arithmetic.fromInt(1)).isEqualTo(1);
+        assertThat(arithmetic.fromInt(1)).isOne();
     }
 
     @Test
@@ -35,7 +35,7 @@ class FloatArithmeticTest {
 
     @Test
     void signum1() {
-        assertThat(arithmetic.signum(1f)).isEqualTo(1);
+        assertThat(arithmetic.signum(1f)).isOne();
     }
 
     // endregion
@@ -44,7 +44,7 @@ class FloatArithmeticTest {
 
     @Test
     void absoluteM1() {
-        assertThat(arithmetic.absolute(-1f)).isEqualTo(1);
+        assertThat(arithmetic.absolute(-1f)).isOne();
     }
 
     @Test
@@ -56,19 +56,19 @@ class FloatArithmeticTest {
     void compare() {
         assertThat(arithmetic.compare(1f, 1f)).isZero();
         assertThat(arithmetic.compare(1f, 2f)).isEqualTo(-1);
-        assertThat(arithmetic.compare(2f, 1f)).isEqualTo(1);
+        assertThat(arithmetic.compare(2f, 1f)).isOne();
     }
 
     @Test
     void min() {
-        assertThat(arithmetic.min(1f, 1f)).isEqualTo(1);
-        assertThat(arithmetic.min(1f, 2f)).isEqualTo(1);
-        assertThat(arithmetic.min(2f, 1f)).isEqualTo(1);
+        assertThat(arithmetic.min(1f, 1f)).isOne();
+        assertThat(arithmetic.min(1f, 2f)).isOne();
+        assertThat(arithmetic.min(2f, 1f)).isOne();
     }
 
     @Test
     void max() {
-        assertThat(arithmetic.max(1f, 1f)).isEqualTo(1);
+        assertThat(arithmetic.max(1f, 1f)).isOne();
         assertThat(arithmetic.max(1f, 2f)).isEqualTo(2);
         assertThat(arithmetic.max(2f, 1f)).isEqualTo(2);
     }
@@ -124,7 +124,7 @@ class FloatArithmeticTest {
 
     @Test
     void modulo12() {
-        assertThat(arithmetic.modulo(1f, 2f)).isEqualTo(1);
+        assertThat(arithmetic.modulo(1f, 2f)).isOne();
     }
 
     // endregion
@@ -133,7 +133,7 @@ class FloatArithmeticTest {
 
     @Test
     void power12() {
-        assertThat(arithmetic.power(1f, 2)).isEqualTo(1);
+        assertThat(arithmetic.power(1f, 2)).isOne();
     }
 
     @Test

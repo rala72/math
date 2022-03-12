@@ -59,12 +59,12 @@ class ComplexTest {
 
     @Test
     void intValueOfComplexWithX1_1Y2_2() {
-        assertThat(new TestComplex(1.1, 2.2).intValue()).isEqualTo(1);
+        assertThat(new TestComplex(1.1, 2.2).intValue()).isOne();
     }
 
     @Test
     void longValueOfComplexWithX1_1Y2_2() {
-        assertThat(new TestComplex(1.1, 2.2).longValue()).isEqualTo(1);
+        assertThat(new TestComplex(1.1, 2.2).longValue()).isOne();
     }
 
     @Test
@@ -134,7 +134,7 @@ class ComplexTest {
 
     @Test
     void complexSignumOfComplexX1Y1() {
-        assertThat(new TestComplex(1, 1).complexSignum()).isEqualTo(1);
+        assertThat(new TestComplex(1, 1).complexSignum()).isOne();
     }
 
     @Test

@@ -35,7 +35,7 @@ class BigIntegerArithmeticTest {
 
     @Test
     void signum1() {
-        assertThat(arithmetic.signum(BigInteger.ONE)).isEqualTo(1);
+        assertThat(arithmetic.signum(BigInteger.ONE)).isOne();
     }
 
     // endregion
@@ -56,7 +56,7 @@ class BigIntegerArithmeticTest {
     void compare() {
         assertThat(arithmetic.compare(BigInteger.ONE, BigInteger.ONE)).isZero();
         assertThat(arithmetic.compare(BigInteger.ONE, BigInteger.TWO)).isEqualTo(-1);
-        assertThat(arithmetic.compare(BigInteger.TWO, BigInteger.ONE)).isEqualTo(1);
+        assertThat(arithmetic.compare(BigInteger.TWO, BigInteger.ONE)).isOne();
     }
 
     @Test

@@ -23,17 +23,17 @@ class LongArithmeticTest {
 
     @Test
     void fromInt1() {
-        assertThat(arithmetic.fromInt(1)).isEqualTo(1);
+        assertThat(arithmetic.fromInt(1)).isOne();
     }
 
     @Test
     void fromDouble1_1() {
-        assertThat(arithmetic.fromDouble(1.1)).isEqualTo(1);
+        assertThat(arithmetic.fromDouble(1.1)).isOne();
     }
 
     @Test
     void signum1() {
-        assertThat(arithmetic.signum(1L)).isEqualTo(1);
+        assertThat(arithmetic.signum(1L)).isOne();
     }
 
     // endregion
@@ -42,7 +42,7 @@ class LongArithmeticTest {
 
     @Test
     void absoluteM1() {
-        assertThat(arithmetic.absolute(-1L)).isEqualTo(1);
+        assertThat(arithmetic.absolute(-1L)).isOne();
     }
 
     @Test
@@ -54,19 +54,19 @@ class LongArithmeticTest {
     void compare() {
         assertThat(arithmetic.compare(1L, 1L)).isZero();
         assertThat(arithmetic.compare(1L, 2L)).isEqualTo(-1);
-        assertThat(arithmetic.compare(2L, 1L)).isEqualTo(1);
+        assertThat(arithmetic.compare(2L, 1L)).isOne();
     }
 
     @Test
     void min() {
-        assertThat(arithmetic.min(1L, 1L)).isEqualTo(1);
-        assertThat(arithmetic.min(1L, 2L)).isEqualTo(1);
-        assertThat(arithmetic.min(2L, 1L)).isEqualTo(1);
+        assertThat(arithmetic.min(1L, 1L)).isOne();
+        assertThat(arithmetic.min(1L, 2L)).isOne();
+        assertThat(arithmetic.min(2L, 1L)).isOne();
     }
 
     @Test
     void max() {
-        assertThat(arithmetic.max(1L, 1L)).isEqualTo(1);
+        assertThat(arithmetic.max(1L, 1L)).isOne();
         assertThat(arithmetic.max(1L, 2L)).isEqualTo(2);
         assertThat(arithmetic.max(2L, 1L)).isEqualTo(2);
     }
@@ -122,7 +122,7 @@ class LongArithmeticTest {
 
     @Test
     void modulo12() {
-        assertThat(arithmetic.modulo(1L, 2L)).isEqualTo(1);
+        assertThat(arithmetic.modulo(1L, 2L)).isOne();
     }
 
     // endregion
@@ -131,7 +131,7 @@ class LongArithmeticTest {
 
     @Test
     void power12() {
-        assertThat(arithmetic.power(1L, 2)).isEqualTo(1);
+        assertThat(arithmetic.power(1L, 2)).isOne();
     }
 
     @Test
@@ -145,7 +145,7 @@ class LongArithmeticTest {
 
     @Test
     void gcd() {
-        assertThat(arithmetic.gcd(3L, 4L)).isEqualTo(1);
+        assertThat(arithmetic.gcd(3L, 4L)).isOne();
     }
 
     @Test
