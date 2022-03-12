@@ -391,7 +391,7 @@ public class Complex<T extends Number> extends Number implements Validatable,
      */
     @NotNull
     @Unmodifiable
-    public List<Complex<T>> root(int n) {
+    public List<@NotNull Complex<T>> root(int n) {
         List<Complex<T>> list = new ArrayList<>(n - 1);
         T r = getArithmetic().root(absoluteValue(), n);
         for (int i = 0; i < n; i++)

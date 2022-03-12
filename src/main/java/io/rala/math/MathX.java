@@ -129,7 +129,7 @@ public class MathX {
      */
     @NotNull
     @Unmodifiable
-    public static List<Integer> factors(int a) {
+    public static List<@NotNull Integer> factors(int a) {
         return factors((long) a).stream()
             .mapToInt(Long::intValue).boxed()
             .collect(Collectors.toUnmodifiableList());
@@ -142,7 +142,7 @@ public class MathX {
      */
     @NotNull
     @Unmodifiable
-    public static List<Long> factors(long a) {
+    public static List<@NotNull Long> factors(long a) {
         // https://stackoverflow.com/a/6233030/2715720
         List<Long> factors = new ArrayList<>();
         // factors.add(1);

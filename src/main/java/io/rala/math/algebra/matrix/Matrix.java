@@ -219,7 +219,7 @@ public class Matrix<T extends Number>
      */
     @NotNull
     @Unmodifiable
-    public List<Field> getRowFields(int row) {
+    public List<@NotNull Field> getRowFields(int row) {
         if (!isValidRow(row))
             throw new IndexOutOfBoundsException(EXCEPTION_ROW_PREFIX + row + " / " + getRows());
         return IntStream.range(0, getCols())
@@ -236,7 +236,7 @@ public class Matrix<T extends Number>
      */
     @NotNull
     @Unmodifiable
-    public List<T> getRow(int row) {
+    public List<@NotNull T> getRow(int row) {
         return getRowFields(row).stream()
             .map(Field::getValue)
             .collect(Collectors.toUnmodifiableList());
@@ -250,7 +250,7 @@ public class Matrix<T extends Number>
      */
     @NotNull
     @Unmodifiable
-    public List<Field> getColFields(int col) {
+    public List<@NotNull Field> getColFields(int col) {
         if (!isValidCol(col))
             throw new IndexOutOfBoundsException(EXCEPTION_COL_PREFIX + col + " / " + getCols());
         return IntStream.range(0, getRows())
@@ -267,7 +267,7 @@ public class Matrix<T extends Number>
      */
     @NotNull
     @Unmodifiable
-    public List<T> getCol(int col) {
+    public List<@NotNull T> getCol(int col) {
         return getColFields(col).stream()
             .map(Field::getValue)
             .collect(Collectors.toUnmodifiableList());

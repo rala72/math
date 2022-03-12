@@ -63,7 +63,7 @@ public class Solution<E extends AbstractEquationSystem<E>, T extends Number> {
      */
     @NotNull
     @Unmodifiable
-    public List<T> getSolution() {
+    public List<@NotNull T> getSolution() {
         return Collections.unmodifiableList(solution);
     }
 
