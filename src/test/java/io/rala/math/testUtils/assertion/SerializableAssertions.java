@@ -27,7 +27,7 @@ public class SerializableAssertions {
         assertThatCode(() -> {
             byte[] serialize = SerializableUtils.serialize(t);
             T deserialize = SerializableUtils.deserialize(serialize, tClass);
-            assertThat(deserialize).isEqualTo(t);
+            assertThat(deserialize).isNotSameAs(t).isEqualTo(t);
         }).doesNotThrowAnyException();
     }
 }
