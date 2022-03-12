@@ -707,7 +707,7 @@ public class Vector<T extends Number>
      */
     protected final boolean isZero() {
         return stream().allMatch(
-            (entry) -> getArithmetic().isZero(entry.getValue())
+            entry -> getArithmetic().isZero(entry.getValue())
         );
     }
 
