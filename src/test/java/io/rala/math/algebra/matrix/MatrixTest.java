@@ -405,12 +405,12 @@ class MatrixTest {
 
     @Test
     void isSquareOfMatrixWithRow1Col2() {
-        assertThat(new TestMatrix(1, 2).isDiagonal()).isFalse();
+        assertThat(new TestMatrix(1, 2).isSquare()).isFalse();
     }
 
     @Test
     void isSquareOfMatrixWithSize2() {
-        assertThat(new TestMatrix(2).isDiagonal()).isTrue();
+        assertThat(new TestMatrix(2).isSquare()).isTrue();
     }
 
     @Test

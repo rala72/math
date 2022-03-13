@@ -399,12 +399,12 @@ class BigDecimalMatrixTest {
 
     @Test
     void isSquareOfMatrixWithRow1Col2() {
-        assertThat(new BigDecimalMatrix(1, 2).isDiagonal()).isFalse();
+        assertThat(new BigDecimalMatrix(1, 2).isSquare()).isFalse();
     }
 
     @Test
     void isSquareOfMatrixWithSize2() {
-        assertThat(new BigDecimalMatrix(2).isDiagonal()).isTrue();
+        assertThat(new BigDecimalMatrix(2).isSquare()).isTrue();
     }
 
     @Test

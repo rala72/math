@@ -164,7 +164,7 @@ class VectorTest {
 
     // endregion
 
-    // region to Matrix and toParam
+    // region toMatrix and toParam
 
     @Test
     void toMatrixOfVectorWithEmptyColumn() {
