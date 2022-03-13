@@ -394,9 +394,9 @@ class ComplexTest {
 
     @Test
     void equalsOfComplexWithReIm() {
-        TestComplex complex = new TestComplex(2, 3);
-        assertThat(new TestComplex(2, 3)).isEqualTo(complex);
-        assertThat(new TestComplex(3, 2)).isNotEqualTo(complex);
+        assertThat(new TestComplex(2, 3))
+            .isEqualTo(new TestComplex(2, 3))
+            .isNotEqualTo(new TestComplex(3, 2));
     }
 
     @Test

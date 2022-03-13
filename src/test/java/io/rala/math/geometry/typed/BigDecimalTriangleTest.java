@@ -443,21 +443,19 @@ class BigDecimalTriangleTest {
 
     @Test
     void equalsOfTriangleWithA2B3C4() {
-        Triangle<BigDecimal> triangle = new BigDecimalTriangle(
-            new BigDecimalPoint(BigDecimal.valueOf(2d)),
-            new BigDecimalPoint(BigDecimal.valueOf(3d)),
-            new BigDecimalPoint(BigDecimal.valueOf(4d))
-        );
         assertThat(new BigDecimalTriangle(
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             new BigDecimalPoint(BigDecimal.valueOf(3d)),
             new BigDecimalPoint(BigDecimal.valueOf(4d))
-        )).isEqualTo(triangle);
-        assertThat(new BigDecimalTriangle(
+        )).isEqualTo(new BigDecimalTriangle(
+            new BigDecimalPoint(BigDecimal.valueOf(2d)),
+            new BigDecimalPoint(BigDecimal.valueOf(3d)),
+            new BigDecimalPoint(BigDecimal.valueOf(4d))
+        )).isNotEqualTo(new BigDecimalTriangle(
             new BigDecimalPoint(BigDecimal.valueOf(3d)),
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             new BigDecimalPoint(BigDecimal.valueOf(4d))
-        )).isNotEqualTo(triangle);
+        ));
     }
 
     @Test

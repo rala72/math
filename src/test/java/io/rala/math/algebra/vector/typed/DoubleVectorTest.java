@@ -673,9 +673,9 @@ class DoubleVectorTest {
 
     @Test
     void equalsOfDoubleVectorWithSize2() {
-        DoubleVector vector = new DoubleVector(2);
-        assertThat(new DoubleVector(2)).isEqualTo(vector);
-        assertThat(new DoubleVector(3)).isNotEqualTo(vector);
+        assertThat(new DoubleVector(2))
+            .isEqualTo(new DoubleVector(2))
+            .isNotEqualTo(new DoubleVector(3));
     }
 
     @Test

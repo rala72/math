@@ -351,10 +351,9 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void equalsOfFractionWithNuDe() {
-        BigIntegerBigDecimalFraction complex =
-            new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.valueOf(3));
-        assertThat(new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.valueOf(3))).isEqualTo(complex);
-        assertThat(new BigIntegerBigDecimalFraction(BigInteger.valueOf(3), BigInteger.TWO)).isNotEqualTo(complex);
+        assertThat(new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.valueOf(3)))
+            .isEqualTo(new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.valueOf(3)))
+            .isNotEqualTo(new BigIntegerBigDecimalFraction(BigInteger.valueOf(3), BigInteger.TWO));
     }
 
     @Test

@@ -386,9 +386,9 @@ class DoubleComplexTest {
 
     @Test
     void equalsOfComplexWithReIm() {
-        Complex<Double> complex = new DoubleComplex(2d, 3d);
-        assertThat(new DoubleComplex(2d, 3d)).isEqualTo(complex);
-        assertThat(new DoubleComplex(3d, 2d)).isNotEqualTo(complex);
+        assertThat(new DoubleComplex(2d, 3d))
+            .isEqualTo(new DoubleComplex(2d, 3d))
+            .isNotEqualTo(new DoubleComplex(3d, 2d));
     }
 
     @Test

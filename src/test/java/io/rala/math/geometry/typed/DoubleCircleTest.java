@@ -225,9 +225,9 @@ class DoubleCircleTest {
 
     @Test
     void equalsOfCircleWithPointAndRadius() {
-        Circle<Double> circle = new DoubleCircle(new DoublePoint(2d), 3d);
-        assertThat(new DoubleCircle(new DoublePoint(2d), 3d)).isEqualTo(circle);
-        assertThat(new DoubleCircle(new DoublePoint(3d), 2d)).isNotEqualTo(circle);
+        assertThat(new DoubleCircle(new DoublePoint(2d), 3d))
+            .isEqualTo(new DoubleCircle(new DoublePoint(2d), 3d))
+            .isNotEqualTo(new DoubleCircle(new DoublePoint(3d), 2d));
     }
 
     @Test

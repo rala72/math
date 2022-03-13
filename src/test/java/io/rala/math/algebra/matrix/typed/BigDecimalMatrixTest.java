@@ -849,9 +849,9 @@ class BigDecimalMatrixTest {
 
     @Test
     void equalsOfBigDecimalMatrixWithRow2Col3() {
-        BigDecimalMatrix matrix = new BigDecimalMatrix(2, 3);
-        assertThat(new BigDecimalMatrix(2, 3)).isEqualTo(matrix);
-        assertThat(new BigDecimalMatrix(3, 2)).isNotEqualTo(matrix);
+        assertThat(new BigDecimalMatrix(2, 3))
+            .isEqualTo(new BigDecimalMatrix(2, 3))
+            .isNotEqualTo(new BigDecimalMatrix(3, 2));
     }
 
     @Test

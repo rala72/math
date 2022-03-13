@@ -394,11 +394,9 @@ class BigDecimalLineTest {
 
     @Test
     void equalsOfLineWithMB() {
-        Line<BigDecimal> line = new BigDecimalLine(
-            BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
-        );
-        assertThat(new BigDecimalLine(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d))).isEqualTo(line);
-        assertThat(new BigDecimalLine(BigDecimal.valueOf(3d), BigDecimal.valueOf(2d))).isNotEqualTo(line);
+        assertThat(new BigDecimalLine(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)))
+            .isEqualTo(new BigDecimalLine(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)))
+            .isNotEqualTo(new BigDecimalLine(BigDecimal.valueOf(3d), BigDecimal.valueOf(2d)));
     }
 
     @Test

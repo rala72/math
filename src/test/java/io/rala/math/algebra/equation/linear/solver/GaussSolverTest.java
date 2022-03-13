@@ -477,9 +477,9 @@ class GaussSolverTest {
 
     @Test
     void equalsOfTestAbstractSolver() {
-        GaussSolver.ColPair pair = new GaussSolver.ColPair(0, 1);
-        assertThat(new GaussSolver.ColPair(0, 1)).isEqualTo(pair);
-        assertThat(new GaussSolver.ColPair(1, 0)).isNotEqualTo(pair);
+        assertThat(new GaussSolver.ColPair(0, 1))
+            .isEqualTo(new GaussSolver.ColPair(0, 1))
+            .isNotEqualTo(new GaussSolver.ColPair(1, 0));
     }
 
     @Test

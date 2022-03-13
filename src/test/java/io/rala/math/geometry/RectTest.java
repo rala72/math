@@ -297,9 +297,9 @@ class RectTest {
 
     @Test
     void equalsOfRectWithPointHeightAndWidth() {
-        Rect<Number> rect = new TestRect(new TestPoint(2), new TestPoint(3), 4);
-        assertThat(new TestRect(new TestPoint(2), new TestPoint(3), 4)).isEqualTo(rect);
-        assertThat(new TestRect(new TestPoint(2), new TestPoint(4), 3)).isNotEqualTo(rect);
+        assertThat(new TestRect(new TestPoint(2), new TestPoint(3), 4))
+            .isEqualTo(new TestRect(new TestPoint(2), new TestPoint(3), 4))
+            .isNotEqualTo(new TestRect(new TestPoint(2), new TestPoint(4), 3));
     }
 
     @Test

@@ -20,10 +20,9 @@ class SolutionTest {
 
     @Test
     void equalsOfTestAbstractSolver() {
-        Solution<TestAbstractEquationSystem, Number> solution =
-            Solution.unsolvable(equationSystem);
-        assertThat(Solution.unsolvable(equationSystem)).isEqualTo(solution);
-        assertThat(Solution.infinite(equationSystem)).isNotEqualTo(solution);
+        assertThat(Solution.unsolvable(equationSystem))
+            .isEqualTo(Solution.unsolvable(equationSystem))
+            .isNotEqualTo(Solution.infinite(equationSystem));
     }
 
     @Test

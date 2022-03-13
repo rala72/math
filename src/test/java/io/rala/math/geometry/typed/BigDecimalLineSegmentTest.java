@@ -340,14 +340,16 @@ class BigDecimalLineSegmentTest {
 
     @Test
     void equalsOfLineSegmentWithTwoPoints() {
-        LineSegment<BigDecimal> lineSegment = new BigDecimalLineSegment(
+        assertThat(new BigDecimalLineSegment(
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             new BigDecimalPoint(BigDecimal.valueOf(3d))
-        );
-        assertThat(new BigDecimalLineSegment(new BigDecimalPoint(BigDecimal.valueOf(2d)),
-            new BigDecimalPoint(BigDecimal.valueOf(3d)))).isEqualTo(lineSegment);
-        assertThat(new BigDecimalLineSegment(new BigDecimalPoint(BigDecimal.valueOf(3d)),
-            new BigDecimalPoint(BigDecimal.valueOf(2d)))).isNotEqualTo(lineSegment);
+        )).isEqualTo(new BigDecimalLineSegment(
+            new BigDecimalPoint(BigDecimal.valueOf(2d)),
+            new BigDecimalPoint(BigDecimal.valueOf(3d))
+        )).isNotEqualTo(new BigDecimalLineSegment(
+            new BigDecimalPoint(BigDecimal.valueOf(3d)),
+            new BigDecimalPoint(BigDecimal.valueOf(2d))
+        ));
     }
 
     @Test

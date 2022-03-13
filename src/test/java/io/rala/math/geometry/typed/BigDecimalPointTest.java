@@ -240,11 +240,9 @@ class BigDecimalPointTest {
 
     @Test
     void equalsOfPointWithXY() {
-        Point<BigDecimal> point = new BigDecimalPoint(
-            BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
-        );
-        assertThat(new BigDecimalPoint(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d))).isEqualTo(point);
-        assertThat(new BigDecimalPoint(BigDecimal.valueOf(3d), BigDecimal.valueOf(2d))).isNotEqualTo(point);
+        assertThat(new BigDecimalPoint(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)))
+            .isEqualTo(new BigDecimalPoint(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)))
+            .isNotEqualTo(new BigDecimalPoint(BigDecimal.valueOf(3d), BigDecimal.valueOf(2d)));
     }
 
     @Test

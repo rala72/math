@@ -56,8 +56,8 @@ class AbstractSolverTest {
 
     @Test
     void equalsOfTestAbstractSolver() {
-        TestAbstractSolver solver = new TestAbstractSolver(equationSystem);
-        assertThat(new TestAbstractSolver(equationSystem)).isEqualTo(solver);
+        assertThat(new TestAbstractSolver(equationSystem))
+            .isEqualTo(new TestAbstractSolver(equationSystem));
     }
 
     @Test

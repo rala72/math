@@ -217,9 +217,9 @@ class CircleTest {
 
     @Test
     void equalsOfCircleWithPointAndRadius() {
-        Circle<Number> circle = new TestCircle(new TestPoint(2), 3);
-        assertThat(new TestCircle(new TestPoint(2), 3)).isEqualTo(circle);
-        assertThat(new TestCircle(new TestPoint(3), 2)).isNotEqualTo(circle);
+        assertThat(new TestCircle(new TestPoint(2), 3))
+            .isEqualTo(new TestCircle(new TestPoint(2), 3))
+            .isNotEqualTo(new TestCircle(new TestPoint(3), 2));
     }
 
     @Test

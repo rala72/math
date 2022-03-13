@@ -335,9 +335,9 @@ class DoubleVectorTest {
 
     @Test
     void equalsOfVectorWithX2Y3() {
-        Vector<Double> vector = new DoubleVector(2d, 3d);
-        assertThat(new DoubleVector(2d, 3d)).isEqualTo(vector);
-        assertThat(new DoubleVector(3d, 2d)).isNotEqualTo(vector);
+        assertThat(new DoubleVector(2d, 3d))
+            .isEqualTo(new DoubleVector(2d, 3d))
+            .isNotEqualTo(new DoubleVector(3d, 2d));
     }
 
     @Test

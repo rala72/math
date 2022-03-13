@@ -147,11 +147,10 @@ class LinearEquationSystemTest {
 
     @Test
     void equalsOfTestAbstractSolver() {
-        LinearEquationSystem<Number> equationSystem =
-            new LinearEquationSystem<>(matrix, vector);
-        assertThat(new LinearEquationSystem<>(matrix, vector)).isEqualTo(equationSystem);
-        assertThat(new LinearEquationSystem<>(
-            new TestMatrix(1), new TestVector(1))).isNotEqualTo(equationSystem);
+        assertThat(new LinearEquationSystem<>(matrix, vector))
+            .isEqualTo(new LinearEquationSystem<>(matrix, vector))
+            .isNotEqualTo(new LinearEquationSystem<>(
+                new TestMatrix(1), new TestVector(1)));
     }
 
     @Test

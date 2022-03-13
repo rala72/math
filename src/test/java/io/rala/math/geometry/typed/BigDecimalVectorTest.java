@@ -454,11 +454,9 @@ class BigDecimalVectorTest {
 
     @Test
     void equalsOfVectorWithX2Y3() {
-        Vector<BigDecimal> vector = new BigDecimalVector(
-            BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
-        );
-        assertThat(new BigDecimalVector(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d))).isEqualTo(vector);
-        assertThat(new BigDecimalVector(BigDecimal.valueOf(3d), BigDecimal.valueOf(2d))).isNotEqualTo(vector);
+        assertThat(new BigDecimalVector(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)))
+            .isEqualTo(new BigDecimalVector(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)))
+            .isNotEqualTo(new BigDecimalVector(BigDecimal.valueOf(3d), BigDecimal.valueOf(2d)));
     }
 
     @Test

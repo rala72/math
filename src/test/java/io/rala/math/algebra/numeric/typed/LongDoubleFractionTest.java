@@ -273,9 +273,9 @@ class LongDoubleFractionTest {
 
     @Test
     void equalsOfFractionWithNuDe() {
-        LongDoubleFraction complex = new LongDoubleFraction(2, 3L);
-        assertThat(new LongDoubleFraction(2, 3L)).isEqualTo(complex);
-        assertThat(new LongDoubleFraction(3, 2L)).isNotEqualTo(complex);
+        assertThat(new LongDoubleFraction(2, 3L))
+            .isEqualTo(new LongDoubleFraction(2, 3L))
+            .isNotEqualTo(new LongDoubleFraction(3, 2L));
     }
 
     @Test

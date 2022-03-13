@@ -372,21 +372,19 @@ class DoubleTriangleTest {
 
     @Test
     void equalsOfTriangleWithA2B3C4() {
-        Triangle<Double> triangle = new DoubleTriangle(
-            new DoublePoint(2d),
-            new DoublePoint(3d),
-            new DoublePoint(4d)
-        );
         assertThat(new DoubleTriangle(
             new DoublePoint(2d),
             new DoublePoint(3d),
             new DoublePoint(4d)
-        )).isEqualTo(triangle);
-        assertThat(new DoubleTriangle(
+        )).isEqualTo(new DoubleTriangle(
+            new DoublePoint(2d),
+            new DoublePoint(3d),
+            new DoublePoint(4d)
+        )).isNotEqualTo(new DoubleTriangle(
             new DoublePoint(3d),
             new DoublePoint(2d),
             new DoublePoint(4d)
-        )).isNotEqualTo(triangle);
+        ));
     }
 
     @Test

@@ -315,9 +315,9 @@ class LineTest {
 
     @Test
     void equalsOfLineWithMB() {
-        Line<Number> line = new TestLine(2, 3);
-        assertThat(new TestLine(2, 3)).isEqualTo(line);
-        assertThat(new TestLine(3, 2)).isNotEqualTo(line);
+        assertThat(new TestLine(2, 3))
+            .isEqualTo(new TestLine(2, 3))
+            .isNotEqualTo(new TestLine(3, 2));
     }
 
     @Test

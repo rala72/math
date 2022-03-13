@@ -299,17 +299,14 @@ class BigDecimalCircleTest {
 
     @Test
     void equalsOfCircleWithPointAndRadius() {
-        Circle<BigDecimal> circle = new BigDecimalCircle(
-            new BigDecimalPoint(BigDecimal.valueOf(2d)), BigDecimal.valueOf(3d)
-        );
         assertThat(new BigDecimalCircle(
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             BigDecimal.valueOf(3d)
-        )).isEqualTo(circle);
-        assertThat(new BigDecimalCircle(
-            new BigDecimalPoint(BigDecimal.valueOf(3d)),
-            BigDecimal.valueOf(2d)
-        )).isNotEqualTo(circle);
+        )).isEqualTo(new BigDecimalCircle(
+            new BigDecimalPoint(BigDecimal.valueOf(2d)), BigDecimal.valueOf(3d)
+        )).isNotEqualTo(new BigDecimalCircle(
+            new BigDecimalPoint(BigDecimal.valueOf(3d)), BigDecimal.valueOf(2d)
+        ));
     }
 
     @Test

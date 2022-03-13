@@ -495,11 +495,9 @@ class BigDecimalComplexTest {
 
     @Test
     void equalsOfComplexWithReIm() {
-        Complex<BigDecimal> complex = new BigDecimalComplex(
-            BigDecimal.valueOf(2), BigDecimal.valueOf(3)
-        );
-        assertThat(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.valueOf(3))).isEqualTo(complex);
-        assertThat(new BigDecimalComplex(BigDecimal.valueOf(3), BigDecimal.valueOf(2))).isNotEqualTo(complex);
+        assertThat(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.valueOf(3)))
+            .isEqualTo(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.valueOf(3)))
+            .isNotEqualTo(new BigDecimalComplex(BigDecimal.valueOf(3), BigDecimal.valueOf(2)));
     }
 
     @Test

@@ -284,9 +284,9 @@ class FractionTest {
 
     @Test
     void equalsOfFractionWithNuDe() {
-        TestFraction complex = new TestFraction(2, 3);
-        assertThat(new TestFraction(2, 3)).isEqualTo(complex);
-        assertThat(new TestFraction(3, 2)).isNotEqualTo(complex);
+        assertThat(new TestFraction(2, 3))
+            .isEqualTo(new TestFraction(2, 3))
+            .isNotEqualTo(new TestFraction(3, 2));
     }
 
     @Test

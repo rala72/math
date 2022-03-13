@@ -327,9 +327,9 @@ class VectorTest {
 
     @Test
     void equalsOfVectorWithX2Y3() {
-        Vector<Number> vector = new TestVector(2, 3);
-        assertThat(new TestVector(2, 3)).isEqualTo(vector);
-        assertThat(new TestVector(3, 2)).isNotEqualTo(vector);
+        assertThat(new TestVector(2, 3))
+            .isEqualTo(new TestVector(2, 3))
+            .isNotEqualTo(new TestVector(3, 2));
     }
 
     @Test

@@ -720,9 +720,9 @@ class BigDecimalVectorTest {
 
     @Test
     void equalsOfBigDecimalVectorWithSize2() {
-        BigDecimalVector vector = new BigDecimalVector(2);
-        assertThat(new BigDecimalVector(2)).isEqualTo(vector);
-        assertThat(new BigDecimalVector(3)).isNotEqualTo(vector);
+        assertThat(new BigDecimalVector(2))
+            .isEqualTo(new BigDecimalVector(2))
+            .isNotEqualTo(new BigDecimalVector(3));
     }
 
     @Test

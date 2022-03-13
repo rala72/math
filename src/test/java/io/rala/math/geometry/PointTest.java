@@ -160,9 +160,9 @@ class PointTest {
 
     @Test
     void equalsOfPointWithXY() {
-        Point<Number> point = new TestPoint(2, 3);
-        assertThat(new TestPoint(2, 3)).isEqualTo(point);
-        assertThat(new TestPoint(3, 2)).isNotEqualTo(point);
+        assertThat(new TestPoint(2, 3))
+            .isEqualTo(new TestPoint(2, 3))
+            .isNotEqualTo(new TestPoint(3, 2));
     }
 
     @Test

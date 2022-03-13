@@ -682,17 +682,18 @@ class VectorTest {
 
     @Test
     void equalsOfTestVectorWithSize2() {
-        TestVector vector = new TestVector(2);
-        assertThat(new TestVector(2)).isEqualTo(vector);
-        assertThat(new TestVector(3)).isNotEqualTo(vector);
+        assertThat(new TestVector(2))
+            .isEqualTo(new TestVector(2))
+            .isNotEqualTo(new TestVector(3));
     }
 
     @Test
     void equalsOfTestVectorWithDifferentDefaults() {
         TestVector default0 = new TestVector(2);
         default0.forEach(field -> default0.setValue(field.getIndex(), 1d));
-        assertThat(new TestVector(2)).isNotEqualTo(default0);
-        assertThat(new TestVector(2, 1d)).isEqualTo(default0);
+        assertThat(default0)
+            .isNotEqualTo(new TestVector(2))
+            .isEqualTo(new TestVector(2, 1d));
     }
 
     @Test

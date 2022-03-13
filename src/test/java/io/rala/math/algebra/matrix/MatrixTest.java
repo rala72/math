@@ -1031,17 +1031,18 @@ class MatrixTest {
 
     @Test
     void equalsOfTestMatrixWithRow2Col3() {
-        TestMatrix matrix = new TestMatrix(2, 3);
-        assertThat(new TestMatrix(2, 3)).isEqualTo(matrix);
-        assertThat(new TestMatrix(3, 2)).isNotEqualTo(matrix);
+        assertThat(new TestMatrix(2, 3))
+            .isEqualTo(new TestMatrix(2, 3))
+            .isNotEqualTo(new TestMatrix(3, 2));
     }
 
     @Test
     void equalsOfTestMatrixWithDifferentDefaults() {
         TestMatrix default0 = new TestMatrix(2);
         default0.forEach(field -> default0.setValue(field.getIndex(), 1d));
-        assertThat(new TestMatrix(2)).isNotEqualTo(default0);
-        assertThat(new TestMatrix(2, 1d)).isEqualTo(default0);
+        assertThat(default0)
+            .isNotEqualTo(new TestMatrix(2))
+            .isEqualTo(new TestMatrix(2, 1d));
     }
 
     @Test

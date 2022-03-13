@@ -395,11 +395,9 @@ class TriangleTest {
 
     @Test
     void equalsOfTriangleWithA2B3C4() {
-        Triangle<Number> triangle = new TestTriangle(
-            new TestPoint(2), new TestPoint(3), new TestPoint(4)
-        );
-        assertThat(new TestTriangle(new TestPoint(2), new TestPoint(3), new TestPoint(4))).isEqualTo(triangle);
-        assertThat(new TestTriangle(new TestPoint(3), new TestPoint(2), new TestPoint(4))).isNotEqualTo(triangle);
+        assertThat(new TestTriangle(new TestPoint(2), new TestPoint(3), new TestPoint(4)))
+            .isEqualTo(new TestTriangle(new TestPoint(2), new TestPoint(3), new TestPoint(4)))
+            .isNotEqualTo(new TestTriangle(new TestPoint(3), new TestPoint(2), new TestPoint(4)));
     }
 
     @Test

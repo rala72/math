@@ -794,9 +794,9 @@ class DoubleMatrixTest {
 
     @Test
     void equalsOfDoubleMatrixWithRow2Col3() {
-        DoubleMatrix matrix = new DoubleMatrix(2, 3);
-        assertThat(new DoubleMatrix(2, 3)).isEqualTo(matrix);
-        assertThat(new DoubleMatrix(3, 2)).isNotEqualTo(matrix);
+        assertThat(new DoubleMatrix(2, 3))
+            .isEqualTo(new DoubleMatrix(2, 3))
+            .isNotEqualTo(new DoubleMatrix(3, 2));
     }
 
     @Test

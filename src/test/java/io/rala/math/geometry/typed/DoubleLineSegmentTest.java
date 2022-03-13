@@ -254,11 +254,9 @@ class DoubleLineSegmentTest {
 
     @Test
     void equalsOfLineSegmentWithTwoPoints() {
-        LineSegment<Double> lineSegment = new DoubleLineSegment(
-            new DoublePoint(2d), new DoublePoint(3d)
-        );
-        assertThat(new DoubleLineSegment(new DoublePoint(2d), new DoublePoint(3d))).isEqualTo(lineSegment);
-        assertThat(new DoubleLineSegment(new DoublePoint(3d), new DoublePoint(2d))).isNotEqualTo(lineSegment);
+        assertThat(new DoubleLineSegment(new DoublePoint(2d), new DoublePoint(3d)))
+            .isEqualTo(new DoubleLineSegment(new DoublePoint(2d), new DoublePoint(3d)))
+            .isNotEqualTo(new DoubleLineSegment(new DoublePoint(3d), new DoublePoint(2d)));
     }
 
     @Test

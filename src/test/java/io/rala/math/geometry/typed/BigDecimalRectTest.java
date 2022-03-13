@@ -430,20 +430,19 @@ class BigDecimalRectTest {
 
     @Test
     void equalsOfRectWithPointHeightAndWidth() {
-        Rect<BigDecimal> rect = new BigDecimalRect(
+        assertThat(new BigDecimalRect(
             new BigDecimalPoint(BigDecimal.valueOf(2d)),
             new BigDecimalPoint(BigDecimal.valueOf(3d)),
             BigDecimal.valueOf(4d)
-        );
-        assertThat(new BigDecimalRect(new BigDecimalPoint(
-            BigDecimal.valueOf(2d)),
+        )).isEqualTo(new BigDecimalRect(
+            new BigDecimalPoint(BigDecimal.valueOf(2d)),
             new BigDecimalPoint(BigDecimal.valueOf(3d)),
-            BigDecimal.valueOf(4d))).isEqualTo(rect);
-        assertThat(new BigDecimalRect(new BigDecimalPoint(
-            BigDecimal.valueOf(2d)),
+            BigDecimal.valueOf(4d)
+        )).isNotEqualTo(new BigDecimalRect(
+            new BigDecimalPoint(BigDecimal.valueOf(2d)),
             new BigDecimalPoint(BigDecimal.valueOf(4d)),
             BigDecimal.valueOf(3d)
-        )).isNotEqualTo(rect);
+        ));
     }
 
     @Test

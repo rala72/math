@@ -295,9 +295,9 @@ class DoubleRectTest {
 
     @Test
     void equalsOfRectWithPointHeightAndWidth() {
-        Rect<Double> rect = new DoubleRect(new DoublePoint(2d), new DoublePoint(3d), 4d);
-        assertThat(new DoubleRect(new DoublePoint(2d), new DoublePoint(3d), 4d)).isEqualTo(rect);
-        assertThat(new DoubleRect(new DoublePoint(2d), new DoublePoint(4d), 3d)).isNotEqualTo(rect);
+        assertThat(new DoubleRect(new DoublePoint(2d), new DoublePoint(3d), 4d))
+            .isEqualTo(new DoubleRect(new DoublePoint(2d), new DoublePoint(3d), 4d))
+            .isNotEqualTo(new DoubleRect(new DoublePoint(2d), new DoublePoint(4d), 3d));
     }
 
     @Test

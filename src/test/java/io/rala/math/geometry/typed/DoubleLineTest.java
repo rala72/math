@@ -314,9 +314,9 @@ class DoubleLineTest {
 
     @Test
     void equalsOfLineWithMB() {
-        Line<Double> line = new DoubleLine(2d, 3d);
-        assertThat(new DoubleLine(2d, 3d)).isEqualTo(line);
-        assertThat(new DoubleLine(3d, 2d)).isNotEqualTo(line);
+        assertThat(new DoubleLine(2d, 3d))
+            .isEqualTo(new DoubleLine(2d, 3d))
+            .isNotEqualTo(new DoubleLine(3d, 2d));
     }
 
     @Test

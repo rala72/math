@@ -252,11 +252,9 @@ class LineSegmentTest {
 
     @Test
     void equalsOfLineSegmentWithTwoPoints() {
-        LineSegment<Number> lineSegment = new TestLineSegment(
-            new TestPoint(2), new TestPoint(3)
-        );
-        assertThat(new TestLineSegment(new TestPoint(2), new TestPoint(3))).isEqualTo(lineSegment);
-        assertThat(new TestLineSegment(new TestPoint(3), new TestPoint(2))).isNotEqualTo(lineSegment);
+        assertThat(new TestLineSegment(new TestPoint(2), new TestPoint(3)))
+            .isEqualTo(new TestLineSegment(new TestPoint(2), new TestPoint(3)))
+            .isNotEqualTo(new TestLineSegment(new TestPoint(3), new TestPoint(2)));
     }
 
     @Test

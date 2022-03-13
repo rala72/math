@@ -171,9 +171,9 @@ class DoublePointTest {
 
     @Test
     void equalsOfPointWithXY() {
-        Point<Double> point = new DoublePoint(2d, 3d);
-        assertThat(new DoublePoint(2d, 3d)).isEqualTo(point);
-        assertThat(new DoublePoint(3d, 2d)).isNotEqualTo(point);
+        assertThat(new DoublePoint(2d, 3d))
+            .isEqualTo(new DoublePoint(2d, 3d))
+            .isNotEqualTo(new DoublePoint(3d, 2d));
     }
 
     @Test
