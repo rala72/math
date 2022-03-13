@@ -55,7 +55,7 @@ public class LineSegment<T extends Number> implements Validatable,
      * @see #LineSegment(AbstractArithmetic, Point)
      * @since 1.0.0
      */
-    public LineSegment(@NotNull AbstractArithmetic<T> arithmetic, Point<T> a, @NotNull Point<T> b) {
+    public LineSegment(@NotNull AbstractArithmetic<T> arithmetic, @NotNull Point<T> a, @NotNull Point<T> b) {
         this.arithmetic = arithmetic;
         setA(a);
         setB(b);
