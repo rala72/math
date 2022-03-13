@@ -38,34 +38,34 @@ class FractionTest {
 
     @Test
     void createAndSetNumerator() {
-        TestFraction complex = new TestFraction(1d);
-        assertFraction(complex);
-        complex.setNumerator(2);
-        assertFraction(complex, 2, 1d);
+        TestFraction fraction = new TestFraction(1d);
+        assertFraction(fraction);
+        fraction.setNumerator(2);
+        assertFraction(fraction, 2, 1d);
     }
 
     @Test
     void createAndSetDenominator() {
-        TestFraction complex = new TestFraction(1d);
-        assertFraction(complex);
-        complex.setDenominator(3);
-        assertFraction(complex, 1d, 3);
+        TestFraction fraction = new TestFraction(1d);
+        assertFraction(fraction);
+        fraction.setDenominator(3);
+        assertFraction(fraction, 1d, 3);
     }
 
     @Test
     void createAndSetDenominatorZero() {
-        TestFraction complex = new TestFraction(1);
-        assertFraction(complex, 1, 1d);
+        TestFraction fraction = new TestFraction(1);
+        assertFraction(fraction, 1, 1d);
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> complex.setDenominator(0d)); // assert exception message?
+            .isThrownBy(() -> fraction.setDenominator(0d)); // assert exception message?
     }
 
     @Test
     void createAndSetDenominatorNull() {
-        TestFraction complex = new TestFraction(1, 2);
-        assertFraction(complex, 1, 2);
-        complex.setDenominator(null);
-        assertFraction(complex, 1, 1d);
+        TestFraction fraction = new TestFraction(1, 2);
+        assertFraction(fraction, 1, 2);
+        fraction.setDenominator(null);
+        assertFraction(fraction, 1, 1d);
     }
 
     // endregion
@@ -274,8 +274,8 @@ class FractionTest {
 
     @Test
     void copyOfFractionWithNuDe() {
-        TestFraction complex = new TestFraction(2, 3);
-        assertThat(complex.copy()).isEqualTo(complex);
+        TestFraction fraction = new TestFraction(2, 3);
+        assertThat(fraction.copy()).isEqualTo(fraction);
     }
 
     // endregion
@@ -296,14 +296,14 @@ class FractionTest {
 
     @Test
     void toStringOfFractionWithNuDe() {
-        TestFraction complex = new TestFraction(2, 3);
-        assertThat(complex).hasToString("2/3");
+        TestFraction fraction = new TestFraction(2, 3);
+        assertThat(fraction).hasToString("2/3");
     }
 
     @Test
     void compareToOfFractionWithNuDe() {
-        TestFraction complex = new TestFraction(2, 3);
-        assertThat(complex)
+        TestFraction fraction = new TestFraction(2, 3);
+        assertThat(fraction)
             .isEqualByComparingTo(new TestFraction(2, 3))
             .isLessThan(new TestFraction(3, 1))
             .isGreaterThan(new TestFraction(1, 2));

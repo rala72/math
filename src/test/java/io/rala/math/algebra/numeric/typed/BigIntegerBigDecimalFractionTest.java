@@ -62,38 +62,38 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void createAndSetNumerator() {
-        BigIntegerBigDecimalFraction complex =
+        BigIntegerBigDecimalFraction fraction =
             new BigIntegerBigDecimalFraction(BigInteger.ONE);
-        assertFraction(complex);
-        complex.setNumerator(BigInteger.TWO);
-        assertFraction(complex, BigInteger.TWO, BigInteger.ONE);
+        assertFraction(fraction);
+        fraction.setNumerator(BigInteger.TWO);
+        assertFraction(fraction, BigInteger.TWO, BigInteger.ONE);
     }
 
     @Test
     void createAndSetDenominator() {
-        BigIntegerBigDecimalFraction complex =
+        BigIntegerBigDecimalFraction fraction =
             new BigIntegerBigDecimalFraction(BigInteger.ONE);
-        assertFraction(complex);
-        complex.setDenominator(BigInteger.valueOf(3));
-        assertFraction(complex, BigInteger.ONE, BigInteger.valueOf(3));
+        assertFraction(fraction);
+        fraction.setDenominator(BigInteger.valueOf(3));
+        assertFraction(fraction, BigInteger.ONE, BigInteger.valueOf(3));
     }
 
     @Test
     void createAndSetDenominatorZero() {
-        BigIntegerBigDecimalFraction complex =
+        BigIntegerBigDecimalFraction fraction =
             new BigIntegerBigDecimalFraction(BigInteger.ONE);
-        assertFraction(complex);
+        assertFraction(fraction);
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> complex.setDenominator(BigInteger.ZERO)); // assert exception message?
+            .isThrownBy(() -> fraction.setDenominator(BigInteger.ZERO)); // assert exception message?
     }
 
     @Test
     void createAndSetDenominatorNull() {
-        BigIntegerBigDecimalFraction complex =
+        BigIntegerBigDecimalFraction fraction =
             new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO);
-        assertFraction(complex, BigInteger.ONE, BigInteger.TWO);
-        complex.setDenominator(null);
-        assertFraction(complex, BigInteger.ONE, BigInteger.ONE);
+        assertFraction(fraction, BigInteger.ONE, BigInteger.TWO);
+        fraction.setDenominator(null);
+        assertFraction(fraction, BigInteger.ONE, BigInteger.ONE);
     }
 
     // endregion
@@ -340,9 +340,9 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void copyOfFractionWithNuDe() {
-        BigIntegerBigDecimalFraction complex =
+        BigIntegerBigDecimalFraction fraction =
             new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.valueOf(3));
-        assertThat(complex.copy()).isEqualTo(complex);
+        assertThat(fraction.copy()).isEqualTo(fraction);
     }
 
     // endregion
@@ -365,16 +365,16 @@ class BigIntegerBigDecimalFractionTest {
 
     @Test
     void toStringOfFractionWithNuDe() {
-        BigIntegerBigDecimalFraction complex =
+        BigIntegerBigDecimalFraction fraction =
             new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.valueOf(3));
-        assertThat(complex).hasToString("2/3");
+        assertThat(fraction).hasToString("2/3");
     }
 
     @Test
     void compareToOfFractionWithNuDe() {
-        BigIntegerBigDecimalFraction complex =
+        BigIntegerBigDecimalFraction fraction =
             new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.valueOf(3));
-        assertThat(complex)
+        assertThat(fraction)
             .isEqualByComparingTo(new BigIntegerBigDecimalFraction(
                 BigInteger.TWO, BigInteger.valueOf(3)
             ))

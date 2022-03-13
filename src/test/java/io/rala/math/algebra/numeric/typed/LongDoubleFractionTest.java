@@ -38,34 +38,34 @@ class LongDoubleFractionTest {
 
     @Test
     void createAndSetNumerator() {
-        LongDoubleFraction complex = new LongDoubleFraction(1);
-        assertFraction(complex);
-        complex.setNumerator(2L);
-        assertFraction(complex, 2, 1);
+        LongDoubleFraction fraction = new LongDoubleFraction(1);
+        assertFraction(fraction);
+        fraction.setNumerator(2L);
+        assertFraction(fraction, 2, 1);
     }
 
     @Test
     void createAndSetDenominator() {
-        LongDoubleFraction complex = new LongDoubleFraction(1);
-        assertFraction(complex);
-        complex.setDenominator(3L);
-        assertFraction(complex, 1, 3);
+        LongDoubleFraction fraction = new LongDoubleFraction(1);
+        assertFraction(fraction);
+        fraction.setDenominator(3L);
+        assertFraction(fraction, 1, 3);
     }
 
     @Test
     void createAndSetDenominatorZero() {
-        LongDoubleFraction complex = new LongDoubleFraction(1);
-        assertFraction(complex);
+        LongDoubleFraction fraction = new LongDoubleFraction(1);
+        assertFraction(fraction);
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> complex.setDenominator(0L)); // assert exception message?
+            .isThrownBy(() -> fraction.setDenominator(0L)); // assert exception message?
     }
 
     @Test
     void createAndSetDenominatorNull() {
-        LongDoubleFraction complex = new LongDoubleFraction(1, 2L);
-        assertFraction(complex, 1, 2);
-        complex.setDenominator(null);
-        assertFraction(complex, 1, 1);
+        LongDoubleFraction fraction = new LongDoubleFraction(1, 2L);
+        assertFraction(fraction, 1, 2);
+        fraction.setDenominator(null);
+        assertFraction(fraction, 1, 1);
     }
 
     // endregion
@@ -263,8 +263,8 @@ class LongDoubleFractionTest {
 
     @Test
     void copyOfFractionWithNuDe() {
-        LongDoubleFraction complex = new LongDoubleFraction(2, 3L);
-        assertThat(complex.copy()).isEqualTo(complex);
+        LongDoubleFraction fraction = new LongDoubleFraction(2, 3L);
+        assertThat(fraction.copy()).isEqualTo(fraction);
     }
 
     // endregion
@@ -285,14 +285,14 @@ class LongDoubleFractionTest {
 
     @Test
     void toStringOfFractionWithNuDe() {
-        LongDoubleFraction complex = new LongDoubleFraction(2, 3L);
-        assertThat(complex).hasToString("2/3");
+        LongDoubleFraction fraction = new LongDoubleFraction(2, 3L);
+        assertThat(fraction).hasToString("2/3");
     }
 
     @Test
     void compareToOfFractionWithNuDe() {
-        LongDoubleFraction complex = new LongDoubleFraction(2, 3L);
-        assertThat(complex)
+        LongDoubleFraction fraction = new LongDoubleFraction(2, 3L);
+        assertThat(fraction)
             .isEqualByComparingTo(new LongDoubleFraction(2, 3L))
             .isLessThan(new LongDoubleFraction(3, 1L))
             .isGreaterThan(new LongDoubleFraction(1, 2L));
