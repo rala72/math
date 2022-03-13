@@ -33,7 +33,8 @@ class DoubleMatrixTest {
 
     @Test
     void constructorWithSize0() {
-        assertMatrix(new DoubleMatrix(1), 1);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> new DoubleMatrix(0)); // assert exception message?
     }
 
     @Test

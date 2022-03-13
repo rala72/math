@@ -35,7 +35,8 @@ class BigDecimalMatrixTest {
 
     @Test
     void constructorWithSize0() {
-        assertMatrix(new BigDecimalMatrix(1), 1);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> new BigDecimalMatrix(0)); // assert exception message?
     }
 
     @Test
@@ -44,7 +45,7 @@ class BigDecimalMatrixTest {
     }
 
     @Test
-    void constructorWithSize0AndMathContext5() {
+    void constructorWithSize1AndMathContext5() {
         assertMatrix(new BigDecimalMatrix(1, new MathContext(5)), 1);
     }
 
