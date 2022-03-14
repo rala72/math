@@ -4,7 +4,7 @@ import io.rala.math.algebra.numeric.Fraction;
 import io.rala.math.exception.NotSupportedException;
 import io.rala.math.testUtils.algebra.TestFraction;
 import io.rala.math.testUtils.arithmetic.TestFractionArithmetic;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class FractionArithmeticTest {
-    private static FractionArithmetic<Number, Number> arithmetic;
+    private FractionArithmetic<Number, Number> arithmetic;
 
-    @BeforeAll
-    static void beforeAll() {
+    @BeforeEach
+    void setUp() {
         arithmetic = new TestFractionArithmetic();
     }
 
