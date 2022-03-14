@@ -1,6 +1,7 @@
 package io.rala.math.arithmetic.core;
 
 import io.rala.math.exception.NotSupportedException;
+import io.rala.math.testUtils.assertion.ExceptionMessages;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -159,15 +160,15 @@ class BigDecimalArithmeticTest {
     @Test
     void gcd() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> arithmetic.gcd(BigDecimal.valueOf(3), BigDecimal.valueOf(4)));
-        // assert exception message?
+            .isThrownBy(() -> arithmetic.gcd(BigDecimal.valueOf(3), BigDecimal.valueOf(4)))
+            .withMessage(ExceptionMessages.METHOD_NOT_SUPPORTED);
     }
 
     @Test
     void lcm() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> arithmetic.gcd(BigDecimal.valueOf(3), BigDecimal.valueOf(4)));
-        // assert exception message?
+            .isThrownBy(() -> arithmetic.gcd(BigDecimal.valueOf(3), BigDecimal.valueOf(4)))
+            .withMessage(ExceptionMessages.METHOD_NOT_SUPPORTED);
     }
 
     // endregion

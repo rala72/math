@@ -5,6 +5,7 @@ import io.rala.math.arithmetic.core.DoubleArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.testUtils.algebra.TestFraction;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
+import io.rala.math.testUtils.assertion.ExceptionMessages;
 import io.rala.math.testUtils.assertion.NumericAssertions;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +29,8 @@ class FractionTest {
     @Test
     void constructorWithZeroDeParameter() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new TestFraction(1d, 0d)); // assert exception message?
+            .isThrownBy(() -> new TestFraction(1d, 0d))
+            .withMessage(ExceptionMessages.FRACTION_DENOMINATOR_HAS_TO_BE_NON_ZERO);
     }
 
     @Test
@@ -57,7 +59,8 @@ class FractionTest {
         TestFraction fraction = new TestFraction(1);
         assertFraction(fraction, 1, 1d);
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> fraction.setDenominator(0d)); // assert exception message?
+            .isThrownBy(() -> fraction.setDenominator(0d))
+            .withMessage(ExceptionMessages.FRACTION_DENOMINATOR_HAS_TO_BE_NON_ZERO);
     }
 
     @Test
@@ -340,7 +343,8 @@ class FractionTest {
     void createFromArithmeticWithZeroDeParameter() {
         TestFraction fraction = new TestFraction(1);
         assertThatExceptionOfType(ArithmeticException.class)
-            .isThrownBy(() -> fraction.createFromArithmetic(1d, 0d)); // assert exception message?
+            .isThrownBy(() -> fraction.createFromArithmetic(1d, 0d))
+            .withMessage(ExceptionMessages.FRACTION_DENOMINATOR_HAS_TO_BE_NON_ZERO);
     }
 
     @Test

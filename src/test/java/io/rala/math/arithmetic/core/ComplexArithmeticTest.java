@@ -3,6 +3,7 @@ package io.rala.math.arithmetic.core;
 import io.rala.math.exception.NotSupportedException;
 import io.rala.math.testUtils.algebra.TestComplex;
 import io.rala.math.testUtils.arithmetic.TestComplexArithmetic;
+import io.rala.math.testUtils.assertion.ExceptionMessages;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -213,13 +214,15 @@ class ComplexArithmeticTest {
     @Test
     void gcd() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> arithmetic.gcd(new TestComplex(1, 2), new TestComplex(3, 4))); // assert exception message?
+            .isThrownBy(() -> arithmetic.gcd(new TestComplex(1, 2), new TestComplex(3, 4)))
+            .withMessage(ExceptionMessages.METHOD_NOT_SUPPORTED);
     }
 
     @Test
     void lcm() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> arithmetic.lcm(new TestComplex(1, 2), new TestComplex(3, 4))); // assert exception message?
+            .isThrownBy(() -> arithmetic.lcm(new TestComplex(1, 2), new TestComplex(3, 4)))
+            .withMessage(ExceptionMessages.METHOD_NOT_SUPPORTED);
     }
 
     // endregion

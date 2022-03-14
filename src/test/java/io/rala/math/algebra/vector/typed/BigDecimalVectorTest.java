@@ -4,6 +4,7 @@ import io.rala.math.MathX;
 import io.rala.math.algebra.matrix.typed.BigDecimalMatrix;
 import io.rala.math.algebra.vector.Vector;
 import io.rala.math.exception.NotSupportedException;
+import io.rala.math.testUtils.assertion.ExceptionMessages;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -24,13 +25,15 @@ class BigDecimalVectorTest {
     @Test
     void constructorWithNegativeSize() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new BigDecimalVector(-1)); // assert exception message?
+            .isThrownBy(() -> new BigDecimalVector(-1))
+            .withMessage(ExceptionMessages.SIZE_HAS_TO_BE_GREATER_ZERO);
     }
 
     @Test
     void constructorWithZeroSize() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new BigDecimalVector(0)); // assert exception message?
+            .isThrownBy(() -> new BigDecimalVector(0))
+            .withMessage(ExceptionMessages.SIZE_HAS_TO_BE_GREATER_ZERO);
     }
 
     @Test
@@ -89,14 +92,16 @@ class BigDecimalVectorTest {
     void getValueByIndexMinus1() {
         BigDecimalVector vector = new BigDecimalVector(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> vector.getValue(-1)); // assert exception message?
+            .isThrownBy(() -> vector.getValue(-1))
+            .withMessage("-1 / 2");
     }
 
     @Test
     void setValueByIndexMinus1() {
         BigDecimalVector vector = new BigDecimalVector(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> vector.setValue(-1, BigDecimal.ZERO)); // assert exception message?
+            .isThrownBy(() -> vector.setValue(-1, BigDecimal.ZERO))
+            .withMessage("-1 / 2");
     }
 
     @Test
@@ -118,7 +123,8 @@ class BigDecimalVectorTest {
     void removeValueByIndexMinus1() {
         BigDecimalVector vector = new BigDecimalVector(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> vector.removeValue(-1)); // assert exception message?
+            .isThrownBy(() -> vector.removeValue(-1))
+            .withMessage("-1 / 2");
     }
 
     @Test
@@ -234,7 +240,8 @@ class BigDecimalVectorTest {
     @Test
     void toParamOFEmptyVectorWithInvalidSize() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> new BigDecimalVector(2).toParam()); // assert exception message?
+            .isThrownBy(() -> new BigDecimalVector(2).toParam())
+            .withMessage(ExceptionMessages.SIZE_HAS_TO_BE_ONE);
     }
 
     // endregion
@@ -244,15 +251,16 @@ class BigDecimalVectorTest {
     @Test
     void addVectorDifferentSize() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new BigDecimalVector(2).add(new BigDecimalVector(3)));
-        // assert exception message?
+            .isThrownBy(() -> new BigDecimalVector(2).add(new BigDecimalVector(3)))
+            .withMessage(ExceptionMessages.SIZES_HAVE_TO_BE_EQUAL);
     }
 
     @Test
     void addVectorDifferentType() {
         assertThatExceptionOfType(IllegalArgumentException.class)
             .isThrownBy(() -> new BigDecimalVector(2)
-                .add(new BigDecimalVector(2, Vector.Type.ROW))); // assert exception message?
+                .add(new BigDecimalVector(2, Vector.Type.ROW)))
+            .withMessage(ExceptionMessages.VECTOR_TYPES_HAVE_TO_BE_EQUAL);
     }
 
     @Test
@@ -287,15 +295,16 @@ class BigDecimalVectorTest {
     @Test
     void subtractVectorDifferentSize() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new BigDecimalVector(2).subtract(new BigDecimalVector(3)));
-        // assert exception message?
+            .isThrownBy(() -> new BigDecimalVector(2).subtract(new BigDecimalVector(3)))
+            .withMessage(ExceptionMessages.SIZES_HAVE_TO_BE_EQUAL);
     }
 
     @Test
     void subtractVectorDifferentType() {
         assertThatExceptionOfType(IllegalArgumentException.class)
             .isThrownBy(() -> new BigDecimalVector(2)
-                .subtract(new BigDecimalVector(2, Vector.Type.ROW))); // assert exception message?
+                .subtract(new BigDecimalVector(2, Vector.Type.ROW)))
+            .withMessage(ExceptionMessages.VECTOR_TYPES_HAVE_TO_BE_EQUAL);
     }
 
     @Test
@@ -351,21 +360,23 @@ class BigDecimalVectorTest {
     void multiplyVectorsDifferentSize() {
         assertThatExceptionOfType(IllegalArgumentException.class)
             .isThrownBy(() -> new BigDecimalVector(3, Vector.Type.ROW)
-                .multiply(new BigDecimalVector(4))); // assert exception message?
+                .multiply(new BigDecimalVector(4)))
+            .withMessage(ExceptionMessages.COLS_HAVE_TO_BE_EQUAL_ROWS);
     }
 
     @Test
     void multiplyVectorsSameTypeColumn() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new BigDecimalVector(3).multiply(new BigDecimalVector(3)));
-        // assert exception message?
+            .isThrownBy(() -> new BigDecimalVector(3).multiply(new BigDecimalVector(3)))
+            .withMessage(ExceptionMessages.COLS_HAVE_TO_BE_EQUAL_ROWS);
     }
 
     @Test
     void multiplyVectorsSameTypeRow() {
         assertThatExceptionOfType(IllegalArgumentException.class)
             .isThrownBy(() -> new BigDecimalVector(3, Vector.Type.ROW)
-                .multiply(new BigDecimalVector(3, Vector.Type.ROW))); // assert exception message?
+                .multiply(new BigDecimalVector(3, Vector.Type.ROW)))
+            .withMessage(ExceptionMessages.COLS_HAVE_TO_BE_EQUAL_ROWS);
     }
 
     @Test
@@ -600,7 +611,8 @@ class BigDecimalVectorTest {
     @Test
     void negativePNorm() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new BigDecimalVector(3).pNorm(-1)); // assert exception message?
+            .isThrownBy(() -> new BigDecimalVector(3).pNorm(-1))
+            .withMessage(ExceptionMessages.VECTOR_POSITIVE_P_NORM);
     }
 
     @Test
@@ -617,7 +629,8 @@ class BigDecimalVectorTest {
     @Test
     void unitVectorOfEmptyVector() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> new BigDecimalVector(3).normalize()); // assert exception message?
+            .isThrownBy(() -> new BigDecimalVector(3).normalize())
+            .withMessage(ExceptionMessages.VECTOR_ZERO_VECTOR_CAN_NOT_NORMALIZED);
     }
 
     @Test
@@ -636,8 +649,8 @@ class BigDecimalVectorTest {
     @Test
     void angleBetweenEmptyVectors() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> new BigDecimalVector(3).angle(new BigDecimalVector(3)));
-        // assert exception message?
+            .isThrownBy(() -> new BigDecimalVector(3).angle(new BigDecimalVector(3)))
+            .withMessage(ExceptionMessages.VECTOR_ANGLE_NOT_DEFINED_FOR_ZERO_VECTOR);
     }
 
     @Test

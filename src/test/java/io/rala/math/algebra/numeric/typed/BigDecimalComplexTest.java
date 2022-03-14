@@ -4,6 +4,7 @@ import io.rala.math.algebra.numeric.Complex;
 import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Vector;
+import io.rala.math.testUtils.assertion.ExceptionMessages;
 import io.rala.math.testUtils.assertion.NumericAssertions;
 import org.junit.jupiter.api.Test;
 
@@ -127,7 +128,8 @@ class BigDecimalComplexTest {
     @Test
     void argumentOfComplexWithoutParameter() {
         assertThatExceptionOfType(ArithmeticException.class)
-            .isThrownBy(() -> new BigDecimalComplex().argument()); // assert exception message?
+            .isThrownBy(() -> new BigDecimalComplex().argument())
+            .withMessage(ExceptionMessages.DIVISION_UNDEFINED);
     }
 
     @Test
@@ -200,7 +202,8 @@ class BigDecimalComplexTest {
     @Test
     void reciprocalOfComplexWithoutParameter() {
         assertThatExceptionOfType(ArithmeticException.class)
-            .isThrownBy(() -> new BigDecimalComplex().reciprocal()); // assert exception message?
+            .isThrownBy(() -> new BigDecimalComplex().reciprocal())
+            .withMessage(ExceptionMessages.DIVISION_UNDEFINED);
     }
 
     @Test
@@ -311,7 +314,8 @@ class BigDecimalComplexTest {
     void divideComplexWith0() {
         assertThatExceptionOfType(ArithmeticException.class)
             .isThrownBy(() -> new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE)
-                .divide(BigDecimal.ZERO)); // assert exception message?
+                .divide(BigDecimal.ZERO))
+            .withMessage(ExceptionMessages.DIVISION_BY_ZERO);
     }
 
     @Test

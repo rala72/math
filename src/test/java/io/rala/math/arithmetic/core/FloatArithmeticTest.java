@@ -1,6 +1,7 @@
 package io.rala.math.arithmetic.core;
 
 import io.rala.math.exception.NotSupportedException;
+import io.rala.math.testUtils.assertion.ExceptionMessages;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -148,13 +149,15 @@ class FloatArithmeticTest {
     @Test
     void gcd() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> arithmetic.gcd(3f, 4f)); // assert exception message?
+            .isThrownBy(() -> arithmetic.gcd(3f, 4f))
+            .withMessage(ExceptionMessages.METHOD_NOT_SUPPORTED);
     }
 
     @Test
     void lcm() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> arithmetic.lcm(3f, 4f)); // assert exception message?
+            .isThrownBy(() -> arithmetic.lcm(3f, 4f))
+            .withMessage(ExceptionMessages.METHOD_NOT_SUPPORTED);
     }
 
     // endregion

@@ -4,6 +4,7 @@ import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.exception.NotSupportedException;
 import io.rala.math.testUtils.algebra.TestMatrix;
 import io.rala.math.testUtils.algebra.TestVector;
+import io.rala.math.testUtils.assertion.ExceptionMessages;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -21,7 +22,8 @@ class MatrixTest {
     @Test
     void constructorWithNegativeSize() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new TestMatrix(-1)); // assert exception message?
+            .isThrownBy(() -> new TestMatrix(-1))
+            .withMessage(ExceptionMessages.ROWS_COLS_HAVE_TO_BE_GREATER_ZERO);
     }
 
     @Test
@@ -38,7 +40,8 @@ class MatrixTest {
     @Test
     void constructorWithSize0() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new TestMatrix(0)); // assert exception message?
+            .isThrownBy(() -> new TestMatrix(0))
+            .withMessage(ExceptionMessages.ROWS_COLS_HAVE_TO_BE_GREATER_ZERO);
     }
 
     @Test
@@ -107,7 +110,8 @@ class MatrixTest {
     void getRowFieldsM1OfMatrix() {
         TestMatrix matrix = new TestMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.getRowFields(-1)); // assert exception message?
+            .isThrownBy(() -> matrix.getRowFields(-1))
+            .withMessage("row: -1 / 2");
     }
 
     @Test
@@ -140,7 +144,8 @@ class MatrixTest {
     void getColFieldsM1OfMatrix() {
         TestMatrix matrix = new TestMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.getColFields(-1)); // assert exception message?
+            .isThrownBy(() -> matrix.getColFields(-1))
+            .withMessage("col: -1 / 2");
     }
 
     @Test
@@ -177,28 +182,32 @@ class MatrixTest {
     void getValueByIndexMinus1() {
         TestMatrix matrix = new TestMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.getValue(-1)); // assert exception message?
+            .isThrownBy(() -> matrix.getValue(-1))
+            .withMessage("size: -1 / 4");
     }
 
     @Test
     void getValueByRowMinus1Col0() {
         TestMatrix matrix = new TestMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.getValue(-1, 0)); // assert exception message?
+            .isThrownBy(() -> matrix.getValue(-1, 0))
+            .withMessage("row: -1 / 2");
     }
 
     @Test
     void getValueByRow0ColMinus1() {
         TestMatrix matrix = new TestMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.getValue(0, -1)); // assert exception message?
+            .isThrownBy(() -> matrix.getValue(0, -1))
+            .withMessage("col: -1 / 2");
     }
 
     @Test
     void setValueByIndexMinus1() {
         TestMatrix matrix = new TestMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.setValue(-1, 0d)); // assert exception message?
+            .isThrownBy(() -> matrix.setValue(-1, 0d))
+            .withMessage("size: -1 / 4");
     }
 
     @Test
@@ -223,14 +232,16 @@ class MatrixTest {
     void setValueByRowMinus1Col0() {
         TestMatrix matrix = new TestMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.setValue(-1, 0, 0d)); // assert exception message?
+            .isThrownBy(() -> matrix.setValue(-1, 0, 0d))
+            .withMessage("row: -1 / 2");
     }
 
     @Test
     void setValueByRow0ColMinus1() {
         TestMatrix matrix = new TestMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.setValue(0, -1, 0d)); // assert exception message?
+            .isThrownBy(() -> matrix.setValue(0, -1, 0d))
+            .withMessage("col: -1 / 2");
     }
 
     @Test
@@ -263,7 +274,8 @@ class MatrixTest {
     void removeValueByIndexMinus1() {
         TestMatrix matrix = new TestMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.removeValue(-1)); // assert exception message?
+            .isThrownBy(() -> matrix.removeValue(-1))
+            .withMessage("size: -1 / 4");
     }
 
     @Test
@@ -276,14 +288,16 @@ class MatrixTest {
     void removeValueByRowMinus1Col0() {
         TestMatrix matrix = new TestMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.removeValue(-1, 0)); // assert exception message?
+            .isThrownBy(() -> matrix.removeValue(-1, 0))
+            .withMessage("row: -1 / 2");
     }
 
     @Test
     void removeValueByRow0ColMinus1() {
         TestMatrix matrix = new TestMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.removeValue(0, -1)); // assert exception message?
+            .isThrownBy(() -> matrix.removeValue(0, -1))
+            .withMessage("col: -1 / 2");
     }
 
     @Test
@@ -469,14 +483,16 @@ class MatrixTest {
     @Test
     void addOfEmptyMatrixWithSize1AndEmptyMatrixWithRows2Cols1() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new TestMatrix(1).add(new TestMatrix(2, 1))); // assert exception message?
+            .isThrownBy(() -> new TestMatrix(1).add(new TestMatrix(2, 1)))
+            .withMessage(ExceptionMessages.ROWS_HAVE_TO_BE_EQUAL);
     }
 
     @Test
     void addOfEmptyMatrixWithSize1AndEmptyMatrixWithRows1Cols2() {
         assertThatExceptionOfType(IllegalArgumentException.class)
             .isThrownBy(() -> new TestMatrix(1)
-                .add(new TestMatrix(1, 2))); // assert exception message?
+                .add(new TestMatrix(1, 2)))
+            .withMessage(ExceptionMessages.COLS_HAVE_TO_BE_EQUAL);
     }
 
     @Test
@@ -567,7 +583,8 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(2, 3);
         TestMatrix matrix2 = new TestMatrix(1, 2);
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> matrix1.multiply(matrix2)); // assert exception message?
+            .isThrownBy(() -> matrix1.multiply(matrix2))
+            .withMessage(ExceptionMessages.COLS_HAVE_TO_BE_EQUAL_ROWS);
     }
 
     @Test
@@ -601,7 +618,8 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(1, 2);
         TestMatrix matrix2 = new TestMatrix(3, 4);
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> matrix1.multiplyTolerant(matrix2)); // assert exception message?
+            .isThrownBy(() -> matrix1.multiplyTolerant(matrix2))
+            .withMessage(ExceptionMessages.MATRIX_COLS_EQUAL_OTHER_ROWS);
     }
 
     @Test
@@ -621,7 +639,8 @@ class MatrixTest {
     @Test
     void inverseOfEmptyMatrixWichIsNoSquare() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> new TestMatrix(1, 2).inverse()); // assert exception message?
+            .isThrownBy(() -> new TestMatrix(1, 2).inverse())
+            .withMessage(ExceptionMessages.MATRIX_HAS_TO_BE_SQUARE);
     }
 
     @Test
@@ -811,7 +830,8 @@ class MatrixTest {
     @Test
     void toVectorOfMatrixWithRow2Col2() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> new TestMatrix(2, 2).toVector()); // assert exception message?
+            .isThrownBy(() -> new TestMatrix(2, 2).toVector())
+            .withMessage(ExceptionMessages.MATRIX_ONE_ROW_OR_COLUMN);
     }
 
     @Test
@@ -855,13 +875,15 @@ class MatrixTest {
     @Test
     void toParamOfMatrixWithRow2Col1() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> new TestMatrix(2, 1).toParam()); // assert exception message?
+            .isThrownBy(() -> new TestMatrix(2, 1).toParam())
+            .withMessage(ExceptionMessages.MATRIX_ONLY_ONE_VALUE);
     }
 
     @Test
     void toParamOfMatrixWithRow1Col2() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> new TestMatrix(1, 2).toParam()); // assert exception message?
+            .isThrownBy(() -> new TestMatrix(1, 2).toParam())
+            .withMessage(ExceptionMessages.MATRIX_ONLY_ONE_VALUE);
     }
 
     @Test
@@ -919,7 +941,8 @@ class MatrixTest {
     @Test
     void ofValuesByRows2WithInvalidParamCount() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> TestMatrix.ofValuesByRows(2, 1)); // assert exception message?
+            .isThrownBy(() -> TestMatrix.ofValuesByRows(2, 1))
+            .withMessage(ExceptionMessages.MATRIX_ROWS_NOT_CONGRUENT_ZERO);
     }
 
     @Test
@@ -932,7 +955,8 @@ class MatrixTest {
     @Test
     void ofValuesByCols2WithInvalidParamCount() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> TestMatrix.ofValuesByCols(2, 1)); // assert exception message?
+            .isThrownBy(() -> TestMatrix.ofValuesByCols(2, 1))
+            .withMessage(ExceptionMessages.MATRIX_COLS_NOT_CONGRUENT_ZERO);
     }
 
     @Test
@@ -1068,19 +1092,22 @@ class MatrixTest {
     @Test
     void subMatrixR0C0OfMatrixWithR1C2WichIsNoSquare() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> new TestMatrix(1, 2).subMatrix(0, 0)); // assert exception message?
+            .isThrownBy(() -> new TestMatrix(1, 2).subMatrix(0, 0))
+            .withMessage(ExceptionMessages.MATRIX_HAS_TO_BE_SQUARE);
     }
 
     @Test
     void subMatrixR1C0OfMatrixWithSize1UsingInvalidRow1() {
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> new TestMatrix(1).subMatrix(1, 0)); // assert exception message?
+            .isThrownBy(() -> new TestMatrix(1).subMatrix(1, 0))
+            .withMessage("row: 1 / 1");
     }
 
     @Test
     void subMatrixR0C1OfMatrixWithSize1UsingInvalidCol1() {
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> new TestMatrix(1).subMatrix(0, 1)); // assert exception message?
+            .isThrownBy(() -> new TestMatrix(1).subMatrix(0, 1))
+            .withMessage("col: 1 / 1");
     }
 
     @Test
@@ -1131,19 +1158,22 @@ class MatrixTest {
     @Test
     void coFactorR0C0OfMatrixWithR1C2WichIsNoSquare() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> new TestMatrix(1, 2).coFactor(0, 0)); // assert exception message?
+            .isThrownBy(() -> new TestMatrix(1, 2).coFactor(0, 0))
+            .withMessage(ExceptionMessages.MATRIX_HAS_TO_BE_SQUARE);
     }
 
     @Test
     void coFactorR1C0OfMatrixWithSize1UsingInvalidRow1() {
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> new TestMatrix(1).coFactor(1, 0)); // assert exception message?
+            .isThrownBy(() -> new TestMatrix(1).coFactor(1, 0))
+            .withMessage("row: 1 / 1");
     }
 
     @Test
     void coFactorR0C1OfMatrixWithSize1UsingInvalidCol1() {
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> new TestMatrix(1).coFactor(0, 1)); // assert exception message?
+            .isThrownBy(() -> new TestMatrix(1).coFactor(0, 1))
+            .withMessage("col: 1 / 1");
     }
 
     @Test
@@ -1161,7 +1191,8 @@ class MatrixTest {
     @Test
     void coFactorMatrixOfMatrixWhichIsNoSquare() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> new TestMatrix(1, 2).coFactorMatrix()); // assert exception message?
+            .isThrownBy(() -> new TestMatrix(1, 2).coFactorMatrix())
+            .withMessage(ExceptionMessages.MATRIX_HAS_TO_BE_SQUARE);
     }
 
     @Test
@@ -1218,14 +1249,16 @@ class MatrixTest {
     void swapRowsOfMatrixWithSize2UsingInvalidRow1() {
         TestMatrix matrix = new TestMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.swapRows(-1, 0)); // assert exception message?
+            .isThrownBy(() -> matrix.swapRows(-1, 0))
+            .withMessage("row: -1 / 2");
     }
 
     @Test
     void swapRowsOfMatrixWithSize2UsingInvalidRow2() {
         TestMatrix matrix = new TestMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.swapRows(0, -1)); // assert exception message?
+            .isThrownBy(() -> matrix.swapRows(0, -1))
+            .withMessage("row: -1 / 2");
     }
 
     @Test
@@ -1243,14 +1276,16 @@ class MatrixTest {
     void swapColsOfMatrixWithSize2UsingInvalidCol1() {
         TestMatrix matrix = new TestMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.swapCols(-1, 0)); // assert exception message?
+            .isThrownBy(() -> matrix.swapCols(-1, 0))
+            .withMessage("col: -1 / 2");
     }
 
     @Test
     void swapColsOfMatrixWithSize2UsingInvalidCol2() {
         TestMatrix matrix = new TestMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.swapCols(0, -1)); // assert exception message?
+            .isThrownBy(() -> matrix.swapCols(0, -1))
+            .withMessage("col: -1 / 2");
     }
 
     @Test
@@ -1268,7 +1303,8 @@ class MatrixTest {
     void multiplyRowOfMatrixWithSize2UsingInvalidRow() {
         TestMatrix matrix = new TestMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.multiplyRow(-1, 0)); // assert exception message?
+            .isThrownBy(() -> matrix.multiplyRow(-1, 0))
+            .withMessage("row: -1 / 2");
     }
 
     @Test
@@ -1308,7 +1344,8 @@ class MatrixTest {
     void multiplyColOfMatrixWithSize2UsingInvalidCol() {
         TestMatrix matrix = new TestMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.multiplyCol(-1, 0)); // assert exception message?
+            .isThrownBy(() -> matrix.multiplyCol(-1, 0))
+            .withMessage("col: -1 / 2");
     }
 
     @Test
@@ -1348,14 +1385,16 @@ class MatrixTest {
     void addRowMultipleTimesOfMatrixWithSize2UsingInvalidRow1() {
         TestMatrix matrix = new TestMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.addRowMultipleTimes(-1, 0, 0)); // assert exception message?
+            .isThrownBy(() -> matrix.addRowMultipleTimes(-1, 0, 0))
+            .withMessage("row: -1 / 2");
     }
 
     @Test
     void addRowMultipleTimesOfMatrixWithSize2UsingInvalidRow2() {
         TestMatrix matrix = new TestMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.addRowMultipleTimes(0, -1, 0)); // assert exception message?
+            .isThrownBy(() -> matrix.addRowMultipleTimes(0, -1, 0))
+            .withMessage("row: -1 / 2");
     }
 
     @Test
@@ -1413,14 +1452,16 @@ class MatrixTest {
     void addColMultipleTimesOfMatrixWithSize2UsingInvalidCol1() {
         TestMatrix matrix = new TestMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.addColMultipleTimes(-1, 0, 1)); // assert exception message?
+            .isThrownBy(() -> matrix.addColMultipleTimes(-1, 0, 1))
+            .withMessage("col: -1 / 2");
     }
 
     @Test
     void addColMultipleTimesOfMatrixWithSize2UsingInvalidCol2() {
         TestMatrix matrix = new TestMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.addColMultipleTimes(0, -1, 0)); // assert exception message?
+            .isThrownBy(() -> matrix.addColMultipleTimes(0, -1, 0))
+            .withMessage("col: -1 / 2");
     }
 
     @Test
@@ -1581,7 +1622,8 @@ class MatrixTest {
     void isZeroRowWithInvalidIndexOfMatrixWithSize1() {
         TestMatrix matrix = new TestMatrix(1);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.isZeroRow(1)); // assert exception message?
+            .isThrownBy(() -> matrix.isZeroRow(1))
+            .withMessage("row: 1 / 1");
     }
 
     // endregion
@@ -1614,7 +1656,8 @@ class MatrixTest {
         }
 
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.new Field((int) matrix.size(), 0)); // assert exception message?
+            .isThrownBy(() -> matrix.new Field((int) matrix.size(), 0))
+            .withMessage("size: 4 / 4");
     }
 
     // endregion

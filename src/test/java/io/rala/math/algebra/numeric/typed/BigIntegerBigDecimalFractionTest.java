@@ -5,6 +5,7 @@ import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 import io.rala.math.arithmetic.core.BigIntegerArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
+import io.rala.math.testUtils.assertion.ExceptionMessages;
 import io.rala.math.testUtils.assertion.NumericAssertions;
 import org.junit.jupiter.api.Test;
 
@@ -49,8 +50,8 @@ class BigIntegerBigDecimalFractionTest {
     @Test
     void constructorWithZeroDeParameter() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.ZERO));
-        // assert exception message?
+            .isThrownBy(() -> new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.ZERO))
+            .withMessage(ExceptionMessages.FRACTION_DENOMINATOR_HAS_TO_BE_NON_ZERO);
     }
 
     @Test
@@ -85,7 +86,8 @@ class BigIntegerBigDecimalFractionTest {
             new BigIntegerBigDecimalFraction(BigInteger.ONE);
         assertFraction(fraction);
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> fraction.setDenominator(BigInteger.ZERO)); // assert exception message?
+            .isThrownBy(() -> fraction.setDenominator(BigInteger.ZERO))
+            .withMessage(ExceptionMessages.FRACTION_DENOMINATOR_HAS_TO_BE_NON_ZERO);
     }
 
     @Test

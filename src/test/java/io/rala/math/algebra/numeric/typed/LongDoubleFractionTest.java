@@ -5,6 +5,7 @@ import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.arithmetic.core.DoubleArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.arithmetic.core.LongArithmetic;
+import io.rala.math.testUtils.assertion.ExceptionMessages;
 import io.rala.math.testUtils.assertion.NumericAssertions;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +29,8 @@ class LongDoubleFractionTest {
     @Test
     void constructorWithZeroDeParameter() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new LongDoubleFraction(1, 0L)); // assert exception message?
+            .isThrownBy(() -> new LongDoubleFraction(1, 0L))
+            .withMessage(ExceptionMessages.FRACTION_DENOMINATOR_HAS_TO_BE_NON_ZERO);
     }
 
     @Test
@@ -57,7 +59,8 @@ class LongDoubleFractionTest {
         LongDoubleFraction fraction = new LongDoubleFraction(1);
         assertFraction(fraction);
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> fraction.setDenominator(0L)); // assert exception message?
+            .isThrownBy(() -> fraction.setDenominator(0L))
+            .withMessage(ExceptionMessages.FRACTION_DENOMINATOR_HAS_TO_BE_NON_ZERO);
     }
 
     @Test

@@ -4,6 +4,7 @@ import io.rala.math.algebra.matrix.Matrix;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.exception.NotSupportedException;
 import io.rala.math.testUtils.algebra.TestMatrix;
+import io.rala.math.testUtils.assertion.ExceptionMessages;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -22,7 +23,8 @@ class BigDecimalMatrixTest {
     @Test
     void constructorWithNegativeSize() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new BigDecimalMatrix(-1)); // assert exception message?
+            .isThrownBy(() -> new BigDecimalMatrix(-1))
+            .withMessage(ExceptionMessages.ROWS_COLS_HAVE_TO_BE_GREATER_ZERO);
     }
 
     @Test
@@ -36,7 +38,8 @@ class BigDecimalMatrixTest {
     @Test
     void constructorWithSize0() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new BigDecimalMatrix(0)); // assert exception message?
+            .isThrownBy(() -> new BigDecimalMatrix(0))
+            .withMessage(ExceptionMessages.ROWS_COLS_HAVE_TO_BE_GREATER_ZERO);
     }
 
     @Test
@@ -101,7 +104,8 @@ class BigDecimalMatrixTest {
     void getRowFieldsM1OfMatrix() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.getRowFields(-1)); // assert exception message?
+            .isThrownBy(() -> matrix.getRowFields(-1))
+            .withMessage("row: -1 / 2");
     }
 
     @Test
@@ -134,7 +138,8 @@ class BigDecimalMatrixTest {
     void getColFieldsM1OfMatrix() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.getColFields(-1)); // assert exception message?
+            .isThrownBy(() -> matrix.getColFields(-1))
+            .withMessage("col: -1 / 2");
     }
 
     @Test
@@ -171,28 +176,32 @@ class BigDecimalMatrixTest {
     void getValueByIndexMinus1() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.getValue(-1)); // assert exception message?
+            .isThrownBy(() -> matrix.getValue(-1))
+            .withMessage("size: -1 / 4");
     }
 
     @Test
     void getValueByRowMinus1Col0() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.getValue(-1, 0)); // assert exception message?
+            .isThrownBy(() -> matrix.getValue(-1, 0))
+            .withMessage("row: -1 / 2");
     }
 
     @Test
     void getValueByRow0ColMinus1() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.getValue(0, -1)); // assert exception message?
+            .isThrownBy(() -> matrix.getValue(0, -1))
+            .withMessage("col: -1 / 2");
     }
 
     @Test
     void setValueByIndexMinus1() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.setValue(-1, BigDecimal.ZERO)); // assert exception message?
+            .isThrownBy(() -> matrix.setValue(-1, BigDecimal.ZERO))
+            .withMessage("size: -1 / 4");
     }
 
     @Test
@@ -217,14 +226,16 @@ class BigDecimalMatrixTest {
     void setValueByRowMinus1Col0() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.setValue(-1, 0, BigDecimal.ZERO)); // assert exception message?
+            .isThrownBy(() -> matrix.setValue(-1, 0, BigDecimal.ZERO))
+            .withMessage("row: -1 / 2");
     }
 
     @Test
     void setValueByRow0ColMinus1() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.setValue(0, -1, BigDecimal.ZERO)); // assert exception message?
+            .isThrownBy(() -> matrix.setValue(0, -1, BigDecimal.ZERO))
+            .withMessage("col: -1 / 2");
     }
 
     @Test
@@ -257,7 +268,8 @@ class BigDecimalMatrixTest {
     void removeValueByIndexMinus1() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.removeValue(-1)); // assert exception message?
+            .isThrownBy(() -> matrix.removeValue(-1))
+            .withMessage("size: -1 / 4");
     }
 
     @Test
@@ -270,14 +282,16 @@ class BigDecimalMatrixTest {
     void removeValueByRowMinus1Col0() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.removeValue(-1, 0)); // assert exception message?
+            .isThrownBy(() -> matrix.removeValue(-1, 0))
+            .withMessage("row: -1 / 2");
     }
 
     @Test
     void removeValueByRow0ColMinus1() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> matrix.removeValue(0, -1)); // assert exception message?
+            .isThrownBy(() -> matrix.removeValue(0, -1))
+            .withMessage("col: -1 / 2");
     }
 
     @Test
@@ -466,14 +480,16 @@ class BigDecimalMatrixTest {
     void addOfEmptyMatrixWithSize1AndEmptyMatrixWithRows2Cols1() {
         assertThatExceptionOfType(IllegalArgumentException.class)
             .isThrownBy(() -> new BigDecimalMatrix(1)
-                .add(new BigDecimalMatrix(2, 1))); // assert exception message?
+                .add(new BigDecimalMatrix(2, 1)))
+            .withMessage(ExceptionMessages.ROWS_HAVE_TO_BE_EQUAL);
     }
 
     @Test
     void addOfEmptyMatrixWithSize1AndEmptyMatrixWithRows1Cols2() {
         assertThatExceptionOfType(IllegalArgumentException.class)
             .isThrownBy(() -> new BigDecimalMatrix(1)
-                .add(new BigDecimalMatrix(1, 2))); // assert exception message?
+                .add(new BigDecimalMatrix(1, 2)))
+            .withMessage(ExceptionMessages.COLS_HAVE_TO_BE_EQUAL);
     }
 
     @Test
@@ -542,7 +558,8 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix1 = new BigDecimalMatrix(2, 3);
         BigDecimalMatrix matrix2 = new BigDecimalMatrix(1, 2);
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> matrix1.multiply(matrix2)); // assert exception message?
+            .isThrownBy(() -> matrix1.multiply(matrix2))
+            .withMessage(ExceptionMessages.COLS_HAVE_TO_BE_EQUAL_ROWS);
     }
 
     @Test
@@ -602,7 +619,8 @@ class BigDecimalMatrixTest {
     @Test
     void inverseOfEmptyMatrixWichIsNoSquare() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> new BigDecimalMatrix(1, 2).inverse()); // assert exception message?
+            .isThrownBy(() -> new BigDecimalMatrix(1, 2).inverse())
+            .withMessage(ExceptionMessages.MATRIX_HAS_TO_BE_SQUARE);
     }
 
     @Test

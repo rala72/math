@@ -6,6 +6,7 @@ import io.rala.math.algebra.vector.Vector;
 import io.rala.math.testUtils.algebra.TestMatrix;
 import io.rala.math.testUtils.algebra.TestVector;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
+import io.rala.math.testUtils.assertion.ExceptionMessages;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +31,8 @@ class LinearEquationSystemTest {
         assertThatExceptionOfType(IllegalArgumentException.class)
             .isThrownBy(() -> new LinearEquationSystem<>(
                 new TestMatrix(1), new TestVector(2)
-            )); // assert exception message?
+            ))
+            .withMessage(ExceptionMessages.MATRIX_AND_VECTOR_NOT_MATCH);
     }
 
     @Test
@@ -212,7 +214,8 @@ class LinearEquationSystemTest {
         LinearEquationSystem.LinearEquationVector<Number> equationVector =
             new LinearEquationSystem.LinearEquationVector<>(vector);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> equationVector.swapValues(-1, 0)); // assert exception message?
+            .isThrownBy(() -> equationVector.swapValues(-1, 0))
+            .withMessage("-1 / 2");
     }
 
     @Test
@@ -220,7 +223,8 @@ class LinearEquationSystemTest {
         LinearEquationSystem.LinearEquationVector<Number> equationVector =
             new LinearEquationSystem.LinearEquationVector<>(vector);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> equationVector.swapValues(0, -1)); // assert exception message?
+            .isThrownBy(() -> equationVector.swapValues(0, -1))
+            .withMessage("-1 / 2");
     }
 
     @Test
@@ -237,7 +241,8 @@ class LinearEquationSystemTest {
         LinearEquationSystem.LinearEquationVector<Number> equationVector =
             new LinearEquationSystem.LinearEquationVector<>(vector);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> equationVector.multiplyValue(-1, 0)); // assert exception message?
+            .isThrownBy(() -> equationVector.multiplyValue(-1, 0))
+            .withMessage("-1 / 2");
     }
 
     @Test
@@ -279,7 +284,8 @@ class LinearEquationSystemTest {
         LinearEquationSystem.LinearEquationVector<Number> equationVector =
             new LinearEquationSystem.LinearEquationVector<>(vector);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> equationVector.addValueMultiplyTimes(-1, 0, 0)); // assert exception message?
+            .isThrownBy(() -> equationVector.addValueMultiplyTimes(-1, 0, 0))
+            .withMessage("-1 / 2");
     }
 
     @Test
@@ -287,7 +293,8 @@ class LinearEquationSystemTest {
         LinearEquationSystem.LinearEquationVector<Number> equationVector =
             new LinearEquationSystem.LinearEquationVector<>(vector);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> equationVector.addValueMultiplyTimes(0, -1, 0)); // assert exception message?
+            .isThrownBy(() -> equationVector.addValueMultiplyTimes(0, -1, 0))
+            .withMessage("-1 / 2");
     }
 
     @Test

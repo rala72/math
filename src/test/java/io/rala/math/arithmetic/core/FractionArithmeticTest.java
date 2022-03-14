@@ -4,6 +4,7 @@ import io.rala.math.algebra.numeric.Fraction;
 import io.rala.math.exception.NotSupportedException;
 import io.rala.math.testUtils.algebra.TestFraction;
 import io.rala.math.testUtils.arithmetic.TestFractionArithmetic;
+import io.rala.math.testUtils.assertion.ExceptionMessages;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -172,15 +173,15 @@ class FractionArithmeticTest {
     @Test
     void gcd() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> arithmetic.gcd(new TestFraction(3d), new TestFraction(4d)));
-        // assert exception message?
+            .isThrownBy(() -> arithmetic.gcd(new TestFraction(3d), new TestFraction(4d)))
+            .withMessage(ExceptionMessages.METHOD_NOT_SUPPORTED);
     }
 
     @Test
     void lcm() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> arithmetic.lcm(new TestFraction(3d), new TestFraction(4d)));
-        // assert exception message?
+            .isThrownBy(() -> arithmetic.lcm(new TestFraction(3d), new TestFraction(4d)))
+            .withMessage(ExceptionMessages.METHOD_NOT_SUPPORTED);
     }
 
     // endregion

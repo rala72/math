@@ -5,6 +5,7 @@ import io.rala.math.exception.NotSupportedException;
 import io.rala.math.testUtils.algebra.TestMatrix;
 import io.rala.math.testUtils.algebra.TestVector;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
+import io.rala.math.testUtils.assertion.ExceptionMessages;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -22,13 +23,15 @@ class VectorTest {
     @Test
     void constructorWithNegativeSize() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new TestVector(-1)); // assert exception message?
+            .isThrownBy(() -> new TestVector(-1))
+            .withMessage(ExceptionMessages.SIZE_HAS_TO_BE_GREATER_ZERO);
     }
 
     @Test
     void constructorWithZeroSize() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new TestVector(0)); // assert exception message?
+            .isThrownBy(() -> new TestVector(0))
+            .withMessage(ExceptionMessages.SIZE_HAS_TO_BE_GREATER_ZERO);
     }
 
     @Test
@@ -81,14 +84,16 @@ class VectorTest {
     void getValueByIndexMinus1() {
         TestVector vector = new TestVector(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> vector.getValue(-1)); // assert exception message?
+            .isThrownBy(() -> vector.getValue(-1))
+            .withMessage("-1 / 2");
     }
 
     @Test
     void setValueByIndexMinus1() {
         TestVector vector = new TestVector(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> vector.setValue(-1, 0d)); // assert exception message?
+            .isThrownBy(() -> vector.setValue(-1, 0d))
+            .withMessage("-1 / 2");
     }
 
     @Test
@@ -110,7 +115,8 @@ class VectorTest {
     void removeValueByIndexMinus1() {
         TestVector vector = new TestVector(2);
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> vector.removeValue(-1)); // assert exception message?
+            .isThrownBy(() -> vector.removeValue(-1))
+            .withMessage("-1 / 2");
     }
 
     @Test
@@ -215,7 +221,8 @@ class VectorTest {
     @Test
     void toParamOFEmptyVectorWithInvalidSize() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> new TestVector(2).toParam()); // assert exception message?
+            .isThrownBy(() -> new TestVector(2).toParam())
+            .withMessage(ExceptionMessages.SIZE_HAS_TO_BE_ONE);
     }
 
     // endregion
@@ -225,14 +232,15 @@ class VectorTest {
     @Test
     void addVectorDifferentSize() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new TestVector(2).add(new TestVector(3))); // assert exception message?
+            .isThrownBy(() -> new TestVector(2).add(new TestVector(3)))
+            .withMessage(ExceptionMessages.SIZES_HAVE_TO_BE_EQUAL);
     }
 
     @Test
     void addVectorDifferentType() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new TestVector(2).add(new TestVector(2, Vector.Type.ROW)));
-        // assert exception message?
+            .isThrownBy(() -> new TestVector(2).add(new TestVector(2, Vector.Type.ROW)))
+            .withMessage(ExceptionMessages.VECTOR_TYPES_HAVE_TO_BE_EQUAL);
     }
 
     @Test
@@ -265,14 +273,15 @@ class VectorTest {
     @Test
     void subtractVectorDifferentSize() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new TestVector(2).subtract(new TestVector(3))); // assert exception message?
+            .isThrownBy(() -> new TestVector(2).subtract(new TestVector(3)))
+            .withMessage(ExceptionMessages.SIZES_HAVE_TO_BE_EQUAL);
     }
 
     @Test
     void subtractVectorDifferentType() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new TestVector(2).subtract(new TestVector(2, Vector.Type.ROW)));
-        // assert exception message?
+            .isThrownBy(() -> new TestVector(2).subtract(new TestVector(2, Vector.Type.ROW)))
+            .withMessage(ExceptionMessages.VECTOR_TYPES_HAVE_TO_BE_EQUAL);
     }
 
     @Test
@@ -321,21 +330,23 @@ class VectorTest {
     @Test
     void multiplyVectorsDifferentSize() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new TestVector(3, Vector.Type.ROW).multiply(new TestVector(4)));
-        // assert exception message?
+            .isThrownBy(() -> new TestVector(3, Vector.Type.ROW).multiply(new TestVector(4)))
+            .withMessage(ExceptionMessages.COLS_HAVE_TO_BE_EQUAL_ROWS);
     }
 
     @Test
     void multiplyVectorsSameTypeColumn() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new TestVector(3).multiply(new TestVector(3))); // assert exception message?
+            .isThrownBy(() -> new TestVector(3).multiply(new TestVector(3)))
+            .withMessage(ExceptionMessages.COLS_HAVE_TO_BE_EQUAL_ROWS);
     }
 
     @Test
     void multiplyVectorsSameTypeRow() {
         assertThatExceptionOfType(IllegalArgumentException.class)
             .isThrownBy(() -> new TestVector(3, Vector.Type.ROW)
-                .multiply(new TestVector(3, Vector.Type.ROW))); // assert exception message?
+                .multiply(new TestVector(3, Vector.Type.ROW)))
+            .withMessage(ExceptionMessages.COLS_HAVE_TO_BE_EQUAL_ROWS);
     }
 
     @Test
@@ -561,7 +572,8 @@ class VectorTest {
     @Test
     void negativePNorm() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new TestVector(3).pNorm(-1)); // assert exception message?
+            .isThrownBy(() -> new TestVector(3).pNorm(-1))
+            .withMessage(ExceptionMessages.VECTOR_POSITIVE_P_NORM);
     }
 
     @Test
@@ -577,7 +589,8 @@ class VectorTest {
     @Test
     void unitVectorOfEmptyVector() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> new TestVector(3).normalize()); // assert exception message?
+            .isThrownBy(() -> new TestVector(3).normalize())
+            .withMessage(ExceptionMessages.VECTOR_ZERO_VECTOR_CAN_NOT_NORMALIZED);
     }
 
     @Test
@@ -596,7 +609,8 @@ class VectorTest {
     @Test
     void angleBetweenEmptyVectors() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> new TestVector(3).angle(new TestVector(3))); // assert exception message?
+            .isThrownBy(() -> new TestVector(3).angle(new TestVector(3)))
+            .withMessage(ExceptionMessages.VECTOR_ANGLE_NOT_DEFINED_FOR_ZERO_VECTOR);
     }
 
     @Test
@@ -773,7 +787,8 @@ class VectorTest {
         }
 
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
-            .isThrownBy(() -> vector.new Entry(vector.getSize(), 0)); // assert exception message?
+            .isThrownBy(() -> vector.new Entry(vector.getSize(), 0))
+            .withMessage("2 / 2");
     }
 
     // endregion

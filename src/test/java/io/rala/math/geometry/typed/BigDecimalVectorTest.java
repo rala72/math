@@ -4,6 +4,7 @@ import io.rala.math.algebra.numeric.Complex;
 import io.rala.math.algebra.numeric.typed.BigDecimalComplex;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Vector;
+import io.rala.math.testUtils.assertion.ExceptionMessages;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -303,7 +304,8 @@ class BigDecimalVectorTest {
     @Test
     void normalizedOfVectorWithoutParameter() {
         assertThatExceptionOfType(ArithmeticException.class)
-            .isThrownBy(() -> new BigDecimalVector().normalized()); // assert exception message?
+            .isThrownBy(() -> new BigDecimalVector().normalized())
+            .withMessage(ExceptionMessages.DIVISION_UNDEFINED);
     }
 
     @Test
