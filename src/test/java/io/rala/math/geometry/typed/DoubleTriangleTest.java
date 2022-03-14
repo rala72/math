@@ -4,13 +4,12 @@ import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.LineSegment;
 import io.rala.math.geometry.Point;
 import io.rala.math.geometry.Triangle;
-import io.rala.math.testUtils.assertion.GeometryAssertions;
 import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.GeometryAssertions.*;
+import static io.rala.math.testUtils.assertion.OffsetUtils.doubleOffset;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.data.Offset.offset;
 
 class DoubleTriangleTest {
     // region constructors, getter and setter
@@ -149,7 +148,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(0d, 0d), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
-        assertThat(triangle.angleAlpha()).isCloseTo(Math.PI / 4d, offset(GeometryAssertions.DELTA));
+        assertThat(triangle.angleAlpha()).isCloseTo(Math.PI / 4d, doubleOffset());
     }
 
     @Test
@@ -157,7 +156,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(0d, 0d), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
-        assertThat(triangle.angleBeta()).isCloseTo(Math.PI / 2d, offset(GeometryAssertions.DELTA));
+        assertThat(triangle.angleBeta()).isCloseTo(Math.PI / 2d, doubleOffset());
     }
 
     @Test
@@ -165,7 +164,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(0d, 0d), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
-        assertThat(triangle.angleGamma()).isCloseTo(Math.PI / 4d, offset(GeometryAssertions.DELTA));
+        assertThat(triangle.angleGamma()).isCloseTo(Math.PI / 4d, doubleOffset());
     }
 
     @Test
@@ -175,7 +174,8 @@ class DoubleTriangleTest {
         );
         assertThat(triangle.angleAlpha() +
             triangle.angleBeta() +
-            triangle.angleGamma()).isEqualTo(Math.PI);
+            triangle.angleGamma()
+        ).isEqualTo(Math.PI);
     }
 
     // endregion
@@ -187,7 +187,7 @@ class DoubleTriangleTest {
         Triangle<Double> triangle = new DoubleTriangle(
             new DoublePoint(), new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
         );
-        assertThat(triangle.area()).isCloseTo(0.5, offset(GeometryAssertions.DELTA));
+        assertThat(triangle.area()).isCloseTo(0.5, doubleOffset());
     }
 
     @Test

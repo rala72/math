@@ -4,15 +4,14 @@ import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Vector;
 import io.rala.math.testUtils.algebra.TestComplex;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
-import io.rala.math.testUtils.assertion.GeometryAssertions;
 import io.rala.math.testUtils.assertion.NumericAssertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static io.rala.math.testUtils.assertion.OffsetUtils.doubleOffset;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.data.Offset.offset;
 
 class ComplexTest {
     // region constructors, getter and setter
@@ -104,7 +103,7 @@ class ComplexTest {
     @Test
     void argumentOfComplexX1Y1() {
         assertThat(new TestComplex(1, 1).argument().doubleValue())
-            .isCloseTo(Math.PI / 4, offset(GeometryAssertions.DELTA));
+            .isCloseTo(Math.PI / 4, doubleOffset());
     }
 
     @Test

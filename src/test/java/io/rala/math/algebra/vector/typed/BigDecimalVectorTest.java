@@ -665,8 +665,8 @@ class BigDecimalVectorTest {
     @Test
     void angleBetweenNonEmptyVectors() {
         assertThat(BigDecimalVector.ofValues(BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO)
-            .angle(BigDecimalVector.ofValues(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ONE)))
-            .isEqualTo(BigDecimal.valueOf(1.570796326794897));
+            .angle(BigDecimalVector.ofValues(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ONE))
+        ).isEqualTo(BigDecimal.valueOf(1.570796326794897));
     }
 
     // endregion

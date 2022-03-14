@@ -213,12 +213,14 @@ class LineTest {
 
     @Test
     void intersectionAngleWithLineM1B2AndX1() {
-        assertThat(new TestLine(1, 2).intersectionAngle(new TestLine(1))).isEqualTo(0.7853981633974483);
+        assertThat(new TestLine(1, 2).intersectionAngle(new TestLine(1)))
+            .isEqualTo(Math.PI / 4);
     }
 
     @Test
     void intersectionAngleWithLineX1AndM1B2() {
-        assertThat(new TestLine(1).intersectionAngle(new TestLine(1, 2))).isEqualTo(0.7853981633974483);
+        assertThat(new TestLine(1).intersectionAngle(new TestLine(1, 2)))
+            .isEqualTo(Math.PI / 4);
     }
 
     // endregion

@@ -3,14 +3,13 @@ package io.rala.math.geometry;
 import io.rala.math.algebra.numeric.Complex;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.testUtils.algebra.TestComplex;
-import io.rala.math.testUtils.assertion.GeometryAssertions;
 import io.rala.math.testUtils.geometry.TestVector;
 import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.GeometryAssertions.assertVector;
+import static io.rala.math.testUtils.assertion.OffsetUtils.doubleOffset;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.data.Offset.offset;
 
 class VectorTest {
     // region constructors, getter and setter
@@ -204,7 +203,7 @@ class VectorTest {
     void normalizedOfVectorWithXY1() {
         Vector<Number> vector = new TestVector(1d).normalized();
         assertVector(vector, 0.7071067811865475);
-        assertThat(vector.length().doubleValue()).isCloseTo(1, offset(GeometryAssertions.DELTA));
+        assertThat(vector.length().doubleValue()).isCloseTo(1, doubleOffset());
     }
 
     @Test
@@ -213,7 +212,7 @@ class VectorTest {
         assertVector(vector,
             0.4472135954999579, 0.8944271909999159
         );
-        assertThat(vector.length().doubleValue()).isCloseTo(1, offset(GeometryAssertions.DELTA));
+        assertThat(vector.length().doubleValue()).isCloseTo(1, doubleOffset());
     }
 
     // endregion
@@ -244,7 +243,7 @@ class VectorTest {
     void angleBetweenX0Y1AndXY1() {
         assertThat(new TestVector(0, 1)
             .angle(new TestVector(1, 1))
-            .doubleValue()).isCloseTo(Math.PI / 4, offset(GeometryAssertions.DELTA));
+            .doubleValue()).isCloseTo(Math.PI / 4, doubleOffset());
     }
 
     // endregion

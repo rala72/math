@@ -1,16 +1,15 @@
 package io.rala.math.geometry;
 
 import io.rala.math.arithmetic.core.IntegerArithmetic;
-import io.rala.math.testUtils.assertion.GeometryAssertions;
 import io.rala.math.testUtils.geometry.TestCircle;
 import io.rala.math.testUtils.geometry.TestPoint;
 import io.rala.math.testUtils.geometry.TestVector;
 import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.GeometryAssertions.assertCircle;
+import static io.rala.math.testUtils.assertion.OffsetUtils.doubleOffset;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.data.Offset.offset;
 
 class CircleTest {
     // region constructors, getter and setter
@@ -94,7 +93,7 @@ class CircleTest {
     @Test
     void areaOfCircleWithoutParameter() {
         assertThat(new TestCircle().area().doubleValue())
-            .isCloseTo(Math.PI, offset(GeometryAssertions.DELTA));
+            .isCloseTo(Math.PI, doubleOffset());
     }
 
     @Test

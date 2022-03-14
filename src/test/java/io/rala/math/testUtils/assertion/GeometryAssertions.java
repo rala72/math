@@ -6,16 +6,15 @@ import org.opentest4j.AssertionFailedError;
 
 import java.math.MathContext;
 
+import static io.rala.math.testUtils.assertion.OffsetUtils.doubleOffset;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
-import static org.assertj.core.data.Offset.offset;
 
 /**
  * assertions for {@link io.rala.math.geometry} package
  */
 @SuppressWarnings("unused")
 public class GeometryAssertions {
-    public static final double DELTA = 0.00001;
     public static final MathContext CONTEXT = MathContext.DECIMAL64;
 
     private GeometryAssertions() {
@@ -55,7 +54,7 @@ public class GeometryAssertions {
     ) {
         assertEqualsPoint(center, circle.getCenter(), "center is invalid");
         assertThat(circle.getRadius().doubleValue()).as("radius is invalid")
-            .isCloseTo(radius.doubleValue(), offset(DELTA));
+            .isCloseTo(radius.doubleValue(), doubleOffset());
     }
 
     // endregion
@@ -119,8 +118,10 @@ public class GeometryAssertions {
      */
     public static <T extends Number> void assertPoint(Point<T> point, T x, T y) {
         assertThat(point).isNotNull();
-        assertThat(point.getX().doubleValue()).as("x is invalid").isCloseTo(x.doubleValue(), offset(DELTA));
-        assertThat(point.getY().doubleValue()).as("y is invalid").isCloseTo(y.doubleValue(), offset(DELTA));
+        assertThat(point.getX().doubleValue()).as("x is invalid")
+            .isCloseTo(x.doubleValue(), doubleOffset());
+        assertThat(point.getY().doubleValue()).as("y is invalid")
+            .isCloseTo(y.doubleValue(), doubleOffset());
     }
 
     // endregion
@@ -148,7 +149,7 @@ public class GeometryAssertions {
         assertEqualsPoint(a, rect.getA(), "a is invalid");
         assertEqualsPoint(b, rect.getB(), "b is invalid");
         assertThat(rect.getSize().doubleValue()).as("size is invalid")
-            .isCloseTo(size.doubleValue(), offset(DELTA));
+            .isCloseTo(size.doubleValue(), doubleOffset());
     }
 
     // endregion
@@ -190,8 +191,10 @@ public class GeometryAssertions {
      * asserts that vector has expected values
      */
     public static <T extends Number> void assertVector(Vector<T> vector, T x, T y) {
-        assertThat(vector.getX().doubleValue()).as("x is invalid").isCloseTo(x.doubleValue(), offset(DELTA));
-        assertThat(vector.getY().doubleValue()).as("y is invalid").isCloseTo(y.doubleValue(), offset(DELTA));
+        assertThat(vector.getX().doubleValue()).as("x is invalid")
+            .isCloseTo(x.doubleValue(), doubleOffset());
+        assertThat(vector.getY().doubleValue()).as("y is invalid")
+            .isCloseTo(y.doubleValue(), doubleOffset());
     }
 
     // endregion

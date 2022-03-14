@@ -11,14 +11,13 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.List;
 
+import static io.rala.math.testUtils.assertion.OffsetUtils.bigDecimalOffset;
+import static io.rala.math.testUtils.assertion.OffsetUtils.doubleOffset;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.assertj.core.data.Offset.offset;
 
 class BigDecimalComplexTest {
-    private static final double DELTA = 0.00001;
-
     // region constructors, getter and setter
 
     @Test
@@ -116,7 +115,7 @@ class BigDecimalComplexTest {
     @Test
     void absoluteValueOfComplexX1Y1() {
         assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).absoluteValue())
-            .isEqualTo(BigDecimal.valueOf(1.414213562373095));
+            .isCloseTo(BigDecimal.valueOf(Math.sqrt(2)), bigDecimalOffset());
     }
 
     @Test
@@ -134,7 +133,7 @@ class BigDecimalComplexTest {
     @Test
     void argumentOfComplexX1Y1() {
         assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).argument())
-            .isEqualTo(BigDecimal.valueOf(0.7853981633974484d));
+            .isCloseTo(BigDecimal.valueOf(Math.PI / 4), bigDecimalOffset());
     }
 
     @Test
@@ -150,8 +149,7 @@ class BigDecimalComplexTest {
 
     @Test
     void signumOfComplexX1Y1() {
-        BigDecimal sqrt2half = BigDecimal.valueOf(0.7071067811865475);
-        // Math.sqrt(2d) / 2d
+        BigDecimal sqrt2half = BigDecimal.valueOf(0.7071067811865475); // Math.sqrt(2d) / 2d
         assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).signum())
             .isEqualTo(new BigDecimalComplex(sqrt2half, sqrt2half));
     }
@@ -456,7 +454,7 @@ class BigDecimalComplexTest {
         Complex<BigDecimal> complex = BigDecimalComplex.of(
             BigDecimal.ONE, BigDecimal.valueOf(2)
         );
-        assertThat(complex.absoluteValue().doubleValue()).isCloseTo(1, offset(DELTA));
+        assertThat(complex.absoluteValue().doubleValue()).isCloseTo(1, doubleOffset());
         assertThat(complex.argument()).isEqualTo(BigDecimal.valueOf(2));
     }
 

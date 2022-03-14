@@ -9,13 +9,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static io.rala.math.testUtils.assertion.OffsetUtils.doubleOffset;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.data.Offset.offset;
 
 class DoubleComplexTest {
-    private static final double DELTA = 0.00001;
-
     // region constructors, getter and setter
 
     @Test
@@ -104,7 +102,8 @@ class DoubleComplexTest {
 
     @Test
     void argumentOfComplexX1Y1() {
-        assertThat(new DoubleComplex(1d, 1d).argument()).isCloseTo(Math.PI / 4, offset(DELTA));
+        assertThat(new DoubleComplex(1d, 1d).argument())
+            .isCloseTo(Math.PI / 4, doubleOffset());
     }
 
     @Test

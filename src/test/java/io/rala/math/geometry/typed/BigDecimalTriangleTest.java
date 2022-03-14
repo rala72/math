@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 import static io.rala.math.testUtils.assertion.GeometryAssertions.CONTEXT;
+import static io.rala.math.testUtils.assertion.OffsetUtils.bigDecimalOffset;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -212,7 +213,8 @@ class BigDecimalTriangleTest {
         );
         assertThat(triangle.angleAlpha()
             .add(triangle.angleBeta())
-            .add(triangle.angleGamma())).isEqualTo(new BigDecimal("3.1415926535897938"));
+            .add(triangle.angleGamma())
+        ).isCloseTo(new BigDecimal(Math.PI), bigDecimalOffset());
     }
 
     // endregion

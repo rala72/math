@@ -4,13 +4,12 @@ import io.rala.math.algebra.numeric.Complex;
 import io.rala.math.algebra.numeric.typed.DoubleComplex;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Vector;
-import io.rala.math.testUtils.assertion.GeometryAssertions;
 import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.GeometryAssertions.assertVector;
+import static io.rala.math.testUtils.assertion.OffsetUtils.doubleOffset;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.data.Offset.offset;
 
 class DoubleVectorTest {
     // region constructors, getter and setter
@@ -207,7 +206,7 @@ class DoubleVectorTest {
     void normalizedOfVectorWithXY1() {
         Vector<Double> vector = new DoubleVector(1d).normalized();
         assertVector(vector, 0.7071067811865475);
-        assertThat(vector.length()).isCloseTo(1d, offset(GeometryAssertions.DELTA));
+        assertThat(vector.length()).isCloseTo(1d, doubleOffset());
     }
 
     @Test
@@ -216,7 +215,7 @@ class DoubleVectorTest {
         assertVector(vector,
             0.4472135954999579, 0.8944271909999159
         );
-        assertThat(vector.length()).isCloseTo(1d, offset(GeometryAssertions.DELTA));
+        assertThat(vector.length()).isCloseTo(1d, doubleOffset());
     }
 
     // endregion
@@ -246,7 +245,8 @@ class DoubleVectorTest {
     @Test
     void angleBetweenX0Y1AndXY1() {
         assertThat(new DoubleVector(0d, 1d)
-            .angle(new DoubleVector(1d, 1d))).isCloseTo(Math.PI / 4d, offset(GeometryAssertions.DELTA));
+            .angle(new DoubleVector(1d, 1d))
+        ).isCloseTo(Math.PI / 4d, doubleOffset());
     }
 
     // endregion

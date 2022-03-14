@@ -11,14 +11,12 @@ import java.math.MathContext;
 
 import static io.rala.math.testUtils.assertion.GeometryAssertions.CONTEXT;
 import static io.rala.math.testUtils.assertion.GeometryAssertions.assertVector;
+import static io.rala.math.testUtils.assertion.OffsetUtils.doubleOffset;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.assertj.core.data.Offset.offset;
 
 class BigDecimalVectorTest {
-    private static final double DELTA = 0.00001;
-
     // region constructors, getter and setter
 
     @Test
@@ -312,7 +310,8 @@ class BigDecimalVectorTest {
     void normalizedOfVectorWithXY1() {
         Vector<BigDecimal> vector = new BigDecimalVector(BigDecimal.ONE).normalized();
         assertVector(vector, BigDecimal.valueOf(0.7071067811865475));
-        assertThat(vector.length().doubleValue()).isCloseTo(1.000000001, offset(DELTA));
+        assertThat(vector.length().doubleValue())
+            .isCloseTo(1.000000001, doubleOffset());
     }
 
     @Test
@@ -324,7 +323,7 @@ class BigDecimalVectorTest {
             BigDecimal.valueOf(0.4472135954999579),
             BigDecimal.valueOf(0.8944271909999159)
         );
-        assertThat(vector.length().doubleValue()).isCloseTo(1.000000001, offset(DELTA));
+        assertThat(vector.length().doubleValue()).isCloseTo(1.000000001, doubleOffset());
     }
 
     // endregion
