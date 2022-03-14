@@ -272,7 +272,7 @@ class RectTest {
         assertRect(
             new TestRect(new TestPoint(), new TestPoint(0, 1), 2)
                 .rotate(Math.PI / 2),
-            new TestPoint(), new TestPoint(-1.0, 6.123233995736766E-17), 2
+            new TestPoint(), new TestPoint(-1.0, 6.123233995736766e-17), 2
         );
     }
 

@@ -367,7 +367,7 @@ class TriangleTest {
                 new TestPoint(1, 1)
             ).rotate(Math.PI / 2),
             new TestPoint(),
-            new TestPoint(-1, 6.123233995736766E-17),
+            new TestPoint(-1, 6.123233995736766e-17),
             new TestPoint(-0.9999999999999999, 1.0)
         );
     }

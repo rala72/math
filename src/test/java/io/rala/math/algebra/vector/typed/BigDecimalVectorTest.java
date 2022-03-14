@@ -651,7 +651,8 @@ class BigDecimalVectorTest {
         assertThat(fillVectorWithTestValues(new BigDecimalVector(3))
             .multiply(BigDecimal.valueOf(2))
             .angle(fillVectorWithTestValues(new BigDecimalVector(3))
-                .multiply(BigDecimal.valueOf(3)))).isEqualTo(new BigDecimal("2.107342425544702E-8"));
+                .multiply(BigDecimal.valueOf(3)))
+        ).isEqualTo(BigDecimal.valueOf(2.107342425544702e-8));
     }
 
     @Test

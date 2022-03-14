@@ -345,7 +345,7 @@ class BigDecimalComplexTest {
         assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).pow(8))
             .isEqualTo(new BigDecimalComplex(
                 BigDecimal.valueOf(16),
-                new BigDecimal("1.029198495793047E-14")
+                BigDecimal.valueOf(1.029198495793047e-14)
             ));
     }
 
@@ -353,7 +353,7 @@ class BigDecimalComplexTest {
     void pow5OfComplexWithRe3Im4() {
         assertThat(new BigDecimalComplex(BigDecimal.valueOf(3), BigDecimal.valueOf(4)).pow(5))
             .isEqualTo(new BigDecimalComplex(
-                new BigDecimal("-236.9999999999962"),
+                BigDecimal.valueOf(-236.9999999999962),
                 BigDecimal.valueOf(3116).negate()
             ));
     }
@@ -363,12 +363,12 @@ class BigDecimalComplexTest {
         assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ZERO).root(3)).isEqualTo(List.of(
             new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ZERO),
             new BigDecimalComplex(
-                new BigDecimal("-0.4999999999999994"),
-                new BigDecimal("0.8660254037844389")
+                BigDecimal.valueOf(-0.4999999999999994),
+                BigDecimal.valueOf(0.8660254037844389)
             ),
             new BigDecimalComplex(
-                new BigDecimal("-0.5000000000000012"),
-                new BigDecimal("-0.8660254037844379")
+                BigDecimal.valueOf(-0.5000000000000012),
+                BigDecimal.valueOf(-0.8660254037844379)
             )
         ));
     }
@@ -378,15 +378,15 @@ class BigDecimalComplexTest {
         assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ZERO).root(4)).isEqualTo(List.of(
             new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ZERO),
             new BigDecimalComplex(
-                new BigDecimal("7.273661547324616E-16"),
+                BigDecimal.valueOf(7.273661547324616e-16),
                 BigDecimal.ONE
             ),
             new BigDecimalComplex(
                 BigDecimal.ONE.negate(),
-                new BigDecimal("1.454732309464923E-15")
+                BigDecimal.valueOf(1.454732309464923e-15)
             ),
             new BigDecimalComplex(
-                new BigDecimal("-1.83697019872103E-16"),
+                BigDecimal.valueOf(-1.83697019872103e-16),
                 BigDecimal.ONE.negate()
             )
         ));

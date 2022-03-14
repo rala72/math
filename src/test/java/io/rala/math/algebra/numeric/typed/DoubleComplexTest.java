@@ -274,7 +274,7 @@ class DoubleComplexTest {
     @Test
     void pow8OfComplexWithRe1Im1() {
         assertThat(new DoubleComplex(1d, 1d).pow(8))
-            .isEqualTo(new DoubleComplex(16.000000000000007, 1.0291984957930479E-14));
+            .isEqualTo(new DoubleComplex(16.000000000000007, 1.0291984957930479e-14));
     }
 
     @Test
@@ -296,9 +296,9 @@ class DoubleComplexTest {
     void root4OfComplexWithRe1Im0() {
         assertThat(new DoubleComplex(1d, 0d).root(4)).isEqualTo(List.of(
             new DoubleComplex(1d, 0d),
-            new DoubleComplex(6.123233995736766E-17, 1d),
-            new DoubleComplex(-1d, 1.2246467991473532E-16),
-            new DoubleComplex(-1.8369701987210297E-16, -1d)
+            new DoubleComplex(6.123233995736766e-17, 1d),
+            new DoubleComplex(-1d, 1.2246467991473532e-16),
+            new DoubleComplex(-1.8369701987210297e-16, -1d)
         ));
     }
 
