@@ -4,6 +4,7 @@ import io.rala.math.arithmetic.AbstractArithmetic;
 import io.rala.math.arithmetic.AbstractResultArithmetic;
 import io.rala.math.exception.NotSupportedException;
 import io.rala.math.utils.Copyable;
+import io.rala.math.utils.Validatable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,7 +19,7 @@ import java.util.function.Function;
  * @since 1.0.0
  */
 public class Fraction<T extends Number, V extends Number> extends Number
-    implements Copyable<Fraction<T, V>>, Comparable<Fraction<T, V>> {
+    implements Validatable, Copyable<Fraction<T, V>>, Comparable<Fraction<T, V>> {
     protected static final String EXCEPTION_DENOMINATOR_IS_ZERO =
         "denominator has to be non-zero";
 
@@ -431,7 +432,7 @@ public class Fraction<T extends Number, V extends Number> extends Number
 
     // endregion
 
-    // region map and copy
+    // region map, isValid and copy
 
     /**
      * @param arithmetic arithmetic for calculations
@@ -501,6 +502,12 @@ public class Fraction<T extends Number, V extends Number> extends Number
             getArithmetic().mapResult(arithmetic, map),
             getNumerator(), getDenominator()
         );
+    }
+
+    @Override
+    public boolean isValid() {
+        AbstractArithmetic<T> arithmetic = getArithmetic().getTArithmetic();
+        return arithmetic.isFinite(getNumerator()) && arithmetic.isFinite(getDenominator());
     }
 
     @Override

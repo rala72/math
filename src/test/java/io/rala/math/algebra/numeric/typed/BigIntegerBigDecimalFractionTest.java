@@ -280,7 +280,7 @@ class BigIntegerBigDecimalFractionTest {
 
     // endregion
 
-    // region map and copy
+    // region map, isValid and copy
 
     @Test
     void mapOfFraction() {
@@ -336,6 +336,11 @@ class BigIntegerBigDecimalFractionTest {
         assertThat(fraction.mapValue(
             new IntegerArithmetic(), Number::intValue
         )).isEqualTo(result);
+    }
+
+    @Test
+    void isValidWithZero() {
+        assertThat(new BigIntegerBigDecimalFraction(BigInteger.ZERO).isValid()).isTrue();
     }
 
     @Test

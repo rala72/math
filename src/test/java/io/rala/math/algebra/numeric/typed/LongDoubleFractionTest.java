@@ -207,7 +207,7 @@ class LongDoubleFractionTest {
 
     // endregion
 
-    // region map and copy
+    // region map, isValid and copy
 
     @Test
     void mapOfFraction() {
@@ -259,6 +259,11 @@ class LongDoubleFractionTest {
         assertThat(fraction.mapValue(
             new IntegerArithmetic(), Number::intValue
         )).isEqualTo(result);
+    }
+
+    @Test
+    void isValidWithZero() {
+        assertThat(new LongDoubleFraction(0, 1L).isValid()).isTrue();
     }
 
     @Test

@@ -218,7 +218,7 @@ class FractionTest {
 
     // endregion
 
-    // region map and copy
+    // region map, isValid and copy
 
     @Test
     void mapOfFraction() {
@@ -270,6 +270,17 @@ class FractionTest {
         assertThat(fraction.mapValue(
             new IntegerArithmetic(), Number::intValue
         )).isEqualTo(result);
+    }
+
+    @Test
+    void isValidWithZero() {
+        assertThat(new TestFraction(0).isValid()).isTrue();
+    }
+
+    @Test
+    void isValidWithInfValues() {
+        assertThat(new TestFraction(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
+            .isValid()).isFalse();
     }
 
     @Test
