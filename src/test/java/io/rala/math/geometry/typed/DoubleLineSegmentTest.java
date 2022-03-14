@@ -261,7 +261,8 @@ class DoubleLineSegmentTest {
 
     @Test
     void hashCodeOfLineSegmentWithTwoPoints() {
-        assertThat(new DoubleLineSegment(new DoublePoint(2d), new DoublePoint(3d)).hashCode()).isEqualTo(16808929);
+        assertThat(new DoubleLineSegment(new DoublePoint(2d), new DoublePoint(3d)).hashCode())
+            .isEqualTo(16808929);
     }
 
     @Test

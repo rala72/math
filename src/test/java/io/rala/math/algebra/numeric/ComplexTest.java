@@ -103,7 +103,8 @@ class ComplexTest {
 
     @Test
     void argumentOfComplexX1Y1() {
-        assertThat(new TestComplex(1, 1).argument().doubleValue()).isCloseTo(Math.PI / 4, offset(GeometryAssertions.DELTA));
+        assertThat(new TestComplex(1, 1).argument().doubleValue())
+            .isCloseTo(Math.PI / 4, offset(GeometryAssertions.DELTA));
     }
 
     @Test
@@ -271,7 +272,8 @@ class ComplexTest {
 
     @Test
     void pow8OfComplexWithRe1Im1() {
-        assertThat(new TestComplex(1, 1).pow(8)).isEqualTo(new TestComplex(16.000000000000007, 1.0291984957930479e-14));
+        assertThat(new TestComplex(1, 1).pow(8))
+            .isEqualTo(new TestComplex(16.000000000000007, 1.0291984957930479e-14));
     }
 
     @Test
@@ -349,7 +351,8 @@ class ComplexTest {
 
     @Test
     void asVectorOfComplexWithRe1Im2() {
-        assertThat(new TestComplex(1, 2).asVector()).isEqualTo(new Vector<>(new TestAbstractArithmetic(), 1, 2));
+        assertThat(new TestComplex(1, 2).asVector())
+            .isEqualTo(new Vector<>(new TestAbstractArithmetic(), 1, 2));
     }
 
     @Test

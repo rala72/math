@@ -108,12 +108,14 @@ class BigDecimalArithmeticTest {
 
     @Test
     void difference12() {
-        assertThat(arithmetic.difference(BigDecimal.ONE, BigDecimal.valueOf(2))).isEqualTo(BigDecimal.valueOf(-1));
+        assertThat(arithmetic.difference(BigDecimal.ONE, BigDecimal.valueOf(2)))
+            .isEqualTo(BigDecimal.valueOf(-1));
     }
 
     @Test
     void product12() {
-        assertThat(arithmetic.product(BigDecimal.ONE, BigDecimal.valueOf(2))).isEqualTo(BigDecimal.valueOf(2));
+        assertThat(arithmetic.product(BigDecimal.ONE, BigDecimal.valueOf(2)))
+            .isEqualTo(BigDecimal.valueOf(2));
     }
 
     @Test
@@ -127,7 +129,8 @@ class BigDecimalArithmeticTest {
 
     @Test
     void quotient12() {
-        assertThat(arithmetic.quotient(BigDecimal.ONE, BigDecimal.valueOf(2))).isEqualTo(BigDecimal.valueOf(0.5));
+        assertThat(arithmetic.quotient(BigDecimal.ONE, BigDecimal.valueOf(2)))
+            .isEqualTo(BigDecimal.valueOf(0.5));
     }
 
     @Test
@@ -156,13 +159,15 @@ class BigDecimalArithmeticTest {
     @Test
     void gcd() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> arithmetic.gcd(BigDecimal.valueOf(3), BigDecimal.valueOf(4))); // assert exception message?
+            .isThrownBy(() -> arithmetic.gcd(BigDecimal.valueOf(3), BigDecimal.valueOf(4)));
+        // assert exception message?
     }
 
     @Test
     void lcm() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> arithmetic.gcd(BigDecimal.valueOf(3), BigDecimal.valueOf(4))); // assert exception message?
+            .isThrownBy(() -> arithmetic.gcd(BigDecimal.valueOf(3), BigDecimal.valueOf(4)));
+        // assert exception message?
     }
 
     // endregion

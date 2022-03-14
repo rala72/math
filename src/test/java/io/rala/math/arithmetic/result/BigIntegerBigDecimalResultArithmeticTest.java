@@ -60,12 +60,14 @@ class BigIntegerBigDecimalResultArithmeticTest {
 
     @Test
     void difference12() {
-        assertThat(arithmetic.difference(BigInteger.ONE, BigInteger.valueOf(2))).isEqualTo(BigDecimal.valueOf(-1));
+        assertThat(arithmetic.difference(BigInteger.ONE, BigInteger.valueOf(2)))
+            .isEqualTo(BigDecimal.valueOf(-1));
     }
 
     @Test
     void product12() {
-        assertThat(arithmetic.product(BigInteger.ONE, BigInteger.valueOf(2))).isEqualTo(BigDecimal.valueOf(2));
+        assertThat(arithmetic.product(BigInteger.ONE, BigInteger.valueOf(2)))
+            .isEqualTo(BigDecimal.valueOf(2));
     }
 
     @Test
@@ -79,7 +81,8 @@ class BigIntegerBigDecimalResultArithmeticTest {
 
     @Test
     void quotient12() {
-        assertThat(arithmetic.quotient(BigInteger.ONE, BigInteger.valueOf(2))).isEqualTo(BigDecimal.valueOf(0.5));
+        assertThat(arithmetic.quotient(BigInteger.ONE, BigInteger.valueOf(2)))
+            .isEqualTo(BigDecimal.valueOf(0.5));
     }
 
     @Test
@@ -115,7 +118,8 @@ class BigIntegerBigDecimalResultArithmeticTest {
 
     @Test
     void equalsOfAbstractResultArithmetic() {
-        assertThat(new BigIntegerBigDecimalResultArithmetic()).isEqualTo(new BigIntegerBigDecimalResultArithmetic());
+        assertThat(new BigIntegerBigDecimalResultArithmetic())
+            .isEqualTo(new BigIntegerBigDecimalResultArithmetic());
     }
 
     @Test

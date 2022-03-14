@@ -93,7 +93,8 @@ class CircleTest {
 
     @Test
     void areaOfCircleWithoutParameter() {
-        assertThat(new TestCircle().area().doubleValue()).isCloseTo(Math.PI, offset(GeometryAssertions.DELTA));
+        assertThat(new TestCircle().area().doubleValue())
+            .isCloseTo(Math.PI, offset(GeometryAssertions.DELTA));
     }
 
     @Test

@@ -104,12 +104,14 @@ class DoubleRectTest {
 
     @Test
     void widthOfRectWithPointsAndPositiveSize() {
-        assertThat(new DoubleRect(new DoublePoint(), new DoublePoint(1d), 1d).width()).isEqualTo(Math.sqrt(2d));
+        assertThat(new DoubleRect(new DoublePoint(), new DoublePoint(1d), 1d).width())
+            .isEqualTo(Math.sqrt(2d));
     }
 
     @Test
     void widthOfRectWithPointsAndNegativeSize() {
-        assertThat(new DoubleRect(new DoublePoint(), new DoublePoint(1d), -1d).width()).isEqualTo(Math.sqrt(2d));
+        assertThat(new DoubleRect(new DoublePoint(), new DoublePoint(1d), -1d).width())
+            .isEqualTo(Math.sqrt(2d));
     }
 
     @Test
@@ -302,7 +304,8 @@ class DoubleRectTest {
 
     @Test
     void hashCodeOfRectWithPointHeightAndWidth() {
-        assertThat(new DoubleRect(new DoublePoint(2d), new DoublePoint(3d), 4d).hashCode()).isEqualTo(1595867199);
+        assertThat(new DoubleRect(new DoublePoint(2d), new DoublePoint(3d), 4d).hashCode())
+            .isEqualTo(1595867199);
     }
 
     @Test

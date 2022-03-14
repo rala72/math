@@ -166,12 +166,14 @@ class BigDecimalCircleTest {
 
     @Test
     void areaOfCircleWithRadius2() {
-        assertThat(new BigDecimalCircle(BigDecimal.valueOf(2d)).area()).isEqualTo(BigDecimal.valueOf(12.56637061435917));
+        assertThat(new BigDecimalCircle(BigDecimal.valueOf(2d)).area())
+            .isEqualTo(BigDecimal.valueOf(12.56637061435917));
     }
 
     @Test
     void areaOfCircleWithRadius3() {
-        assertThat(new BigDecimalCircle(BigDecimal.valueOf(3d)).area()).isEqualTo(BigDecimal.valueOf(28.27433388230814));
+        assertThat(new BigDecimalCircle(BigDecimal.valueOf(3d)).area())
+            .isEqualTo(BigDecimal.valueOf(28.27433388230814));
     }
 
     @Test

@@ -145,7 +145,8 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(0, 0), new TestPoint(0, 1), new TestPoint(1, 1)
         );
-        assertThat(triangle.angleAlpha().doubleValue()).isCloseTo(Math.PI / 4, offset(GeometryAssertions.DELTA));
+        assertThat(triangle.angleAlpha().doubleValue())
+            .isCloseTo(Math.PI / 4, offset(GeometryAssertions.DELTA));
     }
 
     @Test
@@ -153,7 +154,8 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(0, 0), new TestPoint(0, 1), new TestPoint(1, 1)
         );
-        assertThat(triangle.angleBeta().doubleValue()).isCloseTo(Math.PI / 2, offset(GeometryAssertions.DELTA));
+        assertThat(triangle.angleBeta().doubleValue())
+            .isCloseTo(Math.PI / 2, offset(GeometryAssertions.DELTA));
     }
 
     @Test
@@ -161,7 +163,8 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(0, 0), new TestPoint(0, 1), new TestPoint(1, 1)
         );
-        assertThat(triangle.angleGamma().doubleValue()).isCloseTo(Math.PI / 4, offset(GeometryAssertions.DELTA));
+        assertThat(triangle.angleGamma().doubleValue())
+            .isCloseTo(Math.PI / 4, offset(GeometryAssertions.DELTA));
     }
 
     @Test
@@ -247,7 +250,8 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(), new TestPoint(0, 1), new TestPoint(1, 1)
         );
-        assertThat(triangle.circumCircleRadius().doubleValue()).isCloseTo(Math.sqrt(2) / 2, offset(GeometryAssertions.DELTA));
+        assertThat(triangle.circumCircleRadius().doubleValue())
+            .isCloseTo(Math.sqrt(2) / 2, offset(GeometryAssertions.DELTA));
     }
 
     @Test
@@ -263,7 +267,8 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(), new TestPoint(0, 1), new TestPoint(1, 1)
         );
-        assertThat(triangle.inCircleRadius().doubleValue()).isCloseTo(1 - Math.sqrt(2) / 2, offset(GeometryAssertions.DELTA));
+        assertThat(triangle.inCircleRadius().doubleValue())
+            .isCloseTo(1 - Math.sqrt(2) / 2, offset(GeometryAssertions.DELTA));
     }
 
     @Test

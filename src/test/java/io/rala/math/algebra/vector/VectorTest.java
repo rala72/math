@@ -198,7 +198,8 @@ class VectorTest {
         expected.setValue(0, 1, -4d);
         expected.setValue(0, 2, 9d);
         expected.setValue(0, 3, -16d);
-        assertThat(fillVectorWithTestValues(new TestVector(4, Vector.Type.ROW)).toMatrix()).isEqualTo(expected);
+        assertThat(fillVectorWithTestValues(new TestVector(4, Vector.Type.ROW)).toMatrix())
+            .isEqualTo(expected);
     }
 
     @Test
@@ -230,7 +231,8 @@ class VectorTest {
     @Test
     void addVectorDifferentType() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new TestVector(2).add(new TestVector(2, Vector.Type.ROW))); // assert exception message?
+            .isThrownBy(() -> new TestVector(2).add(new TestVector(2, Vector.Type.ROW)));
+        // assert exception message?
     }
 
     @Test
@@ -269,7 +271,8 @@ class VectorTest {
     @Test
     void subtractVectorDifferentType() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new TestVector(2).subtract(new TestVector(2, Vector.Type.ROW))); // assert exception message?
+            .isThrownBy(() -> new TestVector(2).subtract(new TestVector(2, Vector.Type.ROW)));
+        // assert exception message?
     }
 
     @Test
@@ -318,7 +321,8 @@ class VectorTest {
     @Test
     void multiplyVectorsDifferentSize() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new TestVector(3, Vector.Type.ROW).multiply(new TestVector(4))); // assert exception message?
+            .isThrownBy(() -> new TestVector(3, Vector.Type.ROW).multiply(new TestVector(4)));
+        // assert exception message?
     }
 
     @Test
@@ -336,12 +340,14 @@ class VectorTest {
 
     @Test
     void multiplyEmptyVectorsColumnRow() {
-        assertThat(new TestVector(2).multiply(new TestVector(2, Vector.Type.ROW))).isEqualTo(new TestMatrix(2));
+        assertThat(new TestVector(2).multiply(new TestVector(2, Vector.Type.ROW)))
+            .isEqualTo(new TestMatrix(2));
     }
 
     @Test
     void multiplyEmptyVectorsRowColumn() {
-        assertThat(new TestVector(2, Vector.Type.ROW).multiply(new TestVector(2))).isEqualTo(new TestMatrix(1));
+        assertThat(new TestVector(2, Vector.Type.ROW).multiply(new TestVector(2)))
+            .isEqualTo(new TestMatrix(1));
     }
 
     @Test
@@ -378,7 +384,8 @@ class VectorTest {
     @Test
     void multiplyNonEmptyVectorToEmptyVectorColumnRow() {
         assertThat(new TestVector(2)
-            .multiply(fillVectorWithTestValues(new TestVector(2, Vector.Type.ROW)))).isEqualTo(new TestMatrix(2));
+            .multiply(fillVectorWithTestValues(new TestVector(2, Vector.Type.ROW)))
+        ).isEqualTo(new TestMatrix(2));
     }
 
     @Test
@@ -622,7 +629,8 @@ class VectorTest {
 
     @Test
     void ofValuesWithZeroValues() {
-        assertThat(TestVector.ofValues(new TestAbstractArithmetic(), 0d, 0d, 0d, 0d)).isEqualTo(new TestVector(4));
+        assertThat(TestVector.ofValues(new TestAbstractArithmetic(), 0d, 0d, 0d, 0d))
+            .isEqualTo(new TestVector(4));
     }
 
     @Test
@@ -644,7 +652,8 @@ class VectorTest {
         List<Number> list = new ArrayList<>();
         list.add(1d);
         list.add(-4d);
-        assertThat(TestVector.ofList(new TestAbstractArithmetic(), list)).isEqualTo(fillVectorWithTestValues(new TestVector(2)));
+        assertThat(TestVector.ofList(new TestAbstractArithmetic(), list))
+            .isEqualTo(fillVectorWithTestValues(new TestVector(2)));
     }
 
     // endregion

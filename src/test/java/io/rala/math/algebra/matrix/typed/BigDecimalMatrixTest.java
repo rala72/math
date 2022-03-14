@@ -779,7 +779,8 @@ class BigDecimalMatrixTest {
             BigDecimal.ONE, BigDecimal.valueOf(2)
         );
         for (int i = 0; i < matrix.size(); i++)
-            assertThat(matrix.getValue(i)).as("index: " + i).isEqualTo(BigDecimal.valueOf(i).add(BigDecimal.ONE));
+            assertThat(matrix.getValue(i)).as("index: " + i)
+                .isEqualTo(BigDecimal.valueOf(i).add(BigDecimal.ONE));
     }
 
     @Test
@@ -794,7 +795,8 @@ class BigDecimalMatrixTest {
             BigDecimal.ONE, BigDecimal.valueOf(2)
         );
         for (int i = 0; i < matrix.size(); i++)
-            assertThat(matrix.getValue(i)).as("index: " + i).isEqualTo(BigDecimal.valueOf(i).add(BigDecimal.ONE));
+            assertThat(matrix.getValue(i)).as("index: " + i)
+                .isEqualTo(BigDecimal.valueOf(i).add(BigDecimal.ONE));
     }
 
     // endregion

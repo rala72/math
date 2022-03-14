@@ -163,7 +163,8 @@ class FractionTest {
 
     @Test
     void subtractWithFraction() {
-        assertThat(new TestFraction(2, 1).subtract(new TestFraction(1, 2))).isEqualTo(new TestFraction(3d, 2d));
+        assertThat(new TestFraction(2, 1).subtract(new TestFraction(1, 2)))
+            .isEqualTo(new TestFraction(3d, 2d));
     }
 
     // endregion

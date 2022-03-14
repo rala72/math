@@ -190,7 +190,8 @@ class DoubleVectorTest {
         expected.setValue(0, 1, -4d);
         expected.setValue(0, 2, 9d);
         expected.setValue(0, 3, -16d);
-        assertThat(fillVectorWithTestValues(new DoubleVector(4, Vector.Type.ROW)).toMatrix()).isEqualTo(expected);
+        assertThat(fillVectorWithTestValues(new DoubleVector(4, Vector.Type.ROW)).toMatrix())
+            .isEqualTo(expected);
     }
 
     @Test
@@ -222,7 +223,8 @@ class DoubleVectorTest {
     @Test
     void addVectorDifferentType() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new DoubleVector(2).add(new DoubleVector(2, Vector.Type.ROW))); // assert exception message?
+            .isThrownBy(() -> new DoubleVector(2).add(new DoubleVector(2, Vector.Type.ROW)));
+        // assert exception message?
     }
 
     @Test
@@ -255,13 +257,15 @@ class DoubleVectorTest {
     @Test
     void subtractVectorDifferentSize() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new DoubleVector(2).subtract(new DoubleVector(3))); // assert exception message?
+            .isThrownBy(() -> new DoubleVector(2).subtract(new DoubleVector(3)));
+        // assert exception message?
     }
 
     @Test
     void subtractVectorDifferentType() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new DoubleVector(2).subtract(new DoubleVector(2, Vector.Type.ROW))); // assert exception message?
+            .isThrownBy(() -> new DoubleVector(2).subtract(new DoubleVector(2, Vector.Type.ROW)));
+        // assert exception message?
     }
 
     @Test
@@ -289,7 +293,8 @@ class DoubleVectorTest {
 
     @Test
     void multiplyNonEmptyVectorByZero() {
-        assertThat(fillVectorWithTestValues(new DoubleVector(3)).multiply(0d)).isEqualTo(new DoubleVector(3));
+        assertThat(fillVectorWithTestValues(new DoubleVector(3)).multiply(0d))
+            .isEqualTo(new DoubleVector(3));
     }
 
     @Test
@@ -310,13 +315,15 @@ class DoubleVectorTest {
     @Test
     void multiplyVectorsDifferentSize() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new DoubleVector(3, Vector.Type.ROW).multiply(new DoubleVector(4))); // assert exception message?
+            .isThrownBy(() -> new DoubleVector(3, Vector.Type.ROW).multiply(new DoubleVector(4)));
+        // assert exception message?
     }
 
     @Test
     void multiplyVectorsSameTypeColumn() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new DoubleVector(3).multiply(new DoubleVector(3))); // assert exception message?
+            .isThrownBy(() -> new DoubleVector(3).multiply(new DoubleVector(3)));
+        // assert exception message?
     }
 
     @Test
@@ -328,12 +335,14 @@ class DoubleVectorTest {
 
     @Test
     void multiplyEmptyVectorsColumnRow() {
-        assertThat(new DoubleVector(2).multiply(new DoubleVector(2, Vector.Type.ROW))).isEqualTo(new DoubleMatrix(2));
+        assertThat(new DoubleVector(2).multiply(new DoubleVector(2, Vector.Type.ROW)))
+            .isEqualTo(new DoubleMatrix(2));
     }
 
     @Test
     void multiplyEmptyVectorsRowColumn() {
-        assertThat(new DoubleVector(2, Vector.Type.ROW).multiply(new DoubleVector(2))).isEqualTo(new DoubleMatrix(1));
+        assertThat(new DoubleVector(2, Vector.Type.ROW).multiply(new DoubleVector(2)))
+            .isEqualTo(new DoubleMatrix(1));
     }
 
     @Test
@@ -370,7 +379,8 @@ class DoubleVectorTest {
     @Test
     void multiplyNonEmptyVectorToEmptyVectorColumnRow() {
         assertThat(new DoubleVector(2)
-            .multiply(fillVectorWithTestValues(new DoubleVector(2, Vector.Type.ROW)))).isEqualTo(new DoubleMatrix(2));
+            .multiply(fillVectorWithTestValues(new DoubleVector(2, Vector.Type.ROW)))
+        ).isEqualTo(new DoubleMatrix(2));
     }
 
     @Test
@@ -556,7 +566,8 @@ class DoubleVectorTest {
 
     @Test
     void sevenNormNonEmptyVector() {
-        assertThat(fillVectorWithTestValues(new DoubleVector(3)).pNorm(7)).isEqualTo(MathX.root(4766586d, 7));
+        assertThat(fillVectorWithTestValues(new DoubleVector(3)).pNorm(7))
+            .isEqualTo(MathX.root(4766586d, 7));
     }
 
     @Test
@@ -619,7 +630,8 @@ class DoubleVectorTest {
 
     @Test
     void ofValuesWithNonZeroValues() {
-        assertThat(DoubleVector.ofValues(1d, -4d, 9d, -16d)).isEqualTo(fillVectorWithTestValues(new DoubleVector(4)));
+        assertThat(DoubleVector.ofValues(1d, -4d, 9d, -16d))
+            .isEqualTo(fillVectorWithTestValues(new DoubleVector(4)));
     }
 
     @Test

@@ -96,11 +96,12 @@ class LinearEquationSystemTest {
     @Test
     void addRowMultipleTimes() {
         LinearEquationSystem<Number> equation = new LinearEquationSystem<>(matrix, vector);
-        assertThat(equation.addRowMultipleTimes(0, 1, 2)).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
-            TestMatrix.ofValuesByRows(2,
-                7d, 10d,
-                3, 4
-            )));
+        assertThat(equation.addRowMultipleTimes(0, 1, 2))
+            .isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
+                TestMatrix.ofValuesByRows(2,
+                    7d, 10d,
+                    3, 4
+                )));
     }
 
     @Test
@@ -108,11 +109,12 @@ class LinearEquationSystemTest {
         LinearEquationSystem<Number> equation =
             new LinearEquationSystem<>(matrix, vector)
                 .transpose();
-        assertThat(equation.addColMultipleTimes(0, 1, 2)).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionRow(
-            TestMatrix.ofValuesByCols(2,
-                7d, 2,
-                3, 4
-            )).transpose());
+        assertThat(equation.addColMultipleTimes(0, 1, 2))
+            .isEqualTo(LinearEquationSystem.ofMatrixWithSolutionRow(
+                TestMatrix.ofValuesByCols(2,
+                    7d, 2,
+                    3, 4
+                )).transpose());
     }
 
     // endregion

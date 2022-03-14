@@ -189,7 +189,8 @@ class DoubleComplexTest {
 
     @Test
     void addWithDoubleComplex() {
-        assertThat(new DoubleComplex(1d, 0d).add(new DoubleComplex(1d, 2d))).isEqualTo(new DoubleComplex(2d, 2d));
+        assertThat(new DoubleComplex(1d, 0d).add(new DoubleComplex(1d, 2d)))
+            .isEqualTo(new DoubleComplex(2d, 2d));
     }
 
     @Test
@@ -204,7 +205,8 @@ class DoubleComplexTest {
 
     @Test
     void subtractWithDoubleComplex() {
-        assertThat(new DoubleComplex(2d, 2d).subtract(new DoubleComplex(1d, 2d))).isEqualTo(new DoubleComplex(1d, 0d));
+        assertThat(new DoubleComplex(2d, 2d).subtract(new DoubleComplex(1d, 2d)))
+            .isEqualTo(new DoubleComplex(1d, 0d));
     }
 
     // endregion
@@ -233,7 +235,8 @@ class DoubleComplexTest {
 
     @Test
     void multiplyComplexWithDoubleComplex() {
-        assertThat(new DoubleComplex(1d, 2d).multiply(new DoubleComplex(2d, 1d))).isEqualTo(new DoubleComplex(0d, 5d));
+        assertThat(new DoubleComplex(1d, 2d).multiply(new DoubleComplex(2d, 1d)))
+            .isEqualTo(new DoubleComplex(0d, 5d));
     }
 
     @Test
@@ -261,7 +264,8 @@ class DoubleComplexTest {
 
     @Test
     void divideComplexWithDoubleComplex() {
-        assertThat(new DoubleComplex(1d, 2d).divide(new DoubleComplex(2d, 1d))).isEqualTo(new DoubleComplex(0.8, 0.6));
+        assertThat(new DoubleComplex(1d, 2d).divide(new DoubleComplex(2d, 1d)))
+            .isEqualTo(new DoubleComplex(0.8, 0.6));
     }
 
     // endregion
@@ -270,12 +274,14 @@ class DoubleComplexTest {
 
     @Test
     void pow8OfComplexWithRe1Im1() {
-        assertThat(new DoubleComplex(1d, 1d).pow(8)).isEqualTo(new DoubleComplex(16.000000000000007, 1.0291984957930479E-14));
+        assertThat(new DoubleComplex(1d, 1d).pow(8))
+            .isEqualTo(new DoubleComplex(16.000000000000007, 1.0291984957930479E-14));
     }
 
     @Test
     void pow5OfComplexWithRe3Im4() {
-        assertThat(new DoubleComplex(3d, 4d).pow(5)).isEqualTo(new DoubleComplex(-236.99999999999898, -3116d));
+        assertThat(new DoubleComplex(3d, 4d).pow(5))
+            .isEqualTo(new DoubleComplex(-236.99999999999898, -3116d));
     }
 
     @Test
@@ -346,7 +352,8 @@ class DoubleComplexTest {
 
     @Test
     void asVectorOfComplexWithRe1Im2() {
-        assertThat(new DoubleComplex(1d, 2d).asVector()).isEqualTo(new Vector<>(new DoubleArithmetic(), 1d, 2d));
+        assertThat(new DoubleComplex(1d, 2d).asVector())
+            .isEqualTo(new Vector<>(new DoubleArithmetic(), 1d, 2d));
     }
 
     // endregion

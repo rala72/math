@@ -115,7 +115,8 @@ class ComplexArithmeticTest {
 
     @Test
     void product123() {
-        assertThat(arithmetic.product(create(1, 1), create(2, 2), create(3, 3))).isEqualTo(create(-12d, 12d));
+        assertThat(arithmetic.product(create(1, 1), create(2, 2), create(3, 3)))
+            .isEqualTo(create(-12d, 12d));
     }
 
     @Test
@@ -134,12 +135,14 @@ class ComplexArithmeticTest {
 
     @Test
     void power12() {
-        assertThat(arithmetic.power(create(1, 1), 2)).isEqualTo(create(-3.2162452993532737e-16, 2.0000000000000004));
+        assertThat(arithmetic.power(create(1, 1), 2))
+            .isEqualTo(create(-3.2162452993532737e-16, 2.0000000000000004));
     }
 
     @Test
     void root21() {
-        assertThat(arithmetic.root2(create(1, 1))).isEqualTo(create(1.0986841134678098, 0.45508986056222733));
+        assertThat(arithmetic.root2(create(1, 1)))
+            .isEqualTo(create(1.0986841134678098, 0.45508986056222733));
     }
 
     // endregion

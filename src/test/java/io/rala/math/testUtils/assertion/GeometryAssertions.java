@@ -54,7 +54,8 @@ public class GeometryAssertions {
         Circle<T> circle, Point<T> center, T radius
     ) {
         assertEqualsPoint(center, circle.getCenter(), "center is invalid");
-        assertThat(circle.getRadius().doubleValue()).as("radius is invalid").isCloseTo(radius.doubleValue(), offset(DELTA));
+        assertThat(circle.getRadius().doubleValue()).as("radius is invalid")
+            .isCloseTo(radius.doubleValue(), offset(DELTA));
     }
 
     // endregion
@@ -146,7 +147,8 @@ public class GeometryAssertions {
     ) {
         assertEqualsPoint(a, rect.getA(), "a is invalid");
         assertEqualsPoint(b, rect.getB(), "b is invalid");
-        assertThat(rect.getSize().doubleValue()).as("size is invalid").isCloseTo(size.doubleValue(), offset(DELTA));
+        assertThat(rect.getSize().doubleValue()).as("size is invalid")
+            .isCloseTo(size.doubleValue(), offset(DELTA));
     }
 
     // endregion

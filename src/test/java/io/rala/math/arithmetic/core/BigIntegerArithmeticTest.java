@@ -99,7 +99,8 @@ class BigIntegerArithmeticTest {
 
     @Test
     void sum123() {
-        assertThat(arithmetic.sum(BigInteger.ONE, BigInteger.TWO, BigInteger.valueOf(3))).isEqualTo(BigInteger.valueOf(6));
+        assertThat(arithmetic.sum(BigInteger.ONE, BigInteger.TWO, BigInteger.valueOf(3)))
+            .isEqualTo(BigInteger.valueOf(6));
     }
 
     @Test
@@ -114,7 +115,8 @@ class BigIntegerArithmeticTest {
 
     @Test
     void product123() {
-        assertThat(arithmetic.product(BigInteger.ONE, BigInteger.TWO, BigInteger.valueOf(3))).isEqualTo(BigInteger.valueOf(6));
+        assertThat(arithmetic.product(BigInteger.ONE, BigInteger.TWO, BigInteger.valueOf(3)))
+            .isEqualTo(BigInteger.valueOf(6));
     }
 
     @Test
@@ -152,7 +154,8 @@ class BigIntegerArithmeticTest {
 
     @Test
     void lcm() {
-        assertThat(arithmetic.lcm(BigInteger.valueOf(3), BigInteger.valueOf(4))).isEqualTo(BigInteger.valueOf(12));
+        assertThat(arithmetic.lcm(BigInteger.valueOf(3), BigInteger.valueOf(4)))
+            .isEqualTo(BigInteger.valueOf(12));
     }
 
     // endregion

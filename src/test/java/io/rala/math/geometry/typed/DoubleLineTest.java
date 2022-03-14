@@ -202,7 +202,8 @@ class DoubleLineTest {
 
     @Test
     void intersectionAngleWithLineM1B2AndM2B1() {
-        assertThat(new DoubleLine(1d, 2d).intersectionAngle(new DoubleLine(2d, 1d))).isEqualTo(0.3217505543966422);
+        assertThat(new DoubleLine(1d, 2d).intersectionAngle(new DoubleLine(2d, 1d)))
+            .isEqualTo(0.3217505543966422);
     }
 
     @Test
@@ -212,12 +213,14 @@ class DoubleLineTest {
 
     @Test
     void intersectionAngleWithLineM1B2AndX1() {
-        assertThat(new DoubleLine(1d, 2d).intersectionAngle(new DoubleLine(1d))).isEqualTo(0.7853981633974483);
+        assertThat(new DoubleLine(1d, 2d).intersectionAngle(new DoubleLine(1d)))
+            .isEqualTo(0.7853981633974483);
     }
 
     @Test
     void intersectionAngleWithLineX1AndM1B2() {
-        assertThat(new DoubleLine(1d).intersectionAngle(new DoubleLine(1d, 2d))).isEqualTo(0.7853981633974483);
+        assertThat(new DoubleLine(1d).intersectionAngle(new DoubleLine(1d, 2d)))
+            .isEqualTo(0.7853981633974483);
     }
 
     // endregion

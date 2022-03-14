@@ -121,7 +121,8 @@ class BigDecimalVectorTest {
 
     @Test
     void lengthOfVectorXY1() {
-        assertThat(new BigDecimalVector(BigDecimal.ONE).length()).isEqualTo(BigDecimal.valueOf(Math.sqrt(2d)).round(CONTEXT));
+        assertThat(new BigDecimalVector(BigDecimal.ONE).length())
+            .isEqualTo(BigDecimal.valueOf(Math.sqrt(2d)).round(CONTEXT));
     }
 
     @Test
@@ -361,7 +362,8 @@ class BigDecimalVectorTest {
     @Test
     void angleBetweenX0Y1AndXY1() {
         assertThat(new BigDecimalVector(BigDecimal.ZERO, BigDecimal.ONE)
-            .angle(new BigDecimalVector(BigDecimal.ONE, BigDecimal.ONE))).isEqualTo(BigDecimal.valueOf(0.7853981633974484));
+            .angle(new BigDecimalVector(BigDecimal.ONE, BigDecimal.ONE))
+        ).isEqualTo(BigDecimal.valueOf(0.7853981633974484));
     }
 
     // endregion
@@ -383,7 +385,8 @@ class BigDecimalVectorTest {
         Complex<BigDecimal> complex = new BigDecimalComplex(
             BigDecimal.ONE, BigDecimal.valueOf(2d)
         );
-        assertThat(new BigDecimalVector(BigDecimal.ONE, BigDecimal.valueOf(2d)).asComplex()).isEqualTo(complex);
+        assertThat(new BigDecimalVector(BigDecimal.ONE, BigDecimal.valueOf(2d)).asComplex())
+            .isEqualTo(complex);
     }
 
     // endregion

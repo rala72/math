@@ -105,7 +105,8 @@ class FractionArithmeticTest {
 
     @Test
     void sum12() {
-        assertThat(arithmetic.sum(new TestFraction(1d), new TestFraction(2d))).isEqualTo(new TestFraction(3d, 1d));
+        assertThat(arithmetic.sum(new TestFraction(1d), new TestFraction(2d)))
+            .isEqualTo(new TestFraction(3d, 1d));
     }
 
     @Test
@@ -119,12 +120,14 @@ class FractionArithmeticTest {
 
     @Test
     void difference12() {
-        assertThat(arithmetic.difference(new TestFraction(1d), new TestFraction(2d))).isEqualTo(new TestFraction(-1d, 1d));
+        assertThat(arithmetic.difference(new TestFraction(1d), new TestFraction(2d)))
+            .isEqualTo(new TestFraction(-1d, 1d));
     }
 
     @Test
     void product12() {
-        assertThat(arithmetic.product(new TestFraction(1d), new TestFraction(2d))).isEqualTo(new TestFraction(2d, 1d));
+        assertThat(arithmetic.product(new TestFraction(1d), new TestFraction(2d)))
+            .isEqualTo(new TestFraction(2d, 1d));
     }
 
     @Test
@@ -137,12 +140,14 @@ class FractionArithmeticTest {
 
     @Test
     void quotient12() {
-        assertThat(arithmetic.quotient(new TestFraction(1d), new TestFraction(2d))).isEqualTo(new TestFraction(1d, 2d));
+        assertThat(arithmetic.quotient(new TestFraction(1d), new TestFraction(2d)))
+            .isEqualTo(new TestFraction(1d, 2d));
     }
 
     @Test
     void modulo12() {
-        assertThat(arithmetic.modulo(new TestFraction(1d), new TestFraction(2d))).isEqualTo(new TestFraction(0d, 2d));
+        assertThat(arithmetic.modulo(new TestFraction(1d), new TestFraction(2d)))
+            .isEqualTo(new TestFraction(0d, 2d));
     }
 
     // endregion
@@ -156,7 +161,8 @@ class FractionArithmeticTest {
 
     @Test
     void root21() {
-        assertThat(arithmetic.root2(new TestFraction(1d))).isEqualTo(new TestFraction(Math.sqrt(1), Math.sqrt(1)));
+        assertThat(arithmetic.root2(new TestFraction(1d)))
+            .isEqualTo(new TestFraction(Math.sqrt(1), Math.sqrt(1)));
     }
 
     // endregion
@@ -166,13 +172,15 @@ class FractionArithmeticTest {
     @Test
     void gcd() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> arithmetic.gcd(new TestFraction(3d), new TestFraction(4d))); // assert exception message?
+            .isThrownBy(() -> arithmetic.gcd(new TestFraction(3d), new TestFraction(4d)));
+        // assert exception message?
     }
 
     @Test
     void lcm() {
         assertThatExceptionOfType(NotSupportedException.class)
-            .isThrownBy(() -> arithmetic.lcm(new TestFraction(3d), new TestFraction(4d))); // assert exception message?
+            .isThrownBy(() -> arithmetic.lcm(new TestFraction(3d), new TestFraction(4d)));
+        // assert exception message?
     }
 
     // endregion

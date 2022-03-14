@@ -117,7 +117,8 @@ class AbstractArithmeticTest {
 
     @Test
     void sumFrom1To9() {
-        assertThat(arithmetic.sum(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9)).intValue()).isEqualTo(IntStream.rangeClosed(1, 9).sum());
+        assertThat(arithmetic.sum(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9)).intValue())
+            .isEqualTo(IntStream.rangeClosed(1, 9).sum());
     }
 
     @Test

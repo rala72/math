@@ -49,7 +49,8 @@ class BigIntegerBigDecimalFractionTest {
     @Test
     void constructorWithZeroDeParameter() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.ZERO)); // assert exception message?
+            .isThrownBy(() -> new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.ZERO));
+        // assert exception message?
     }
 
     @Test
@@ -163,13 +164,15 @@ class BigIntegerBigDecimalFractionTest {
     @Test
     void addWithNumerator() {
         assertThat(new BigIntegerBigDecimalFraction(BigInteger.ONE)
-            .add(BigInteger.ONE, BigInteger.ONE)).isEqualTo(new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.ONE));
+            .add(BigInteger.ONE, BigInteger.ONE)
+        ).isEqualTo(new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.ONE));
     }
 
     @Test
     void addWithXAndY() {
         assertThat(new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.ONE)
-            .add(BigInteger.ONE, BigInteger.ONE)).isEqualTo(new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.ONE));
+            .add(BigInteger.ONE, BigInteger.ONE)
+        ).isEqualTo(new BigIntegerBigDecimalFraction(BigInteger.TWO, BigInteger.ONE));
     }
 
     @Test
@@ -215,7 +218,8 @@ class BigIntegerBigDecimalFractionTest {
     @Test
     void multiplyWithXAndY() {
         assertThat(new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO)
-            .multiply(BigInteger.valueOf(3), BigInteger.valueOf(4))).isEqualTo(new BigIntegerBigDecimalFraction(
+            .multiply(BigInteger.valueOf(3), BigInteger.valueOf(4))
+        ).isEqualTo(new BigIntegerBigDecimalFraction(
             BigInteger.valueOf(3), BigInteger.valueOf(8)
         ));
     }
@@ -239,7 +243,8 @@ class BigIntegerBigDecimalFractionTest {
     @Test
     void divideWithXAndY() {
         assertThat(new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO)
-            .divide(BigInteger.valueOf(3), BigInteger.valueOf(4))).isEqualTo(new BigIntegerBigDecimalFraction(
+            .divide(BigInteger.valueOf(3), BigInteger.valueOf(4))
+        ).isEqualTo(new BigIntegerBigDecimalFraction(
             BigInteger.valueOf(4), BigInteger.valueOf(6)
         ));
     }
