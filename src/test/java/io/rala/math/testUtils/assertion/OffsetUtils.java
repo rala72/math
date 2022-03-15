@@ -10,7 +10,7 @@ import static org.assertj.core.data.Offset.offset;
  * utils for {@link Offset}
  */
 public class OffsetUtils {
-    public static final double DEFAULT_OFFSET = 0.00001;
+    public static final double DEFAULT_OFFSET = 1e-8;
 
     private OffsetUtils() {
     }
