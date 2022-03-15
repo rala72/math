@@ -8,6 +8,7 @@ import io.rala.math.testUtils.algebra.TestVector;
 import io.rala.math.testUtils.algebra.equation.TestAbstractLinearSolver;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class AbstractLinearSolverTest {
     private static LinearEquationSystem<Number> equationSystem;
+    private AbstractLinearSolver<Number> solver;
 
     @BeforeAll
     static void beforeAll() {
@@ -27,17 +29,18 @@ class AbstractLinearSolverTest {
         equationSystem = new LinearEquationSystem<>(matrix, vector);
     }
 
+    @BeforeEach
+    void setUp() {
+        solver = new TestAbstractLinearSolver(equationSystem);
+    }
+
     @Test
     void getArithmeticOfAbstractLinearSolver() {
-        TestAbstractLinearSolver solver =
-            new TestAbstractLinearSolver(equationSystem);
         assertThat(solver.getArithmetic()).isInstanceOf(TestAbstractArithmetic.class);
     }
 
     @Test
     void getAndSetWorkingEquationSystemOfAbstractLinearSolver() {
-        TestAbstractLinearSolver solver =
-            new TestAbstractLinearSolver(equationSystem);
         assertThatExceptionOfType(IllegalStateException.class)
             .isThrownBy(solver::getWorkingMatrix);
         assertThatExceptionOfType(IllegalStateException.class)
@@ -51,8 +54,6 @@ class AbstractLinearSolverTest {
 
     @Test
     void getAndSetWorkingMatrixAndVectorOfAbstractLinearSolver() {
-        TestAbstractLinearSolver solver =
-            new TestAbstractLinearSolver(equationSystem);
         assertThatExceptionOfType(IllegalStateException.class)
             .isThrownBy(solver::getWorkingMatrix);
         solver.setWorkingEquationSystem(equationSystem.getMatrix(), equationSystem.getVector());
@@ -62,16 +63,12 @@ class AbstractLinearSolverTest {
 
     @Test
     void toSingleSolutionOfAbstractLinearSolverWithNull() {
-        TestAbstractLinearSolver solver =
-            new TestAbstractLinearSolver(equationSystem);
         assertThatExceptionOfType(IllegalStateException.class)
             .isThrownBy(solver::toSingleSolution);
     }
 
     @Test
     void toSingleSolutionOfAbstractLinearSolverWithNonNull() {
-        TestAbstractLinearSolver solver =
-            new TestAbstractLinearSolver(equationSystem);
         solver.reset();
 
         Solution<LinearEquationSystem<Number>, Number> expectedSolution =
@@ -81,8 +78,6 @@ class AbstractLinearSolverTest {
 
     @Test
     void resetOfEquationSystemWithColumnVector() {
-        TestAbstractLinearSolver solver =
-            new TestAbstractLinearSolver(equationSystem);
         solver.reset();
         assertThat(solver.getWorkingMatrix()).isEqualTo(equationSystem.getMatrix());
         assertThat(solver.getWorkingVector()).isEqualTo(equationSystem.getVector());
@@ -91,8 +86,8 @@ class AbstractLinearSolverTest {
 
     @Test
     void resetOfEquationSystemWithRowVector() {
-        TestAbstractLinearSolver solver =
-            new TestAbstractLinearSolver(new LinearEquationSystem<>(
+        solver = new TestAbstractLinearSolver(
+            new LinearEquationSystem<>(
                 equationSystem.getMatrix().transpose(),
                 equationSystem.getVector().transpose()
             ));
@@ -107,8 +102,8 @@ class AbstractLinearSolverTest {
 
     @Test
     void isZeroRowWithOnlyZeroValues() {
-        TestAbstractLinearSolver solver =
-            new TestAbstractLinearSolver(LinearEquationSystem.ofMatrixWithSolutionColumn(
+        solver = new TestAbstractLinearSolver(
+            LinearEquationSystem.ofMatrixWithSolutionColumn(
                 TestMatrix.ofValuesByRows(1, 0d, 0d)
             ));
         solver.reset();
@@ -117,8 +112,8 @@ class AbstractLinearSolverTest {
 
     @Test
     void isZeroRowWithOnlyZeroValuesExceptSolution() {
-        TestAbstractLinearSolver solver =
-            new TestAbstractLinearSolver(LinearEquationSystem.ofMatrixWithSolutionColumn(
+        solver = new TestAbstractLinearSolver(
+            LinearEquationSystem.ofMatrixWithSolutionColumn(
                 TestMatrix.ofValuesByRows(1, 0d, 1d)
             ));
         solver.reset();
@@ -127,29 +122,21 @@ class AbstractLinearSolverTest {
 
     @Test
     void areAllZeroWithOnlyZeros() {
-        TestAbstractLinearSolver solver =
-            new TestAbstractLinearSolver(equationSystem);
         assertThat(solver.areAllZero(List.of(0d, 0d))).isTrue();
     }
 
     @Test
     void areAllZeroWithOnlyZerosExceptSolution() {
-        TestAbstractLinearSolver solver =
-            new TestAbstractLinearSolver(equationSystem);
         assertThat(solver.areAllZero(List.of(0, 1))).isFalse();
     }
 
     @Test
     void isZeroWithZero() {
-        TestAbstractLinearSolver solver =
-            new TestAbstractLinearSolver(equationSystem);
         assertThat(solver.isZero(0d)).isTrue();
     }
 
     @Test
     void isZeroWithNonZero() {
-        TestAbstractLinearSolver solver =
-            new TestAbstractLinearSolver(equationSystem);
         assertThat(solver.isZero(1d)).isFalse();
     }
 

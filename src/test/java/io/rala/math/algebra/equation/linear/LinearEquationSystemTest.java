@@ -8,6 +8,7 @@ import io.rala.math.testUtils.algebra.TestVector;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
 import io.rala.math.testUtils.assertion.ExceptionMessages;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -16,6 +17,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 class LinearEquationSystemTest {
     private static Matrix<Number> matrix;
     private static Vector<Number> vector;
+    private LinearEquationSystem<Number> equationSystem;
 
     @BeforeAll
     static void beforeAll() {
@@ -24,6 +26,11 @@ class LinearEquationSystemTest {
             3
         );
         vector = TestVector.ofValues(2, 4);
+    }
+
+    @BeforeEach
+    void setUp() {
+        equationSystem = new LinearEquationSystem<>(matrix, vector);
     }
 
     @Test
@@ -37,15 +44,11 @@ class LinearEquationSystemTest {
 
     @Test
     void getMatrixOfLinearEquationSystem() {
-        LinearEquationSystem<Number> equationSystem =
-            new LinearEquationSystem<>(matrix, vector);
         assertThat(equationSystem.getMatrix()).isEqualTo(matrix);
     }
 
     @Test
     void solveWithGaussOfLinearEquationSystem() {
-        LinearEquationSystem<Number> equationSystem =
-            new LinearEquationSystem<>(matrix, vector);
         Solution<LinearEquationSystem<Number>, Number> solution =
             equationSystem.solveWithGauss();
         assertThat(solution).isEqualTo(Solution.unsolvable(equationSystem));
@@ -55,50 +58,48 @@ class LinearEquationSystemTest {
 
     @Test
     void swapRows() {
-        LinearEquationSystem<Number> equation = new LinearEquationSystem<>(matrix, vector);
-        assertThat(equation.swapRows(0, 1)).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
-            TestMatrix.ofValuesByRows(2,
-                3, 4,
-                1, 2
-            )));
+        assertThat(equationSystem.swapRows(0, 1))
+            .isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
+                TestMatrix.ofValuesByRows(2,
+                    3, 4,
+                    1, 2
+                )));
     }
 
     @Test
     void swapCols() {
-        LinearEquationSystem<Number> equation =
-            new LinearEquationSystem<>(matrix, vector)
-                .transpose();
-        assertThat(equation.swapCols(0, 1)).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionRow(
-            TestMatrix.ofValuesByCols(2,
-                3, 4,
-                1, 2
-            )).transpose());
+        equationSystem = equationSystem.transpose();
+        assertThat(equationSystem.swapCols(0, 1))
+            .isEqualTo(LinearEquationSystem.ofMatrixWithSolutionRow(
+                TestMatrix.ofValuesByCols(2,
+                    3, 4,
+                    1, 2
+                )).transpose());
     }
 
     @Test
     void multiplyRow() {
-        LinearEquationSystem<Number> equation = new LinearEquationSystem<>(matrix, vector);
-        assertThat(equation.multiplyRow(0, 2)).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
-            TestMatrix.ofValuesByRows(2,
-                2d, 4d,
-                3, 4
-            )));
+        assertThat(equationSystem.multiplyRow(0, 2))
+            .isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
+                TestMatrix.ofValuesByRows(2,
+                    2d, 4d,
+                    3, 4
+                )));
     }
 
     @Test
     void multiplyCol() {
-        LinearEquationSystem<Number> equation = new LinearEquationSystem<>(matrix, vector);
-        assertThat(equation.multiplyCol(0, 2)).isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
-            TestMatrix.ofValuesByRows(2,
-                2d, 2,
-                6d, 4
-            )));
+        assertThat(equationSystem.multiplyCol(0, 2))
+            .isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
+                TestMatrix.ofValuesByRows(2,
+                    2d, 2,
+                    6d, 4
+                )));
     }
 
     @Test
     void addRowMultipleTimes() {
-        LinearEquationSystem<Number> equation = new LinearEquationSystem<>(matrix, vector);
-        assertThat(equation.addRowMultipleTimes(0, 1, 2))
+        assertThat(equationSystem.addRowMultipleTimes(0, 1, 2))
             .isEqualTo(LinearEquationSystem.ofMatrixWithSolutionColumn(
                 TestMatrix.ofValuesByRows(2,
                     7d, 10d,
@@ -108,10 +109,8 @@ class LinearEquationSystemTest {
 
     @Test
     void addColMultipleTimes() {
-        LinearEquationSystem<Number> equation =
-            new LinearEquationSystem<>(matrix, vector)
-                .transpose();
-        assertThat(equation.addColMultipleTimes(0, 1, 2))
+        equationSystem = equationSystem.transpose();
+        assertThat(equationSystem.addColMultipleTimes(0, 1, 2))
             .isEqualTo(LinearEquationSystem.ofMatrixWithSolutionRow(
                 TestMatrix.ofValuesByCols(2,
                     7d, 2,
@@ -127,9 +126,8 @@ class LinearEquationSystemTest {
     void ofMatrixWithSolutionColumn() {
         LinearEquationSystem<Number> equationSystem =
             LinearEquationSystem.ofMatrixWithSolutionColumn(TestMatrix.ofValuesByRows(2,
-                    1, 2, 3, 4
-                )
-            );
+                1, 2, 3, 4
+            ));
         assertThat(equationSystem.getMatrix()).isEqualTo(matrix);
         assertThat(equationSystem.getVector()).isEqualTo(vector);
     }
@@ -138,9 +136,8 @@ class LinearEquationSystemTest {
     void ofMatrixWithSolutionRow() {
         LinearEquationSystem<Number> equationSystem =
             LinearEquationSystem.ofMatrixWithSolutionRow(TestMatrix.ofValuesByCols(2,
-                    1, 2, 3, 4
-                )
-            );
+                1, 2, 3, 4
+            ));
         assertThat(equationSystem.getMatrix()).isEqualTo(matrix);
         assertThat(equationSystem.getVector()).isEqualTo(vector);
     }
@@ -151,7 +148,7 @@ class LinearEquationSystemTest {
 
     @Test
     void equalsOfTestAbstractSolver() {
-        assertThat(new LinearEquationSystem<>(matrix, vector))
+        assertThat(equationSystem)
             .isEqualTo(new LinearEquationSystem<>(matrix, vector))
             .isNotEqualTo(new LinearEquationSystem<>(
                 new TestMatrix(1), new TestVector(1)));
@@ -160,14 +157,12 @@ class LinearEquationSystemTest {
     @Test
     void hashCodeOfTestAbstractSolver() {
         // hashCode changing after every start
-        assertThat(new LinearEquationSystem<>(matrix, vector))
+        assertThat(equationSystem)
             .hasSameHashCodeAs(new LinearEquationSystem<>(matrix, vector));
     }
 
     @Test
     void toStringOfTestAbstractSolver() {
-        LinearEquationSystem<Number> equationSystem =
-            new LinearEquationSystem<>(matrix, vector);
         String toString = "2 1: [0={0=1}, 1={0=3}] - 2: [0=2, 1=4]";
         assertThat(equationSystem).hasToString(toString);
     }
