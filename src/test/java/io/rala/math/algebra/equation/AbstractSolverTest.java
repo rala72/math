@@ -2,6 +2,7 @@ package io.rala.math.algebra.equation;
 
 import io.rala.math.testUtils.algebra.equation.TestAbstractEquationSystem;
 import io.rala.math.testUtils.algebra.equation.TestAbstractSolver;
+import io.rala.math.testUtils.assertion.ExceptionMessages;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,8 @@ class AbstractSolverTest {
     @Test
     void getWorkingOfTestAbstractSolver() {
         assertThatExceptionOfType(IllegalStateException.class)
-            .isThrownBy(solver::getWorking);
+            .isThrownBy(solver::getWorking)
+            .withMessage(ExceptionMessages.SOLVER_WORKING_NOT_SET);
     }
 
     // endregion
@@ -48,7 +50,8 @@ class AbstractSolverTest {
     @Test
     void resetOfTestAbstractSolver() {
         assertThatExceptionOfType(IllegalStateException.class)
-            .isThrownBy(solver::getWorking);
+            .isThrownBy(solver::getWorking)
+            .withMessage(ExceptionMessages.SOLVER_WORKING_NOT_SET);
         solver.reset();
         assertThat(solver.getWorking()).isEqualTo(equationSystem);
     }

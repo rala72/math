@@ -1,5 +1,8 @@
 package io.rala.math.testUtils.assertion;
 
+/**
+ * {@link Exception} messages
+ */
 public class ExceptionMessages {
     private ExceptionMessages() {
     }
@@ -36,6 +39,9 @@ public class ExceptionMessages {
         "rows modulo values.length is not congruent 0";
     public static final String MATRIX_AND_VECTOR_NOT_MATCH =
         "matrix and vector do not match";
+
+    public static final String SOLVER_WORKING_NOT_SET =
+        "working not set";
 
     public static final String VECTOR_ANGLE_NOT_DEFINED_FOR_ZERO_VECTOR =
         "angle is not defined for zero vector";

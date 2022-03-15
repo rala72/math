@@ -566,7 +566,8 @@ class DoubleMatrixTest {
         DoubleMatrix matrix1 = new DoubleMatrix(1, 2);
         DoubleMatrix matrix2 = new DoubleMatrix(3, 4);
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> matrix1.multiplyTolerant(matrix2));
+            .isThrownBy(() -> matrix1.multiplyTolerant(matrix2))
+            .withMessage(ExceptionMessages.MATRIX_COLS_EQUAL_OTHER_ROWS);
     }
 
     @Test
@@ -737,7 +738,8 @@ class DoubleMatrixTest {
     @Test
     void ofValuesByRows2WithInvalidParamCount() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> DoubleMatrix.ofValuesByRows(2, 1));
+            .isThrownBy(() -> DoubleMatrix.ofValuesByRows(2, 1))
+            .withMessage(ExceptionMessages.MATRIX_ROWS_NOT_CONGRUENT_ZERO);
     }
 
     @Test
@@ -750,7 +752,8 @@ class DoubleMatrixTest {
     @Test
     void ofValuesByCols2WithInvalidParamCount() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> DoubleMatrix.ofValuesByCols(2, 1));
+            .isThrownBy(() -> DoubleMatrix.ofValuesByCols(2, 1))
+            .withMessage(ExceptionMessages.MATRIX_COLS_NOT_CONGRUENT_ZERO);
     }
 
     @Test

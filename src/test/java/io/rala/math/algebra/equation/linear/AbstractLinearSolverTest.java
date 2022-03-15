@@ -7,6 +7,7 @@ import io.rala.math.testUtils.algebra.TestMatrix;
 import io.rala.math.testUtils.algebra.TestVector;
 import io.rala.math.testUtils.algebra.equation.TestAbstractLinearSolver;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
+import io.rala.math.testUtils.assertion.ExceptionMessages;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,9 +43,11 @@ class AbstractLinearSolverTest {
     @Test
     void getAndSetWorkingEquationSystemOfAbstractLinearSolver() {
         assertThatExceptionOfType(IllegalStateException.class)
-            .isThrownBy(solver::getWorkingMatrix);
+            .isThrownBy(solver::getWorkingMatrix)
+            .withMessage(ExceptionMessages.SOLVER_WORKING_NOT_SET);
         assertThatExceptionOfType(IllegalStateException.class)
-            .isThrownBy(solver::getWorkingVector);
+            .isThrownBy(solver::getWorkingVector)
+            .withMessage(ExceptionMessages.SOLVER_WORKING_NOT_SET);
         solver.setWorkingEquationSystem(new LinearEquationSystem<>(
             equationSystem.getMatrix(), equationSystem.getVector())
         );
@@ -55,7 +58,8 @@ class AbstractLinearSolverTest {
     @Test
     void getAndSetWorkingMatrixAndVectorOfAbstractLinearSolver() {
         assertThatExceptionOfType(IllegalStateException.class)
-            .isThrownBy(solver::getWorkingMatrix);
+            .isThrownBy(solver::getWorkingMatrix)
+            .withMessage(ExceptionMessages.SOLVER_WORKING_NOT_SET);
         solver.setWorkingEquationSystem(equationSystem.getMatrix(), equationSystem.getVector());
         assertThat(solver.getWorkingMatrix()).isNotNull();
         assertThat(solver.getWorkingVector()).isNotNull();
@@ -64,7 +68,8 @@ class AbstractLinearSolverTest {
     @Test
     void toSingleSolutionOfAbstractLinearSolverWithNull() {
         assertThatExceptionOfType(IllegalStateException.class)
-            .isThrownBy(solver::toSingleSolution);
+            .isThrownBy(solver::toSingleSolution)
+            .withMessage(ExceptionMessages.SOLVER_WORKING_NOT_SET);
     }
 
     @Test

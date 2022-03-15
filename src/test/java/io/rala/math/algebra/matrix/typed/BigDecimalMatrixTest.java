@@ -598,7 +598,8 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix1 = new BigDecimalMatrix(1, 2);
         BigDecimalMatrix matrix2 = new BigDecimalMatrix(3, 4);
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> matrix1.multiplyTolerant(matrix2));
+            .isThrownBy(() -> matrix1.multiplyTolerant(matrix2))
+            .withMessage(ExceptionMessages.MATRIX_COLS_EQUAL_OTHER_ROWS);
     }
 
     @Test
@@ -788,7 +789,8 @@ class BigDecimalMatrixTest {
     @Test
     void ofValuesByRows2WithInvalidParamCount() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> BigDecimalMatrix.ofValuesByRows(2, BigDecimal.ONE));
+            .isThrownBy(() -> BigDecimalMatrix.ofValuesByRows(2, BigDecimal.ONE))
+            .withMessage(ExceptionMessages.MATRIX_ROWS_NOT_CONGRUENT_ZERO);
     }
 
     @Test
@@ -804,7 +806,8 @@ class BigDecimalMatrixTest {
     @Test
     void ofValuesByCols2WithInvalidParamCount() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> BigDecimalMatrix.ofValuesByCols(2, BigDecimal.ONE));
+            .isThrownBy(() -> BigDecimalMatrix.ofValuesByCols(2, BigDecimal.ONE))
+            .withMessage(ExceptionMessages.MATRIX_COLS_NOT_CONGRUENT_ZERO);
     }
 
     @Test
