@@ -47,7 +47,8 @@ class MathXTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("number has to be positive");
         } else {
-            assertThat(Math.round(MathX.root(a, n))).isEqualTo(expected.longValue());
+            assertThat(Math.round(MathX.root(a, n)))
+                .isEqualTo(expected.longValue());
         }
     }
 

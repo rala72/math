@@ -341,7 +341,8 @@ class BigDecimalVectorTest {
     @Test
     void scalarProductOfVectorWithXY1AndXY1() {
         assertThat(new BigDecimalVector(BigDecimal.ONE)
-            .scalarProduct(new BigDecimalVector(BigDecimal.ONE))).isEqualTo(BigDecimal.valueOf(2));
+            .scalarProduct(new BigDecimalVector(BigDecimal.ONE))
+        ).isEqualTo(BigDecimal.valueOf(2));
     }
 
     @Test
@@ -350,7 +351,8 @@ class BigDecimalVectorTest {
             .scalarProduct(new BigDecimalVector(
                 BigDecimal.ONE,
                 BigDecimal.valueOf(2d)
-            ))).isEqualTo(BigDecimal.valueOf(6));
+            ))
+        ).isEqualTo(BigDecimal.valueOf(6));
     }
 
     @Test

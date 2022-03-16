@@ -139,7 +139,8 @@ class LongDoubleFractionTest {
     @Test
     void addWithFraction() {
         assertThat(new LongDoubleFraction(1, 1L)
-            .add(new LongDoubleFraction(1, 2L))).isEqualTo(new LongDoubleFraction(3, 2L));
+            .add(new LongDoubleFraction(1, 2L))
+        ).isEqualTo(new LongDoubleFraction(3, 2L));
     }
 
     @Test
@@ -155,7 +156,8 @@ class LongDoubleFractionTest {
     @Test
     void subtractWithFraction() {
         assertThat(new LongDoubleFraction(2, 1L)
-            .subtract(new LongDoubleFraction(1, 2L))).isEqualTo(new LongDoubleFraction(3, 2L));
+            .subtract(new LongDoubleFraction(1, 2L))
+        ).isEqualTo(new LongDoubleFraction(3, 2L));
     }
 
     // endregion
@@ -175,7 +177,8 @@ class LongDoubleFractionTest {
     @Test
     void multiplyWithFraction() {
         assertThat(new LongDoubleFraction(1, 2L)
-            .multiply(new LongDoubleFraction(4, 3L))).isEqualTo(new LongDoubleFraction(4, 6L));
+            .multiply(new LongDoubleFraction(4, 3L))
+        ).isEqualTo(new LongDoubleFraction(4, 6L));
     }
 
     @Test
@@ -191,7 +194,8 @@ class LongDoubleFractionTest {
     @Test
     void divideWithFraction() {
         assertThat(new LongDoubleFraction(1, 2L)
-            .divide(new LongDoubleFraction(4, 3L))).isEqualTo(new LongDoubleFraction(3, 8L));
+            .divide(new LongDoubleFraction(4, 3L))
+        ).isEqualTo(new LongDoubleFraction(3, 8L));
     }
 
     // endregion

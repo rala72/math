@@ -151,7 +151,8 @@ class FractionTest {
         AbstractResultArithmetic<Double, Double> arithmetic =
             new DoubleArithmetic().toResultArithmetic();
         assertThat(new Fraction<>(arithmetic, 1d, 1d)
-            .add(new Fraction<>(arithmetic, 1d, 2d))).isEqualTo(new Fraction<>(arithmetic, 3d, 2d));
+            .add(new Fraction<>(arithmetic, 1d, 2d))
+        ).isEqualTo(new Fraction<>(arithmetic, 3d, 2d));
     }
 
     @Test
@@ -187,7 +188,8 @@ class FractionTest {
     @Test
     void multiplyWithFraction() {
         assertThat(new TestFraction(1, 2)
-            .multiply(new TestFraction(4, 3))).isEqualTo(new TestFraction(4d, 6d));
+            .multiply(new TestFraction(4, 3))
+        ).isEqualTo(new TestFraction(4d, 6d));
     }
 
     @Test
@@ -203,7 +205,8 @@ class FractionTest {
     @Test
     void divideWithFraction() {
         assertThat(new TestFraction(1, 2)
-            .divide(new TestFraction(4, 3))).isEqualTo(new TestFraction(3d, 8d));
+            .divide(new TestFraction(4, 3))
+        ).isEqualTo(new TestFraction(3d, 8d));
     }
 
     // endregion

@@ -259,7 +259,8 @@ class DoubleVectorTest {
         expected.setValue(1, -8d);
         expected.setValue(2, 18d);
         assertThat(fillVectorWithTestValues(new DoubleVector(3))
-            .add(fillVectorWithTestValues(new DoubleVector(3)))).isEqualTo(expected);
+            .add(fillVectorWithTestValues(new DoubleVector(3)))
+        ).isEqualTo(expected);
     }
 
     @Test
@@ -296,7 +297,8 @@ class DoubleVectorTest {
     @Test
     void subtractNonEmptyVectorFromNonEmptyVector() {
         assertThat(fillVectorWithTestValues(new DoubleVector(3))
-            .subtract(fillVectorWithTestValues(new DoubleVector(3)))).isEqualTo(new DoubleVector(3));
+            .subtract(fillVectorWithTestValues(new DoubleVector(3)))
+        ).isEqualTo(new DoubleVector(3));
     }
 
     @Test
@@ -362,7 +364,8 @@ class DoubleVectorTest {
         expected.setValue(1, 0, -4d);
         expected.setValue(1, 1, 16d);
         assertThat(fillVectorWithTestValues(new DoubleVector(2))
-            .multiply(fillVectorWithTestValues(new DoubleVector(2, Vector.Type.ROW)))).isEqualTo(expected);
+            .multiply(fillVectorWithTestValues(new DoubleVector(2, Vector.Type.ROW)))
+        ).isEqualTo(expected);
     }
 
     @Test
@@ -370,19 +373,22 @@ class DoubleVectorTest {
         DoubleMatrix expected = new DoubleMatrix(1);
         expected.setValue(0, 0, 17d);
         assertThat(fillVectorWithTestValues(new DoubleVector(2, Vector.Type.ROW))
-            .multiply(fillVectorWithTestValues(new DoubleVector(2)))).isEqualTo(expected);
+            .multiply(fillVectorWithTestValues(new DoubleVector(2)))
+        ).isEqualTo(expected);
     }
 
     @Test
     void multiplyEmptyVectorToNonEmptyVectorColumnRow() {
         assertThat(fillVectorWithTestValues(new DoubleVector(2))
-            .multiply(new DoubleVector(2, Vector.Type.ROW))).isEqualTo(new DoubleMatrix(2));
+            .multiply(new DoubleVector(2, Vector.Type.ROW))
+        ).isEqualTo(new DoubleMatrix(2));
     }
 
     @Test
     void multiplyEmptyVectorToNonEmptyVectorRowColumn() {
         assertThat(fillVectorWithTestValues(new DoubleVector(2, Vector.Type.ROW))
-            .multiply(new DoubleVector(2))).isEqualTo(new DoubleMatrix(1));
+            .multiply(new DoubleVector(2))
+        ).isEqualTo(new DoubleMatrix(1));
     }
 
     @Test
@@ -395,7 +401,8 @@ class DoubleVectorTest {
     @Test
     void multiplyNonEmptyVectorToEmptyVectorRowColumn() {
         assertThat(new DoubleVector(2, Vector.Type.ROW)
-            .multiply(fillVectorWithTestValues(new DoubleVector(2)))).isEqualTo(new DoubleMatrix(1));
+            .multiply(fillVectorWithTestValues(new DoubleVector(2)))
+        ).isEqualTo(new DoubleMatrix(1));
     }
 
     @Test
@@ -407,7 +414,8 @@ class DoubleVectorTest {
     @Test
     void dotProductNonEmptyColumnVectors() {
         assertThat(fillVectorWithTestValues(new DoubleVector(3))
-            .dotProduct(fillVectorWithTestValues(new DoubleVector(3)))).isEqualTo(98d);
+            .dotProduct(fillVectorWithTestValues(new DoubleVector(3)))
+        ).isEqualTo(98d);
     }
 
     @Test
@@ -431,7 +439,8 @@ class DoubleVectorTest {
     @Test
     void dotProductNonEmptyColumnVectorNonEmptyRowVector() {
         assertThat(fillVectorWithTestValues(new DoubleVector(3))
-            .dotProduct(fillVectorWithTestValues(new DoubleVector(3, Vector.Type.ROW)))).isEqualTo(98d);
+            .dotProduct(fillVectorWithTestValues(new DoubleVector(3, Vector.Type.ROW)))
+        ).isEqualTo(98d);
     }
 
     @Test
@@ -455,7 +464,8 @@ class DoubleVectorTest {
     @Test
     void dotProductNonEmptyRowVectorNonEmptyColumnVector() {
         assertThat(fillVectorWithTestValues(new DoubleVector(3, Vector.Type.ROW))
-            .dotProduct(fillVectorWithTestValues(new DoubleVector(3)))).isEqualTo(98d);
+            .dotProduct(fillVectorWithTestValues(new DoubleVector(3)))
+        ).isEqualTo(98d);
     }
 
     @Test
@@ -479,7 +489,8 @@ class DoubleVectorTest {
     @Test
     void dotProductNonEmptyRowVectors() {
         assertThat(fillVectorWithTestValues(new DoubleVector(3, Vector.Type.ROW))
-            .dotProduct(fillVectorWithTestValues(new DoubleVector(3, Vector.Type.ROW)))).isEqualTo(98d);
+            .dotProduct(fillVectorWithTestValues(new DoubleVector(3, Vector.Type.ROW)))
+        ).isEqualTo(98d);
     }
 
     @Test
@@ -622,13 +633,15 @@ class DoubleVectorTest {
     @Test
     void angleBetweenOppositeVectors() {
         assertThat(fillVectorWithTestValues(new DoubleVector(3)).multiply(-2d)
-            .angle(fillVectorWithTestValues(new DoubleVector(3)).multiply(3d))).isEqualTo(Math.PI);
+            .angle(fillVectorWithTestValues(new DoubleVector(3)).multiply(3d))
+        ).isEqualTo(Math.PI);
     }
 
     @Test
     void angleBetweenNonEmptyVectors() {
         assertThat(DoubleVector.ofValues(0, 1, 0)
-            .angle(DoubleVector.ofValues(0, 0, 1))).isEqualTo(Math.PI / 2);
+            .angle(DoubleVector.ofValues(0, 0, 1))
+        ).isEqualTo(Math.PI / 2);
     }
 
     // endregion

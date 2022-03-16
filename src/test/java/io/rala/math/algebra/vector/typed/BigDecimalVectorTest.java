@@ -289,7 +289,8 @@ class BigDecimalVectorTest {
         expected.setValue(1, BigDecimal.valueOf(-8));
         expected.setValue(2, BigDecimal.valueOf(18));
         assertThat(fillVectorWithTestValues(new BigDecimalVector(3))
-            .add(fillVectorWithTestValues(new BigDecimalVector(3)))).isEqualTo(expected);
+            .add(fillVectorWithTestValues(new BigDecimalVector(3)))
+        ).isEqualTo(expected);
     }
 
     @Test
@@ -330,7 +331,8 @@ class BigDecimalVectorTest {
     @Test
     void subtractNonEmptyVectorFromNonEmptyVector() {
         assertThat(fillVectorWithTestValues(new BigDecimalVector(3))
-            .subtract(fillVectorWithTestValues(new BigDecimalVector(3)))).isEqualTo(new BigDecimalVector(3));
+            .subtract(fillVectorWithTestValues(new BigDecimalVector(3)))
+        ).isEqualTo(new BigDecimalVector(3));
     }
 
     @Test
@@ -408,19 +410,22 @@ class BigDecimalVectorTest {
         BigDecimalMatrix expected = new BigDecimalMatrix(1);
         expected.setValue(0, 0, BigDecimal.valueOf(17));
         assertThat(fillVectorWithTestValues(new BigDecimalVector(2, Vector.Type.ROW))
-            .multiply(fillVectorWithTestValues(new BigDecimalVector(2)))).isEqualTo(expected);
+            .multiply(fillVectorWithTestValues(new BigDecimalVector(2)))
+        ).isEqualTo(expected);
     }
 
     @Test
     void multiplyEmptyVectorToNonEmptyVectorColumnRow() {
         assertThat(fillVectorWithTestValues(new BigDecimalVector(2))
-            .multiply(new BigDecimalVector(2, Vector.Type.ROW))).isEqualTo(new BigDecimalMatrix(2));
+            .multiply(new BigDecimalVector(2, Vector.Type.ROW))
+        ).isEqualTo(new BigDecimalMatrix(2));
     }
 
     @Test
     void multiplyEmptyVectorToNonEmptyVectorRowColumn() {
         assertThat(fillVectorWithTestValues(new BigDecimalVector(2, Vector.Type.ROW))
-            .multiply(new BigDecimalVector(2))).isEqualTo(new BigDecimalMatrix(1));
+            .multiply(new BigDecimalVector(2))
+        ).isEqualTo(new BigDecimalMatrix(1));
     }
 
     @Test
@@ -433,7 +438,8 @@ class BigDecimalVectorTest {
     @Test
     void multiplyNonEmptyVectorToEmptyVectorRowColumn() {
         assertThat(new BigDecimalVector(2, Vector.Type.ROW)
-            .multiply(fillVectorWithTestValues(new BigDecimalVector(2)))).isEqualTo(new BigDecimalMatrix(1));
+            .multiply(fillVectorWithTestValues(new BigDecimalVector(2)))
+        ).isEqualTo(new BigDecimalMatrix(1));
     }
 
     @Test
@@ -673,7 +679,8 @@ class BigDecimalVectorTest {
         assertThat(fillVectorWithTestValues(new BigDecimalVector(3))
             .multiply(BigDecimal.valueOf(-2))
             .angle(fillVectorWithTestValues(new BigDecimalVector(3))
-                .multiply(BigDecimal.valueOf(3)))).isEqualTo(BigDecimal.valueOf(3.141592632516369));
+                .multiply(BigDecimal.valueOf(3)))
+        ).isEqualTo(BigDecimal.valueOf(3.141592632516369));
     }
 
     @Test

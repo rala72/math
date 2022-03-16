@@ -251,7 +251,8 @@ class BigDecimalComplexTest {
     @Test
     void subtractWithXY() {
         assertThat(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.valueOf(2))
-            .subtract(BigDecimal.valueOf(2), BigDecimal.valueOf(2))).isEqualTo(new BigDecimalComplex());
+            .subtract(BigDecimal.valueOf(2), BigDecimal.valueOf(2))
+        ).isEqualTo(new BigDecimalComplex());
     }
 
     @Test
@@ -292,7 +293,8 @@ class BigDecimalComplexTest {
     @Test
     void multiplyComplexWithMinus1() {
         assertThat(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.ONE)
-            .multiply(BigDecimal.ONE.negate())).isEqualTo(new BigDecimalComplex(
+            .multiply(BigDecimal.ONE.negate())
+        ).isEqualTo(new BigDecimalComplex(
             BigDecimal.valueOf(2).negate(),
             BigDecimal.ONE.negate()
         ));
@@ -327,7 +329,8 @@ class BigDecimalComplexTest {
     @Test
     void divideComplexWithMinus1() {
         assertThat(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.ONE)
-            .divide(BigDecimal.ONE.negate())).isEqualTo(new BigDecimalComplex(
+            .divide(BigDecimal.ONE.negate())
+        ).isEqualTo(new BigDecimalComplex(
             BigDecimal.valueOf(2).negate(),
             BigDecimal.ONE.negate()
         ));

@@ -231,7 +231,8 @@ class BigIntegerBigDecimalFractionTest {
         assertThat(new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO)
             .multiply(new BigIntegerBigDecimalFraction(
                 BigInteger.valueOf(4), BigInteger.valueOf(3)
-            ))).isEqualTo(new BigIntegerBigDecimalFraction(
+            ))
+        ).isEqualTo(new BigIntegerBigDecimalFraction(
             BigInteger.valueOf(4), BigInteger.valueOf(6)
         ));
     }
@@ -256,7 +257,8 @@ class BigIntegerBigDecimalFractionTest {
         assertThat(new BigIntegerBigDecimalFraction(BigInteger.ONE, BigInteger.TWO)
             .divide(new BigIntegerBigDecimalFraction(
                 BigInteger.valueOf(4), BigInteger.valueOf(3)
-            ))).isEqualTo(new BigIntegerBigDecimalFraction(
+            ))
+        ).isEqualTo(new BigIntegerBigDecimalFraction(
             BigInteger.valueOf(3), BigInteger.valueOf(8)
         ));
     }

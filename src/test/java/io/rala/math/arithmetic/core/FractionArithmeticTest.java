@@ -136,7 +136,8 @@ class FractionArithmeticTest {
         assertThat(arithmetic.product(
             new TestFraction(1d),
             new TestFraction(2d),
-            new TestFraction(3d))).isEqualTo(new TestFraction(6d, 1d));
+            new TestFraction(3d))
+        ).isEqualTo(new TestFraction(6d, 1d));
     }
 
     @Test
