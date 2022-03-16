@@ -29,7 +29,7 @@ class BigDecimalArithmeticTest {
 
     @Test
     void fromInt1() {
-        assertThat(arithmetic.fromInt(1)).isEqualTo(BigDecimal.ONE);
+        assertThat(arithmetic.fromInt(1)).isOne();
     }
 
     @Test
@@ -48,7 +48,7 @@ class BigDecimalArithmeticTest {
 
     @Test
     void absoluteM1() {
-        assertThat(arithmetic.absolute(BigDecimal.ONE.negate())).isEqualTo(BigDecimal.ONE);
+        assertThat(arithmetic.absolute(BigDecimal.ONE.negate())).isOne();
     }
 
     @Test
@@ -65,14 +65,14 @@ class BigDecimalArithmeticTest {
 
     @Test
     void min() {
-        assertThat(arithmetic.min(BigDecimal.ONE, BigDecimal.ONE)).isEqualTo(BigDecimal.ONE);
-        assertThat(arithmetic.min(BigDecimal.ONE, BigDecimal.valueOf(2))).isEqualTo(BigDecimal.ONE);
-        assertThat(arithmetic.min(BigDecimal.valueOf(2), BigDecimal.ONE)).isEqualTo(BigDecimal.ONE);
+        assertThat(arithmetic.min(BigDecimal.ONE, BigDecimal.ONE)).isOne();
+        assertThat(arithmetic.min(BigDecimal.ONE, BigDecimal.valueOf(2))).isOne();
+        assertThat(arithmetic.min(BigDecimal.valueOf(2), BigDecimal.ONE)).isOne();
     }
 
     @Test
     void max() {
-        assertThat(arithmetic.max(BigDecimal.ONE, BigDecimal.ONE)).isEqualTo(BigDecimal.ONE);
+        assertThat(arithmetic.max(BigDecimal.ONE, BigDecimal.ONE)).isOne();
         assertThat(arithmetic.max(BigDecimal.ONE, BigDecimal.valueOf(2))).isEqualTo(BigDecimal.valueOf(2));
         assertThat(arithmetic.max(BigDecimal.valueOf(2), BigDecimal.ONE)).isEqualTo(BigDecimal.valueOf(2));
     }
@@ -136,7 +136,7 @@ class BigDecimalArithmeticTest {
 
     @Test
     void modulo12() {
-        assertThat(arithmetic.modulo(BigDecimal.ONE, BigDecimal.valueOf(2))).isEqualTo(BigDecimal.ONE);
+        assertThat(arithmetic.modulo(BigDecimal.ONE, BigDecimal.valueOf(2))).isOne();
     }
 
     // endregion
@@ -145,7 +145,7 @@ class BigDecimalArithmeticTest {
 
     @Test
     void power12() {
-        assertThat(arithmetic.power(BigDecimal.ONE, 2)).isEqualTo(BigDecimal.ONE);
+        assertThat(arithmetic.power(BigDecimal.ONE, 2)).isOne();
     }
 
     @Test

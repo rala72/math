@@ -224,7 +224,7 @@ class DoubleVectorTest {
 
     @Test
     void scalarProductOfVectorWithoutParameterAndXY1() {
-        assertThat(new DoubleVector().scalarProduct(new DoubleVector(1d))).isEqualTo(0d);
+        assertThat(new DoubleVector().scalarProduct(new DoubleVector(1d))).isZero();
     }
 
     @Test

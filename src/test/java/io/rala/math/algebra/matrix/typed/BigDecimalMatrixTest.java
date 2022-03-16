@@ -207,18 +207,18 @@ class BigDecimalMatrixTest {
     @Test
     void setValueByIndex0WhichWasUnset() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        assertThat(matrix.setValue(0, BigDecimal.ONE)).isEqualTo(BigDecimal.ZERO);
-        assertThat(matrix.getValue(0)).isEqualTo(BigDecimal.ONE);
-        assertThat(matrix.getValue(0, 0)).isEqualTo(BigDecimal.ONE);
+        assertThat(matrix.setValue(0, BigDecimal.ONE)).isZero();
+        assertThat(matrix.getValue(0)).isOne();
+        assertThat(matrix.getValue(0, 0)).isOne();
         // assert all other are unset
     }
 
     @Test
     void setValueByIndex3WhichWasUnset() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        assertThat(matrix.setValue(3, BigDecimal.ONE)).isEqualTo(BigDecimal.ZERO);
-        assertThat(matrix.getValue(3)).isEqualTo(BigDecimal.ONE);
-        assertThat(matrix.getValue(1, 1)).isEqualTo(BigDecimal.ONE);
+        assertThat(matrix.setValue(3, BigDecimal.ONE)).isZero();
+        assertThat(matrix.getValue(3)).isOne();
+        assertThat(matrix.getValue(1, 1)).isOne();
         // assert all other are unset
     }
 
@@ -241,18 +241,18 @@ class BigDecimalMatrixTest {
     @Test
     void setValueByRow0Col0WhichWasUnset() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        assertThat(matrix.setValue(0, 0, BigDecimal.ONE)).isEqualTo(BigDecimal.ZERO);
-        assertThat(matrix.getValue(0)).isEqualTo(BigDecimal.ONE);
-        assertThat(matrix.getValue(0, 0)).isEqualTo(BigDecimal.ONE);
+        assertThat(matrix.setValue(0, 0, BigDecimal.ONE)).isZero();
+        assertThat(matrix.getValue(0)).isOne();
+        assertThat(matrix.getValue(0, 0)).isOne();
         // assert all other are unset
     }
 
     @Test
     void setValueByRow1Col0WhichWasUnset() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        assertThat(matrix.setValue(1, 0, BigDecimal.ONE)).isEqualTo(BigDecimal.ZERO);
-        assertThat(matrix.getValue(1, 0)).isEqualTo(BigDecimal.ONE);
-        assertThat(matrix.getValue(2)).isEqualTo(BigDecimal.ONE);
+        assertThat(matrix.setValue(1, 0, BigDecimal.ONE)).isZero();
+        assertThat(matrix.getValue(1, 0)).isOne();
+        assertThat(matrix.getValue(2)).isOne();
         // assert all other are unset
     }
 
@@ -260,8 +260,8 @@ class BigDecimalMatrixTest {
     void setValueByIndex2WichWasSet() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         matrix.setValue(2, BigDecimal.ONE);
-        assertThat(matrix.getValue(2)).isEqualTo(BigDecimal.ONE);
-        assertThat(matrix.setValue(2, BigDecimal.valueOf(2))).isEqualTo(BigDecimal.ONE);
+        assertThat(matrix.getValue(2)).isOne();
+        assertThat(matrix.setValue(2, BigDecimal.valueOf(2))).isOne();
     }
 
     @Test
@@ -275,7 +275,7 @@ class BigDecimalMatrixTest {
     @Test
     void removeValueByIndex0WhichWasUnset() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        assertThat(matrix.removeValue(0)).isEqualTo(BigDecimal.ZERO);
+        assertThat(matrix.removeValue(0)).isZero();
     }
 
     @Test
@@ -297,14 +297,14 @@ class BigDecimalMatrixTest {
     @Test
     void removeValueByRow0Col0WhichWasUnset() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        assertThat(matrix.removeValue(0, 0)).isEqualTo(BigDecimal.ZERO);
+        assertThat(matrix.removeValue(0, 0)).isZero();
     }
 
     @Test
     void removeValueByIndex2WhichWasSet() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         matrix.setValue(2, BigDecimal.ONE);
-        assertThat(matrix.removeValue(2)).isEqualTo(BigDecimal.ONE);
+        assertThat(matrix.removeValue(2)).isOne();
     }
 
     // endregion
@@ -314,34 +314,34 @@ class BigDecimalMatrixTest {
     @Test
     void computeWithUnaryOperatorByIndex0WhichWasUnset() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        assertThat(matrix.compute(0, number -> BigDecimal.ONE)).isEqualTo(BigDecimal.ZERO);
-        assertThat(matrix.getValue(0)).isEqualTo(BigDecimal.ONE);
-        assertThat(matrix.getValue(0, 0)).isEqualTo(BigDecimal.ONE);
+        assertThat(matrix.compute(0, number -> BigDecimal.ONE)).isZero();
+        assertThat(matrix.getValue(0)).isOne();
+        assertThat(matrix.getValue(0, 0)).isOne();
     }
 
     @Test
     void computeWithUnaryOperatorByIndex3WhichWasUnset() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        assertThat(matrix.compute(3, number -> BigDecimal.ONE)).isEqualTo(BigDecimal.ZERO);
-        assertThat(matrix.getValue(3)).isEqualTo(BigDecimal.ONE);
-        assertThat(matrix.getValue(1, 1)).isEqualTo(BigDecimal.ONE);
+        assertThat(matrix.compute(3, number -> BigDecimal.ONE)).isZero();
+        assertThat(matrix.getValue(3)).isOne();
+        assertThat(matrix.getValue(1, 1)).isOne();
     }
 
     @Test
     void computeWithUnaryOperatorByRow0Col0WhichWasUnset() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        assertThat(matrix.compute(0, 0, number -> BigDecimal.ONE)).isEqualTo(BigDecimal.ZERO);
-        assertThat(matrix.getValue(0)).isEqualTo(BigDecimal.ONE);
-        assertThat(matrix.getValue(0, 0)).isEqualTo(BigDecimal.ONE);
+        assertThat(matrix.compute(0, 0, number -> BigDecimal.ONE)).isZero();
+        assertThat(matrix.getValue(0)).isOne();
+        assertThat(matrix.getValue(0, 0)).isOne();
         // assert all other are unset
     }
 
     @Test
     void computeWithUnaryOperatorByRow1Col1WhichWasUnset() {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
-        assertThat(matrix.compute(1, 0, number -> BigDecimal.ONE)).isEqualTo(BigDecimal.ZERO);
-        assertThat(matrix.getValue(1, 0)).isEqualTo(BigDecimal.ONE);
-        assertThat(matrix.getValue(2)).isEqualTo(BigDecimal.ONE);
+        assertThat(matrix.compute(1, 0, number -> BigDecimal.ONE)).isZero();
+        assertThat(matrix.getValue(1, 0)).isOne();
+        assertThat(matrix.getValue(2)).isOne();
         // assert all other are unset
     }
 
@@ -350,9 +350,9 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertThat(matrix.compute(0,
             BigDecimal.ONE, matrix.getArithmetic()::sum
-        )).isEqualTo(BigDecimal.ZERO);
-        assertThat(matrix.getValue(0)).isEqualTo(BigDecimal.ONE);
-        assertThat(matrix.getValue(0, 0)).isEqualTo(BigDecimal.ONE);
+        )).isZero();
+        assertThat(matrix.getValue(0)).isOne();
+        assertThat(matrix.getValue(0, 0)).isOne();
     }
 
     @Test
@@ -360,9 +360,9 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertThat(matrix.compute(3,
             BigDecimal.ONE, matrix.getArithmetic()::sum
-        )).isEqualTo(BigDecimal.ZERO);
-        assertThat(matrix.getValue(3)).isEqualTo(BigDecimal.ONE);
-        assertThat(matrix.getValue(1, 1)).isEqualTo(BigDecimal.ONE);
+        )).isZero();
+        assertThat(matrix.getValue(3)).isOne();
+        assertThat(matrix.getValue(1, 1)).isOne();
     }
 
     @Test
@@ -370,9 +370,9 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertThat(matrix.compute(0, 0,
             BigDecimal.ONE, matrix.getArithmetic()::sum
-        )).isEqualTo(BigDecimal.ZERO);
-        assertThat(matrix.getValue(0)).isEqualTo(BigDecimal.ONE);
-        assertThat(matrix.getValue(0, 0)).isEqualTo(BigDecimal.ONE);
+        )).isZero();
+        assertThat(matrix.getValue(0)).isOne();
+        assertThat(matrix.getValue(0, 0)).isOne();
         // assert all other are unset
     }
 
@@ -381,9 +381,9 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = new BigDecimalMatrix(2);
         assertThat(matrix.compute(1, 0,
             BigDecimal.ONE, matrix.getArithmetic()::sum
-        )).isEqualTo(BigDecimal.ZERO);
-        assertThat(matrix.getValue(1, 0)).isEqualTo(BigDecimal.ONE);
-        assertThat(matrix.getValue(2)).isEqualTo(BigDecimal.ONE);
+        )).isZero();
+        assertThat(matrix.getValue(1, 0)).isOne();
+        assertThat(matrix.getValue(2)).isOne();
         // assert all other are unset
     }
 
@@ -753,7 +753,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = BigDecimalMatrix.identity(1);
         assertThat(matrix.size()).isOne();
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
-            assertThat(matrix.getValue(i, i)).isEqualTo(BigDecimal.ONE);
+            assertThat(matrix.getValue(i, i)).isOne();
     }
 
     @Test
@@ -761,7 +761,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = BigDecimalMatrix.identity(2);
         assertThat(matrix.size()).isEqualTo(2 * 2);
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
-            assertThat(matrix.getValue(i, i)).isEqualTo(BigDecimal.ONE);
+            assertThat(matrix.getValue(i, i)).isOne();
     }
 
     @Test
@@ -769,7 +769,7 @@ class BigDecimalMatrixTest {
         BigDecimalMatrix matrix = BigDecimalMatrix.diagonal(BigDecimal.ONE);
         assertThat(matrix.size()).isOne();
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
-            assertThat(matrix.getValue(i, i)).isEqualTo(BigDecimal.ONE);
+            assertThat(matrix.getValue(i, i)).isOne();
     }
 
     @Test
@@ -854,7 +854,7 @@ class BigDecimalMatrixTest {
         List<BigDecimalMatrix.Field> values = new ArrayList<>();
         for (BigDecimalMatrix.Field d : matrix) {
             values.add(d);
-            assertThat(d.getValue()).isEqualTo(BigDecimal.ZERO);
+            assertThat(d.getValue()).isZero();
         }
         assertThat(values).hasSize((int) matrix.size());
     }

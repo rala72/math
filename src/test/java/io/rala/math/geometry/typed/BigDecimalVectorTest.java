@@ -335,7 +335,7 @@ class BigDecimalVectorTest {
     @Test
     void scalarProductOfVectorWithoutParameterAndXY1() {
         assertThat(new BigDecimalVector()
-            .scalarProduct(new BigDecimalVector(BigDecimal.ONE))).isEqualTo(BigDecimal.ZERO);
+            .scalarProduct(new BigDecimalVector(BigDecimal.ONE))).isZero();
     }
 
     @Test

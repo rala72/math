@@ -40,7 +40,7 @@ class BigIntegerBigDecimalResultArithmeticTest {
 
     @Test
     void fromT1() {
-        assertThat(arithmetic.fromT(BigInteger.ONE)).isEqualTo(BigDecimal.ONE);
+        assertThat(arithmetic.fromT(BigInteger.ONE)).isOne();
     }
 
     // endregion
@@ -87,7 +87,7 @@ class BigIntegerBigDecimalResultArithmeticTest {
 
     @Test
     void modulo12() {
-        assertThat(arithmetic.modulo(BigInteger.ONE, BigInteger.valueOf(2))).isEqualTo(BigDecimal.ONE);
+        assertThat(arithmetic.modulo(BigInteger.ONE, BigInteger.valueOf(2))).isOne();
     }
 
     // endregion
