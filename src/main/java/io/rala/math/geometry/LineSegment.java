@@ -209,11 +209,11 @@ public class LineSegment<T extends Number> implements Validatable,
                 getA().getX()
             )
         );
-        T b = getArithmetic().difference(
+        T newB = getArithmetic().difference(
             getA().getY(),
             getArithmetic().product(m, getA().getX())
         );
-        return new Line<>(getArithmetic(), m, b);
+        return new Line<>(getArithmetic(), m, newB);
     }
 
     // endregion
@@ -298,12 +298,12 @@ public class LineSegment<T extends Number> implements Validatable,
 
     @Override
     public int compareTo(@NotNull LineSegment<T> o) {
-        Point<T> min = Stream.of(getA(), getB()).min(Point::compareTo).get();
-        Point<T> minO = Stream.of(o.getA(), o.getB()).min(Point::compareTo).get();
+        Point<T> min = Stream.of(getA(), getB()).min(Point::compareTo).orElseThrow();
+        Point<T> minO = Stream.of(o.getA(), o.getB()).min(Point::compareTo).orElseThrow();
         int i = min.compareTo(minO);
         if (i != 0) return i;
-        Point<T> max = Stream.of(getA(), getB()).max(Point::compareTo).get();
-        Point<T> maxO = Stream.of(o.getA(), o.getB()).max(Point::compareTo).get();
+        Point<T> max = Stream.of(getA(), getB()).max(Point::compareTo).orElseThrow();
+        Point<T> maxO = Stream.of(o.getA(), o.getB()).max(Point::compareTo).orElseThrow();
         return max.compareTo(maxO);
     }
 

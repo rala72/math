@@ -506,8 +506,8 @@ public class Fraction<T extends Number, V extends Number> extends Number
 
     @Override
     public boolean isValid() {
-        AbstractArithmetic<T> arithmetic = getArithmetic().getTArithmetic();
-        return arithmetic.isFinite(getNumerator()) && arithmetic.isFinite(getDenominator());
+        AbstractArithmetic<T> tArithmetic = getArithmetic().getTArithmetic();
+        return tArithmetic.isFinite(getNumerator()) && tArithmetic.isFinite(getDenominator());
     }
 
     @Override

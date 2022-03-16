@@ -726,8 +726,9 @@ public class Matrix<T extends Number>
      * @since 1.0.0
      */
     public int rank() {
-        Matrix<T> matrix = rowEchelonForm();
-        return getRows() - (int) IntStream.range(0, getRows()).filter(matrix::isZeroRow).count();
+        Matrix<T> rowEchelonForm = rowEchelonForm();
+        return getRows() - (int) IntStream.range(0, getRows())
+            .filter(rowEchelonForm::isZeroRow).count();
     }
 
     /**
@@ -990,13 +991,13 @@ public class Matrix<T extends Number>
     public <NT extends Number> Matrix<NT> map(
         @NotNull AbstractArithmetic<NT> arithmetic, @NotNull Function<T, NT> map
     ) {
-        Matrix<NT> matrix = new Matrix<>(
+        Matrix<NT> newMatrix = new Matrix<>(
             arithmetic, getRows(), getCols(), map.apply(getDefaultValue())
         );
-        forEach(field -> matrix.setValue(
+        forEach(field -> newMatrix.setValue(
             field.getIndex(), map.apply(field.getValue())
         ));
-        return matrix;
+        return newMatrix;
     }
 
     /**
@@ -1038,6 +1039,8 @@ public class Matrix<T extends Number>
 
             @Override
             public Field next() {
+                if (!hasNext())
+                    throw new NoSuchElementException(index + " / " + size());
                 T value = getValue(index);
                 return new Field(index++, value);
             }
@@ -1049,11 +1052,11 @@ public class Matrix<T extends Number>
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Matrix<?>)) return false;
-        Matrix<?> matrix = (Matrix<?>) o;
-        return getRows() == matrix.getRows() &&
-            getCols() == matrix.getCols() &&
+        Matrix<?> newMatrix = (Matrix<?>) o;
+        return getRows() == newMatrix.getRows() &&
+            getCols() == newMatrix.getCols() &&
             LongStream.range(0, size()).allMatch(i ->
-                getArithmetic().isEqual(getValue(i), (T) matrix.getValue(i))
+                getArithmetic().isEqual(getValue(i), (T) newMatrix.getValue(i))
             );
     }
 

@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  */
 public class MathX {
     private static final MathContext MATH_CONTEXT = MathContext.DECIMAL64;
-    private static final String ILLEGAL_ARGUMENT__NUMBER_HAS_TO_BE_POSITIVE =
+    private static final String ILLEGAL_ARGUMENT_NUMBER_HAS_TO_BE_POSITIVE =
         "number has to be positive";
 
     private MathX() {
@@ -191,9 +191,9 @@ public class MathX {
      */
     @NotNull
     public static BigInteger factorial(@NotNull BigInteger a) {
-        return a.compareTo(BigInteger.ZERO) < 0 ? BigInteger.ZERO :
-            a.equals(BigInteger.ZERO) ? BigInteger.ONE :
-                a.multiply(factorial(a.subtract(BigInteger.ONE)));
+        if (a.compareTo(BigInteger.ZERO) < 0) return BigInteger.ZERO;
+        return a.equals(BigInteger.ZERO) ? BigInteger.ONE :
+            a.multiply(factorial(a.subtract(BigInteger.ONE)));
     }
 
     // endregion
@@ -313,7 +313,7 @@ public class MathX {
      */
     public static double root(double a, int n) {
         if (a < 0)
-            throw new IllegalArgumentException(ILLEGAL_ARGUMENT__NUMBER_HAS_TO_BE_POSITIVE);
+            throw new IllegalArgumentException(ILLEGAL_ARGUMENT_NUMBER_HAS_TO_BE_POSITIVE);
         return n == 2 ? Math.sqrt(a) : Math.pow(a, 1.0 / n);
     }
 
@@ -346,7 +346,7 @@ public class MathX {
     public static BigDecimal root(@NotNull BigDecimal a, int n, @NotNull MathContext context) {
         // https://stackoverflow.com/a/34074999/2715720
         if (a.compareTo(BigDecimal.ZERO) < 0)
-            throw new IllegalArgumentException(ILLEGAL_ARGUMENT__NUMBER_HAS_TO_BE_POSITIVE);
+            throw new IllegalArgumentException(ILLEGAL_ARGUMENT_NUMBER_HAS_TO_BE_POSITIVE);
         if (a.equals(BigDecimal.ZERO)) return BigDecimal.ZERO;
         if (n == 2) return a.sqrt(context);
         BigDecimal current = a.divide(BigDecimal.valueOf(n), context);
@@ -355,7 +355,7 @@ public class MathX {
         BigDecimal prev = a;
         while (current.subtract(prev).abs().compareTo(precision) > 0) {
             prev = current;
-            current = BigDecimal.valueOf(n - 1)
+            current = BigDecimal.valueOf(n - 1L)
                 .multiply(current)
                 .add(a.divide(current.pow(n - 1), context))
                 .divide(BigDecimal.valueOf(n), context);

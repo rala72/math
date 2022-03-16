@@ -378,8 +378,8 @@ public class Rect<T extends Number> implements Validatable,
             .min(Point::compareTo).orElse(getA());
         Point<T> minO = Stream.of(o.getA(), o.getB())
             .min(Point::compareTo).orElse(o.getA());
-        int a = min.compareTo(minO);
-        if (a != 0) return a;
+        int minA = min.compareTo(minO);
+        if (minA != 0) return minA;
         Point<T> max = Stream.of(getA(), getB())
             .max(Point::compareTo).orElse(getB());
         Point<T> maxO = Stream.of(o.getA(), o.getB())

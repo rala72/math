@@ -8,7 +8,9 @@ import io.rala.math.testUtils.assertion.ExceptionMessages;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static io.rala.math.testUtils.algebra.TestVector.fillVectorWithTestValues;
 import static io.rala.math.testUtils.assertion.MatrixAssertions.assertMatrix;
@@ -1034,10 +1036,15 @@ class MatrixTest {
     void iteratorOfEmptyMatrix() {
         TestMatrix matrix = new TestMatrix(2);
         List<TestMatrix.Field> values = new ArrayList<>();
-        for (TestMatrix.Field d : matrix) {
+        Iterator<Matrix<Number>.Field> iterator = matrix.iterator();
+        while (iterator.hasNext()) {
+            TestMatrix.Field d = iterator.next();
             values.add(d);
             assertThat(d.getValue()).isEqualTo(0d);
         }
+        assertThatExceptionOfType(NoSuchElementException.class)
+            .isThrownBy(iterator::next)
+            .withMessage("4 / 4");
         assertThat(values).hasSize((int) matrix.size());
     }
 

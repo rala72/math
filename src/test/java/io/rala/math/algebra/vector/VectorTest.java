@@ -9,7 +9,9 @@ import io.rala.math.testUtils.assertion.ExceptionMessages;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static io.rala.math.testUtils.algebra.TestVector.fillVectorWithTestValues;
 import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
@@ -711,10 +713,15 @@ class VectorTest {
     void iteratorOfEmptyVector() {
         TestVector vector = new TestVector(2);
         List<TestVector.Entry> values = new ArrayList<>();
-        for (TestVector.Entry d : vector) {
+        Iterator<Vector<Number>.Entry> iterator = vector.iterator();
+        while (iterator.hasNext()) {
+            Vector<Number>.Entry d = iterator.next();
             values.add(d);
             assertThat(d.getValue()).isEqualTo(0d);
         }
+        assertThatExceptionOfType(NoSuchElementException.class)
+            .isThrownBy(iterator::next)
+            .withMessage("2 / 2");
         assertThat(values).hasSize(vector.getSize());
     }
 

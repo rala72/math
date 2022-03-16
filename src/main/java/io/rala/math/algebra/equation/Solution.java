@@ -84,10 +84,10 @@ public class Solution<E extends AbstractEquationSystem<E>, T extends Number> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Solution)) return false;
-        Solution<?, ?> solution = (Solution<?, ?>) o;
-        return Objects.equals(getEquationSystem(), solution.getEquationSystem()) &&
-            Objects.equals(getSolution(), solution.getSolution()) &&
-            getState() == solution.getState();
+        Solution<?, ?> otherSolution = (Solution<?, ?>) o;
+        return Objects.equals(getEquationSystem(), otherSolution.getEquationSystem()) &&
+            Objects.equals(getSolution(), otherSolution.getSolution()) &&
+            getState() == otherSolution.getState();
     }
 
     @Override

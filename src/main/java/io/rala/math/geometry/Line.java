@@ -141,11 +141,12 @@ public class Line<T extends Number> implements Validatable,
      */
     @Nullable
     public T calculateX(@NotNull T y) {
-        return isVertical() ? getB() : isHorizontal() ?
-            getArithmetic().isEqual(getB(), y) ? getB() : null :
-            getArithmetic().quotient(
-                getArithmetic().difference(y, getB()), Objects.requireNonNull(getM())
-            );
+        if (isVertical()) return getB();
+        if (isHorizontal())
+            return getArithmetic().isEqual(getB(), y) ? getB() : null;
+        return getArithmetic().quotient(
+            getArithmetic().difference(y, getB()), Objects.requireNonNull(getM())
+        );
     }
 
     /**
@@ -159,12 +160,13 @@ public class Line<T extends Number> implements Validatable,
      */
     @Nullable
     public T calculateY(@NotNull T x) {
-        return isHorizontal() ? getB() : isVertical() ?
-            getArithmetic().isEqual(getB(), x) ? getB() : null :
-            getArithmetic().sum(
-                getArithmetic().product(Objects.requireNonNull(getM()), x),
-                getB()
-            );
+        if (isHorizontal()) return getB();
+        if (isVertical())
+            return getArithmetic().isEqual(getB(), x) ? getB() : null;
+        return getArithmetic().sum(
+            getArithmetic().product(Objects.requireNonNull(getM()), x),
+            getB()
+        );
     }
 
     // endregion
@@ -177,13 +179,14 @@ public class Line<T extends Number> implements Validatable,
      */
     @NotNull
     public Line<T> normal() {
-        T m = isVertical() ? getArithmetic().zero() :
-            isHorizontal() ? null :
+        T newM = getArithmetic().zero();
+        if (!isVertical())
+            newM = isHorizontal() ? null :
                 getArithmetic().quotient(
                     getArithmetic().fromInt(-1),
                     Objects.requireNonNull(getM())
                 );
-        return new Line<>(getArithmetic(), m, getB());
+        return new Line<>(getArithmetic(), newM, getB());
     }
 
     /**
@@ -264,14 +267,14 @@ public class Line<T extends Number> implements Validatable,
         if (!hasIntersection(line)) return null;
         if (isVertical() || line.isVertical()) {
             // calculated like y-axis
-            T m = isVertical() ? line.getM() : getM();
+            T newM = isVertical() ? line.getM() : getM();
             return getArithmetic().difference(
                 getArithmetic().quotient(
                     getArithmetic().fromDouble(Math.PI),
                     getArithmetic().fromInt(2)
                 ),
                 getArithmetic().atan(getArithmetic().absolute(
-                    Objects.requireNonNull(m))
+                    Objects.requireNonNull(newM))
                 )
             );
         }
@@ -405,12 +408,13 @@ public class Line<T extends Number> implements Validatable,
     @Override
     @NotNull
     public String toString() {
-        return "y=" + (isVertical() ? "" :
-            getM() + "*x" + (getArithmetic().compare(
-                getArithmetic().zero(), getB()) <= 0 ?
-                "+" : ""
-            )
-        ) + getB();
+        String nonVerticalString = "";
+        if (!isVertical()) {
+            boolean hasPositiveB =
+                getArithmetic().compare(getArithmetic().zero(), getB()) <= 0;
+            nonVerticalString = getM() + "*x" + (hasPositiveB ? "+" : "");
+        }
+        return "y=" + nonVerticalString + getB();
     }
 
     @Override

@@ -97,6 +97,7 @@ public abstract class AbstractLinearSolver<T extends Number> extends AbstractSol
      * if {@link #getEquationSystem()} has solution {@link Vector.Type#ROW}
      * @since 1.0.0
      */
+    @Override
     @MustBeInvokedByOverriders
     protected void reset() {
         if (getEquationSystem().getVector().getType().equals(Vector.Type.ROW))

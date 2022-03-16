@@ -590,8 +590,8 @@ public class Triangle<T extends Number> implements Validatable,
         for (int i = 0; i < s.size(); i++) {
             Point<T> p = s.get(i);
             Point<T> pO = sO.get(i);
-            int c = p.compareTo(pO);
-            if (c != 0) return c;
+            int pointCompare = p.compareTo(pO);
+            if (pointCompare != 0) return pointCompare;
         }
         return 0;
     }

@@ -655,6 +655,8 @@ public class Vector<T extends Number>
 
             @Override
             public Entry next() {
+                if (!hasNext())
+                    throw new NoSuchElementException(index + " / " + getSize());
                 T value = getValue(index);
                 return new Entry(index++, value);
             }
@@ -665,14 +667,14 @@ public class Vector<T extends Number>
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Vector<?>)) return false;
-        Vector<?> vector = (Vector<?>) o;
+        Vector<?> otherVector = (Vector<?>) o;
         //noinspection unchecked
-        return getSize() == vector.getSize() &&
-            getType() == vector.getType() &&
+        return getSize() == otherVector.getSize() &&
+            getType() == otherVector.getType() &&
             IntStream.range(0, getSize()).allMatch(index ->
                 getArithmetic().isEqual(
                     getValue(index),
-                    (T) vector.getValue(index)
+                    (T) otherVector.getValue(index)
                 )
             );
     }

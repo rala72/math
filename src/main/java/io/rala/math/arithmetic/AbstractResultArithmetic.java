@@ -26,7 +26,7 @@ public abstract class AbstractResultArithmetic<T extends Number, R extends Numbe
      * @param rArithmetic r arithmetic
      * @since 1.0.0
      */
-    public AbstractResultArithmetic(
+    protected AbstractResultArithmetic(
         @NotNull AbstractArithmetic<T> tArithmetic, @NotNull AbstractArithmetic<R> rArithmetic
     ) {
         this.tArithmetic = tArithmetic;

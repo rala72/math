@@ -16,6 +16,14 @@ import java.util.stream.StreamSupport;
  * @since 1.0.0
  */
 public abstract class AbstractArithmetic<T extends Number> implements Serializable {
+    /**
+     * creates a new {@link AbstractArithmetic}
+     *
+     * @since 1.0.0
+     */
+    protected AbstractArithmetic() {
+    }
+
     // region fromInt, fromDouble and signum
 
     /**
