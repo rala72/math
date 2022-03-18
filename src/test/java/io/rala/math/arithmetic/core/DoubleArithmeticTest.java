@@ -5,7 +5,7 @@ import io.rala.math.testUtils.assertion.ExceptionMessages;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 

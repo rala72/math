@@ -7,7 +7,8 @@ import io.rala.math.testUtils.assertion.ExceptionMessages;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.AlgebraAssertions.assertThatComplex;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
@@ -23,12 +24,12 @@ class ComplexArithmeticTest {
 
     @Test
     void fromInt0() {
-        assertThat(arithmetic.fromInt(0)).isEqualTo(new TestComplex());
+        assertThatComplex(arithmetic.fromInt(0)).isEqualTo(new TestComplex());
     }
 
     @Test
     void fromDouble0() {
-        assertThat(arithmetic.fromDouble(0)).isEqualTo(new TestComplex(0d, 0d));
+        assertThatComplex(arithmetic.fromDouble(0)).isEqualTo(new TestComplex(0d, 0d));
     }
 
     @Test
@@ -42,13 +43,13 @@ class ComplexArithmeticTest {
 
     @Test
     void absoluteReM1Im0() {
-        assertThat(arithmetic.absolute(new TestComplex(-1, 0)))
+        assertThatComplex(arithmetic.absolute(new TestComplex(-1, 0)))
             .isEqualTo(new TestComplex(1d, -0d));
     }
 
     @Test
     void negate() {
-        assertThat(arithmetic.negate(new TestComplex(1, 1)))
+        assertThatComplex(arithmetic.negate(new TestComplex(1, 1)))
             .isEqualTo(new TestComplex(-1d, -1d));
     }
 
@@ -68,16 +69,22 @@ class ComplexArithmeticTest {
 
     @Test
     void min() {
-        assertThat(arithmetic.min(new TestComplex(1, 1), new TestComplex(1, 1))).isEqualTo(new TestComplex(1, 1));
-        assertThat(arithmetic.min(new TestComplex(1, 1), new TestComplex(2, 2))).isEqualTo(new TestComplex(1, 1));
-        assertThat(arithmetic.min(new TestComplex(2, 2), new TestComplex(1, 1))).isEqualTo(new TestComplex(1, 1));
+        assertThatComplex(arithmetic.min(new TestComplex(1, 1), new TestComplex(1, 1)))
+            .isEqualTo(new TestComplex(1, 1));
+        assertThatComplex(arithmetic.min(new TestComplex(1, 1), new TestComplex(2, 2)))
+            .isEqualTo(new TestComplex(1, 1));
+        assertThatComplex(arithmetic.min(new TestComplex(2, 2), new TestComplex(1, 1)))
+            .isEqualTo(new TestComplex(1, 1));
     }
 
     @Test
     void max() {
-        assertThat(arithmetic.max(new TestComplex(1, 1), new TestComplex(1, 1))).isEqualTo(new TestComplex(1, 1));
-        assertThat(arithmetic.max(new TestComplex(1, 1), new TestComplex(2, 2))).isEqualTo(new TestComplex(2, 2));
-        assertThat(arithmetic.max(new TestComplex(2, 2), new TestComplex(1, 1))).isEqualTo(new TestComplex(2, 2));
+        assertThatComplex(arithmetic.max(new TestComplex(1, 1), new TestComplex(1, 1)))
+            .isEqualTo(new TestComplex(1, 1));
+        assertThatComplex(arithmetic.max(new TestComplex(1, 1), new TestComplex(2, 2)))
+            .isEqualTo(new TestComplex(2, 2));
+        assertThatComplex(arithmetic.max(new TestComplex(2, 2), new TestComplex(1, 1)))
+            .isEqualTo(new TestComplex(2, 2));
     }
 
     @Test
@@ -113,12 +120,13 @@ class ComplexArithmeticTest {
 
     @Test
     void sum12() {
-        assertThat(arithmetic.sum(new TestComplex(1, 1), new TestComplex(2, 2))).isEqualTo(new TestComplex(3d, 3d));
+        assertThatComplex(arithmetic.sum(new TestComplex(1, 1), new TestComplex(2, 2)))
+            .isEqualTo(new TestComplex(3d, 3d));
     }
 
     @Test
     void sum123() {
-        assertThat(arithmetic.sum(
+        assertThatComplex(arithmetic.sum(
             new TestComplex(1, 1),
             new TestComplex(2, 2),
             new TestComplex(3, 3)
@@ -127,17 +135,19 @@ class ComplexArithmeticTest {
 
     @Test
     void difference12() {
-        assertThat(arithmetic.difference(new TestComplex(1, 1), new TestComplex(2, 2))).isEqualTo(new TestComplex(-1d, -1d));
+        assertThatComplex(arithmetic.difference(new TestComplex(1, 1), new TestComplex(2, 2)))
+            .isEqualTo(new TestComplex(-1d, -1d));
     }
 
     @Test
     void product12() {
-        assertThat(arithmetic.product(new TestComplex(1, 1), new TestComplex(2, 2))).isEqualTo(new TestComplex(0d, 4d));
+        assertThatComplex(arithmetic.product(new TestComplex(1, 1), new TestComplex(2, 2)))
+            .isEqualTo(new TestComplex(0d, 4d));
     }
 
     @Test
     void product123() {
-        assertThat(arithmetic.product(
+        assertThatComplex(arithmetic.product(
             new TestComplex(1, 1),
             new TestComplex(2, 2),
             new TestComplex(3, 3))
@@ -146,12 +156,14 @@ class ComplexArithmeticTest {
 
     @Test
     void quotient12() {
-        assertThat(arithmetic.quotient(new TestComplex(1, 1), new TestComplex(2, 2))).isEqualTo(new TestComplex(0.5, 0d));
+        assertThatComplex(arithmetic.quotient(new TestComplex(1, 1), new TestComplex(2, 2)))
+            .isEqualTo(new TestComplex(0.5, 0d));
     }
 
     @Test
     void modulo12() {
-        assertThat(arithmetic.modulo(new TestComplex(1, 1), new TestComplex(2, 2))).isEqualTo(new TestComplex(0d, 0d));
+        assertThatComplex(arithmetic.modulo(new TestComplex(1, 1), new TestComplex(2, 2)))
+            .isEqualTo(new TestComplex(0d, 0d));
     }
 
     // endregion
@@ -160,13 +172,13 @@ class ComplexArithmeticTest {
 
     @Test
     void power12() {
-        assertThat(arithmetic.power(new TestComplex(1, 1), 2))
-            .isEqualTo(new TestComplex(-3.2162452993532737e-16, 2.0000000000000004));
+        assertThatComplex(arithmetic.power(new TestComplex(1, 1), 2))
+            .hasRe(-3.2162452993532737e-16).hasIm(2d);
     }
 
     @Test
     void root21() {
-        assertThat(arithmetic.root2(new TestComplex(1, 1)))
+        assertThatComplex(arithmetic.root2(new TestComplex(1, 1)))
             .isEqualTo(new TestComplex(1.0986841134678098, 0.45508986056222733));
     }
 
@@ -231,55 +243,55 @@ class ComplexArithmeticTest {
 
     @Test
     void sinOf1() {
-        assertThat(arithmetic.sin(new TestComplex(1, 1)))
+        assertThatComplex(arithmetic.sin(new TestComplex(1, 1)))
             .isEqualTo(new TestComplex(Math.sin(1), 0d));
     }
 
     @Test
     void cosOf1() {
-        assertThat(arithmetic.cos(new TestComplex(1, 1)))
+        assertThatComplex(arithmetic.cos(new TestComplex(1, 1)))
             .isEqualTo(new TestComplex(Math.cos(1), 0d));
     }
 
     @Test
     void tanOf1() {
-        assertThat(arithmetic.tan(new TestComplex(1, 1)))
+        assertThatComplex(arithmetic.tan(new TestComplex(1, 1)))
             .isEqualTo(new TestComplex(Math.tan(1), 0d));
     }
 
     @Test
     void asinOf1() {
-        assertThat(arithmetic.asin(new TestComplex(1, 1)))
+        assertThatComplex(arithmetic.asin(new TestComplex(1, 1)))
             .isEqualTo(new TestComplex(Math.asin(1), 0d));
     }
 
     @Test
     void acosOf1() {
-        assertThat(arithmetic.acos(new TestComplex(1, 1)))
+        assertThatComplex(arithmetic.acos(new TestComplex(1, 1)))
             .isEqualTo(new TestComplex(Math.acos(1), 0d));
     }
 
     @Test
     void atanOf1() {
-        assertThat(arithmetic.atan(new TestComplex(1, 1)))
+        assertThatComplex(arithmetic.atan(new TestComplex(1, 1)))
             .isEqualTo(new TestComplex(Math.atan(1), 0d));
     }
 
     @Test
     void sinhOf1() {
-        assertThat(arithmetic.sinh(new TestComplex(1, 1)))
+        assertThatComplex(arithmetic.sinh(new TestComplex(1, 1)))
             .isEqualTo(new TestComplex(Math.sinh(1), 0d));
     }
 
     @Test
     void coshOf1() {
-        assertThat(arithmetic.cosh(new TestComplex(1, 1)))
+        assertThatComplex(arithmetic.cosh(new TestComplex(1, 1)))
             .isEqualTo(new TestComplex(Math.cosh(1), 0d));
     }
 
     @Test
     void tanhOf1() {
-        assertThat(arithmetic.tanh(new TestComplex(1, 1)))
+        assertThatComplex(arithmetic.tanh(new TestComplex(1, 1)))
             .isEqualTo(new TestComplex(Math.tanh(1), 0d));
     }
 

@@ -11,7 +11,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 import static io.rala.math.testUtils.assertion.GeometryAssertions.*;
-import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertCopyable;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class DoubleLineTest {
@@ -19,26 +20,30 @@ class DoubleLineTest {
 
     @Test
     void constructorWithX() {
-        assertLine(new DoubleLine(1d), null, 1d);
+        assertThatLine(new DoubleLine(1d))
+            .hasM(null).hasB(1d);
     }
 
     @Test
     void constructorWithMB() {
-        assertLine(new DoubleLine(2d, 3d), 2d, 3d);
+        assertThatLine(new DoubleLine(2d, 3d))
+            .hasM(2d).hasB(3d);
     }
 
     @Test
     void createAndSetM() {
         Line<Double> line = new DoubleLine(0d, 0d);
         line.setM(1d);
-        assertLine(line, 1d, 0d);
+        assertThatLine(line)
+            .hasM(1d).hasB(0d);
     }
 
     @Test
     void createAndSetB() {
         Line<Double> line = new DoubleLine(0d, 0d);
         line.setB(2d);
-        assertLine(line, 0d, 2d);
+        assertThatLine(line)
+            .hasM(0d).hasB(2d);
     }
 
     // endregion
@@ -47,32 +52,32 @@ class DoubleLineTest {
 
     @Test
     void isHorizontalOfHorizontalLine() {
-        assertThat(new DoubleLine(0d, 1d).isHorizontal()).isTrue();
+        assertThatLine(new DoubleLine(0d, 1d)).isHorizontal();
     }
 
     @Test
     void isHorizontalOfVerticalLine() {
-        assertThat(new DoubleLine(Double.NaN, 1d).isHorizontal()).isFalse();
+        assertThatLine(new DoubleLine(Double.NaN, 1d)).isNotHorizontal();
     }
 
     @Test
     void isHorizontalOfM1B1Line() {
-        assertThat(new DoubleLine(1d, 1d).isHorizontal()).isFalse();
+        assertThatLine(new DoubleLine(1d, 1d)).isNotHorizontal();
     }
 
     @Test
     void isVerticalOfHorizontalLine() {
-        assertThat(new DoubleLine(0d, 1d).isVertical()).isFalse();
+        assertThatLine(new DoubleLine(0d, 1d)).isNotVertical();
     }
 
     @Test
     void isVerticalOfVerticalLine() {
-        assertThat(new DoubleLine(null, 1d).isVertical()).isTrue();
+        assertThatLine(new DoubleLine(null, 1d)).isVertical();
     }
 
     @Test
     void isVerticalOfM1B1Line() {
-        assertThat(new DoubleLine(1d, 1d).isVertical()).isFalse();
+        assertThatLine(new DoubleLine(1d, 1d)).isNotVertical();
     }
 
     // endregion
@@ -97,49 +102,44 @@ class DoubleLineTest {
 
     @Test
     void normalM1B0() {
-        assertLine(new DoubleLine(1d, 0d).normal(), -1d, 0d);
+        assertThatLine(new DoubleLine(1d, 0d).normal())
+            .hasM(-1d).hasB(0d);
     }
 
     @Test
     void normalOfVerticalLine() {
-        assertLine(new DoubleLine(0d).normal(), 0d, 0d);
+        assertThatLine(new DoubleLine(0d).normal())
+            .hasM(0d).hasB(0d);
     }
 
     @Test
     void normalOfHorizontalLine() {
-        assertLine(new DoubleLine(0d, 0d).normal(), null, 0d);
+        assertThatLine(new DoubleLine(0d, 0d).normal())
+            .hasM(null).hasB(0d);
     }
 
     @Test
     void normalM1B1AndPointXY1() {
-        assertLine(
-            new DoubleLine(1d, 1d).normal(new DoublePoint(1d)),
-            -1d, 2d
-        );
+        assertThatLine(new DoubleLine(1d, 1d).normal(new DoublePoint(1d)))
+            .hasM(-1d).hasB(2d);
     }
 
     @Test
     void normalM1B0AndPointXY1() {
-        assertLine(
-            new DoubleLine(1d, 0d).normal(new DoublePoint(1d, 1d)),
-            -1d, 2d
-        );
+        assertThatLine(new DoubleLine(1d, 0d).normal(new DoublePoint(1d, 1d)))
+            .hasM(-1d).hasB(2d);
     }
 
     @Test
     void normalOfVerticalLineAndPointX0Y1() {
-        assertLine(
-            new DoubleLine(0d).normal(new DoublePoint(0d, 1d)),
-            0d, 1d
-        );
+        assertThatLine(new DoubleLine(0d).normal(new DoublePoint(0d, 1d)))
+            .hasM(0d).hasB(1d);
     }
 
     @Test
     void normalOfHorizontalLineAndPointX1Y0() {
-        assertLine(
-            new DoubleLine(0d, 0d).normal(new DoublePoint(1d, 0d)),
-            null, 1d
-        );
+        assertThatLine(new DoubleLine(0d, 0d).normal(new DoublePoint(1d, 0d)))
+            .hasM(null).hasB(1d);
     }
 
     // endregion
@@ -148,56 +148,53 @@ class DoubleLineTest {
 
     @Test
     void hasIntersectionWithEqualM() {
-        assertThat(new DoubleLine(1d, 2d).hasIntersection(new DoubleLine(1d, 0d))).isFalse();
+        assertThatLine(new DoubleLine(1d, 2d)).hasNoIntersection(new DoubleLine(1d, 0d));
     }
 
     @Test
     void hasIntersectionWithLineM1B2AndM2B1() {
-        assertThat(new DoubleLine(1d, 2d).hasIntersection(new DoubleLine(2d, 1d))).isTrue();
+        assertThatLine(new DoubleLine(1d, 2d)).hasIntersection(new DoubleLine(2d, 1d));
     }
 
     @Test
     void hasIntersectionWithLineX1AndX2() {
-        assertThat(new DoubleLine(1d).hasIntersection(new DoubleLine(2d))).isFalse();
+        assertThatLine(new DoubleLine(1d)).hasNoIntersection(new DoubleLine(2d));
     }
 
     @Test
     void hasIntersectionWithLineM1B2AndX1() {
-        assertThat(new DoubleLine(1d, 2d).hasIntersection(new DoubleLine(1d))).isTrue();
+        assertThatLine(new DoubleLine(1d, 2d)).hasIntersection(new DoubleLine(1d));
     }
 
     @Test
     void intersectionWithEqualM() {
-        assertThat(new DoubleLine(1d, 2d).intersection(new DoubleLine(1d, 0d))).isNull();
+        assertThatPoint(new DoubleLine(1d, 2d).intersection(new DoubleLine(1d, 0d))).isNull();
     }
 
     @Test
     void intersectionWithLineM1B2AndM2B1() {
-        assertPoint(
-            new DoubleLine(1d, 2d).intersection(new DoubleLine(2d, 1d)),
-            1d, 3d
-        );
+        assertThatPoint(
+            new DoubleLine(1d, 2d).intersection(new DoubleLine(2d, 1d))
+        ).hasX(1d).hasY(3d);
     }
 
     @Test
     void intersectionWithLineX1AndX2() {
-        assertThat(new DoubleLine(1d).intersection(new DoubleLine(2d))).isNull();
+        assertThatPoint(new DoubleLine(1d).intersection(new DoubleLine(2d))).isNull();
     }
 
     @Test
     void intersectionWithLineM1B2AndX1() {
-        assertPoint(
-            new DoubleLine(1d, 2d).intersection(new DoubleLine(1d)),
-            1d, 3d
-        );
+        assertThatPoint(
+            new DoubleLine(1d, 2d).intersection(new DoubleLine(1d))
+        ).hasX(1d).hasY(3d);
     }
 
     @Test
     void intersectionWithLineX1AndM1B2() {
-        assertPoint(
-            new DoubleLine(1d).intersection(new DoubleLine(1d, 2d)),
-            1d, 3d
-        );
+        assertThatPoint(
+            new DoubleLine(1d).intersection(new DoubleLine(1d, 2d))
+        ).hasX(1d).hasY(3d);
     }
 
     @Test
@@ -229,22 +226,22 @@ class DoubleLineTest {
 
     @Test
     void hasPointWithM1B0AndPointXY1() {
-        assertThat(new DoubleLine(1d, 0d).hasPoint(new DoublePoint(1d))).isTrue();
+        assertThatLine(new DoubleLine(1d, 0d)).hasPoint(new DoublePoint(1d));
     }
 
     @Test
     void hasPointWithM1B1AndPointXY1() {
-        assertThat(new DoubleLine(1d, 1d).hasPoint(new DoublePoint(1d))).isFalse();
+        assertThatLine(new DoubleLine(1d, 1d)).hasNoPoint(new DoublePoint(1d));
     }
 
     @Test
     void hasPointWithVerticalLine0AndPointX0Y1() {
-        assertThat(new DoubleLine(0d).hasPoint(new DoublePoint(0d, 1d))).isTrue();
+        assertThatLine(new DoubleLine(0d)).hasPoint(new DoublePoint(0d, 1d));
     }
 
     @Test
     void hasPointWithVerticalLine0AndPointXY1() {
-        assertThat(new DoubleLine(0d).hasPoint(new DoublePoint(1d))).isFalse();
+        assertThatLine(new DoubleLine(0d)).hasNoPoint(new DoublePoint(1d));
     }
 
     // endregion
@@ -253,34 +250,30 @@ class DoubleLineTest {
 
     @Test
     void toLineSegmentUsingXOfLineWithM0B1() {
-        assertLineSegment(
-            new DoubleLine(0d, 1d).toLineSegmentUsingX(0d, 1d),
-            new DoublePoint(0d, 1d), new DoublePoint(1d, 1d)
-        );
+        assertThatLineSegment(
+            new DoubleLine(0d, 1d).toLineSegmentUsingX(0d, 1d)
+        ).hasA(new DoublePoint(0d, 1d)).hasB(new DoublePoint(1d, 1d));
     }
 
     @Test
     void toLineSegmentUsingXOfLineWithM1B1() {
-        assertLineSegment(
-            new DoubleLine(1d, 1d).toLineSegmentUsingX(0d, 1d),
-            new DoublePoint(0d, 1d), new DoublePoint(1d, 2d)
-        );
+        assertThatLineSegment(
+            new DoubleLine(1d, 1d).toLineSegmentUsingX(0d, 1d)
+        ).hasA(new DoublePoint(0d, 1d)).hasB(new DoublePoint(1d, 2d));
     }
 
     @Test
     void toLineSegmentUsingYOfLineWithM1B0() {
-        assertLineSegment(
-            new DoubleLine(1d, 0d).toLineSegmentUsingY(0d, 1d),
-            new DoublePoint(0d, 0d), new DoublePoint(1d, 1d)
-        );
+        assertThatLineSegment(
+            new DoubleLine(1d, 0d).toLineSegmentUsingY(0d, 1d)
+        ).hasAWithZeroXY().hasB(new DoublePoint(1d, 1d));
     }
 
     @Test
     void toLineSegmentUsingYOfLineWithM1B1() {
-        assertLineSegment(
-            new DoubleLine(1d, 1d).toLineSegmentUsingY(0d, 1d),
-            new DoublePoint(-1d, 0d), new DoublePoint(0d, 1d)
-        );
+        assertThatLineSegment(
+            new DoubleLine(1d, 1d).toLineSegmentUsingY(0d, 1d)
+        ).hasA(new DoublePoint(-1d, 0d)).hasB(new DoublePoint(0d, 1d));
     }
 
     // endregion
@@ -291,24 +284,24 @@ class DoubleLineTest {
     void mapOfLineWithM0_5B1_5() {
         DoubleLine line = new DoubleLine(0.5, 1.5);
         Line<Integer> result = new Line<>(new IntegerArithmetic(), 0, 1);
-        assertThat(line.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
+        assertThatLine(line.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void isValidWithZeroValues() {
-        assertThat(new DoubleLine(0d, 0d).isValid()).isTrue();
+        assertThatLine(new DoubleLine(0d, 0d)).isValid();
     }
 
     @Test
     void isValidWithInfValues() {
-        assertThat(new DoubleLine(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
-            .isValid()).isFalse();
+        assertThatLine(
+            new DoubleLine(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
+        ).isInvalid();
     }
 
     @Test
     void copyOfLieWithMB() {
-        Line<Double> line = new DoubleLine(2d, 3d);
-        assertThat(line.copy()).isEqualTo(line);
+        assertCopyable(new DoubleLine(2d, 3d));
     }
 
     // endregion
@@ -317,7 +310,7 @@ class DoubleLineTest {
 
     @Test
     void equalsOfLineWithMB() {
-        assertThat(new DoubleLine(2d, 3d))
+        assertThatLine(new DoubleLine(2d, 3d))
             .isEqualTo(new DoubleLine(2d, 3d))
             .isNotEqualTo(new DoubleLine(3d, 2d));
     }
@@ -330,19 +323,19 @@ class DoubleLineTest {
     @Test
     void toStringOfLineWithMB() {
         Line<Double> line = new DoubleLine(2d, 3d);
-        assertThat(line).hasToString("y=2.0*x+3.0");
+        assertThatLine(line).hasToString("y=2.0*x+3.0");
     }
 
     @Test
     void toStringOfVerticalLine() {
         Line<Double> line = new DoubleLine(1d);
-        assertThat(line).hasToString("y=1.0");
+        assertThatLine(line).hasToString("y=1.0");
     }
 
     @Test
     void compareToOfLineWithMB() {
         Line<Double> line = new DoubleLine(2d, 3d);
-        assertThat(line)
+        assertThatLine(line)
             .isEqualByComparingTo(new DoubleLine(2d, 3d))
             .isLessThan(new DoubleLine(3d, 1d))
             .isGreaterThan(new DoubleLine(2d, 1d));

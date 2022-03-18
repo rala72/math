@@ -14,8 +14,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import static io.rala.math.testUtils.algebra.TestVector.fillVectorWithTestValues;
-import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
-import static io.rala.math.testUtils.assertion.VectorAssertions.assertVector;
+import static io.rala.math.testUtils.assertion.AlgebraAssertions.assertThatMatrix;
+import static io.rala.math.testUtils.assertion.AlgebraAssertions.assertThatVector;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertCopyable;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
@@ -38,17 +40,19 @@ class VectorTest {
 
     @Test
     void constructorWithPositiveSize() {
-        assertVector(new TestVector(1), 1);
+        assertThatVector(new TestVector(1)).hasSize(1);
     }
 
     @Test
     void constructorWithPositiveSizeAndType() {
-        assertVector(new TestVector(2, Vector.Type.ROW), 2, Vector.Type.ROW);
+        assertThatVector(new TestVector(2, Vector.Type.ROW))
+            .hasSize(2).hasType(Vector.Type.ROW);
     }
 
     @Test
     void constructorWithPositiveSizeAndTypeNull() {
-        assertVector(new TestVector(2, (Vector.Type) null), 2);
+        assertThatVector(new TestVector(2, (Vector.Type) null))
+            .hasSize(2).hasType(Vector.Type.COLUMN);
     }
 
     @Test
@@ -60,7 +64,7 @@ class VectorTest {
     @Test
     void constructorWithVector() {
         TestVector vector = new TestVector(new TestVector(1, 2d));
-        assertVector(vector, 1);
+        assertThatVector(vector).hasSize(1).hasType(Vector.Type.COLUMN);
         assertThat(vector.getDefaultValue()).isEqualTo(2d);
     }
 
@@ -70,12 +74,12 @@ class VectorTest {
 
     @Test
     void createWithLength0AndAssertLengthEquals0() {
-        assertThat(new TestVector(3).length()).isEqualTo(0d);
+        assertThatVector(new TestVector(3)).hasLength(0d);
     }
 
     @Test
     void createWithLength3AndAssertLengthEquals98() {
-        assertThat(fillVectorWithTestValues(new TestVector(3)).length()).isEqualTo(Math.sqrt(98));
+        assertThatVector(fillVectorWithTestValues(new TestVector(3))).hasLength(Math.sqrt(98));
     }
 
     // endregion
@@ -144,14 +148,14 @@ class VectorTest {
     void computeFirstEntryTimesTwoUnary() {
         TestVector vector = fillVectorWithTestValues(new TestVector(3));
         assertThat(vector.compute(0, x -> vector.getArithmetic().product(2d, x))).isEqualTo(1d);
-        assertThat(vector).isEqualTo(TestVector.ofValues(vector.getArithmetic(), 2d, -4d, 9d));
+        assertThatVector(vector).isEqualTo(TestVector.ofValues(vector.getArithmetic(), 2d, -4d, 9d));
     }
 
     @Test
     void computeFirstEntryTimesTwoBinary() {
         TestVector vector = fillVectorWithTestValues(new TestVector(3));
         assertThat(vector.compute(0, 2d, vector.getArithmetic()::product)).isEqualTo(1d);
-        assertThat(vector).isEqualTo(TestVector.ofValues(vector.getArithmetic(), 2d, -4d, 9d));
+        assertThatVector(vector).isEqualTo(TestVector.ofValues(vector.getArithmetic(), 2d, -4d, 9d));
     }
 
     @Test
@@ -160,14 +164,14 @@ class VectorTest {
         vector.computeAll(
             x -> vector.getArithmetic().product(2d, x.getValue())
         );
-        assertThat(vector).isEqualTo(TestVector.ofValues(vector.getArithmetic(), 2d, -8d, 18d));
+        assertThatVector(vector).isEqualTo(TestVector.ofValues(vector.getArithmetic(), 2d, -8d, 18d));
     }
 
     @Test
     void computeTimesTwoBinary() {
         TestVector vector = fillVectorWithTestValues(new TestVector(3));
         vector.computeAll(x -> 2d, vector.getArithmetic()::product);
-        assertThat(vector).isEqualTo(TestVector.ofValues(vector.getArithmetic(), 2d, -8d, 18d));
+        assertThatVector(vector).isEqualTo(TestVector.ofValues(vector.getArithmetic(), 2d, -8d, 18d));
     }
 
     // endregion
@@ -176,17 +180,17 @@ class VectorTest {
 
     @Test
     void toMatrixOfVectorWithEmptyColumn() {
-        assertThat(new TestVector(3).toMatrix()).isEqualTo(new TestMatrix(3, 1));
+        assertThatMatrix(new TestVector(3).toMatrix()).isEqualTo(new TestMatrix(3, 1));
     }
 
     @Test
     void toMatrixOfVectorWithEmptyRow() {
-        assertThat(new TestVector(3, Vector.Type.ROW).toMatrix()).isEqualTo(new TestMatrix(1, 3));
+        assertThatMatrix(new TestVector(3, Vector.Type.ROW).toMatrix()).isEqualTo(new TestMatrix(1, 3));
     }
 
     @Test
     void toMatrixOfNonEmptyVectorWithSize1() {
-        assertThat(new TestVector(1, 1d).toMatrix()).isEqualTo(new TestMatrix(1, 1d));
+        assertThatMatrix(new TestVector(1, 1d).toMatrix()).isEqualTo(new TestMatrix(1, 1d));
     }
 
     @Test
@@ -196,7 +200,7 @@ class VectorTest {
         expected.setValue(1, 0, -4d);
         expected.setValue(2, 0, 9d);
         expected.setValue(3, 0, -16d);
-        assertThat(fillVectorWithTestValues(new TestVector(4)).toMatrix()).isEqualTo(expected);
+        assertThatMatrix(fillVectorWithTestValues(new TestVector(4)).toMatrix()).isEqualTo(expected);
     }
 
     @Test
@@ -206,7 +210,7 @@ class VectorTest {
         expected.setValue(0, 1, -4d);
         expected.setValue(0, 2, 9d);
         expected.setValue(0, 3, -16d);
-        assertThat(fillVectorWithTestValues(new TestVector(4, Vector.Type.ROW)).toMatrix())
+        assertThatMatrix(fillVectorWithTestValues(new TestVector(4, Vector.Type.ROW)).toMatrix())
             .isEqualTo(expected);
     }
 
@@ -247,18 +251,18 @@ class VectorTest {
 
     @Test
     void addEmptyVectorToEmptyVector() {
-        assertThat(new TestVector(3).add(new TestVector(3))).isEqualTo(new TestVector(3));
+        assertThatVector(new TestVector(3).add(new TestVector(3))).isEqualTo(new TestVector(3));
     }
 
     @Test
     void addEmptyVectorToNonEmptyVector() {
-        assertThat(fillVectorWithTestValues(new TestVector(3)).add(new TestVector(3)))
+        assertThatVector(fillVectorWithTestValues(new TestVector(3)).add(new TestVector(3)))
             .isEqualTo(fillVectorWithTestValues(new TestVector(3)));
     }
 
     @Test
     void addNonEmptyVectorToEmptyVector() {
-        assertThat(fillVectorWithTestValues(new TestVector(3).add(new TestVector(3))))
+        assertThatVector(fillVectorWithTestValues(new TestVector(3).add(new TestVector(3))))
             .isEqualTo(fillVectorWithTestValues(new TestVector(3)));
     }
 
@@ -268,7 +272,7 @@ class VectorTest {
         expected.setValue(0, 2d);
         expected.setValue(1, -8d);
         expected.setValue(2, 18d);
-        assertThat(fillVectorWithTestValues(new TestVector(3))
+        assertThatVector(fillVectorWithTestValues(new TestVector(3))
             .add(fillVectorWithTestValues(new TestVector(3)))
         ).isEqualTo(expected);
     }
@@ -289,36 +293,37 @@ class VectorTest {
 
     @Test
     void subtractEmptyVectorFromEmptyVector() {
-        assertThat(new TestVector(3).subtract(new TestVector(3))).isEqualTo(new TestVector(3));
+        assertThatVector(new TestVector(3).subtract(new TestVector(3))).isEqualTo(new TestVector(3));
     }
 
     @Test
     void subtractEmptyVectorFromNonEmptyVector() {
-        assertThat(fillVectorWithTestValues(new TestVector(3)).subtract(new TestVector(3)))
+        assertThatVector(fillVectorWithTestValues(new TestVector(3)).subtract(new TestVector(3)))
             .isEqualTo(fillVectorWithTestValues(new TestVector(3)));
     }
 
     @Test
     void subtractNonEmptyVectorFromEmptyVector() {
-        assertThat(new TestVector(3).subtract(fillVectorWithTestValues(new TestVector(3))))
+        assertThatVector(new TestVector(3).subtract(fillVectorWithTestValues(new TestVector(3))))
             .isEqualTo(fillVectorWithTestValues(new TestVector(3)).invert());
     }
 
     @Test
     void subtractNonEmptyVectorFromNonEmptyVector() {
-        assertThat(fillVectorWithTestValues(new TestVector(3))
+        assertThatVector(fillVectorWithTestValues(new TestVector(3))
             .subtract(fillVectorWithTestValues(new TestVector(3)))
         ).isEqualTo(new TestVector(3));
     }
 
     @Test
     void multiplyNonEmptyVectorByZero() {
-        assertThat(fillVectorWithTestValues(new TestVector(3)).multiply(0)).isEqualTo(new TestVector(3));
+        assertThatVector(fillVectorWithTestValues(new TestVector(3)).multiply(0))
+            .isEqualTo(new TestVector(3));
     }
 
     @Test
     void multiplyNonEmptyVectorByOne() {
-        assertThat(fillVectorWithTestValues(new TestVector(3)).multiply(1))
+        assertThatVector(fillVectorWithTestValues(new TestVector(3)).multiply(1))
             .isEqualTo(fillVectorWithTestValues(new TestVector(3)));
     }
 
@@ -328,7 +333,7 @@ class VectorTest {
         expected.setValue(0, 5d);
         expected.setValue(1, -20d);
         expected.setValue(2, 45d);
-        assertThat(fillVectorWithTestValues(new TestVector(3)).multiply(5)).isEqualTo(expected);
+        assertThatVector(fillVectorWithTestValues(new TestVector(3)).multiply(5)).isEqualTo(expected);
     }
 
     @Test
@@ -355,13 +360,13 @@ class VectorTest {
 
     @Test
     void multiplyEmptyVectorsColumnRow() {
-        assertThat(new TestVector(2).multiply(new TestVector(2, Vector.Type.ROW)))
+        assertThatMatrix(new TestVector(2).multiply(new TestVector(2, Vector.Type.ROW)))
             .isEqualTo(new TestMatrix(2));
     }
 
     @Test
     void multiplyEmptyVectorsRowColumn() {
-        assertThat(new TestVector(2, Vector.Type.ROW).multiply(new TestVector(2)))
+        assertThatMatrix(new TestVector(2, Vector.Type.ROW).multiply(new TestVector(2)))
             .isEqualTo(new TestMatrix(1));
     }
 
@@ -372,7 +377,7 @@ class VectorTest {
         expected.setValue(0, 1, -4d);
         expected.setValue(1, 0, -4d);
         expected.setValue(1, 1, 16d);
-        assertThat(fillVectorWithTestValues(new TestVector(2))
+        assertThatMatrix(fillVectorWithTestValues(new TestVector(2))
             .multiply(fillVectorWithTestValues(new TestVector(2, Vector.Type.ROW)))
         ).isEqualTo(expected);
     }
@@ -381,35 +386,35 @@ class VectorTest {
     void multiplyNonEmptyVectorsRowColumn() {
         TestMatrix expected = new TestMatrix(1);
         expected.setValue(0, 0, 17d);
-        assertThat(fillVectorWithTestValues(new TestVector(2, Vector.Type.ROW))
+        assertThatMatrix(fillVectorWithTestValues(new TestVector(2, Vector.Type.ROW))
             .multiply(fillVectorWithTestValues(new TestVector(2)))
         ).isEqualTo(expected);
     }
 
     @Test
     void multiplyEmptyVectorToNonEmptyVectorColumnRow() {
-        assertThat(fillVectorWithTestValues(new TestVector(2))
+        assertThatMatrix(fillVectorWithTestValues(new TestVector(2))
             .multiply(new TestVector(2, Vector.Type.ROW))
         ).isEqualTo(new TestMatrix(2));
     }
 
     @Test
     void multiplyEmptyVectorToNonEmptyVectorRowColumn() {
-        assertThat(fillVectorWithTestValues(new TestVector(2, Vector.Type.ROW))
+        assertThatMatrix(fillVectorWithTestValues(new TestVector(2, Vector.Type.ROW))
             .multiply(new TestVector(2))
         ).isEqualTo(new TestMatrix(1));
     }
 
     @Test
     void multiplyNonEmptyVectorToEmptyVectorColumnRow() {
-        assertThat(new TestVector(2)
+        assertThatMatrix(new TestVector(2)
             .multiply(fillVectorWithTestValues(new TestVector(2, Vector.Type.ROW)))
         ).isEqualTo(new TestMatrix(2));
     }
 
     @Test
     void multiplyNonEmptyVectorToEmptyVectorRowColumn() {
-        assertThat(new TestVector(2, Vector.Type.ROW)
+        assertThatMatrix(new TestVector(2, Vector.Type.ROW)
             .multiply(fillVectorWithTestValues(new TestVector(2)))
         ).isEqualTo(new TestMatrix(1));
     }
@@ -532,23 +537,23 @@ class VectorTest {
 
     @Test
     void transposeEmptyColumnVector() {
-        assertThat(new TestVector(3).transpose()).isEqualTo(new TestVector(3, Vector.Type.ROW));
+        assertThatVector(new TestVector(3).transpose()).isEqualTo(new TestVector(3, Vector.Type.ROW));
     }
 
     @Test
     void transposeEmptyRowVector() {
-        assertThat(new TestVector(3, Vector.Type.ROW).transpose()).isEqualTo(new TestVector(3));
+        assertThatVector(new TestVector(3, Vector.Type.ROW).transpose()).isEqualTo(new TestVector(3));
     }
 
     @Test
     void transposeNonEmptyColumnVector() {
-        assertThat(fillVectorWithTestValues(new TestVector(3)).transpose())
+        assertThatVector(fillVectorWithTestValues(new TestVector(3)).transpose())
             .isEqualTo(fillVectorWithTestValues(new TestVector(3, Vector.Type.ROW)));
     }
 
     @Test
     void transposeNonEmptyRowVector() {
-        assertThat(fillVectorWithTestValues(new TestVector(3, Vector.Type.ROW)).transpose())
+        assertThatVector(fillVectorWithTestValues(new TestVector(3, Vector.Type.ROW)).transpose())
             .isEqualTo(fillVectorWithTestValues(new TestVector(3)));
     }
 
@@ -558,7 +563,7 @@ class VectorTest {
         for (int i = 0; i < 3; i++) {
             expected.setValue(i, -0d);
         }
-        assertThat(new TestVector(3).invert()).isEqualTo(expected);
+        assertThatVector(new TestVector(3).invert()).isEqualTo(expected);
     }
 
     @Test
@@ -567,7 +572,7 @@ class VectorTest {
         expected.setValue(0, -1d);
         expected.setValue(1, 4d);
         expected.setValue(2, -9d);
-        assertThat(fillVectorWithTestValues(new TestVector(3)).invert()).isEqualTo(expected);
+        assertThatVector(fillVectorWithTestValues(new TestVector(3)).invert()).isEqualTo(expected);
     }
 
     // endregion
@@ -624,7 +629,7 @@ class VectorTest {
         expected.setValue(0, 1 / Math.sqrt(98));
         expected.setValue(1, -4 / Math.sqrt(98));
         expected.setValue(2, 9 / Math.sqrt(98));
-        assertThat(fillVectorWithTestValues(new TestVector(3)).normalize()).isEqualTo(expected);
+        assertThatVector(fillVectorWithTestValues(new TestVector(3)).normalize()).isEqualTo(expected);
     }
 
     // endregion
@@ -672,13 +677,13 @@ class VectorTest {
 
     @Test
     void ofValuesWithZeroValues() {
-        assertThat(TestVector.ofValues(new TestAbstractArithmetic(), 0d, 0d, 0d, 0d))
+        assertThatVector(TestVector.ofValues(new TestAbstractArithmetic(), 0d, 0d, 0d, 0d))
             .isEqualTo(new TestVector(4));
     }
 
     @Test
     void ofValuesWithNonZeroValues() {
-        assertThat(TestVector.ofValues(new TestAbstractArithmetic(), 1d, -4d, 9d, -16d))
+        assertThatVector(TestVector.ofValues(new TestAbstractArithmetic(), 1d, -4d, 9d, -16d))
             .isEqualTo(fillVectorWithTestValues(new TestVector(4)));
     }
 
@@ -687,7 +692,7 @@ class VectorTest {
         List<Number> list = new ArrayList<>();
         list.add(0d);
         list.add(0d);
-        assertThat(TestVector.ofList(new TestAbstractArithmetic(), list)).isEqualTo(new TestVector(2));
+        assertThatVector(TestVector.ofList(new TestAbstractArithmetic(), list)).isEqualTo(new TestVector(2));
     }
 
     @Test
@@ -695,7 +700,7 @@ class VectorTest {
         List<Number> list = new ArrayList<>();
         list.add(1d);
         list.add(-4d);
-        assertThat(TestVector.ofList(new TestAbstractArithmetic(), list))
+        assertThatVector(TestVector.ofList(new TestAbstractArithmetic(), list))
             .isEqualTo(fillVectorWithTestValues(new TestVector(2)));
     }
 
@@ -705,8 +710,7 @@ class VectorTest {
 
     @Test
     void copyOfVectorWithSize2() {
-        TestVector vector = new TestVector(2);
-        assertThat(vector.copy()).isEqualTo(vector);
+        assertCopyable(new TestVector(2));
     }
 
     @Test
@@ -739,7 +743,7 @@ class VectorTest {
 
     @Test
     void equalsOfTestVectorWithSize2() {
-        assertThat(new TestVector(2))
+        assertThatVector(new TestVector(2))
             .isEqualTo(new TestVector(2))
             .isNotEqualTo(new TestVector(3));
     }
@@ -748,7 +752,7 @@ class VectorTest {
     void equalsOfTestVectorWithDifferentDefaults() {
         TestVector default0 = new TestVector(2);
         default0.forEach(field -> default0.setValue(field.getIndex(), 1d));
-        assertThat(default0)
+        assertThatVector(default0)
             .isNotEqualTo(new TestVector(2))
             .isEqualTo(new TestVector(2, 1d));
     }
@@ -762,7 +766,7 @@ class VectorTest {
     @Test
     void toStringOfTestVectorWithSize2() {
         TestVector vector = new TestVector(2);
-        assertThat(vector).hasToString("2: []");
+        assertThatVector(vector).hasToString("2: []");
     }
 
     @Test

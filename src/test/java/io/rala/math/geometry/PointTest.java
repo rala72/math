@@ -5,8 +5,9 @@ import io.rala.math.testUtils.geometry.TestPoint;
 import io.rala.math.testUtils.geometry.TestVector;
 import org.junit.jupiter.api.Test;
 
-import static io.rala.math.testUtils.assertion.GeometryAssertions.assertPoint;
-import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.GeometryAssertions.assertThatPoint;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertCopyable;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class PointTest {
@@ -14,46 +15,46 @@ class PointTest {
 
     @Test
     void constructorWithoutParameter() {
-        assertPoint(new TestPoint());
+        assertThatPoint(new TestPoint()).hasZeroXY();
     }
 
     @Test
     void constructorWithXYParameter() {
-        assertPoint(new TestPoint(1), 1);
+        assertThatPoint(new TestPoint(1)).hasXY(1);
     }
 
     @Test
     void constructorWithEqualXYParameter() {
-        assertPoint(new TestPoint(2, 2), 2);
+        assertThatPoint(new TestPoint(2, 2)).hasXY(2);
     }
 
     @Test
     void constructorWithDifferentXYParameter() {
-        assertPoint(new TestPoint(2, 3), 2, 3);
+        assertThatPoint(new TestPoint(2, 3)).hasX(2).hasY(3);
     }
 
     @Test
     void createAndSetX() {
         Point<Number> point = new TestPoint();
-        assertPoint(point);
+        assertThatPoint(point).hasZeroXY();
         point.setX(1);
-        assertPoint(point, 1, 0);
+        assertThatPoint(point).hasX(1).hasY(0);
     }
 
     @Test
     void createAndSetY() {
         Point<Number> point = new TestPoint();
-        assertPoint(point);
+        assertThatPoint(point).hasZeroXY();
         point.setY(2);
-        assertPoint(point, 0, 2);
+        assertThatPoint(point).hasX(0).hasY(2);
     }
 
     @Test
     void createAndSetXY() {
         Point<Number> point = new TestPoint();
-        assertPoint(point);
+        assertThatPoint(point).hasZeroXY();
         point.setXY(3);
-        assertPoint(point, 3, 3);
+        assertThatPoint(point).hasXY(3);
     }
 
     // endregion
@@ -64,94 +65,93 @@ class PointTest {
     void mapOfPointWithX0_5Y1_5() {
         TestPoint point = new TestPoint(0.5, 1.5);
         Point<Integer> result = new Point<>(new IntegerArithmetic(), 0, 1);
-        assertThat(point.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
+        assertThatPoint(point.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void isValidWithZeroValues() {
-        assertThat(new TestPoint().isValid()).isTrue();
+        assertThatPoint(new TestPoint()).isValid();
     }
 
     @Test
     void isValidWithInfValues() {
-        assertThat(new TestPoint(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
-            .isValid()).isFalse();
+        assertThatPoint(new TestPoint(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY))
+            .isInvalid();
     }
 
     @Test
     void moveOfPointWithXYWithXY() {
-        assertPoint(new TestPoint().move(1), 1, 1);
+        assertThatPoint(new TestPoint().move(1))
+            .hasX(1).hasY(1);
     }
 
     @Test
     void moveOfPointWithXYWithXAndY() {
-        assertPoint(new TestPoint().move(1, 1), 1, 1);
+        assertThatPoint(new TestPoint().move(1, 1))
+            .hasX(1).hasY(1);
     }
 
     @Test
     void moveOfPointWithXYWithVector() {
-        assertPoint(new TestPoint().move(new TestVector(1)), 1, 1);
+        assertThatPoint(new TestPoint().move(new TestVector(1)))
+            .hasX(1).hasY(1);
     }
 
     @Test
     void rotateOfPointWithX1Y2WithoutCenterWithPiHalf() {
-        assertPoint(new TestPoint(1, 2).rotate(Math.PI / 2), -2, 1);
+        assertThatPoint(new TestPoint(1, 2).rotate(Math.PI / 2))
+            .hasX(-2).hasY(1);
     }
 
     @Test
     void rotateOfPointWithX1Y2WithoutCenterWithPi() {
-        assertPoint(new TestPoint(1, 2).rotate(Math.PI), -1, -2);
+        assertThatPoint(new TestPoint(1, 2).rotate(Math.PI))
+            .hasX(-1).hasY(-2);
     }
 
     @Test
     void rotateOfPointWithX1Y2WithoutCenterWithPiThreeHalf() {
-        assertPoint(
-            new TestPoint(1, 2).rotate(Math.PI * 3 / 2),
-            2, -1
-        );
+        assertThatPoint(new TestPoint(1, 2).rotate(Math.PI * 3 / 2))
+            .hasX(2).hasY(-1);
     }
 
     @Test
     void rotateOfPointWithX1Y2WithoutCenterWithTwoPi() {
-        assertPoint(new TestPoint(1, 2).rotate(Math.PI * 2), 1, 2);
+        assertThatPoint(new TestPoint(1, 2).rotate(Math.PI * 2))
+            .hasX(1).hasY(2);
     }
 
     @Test
     void rotateOfPointWithX1Y2WithCenterXY1WithPiHalf() {
-        assertPoint(
-            new TestPoint(1, 2).rotate(new TestPoint(1), Math.PI / 2),
-            0, 1
-        );
+        assertThatPoint(new TestPoint(1, 2)
+            .rotate(new TestPoint(1), Math.PI / 2)
+        ).hasX(0).hasY(1);
     }
 
     @Test
     void rotateOfPointWithX1Y2WithCenterXY1WithPi() {
-        assertPoint(
-            new TestPoint(1, 2).rotate(new TestPoint(1), Math.PI),
-            1, 0
-        );
+        assertThatPoint(new TestPoint(1, 2)
+            .rotate(new TestPoint(1), Math.PI)
+        ).hasX(1).hasY(0);
     }
 
     @Test
     void rotateOfPointWithX1Y2WithCenterXY1WithPiThreeHalf() {
-        assertPoint(
-            new TestPoint(1, 2).rotate(new TestPoint(1), Math.PI * 3 / 2),
-            2, 1
-        );
+        assertThatPoint(new TestPoint(1, 2)
+            .rotate(new TestPoint(1), Math.PI * 3 / 2)
+        ).hasX(2).hasY(1);
     }
 
     @Test
     void rotateOfPointWithX1Y2WithCenterXY1WithTwoPi() {
-        assertPoint(
-            new TestPoint(1, 2).rotate(new TestPoint(1), Math.PI * 2),
-            1, 2
-        );
+        assertThatPoint(new TestPoint(1, 2)
+            .rotate(new TestPoint(1), Math.PI * 2)
+        ).hasX(1).hasY(2);
     }
 
     @Test
     void copyOfPointWithXY() {
-        Point<Number> point = new TestPoint(2, 3);
-        assertThat(point.copy()).isEqualTo(point);
+        assertCopyable(new TestPoint(2, 3));
     }
 
     // endregion
@@ -160,7 +160,7 @@ class PointTest {
 
     @Test
     void equalsOfPointWithXY() {
-        assertThat(new TestPoint(2, 3))
+        assertThatPoint(new TestPoint(2, 3))
             .isEqualTo(new TestPoint(2, 3))
             .isNotEqualTo(new TestPoint(3, 2));
     }
@@ -173,13 +173,13 @@ class PointTest {
     @Test
     void toStringOfPointWithXY() {
         Point<Number> point = new TestPoint(2, 3);
-        assertThat(point).hasToString("2|3");
+        assertThatPoint(point).hasToString("2|3");
     }
 
     @Test
     void compareToOfPointWithXY() {
         Point<Number> point = new TestPoint(2, 3);
-        assertThat(point)
+        assertThatPoint(point)
             .isEqualByComparingTo(new TestPoint(2, 3))
             .isLessThan(new TestPoint(3, 1))
             .isGreaterThan(new TestPoint(2, 2));

@@ -8,7 +8,8 @@ import io.rala.math.testUtils.assertion.ExceptionMessages;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.AlgebraAssertions.assertThatFraction;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
@@ -24,12 +25,12 @@ class FractionArithmeticTest {
 
     @Test
     void fromInt1() {
-        assertThat(arithmetic.fromInt(1)).isEqualTo(new TestFraction(1d));
+        assertThatFraction(arithmetic.fromInt(1)).isEqualTo(new TestFraction(1d));
     }
 
     @Test
     void fromDouble1_1() {
-        assertThat(arithmetic.fromDouble(1.1)).isEqualTo(new TestFraction(11d, 10d));
+        assertThatFraction(arithmetic.fromDouble(1.1)).isEqualTo(new TestFraction(11d, 10d));
     }
 
     @Test
@@ -43,12 +44,12 @@ class FractionArithmeticTest {
 
     @Test
     void absoluteM1() {
-        assertThat(arithmetic.absolute(new TestFraction(-1d))).isEqualTo(new TestFraction(1d));
+        assertThatFraction(arithmetic.absolute(new TestFraction(-1d))).isEqualTo(new TestFraction(1d));
     }
 
     @Test
     void negate1() {
-        assertThat(arithmetic.negate(new TestFraction(1d))).isEqualTo(new TestFraction(-1d));
+        assertThatFraction(arithmetic.negate(new TestFraction(1d))).isEqualTo(new TestFraction(-1d));
     }
 
     @Test
@@ -61,16 +62,22 @@ class FractionArithmeticTest {
 
     @Test
     void min() {
-        assertThat(arithmetic.min(new TestFraction(1), new TestFraction(1))).isEqualTo(new TestFraction(1));
-        assertThat(arithmetic.min(new TestFraction(1), new TestFraction(2))).isEqualTo(new TestFraction(1));
-        assertThat(arithmetic.min(new TestFraction(2), new TestFraction(1))).isEqualTo(new TestFraction(1));
+        assertThatFraction(arithmetic.min(new TestFraction(1), new TestFraction(1)))
+            .isEqualTo(new TestFraction(1));
+        assertThatFraction(arithmetic.min(new TestFraction(1), new TestFraction(2)))
+            .isEqualTo(new TestFraction(1));
+        assertThatFraction(arithmetic.min(new TestFraction(2), new TestFraction(1)))
+            .isEqualTo(new TestFraction(1));
     }
 
     @Test
     void max() {
-        assertThat(arithmetic.max(new TestFraction(1), new TestFraction(1))).isEqualTo(new TestFraction(1));
-        assertThat(arithmetic.max(new TestFraction(1), new TestFraction(2))).isEqualTo(new TestFraction(2));
-        assertThat(arithmetic.max(new TestFraction(2), new TestFraction(1))).isEqualTo(new TestFraction(2));
+        assertThatFraction(arithmetic.max(new TestFraction(1), new TestFraction(1)))
+            .isEqualTo(new TestFraction(1));
+        assertThatFraction(arithmetic.max(new TestFraction(1), new TestFraction(2)))
+            .isEqualTo(new TestFraction(2));
+        assertThatFraction(arithmetic.max(new TestFraction(2), new TestFraction(1)))
+            .isEqualTo(new TestFraction(2));
     }
 
     @Test
@@ -106,13 +113,13 @@ class FractionArithmeticTest {
 
     @Test
     void sum12() {
-        assertThat(arithmetic.sum(new TestFraction(1d), new TestFraction(2d)))
+        assertThatFraction(arithmetic.sum(new TestFraction(1d), new TestFraction(2d)))
             .isEqualTo(new TestFraction(3d, 1d));
     }
 
     @Test
     void sum123() {
-        assertThat(arithmetic.sum(
+        assertThatFraction(arithmetic.sum(
             new TestFraction(1d),
             new TestFraction(2d),
             new TestFraction(3d)
@@ -121,19 +128,19 @@ class FractionArithmeticTest {
 
     @Test
     void difference12() {
-        assertThat(arithmetic.difference(new TestFraction(1d), new TestFraction(2d)))
+        assertThatFraction(arithmetic.difference(new TestFraction(1d), new TestFraction(2d)))
             .isEqualTo(new TestFraction(-1d, 1d));
     }
 
     @Test
     void product12() {
-        assertThat(arithmetic.product(new TestFraction(1d), new TestFraction(2d)))
+        assertThatFraction(arithmetic.product(new TestFraction(1d), new TestFraction(2d)))
             .isEqualTo(new TestFraction(2d, 1d));
     }
 
     @Test
     void product123() {
-        assertThat(arithmetic.product(
+        assertThatFraction(arithmetic.product(
             new TestFraction(1d),
             new TestFraction(2d),
             new TestFraction(3d))
@@ -142,13 +149,13 @@ class FractionArithmeticTest {
 
     @Test
     void quotient12() {
-        assertThat(arithmetic.quotient(new TestFraction(1d), new TestFraction(2d)))
+        assertThatFraction(arithmetic.quotient(new TestFraction(1d), new TestFraction(2d)))
             .isEqualTo(new TestFraction(1d, 2d));
     }
 
     @Test
     void modulo12() {
-        assertThat(arithmetic.modulo(new TestFraction(1d), new TestFraction(2d)))
+        assertThatFraction(arithmetic.modulo(new TestFraction(1d), new TestFraction(2d)))
             .isEqualTo(new TestFraction(0d, 2d));
     }
 
@@ -158,12 +165,13 @@ class FractionArithmeticTest {
 
     @Test
     void power12() {
-        assertThat(arithmetic.power(new TestFraction(1d), 2)).isEqualTo(new TestFraction(1d, 1d));
+        assertThatFraction(arithmetic.power(new TestFraction(1d), 2))
+            .isEqualTo(new TestFraction(1d, 1d));
     }
 
     @Test
     void root21() {
-        assertThat(arithmetic.root2(new TestFraction(1d)))
+        assertThatFraction(arithmetic.root2(new TestFraction(1d)))
             .isEqualTo(new TestFraction(Math.sqrt(1), Math.sqrt(1)));
     }
 

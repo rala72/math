@@ -5,16 +5,16 @@ import io.rala.math.arithmetic.core.BigDecimalArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Vector;
 import io.rala.math.testUtils.assertion.ExceptionMessages;
-import io.rala.math.testUtils.assertion.NumericAssertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.List;
 
-import static io.rala.math.testUtils.assertion.OffsetUtils.bigDecimalOffset;
-import static io.rala.math.testUtils.assertion.OffsetUtils.doubleOffset;
-import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.AlgebraAssertions.assertThatComplex;
+import static io.rala.math.testUtils.assertion.GeometryAssertions.assertThatVector;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertCopyable;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
@@ -23,57 +23,56 @@ class BigDecimalComplexTest {
 
     @Test
     void constructorWithoutParameter() {
-        assertComplex(new BigDecimalComplex());
+        assertThatComplex(new BigDecimalComplex()).hasReWithZero().hasImWithZero();
     }
 
     @Test
     void constructorWithMathContext5() {
-        assertComplex(new BigDecimalComplex(new MathContext(5)));
+        assertThatComplex(new BigDecimalComplex(new MathContext(5)))
+            .hasReWithZero().hasImWithZero();
     }
 
     @Test
     void constructorWithReParameter() {
-        assertComplex(
-            new BigDecimalComplex(BigDecimal.valueOf(2)),
-            BigDecimal.valueOf(2), BigDecimal.ZERO
-        );
+        assertThatComplex(new BigDecimalComplex(BigDecimal.valueOf(2)))
+            .hasRe(BigDecimal.valueOf(2)).hasImWithZero();
     }
 
     @Test
     void constructorWithDifferentReImParameter() {
-        assertComplex(new BigDecimalComplex(
+        assertThatComplex(new BigDecimalComplex(
             BigDecimal.valueOf(2), BigDecimal.valueOf(3)
-        ), BigDecimal.valueOf(2), BigDecimal.valueOf(3));
+        )).hasRe(BigDecimal.valueOf(2)).hasIm(BigDecimal.valueOf(3));
     }
 
     @Test
     void constructorWithDifferentReImParameterAndMathContext5() {
-        assertComplex(new BigDecimalComplex(
+        assertThatComplex(new BigDecimalComplex(
             BigDecimal.valueOf(2), BigDecimal.valueOf(3), new MathContext(5)
-        ), BigDecimal.valueOf(2), BigDecimal.valueOf(3));
+        )).hasRe(BigDecimal.valueOf(2)).hasIm(BigDecimal.valueOf(3));
     }
 
     @Test
     void constructorWithComplex() {
-        assertComplex(new BigDecimalComplex(
+        assertThatComplex(new BigDecimalComplex(
             new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.valueOf(3))
-        ), BigDecimal.valueOf(2), BigDecimal.valueOf(3));
+        )).hasRe(BigDecimal.valueOf(2)).hasIm(BigDecimal.valueOf(3));
     }
 
     @Test
     void createAndSetRe() {
         Complex<BigDecimal> complex = new BigDecimalComplex();
-        assertComplex(complex);
+        assertThatComplex(complex).hasReWithZero().hasImWithZero();
         complex.setRe(BigDecimal.ONE);
-        assertComplex(complex, BigDecimal.ONE, BigDecimal.ZERO);
+        assertThatComplex(complex).hasRe(BigDecimal.ONE).hasImWithZero();
     }
 
     @Test
     void createAndSetIm() {
         Complex<BigDecimal> complex = new BigDecimalComplex();
-        assertComplex(complex);
+        assertThatComplex(complex).hasReWithZero().hasImWithZero();
         complex.setIm(BigDecimal.valueOf(2));
-        assertComplex(complex, BigDecimal.ZERO, BigDecimal.valueOf(2));
+        assertThatComplex(complex).hasReWithZero().hasIm(BigDecimal.valueOf(2));
     }
 
     // endregion
@@ -110,19 +109,19 @@ class BigDecimalComplexTest {
 
     @Test
     void absoluteValueOfComplexWithoutParameter() {
-        assertThat(new BigDecimalComplex().absoluteValue()).isEqualTo(BigDecimal.ZERO);
+        assertThatComplex(new BigDecimalComplex()).hasAbsoluteValue(BigDecimal.ZERO);
     }
 
     @Test
     void absoluteValueOfComplexX1Y1() {
-        assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).absoluteValue())
-            .isCloseTo(BigDecimal.valueOf(Math.sqrt(2)), bigDecimalOffset());
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE))
+            .hasAbsoluteValue(BigDecimal.valueOf(Math.sqrt(2)));
     }
 
     @Test
     void absoluteValueOfComplexX1Y0() {
-        assertThat(new BigDecimalComplex(
-            BigDecimal.ONE, BigDecimal.ZERO).absoluteValue()).isEqualTo(BigDecimal.ONE);
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ZERO))
+            .hasAbsoluteValue(BigDecimal.ONE);
     }
 
     @Test
@@ -134,59 +133,61 @@ class BigDecimalComplexTest {
 
     @Test
     void argumentOfComplexX1Y1() {
-        assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).argument())
-            .isCloseTo(BigDecimal.valueOf(Math.PI / 4), bigDecimalOffset());
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE))
+            .hasArgumentCloseTo(BigDecimal.valueOf(Math.PI / 4));
     }
 
     @Test
     void argumentOfComplexX1Y0() {
-        assertThat(new BigDecimalComplex(
-            BigDecimal.ONE, BigDecimal.ZERO).argument()).isEqualTo(BigDecimal.ZERO);
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ZERO))
+            .hasArgument(BigDecimal.ZERO);
     }
 
     @Test
     void signumOfComplexWithoutParameter() {
-        assertThat(new BigDecimalComplex().signum()).isEqualTo(new BigDecimalComplex());
+        assertThatComplex(new BigDecimalComplex().signum()).isEqualTo(new BigDecimalComplex());
     }
 
     @Test
     void signumOfComplexX1Y1() {
-        BigDecimal sqrt2half = BigDecimal.valueOf(0.7071067811865475); // Math.sqrt(2d) / 2d
-        assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).signum())
-            .isEqualTo(new BigDecimalComplex(sqrt2half, sqrt2half));
+        BigDecimal sqrt2half = BigDecimal.valueOf(Math.sqrt(2) / 2);
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).signum())
+            .hasRe(sqrt2half).hasIm(sqrt2half);
     }
 
     @Test
     void signumOfComplexX1Y0() {
-        assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ZERO).signum())
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ZERO).signum())
             .isEqualTo(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ZERO));
     }
 
     @Test
     void complexSignumOfComplexWithoutParameter() {
-        assertThat(new BigDecimalComplex().complexSignum()).isZero();
+        assertThatComplex(new BigDecimalComplex()).hasComplexSignum(0);
     }
 
     @Test
     void complexSignumOfComplexX1Y1() {
-        assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).complexSignum()).isOne();
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE))
+            .hasComplexSignum(1);
     }
 
     @Test
     void complexSignumOfComplexXMinus1Y0() {
-        assertThat(new BigDecimalComplex(BigDecimal.ONE.negate(), BigDecimal.ZERO)
-            .complexSignum()).isEqualTo(-1);
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ONE.negate(), BigDecimal.ZERO))
+            .hasComplexSignum(-1);
     }
 
     @Test
     void complexSignumOfComplexX0Y1() {
-        assertThat(new BigDecimalComplex(BigDecimal.ZERO, BigDecimal.ONE).complexSignum()).isOne();
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ZERO, BigDecimal.ONE))
+            .hasComplexSignum(1);
     }
 
     @Test
     void complexSignumOfComplexX0YMinus1() {
-        assertThat(new BigDecimalComplex(BigDecimal.ZERO, BigDecimal.ONE.negate())
-            .complexSignum()).isEqualTo(-1);
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ZERO, BigDecimal.ONE.negate()))
+            .hasComplexSignum(-1);
     }
 
     // endregion
@@ -195,7 +196,7 @@ class BigDecimalComplexTest {
 
     @Test
     void conjugationOfComplexWithRe1Im2() {
-        assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.valueOf(2)).conjugation())
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.valueOf(2)).conjugation())
             .isEqualTo(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.valueOf(2).negate()));
     }
 
@@ -208,18 +209,14 @@ class BigDecimalComplexTest {
 
     @Test
     void reciprocalOfComplexX1Y1() {
-        assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).reciprocal())
-            .isEqualTo(new BigDecimalComplex(
-                BigDecimal.valueOf(0.5), BigDecimal.valueOf(0.5).negate()
-            ));
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).reciprocal())
+            .isEqualTo(new BigDecimalComplex(BigDecimal.valueOf(0.5), BigDecimal.valueOf(0.5).negate()));
     }
 
     @Test
     void reciprocalOfComplexX1Y0() {
-        assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ZERO).reciprocal())
-            .isEqualTo(new BigDecimalComplex(
-                BigDecimal.ONE, BigDecimal.ZERO
-            ));
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ZERO).reciprocal())
+            .isEqualTo(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ZERO));
     }
 
     // endregion
@@ -228,43 +225,41 @@ class BigDecimalComplexTest {
 
     @Test
     void addWithXY() {
-        assertThat(new BigDecimalComplex().add(BigDecimal.valueOf(2), BigDecimal.valueOf(2)))
+        assertThatComplex(new BigDecimalComplex().add(BigDecimal.valueOf(2), BigDecimal.valueOf(2)))
             .isEqualTo(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.valueOf(2)));
     }
 
     @Test
     void addWithXAndY() {
-        assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE)
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE)
             .add(BigDecimal.ONE, BigDecimal.ONE)
         ).isEqualTo(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.valueOf(2)));
     }
 
     @Test
     void addWithBigDecimalComplex() {
-        assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ZERO)
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ZERO)
             .add(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.valueOf(2)))
-        ).isEqualTo(new BigDecimalComplex(
-            BigDecimal.valueOf(2), BigDecimal.valueOf(2)
-        ));
+        ).isEqualTo(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.valueOf(2)));
     }
 
     @Test
     void subtractWithXY() {
-        assertThat(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.valueOf(2))
+        assertThatComplex(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.valueOf(2))
             .subtract(BigDecimal.valueOf(2), BigDecimal.valueOf(2))
         ).isEqualTo(new BigDecimalComplex());
     }
 
     @Test
     void subtractWithXAndY() {
-        assertThat(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.valueOf(2))
+        assertThatComplex(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.valueOf(2))
             .subtract(BigDecimal.ONE, BigDecimal.ONE)
         ).isEqualTo(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE));
     }
 
     @Test
     void subtractWithBigDecimalComplex() {
-        assertThat(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.valueOf(2))
+        assertThatComplex(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.valueOf(2))
             .subtract(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.valueOf(2))))
             .isEqualTo(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ZERO));
     }
@@ -275,24 +270,25 @@ class BigDecimalComplexTest {
 
     @Test
     void multiplyZeroComplexWith1() {
-        assertThat(new BigDecimalComplex().multiply(BigDecimal.ONE)).isEqualTo(new BigDecimalComplex());
+        assertThatComplex(new BigDecimalComplex().multiply(BigDecimal.ONE))
+            .isEqualTo(new BigDecimalComplex());
     }
 
     @Test
     void multiplyComplexWith0() {
-        assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE)
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE)
             .multiply(BigDecimal.ZERO)).isEqualTo(new BigDecimalComplex());
     }
 
     @Test
     void multiplyComplexWith1() {
-        assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE)
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE)
             .multiply(BigDecimal.ONE)).isEqualTo(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE));
     }
 
     @Test
     void multiplyComplexWithMinus1() {
-        assertThat(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.ONE)
+        assertThatComplex(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.ONE)
             .multiply(BigDecimal.ONE.negate())
         ).isEqualTo(new BigDecimalComplex(
             BigDecimal.valueOf(2).negate(),
@@ -302,14 +298,14 @@ class BigDecimalComplexTest {
 
     @Test
     void multiplyComplexWithBigDecimalComplex() {
-        assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.valueOf(2))
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.valueOf(2))
             .multiply(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.ONE)))
             .isEqualTo(new BigDecimalComplex(BigDecimal.ZERO, BigDecimal.valueOf(5)));
     }
 
     @Test
     void divideZeroComplexWith1() {
-        assertThat(new BigDecimalComplex().divide(BigDecimal.ONE)).isEqualTo(new BigDecimalComplex());
+        assertThatComplex(new BigDecimalComplex().divide(BigDecimal.ONE)).isEqualTo(new BigDecimalComplex());
     }
 
     @Test
@@ -322,13 +318,13 @@ class BigDecimalComplexTest {
 
     @Test
     void divideComplexWith1() {
-        assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).divide(BigDecimal.ONE))
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).divide(BigDecimal.ONE))
             .isEqualTo(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE));
     }
 
     @Test
     void divideComplexWithMinus1() {
-        assertThat(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.ONE)
+        assertThatComplex(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.ONE)
             .divide(BigDecimal.ONE.negate())
         ).isEqualTo(new BigDecimalComplex(
             BigDecimal.valueOf(2).negate(),
@@ -338,7 +334,7 @@ class BigDecimalComplexTest {
 
     @Test
     void divideComplexWithBigDecimalComplex() {
-        assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.valueOf(2))
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.valueOf(2))
             .divide(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.ONE)))
             .isEqualTo(new BigDecimalComplex(BigDecimal.valueOf(0.8), BigDecimal.valueOf(0.6)));
     }
@@ -349,7 +345,7 @@ class BigDecimalComplexTest {
 
     @Test
     void pow8OfComplexWithRe1Im1() {
-        assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).pow(8))
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.ONE).pow(8))
             .isEqualTo(new BigDecimalComplex(
                 BigDecimal.valueOf(16),
                 BigDecimal.valueOf(1.029198495793047e-14)
@@ -358,7 +354,7 @@ class BigDecimalComplexTest {
 
     @Test
     void pow5OfComplexWithRe3Im4() {
-        assertThat(new BigDecimalComplex(BigDecimal.valueOf(3), BigDecimal.valueOf(4)).pow(5))
+        assertThatComplex(new BigDecimalComplex(BigDecimal.valueOf(3), BigDecimal.valueOf(4)).pow(5))
             .isEqualTo(new BigDecimalComplex(
                 BigDecimal.valueOf(-236.9999999999962),
                 BigDecimal.valueOf(3116).negate()
@@ -422,19 +418,19 @@ class BigDecimalComplexTest {
 
     @Test
     void inverseReOfComplexWithRe1Im2() {
-        assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.valueOf(2)).inverseRe())
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.valueOf(2)).inverseRe())
             .isEqualTo(new BigDecimalComplex(BigDecimal.ONE.negate(), BigDecimal.valueOf(2)));
     }
 
     @Test
     void inverseImOfComplexWithRe1Im2() {
-        assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.valueOf(2)).inverseIm())
+        assertThatComplex(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.valueOf(2)).inverseIm())
             .isEqualTo(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.valueOf(2).negate()));
     }
 
     @Test
     void inverseReImOfComplexWithRe1Im2() {
-        assertThat(new BigDecimalComplex(
+        assertThatComplex(new BigDecimalComplex(
             BigDecimal.ONE,
             BigDecimal.valueOf(2)
         ).inverse()).isEqualTo(new BigDecimalComplex(
@@ -449,11 +445,10 @@ class BigDecimalComplexTest {
 
     @Test
     void ofAb3AndAr50() {
-        assertComplex(
-            BigDecimalComplex.of(BigDecimal.valueOf(3), BigDecimal.valueOf(50)),
-            BigDecimal.valueOf(2.89489808547634),
-            BigDecimal.valueOf(0.7871245611117864).negate()
-        );
+        assertThatComplex(
+            BigDecimalComplex.of(BigDecimal.valueOf(3), BigDecimal.valueOf(50))
+        ).hasRe(BigDecimal.valueOf(2.89489808547634))
+            .hasIm(BigDecimal.valueOf(-0.7871245611117864));
     }
 
     @Test
@@ -461,13 +456,14 @@ class BigDecimalComplexTest {
         Complex<BigDecimal> complex = BigDecimalComplex.of(
             BigDecimal.ONE, BigDecimal.valueOf(2)
         );
-        assertThat(complex.absoluteValue().doubleValue()).isCloseTo(1, doubleOffset());
-        assertThat(complex.argument()).isEqualTo(BigDecimal.valueOf(2));
+        assertThatComplex(complex)
+            .hasAbsoluteValue(BigDecimal.ONE)
+            .hasArgument(BigDecimal.valueOf(2));
     }
 
     @Test
     void asVectorOfComplexWithRe1Im2() {
-        assertThat(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.valueOf(2)).asVector())
+        assertThatVector(new BigDecimalComplex(BigDecimal.ONE, BigDecimal.valueOf(2)).asVector())
             .isEqualTo(new Vector<>(new BigDecimalArithmetic(),
                 BigDecimal.ONE, BigDecimal.valueOf(2)
             ));
@@ -485,20 +481,19 @@ class BigDecimalComplexTest {
         );
         Complex<Integer> result =
             new Complex<>(new IntegerArithmetic(), 0, 1);
-        assertThat(complex.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
+        assertThatComplex(complex.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void isValidWithZero() {
-        assertThat(new BigDecimalComplex().isValid()).isTrue();
+        assertThatComplex(new BigDecimalComplex()).isValid();
     }
 
     @Test
     void copyOfComplexWithReIm() {
-        Complex<BigDecimal> complex = new BigDecimalComplex(
+        assertCopyable(new BigDecimalComplex(
             BigDecimal.valueOf(2), BigDecimal.valueOf(3)
-        );
-        assertThat(complex.copy()).isEqualTo(complex);
+        ));
     }
 
     // endregion
@@ -507,7 +502,7 @@ class BigDecimalComplexTest {
 
     @Test
     void equalsOfComplexWithReIm() {
-        assertThat(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.valueOf(3)))
+        assertThatComplex(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.valueOf(3)))
             .isEqualTo(new BigDecimalComplex(BigDecimal.valueOf(2), BigDecimal.valueOf(3)))
             .isNotEqualTo(new BigDecimalComplex(BigDecimal.valueOf(3), BigDecimal.valueOf(2)));
     }
@@ -524,7 +519,7 @@ class BigDecimalComplexTest {
         Complex<BigDecimal> complex = new BigDecimalComplex(
             BigDecimal.valueOf(2), BigDecimal.valueOf(3)
         );
-        assertThat(complex).hasToString("2+3*i");
+        assertThatComplex(complex).hasToString("2+3*i");
     }
 
     @Test
@@ -532,7 +527,7 @@ class BigDecimalComplexTest {
         Complex<BigDecimal> complex = new BigDecimalComplex(
             BigDecimal.valueOf(2), BigDecimal.valueOf(3)
         );
-        assertThat(complex)
+        assertThatComplex(complex)
             .isEqualByComparingTo(new BigDecimalComplex(
                 BigDecimal.valueOf(2), BigDecimal.valueOf(3)
             ))
@@ -547,21 +542,6 @@ class BigDecimalComplexTest {
     @Test
     void serializable() {
         assertSerializable(new BigDecimalComplex(), BigDecimalComplex.class);
-    }
-
-    // endregion
-
-
-    // region assert
-
-    private static void assertComplex(Complex<BigDecimal> complex) {
-        assertComplex(complex, BigDecimal.ZERO, BigDecimal.ZERO);
-    }
-
-    private static void assertComplex(
-        Complex<BigDecimal> complex, BigDecimal re, BigDecimal im
-    ) {
-        NumericAssertions.assertComplex(complex, re, im);
     }
 
     // endregion

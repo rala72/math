@@ -13,8 +13,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import static io.rala.math.testUtils.algebra.TestVector.fillVectorWithTestValues;
-import static io.rala.math.testUtils.assertion.MatrixAssertions.assertMatrix;
-import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.AlgebraAssertions.assertThatMatrix;
+import static io.rala.math.testUtils.assertion.AlgebraAssertions.assertThatVector;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertCopyable;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
@@ -33,7 +35,7 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(Integer.MAX_VALUE);
 
         long expectedSize = (long) Integer.MAX_VALUE * Integer.MAX_VALUE;
-        assertThat(matrix.size()).isEqualTo(expectedSize);
+        assertThatMatrix(matrix).hasSize(expectedSize);
 
         assertThat(matrix.isValidIndex(expectedSize - 1)).isTrue();
         assertThat(matrix.isValidIndex(expectedSize)).isFalse();
@@ -48,36 +50,36 @@ class MatrixTest {
 
     @Test
     void constructorWithSize1() {
-        assertMatrix(new TestMatrix(1), 1);
+        assertThatMatrix(new TestMatrix(1)).hasSizeOne();
     }
 
     @Test
     void constructorWithSize2AndDefaultValue() {
         TestMatrix matrix = new TestMatrix(2, 2d);
-        assertMatrix(matrix, 2);
+        assertThatMatrix(matrix).hasSize(4);
         assertThat(matrix.getDefaultValue()).isEqualTo(2d);
     }
 
     @Test
     void constructorWithRows1Cols1() {
-        assertMatrix(new TestMatrix(1, 1), 1, 1);
+        assertThatMatrix(new TestMatrix(1, 1)).hasRows(1).hasCols(1);
     }
 
     @Test
     void constructorWithRows1Cols2() {
-        assertMatrix(new TestMatrix(1, 2), 1, 2);
+        assertThatMatrix(new TestMatrix(1, 2)).hasRows(1).hasCols(2);
     }
 
     @Test
     void constructorWithRows1Cols2AndDefaultValue() {
         TestMatrix matrix = new TestMatrix(1, 2, -2d);
-        assertMatrix(matrix, 1, 2);
+        assertThatMatrix(matrix).hasRows(1).hasCols(2);
         assertThat(matrix.getDefaultValue()).isEqualTo(-2d);
     }
 
     @Test
     void constructorWithMatrix() {
-        assertMatrix(new TestMatrix(new TestMatrix(1, 2)), 1, 2);
+        assertThatMatrix(new TestMatrix(new TestMatrix(1, 2))).hasRows(1).hasCols(2);
     }
 
     // endregion
@@ -86,22 +88,22 @@ class MatrixTest {
 
     @Test
     void createWithSize1AndAssertSizeEquals1() {
-        assertThat(new TestMatrix(1).size()).isOne();
+        assertThatMatrix(new TestMatrix(1)).hasSizeOne();
     }
 
     @Test
     void createWithSize2AndAssertSizeEquals4() {
-        assertThat(new TestMatrix(2).size()).isEqualTo(4);
+        assertThatMatrix(new TestMatrix(2)).hasSize(4);
     }
 
     @Test
     void createWithRow1Col2AndAssertSizeEquals2() {
-        assertThat(new TestMatrix(1, 2).size()).isEqualTo(2);
+        assertThatMatrix(new TestMatrix(1, 2)).hasSize(2);
     }
 
     @Test
     void createWithRow2Col3AndAssertSizeEquals6() {
-        assertThat(new TestMatrix(2, 3).size()).isEqualTo(6);
+        assertThatMatrix(new TestMatrix(2, 3)).hasSize(6);
     }
 
     // endregion
@@ -421,17 +423,17 @@ class MatrixTest {
 
     @Test
     void isSquareOfMatrixWithRow1Col2() {
-        assertThat(new TestMatrix(1, 2).isSquare()).isFalse();
+        assertThatMatrix(new TestMatrix(1, 2)).isNoSquare();
     }
 
     @Test
     void isSquareOfMatrixWithSize2() {
-        assertThat(new TestMatrix(2).isSquare()).isTrue();
+        assertThatMatrix(new TestMatrix(2)).isSquare();
     }
 
     @Test
     void isDiagonalOfMatrixWithRow1Col2() {
-        assertThat(new TestMatrix(1, 2).isDiagonal()).isFalse();
+        assertThatMatrix(new TestMatrix(1, 2)).isNoDiagonal();
     }
 
     @Test
@@ -441,7 +443,7 @@ class MatrixTest {
         matrix.setValue(1, 0d);
         matrix.setValue(2, 0d);
         matrix.setValue(3, 4);
-        assertThat(matrix.isDiagonal()).isTrue();
+        assertThatMatrix(matrix).isDiagonal();
     }
 
     @Test
@@ -451,7 +453,7 @@ class MatrixTest {
         matrix.setValue(1, 2);
         matrix.setValue(2, 3);
         matrix.setValue(3, 4);
-        assertThat(matrix.isDiagonal()).isFalse();
+        assertThatMatrix(matrix).isNoDiagonal();
     }
 
     @Test
@@ -461,9 +463,9 @@ class MatrixTest {
         matrix.setValue(1, 2);
         matrix.setValue(2, 2);
         matrix.setValue(3, 4);
-        assertThat(matrix.isSquare()).isTrue();
-        assertThat(matrix.getArithmetic().isZero(matrix.determinante())).isTrue();
-        assertThat(matrix.isInvertible()).isFalse();
+        assertThatMatrix(matrix).isSquare();
+        assertThatMatrix(matrix).hasZeroDeterminante();
+        assertThatMatrix(matrix).isNoInvertible();
     }
 
     @Test
@@ -473,9 +475,9 @@ class MatrixTest {
         matrix.setValue(1, 0);
         matrix.setValue(2, 0);
         matrix.setValue(3, 4);
-        assertThat(matrix.isSquare()).isTrue();
-        assertThat(matrix.getArithmetic().isZero(matrix.determinante())).isFalse();
-        assertThat(matrix.isInvertible()).isTrue();
+        assertThatMatrix(matrix).isSquare();
+        assertThatMatrix(matrix).hasNoZeroDeterminante();
+        assertThatMatrix(matrix).isInvertible();
     }
 
     // endregion
@@ -502,7 +504,7 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(2);
         TestMatrix matrix2 = new TestMatrix(2);
         TestMatrix result = new TestMatrix(2);
-        assertThat(matrix1.add(matrix2)).isEqualTo(result);
+        assertThatMatrix(matrix1.add(matrix2)).isEqualTo(result);
     }
 
     @Test
@@ -510,7 +512,7 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(2);
         TestMatrix matrix2 = new TestMatrix(2, 1d);
         TestMatrix result = new TestMatrix(2, 1d);
-        assertThat(matrix1.add(matrix2)).isEqualTo(result);
+        assertThatMatrix(matrix1.add(matrix2)).isEqualTo(result);
     }
 
     @Test
@@ -521,7 +523,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, 2 * (i + 1d));
         }
-        assertThat(matrix.add(matrix)).isEqualTo(result);
+        assertThatMatrix(matrix.add(matrix)).isEqualTo(result);
     }
 
     @Test
@@ -532,14 +534,14 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, 2 * (i + 1d));
         }
-        assertThat(matrix.add(matrix)).isEqualTo(result);
+        assertThatMatrix(matrix.add(matrix)).isEqualTo(result);
     }
 
     @Test
     void multiplyOfEmptyMatrixWithSize2With2() {
         TestMatrix matrix = new TestMatrix(2);
         TestMatrix result = new TestMatrix(2);
-        assertThat(matrix.multiply(2)).isEqualTo(result);
+        assertThatMatrix(matrix.multiply(2)).isEqualTo(result);
     }
 
     @Test
@@ -550,7 +552,7 @@ class MatrixTest {
             matrix.setValue(i, (i + 1));
             result.setValue(i, (i + 1d) * 2);
         }
-        assertThat(matrix.multiply(2)).isEqualTo(result);
+        assertThatMatrix(matrix.multiply(2)).isEqualTo(result);
     }
 
     @Test
@@ -561,7 +563,7 @@ class MatrixTest {
             matrix.setValue(i, (i + 1));
             result.setValue(i, (i + 1d) * 2);
         }
-        assertThat(matrix.multiply(2)).isEqualTo(result);
+        assertThatMatrix(matrix.multiply(2)).isEqualTo(result);
     }
 
     @Test
@@ -569,7 +571,7 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(2);
         TestMatrix matrix2 = new TestMatrix(2);
         TestMatrix result = new TestMatrix(2);
-        assertThat(matrix1.multiply(matrix2)).isEqualTo(result);
+        assertThatMatrix(matrix1.multiply(matrix2)).isEqualTo(result);
     }
 
     @Test
@@ -577,7 +579,7 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(1, 2);
         TestMatrix matrix2 = new TestMatrix(2, 3);
         TestMatrix result = new TestMatrix(1, 3);
-        assertThat(matrix1.multiply(matrix2)).isEqualTo(result);
+        assertThatMatrix(matrix1.multiply(matrix2)).isEqualTo(result);
     }
 
     @Test
@@ -594,7 +596,7 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(2);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i + 1d);
-        assertThat(matrix.multiply(matrix)).isEqualTo(TestMatrix.ofValuesByRows(2,
+        assertThatMatrix(matrix.multiply(matrix)).isEqualTo(TestMatrix.ofValuesByRows(2,
             7d, 10d, 15d, 22d
         ));
     }
@@ -604,7 +606,7 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(1, 2);
         TestMatrix matrix2 = new TestMatrix(2, 3);
         TestMatrix result = new TestMatrix(1, 3);
-        assertThat(matrix1.multiplyTolerant(matrix2)).isEqualTo(result);
+        assertThatMatrix(matrix1.multiplyTolerant(matrix2)).isEqualTo(result);
     }
 
     @Test
@@ -612,7 +614,7 @@ class MatrixTest {
         TestMatrix matrix1 = new TestMatrix(2, 3);
         TestMatrix matrix2 = new TestMatrix(1, 2);
         TestMatrix result = new TestMatrix(1, 3);
-        assertThat(matrix1.multiplyTolerant(matrix2)).isEqualTo(result);
+        assertThatMatrix(matrix1.multiplyTolerant(matrix2)).isEqualTo(result);
     }
 
     @Test
@@ -629,7 +631,7 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(2);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i + 1d);
-        assertThat(matrix.multiplyTolerant(matrix)).isEqualTo(TestMatrix.ofValuesByRows(2,
+        assertThatMatrix(matrix.multiplyTolerant(matrix)).isEqualTo(TestMatrix.ofValuesByRows(2,
             7d, 10d, 15d, 22d
         ));
     }
@@ -647,7 +649,7 @@ class MatrixTest {
 
     @Test
     void inverseOfEmptyMatrixWithSize2() {
-        assertThat(new TestMatrix(2, 0d).inverse()).isNull();
+        assertThatMatrix(new TestMatrix(2, 0d).inverse()).isNull();
     }
 
     @Test
@@ -658,7 +660,7 @@ class MatrixTest {
         TestMatrix result = TestMatrix.ofValuesByRows(2,
             3d, -5d, -1d, 2d
         );
-        assertThat(matrix.inverse()).isEqualTo(result);
+        assertThatMatrix(matrix.inverse()).isEqualTo(result);
     }
 
     @Test
@@ -669,13 +671,13 @@ class MatrixTest {
         TestMatrix result = TestMatrix.ofValuesByRows(3,
             2d, 8d, -21d, -1d, -5d, 13d, 0d, 1d, -2d
         );
-        assertThat(matrix.inverse()).isEqualTo(result);
+        assertThatMatrix(matrix.inverse()).isEqualTo(result);
     }
 
     @Test
     void transposeOfEmptyMatrixWithSize2() {
         TestMatrix result = new TestMatrix(2);
-        assertThat(new TestMatrix(2).transpose()).isEqualTo(result);
+        assertThatMatrix(new TestMatrix(2).transpose()).isEqualTo(result);
     }
 
     @Test
@@ -688,13 +690,13 @@ class MatrixTest {
                 matrix.setValue(i, i + 1d);
                 result.setValue(result.getIndexOfRowAndCol(c, r), i + 1d);
             }
-        assertThat(matrix.transpose()).isEqualTo(result);
+        assertThatMatrix(matrix.transpose()).isEqualTo(result);
     }
 
     @Test
     void determinanteOfEmptyMatrixWithSize2() {
         TestMatrix matrix = new TestMatrix(2);
-        assertThat(matrix.determinante()).isEqualTo(0d);
+        assertThatMatrix(matrix).hasZeroDeterminante();
     }
 
     @Test
@@ -702,7 +704,7 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(2);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i + 1d);
-        assertThat(matrix.determinante()).isEqualTo(-2d);
+        assertThatMatrix(matrix).hasDeterminante(-2d);
     }
 
     @Test
@@ -710,7 +712,7 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(3);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i + 1d);
-        assertThat(matrix.determinante()).isEqualTo(0d);
+        assertThatMatrix(matrix).hasZeroDeterminante();
     }
 
     @Test
@@ -719,7 +721,7 @@ class MatrixTest {
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, r == c ? 2d : 1d);
-        assertThat(matrix.determinante()).isEqualTo(4d);
+        assertThatMatrix(matrix).hasDeterminante(4d);
     }
 
     @Test
@@ -728,7 +730,7 @@ class MatrixTest {
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, r == c ? 2d : 1d);
-        assertThat(matrix.determinante()).isEqualTo(5d);
+        assertThatMatrix(matrix).hasDeterminante(5d);
     }
 
     @Test
@@ -737,7 +739,7 @@ class MatrixTest {
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, c != 0 && (r == c || r == 0) ? 0d : 1d);
-        assertThat(matrix.determinante()).isEqualTo(2d);
+        assertThatMatrix(matrix).hasDeterminante(2d);
     }
 
     @Test
@@ -746,7 +748,7 @@ class MatrixTest {
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, r != 0 && (r == c || c == 0) ? 0d : 1d);
-        assertThat(matrix.determinante()).isEqualTo(2d);
+        assertThatMatrix(matrix).hasDeterminante(2d);
     }
 
     // endregion
@@ -838,7 +840,7 @@ class MatrixTest {
 
     @Test
     void toVectorOfEmptyMatrixWithRow2Col1() {
-        assertThat(new TestMatrix(2, 1).toVector()).isEqualTo(new TestVector(2));
+        assertThatVector(new TestMatrix(2, 1).toVector()).isEqualTo(new TestVector(2));
     }
 
     @Test
@@ -846,12 +848,12 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(2, 1);
         matrix.setValue(0, 0, 1d);
         matrix.setValue(1, 0, -4d);
-        assertThat(matrix.toVector()).isEqualTo(fillVectorWithTestValues(new TestVector(2)));
+        assertThatVector(matrix.toVector()).isEqualTo(fillVectorWithTestValues(new TestVector(2)));
     }
 
     @Test
     void toVectorOfEmptyMatrixWithRow1Col2() {
-        assertThat(new TestMatrix(1, 2).toVector()).isEqualTo(new TestVector(2).transpose());
+        assertThatVector(new TestMatrix(1, 2).toVector()).isEqualTo(new TestVector(2).transpose());
     }
 
     @Test
@@ -859,12 +861,13 @@ class MatrixTest {
         TestMatrix matrix = new TestMatrix(1, 2);
         matrix.setValue(0, 0, 1d);
         matrix.setValue(0, 1, -4d);
-        assertThat(matrix.toVector()).isEqualTo(fillVectorWithTestValues(new TestVector(2)).transpose());
+        assertThatVector(matrix.toVector())
+            .isEqualTo(fillVectorWithTestValues(new TestVector(2)).transpose());
     }
 
     @Test
     void toVectorOfEmptyMatrixWithRow1Col1() {
-        assertThat(new TestMatrix(1, 1).toVector()).isEqualTo(new TestVector(1));
+        assertThatVector(new TestMatrix(1, 1).toVector()).isEqualTo(new TestVector(1));
     }
 
     @Test
@@ -907,7 +910,7 @@ class MatrixTest {
     @Test
     void identityOfSize1() {
         TestMatrix matrix = TestMatrix.identity(1);
-        assertThat(matrix.size()).isOne();
+        assertThatMatrix(matrix).hasSizeOne();
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
             assertThat(matrix.getValue(i, i)).as(String.valueOf(i)).isEqualTo(1d);
     }
@@ -915,7 +918,7 @@ class MatrixTest {
     @Test
     void identityOfSize2() {
         TestMatrix matrix = TestMatrix.identity(2);
-        assertThat(matrix.size()).isEqualTo(2 * 2);
+        assertThatMatrix(matrix).hasSize(2 * 2);
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
             assertThat(matrix.getValue(i, i)).as(String.valueOf(i)).isEqualTo(1d);
     }
@@ -923,7 +926,7 @@ class MatrixTest {
     @Test
     void diagonalOfSize1() {
         TestMatrix matrix = TestMatrix.diagonal(1);
-        assertThat(matrix.size()).isOne();
+        assertThatMatrix(matrix).hasSizeOne();
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
             assertThat(matrix.getValue(i, i)).isEqualTo(1);
     }
@@ -931,7 +934,7 @@ class MatrixTest {
     @Test
     void diagonalOfSize2() {
         TestMatrix matrix = TestMatrix.diagonal(2, 2);
-        assertThat(matrix.size()).isEqualTo(2 * 2);
+        assertThatMatrix(matrix).hasSize(2 * 2);
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
             assertThat(matrix.getValue(i, i)).isEqualTo(2);
     }
@@ -983,14 +986,14 @@ class MatrixTest {
                 result.setValue(r, c, r + c);
             }
 
-        assertThat(matrix.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
+        assertThatMatrix(matrix.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void mapDefaultValueOfIdentityMatrixWithSize2() {
         TestMatrix matrix = TestMatrix.identity(2);
         Matrix<Number> mapped = matrix.mapDefaultValue(1d);
-        assertThat(mapped).isEqualTo(matrix);
+        assertThatMatrix(mapped).isEqualTo(matrix);
         matrix.forEach(field -> {
             if (field.getRow() == field.getCol()) {
                 assertThat(matrix.getMatrix().get(field.getRow()))
@@ -1010,7 +1013,7 @@ class MatrixTest {
     void mapDefaultValueOfMatrixBy2Rows() {
         TestMatrix matrix = TestMatrix.ofValuesByRows(2, 0d, 0d, 2d, 2d);
         Matrix<Number> mapped = matrix.mapDefaultValue(2d);
-        assertThat(mapped).isEqualTo(matrix);
+        assertThatMatrix(mapped).isEqualTo(matrix);
         matrix.forEach(field -> {
             if (field.getRow() == 0) {
                 assertThat(matrix.getMatrix()).doesNotContainKey(field.getRow());
@@ -1024,8 +1027,7 @@ class MatrixTest {
 
     @Test
     void copyOfMatrixWithSize2() {
-        TestMatrix matrix = new TestMatrix(2);
-        assertThat(matrix.copy()).isEqualTo(matrix);
+        assertCopyable(new TestMatrix(2));
     }
 
     // endregion
@@ -1062,7 +1064,7 @@ class MatrixTest {
 
     @Test
     void equalsOfTestMatrixWithRow2Col3() {
-        assertThat(new TestMatrix(2, 3))
+        assertThatMatrix(new TestMatrix(2, 3))
             .isEqualTo(new TestMatrix(2, 3))
             .isNotEqualTo(new TestMatrix(3, 2));
     }
@@ -1071,7 +1073,7 @@ class MatrixTest {
     void equalsOfTestMatrixWithDifferentDefaults() {
         TestMatrix default0 = new TestMatrix(2);
         default0.forEach(field -> default0.setValue(field.getIndex(), 1d));
-        assertThat(default0)
+        assertThatMatrix(default0)
             .isNotEqualTo(new TestMatrix(2))
             .isEqualTo(new TestMatrix(2, 1d));
     }
@@ -1084,7 +1086,7 @@ class MatrixTest {
     @Test
     void toStringOfTestMatrixWithRow2Col3() {
         TestMatrix matrix = new TestMatrix(2, 3);
-        assertThat(matrix).hasToString("2 3: []");
+        assertThatMatrix(matrix).hasToString("2 3: []");
     }
 
     @Test
@@ -1119,7 +1121,7 @@ class MatrixTest {
 
     @Test
     void subMatrixR0C0OfMatrixWithSize1() {
-        assertThat(new TestMatrix(2).subMatrix(0, 0).size()).isOne();
+        assertThatMatrix(new TestMatrix(2).subMatrix(0, 0)).hasSizeOne();
     }
 
     @Test
@@ -1128,7 +1130,7 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i);
         Matrix<Number> subMatrix = matrix.subMatrix(0, 0);
-        assertThat(subMatrix.size()).isOne();
+        assertThatMatrix(subMatrix).hasSizeOne();
         assertThat(subMatrix.getValue(0)).isEqualTo(3);
     }
 
@@ -1138,7 +1140,7 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i);
         Matrix<Number> subMatrix = matrix.subMatrix(0, 1);
-        assertThat(subMatrix.size()).isOne();
+        assertThatMatrix(subMatrix).hasSizeOne();
         assertThat(subMatrix.getValue(0)).isEqualTo(2);
     }
 
@@ -1148,7 +1150,7 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i);
         Matrix<Number> subMatrix = matrix.subMatrix(1, 0);
-        assertThat(subMatrix.size()).isOne();
+        assertThatMatrix(subMatrix).hasSizeOne();
         assertThat(subMatrix.getValue(0)).isEqualTo(1);
     }
 
@@ -1158,7 +1160,7 @@ class MatrixTest {
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i);
         Matrix<Number> subMatrix = matrix.subMatrix(1, 1);
-        assertThat(subMatrix.size()).isOne();
+        assertThatMatrix(subMatrix).hasSizeOne();
         assertThat(subMatrix.getValue(0)).isEqualTo(0);
     }
 
@@ -1276,7 +1278,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1);
             result.setValue((i + result.getCols()) % (int) result.size(), i + 1);
         }
-        assertThat(matrix.swapRows(0, 1)).isEqualTo(result);
+        assertThatMatrix(matrix.swapRows(0, 1)).isEqualTo(result);
     }
 
     @Test
@@ -1303,7 +1305,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1);
             result.setValue(i + (i % result.getCols() == 0 ? 1 : -1), i + 1);
         }
-        assertThat(matrix.swapCols(0, 1)).isEqualTo(result);
+        assertThatMatrix(matrix.swapCols(0, 1)).isEqualTo(result);
     }
 
     @Test
@@ -1322,7 +1324,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, (i + 1d) * (i / result.getCols() == 0 ? 0 : 1));
         }
-        assertThat(matrix.multiplyRow(0, 0d)).isEqualTo(result);
+        assertThatMatrix(matrix.multiplyRow(0, 0d)).isEqualTo(result);
     }
 
     @Test
@@ -1333,7 +1335,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, i + 1d);
         }
-        assertThat(matrix.multiplyRow(0, 1d)).isEqualTo(result);
+        assertThatMatrix(matrix.multiplyRow(0, 1d)).isEqualTo(result);
     }
 
     @Test
@@ -1344,7 +1346,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, (i + 1d) * (i / result.getCols() == 0 ? 2 : 1));
         }
-        assertThat(matrix.multiplyRow(0, 2d)).isEqualTo(result);
+        assertThatMatrix(matrix.multiplyRow(0, 2d)).isEqualTo(result);
     }
 
     @Test
@@ -1363,7 +1365,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, (i + 1d) * (i % result.getCols() == 0 ? 0 : 1));
         }
-        assertThat(matrix.multiplyCol(0, 0d)).isEqualTo(result);
+        assertThatMatrix(matrix.multiplyCol(0, 0d)).isEqualTo(result);
     }
 
     @Test
@@ -1374,7 +1376,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, i + 1d);
         }
-        assertThat(matrix.multiplyCol(0, 1d)).isEqualTo(result);
+        assertThatMatrix(matrix.multiplyCol(0, 1d)).isEqualTo(result);
     }
 
     @Test
@@ -1385,7 +1387,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, (i + 1d) * (i % result.getCols() == 0 ? 2d : 1));
         }
-        assertThat(matrix.multiplyCol(0, 2d)).isEqualTo(result);
+        assertThatMatrix(matrix.multiplyCol(0, 2d)).isEqualTo(result);
     }
 
     @Test
@@ -1412,7 +1414,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, (i + 1d) * (i / result.getCols() == 0 ? 2 : 1));
         }
-        assertThat(matrix.addRowMultipleTimes(0, 0, 2)).isEqualTo(result);
+        assertThatMatrix(matrix.addRowMultipleTimes(0, 0, 2)).isEqualTo(result);
     }
 
     @Test
@@ -1424,7 +1426,7 @@ class MatrixTest {
             matrix.setValue(i, (double) value);
             result.setValue(i, (double) value);
         }
-        assertThat(matrix.addRowMultipleTimes(0, 1, 0d)).isEqualTo(result);
+        assertThatMatrix(matrix.addRowMultipleTimes(0, 1, 0d)).isEqualTo(result);
     }
 
     @Test
@@ -1438,7 +1440,7 @@ class MatrixTest {
                 (double) value + (i / result.getCols() == 0 ? 2 : 0)
             );
         }
-        assertThat(matrix.addRowMultipleTimes(0, 1, 1d)).isEqualTo(result);
+        assertThatMatrix(matrix.addRowMultipleTimes(0, 1, 1d)).isEqualTo(result);
     }
 
     @Test
@@ -1452,7 +1454,7 @@ class MatrixTest {
                 (double) value + (i / result.getCols() == 0 ? 4 : 0)
             );
         }
-        assertThat(matrix.addRowMultipleTimes(0, 1, 2d)).isEqualTo(result);
+        assertThatMatrix(matrix.addRowMultipleTimes(0, 1, 2d)).isEqualTo(result);
     }
 
     @Test
@@ -1479,7 +1481,7 @@ class MatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, (i + 1d) * (i % result.getCols() == 0 ? 2 : 1));
         }
-        assertThat(matrix.addColMultipleTimes(0, 0, 2)).isEqualTo(result);
+        assertThatMatrix(matrix.addColMultipleTimes(0, 0, 2)).isEqualTo(result);
     }
 
     @Test
@@ -1491,7 +1493,7 @@ class MatrixTest {
             matrix.setValue(i, (double) value);
             result.setValue(i, (double) value);
         }
-        assertThat(matrix.addColMultipleTimes(0, 1, 0d)).isEqualTo(result);
+        assertThatMatrix(matrix.addColMultipleTimes(0, 1, 0d)).isEqualTo(result);
     }
 
     @Test
@@ -1505,7 +1507,7 @@ class MatrixTest {
                 (double) value + (i % result.getCols() == 0 ? value : 0)
             );
         }
-        assertThat(matrix.addColMultipleTimes(0, 1, 1d)).isEqualTo(result);
+        assertThatMatrix(matrix.addColMultipleTimes(0, 1, 1d)).isEqualTo(result);
     }
 
     @Test
@@ -1519,7 +1521,7 @@ class MatrixTest {
                 (i % result.getCols() == 0 ? 2 * value : 0)
             );
         }
-        assertThat(matrix.addColMultipleTimes(0, 1, 2d)).isEqualTo(result);
+        assertThatMatrix(matrix.addColMultipleTimes(0, 1, 2d)).isEqualTo(result);
     }
 
     // endregion
@@ -1533,7 +1535,7 @@ class MatrixTest {
             -2, 2, -2,
             2, -1, 0
         );
-        assertThat(matrix.swapZeroRowsToBottom()).isEqualTo(matrix);
+        assertThatMatrix(matrix.swapZeroRowsToBottom()).isEqualTo(matrix);
     }
 
     @Test
@@ -1543,7 +1545,7 @@ class MatrixTest {
             -2, 2, -2,
             2, -1, 0
         );
-        assertThat(matrix.swapZeroRowsToBottom())
+        assertThatMatrix(matrix.swapZeroRowsToBottom())
             .isNotEqualTo(matrix)
             .isEqualTo(matrix.swapRows(0, 1).swapRows(1, 2));
     }
@@ -1555,7 +1557,7 @@ class MatrixTest {
             -2, 2, -2,
             2, -1, 0
         );
-        assertThat(matrix.ensureDiagonalFieldsAreNonZero(true)).isEqualTo(matrix);
+        assertThatMatrix(matrix.ensureDiagonalFieldsAreNonZero(true)).isEqualTo(matrix);
     }
 
     @Test
@@ -1565,7 +1567,7 @@ class MatrixTest {
             2, -1, 0d,
             2, 0d, 0d
         );
-        assertThat(matrix.ensureDiagonalFieldsAreNonZero(true))
+        assertThatMatrix(matrix.ensureDiagonalFieldsAreNonZero(true))
             .isNotEqualTo(matrix)
             .isEqualTo(matrix.swapRows(0, 1).swapCols(1, 2));
     }

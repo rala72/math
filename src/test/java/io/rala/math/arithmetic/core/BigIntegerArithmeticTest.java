@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
 
-import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class BigIntegerArithmeticTest {
@@ -149,7 +149,8 @@ class BigIntegerArithmeticTest {
 
     @Test
     void gcd() {
-        assertThat(arithmetic.gcd(BigInteger.valueOf(3), BigInteger.valueOf(4))).isEqualTo(BigInteger.ONE);
+        assertThat(arithmetic.gcd(BigInteger.valueOf(3), BigInteger.valueOf(4)))
+            .isEqualTo(BigInteger.ONE);
     }
 
     @Test

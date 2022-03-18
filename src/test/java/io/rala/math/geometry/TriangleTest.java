@@ -7,8 +7,9 @@ import io.rala.math.testUtils.geometry.TestVector;
 import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.GeometryAssertions.*;
-import static io.rala.math.testUtils.assertion.OffsetUtils.doubleOffset;
-import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertCopyable;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.utils.OffsetUtils.doubleOffset;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class TriangleTest {
@@ -16,10 +17,11 @@ class TriangleTest {
 
     @Test
     void constructorWithA2B3C4() {
-        assertTriangle(
-            new TestTriangle(new TestPoint(2), new TestPoint(3), new TestPoint(4)),
-            new TestPoint(2), new TestPoint(3), new TestPoint(4)
-        );
+        assertThatTriangle(
+            new TestTriangle(new TestPoint(2), new TestPoint(3), new TestPoint(4))
+        ).hasA(new TestPoint(2))
+            .hasB(new TestPoint(3))
+            .hasC(new TestPoint(4));
     }
 
     @Test
@@ -27,13 +29,15 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(), new TestPoint(), new TestPoint()
         );
-        assertTriangle(triangle,
-            new TestPoint(), new TestPoint(), new TestPoint()
-        );
+        assertThatTriangle(triangle)
+            .hasAWithZeroXY()
+            .hasBWithZeroXY()
+            .hasCWithZeroXY();
         triangle.setA(new TestPoint(1));
-        assertTriangle(triangle,
-            new TestPoint(1), new TestPoint(), new TestPoint()
-        );
+        assertThatTriangle(triangle)
+            .hasA(new TestPoint(1))
+            .hasBWithZeroXY()
+            .hasCWithZeroXY();
     }
 
     @Test
@@ -41,13 +45,15 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(), new TestPoint(), new TestPoint()
         );
-        assertTriangle(triangle,
-            new TestPoint(), new TestPoint(), new TestPoint()
-        );
+        assertThatTriangle(triangle)
+            .hasAWithZeroXY()
+            .hasBWithZeroXY()
+            .hasCWithZeroXY();
         triangle.setB(new TestPoint(2));
-        assertTriangle(triangle,
-            new TestPoint(), new TestPoint(2), new TestPoint()
-        );
+        assertThatTriangle(triangle)
+            .hasAWithZeroXY()
+            .hasB(new TestPoint(2))
+            .hasCWithZeroXY();
     }
 
     @Test
@@ -55,13 +61,15 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(), new TestPoint(), new TestPoint()
         );
-        assertTriangle(triangle,
-            new TestPoint(), new TestPoint(), new TestPoint()
-        );
+        assertThatTriangle(triangle)
+            .hasAWithZeroXY()
+            .hasBWithZeroXY()
+            .hasCWithZeroXY();
         triangle.setC(new TestPoint(3));
-        assertTriangle(triangle,
-            new TestPoint(), new TestPoint(), new TestPoint(3)
-        );
+        assertThatTriangle(triangle)
+            .hasAWithZeroXY()
+            .hasBWithZeroXY()
+            .hasC(new TestPoint(3));
     }
 
     // endregion
@@ -73,18 +81,15 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(), new TestPoint(1), new TestPoint(2)
         );
-        assertLineSegment(
-            triangle.edgeA(),
-            new TestPoint(1), new TestPoint(2)
-        );
-        assertLineSegment(
-            triangle.edgeB(),
-            new TestPoint(), new TestPoint(2)
-        );
-        assertLineSegment(
-            triangle.edgeC(),
-            new TestPoint(), new TestPoint(1)
-        );
+        assertThatLineSegment(triangle.edgeA())
+            .hasA(new TestPoint(1))
+            .hasB(new TestPoint(2));
+        assertThatLineSegment(triangle.edgeB())
+            .hasAWithZeroXY()
+            .hasB(new TestPoint(2));
+        assertThatLineSegment(triangle.edgeC())
+            .hasAWithZeroXY()
+            .hasB(new TestPoint(1));
     }
 
     @Test
@@ -96,19 +101,19 @@ class TriangleTest {
         );
 
         LineSegment<Number> altitudeA = triangle.altitudeA();
-        assertThat(altitudeA.length()).isEqualTo(1d);
-        assertThat(altitudeA.getA()).isEqualTo(triangle.getA());
-        assertThat(altitudeA.getB()).isEqualTo(triangle.getB());
+        assertThatLineSegment(altitudeA).hasLength(1d);
+        assertThatPoint(altitudeA.getA()).isEqualTo(triangle.getA());
+        assertThatPoint(altitudeA.getB()).isEqualTo(triangle.getB());
 
         LineSegment<Number> altitudeB = triangle.altitudeB();
-        assertThat(altitudeB.length()).isEqualTo(Math.sqrt(2) / 2);
-        assertThat(altitudeB.getA()).isEqualTo(triangle.getB());
-        assertThat(altitudeB.getB()).isEqualTo(triangle.edgeB().halvingPoint());
+        assertThatLineSegment(altitudeB).hasLength(Math.sqrt(2) / 2);
+        assertThatPoint(altitudeB.getA()).isEqualTo(triangle.getB());
+        assertThatPoint(altitudeB.getB()).isEqualTo(triangle.edgeB().halvingPoint());
 
         LineSegment<Number> altitudeC = triangle.altitudeC();
-        assertThat(altitudeC.length()).isEqualTo(1d);
-        assertThat(altitudeC.getA()).isEqualTo(triangle.getC());
-        assertThat(altitudeC.getB()).isEqualTo(triangle.getB());
+        assertThatLineSegment(altitudeC).hasLength(1d);
+        assertThatPoint(altitudeC.getA()).isEqualTo(triangle.getC());
+        assertThatPoint(altitudeC.getB()).isEqualTo(triangle.getB());
     }
 
     @Test
@@ -120,19 +125,19 @@ class TriangleTest {
         );
 
         LineSegment<Number> altitudeA = triangle.altitudeA();
-        assertThat(altitudeA.length()).isEqualTo(1d);
-        assertThat(altitudeA.getA()).isEqualTo(triangle.getA());
-        assertThat(altitudeA.getB()).isEqualTo(triangle.getB());
+        assertThatLineSegment(altitudeA).hasLength(1d);
+        assertThatPoint(altitudeA.getA()).isEqualTo(triangle.getA());
+        assertThatPoint(altitudeA.getB()).isEqualTo(triangle.getB());
 
         LineSegment<Number> altitudeB = triangle.altitudeB();
-        assertThat(altitudeB.length()).isEqualTo(Math.sqrt(2) / 2);
-        assertThat(altitudeB.getA()).isEqualTo(triangle.getB());
-        assertThat(altitudeB.getB()).isEqualTo(triangle.edgeB().halvingPoint());
+        assertThatLineSegment(altitudeB).hasLength(Math.sqrt(2) / 2);
+        assertThatPoint(altitudeB.getA()).isEqualTo(triangle.getB());
+        assertThatPoint(altitudeB.getB()).isEqualTo(triangle.edgeB().halvingPoint());
 
         LineSegment<Number> altitudeC = triangle.altitudeC();
-        assertThat(altitudeC.length()).isEqualTo(1d);
-        assertThat(altitudeC.getA()).isEqualTo(triangle.getC());
-        assertThat(altitudeC.getB()).isEqualTo(triangle.getB());
+        assertThatLineSegment(altitudeC).hasLength(1d);
+        assertThatPoint(altitudeC.getA()).isEqualTo(triangle.getC());
+        assertThatPoint(altitudeC.getB()).isEqualTo(triangle.getB());
     }
 
     // endregion
@@ -144,8 +149,7 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(0, 0), new TestPoint(0, 1), new TestPoint(1, 1)
         );
-        assertThat(triangle.angleAlpha().doubleValue())
-            .isCloseTo(Math.PI / 4, doubleOffset());
+        assertThatTriangle(triangle).hasAngleAlpha(Math.PI / 4);
     }
 
     @Test
@@ -153,8 +157,7 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(0, 0), new TestPoint(0, 1), new TestPoint(1, 1)
         );
-        assertThat(triangle.angleBeta().doubleValue())
-            .isCloseTo(Math.PI / 2, doubleOffset());
+        assertThatTriangle(triangle).hasAngleBeta(Math.PI / 2);
     }
 
     @Test
@@ -162,8 +165,7 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(0, 0), new TestPoint(0, 1), new TestPoint(1, 1)
         );
-        assertThat(triangle.angleGamma().doubleValue())
-            .isCloseTo(Math.PI / 4, doubleOffset());
+        assertThatTriangle(triangle).hasAngleGamma(Math.PI / 4);
     }
 
     @Test
@@ -186,7 +188,7 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(), new TestPoint(0, 1), new TestPoint(1, 1)
         );
-        assertThat(triangle.area().doubleValue()).isCloseTo(0.5, doubleOffset());
+        assertThatTriangle(triangle).hasAreaCloseTo(0.5);
     }
 
     @Test
@@ -194,7 +196,7 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(), new TestPoint(0, 1), new TestPoint(1, 1)
         );
-        assertThat(triangle.circumference()).isEqualTo(2 + Math.sqrt(2));
+        assertThatTriangle(triangle).hasCircumference(2 + Math.sqrt(2));
     }
 
     // endregion
@@ -206,7 +208,7 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(), new TestPoint(0, 1), new TestPoint(1, 1)
         );
-        assertPoint(triangle.centroid(), 1d / 3, 2d / 3);
+        assertThatPoint(triangle.centroid()).hasX(1d / 3).hasY(2d / 3);
     }
 
     @Test
@@ -214,7 +216,7 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(), new TestPoint(0d, 1d), new TestPoint(1d, 1d)
         );
-        assertThat(triangle.orthoCenter()).isEqualTo(triangle.getB());
+        assertThatPoint(triangle.orthoCenter()).isEqualTo(triangle.getB());
     }
 
     // endregion
@@ -226,11 +228,9 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(), new TestPoint(0, 1), new TestPoint(1, 1)
         );
-        assertCircle(
-            triangle.circumCircle(),
-            new TestPoint(0.5, -0.5),
-            Math.sqrt(2) / 2
-        );
+        assertThatCircle(triangle.circumCircle())
+            .hasCenter(new TestPoint(0.5, -0.5))
+            .hasRadius(Math.sqrt(2) / 2);
     }
 
     @Test
@@ -238,11 +238,12 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(), new TestPoint(0, 1), new TestPoint(1, 1)
         );
-        assertCircle(
-            triangle.inCircle(),
-            new TestPoint(1 - Math.sqrt(2) / 2, Math.sqrt(2) / 2),
-            1 - Math.sqrt(2) / 2
-        );
+        assertThatCircle(triangle.inCircle())
+            .hasCenterCloseTo(new TestPoint(
+                1 - Math.sqrt(2) / 2,
+                Math.sqrt(2) / 2
+            ))
+            .hasRadius(1 - Math.sqrt(2) / 2);
     }
 
     @Test
@@ -259,7 +260,7 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(), new TestPoint(0, 1), new TestPoint(1, 1)
         );
-        assertThat(triangle.circumCirclePoint()).isEqualTo(new TestPoint(0.5, -0.5));
+        assertThatPoint(triangle.circumCirclePoint()).isEqualTo(new TestPoint(0.5, -0.5));
     }
 
     @Test
@@ -276,11 +277,9 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(), new TestPoint(0, 1), new TestPoint(1, 1)
         );
-        assertPoint(
-            triangle.inCirclePoint(),
-            1 - Math.sqrt(2) / 2,
-            Math.sqrt(2) / 2
-        );
+        assertThatPoint(triangle.inCirclePoint())
+            .hasX(1 - Math.sqrt(2) / 2)
+            .hasY(Math.sqrt(2) / 2);
     }
 
     // endregion
@@ -298,100 +297,100 @@ class TriangleTest {
             new Point<>(integerArithmetic, 1),
             new Point<>(integerArithmetic, 2)
         );
-        assertThat(triangle.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
+        assertThatTriangle(triangle.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void isValidWithPositiveValues() {
-        assertThat(new TestTriangle(
+        assertThatTriangle(new TestTriangle(
             new TestPoint(1), new TestPoint(1, 2), new TestPoint(2)
-        ).isValid()).isTrue();
+        )).isValid();
     }
 
     @Test
     void isValidWithLineValues() {
-        assertThat(new TestTriangle(
+        assertThatTriangle(new TestTriangle(
             new TestPoint(0), new TestPoint(1), new TestPoint(2)
-        ).isValid()).isFalse();
+        )).isInvalid();
     }
 
     @Test
     void isValidWithZeroValues() {
-        assertThat(new TestTriangle(
+        assertThatTriangle(new TestTriangle(
             new TestPoint(0), new TestPoint(0), new TestPoint(0)
-        ).isValid()).isFalse();
+        )).isInvalid();
     }
 
     @Test
     void isValidWithInfValues() {
-        assertThat(new TestTriangle(
+        assertThatTriangle(new TestTriangle(
             new TestPoint(Double.POSITIVE_INFINITY),
             new TestPoint(Double.POSITIVE_INFINITY),
             new TestPoint(Double.POSITIVE_INFINITY)
-        ).isValid()).isFalse();
+        )).isInvalid();
     }
 
     @Test
     void moveOfTriangleWithXYWithXY() {
-        assertTriangle(
+        assertThatTriangle(
             new TestTriangle(new TestPoint(0), new TestPoint(1, 0), new TestPoint(1))
-                .move(1),
-            new TestPoint(1), new TestPoint(2, 1), new TestPoint(2)
-        );
+                .move(1)
+        ).hasA(new TestPoint(1d))
+            .hasB(new TestPoint(2d, 1d))
+            .hasC(new TestPoint(2d));
     }
 
     @Test
     void moveOfTriangleWithXYWithXAndY() {
-        assertTriangle(
+        assertThatTriangle(
             new TestTriangle(new TestPoint(0), new TestPoint(1, 0), new TestPoint(1))
-                .move(1, 1),
-            new TestPoint(1), new TestPoint(2, 1), new TestPoint(2)
-        );
+                .move(1, 1)
+        ).hasA(new TestPoint(1d))
+            .hasB(new TestPoint(2d, 1d))
+            .hasC(new TestPoint(2d));
     }
 
     @Test
     void moveOfTriangleWithXYWithVector() {
-        assertTriangle(
+        assertThatTriangle(
             new TestTriangle(new TestPoint(0), new TestPoint(1, 0), new TestPoint(1))
-                .move(new TestVector(1)),
-            new TestPoint(1), new TestPoint(2, 1), new TestPoint(2)
-        );
+                .move(new TestVector(1))
+        ).hasA(new TestPoint(1d))
+            .hasB(new TestPoint(2d, 1d))
+            .hasC(new TestPoint(2d));
     }
 
     @Test
     void rotateOfTriangleWithA00B01C11WithoutCenterWithPiHalf() {
-        assertTriangle(
+        assertThatTriangle(
             new TestTriangle(
                 new TestPoint(0, 0),
                 new TestPoint(0, 1),
                 new TestPoint(1, 1)
-            ).rotate(Math.PI / 2),
-            new TestPoint(),
-            new TestPoint(-1, 6.123233995736766e-17),
-            new TestPoint(-0.9999999999999999, 1.0)
-        );
+            ).rotate(Math.PI / 2)
+        ).hasAWithZeroXY()
+            .hasB(new TestPoint(-1d, 6.123233995736766e-17))
+            .hasCCloseTo(new TestPoint(-1d, 1d));
     }
 
     @Test
     void rotateOfTriangleWithA00B01C11WithCenterXY1WithPiHalf() {
-        assertTriangle(
+        assertThatTriangle(
             new TestTriangle(
                 new TestPoint(0, 0),
                 new TestPoint(0, 1),
                 new TestPoint(1, 1)
-            ).rotate(new TestPoint(1), Math.PI / 2),
-            new TestPoint(2, 0),
-            new TestPoint(0.9999999999999999, 0),
-            new TestPoint(1, 1)
-        );
+            ).rotate(new TestPoint(1), Math.PI / 2)
+        ).hasA(new TestPoint(2d, 0d))
+            .hasBCloseTo(new TestPoint(1d, 0d))
+            .hasC(new TestPoint(1d, 1d));
     }
 
     @Test
     void copyOfTriangleWithA2B3C4() {
-        Triangle<Number> triangle = new TestTriangle(
+        assertCopyable(new TestTriangle(
             new TestPoint(1, 2), new TestPoint(3, 4), new TestPoint(5, 6)
-        );
-        assertThat(triangle.copy()).isEqualTo(triangle);
+        ));
     }
 
     // endregion
@@ -400,7 +399,7 @@ class TriangleTest {
 
     @Test
     void equalsOfTriangleWithA2B3C4() {
-        assertThat(new TestTriangle(new TestPoint(2), new TestPoint(3), new TestPoint(4)))
+        assertThatTriangle(new TestTriangle(new TestPoint(2), new TestPoint(3), new TestPoint(4)))
             .isEqualTo(new TestTriangle(new TestPoint(2), new TestPoint(3), new TestPoint(4)))
             .isNotEqualTo(new TestTriangle(new TestPoint(3), new TestPoint(2), new TestPoint(4)));
     }
@@ -417,7 +416,7 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(2d), new TestPoint(3d), new TestPoint(4d)
         );
-        assertThat(triangle).hasToString("2.0|2.0 3.0|3.0 4.0|4.0");
+        assertThatTriangle(triangle).hasToString("2.0|2.0 3.0|3.0 4.0|4.0");
     }
 
     @Test
@@ -425,7 +424,7 @@ class TriangleTest {
         Triangle<Number> triangle = new TestTriangle(
             new TestPoint(0), new TestPoint(1, 0), new TestPoint(1)
         );
-        assertThat(triangle)
+        assertThatTriangle(triangle)
             .isEqualByComparingTo(new TestTriangle(
                 new TestPoint(0), new TestPoint(1, 0), new TestPoint(1)
             ))

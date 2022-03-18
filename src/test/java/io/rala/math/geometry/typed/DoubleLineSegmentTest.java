@@ -6,7 +6,8 @@ import io.rala.math.geometry.Point;
 import org.junit.jupiter.api.Test;
 
 import static io.rala.math.testUtils.assertion.GeometryAssertions.*;
-import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertCopyable;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class DoubleLineSegmentTest {
@@ -14,48 +15,41 @@ class DoubleLineSegmentTest {
 
     @Test
     void constructorWithBParameter() {
-        assertLineSegment(
-            new DoubleLineSegment(new DoublePoint(1d)),
-            new DoublePoint(1d)
-        );
+        assertThatLineSegment(new DoubleLineSegment(new DoublePoint(1d)))
+            .hasAWithZeroXY().hasB(new DoublePoint(1d));
     }
 
     @Test
     void constructorWithEqualABParameter() {
-        assertLineSegment(
-            new DoubleLineSegment(new DoublePoint(2d), new DoublePoint(2d)),
-            new DoublePoint(2d), new DoublePoint(2d)
-        );
+        assertThatLineSegment(
+            new DoubleLineSegment(new DoublePoint(2d), new DoublePoint(2d))
+        ).hasA(new DoublePoint(2d)).hasB(new DoublePoint(2d));
     }
 
     @Test
     void constructorWithDifferentABParameter() {
-        assertLineSegment(
+        assertThatLineSegment(
             new DoubleLineSegment(
                 new DoublePoint(2d, 2d), new DoublePoint(3d, 3d)
-            ),
-            new DoublePoint(2d), new DoublePoint(3d)
-        );
+            )
+        ).hasA(new DoublePoint(2d)).hasB(new DoublePoint(3d));
     }
 
     @Test
     void createAndSetA() {
         LineSegment<Double> lineSegment = new DoubleLineSegment(new DoublePoint());
-        assertLineSegment(lineSegment, new DoublePoint());
+        assertThatLineSegment(lineSegment).hasAWithZeroXY().hasB(new DoublePoint());
         lineSegment.setA(new DoublePoint(1d));
-        assertLineSegment(lineSegment,
-            new DoublePoint(1d), new DoublePoint()
-        );
+        assertThatLineSegment(lineSegment).hasA(new DoublePoint(1d)).hasBWithZeroXY();
     }
 
     @Test
     void createAndSetB() {
         LineSegment<Double> lineSegment = new DoubleLineSegment(new DoublePoint());
-        assertLineSegment(lineSegment, new DoublePoint());
+        assertThatLineSegment(lineSegment).hasAWithZeroXY().hasBWithZeroXY();
         lineSegment.setB(new DoublePoint(2d));
-        assertLineSegment(lineSegment,
-            new DoublePoint(), new DoublePoint(2d)
-        );
+        assertThatLineSegment(lineSegment)
+            .hasAWithZeroXY().hasB(new DoublePoint(2d));
     }
 
     // endregion
@@ -64,61 +58,57 @@ class DoubleLineSegmentTest {
 
     @Test
     void lengthOfLineSegmentWithTwoEqualPoints() {
-        assertThat(new DoubleLineSegment(
+        assertThatLineSegment(new DoubleLineSegment(
             new DoublePoint(1d, 2d),
             new DoublePoint(1d, 2d)
-        ).length()).isEqualTo(0d);
+        )).hasLength(0d);
     }
 
     @Test
     void lengthOfLineSegmentWithInverseParameters() {
-        assertThat(new DoubleLineSegment(
+        assertThatLineSegment(new DoubleLineSegment(
             new DoublePoint(1d, 2d),
             new DoublePoint(2d, 1d)
-        ).length()).isEqualTo(Math.sqrt(2d));
+        )).hasLength(Math.sqrt(2d));
     }
 
     @Test
     void lengthOfLineSegmentWithTwoDifferenceEach() {
-        assertThat(new DoubleLineSegment(
+        assertThatLineSegment(new DoubleLineSegment(
             new DoublePoint(3d, 4d),
             new DoublePoint(1d, 2d)
-        ).length()).isEqualTo(2d * Math.sqrt(2d));
+        )).hasLength(2d * Math.sqrt(2d));
     }
 
     @Test
     void halvingPointOfLineSegmentWithPXY0AndPXY1() {
-        assertPoint(
-            new DoubleLineSegment(new DoublePoint(), new DoublePoint(1d)).halvingPoint(),
-            0.5, 0.5
-        );
+        assertThatPoint(
+            new DoubleLineSegment(new DoublePoint(), new DoublePoint(1d)).halvingPoint()
+        ).hasX(0.5).hasY(0.5);
     }
 
     @Test
     void distributionPointComma25OfLineSegmentWithPXY0AndPXY1() {
-        assertPoint(
+        assertThatPoint(
             new DoubleLineSegment(new DoublePoint(), new DoublePoint(1d))
-                .distributionPoint(0.25),
-            0.25, 0.25
-        );
+                .distributionPoint(0.25)
+        ).hasX(0.25).hasY(0.25);
     }
 
     @Test
     void distributionPointComma5OfLineSegmentWithPXY0AndPXY1() {
-        assertPoint(
+        assertThatPoint(
             new DoubleLineSegment(new DoublePoint(), new DoublePoint(1d))
-                .distributionPoint(0.5),
-            0.5, 0.5
-        );
+                .distributionPoint(0.5)
+        ).hasX(0.5).hasY(0.5);
     }
 
     @Test
     void distributionPointComma75OfLineSegmentWithPXY0AndPXY1() {
-        assertPoint(
+        assertThatPoint(
             new DoubleLineSegment(new DoublePoint(), new DoublePoint(1d))
-                .distributionPoint(0.75),
-            0.75, 0.75
-        );
+                .distributionPoint(0.75)
+        ).hasX(0.75).hasY(0.75);
     }
 
     // endregion
@@ -127,42 +117,37 @@ class DoubleLineSegmentTest {
 
     @Test
     void flipWithAXY0AndBXY1() {
-        assertLineSegment(
-            new DoubleLineSegment(new DoublePoint(0d), new DoublePoint(1d)).flip(),
-            new DoublePoint(1d), new DoublePoint(0d)
-        );
+        assertThatLineSegment(
+            new DoubleLineSegment(new DoublePoint(0d), new DoublePoint(1d)).flip()
+        ).hasA(new DoublePoint(1d)).hasB(new DoublePoint(0d));
     }
 
     @Test
     void toLineOfLineSegmentWithAXY0AndBXY1() {
-        assertLine(
-            new DoubleLineSegment(new DoublePoint(0d), new DoublePoint(1d)).toLine(),
-            1d, 0d
-        );
+        assertThatLine(
+            new DoubleLineSegment(new DoublePoint(0d), new DoublePoint(1d)).toLine()
+        ).hasM(1d).hasB(0d);
     }
 
     @Test
     void toLineOfLineSegmentWithAXY1AndBX1Y0() {
-        assertLine(
-            new DoubleLineSegment(new DoublePoint(1d), new DoublePoint(1d, 0d)).toLine(),
-            null, 1d
-        );
+        assertThatLine(
+            new DoubleLineSegment(new DoublePoint(1d), new DoublePoint(1d, 0d)).toLine()
+        ).hasM(null).hasB(1d);
     }
 
     @Test
     void toLineOfLineSegmentWithAXY1AndBX0Y1() {
-        assertLine(
-            new DoubleLineSegment(new DoublePoint(1d), new DoublePoint(0d, 1d)).toLine(),
-            -0d, 1d
-        );
+        assertThatLine(
+            new DoubleLineSegment(new DoublePoint(1d), new DoublePoint(0d, 1d)).toLine()
+        ).hasM(-0d).hasB(1d);
     }
 
     @Test
     void toLineOfLineSegmentWithAXY1AndBX2Y3() {
-        assertLine(
-            new DoubleLineSegment(new DoublePoint(1d), new DoublePoint(2d, 3d)).toLine(),
-            2d, -1d
-        );
+        assertThatLine(
+            new DoubleLineSegment(new DoublePoint(1d), new DoublePoint(2d, 3d)).toLine()
+        ).hasM(2d).hasB(-1d);
     }
 
     // endregion
@@ -179,73 +164,67 @@ class DoubleLineSegmentTest {
             new Point<>(integerArithmetic, 0),
             new Point<>(integerArithmetic, 1)
         );
-        assertThat(lineSegment.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
+        assertThatLineSegment(lineSegment.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void isValidWithZeroValues() {
-        assertThat(new DoubleLineSegment(new DoublePoint()).isValid()).isTrue();
+        assertThatLineSegment(new DoubleLineSegment(new DoublePoint())).isValid();
     }
 
     @Test
     void isValidWithInfValues() {
-        assertThat(new DoubleLineSegment(
+        assertThatLineSegment(new DoubleLineSegment(
             new DoublePoint(Double.POSITIVE_INFINITY),
             new DoublePoint(Double.POSITIVE_INFINITY)
-        ).isValid()).isFalse();
+        )).isInvalid();
     }
 
     @Test
     void moveOfLineSegmentWithAndBWithXY() {
-        assertLineSegment(
-            new DoubleLineSegment(new DoublePoint(), new DoublePoint(1d)).move(1d),
-            new DoublePoint(1d), new DoublePoint(2d)
-        );
+        assertThatLineSegment(
+            new DoubleLineSegment(new DoublePoint(), new DoublePoint(1d)).move(1d)
+        ).hasA(new DoublePoint(1d)).hasB(new DoublePoint(2d));
     }
 
     @Test
     void moveOfLineSegmentWithAndBWithXAndY() {
-        assertLineSegment(
-            new DoubleLineSegment(new DoublePoint(), new DoublePoint(1d)).move(1d, 1d),
-            new DoublePoint(1d), new DoublePoint(2d)
-        );
+        assertThatLineSegment(
+            new DoubleLineSegment(new DoublePoint(), new DoublePoint(1d)).move(1d, 1d)
+        ).hasA(new DoublePoint(1d)).hasB(new DoublePoint(2d));
     }
 
     @Test
     void moveOfLineSegmentWithAndBWithVector() {
-        assertLineSegment(
+        assertThatLineSegment(
             new DoubleLineSegment(new DoublePoint(), new DoublePoint(1d))
-                .move(new DoubleVector(1d)),
-            new DoublePoint(1d), new DoublePoint(2d)
-        );
+                .move(new DoubleVector(1d))
+        ).hasA(new DoublePoint(1d)).hasB(new DoublePoint(2d));
     }
 
     @Test
     void rotateOfLineSegmentWithAXY0AndBX1Y2WithoutCenterWithPiHalf() {
-        assertLineSegment(
+        assertThatLineSegment(
             new DoubleLineSegment(new DoublePoint(0d, 0d), new DoublePoint(1d, 2d))
-                .rotate(Math.PI / 2d),
-            new DoublePoint(),
-            new DoublePoint(-2d, 1.0000000000000002)
-        );
+                .rotate(Math.PI / 2d)
+        ).hasA(new DoublePoint())
+            .hasBCloseTo(new DoublePoint(-2d, 1d));
     }
 
     @Test
     void rotateOfLineSegmentWithAXY0AndBX1Y2WithCenterXY1WithPiHalf() {
-        assertLineSegment(
+        assertThatLineSegment(
             new DoubleLineSegment(new DoublePoint(0d, 0d), new DoublePoint(1d, 2d))
-                .rotate(new DoublePoint(1d), Math.PI / 2d),
-            new DoublePoint(2d, 0d),
-            new DoublePoint(0d, 1d)
-        );
+                .rotate(new DoublePoint(1d), Math.PI / 2d)
+        ).hasA(new DoublePoint(2d, 0d))
+            .hasB(new DoublePoint(0d, 1d));
     }
 
     @Test
     void copyOfLineSegmentWithTwoPoints() {
-        LineSegment<Double> lineSegment = new DoubleLineSegment(
+        assertCopyable(new DoubleLineSegment(
             new DoublePoint(1d, 2d), new DoublePoint(3d, 4d)
-        );
-        assertThat(lineSegment.copy()).isEqualTo(lineSegment);
+        ));
     }
 
     // endregion
@@ -254,7 +233,7 @@ class DoubleLineSegmentTest {
 
     @Test
     void equalsOfLineSegmentWithTwoPoints() {
-        assertThat(new DoubleLineSegment(new DoublePoint(2d), new DoublePoint(3d)))
+        assertThatLineSegment(new DoubleLineSegment(new DoublePoint(2d), new DoublePoint(3d)))
             .isEqualTo(new DoubleLineSegment(new DoublePoint(2d), new DoublePoint(3d)))
             .isNotEqualTo(new DoubleLineSegment(new DoublePoint(3d), new DoublePoint(2d)));
     }
@@ -270,7 +249,7 @@ class DoubleLineSegmentTest {
         LineSegment<Double> lineSegment = new DoubleLineSegment(
             new DoublePoint(2d), new DoublePoint(3d)
         );
-        assertThat(lineSegment).hasToString("2.0|2.0 3.0|3.0");
+        assertThatLineSegment(lineSegment).hasToString("2.0|2.0 3.0|3.0");
     }
 
     @Test
@@ -278,7 +257,7 @@ class DoubleLineSegmentTest {
         LineSegment<Double> lineSegment = new DoubleLineSegment(
             new DoublePoint(2d), new DoublePoint(3d)
         );
-        assertThat(lineSegment)
+        assertThatLineSegment(lineSegment)
             .isEqualByComparingTo(new DoubleLineSegment(
                 new DoublePoint(2d), new DoublePoint(3d)
             ))

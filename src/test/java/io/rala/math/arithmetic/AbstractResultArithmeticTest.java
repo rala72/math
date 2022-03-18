@@ -6,7 +6,7 @@ import io.rala.math.testUtils.arithmetic.TestAbstractResultArithmetic;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class AbstractResultArithmeticTest {

@@ -1,4 +1,4 @@
-package io.rala.math.testUtils.assertion;
+package io.rala.math.testUtils.assertion.utils;
 
 import org.assertj.core.data.Offset;
 
@@ -10,7 +10,7 @@ import static org.assertj.core.data.Offset.offset;
  * utils for {@link Offset}
  */
 public class OffsetUtils {
-    public static final double DEFAULT_OFFSET = 1e-8;
+    public static final double DEFAULT_OFFSET = 1e-7;
 
     private OffsetUtils() {
     }

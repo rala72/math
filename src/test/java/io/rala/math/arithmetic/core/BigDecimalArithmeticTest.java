@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
@@ -150,7 +150,8 @@ class BigDecimalArithmeticTest {
 
     @Test
     void root21() {
-        assertThat(arithmetic.root2(BigDecimal.ONE)).isEqualTo(BigDecimal.ONE.sqrt(new MathContext(10)));
+        assertThat(arithmetic.root2(BigDecimal.ONE))
+            .isEqualTo(BigDecimal.ONE.sqrt(new MathContext(10)));
     }
 
     // endregion
@@ -177,8 +178,10 @@ class BigDecimalArithmeticTest {
 
     @Test
     void equalsOfArithmetic() {
-        assertThat(new BigDecimalArithmetic()).isEqualTo(new BigDecimalArithmetic());
-        assertThat(new BigDecimalArithmetic(new MathContext(5))).isNotEqualTo(new BigDecimalArithmetic());
+        assertThat(new BigDecimalArithmetic())
+            .isEqualTo(new BigDecimalArithmetic());
+        assertThat(new BigDecimalArithmetic(new MathContext(5)))
+            .isNotEqualTo(new BigDecimalArithmetic());
     }
 
     @Test

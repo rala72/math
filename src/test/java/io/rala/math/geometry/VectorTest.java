@@ -6,9 +6,11 @@ import io.rala.math.testUtils.algebra.TestComplex;
 import io.rala.math.testUtils.geometry.TestVector;
 import org.junit.jupiter.api.Test;
 
-import static io.rala.math.testUtils.assertion.GeometryAssertions.assertVector;
-import static io.rala.math.testUtils.assertion.OffsetUtils.doubleOffset;
-import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.AlgebraAssertions.assertThatComplex;
+import static io.rala.math.testUtils.assertion.GeometryAssertions.assertThatVector;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertCopyable;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.utils.OffsetUtils.doubleOffset;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class VectorTest {
@@ -16,46 +18,46 @@ class VectorTest {
 
     @Test
     void constructorWithoutParameter() {
-        assertVector(new TestVector());
+        assertThatVector(new TestVector()).hasZeroXY();
     }
 
     @Test
     void constructorWithXYParameter() {
-        assertVector(new TestVector(1), 1);
+        assertThatVector(new TestVector(1)).hasXY(1);
     }
 
     @Test
     void constructorWithEqualXYParameter() {
-        assertVector(new TestVector(2, 2), 2);
+        assertThatVector(new TestVector(2, 2)).hasXY(2);
     }
 
     @Test
     void constructorWithDifferentXYParameter() {
-        assertVector(new TestVector(2, 3), 2, 3);
+        assertThatVector(new TestVector(2, 3)).hasX(2).hasY(3);
     }
 
     @Test
     void createAndSetX() {
         Vector<Number> vector = new TestVector();
-        assertVector(vector);
+        assertThatVector(vector).hasZeroXY();
         vector.setX(1);
-        assertVector(vector, 1, 0);
+        assertThatVector(vector).hasX(1).hasY(0);
     }
 
     @Test
     void createAndSetY() {
         Vector<Number> vector = new TestVector();
-        assertVector(vector);
+        assertThatVector(vector).hasZeroXY();
         vector.setY(2);
-        assertVector(vector, 0, 2);
+        assertThatVector(vector).hasX(0).hasY(2);
     }
 
     @Test
     void createAndSetXY() {
         Vector<Number> vector = new TestVector();
-        assertVector(vector);
+        assertThatVector(vector).hasZeroXY();
         vector.setXY(3);
-        assertVector(vector, 3);
+        assertThatVector(vector).hasXY(3);
     }
 
     // endregion
@@ -64,79 +66,75 @@ class VectorTest {
 
     @Test
     void lengthOfVectorWithoutParameter() {
-        assertThat(new TestVector().length()).isEqualTo(0d);
+        assertThatVector(new TestVector()).hasLength(0d);
     }
 
     @Test
     void lengthOfVectorXY1() {
-        assertThat(new TestVector(1).length()).isEqualTo(Math.sqrt(2));
+        assertThatVector(new TestVector(1)).hasLength(Math.sqrt(2));
     }
 
     @Test
     void lengthOfVectorX1Y0() {
-        assertThat(new TestVector(1, 0).length()).isEqualTo(1d);
+        assertThatVector(new TestVector(1, 0)).hasLength(1d);
     }
 
     @Test
     void addWithXY() {
-        assertVector(new TestVector().add(2), 2, 2);
+        assertThatVector(new TestVector().add(2)).hasXY(2);
     }
 
     @Test
     void addWithXAndY() {
-        assertVector(
-            new TestVector(1).add(1, 1),
-            2, 2
-        );
+        assertThatVector(
+            new TestVector(1).add(1, 1)
+        ).hasX(2).hasY(2);
     }
 
     @Test
     void addWithVector() {
-        assertVector(
-            new TestVector(1, 0).add(new TestVector(1, 2)),
-            2, 2
-        );
+        assertThatVector(
+            new TestVector(1, 0).add(new TestVector(1, 2))
+        ).hasX(2).hasY(2);
     }
 
     @Test
     void subtractWithXY() {
-        assertVector(new TestVector(2, 2).subtract(2));
+        assertThatVector(new TestVector(2, 2).subtract(2)).hasZeroXY();
     }
 
     @Test
     void subtractWithXAndY() {
-        assertVector(
-            new TestVector(2, 2).subtract(1, 1),
-            1
-        );
+        assertThatVector(
+            new TestVector(2, 2).subtract(1, 1)
+        ).hasXY(1);
     }
 
     @Test
     void subtractWithVector() {
-        assertVector(
-            new TestVector(2, 2).subtract(new TestVector(1, 2)),
-            1, 0
-        );
+        assertThatVector(
+            new TestVector(2, 2).subtract(new TestVector(1, 2))
+        ).hasX(1).hasY(0);
     }
 
     @Test
     void multiplyZeroVectorWith1() {
-        assertVector(new TestVector().multiply(1));
+        assertThatVector(new TestVector().multiply(1)).hasZeroXY();
     }
 
     @Test
     void multiplyVectorWith0() {
-        assertVector(new TestVector(1).multiply(0));
+        assertThatVector(new TestVector(1).multiply(0)).hasZeroXY();
     }
 
     @Test
     void multiplyVectorWith1() {
-        assertVector(new TestVector(1).multiply(1), 1);
+        assertThatVector(new TestVector(1).multiply(1)).hasXY(1);
     }
 
     @Test
     void multiplyVectorWithMinus1() {
-        assertVector(new TestVector(2, 1).multiply(-1), -2, -1);
+        assertThatVector(new TestVector(2, 1).multiply(-1)).hasX(-2).hasY(-1);
     }
 
     // endregion
@@ -145,17 +143,17 @@ class VectorTest {
 
     @Test
     void inverseXOfVectorWithX1Y2() {
-        assertVector(new TestVector(1, 2).inverseX(), -1, 2);
+        assertThatVector(new TestVector(1, 2).inverseX()).hasX(-1).hasY(2);
     }
 
     @Test
     void inverseYOfVectorWithX1Y2() {
-        assertVector(new TestVector(1, 2).inverseY(), 1, -2);
+        assertThatVector(new TestVector(1, 2).inverseY()).hasX(1).hasY(-2);
     }
 
     @Test
     void inverseXYOfVectorWithX1Y2() {
-        assertVector(new TestVector(1, 2).inverse(), -1, -2);
+        assertThatVector(new TestVector(1, 2).inverse()).hasX(-1).hasY(-2);
     }
 
     // endregion
@@ -164,55 +162,53 @@ class VectorTest {
 
     @Test
     void absoluteOfPositiveXY() {
-        assertVector(new TestVector(1, 2).absolute(), 1, 2);
+        assertThatVector(new TestVector(1, 2).absolute()).hasX(1).hasY(2);
     }
 
     @Test
     void absoluteOfNegativeXAndPositiveY() {
-        assertVector(new TestVector(-1, 2).absolute(), 1, 2);
+        assertThatVector(new TestVector(-1, 2).absolute()).hasX(1).hasY(2);
     }
 
     @Test
     void absoluteOfNegativeYAndPositiveX() {
-        assertVector(new TestVector(-1, -2).absolute(), 1, 2);
+        assertThatVector(new TestVector(-1, -2).absolute()).hasX(1).hasY(2);
     }
 
     @Test
     void absoluteOfNegativeXAndY() {
-        assertVector(new TestVector(-1, -2).absolute(), 1, 2);
+        assertThatVector(new TestVector(-1, -2).absolute()).hasX(1).hasY(2);
     }
 
     @Test
     void normalLeftOfVectorWithX1Y2() {
-        assertVector(new TestVector(1, 2).normalLeft(), -2, 1);
+        assertThatVector(new TestVector(1, 2).normalLeft()).hasX(-2).hasY(1);
     }
 
     @Test
     void normalRightOfVectorWithX1Y2() {
-        assertVector(new TestVector(1, 2).normalRight(), 2, -1);
+        assertThatVector(new TestVector(1, 2).normalRight()).hasX(2).hasY(-1);
     }
 
     @Test
     void normalizedOfVectorWithoutParameter() {
         Vector<Number> vector = new TestVector().normalized();
-        assertVector(vector, Double.NaN, Double.NaN);
-        assertThat(vector.length()).isEqualTo(Double.NaN);
+        assertThatVector(vector).hasX(Double.NaN).hasY(Double.NaN);
+        assertThatVector(vector).hasLength(Double.NaN);
     }
 
     @Test
     void normalizedOfVectorWithXY1() {
         Vector<Number> vector = new TestVector(1d).normalized();
-        assertVector(vector, 0.7071067811865475);
-        assertThat(vector.length().doubleValue()).isCloseTo(1, doubleOffset());
+        assertThatVector(vector).hasXY(Math.sqrt(2) / 2);
+        assertThatVector(vector).hasLengthCloseTo(1);
     }
 
     @Test
     void normalizedOfVectorWithX1Y2() {
         Vector<Number> vector = new TestVector(1d, 2d).normalized();
-        assertVector(vector,
-            0.4472135954999579, 0.8944271909999159
-        );
-        assertThat(vector.length().doubleValue()).isCloseTo(1, doubleOffset());
+        assertThatVector(vector).hasX(0.4472135954999579).hasY(0.8944271909999159);
+        assertThatVector(vector).hasLengthCloseTo(1);
     }
 
     // endregion
@@ -243,7 +239,8 @@ class VectorTest {
     void angleBetweenX0Y1AndXY1() {
         assertThat(new TestVector(0, 1)
             .angle(new TestVector(1, 1))
-            .doubleValue()).isCloseTo(Math.PI / 4, doubleOffset());
+            .doubleValue()
+        ).isCloseTo(Math.PI / 4, doubleOffset());
     }
 
     // endregion
@@ -252,18 +249,18 @@ class VectorTest {
 
     @Test
     void isZeroVectorWithVectorWithoutParameter() {
-        assertThat(new TestVector().isZeroVector()).isTrue();
+        assertThatVector(new TestVector()).isZeroVector();
     }
 
     @Test
     void isZeroVectorWithVectorWithXY1() {
-        assertThat(new TestVector(1).isZeroVector()).isFalse();
+        assertThatVector(new TestVector(1)).isNoZeroVector();
     }
 
     @Test
     void asComplexOfVectorWithX1Y2() {
         Complex<Number> complex = new TestComplex(1, 2);
-        assertThat(new TestVector(1, 2).asComplex()).isEqualTo(complex);
+        assertThatComplex(new TestVector(1, 2).asComplex()).isEqualTo(complex);
     }
 
     // endregion
@@ -274,50 +271,48 @@ class VectorTest {
     void mapOfVectorWithX0_5Y1_5() {
         TestVector vector = new TestVector(0.5, 1.5);
         Vector<Integer> result = new Vector<>(new IntegerArithmetic(), 0, 1);
-        assertThat(vector.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
+        assertThatVector(vector.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void isValidWithZeroValues() {
-        assertThat(new TestVector().isValid()).isTrue();
+        assertThatVector(new TestVector()).isValid();
     }
 
     @Test
     void isValidWithInfValues() {
-        assertThat(new TestVector(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
-            .isValid()).isFalse();
+        assertThatVector(
+            new TestVector(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
+        ).isInvalid();
     }
 
     @Test
     void rotateOfVectorWithX1Y2WithPiHalf() {
-        assertVector(
-            new TestVector(1, 2).rotate(Math.PI / 2),
-            -2, 1
-        );
+        assertThatVector(
+            new TestVector(1, 2).rotate(Math.PI / 2)
+        ).hasX(-2).hasY(1);
     }
 
     @Test
     void rotateOfVectorWithX1Y2WithPi() {
-        assertVector(new TestVector(1, 2).rotate(Math.PI), -1, -2);
+        assertThatVector(new TestVector(1, 2).rotate(Math.PI)).hasX(-1).hasY(-2);
     }
 
     @Test
     void rotateOfVectorWithX1Y2WithPiThreeHalf() {
-        assertVector(
-            new TestVector(1, 2).rotate(Math.PI * 3 / 2),
-            2, -1
-        );
+        assertThatVector(
+            new TestVector(1, 2).rotate(Math.PI * 3 / 2)
+        ).hasX(2).hasY(-1);
     }
 
     @Test
     void rotateOfVectorWithX1Y2WithTwoPi() {
-        assertVector(new TestVector(1, 2).rotate(Math.PI * 2), 1, 2);
+        assertThatVector(new TestVector(1, 2).rotate(Math.PI * 2)).hasX(1).hasY(2);
     }
 
     @Test
     void copyOfVectorWithX2Y3() {
-        Vector<Number> vector = new TestVector(2, 3);
-        assertThat(vector.copy()).isEqualTo(vector);
+        assertCopyable(new TestVector(2, 3));
     }
 
     // endregion
@@ -326,7 +321,7 @@ class VectorTest {
 
     @Test
     void equalsOfVectorWithX2Y3() {
-        assertThat(new TestVector(2, 3))
+        assertThatVector(new TestVector(2, 3))
             .isEqualTo(new TestVector(2, 3))
             .isNotEqualTo(new TestVector(3, 2));
     }
@@ -339,13 +334,13 @@ class VectorTest {
     @Test
     void toStringOfVectorWithX2Y3() {
         Vector<Number> vector = new TestVector(2, 3);
-        assertThat(vector).hasToString("2:3");
+        assertThatVector(vector).hasToString("2:3");
     }
 
     @Test
     void compareToOfVectorWithX2Y3() {
         Vector<Number> vector = new TestVector(2, 3);
-        assertThat(vector)
+        assertThatVector(vector)
             .isEqualByComparingTo(new TestVector(2, 3))
             .isLessThan(new TestVector(3, 1))
             .isGreaterThan(new TestVector(1, 0));

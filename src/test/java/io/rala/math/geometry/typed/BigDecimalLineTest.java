@@ -13,7 +13,9 @@ import java.math.MathContext;
 import java.util.stream.Stream;
 
 import static io.rala.math.testUtils.assertion.GeometryAssertions.*;
-import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertCopyable;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.utils.OffsetUtils.bigDecimalOffset;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class BigDecimalLineTest {
@@ -21,50 +23,46 @@ class BigDecimalLineTest {
 
     @Test
     void constructorWithX() {
-        assertLine(
-            new BigDecimalLine(BigDecimal.ONE),
-            null, BigDecimal.ONE
-        );
+        assertThatLine(new BigDecimalLine(BigDecimal.ONE))
+            .hasM(null).hasB(BigDecimal.ONE);
     }
 
     @Test
     void constructorWithXAndMathContext5() {
-        assertLine(
-            new BigDecimalLine(
-                BigDecimal.ONE,
-                new MathContext(5)
-            ), null, BigDecimal.ONE
-        );
+        assertThatLine(new BigDecimalLine(
+            BigDecimal.ONE,
+            new MathContext(5)
+        )).hasM(null).hasB(BigDecimal.ONE);
     }
 
     @Test
     void constructorWithMB() {
-        assertLine(new BigDecimalLine(
-            BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
-        ), BigDecimal.valueOf(2d), BigDecimal.valueOf(3d));
+        assertThatLine(new BigDecimalLine(
+            BigDecimal.valueOf(2), BigDecimal.valueOf(3)
+        )).hasM(BigDecimal.valueOf(2)).hasB(BigDecimal.valueOf(3));
     }
 
     @Test
     void constructorWithMBAndMathContext5() {
-        assertLine(new BigDecimalLine(
-            BigDecimal.valueOf(2d),
-            BigDecimal.valueOf(3d),
+        assertThatLine(new BigDecimalLine(
+            BigDecimal.valueOf(2),
+            BigDecimal.valueOf(3),
             new MathContext(5)
-        ), BigDecimal.valueOf(2d), BigDecimal.valueOf(3d));
+        )).hasM(BigDecimal.valueOf(2)).hasB(BigDecimal.valueOf(3));
     }
 
     @Test
     void createAndSetM() {
         Line<BigDecimal> line = new BigDecimalLine(BigDecimal.ZERO, BigDecimal.ZERO);
         line.setM(BigDecimal.ONE);
-        assertLine(line, BigDecimal.ONE, BigDecimal.ZERO);
+        assertThatLine(line).hasM(BigDecimal.ONE).hasB(BigDecimal.ZERO);
     }
 
     @Test
     void createAndSetB() {
         Line<BigDecimal> line = new BigDecimalLine(BigDecimal.ZERO, BigDecimal.ZERO);
-        line.setB(BigDecimal.valueOf(2d));
-        assertLine(line, BigDecimal.ZERO, BigDecimal.valueOf(2d));
+        line.setB(BigDecimal.valueOf(2));
+        assertThatLine(line).hasM(BigDecimal.ZERO).hasB(BigDecimal.valueOf(2));
     }
 
     // endregion
@@ -73,32 +71,32 @@ class BigDecimalLineTest {
 
     @Test
     void isHorizontalOfHorizontalLine() {
-        assertThat(new BigDecimalLine(BigDecimal.ZERO, BigDecimal.ONE).isHorizontal()).isTrue();
+        assertThatLine(new BigDecimalLine(BigDecimal.ZERO, BigDecimal.ONE)).isHorizontal();
     }
 
     @Test
     void isHorizontalOfVerticalLine() {
-        assertThat(new BigDecimalLine(null, BigDecimal.ONE).isHorizontal()).isFalse();
+        assertThatLine(new BigDecimalLine(null, BigDecimal.ONE)).isNotHorizontal();
     }
 
     @Test
     void isHorizontalOfM1B1Line() {
-        assertThat(new BigDecimalLine(BigDecimal.ONE, BigDecimal.ONE).isHorizontal()).isFalse();
+        assertThatLine(new BigDecimalLine(BigDecimal.ONE, BigDecimal.ONE)).isNotHorizontal();
     }
 
     @Test
     void isVerticalOfHorizontalLine() {
-        assertThat(new BigDecimalLine(BigDecimal.ZERO, BigDecimal.ONE).isVertical()).isFalse();
+        assertThatLine(new BigDecimalLine(BigDecimal.ZERO, BigDecimal.ONE)).isNotVertical();
     }
 
     @Test
     void isVerticalOfVerticalLine() {
-        assertThat(new BigDecimalLine(null, BigDecimal.ONE).isVertical()).isTrue();
+        assertThatLine(new BigDecimalLine(null, BigDecimal.ONE)).isVertical();
     }
 
     @Test
     void isVerticalOfM1B1Line() {
-        assertThat(new BigDecimalLine(BigDecimal.ONE, BigDecimal.ONE).isVertical()).isFalse();
+        assertThatLine(new BigDecimalLine(BigDecimal.ONE, BigDecimal.ONE)).isNotVertical();
     }
 
     // endregion
@@ -111,7 +109,8 @@ class BigDecimalLineTest {
         assertThat(new BigDecimalLine(
             convertDoubleToBigDecimal(m),
             convertDoubleToBigDecimal(b)
-        ).calculateX(convertDoubleToBigDecimal(y))).isEqualTo(convertDoubleToBigDecimal(expected));
+        ).calculateX(convertDoubleToBigDecimal(y)))
+            .isEqualTo(convertDoubleToBigDecimal(expected));
     }
 
     @ParameterizedTest
@@ -120,7 +119,8 @@ class BigDecimalLineTest {
         assertThat(new BigDecimalLine(
             convertDoubleToBigDecimal(m),
             convertDoubleToBigDecimal(b)
-        ).calculateY(convertDoubleToBigDecimal(x))).isEqualTo(convertDoubleToBigDecimal(expected));
+        ).calculateY(convertDoubleToBigDecimal(x)))
+            .isEqualTo(convertDoubleToBigDecimal(expected));
     }
 
     // endregion
@@ -129,64 +129,57 @@ class BigDecimalLineTest {
 
     @Test
     void normalM1B0() {
-        assertLine(
+        assertThatLine(
             new BigDecimalLine(
                 BigDecimal.ONE, BigDecimal.ZERO
-            ).normal(),
-            BigDecimal.ONE.negate(), BigDecimal.ZERO
-        );
+            ).normal()
+        ).hasM(BigDecimal.ONE.negate()).hasB(BigDecimal.ZERO);
     }
 
     @Test
     void normalOfVerticalLine() {
-        assertLine(
-            new BigDecimalLine(BigDecimal.ZERO).normal(),
-            BigDecimal.ZERO, BigDecimal.ZERO
-        );
+        assertThatLine(
+            new BigDecimalLine(BigDecimal.ZERO).normal()
+        ).hasM(BigDecimal.ZERO).hasB(BigDecimal.ZERO);
     }
 
     @Test
     void normalOfHorizontalLine() {
-        assertLine(
-            new BigDecimalLine(BigDecimal.ZERO, BigDecimal.ZERO).normal(),
-            null, BigDecimal.ZERO
-        );
+        assertThatLine(
+            new BigDecimalLine(BigDecimal.ZERO, BigDecimal.ZERO).normal()
+        ).hasM(null).hasB(BigDecimal.ZERO);
     }
 
     @Test
     void normalM1B1AndPointXY1() {
-        assertLine(
+        assertThatLine(
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.ONE)
-                .normal(new BigDecimalPoint(BigDecimal.ONE)),
-            BigDecimal.ONE.negate(), BigDecimal.valueOf(2)
-        );
+                .normal(new BigDecimalPoint(BigDecimal.ONE))
+        ).hasM(BigDecimal.ONE.negate()).hasB(BigDecimal.valueOf(2));
     }
 
     @Test
     void normalM1B0AndPointXY1() {
-        assertLine(
+        assertThatLine(
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.ZERO)
-                .normal(new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ONE)),
-            BigDecimal.ONE.negate(), BigDecimal.valueOf(2)
-        );
+                .normal(new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ONE))
+        ).hasM(BigDecimal.ONE.negate()).hasB(BigDecimal.valueOf(2));
     }
 
     @Test
     void normalOfVerticalLineAndPointX0Y1() {
-        assertLine(
+        assertThatLine(
             new BigDecimalLine(BigDecimal.ZERO)
-                .normal(new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE)),
-            BigDecimal.ZERO, BigDecimal.ONE
-        );
+                .normal(new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE))
+        ).hasM(BigDecimal.ZERO).hasB(BigDecimal.ONE);
     }
 
     @Test
     void normalOfHorizontalLineAndPointX1Y0() {
-        assertLine(
+        assertThatLine(
             new BigDecimalLine(BigDecimal.ZERO, BigDecimal.ZERO)
-                .normal(new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ZERO)),
-            null, BigDecimal.ONE
-        );
+                .normal(new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ZERO))
+        ).hasM(null).hasB(BigDecimal.ONE);
     }
 
     // endregion
@@ -195,100 +188,100 @@ class BigDecimalLineTest {
 
     @Test
     void hasIntersectionWithEqualM() {
-        assertThat(new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))
-            .hasIntersection(new BigDecimalLine(BigDecimal.ONE, BigDecimal.ZERO))).isFalse();
+        assertThatLine(new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2)))
+            .hasNoIntersection(new BigDecimalLine(BigDecimal.ONE, BigDecimal.ZERO));
     }
 
     @Test
     void hasIntersectionWithLineM1B2AndM2B1() {
-        assertThat(new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))
-            .hasIntersection(
-                new BigDecimalLine(BigDecimal.valueOf(2d), BigDecimal.ONE)
-            )).isTrue();
+        assertThatLine(new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2)))
+            .hasIntersection(new BigDecimalLine(BigDecimal.valueOf(2), BigDecimal.ONE));
     }
 
     @Test
     void hasIntersectionWithLineX1AndX2() {
-        assertThat(new BigDecimalLine(BigDecimal.ONE)
-            .hasIntersection(new BigDecimalLine(BigDecimal.valueOf(2d)))).isFalse();
+        assertThatLine(new BigDecimalLine(BigDecimal.ONE))
+            .hasNoIntersection(new BigDecimalLine(BigDecimal.valueOf(2)));
     }
 
     @Test
     void hasIntersectionWithLineM1B2AndX1() {
-        assertThat(new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))
-            .hasIntersection(new BigDecimalLine(BigDecimal.ONE))).isTrue();
+        assertThatLine(new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2)))
+            .hasIntersection(new BigDecimalLine(BigDecimal.ONE));
     }
 
     @Test
     void intersectionWithEqualM() {
-        assertThat(new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))
+        assertThatPoint(new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2))
             .intersection(new BigDecimalLine(BigDecimal.ONE, BigDecimal.ZERO))).isNull();
     }
 
     @Test
     void intersectionWithLineM1B2AndM2B1() {
-        assertPoint(
-            new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))
+        assertThatPoint(
+            new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2))
                 .intersection(
-                    new BigDecimalLine(BigDecimal.valueOf(2d), BigDecimal.ONE)
-                ),
-            BigDecimal.ONE, BigDecimal.valueOf(3d)
-        );
+                    new BigDecimalLine(BigDecimal.valueOf(2), BigDecimal.ONE)
+                )
+        ).hasX(BigDecimal.ONE)
+            .hasY(BigDecimal.valueOf(3));
     }
 
     @Test
     void intersectionWithLineX1AndX2() {
-        assertThat(new BigDecimalLine(BigDecimal.ONE)
-            .intersection(new BigDecimalLine(BigDecimal.valueOf(2d)))).isNull();
+        assertThatPoint(new BigDecimalLine(BigDecimal.ONE)
+            .intersection(new BigDecimalLine(BigDecimal.valueOf(2)))).isNull();
     }
 
     @Test
     void intersectionWithLineM1B2AndX1() {
-        assertPoint(
-            new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))
-                .intersection(new BigDecimalLine(BigDecimal.ONE)),
-            BigDecimal.ONE, BigDecimal.valueOf(3d)
-        );
+        assertThatPoint(
+            new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2))
+                .intersection(new BigDecimalLine(BigDecimal.ONE))
+        ).hasX(BigDecimal.ONE)
+            .hasY(BigDecimal.valueOf(3));
     }
 
     @Test
     void intersectionWithLineX1AndM1B2() {
-        assertPoint(
+        assertThatPoint(
             new BigDecimalLine(BigDecimal.ONE)
                 .intersection(
-                    new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))
-                ),
-            BigDecimal.ONE, BigDecimal.valueOf(3d)
-        );
+                    new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2))
+                )
+        ).hasX(BigDecimal.ONE)
+            .hasY(BigDecimal.valueOf(3));
     }
 
     @Test
     void intersectionAngleWithLineM1B2AndM2B1() {
-        assertThat(new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))
+        assertThat(new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2))
             .intersectionAngle(
-                new BigDecimalLine(BigDecimal.valueOf(2d), BigDecimal.ONE)
-            )).isEqualTo(BigDecimal.valueOf(0.3217505543966422));
+                new BigDecimalLine(BigDecimal.valueOf(2), BigDecimal.ONE)
+            )
+        ).isEqualTo(BigDecimal.valueOf(0.3217505543966422));
     }
 
     @Test
     void intersectionAngleWithLineX1AndX2() {
         assertThat(new BigDecimalLine(BigDecimal.ONE)
-            .intersectionAngle(new BigDecimalLine(BigDecimal.valueOf(2d)))).isNull();
+            .intersectionAngle(new BigDecimalLine(BigDecimal.valueOf(2)))).isNull();
     }
 
     @Test
     void intersectionAngleWithLineM1B2AndX1() {
-        assertThat(new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))
+        assertThat(new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2))
             .intersectionAngle(new BigDecimalLine(BigDecimal.ONE))
-        ).isEqualTo(BigDecimal.valueOf(0.7853981633974477));
+        ).isCloseTo(BigDecimal.valueOf(Math.PI / 4), bigDecimalOffset());
     }
 
     @Test
     void intersectionAngleWithLineX1AndM1B2() {
         assertThat(new BigDecimalLine(BigDecimal.ONE)
             .intersectionAngle(
-                new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2d))
-            )).isEqualTo(BigDecimal.valueOf(0.7853981633974477));
+                new BigDecimalLine(BigDecimal.ONE, BigDecimal.valueOf(2))
+            )
+        ).isCloseTo(BigDecimal.valueOf(Math.PI / 4), bigDecimalOffset());
     }
 
     // endregion
@@ -297,26 +290,26 @@ class BigDecimalLineTest {
 
     @Test
     void hasPointWithM1B0AndPointXY1() {
-        assertThat(new BigDecimalLine(BigDecimal.ONE, BigDecimal.ZERO)
-            .hasPoint(new BigDecimalPoint(BigDecimal.ONE))).isTrue();
+        assertThatLine(new BigDecimalLine(BigDecimal.ONE, BigDecimal.ZERO))
+            .hasPoint(new BigDecimalPoint(BigDecimal.ONE));
     }
 
     @Test
     void hasPointWithM1B1AndPointXY1() {
-        assertThat(new BigDecimalLine(BigDecimal.ONE, BigDecimal.ONE)
-            .hasPoint(new BigDecimalPoint(BigDecimal.ONE))).isFalse();
+        assertThatLine(new BigDecimalLine(BigDecimal.ONE, BigDecimal.ONE))
+            .hasNoPoint(new BigDecimalPoint(BigDecimal.ONE));
     }
 
     @Test
     void hasPointWithVerticalLine0AndPointX0Y1() {
-        assertThat(new BigDecimalLine(BigDecimal.ZERO)
-            .hasPoint(new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE))).isTrue();
+        assertThatLine(new BigDecimalLine(BigDecimal.ZERO))
+            .hasPoint(new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE));
     }
 
     @Test
     void hasPointWithVerticalLine0AndPointXY1() {
-        assertThat(new BigDecimalLine(BigDecimal.ZERO)
-            .hasPoint(new BigDecimalPoint(BigDecimal.ONE))).isFalse();
+        assertThatLine(new BigDecimalLine(BigDecimal.ZERO))
+            .hasNoPoint(new BigDecimalPoint(BigDecimal.ONE));
     }
 
     // endregion
@@ -325,42 +318,38 @@ class BigDecimalLineTest {
 
     @Test
     void toLineSegmentUsingXOfLineWithM0B1() {
-        assertLineSegment(
+        assertThatLineSegment(
             new BigDecimalLine(BigDecimal.ZERO, BigDecimal.ONE)
-                .toLineSegmentUsingX(BigDecimal.ZERO, BigDecimal.ONE),
-            new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE),
-            new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ONE)
-        );
+                .toLineSegmentUsingX(BigDecimal.ZERO, BigDecimal.ONE)
+        ).hasA(new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE))
+            .hasB(new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ONE));
     }
 
     @Test
     void toLineSegmentUsingXOfLineWithM1B1() {
-        assertLineSegment(
+        assertThatLineSegment(
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.ONE)
-                .toLineSegmentUsingX(BigDecimal.ZERO, BigDecimal.ONE),
-            new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE),
-            new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2d))
-        );
+                .toLineSegmentUsingX(BigDecimal.ZERO, BigDecimal.ONE)
+        ).hasA(new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE))
+            .hasB(new BigDecimalPoint(BigDecimal.ONE, BigDecimal.valueOf(2)));
     }
 
     @Test
     void toLineSegmentUsingYOfLineWithM1B0() {
-        assertLineSegment(
+        assertThatLineSegment(
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.ZERO)
-                .toLineSegmentUsingY(BigDecimal.ZERO, BigDecimal.ONE),
-            new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ZERO),
-            new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ONE)
-        );
+                .toLineSegmentUsingY(BigDecimal.ZERO, BigDecimal.ONE)
+        ).hasA(new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ZERO))
+            .hasB(new BigDecimalPoint(BigDecimal.ONE, BigDecimal.ONE));
     }
 
     @Test
     void toLineSegmentUsingYOfLineWithM1B1() {
-        assertLineSegment(
+        assertThatLineSegment(
             new BigDecimalLine(BigDecimal.ONE, BigDecimal.ONE)
-                .toLineSegmentUsingY(BigDecimal.ZERO, BigDecimal.ONE),
-            new BigDecimalPoint(BigDecimal.ONE.negate(), BigDecimal.ZERO),
-            new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE)
-        );
+                .toLineSegmentUsingY(BigDecimal.ZERO, BigDecimal.ONE)
+        ).hasA(new BigDecimalPoint(BigDecimal.ONE.negate(), BigDecimal.ZERO))
+            .hasB(new BigDecimalPoint(BigDecimal.ZERO, BigDecimal.ONE));
     }
 
     // endregion
@@ -373,20 +362,19 @@ class BigDecimalLineTest {
             BigDecimal.valueOf(0.5), BigDecimal.valueOf(1.5)
         );
         Line<Integer> result = new Line<>(new IntegerArithmetic(), 0, 1);
-        assertThat(line.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
+        assertThatLine(line.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void isValidWithZeroValues() {
-        assertThat(new BigDecimalLine(BigDecimal.ZERO, BigDecimal.ZERO).isValid()).isTrue();
+        assertThatLine(new BigDecimalLine(BigDecimal.ZERO, BigDecimal.ZERO)).isValid();
     }
 
     @Test
     void copyOfLieWithMB() {
-        Line<BigDecimal> line = new BigDecimalLine(
-            BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
-        );
-        assertThat(line.copy()).isEqualTo(line);
+        assertCopyable(new BigDecimalLine(
+            BigDecimal.valueOf(2), BigDecimal.valueOf(3)
+        ));
     }
 
     // endregion
@@ -395,9 +383,9 @@ class BigDecimalLineTest {
 
     @Test
     void equalsOfLineWithMB() {
-        assertThat(new BigDecimalLine(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)))
-            .isEqualTo(new BigDecimalLine(BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)))
-            .isNotEqualTo(new BigDecimalLine(BigDecimal.valueOf(3d), BigDecimal.valueOf(2d)));
+        assertThatLine(new BigDecimalLine(BigDecimal.valueOf(2), BigDecimal.valueOf(3)))
+            .isEqualTo(new BigDecimalLine(BigDecimal.valueOf(2), BigDecimal.valueOf(3)))
+            .isNotEqualTo(new BigDecimalLine(BigDecimal.valueOf(3), BigDecimal.valueOf(2)));
     }
 
     @Test
@@ -412,29 +400,29 @@ class BigDecimalLineTest {
         Line<BigDecimal> line = new BigDecimalLine(
             BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
         );
-        assertThat(line).hasToString("y=2.0*x+3.0");
+        assertThatLine(line).hasToString("y=2.0*x+3.0");
     }
 
     @Test
     void toStringOfVerticalLine() {
         Line<BigDecimal> line = new BigDecimalLine(BigDecimal.ONE);
-        assertThat(line).hasToString("y=1");
+        assertThatLine(line).hasToString("y=1");
     }
 
     @Test
     void compareToOfLineWithMB() {
         Line<BigDecimal> line = new BigDecimalLine(
-            BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
+            BigDecimal.valueOf(2), BigDecimal.valueOf(3)
         );
-        assertThat(line)
+        assertThatLine(line)
             .isEqualByComparingTo(new BigDecimalLine(
-                BigDecimal.valueOf(2d), BigDecimal.valueOf(3d)
+                BigDecimal.valueOf(2), BigDecimal.valueOf(3)
             ))
             .isLessThan(new BigDecimalLine(
-                BigDecimal.valueOf(3d), BigDecimal.ONE
+                BigDecimal.valueOf(3), BigDecimal.ONE
             ))
             .isGreaterThan(new BigDecimalLine(
-                BigDecimal.valueOf(2d), BigDecimal.ONE
+                BigDecimal.valueOf(2), BigDecimal.ONE
             ));
     }
 

@@ -1,6 +1,7 @@
 package io.rala.math.testUtils.assertion;
 
-import io.rala.math.testUtils.SerializableUtils;
+import io.rala.math.testUtils.assertion.utils.SerializableUtils;
+import io.rala.math.utils.Copyable;
 
 import java.io.Serializable;
 
@@ -8,10 +9,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
 /**
- * {@link Serializable} assertions based on {@link SerializableUtils}
+ * assertions for {@link io.rala.math.utils} package and Java interfaces
  */
-public class SerializableAssertions {
-    private SerializableAssertions() {
+public class UtilsAssertions {
+    private UtilsAssertions() {
+    }
+
+    /**
+     * verifies if a object is copied correctly
+     *
+     * @param t   object
+     * @param <T> type of object
+     */
+    public static <T extends Copyable<T>> void assertCopyable(T t) {
+        assertThat(t.copy()).isNotSameAs(t).isEqualTo(t);
     }
 
     /**

@@ -6,10 +6,11 @@ import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.testUtils.algebra.TestFraction;
 import io.rala.math.testUtils.arithmetic.TestAbstractArithmetic;
 import io.rala.math.testUtils.assertion.ExceptionMessages;
-import io.rala.math.testUtils.assertion.NumericAssertions;
 import org.junit.jupiter.api.Test;
 
-import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.AlgebraAssertions.assertThatFraction;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertCopyable;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
@@ -18,12 +19,15 @@ class FractionTest {
 
     @Test
     void constructorWithNu() {
-        assertFraction(new TestFraction(1d));
+        assertThatFraction(new TestFraction(1d))
+            .hasNumeratorWithOne()
+            .hasDenominatorWithOne();
     }
 
     @Test
     void constructorWithDifferentNuDeParameter() {
-        assertFraction(new TestFraction(2, 3), 2, 3);
+        assertThatFraction(new TestFraction(2, 3))
+            .hasNumerator(2).hasDenominator(3);
     }
 
     @Test
@@ -35,29 +39,33 @@ class FractionTest {
 
     @Test
     void constructorWithFraction() {
-        assertFraction(new TestFraction(new TestFraction(2, 3)), 2, 3);
+        assertThatFraction(new TestFraction(new TestFraction(2, 3)))
+            .hasNumerator(2).hasDenominator(3);
     }
 
     @Test
     void createAndSetNumerator() {
         TestFraction fraction = new TestFraction(1d);
-        assertFraction(fraction);
+        assertThatFraction(fraction).hasNumeratorWithOne().hasDenominatorWithOne();
         fraction.setNumerator(2);
-        assertFraction(fraction, 2, 1d);
+        assertThatFraction(fraction)
+            .hasNumerator(2).hasDenominatorWithOne();
     }
 
     @Test
     void createAndSetDenominator() {
         TestFraction fraction = new TestFraction(1d);
-        assertFraction(fraction);
+        assertThatFraction(fraction).hasNumeratorWithOne().hasDenominatorWithOne();
         fraction.setDenominator(3);
-        assertFraction(fraction, 1d, 3);
+        assertThatFraction(fraction)
+            .hasNumeratorWithOne().hasDenominator(3);
     }
 
     @Test
     void createAndSetDenominatorZero() {
         TestFraction fraction = new TestFraction(1);
-        assertFraction(fraction, 1, 1d);
+        assertThatFraction(fraction)
+            .hasNumeratorWithOne().hasDenominatorWithOne();
         assertThatExceptionOfType(IllegalArgumentException.class)
             .isThrownBy(() -> fraction.setDenominator(0d))
             .withMessage(ExceptionMessages.FRACTION_DENOMINATOR_HAS_TO_BE_NON_ZERO);
@@ -66,9 +74,11 @@ class FractionTest {
     @Test
     void createAndSetDenominatorNull() {
         TestFraction fraction = new TestFraction(1, 2);
-        assertFraction(fraction, 1, 2);
+        assertThatFraction(fraction)
+            .hasNumeratorWithOne().hasDenominator(2);
         fraction.setDenominator(null);
-        assertFraction(fraction, 1, 1d);
+        assertThatFraction(fraction)
+            .hasNumeratorWithOne().hasDenominatorWithOne();
     }
 
     // endregion
@@ -106,17 +116,20 @@ class FractionTest {
 
     @Test
     void negate() {
-        assertFraction(new TestFraction(1).negate(), -1d, 1d);
+        assertThatFraction(new TestFraction(1).negate())
+            .hasNumerator(-1d).hasDenominatorWithOne();
     }
 
     @Test
     void inverse() {
-        assertFraction(new TestFraction(1, 2).inverse(), 2, 1);
+        assertThatFraction(new TestFraction(1, 2).inverse())
+            .hasNumerator(2).hasDenominator(1);
     }
 
     @Test
     void simplify() {
-        assertFraction(new TestFraction(2, 4).simplify(), 1d, 2d);
+        assertThatFraction(new TestFraction(2, 4).simplify())
+            .hasNumeratorWithOne().hasDenominator(2d);
     }
 
     @Test
@@ -124,7 +137,7 @@ class FractionTest {
         Fraction<Double, Double> fraction = new Fraction<>(
             new DoubleArithmetic().toResultArithmetic(), 2d, 4d
         );
-        assertThat(fraction.simplify()).isEqualTo(fraction);
+        assertThatFraction(fraction.simplify()).isEqualTo(fraction);
     }
 
     // endregion
@@ -133,41 +146,49 @@ class FractionTest {
 
     @Test
     void addWithNumerator() {
-        assertThat(new TestFraction(1).add(1, 1)).isEqualTo(new TestFraction(2d, 1d));
+        assertThatFraction(new TestFraction(1).add(1, 1))
+            .isEqualTo(new TestFraction(2d, 1d));
     }
 
     @Test
     void addWithXAndY() {
-        assertThat(new TestFraction(1, 1).add(1, 1)).isEqualTo(new TestFraction(2d, 1d));
+        assertThatFraction(new TestFraction(1, 1).add(1, 1))
+            .isEqualTo(new TestFraction(2d, 1d));
     }
 
     @Test
     void addWithFraction() {
-        assertThat(new TestFraction(1, 1).add(new TestFraction(1, 2))).isEqualTo(new TestFraction(3d, 2d));
+        assertThatFraction(new TestFraction(1, 1)
+            .add(new TestFraction(1, 2))
+        ).isEqualTo(new TestFraction(3d, 2d));
     }
 
     @Test
     void addWithDoubleFraction() {
         AbstractResultArithmetic<Double, Double> arithmetic =
             new DoubleArithmetic().toResultArithmetic();
-        assertThat(new Fraction<>(arithmetic, 1d, 1d)
+        assertThatFraction(new Fraction<>(arithmetic, 1d, 1d)
             .add(new Fraction<>(arithmetic, 1d, 2d))
         ).isEqualTo(new Fraction<>(arithmetic, 3d, 2d));
     }
 
     @Test
     void subtractWithNumerator() {
-        assertThat(new TestFraction(2).subtract(2, 1)).isEqualTo(new TestFraction(0d, 1d));
+        assertThatFraction(new TestFraction(2).subtract(2, 1))
+            .isEqualTo(new TestFraction(0d, 1d));
     }
 
     @Test
     void subtractWithXAndY() {
-        assertThat(new TestFraction(2, 1).subtract(1, 1)).isEqualTo(new TestFraction(1d, 1d));
+        assertThatFraction(new TestFraction(2, 1).subtract(1, 1))
+            .isEqualTo(new TestFraction(1d, 1d));
     }
 
     @Test
     void subtractWithFraction() {
-        assertThat(new TestFraction(2, 1).subtract(new TestFraction(1, 2)))
+        assertThatFraction(new TestFraction(2, 1)
+            .subtract(new TestFraction(1, 2))
+        )
             .isEqualTo(new TestFraction(3d, 2d));
     }
 
@@ -177,34 +198,38 @@ class FractionTest {
 
     @Test
     void multiplyWithNumerator() {
-        assertThat(new TestFraction(1).multiply(2)).isEqualTo(new TestFraction(2d, 1d));
+        assertThatFraction(new TestFraction(1).multiply(2))
+            .isEqualTo(new TestFraction(2d, 1d));
     }
 
     @Test
     void multiplyWithXAndY() {
-        assertThat(new TestFraction(1, 2).multiply(3, 4)).isEqualTo(new TestFraction(3d, 8d));
+        assertThatFraction(new TestFraction(1, 2).multiply(3, 4))
+            .isEqualTo(new TestFraction(3d, 8d));
     }
 
     @Test
     void multiplyWithFraction() {
-        assertThat(new TestFraction(1, 2)
+        assertThatFraction(new TestFraction(1, 2)
             .multiply(new TestFraction(4, 3))
         ).isEqualTo(new TestFraction(4d, 6d));
     }
 
     @Test
     void divideWithNumerator() {
-        assertThat(new TestFraction(1).divide(2)).isEqualTo(new TestFraction(1d, 2d));
+        assertThatFraction(new TestFraction(1).divide(2))
+            .isEqualTo(new TestFraction(1d, 2d));
     }
 
     @Test
     void divideWithXAndY() {
-        assertThat(new TestFraction(1, 2).divide(3, 4)).isEqualTo(new TestFraction(4d, 6d));
+        assertThatFraction(new TestFraction(1, 2).divide(3, 4))
+            .isEqualTo(new TestFraction(4d, 6d));
     }
 
     @Test
     void divideWithFraction() {
-        assertThat(new TestFraction(1, 2)
+        assertThatFraction(new TestFraction(1, 2)
             .divide(new TestFraction(4, 3))
         ).isEqualTo(new TestFraction(3d, 8d));
     }
@@ -215,12 +240,14 @@ class FractionTest {
 
     @Test
     void pow2OfFraction1_2() {
-        assertFraction(new TestFraction(1, 2).pow(2), 1d, 4d);
+        assertThatFraction(new TestFraction(1, 2).pow(2))
+            .hasNumeratorWithOne().hasDenominator(4d);
     }
 
     @Test
     void root2OfFraction1_4() {
-        assertFraction(new TestFraction(1, 4).root(2), 1d, 2d);
+        assertThatFraction(new TestFraction(1, 4).root(2))
+            .hasNumeratorWithOne().hasDenominator(2d);
     }
 
     // endregion
@@ -233,7 +260,7 @@ class FractionTest {
         Fraction<Integer, Integer> result = new Fraction<>(
             new IntegerArithmetic().toResultArithmetic(), 0, 1
         );
-        assertThat(fraction.map(
+        assertThatFraction(fraction.map(
             new IntegerArithmetic().toResultArithmetic(), Number::intValue
         )).isEqualTo(result);
     }
@@ -246,7 +273,7 @@ class FractionTest {
                 new IntegerArithmetic(), new TestAbstractArithmetic(), Number::intValue
             ), 0, 1
         );
-        assertThat(fraction.mapValues(
+        assertThatFraction(fraction.mapValues(
             new IntegerArithmetic(), Number::intValue, Integer::intValue
         )).isEqualTo(result);
     }
@@ -259,7 +286,7 @@ class FractionTest {
                 new IntegerArithmetic(), new TestAbstractArithmetic(), Number::intValue
             ), 0, 1
         );
-        assertThat(fraction.mapValues(
+        assertThatFraction(fraction.mapValues(
             AbstractResultArithmetic.of(
                 new IntegerArithmetic(), new TestAbstractArithmetic(), Number::intValue
             ), Number::intValue
@@ -274,26 +301,25 @@ class FractionTest {
                 new TestAbstractArithmetic(), new IntegerArithmetic(), Number::intValue
             ), 0.5, 1.5
         );
-        assertThat(fraction.mapValue(
+        assertThatFraction(fraction.mapValue(
             new IntegerArithmetic(), Number::intValue
         )).isEqualTo(result);
     }
 
     @Test
     void isValidWithZero() {
-        assertThat(new TestFraction(0).isValid()).isTrue();
+        assertThatFraction(new TestFraction(0)).isValid();
     }
 
     @Test
     void isValidWithInfValues() {
-        assertThat(new TestFraction(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
-            .isValid()).isFalse();
+        assertThatFraction(new TestFraction(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY))
+            .isInvalid();
     }
 
     @Test
     void copyOfFractionWithNuDe() {
-        TestFraction fraction = new TestFraction(2, 3);
-        assertThat(fraction.copy()).isEqualTo(fraction);
+        assertCopyable(new TestFraction(2, 3));
     }
 
     // endregion
@@ -302,7 +328,7 @@ class FractionTest {
 
     @Test
     void equalsOfFractionWithNuDe() {
-        assertThat(new TestFraction(2, 3))
+        assertThatFraction(new TestFraction(2, 3))
             .isEqualTo(new TestFraction(2, 3))
             .isNotEqualTo(new TestFraction(3, 2));
     }
@@ -315,13 +341,13 @@ class FractionTest {
     @Test
     void toStringOfFractionWithNuDe() {
         TestFraction fraction = new TestFraction(2, 3);
-        assertThat(fraction).hasToString("2/3");
+        assertThatFraction(fraction).hasToString("2/3");
     }
 
     @Test
     void compareToOfFractionWithNuDe() {
         TestFraction fraction = new TestFraction(2, 3);
-        assertThat(fraction)
+        assertThatFraction(fraction)
             .isEqualByComparingTo(new TestFraction(2, 3))
             .isLessThan(new TestFraction(3, 1))
             .isGreaterThan(new TestFraction(1, 2));
@@ -339,7 +365,8 @@ class FractionTest {
     @Test
     void createFromArithmeticWithDifferentNuDeParameter() {
         TestFraction fraction = new TestFraction(1);
-        assertFraction(fraction.createFromArithmetic(2, 3), 2, 3);
+        assertThatFraction(fraction.createFromArithmetic(2, 3))
+            .hasNumerator(2).hasDenominator(3);
     }
 
     @Test
@@ -352,25 +379,14 @@ class FractionTest {
 
     @Test
     void simplifySignum() {
-        assertFraction(new TestFraction(1, 1), 1, 1);
-        assertFraction(new TestFraction(1, -1), -1d, 1d);
-        assertFraction(new TestFraction(-1, 1), -1, 1);
-        assertFraction(new TestFraction(-1, -1), 1d, 1d);
-    }
-
-    // endregion
-
-
-    // region assert
-
-    private static void assertFraction(TestFraction fraction) {
-        assertFraction(fraction, 1d, 1d);
-    }
-
-    private static void assertFraction(
-        Fraction<Number, Number> fraction, Number no, Number de
-    ) {
-        NumericAssertions.assertFraction(fraction, no, de);
+        assertThatFraction(new TestFraction(1, 1))
+            .hasNumeratorWithOne().hasDenominatorWithOne();
+        assertThatFraction(new TestFraction(1, -1))
+            .hasNumerator(-1d).hasDenominatorWithOne();
+        assertThatFraction(new TestFraction(-1, 1))
+            .hasNumerator(-1).hasDenominatorWithOne();
+        assertThatFraction(new TestFraction(-1, -1))
+            .hasNumeratorWithOne().hasDenominatorWithOne();
     }
 
     // endregion

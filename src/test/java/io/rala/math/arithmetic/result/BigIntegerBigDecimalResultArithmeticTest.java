@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 
-import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class BigIntegerBigDecimalResultArithmeticTest {
@@ -49,7 +49,8 @@ class BigIntegerBigDecimalResultArithmeticTest {
 
     @Test
     void sum12() {
-        assertThat(arithmetic.sum(BigInteger.ONE, BigInteger.valueOf(2))).isEqualTo(BigDecimal.valueOf(3));
+        assertThat(arithmetic.sum(BigInteger.ONE, BigInteger.valueOf(2)))
+            .isEqualTo(BigDecimal.valueOf(3));
     }
 
     @Test

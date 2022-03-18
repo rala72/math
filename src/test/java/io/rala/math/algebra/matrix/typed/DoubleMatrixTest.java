@@ -10,8 +10,9 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.rala.math.testUtils.assertion.MatrixAssertions.assertMatrix;
-import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.AlgebraAssertions.assertThatMatrix;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertCopyable;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertSerializable;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
@@ -30,7 +31,7 @@ class DoubleMatrixTest {
         DoubleMatrix matrix = new DoubleMatrix(Integer.MAX_VALUE);
 
         long expectedSize = (long) Integer.MAX_VALUE * Integer.MAX_VALUE;
-        assertThat(matrix.size()).isEqualTo(expectedSize);
+        assertThatMatrix(matrix).hasSize(expectedSize);
     }
 
     @Test
@@ -42,22 +43,22 @@ class DoubleMatrixTest {
 
     @Test
     void constructorWithSize1() {
-        assertMatrix(new DoubleMatrix(1), 1);
+        assertThatMatrix(new DoubleMatrix(1)).hasSize(1);
     }
 
     @Test
     void constructorWithRows1Cols1() {
-        assertMatrix(new DoubleMatrix(1, 1), 1, 1);
+        assertThatMatrix(new DoubleMatrix(1, 1)).hasRows(1).hasCols(1);
     }
 
     @Test
     void constructorWithRows1Cols2() {
-        assertMatrix(new DoubleMatrix(1, 2), 1, 2);
+        assertThatMatrix(new DoubleMatrix(1, 2)).hasRows(1).hasCols(2);
     }
 
     @Test
     void constructorWithMatrix() {
-        assertMatrix(new DoubleMatrix(new DoubleMatrix(1, 2)), 1, 2);
+        assertThatMatrix(new DoubleMatrix(new DoubleMatrix(1, 2))).hasRows(1).hasCols(2);
     }
 
     // endregion
@@ -66,22 +67,22 @@ class DoubleMatrixTest {
 
     @Test
     void createWithSize1AndAssertSizeEquals1() {
-        assertThat(new DoubleMatrix(1).size()).isOne();
+        assertThatMatrix(new DoubleMatrix(1)).hasSizeOne();
     }
 
     @Test
     void createWithSize2AndAssertSizeEquals4() {
-        assertThat(new DoubleMatrix(2).size()).isEqualTo(4);
+        assertThatMatrix(new DoubleMatrix(2)).hasSize(4);
     }
 
     @Test
     void createWithRow1Col2AndAssertSizeEquals2() {
-        assertThat(new DoubleMatrix(1, 2).size()).isEqualTo(2);
+        assertThatMatrix(new DoubleMatrix(1, 2)).hasSize(2);
     }
 
     @Test
     void createWithRow2Col3AndAssertSizeEquals6() {
-        assertThat(new DoubleMatrix(2, 3).size()).isEqualTo(6);
+        assertThatMatrix(new DoubleMatrix(2, 3)).hasSize(6);
     }
 
     // endregion
@@ -401,32 +402,32 @@ class DoubleMatrixTest {
 
     @Test
     void isSquareOfMatrixWithRow1Col2() {
-        assertThat(new DoubleMatrix(1, 2).isSquare()).isFalse();
+        assertThatMatrix(new DoubleMatrix(1, 2)).isNoSquare();
     }
 
     @Test
     void isSquareOfMatrixWithSize2() {
-        assertThat(new DoubleMatrix(2).isSquare()).isTrue();
+        assertThatMatrix(new DoubleMatrix(2)).isSquare();
     }
 
     @Test
     void isDiagonalOfMatrixWithRow1Col2() {
-        assertThat(new DoubleMatrix(1, 2).isDiagonal()).isFalse();
+        assertThatMatrix(new DoubleMatrix(1, 2)).isNoDiagonal();
     }
 
     @Test
     void isDiagonalOfMatrixOfValidValues() {
-        assertThat(DoubleMatrix.ofValuesByRows(2, 1, 0, 0, 4).isDiagonal()).isTrue();
+        assertThatMatrix(DoubleMatrix.ofValuesByRows(2, 1, 0, 0, 4)).isDiagonal();
     }
 
     @Test
     void isDiagonalOfMatrixOfInvalidValues() {
-        assertThat(DoubleMatrix.ofValuesByRows(2, 1, 2, 3, 4).isDiagonal()).isFalse();
+        assertThatMatrix(DoubleMatrix.ofValuesByRows(2, 1, 2, 3, 4)).isNoDiagonal();
     }
 
     @Test
     void isDiagonalOfDiagonalMatrix() {
-        assertThat(DoubleMatrix.diagonal(1, 2, 3).isDiagonal()).isTrue();
+        assertThatMatrix(DoubleMatrix.diagonal(1, 2, 3)).isDiagonal();
     }
 
     @Test
@@ -436,9 +437,9 @@ class DoubleMatrixTest {
         matrix.setValue(1, 2d);
         matrix.setValue(2, 2d);
         matrix.setValue(3, 4d);
-        assertThat(matrix.isSquare()).isTrue();
-        assertThat(matrix.getArithmetic().isZero(matrix.determinante())).isTrue();
-        assertThat(matrix.isInvertible()).isFalse();
+        assertThatMatrix(matrix).isSquare();
+        assertThatMatrix(matrix).hasZeroDeterminante();
+        assertThatMatrix(matrix).isNoInvertible();
     }
 
     @Test
@@ -448,9 +449,9 @@ class DoubleMatrixTest {
         matrix.setValue(1, 0d);
         matrix.setValue(2, 0d);
         matrix.setValue(3, 4d);
-        assertThat(matrix.isSquare()).isTrue();
-        assertThat(matrix.getArithmetic().isZero(matrix.determinante())).isFalse();
-        assertThat(matrix.isInvertible()).isTrue();
+        assertThatMatrix(matrix).isSquare();
+        assertThatMatrix(matrix).hasNoZeroDeterminante();
+        assertThatMatrix(matrix).isInvertible();
     }
 
     // endregion
@@ -478,7 +479,7 @@ class DoubleMatrixTest {
         DoubleMatrix matrix1 = new DoubleMatrix(2);
         DoubleMatrix matrix2 = new DoubleMatrix(2);
         DoubleMatrix result = new DoubleMatrix(2);
-        assertThat(matrix1.add(matrix2)).isEqualTo(result);
+        assertThatMatrix(matrix1.add(matrix2)).isEqualTo(result);
     }
 
     @Test
@@ -489,14 +490,14 @@ class DoubleMatrixTest {
             matrix.setValue(i, i + 1d);
             result.setValue(i, 2 * (i + 1d));
         }
-        assertThat(matrix.add(matrix)).isEqualTo(result);
+        assertThatMatrix(matrix.add(matrix)).isEqualTo(result);
     }
 
     @Test
     void multiplyOfEmptyMatrixWithSize2With2() {
         DoubleMatrix matrix = new DoubleMatrix(2);
         DoubleMatrix result = new DoubleMatrix(2);
-        assertThat(matrix.multiply(2d)).isEqualTo(result);
+        assertThatMatrix(matrix.multiply(2d)).isEqualTo(result);
     }
 
     @Test
@@ -507,7 +508,7 @@ class DoubleMatrixTest {
             matrix.setValue(i, (i + 1d));
             result.setValue(i, (i + 1d) * 2);
         }
-        assertThat(matrix.multiply(2d)).isEqualTo(result);
+        assertThatMatrix(matrix.multiply(2d)).isEqualTo(result);
     }
 
     @Test
@@ -515,7 +516,7 @@ class DoubleMatrixTest {
         DoubleMatrix matrix1 = new DoubleMatrix(2);
         DoubleMatrix matrix2 = new DoubleMatrix(2);
         DoubleMatrix result = new DoubleMatrix(2);
-        assertThat(matrix1.multiply(matrix2)).isEqualTo(result);
+        assertThatMatrix(matrix1.multiply(matrix2)).isEqualTo(result);
     }
 
     @Test
@@ -523,7 +524,7 @@ class DoubleMatrixTest {
         DoubleMatrix matrix1 = new DoubleMatrix(1, 2);
         DoubleMatrix matrix2 = new DoubleMatrix(2, 3);
         DoubleMatrix result = new DoubleMatrix(1, 3);
-        assertThat(matrix1.multiply(matrix2)).isEqualTo(result);
+        assertThatMatrix(matrix1.multiply(matrix2)).isEqualTo(result);
     }
 
     @Test
@@ -540,7 +541,7 @@ class DoubleMatrixTest {
         DoubleMatrix matrix = new DoubleMatrix(2);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i + 1d);
-        assertThat(matrix.multiply(matrix)).isEqualTo(DoubleMatrix.ofValuesByRows(2,
+        assertThatMatrix(matrix.multiply(matrix)).isEqualTo(DoubleMatrix.ofValuesByRows(2,
             7, 10, 15, 22
         ));
     }
@@ -550,7 +551,7 @@ class DoubleMatrixTest {
         DoubleMatrix matrix1 = new DoubleMatrix(1, 2);
         DoubleMatrix matrix2 = new DoubleMatrix(2, 3);
         DoubleMatrix result = new DoubleMatrix(1, 3);
-        assertThat(matrix1.multiplyTolerant(matrix2)).isEqualTo(result);
+        assertThatMatrix(matrix1.multiplyTolerant(matrix2)).isEqualTo(result);
     }
 
     @Test
@@ -558,7 +559,7 @@ class DoubleMatrixTest {
         DoubleMatrix matrix1 = new DoubleMatrix(2, 3);
         DoubleMatrix matrix2 = new DoubleMatrix(1, 2);
         DoubleMatrix result = new DoubleMatrix(1, 3);
-        assertThat(matrix1.multiplyTolerant(matrix2)).isEqualTo(result);
+        assertThatMatrix(matrix1.multiplyTolerant(matrix2)).isEqualTo(result);
     }
 
     @Test
@@ -575,7 +576,7 @@ class DoubleMatrixTest {
         DoubleMatrix matrix = new DoubleMatrix(2);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i + 1d);
-        assertThat(matrix.multiplyTolerant(matrix)).isEqualTo(DoubleMatrix.ofValuesByRows(2,
+        assertThatMatrix(matrix.multiplyTolerant(matrix)).isEqualTo(DoubleMatrix.ofValuesByRows(2,
             7, 10, 15, 22
         ));
     }
@@ -593,7 +594,7 @@ class DoubleMatrixTest {
 
     @Test
     void inverseOfEmptyMatrixWithSize2() {
-        assertThat(new DoubleMatrix(2).inverse()).isNull();
+        assertThatMatrix(new DoubleMatrix(2).inverse()).isNull();
     }
 
     @Test
@@ -604,7 +605,7 @@ class DoubleMatrixTest {
         DoubleMatrix result = DoubleMatrix.ofValuesByRows(2,
             3, -5, -1, 2
         );
-        assertThat(matrix.inverse()).isEqualTo(result);
+        assertThatMatrix(matrix.inverse()).isEqualTo(result);
     }
 
     @Test
@@ -615,13 +616,13 @@ class DoubleMatrixTest {
         DoubleMatrix result = DoubleMatrix.ofValuesByRows(3,
             2, 8, -21, -1, -5, 13, 0, 1, -2
         );
-        assertThat(matrix.inverse()).isEqualTo(result);
+        assertThatMatrix(matrix.inverse()).isEqualTo(result);
     }
 
     @Test
     void transposeOfEmptyMatrixWithSize2() {
         DoubleMatrix result = new DoubleMatrix(2);
-        assertThat(new DoubleMatrix(2).transpose()).isEqualTo(result);
+        assertThatMatrix(new DoubleMatrix(2).transpose()).isEqualTo(result);
     }
 
     @Test
@@ -634,13 +635,13 @@ class DoubleMatrixTest {
                 matrix.setValue(i, i + 1d);
                 result.setValue(TestMatrix.getIndexOfRowAndCol(result, c, r), i + 1d);
             }
-        assertThat(matrix.transpose()).isEqualTo(result);
+        assertThatMatrix(matrix.transpose()).isEqualTo(result);
     }
 
     @Test
     void determinanteOfEmptyMatrixWithSize2() {
         DoubleMatrix matrix = new DoubleMatrix(2);
-        assertThat(matrix.determinante()).isZero();
+        assertThatMatrix(matrix).hasZeroDeterminante();
     }
 
     @Test
@@ -648,7 +649,7 @@ class DoubleMatrixTest {
         DoubleMatrix matrix = new DoubleMatrix(2);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i + 1d);
-        assertThat(matrix.determinante()).isEqualTo(-2);
+        assertThatMatrix(matrix).hasDeterminante(-2d);
     }
 
     @Test
@@ -656,7 +657,7 @@ class DoubleMatrixTest {
         DoubleMatrix matrix = new DoubleMatrix(3);
         for (int i = 0; i < matrix.size(); i++)
             matrix.setValue(i, i + 1d);
-        assertThat(matrix.determinante()).isZero();
+        assertThatMatrix(matrix).hasZeroDeterminante();
     }
 
     @Test
@@ -665,7 +666,7 @@ class DoubleMatrixTest {
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, r == c ? 2d : 1d);
-        assertThat(matrix.determinante()).isEqualTo(4);
+        assertThatMatrix(matrix).hasDeterminante(4d);
     }
 
     @Test
@@ -674,7 +675,7 @@ class DoubleMatrixTest {
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, r == c ? 2d : 1d);
-        assertThat(matrix.determinante()).isEqualTo(5);
+        assertThatMatrix(matrix).hasDeterminante(5d);
     }
 
     @Test
@@ -683,7 +684,7 @@ class DoubleMatrixTest {
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, c != 0 && (r == c || r == 0) ? 0d : 1d);
-        assertThat(matrix.determinante()).isEqualTo(2);
+        assertThatMatrix(matrix).hasDeterminante(2d);
     }
 
     @Test
@@ -692,7 +693,7 @@ class DoubleMatrixTest {
         for (int r = 0; r < matrix.getRows(); r++)
             for (int c = 0; c < matrix.getCols(); c++)
                 matrix.setValue(r, c, r != 0 && (r == c || c == 0) ? 0d : 1d);
-        assertThat(matrix.determinante()).isEqualTo(2);
+        assertThatMatrix(matrix).hasDeterminante(2d);
     }
 
     // endregion
@@ -702,7 +703,7 @@ class DoubleMatrixTest {
     @Test
     void identityOfSize1() {
         DoubleMatrix matrix = DoubleMatrix.identity(1);
-        assertThat(matrix.size()).isOne();
+        assertThatMatrix(matrix).hasSizeOne();
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
             assertThat(matrix.getValue(i, i)).isOne();
     }
@@ -710,7 +711,7 @@ class DoubleMatrixTest {
     @Test
     void identityOfSize2() {
         DoubleMatrix matrix = DoubleMatrix.identity(2);
-        assertThat(matrix.size()).isEqualTo(2 * 2);
+        assertThatMatrix(matrix).hasSize(2 * 2);
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
             assertThat(matrix.getValue(i, i)).isOne();
     }
@@ -718,7 +719,7 @@ class DoubleMatrixTest {
     @Test
     void diagonalOfSize1() {
         DoubleMatrix matrix = DoubleMatrix.diagonal(1);
-        assertThat(matrix.size()).isOne();
+        assertThatMatrix(matrix).hasSizeOne();
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
             assertThat(matrix.getValue(i, i)).isOne();
     }
@@ -726,7 +727,7 @@ class DoubleMatrixTest {
     @Test
     void diagonalOfSize2() {
         DoubleMatrix matrix = DoubleMatrix.diagonal(2, 2);
-        assertThat(matrix.size()).isEqualTo(2 * 2);
+        assertThatMatrix(matrix).hasSize(2 * 2);
         for (int i = 0; i < Math.sqrt(matrix.size()); i++)
             assertThat(matrix.getValue(i, i)).isEqualTo(2);
     }
@@ -778,13 +779,12 @@ class DoubleMatrixTest {
                 result.setValue(r, c, r + c);
             }
 
-        assertThat(matrix.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
+        assertThatMatrix(matrix.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void copyOfMatrixWithSize2() {
-        DoubleMatrix matrix = new DoubleMatrix(2);
-        assertThat(matrix.copy()).isEqualTo(matrix);
+        assertCopyable(new DoubleMatrix(2));
     }
 
     // endregion
@@ -816,7 +816,7 @@ class DoubleMatrixTest {
 
     @Test
     void equalsOfDoubleMatrixWithRow2Col3() {
-        assertThat(new DoubleMatrix(2, 3))
+        assertThatMatrix(new DoubleMatrix(2, 3))
             .isEqualTo(new DoubleMatrix(2, 3))
             .isNotEqualTo(new DoubleMatrix(3, 2));
     }
@@ -829,7 +829,7 @@ class DoubleMatrixTest {
     @Test
     void toStringOfDoubleMatrixWithRow2Col3() {
         DoubleMatrix matrix = new DoubleMatrix(2, 3);
-        assertThat(matrix).hasToString("2 3: []");
+        assertThatMatrix(matrix).hasToString("2 3: []");
     }
 
     @Test

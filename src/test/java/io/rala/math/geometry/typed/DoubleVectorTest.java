@@ -6,9 +6,11 @@ import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.geometry.Vector;
 import org.junit.jupiter.api.Test;
 
-import static io.rala.math.testUtils.assertion.GeometryAssertions.assertVector;
-import static io.rala.math.testUtils.assertion.OffsetUtils.doubleOffset;
-import static io.rala.math.testUtils.assertion.SerializableAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.AlgebraAssertions.assertThatComplex;
+import static io.rala.math.testUtils.assertion.GeometryAssertions.assertThatVector;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertCopyable;
+import static io.rala.math.testUtils.assertion.UtilsAssertions.assertSerializable;
+import static io.rala.math.testUtils.assertion.utils.OffsetUtils.doubleOffset;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class DoubleVectorTest {
@@ -16,46 +18,46 @@ class DoubleVectorTest {
 
     @Test
     void constructorWithoutParameter() {
-        assertVector(new DoubleVector());
+        assertThatVector(new DoubleVector()).hasZeroXY();
     }
 
     @Test
     void constructorWithXYParameter() {
-        assertVector(new DoubleVector(1d), 1d);
+        assertThatVector(new DoubleVector(1d)).hasXY(1d);
     }
 
     @Test
     void constructorWithEqualXYParameter() {
-        assertVector(new DoubleVector(2d, 2d), 2d);
+        assertThatVector(new DoubleVector(2d, 2d)).hasXY(2d);
     }
 
     @Test
     void constructorWithDifferentXYParameter() {
-        assertVector(new DoubleVector(2d, 3d), 2d, 3d);
+        assertThatVector(new DoubleVector(2d, 3d)).hasX(2d).hasY(3d);
     }
 
     @Test
     void createAndSetX() {
         Vector<Double> vector = new DoubleVector();
-        assertVector(vector);
+        assertThatVector(vector).hasZeroXY();
         vector.setX(1d);
-        assertVector(vector, 1d, 0d);
+        assertThatVector(vector).hasX(1d).hasY(0d);
     }
 
     @Test
     void createAndSetY() {
         Vector<Double> vector = new DoubleVector();
-        assertVector(vector);
+        assertThatVector(vector).hasZeroXY();
         vector.setY(2d);
-        assertVector(vector, 0d, 2d);
+        assertThatVector(vector).hasX(0d).hasY(2d);
     }
 
     @Test
     void createAndSetXY() {
         Vector<Double> vector = new DoubleVector();
-        assertVector(vector);
+        assertThatVector(vector).hasZeroXY();
         vector.setXY(3d);
-        assertVector(vector, 3d);
+        assertThatVector(vector).hasXY(3d);
     }
 
     // endregion
@@ -64,82 +66,76 @@ class DoubleVectorTest {
 
     @Test
     void lengthOfVectorWithoutParameter() {
-        assertThat(new DoubleVector().length()).isEqualTo(0d);
+        assertThatVector(new DoubleVector()).hasLength(0d);
     }
 
     @Test
     void lengthOfVectorXY1() {
-        assertThat(new DoubleVector(1d).length()).isEqualTo(Math.sqrt(2d));
+        assertThatVector(new DoubleVector(1d)).hasLength(Math.sqrt(2d));
     }
 
     @Test
     void lengthOfVectorX1Y0() {
-        assertThat(new DoubleVector(1d, 0d).length()).isEqualTo(1d);
+        assertThatVector(new DoubleVector(1d, 0d)).hasLength(1d);
     }
 
     @Test
     void addWithXY() {
-        assertVector(new DoubleVector().add(2d), 2d, 2d);
+        assertThatVector(new DoubleVector().add(2d)).hasXY(2d);
     }
 
     @Test
     void addWithXAndY() {
-        assertVector(
-            new DoubleVector(1d).add(1d, 1d),
-            2d, 2d
-        );
+        assertThatVector(new DoubleVector(1d).add(1d, 1d))
+            .hasX(2d).hasY(2d);
     }
 
     @Test
     void addWithVector() {
-        assertVector(
-            new DoubleVector(1d, 0d).add(new DoubleVector(1d, 2d)),
-            2d, 2d
-        );
+        assertThatVector(
+            new DoubleVector(1d, 0d).add(new DoubleVector(1d, 2d))
+        ).hasX(2d).hasY(2d);
     }
 
     @Test
     void subtractWithXY() {
-        assertVector(new DoubleVector(2d, 2d).subtract(2d));
+        assertThatVector(new DoubleVector(2d, 2d).subtract(2d)).hasZeroXY();
     }
 
     @Test
     void subtractWithXAndY() {
-        assertVector(
-            new DoubleVector(2d, 2d).subtract(1d, 1d),
-            1d
-        );
+        assertThatVector(
+            new DoubleVector(2d, 2d).subtract(1d, 1d)
+        ).hasXY(1d);
     }
 
     @Test
     void subtractWithVector() {
-        assertVector(
-            new DoubleVector(2d, 2d).subtract(new DoubleVector(1d, 2d)),
-            1d, 0d
-        );
+        assertThatVector(
+            new DoubleVector(2d, 2d).subtract(new DoubleVector(1d, 2d))
+        ).hasX(1d).hasY(0d);
     }
 
     @Test
     void multiplyZeroVectorWith1() {
-        assertVector(new DoubleVector().multiply(1d));
+        assertThatVector(new DoubleVector().multiply(1d)).hasZeroXY();
     }
 
     @Test
     void multiplyVectorWith0() {
-        assertVector(new DoubleVector(1d).multiply(0d));
+        assertThatVector(new DoubleVector(1d).multiply(0d)).hasZeroXY();
     }
 
     @Test
     void multiplyVectorWith1() {
-        assertVector(new DoubleVector(1d).multiply(1d), 1d);
+        assertThatVector(new DoubleVector(1d).multiply(1d)).hasXY(1d);
     }
 
     @Test
     void multiplyVectorWithMinus1() {
-        assertVector(
-            new DoubleVector(2d, 1d).multiply(-1d),
-            -2d, -1d
-        );
+        assertThatVector(
+            new DoubleVector(2d, 1d).multiply(-1d)
+        ).hasX(-2d).hasY(-1d);
     }
 
     // endregion
@@ -148,17 +144,17 @@ class DoubleVectorTest {
 
     @Test
     void inverseXOfVectorWithX1Y2() {
-        assertVector(new DoubleVector(1d, 2d).inverseX(), -1d, 2d);
+        assertThatVector(new DoubleVector(1d, 2d).inverseX()).hasX(-1d).hasY(2d);
     }
 
     @Test
     void inverseYOfVectorWithX1Y2() {
-        assertVector(new DoubleVector(1d, 2d).inverseY(), 1d, -2d);
+        assertThatVector(new DoubleVector(1d, 2d).inverseY()).hasX(1d).hasY(-2d);
     }
 
     @Test
     void inverseXYOfVectorWithX1Y2() {
-        assertVector(new DoubleVector(1d, 2d).inverse(), -1d, -2d);
+        assertThatVector(new DoubleVector(1d, 2d).inverse()).hasX(-1d).hasY(-2d);
     }
 
     // endregion
@@ -167,55 +163,54 @@ class DoubleVectorTest {
 
     @Test
     void absoluteOfPositiveXY() {
-        assertVector(new DoubleVector(1d, 2d).absolute(), 1d, 2d);
+        assertThatVector(new DoubleVector(1d, 2d).absolute()).hasX(1d).hasY(2d);
     }
 
     @Test
     void absoluteOfNegativeXAndPositiveY() {
-        assertVector(new DoubleVector(-1d, 2d).absolute(), 1d, 2d);
+        assertThatVector(new DoubleVector(-1d, 2d).absolute()).hasX(1d).hasY(2d);
     }
 
     @Test
     void absoluteOfNegativeYAndPositiveX() {
-        assertVector(new DoubleVector(-1d, -2d).absolute(), 1d, 2d);
+        assertThatVector(new DoubleVector(-1d, -2d).absolute()).hasX(1d).hasY(2d);
     }
 
     @Test
     void absoluteOfNegativeXAndY() {
-        assertVector(new DoubleVector(-1d, -2d).absolute(), 1d, 2d);
+        assertThatVector(new DoubleVector(-1d, -2d).absolute()).hasX(1d).hasY(2d);
     }
 
     @Test
     void normalLeftOfVectorWithX1Y2() {
-        assertVector(new DoubleVector(1d, 2d).normalLeft(), -2d, 1d);
+        assertThatVector(new DoubleVector(1d, 2d).normalLeft()).hasX(-2d).hasY(1d);
     }
 
     @Test
     void normalRightOfVectorWithX1Y2() {
-        assertVector(new DoubleVector(1d, 2d).normalRight(), 2d, -1d);
+        assertThatVector(new DoubleVector(1d, 2d).normalRight()).hasX(2d).hasY(-1d);
     }
 
     @Test
     void normalizedOfVectorWithoutParameter() {
         Vector<Double> vector = new DoubleVector().normalized();
-        assertVector(vector, Double.NaN, Double.NaN);
-        assertThat(vector.length()).isNaN();
+        assertThatVector(vector).hasX(Double.NaN).hasY(Double.NaN);
+        assertThatVector(vector).hasLength(Double.NaN);
     }
 
     @Test
     void normalizedOfVectorWithXY1() {
         Vector<Double> vector = new DoubleVector(1d).normalized();
-        assertVector(vector, 0.7071067811865475);
-        assertThat(vector.length()).isCloseTo(1d, doubleOffset());
+        assertThatVector(vector).hasXY(Math.sqrt(2) / 2);
+        assertThatVector(vector).hasLengthCloseTo(1d);
     }
 
     @Test
     void normalizedOfVectorWithX1Y2() {
         Vector<Double> vector = new DoubleVector(1d, 2d).normalized();
-        assertVector(vector,
-            0.4472135954999579, 0.8944271909999159
-        );
-        assertThat(vector.length()).isCloseTo(1d, doubleOffset());
+        assertThatVector(vector)
+            .hasX(0.4472135954999579).hasY(0.8944271909999159);
+        assertThatVector(vector).hasLengthCloseTo(1d);
     }
 
     // endregion
@@ -255,18 +250,18 @@ class DoubleVectorTest {
 
     @Test
     void isZeroVectorWithVectorWithoutParameter() {
-        assertThat(new DoubleVector().isZeroVector()).isTrue();
+        assertThatVector(new DoubleVector()).isZeroVector();
     }
 
     @Test
     void isZeroVectorWithVectorWithXY1() {
-        assertThat(new DoubleVector(1d).isZeroVector()).isFalse();
+        assertThatVector(new DoubleVector(1d)).isNoZeroVector();
     }
 
     @Test
     void asComplexOfVectorWithX1Y2() {
         Complex<Double> complex = new DoubleComplex(1d, 2d);
-        assertThat(new DoubleVector(1d, 2d).asComplex()).isEqualTo(complex);
+        assertThatComplex(new DoubleVector(1d, 2d).asComplex()).isEqualTo(complex);
     }
 
     // endregion
@@ -277,56 +272,48 @@ class DoubleVectorTest {
     void mapOfVectorWithX0_5Y1_5() {
         DoubleVector vector = new DoubleVector(0.5, 1.5);
         Vector<Integer> result = new Vector<>(new IntegerArithmetic(), 0, 1);
-        assertThat(vector.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
+        assertThatVector(vector.map(new IntegerArithmetic(), Number::intValue)).isEqualTo(result);
     }
 
     @Test
     void isValidWithZeroValues() {
-        assertThat(new DoubleVector().isValid()).isTrue();
+        assertThatVector(new DoubleVector()).isValid();
     }
 
     @Test
     void isValidWithInfValues() {
-        assertThat(new DoubleVector(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
-            .isValid()).isFalse();
+        assertThatVector(
+            new DoubleVector(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
+        ).isInvalid();
     }
 
     @Test
     void rotateOfVectorWithX1Y2WithPiHalf() {
-        assertVector(
-            new DoubleVector(1d, 2d).rotate(Math.PI / 2d),
-            -2d, 1d
-        );
+        assertThatVector(new DoubleVector(1d, 2d).rotate(Math.PI / 2d))
+            .hasX(-2d).hasY(1d);
     }
 
     @Test
     void rotateOfVectorWithX1Y2WithPi() {
-        assertVector(
-            new DoubleVector(1d, 2d).rotate(Math.PI),
-            -1d, -2d
-        );
+        assertThatVector(new DoubleVector(1d, 2d).rotate(Math.PI))
+            .hasX(-1d).hasY(-2d);
     }
 
     @Test
     void rotateOfVectorWithX1Y2WithPiThreeHalf() {
-        assertVector(
-            new DoubleVector(1d, 2d).rotate(Math.PI * 3d / 2d),
-            2d, -1d
-        );
+        assertThatVector(new DoubleVector(1d, 2d).rotate(Math.PI * 3d / 2d))
+            .hasX(2d).hasY(-1d);
     }
 
     @Test
     void rotateOfVectorWithX1Y2WithTwoPi() {
-        assertVector(
-            new DoubleVector(1d, 2d).rotate(Math.PI * 2d),
-            1d, 2d
-        );
+        assertThatVector(new DoubleVector(1d, 2d).rotate(Math.PI * 2d))
+            .hasX(1d).hasY(2d);
     }
 
     @Test
     void copyOfVectorWithX2Y3() {
-        Vector<Double> vector = new DoubleVector(2d, 3d);
-        assertThat(vector.copy()).isEqualTo(vector);
+        assertCopyable(new DoubleVector(2d, 3d));
     }
 
     // endregion
@@ -335,7 +322,7 @@ class DoubleVectorTest {
 
     @Test
     void equalsOfVectorWithX2Y3() {
-        assertThat(new DoubleVector(2d, 3d))
+        assertThatVector(new DoubleVector(2d, 3d))
             .isEqualTo(new DoubleVector(2d, 3d))
             .isNotEqualTo(new DoubleVector(3d, 2d));
     }
@@ -348,13 +335,13 @@ class DoubleVectorTest {
     @Test
     void toStringOfVectorWithX2Y3() {
         Vector<Double> vector = new DoubleVector(2d, 3d);
-        assertThat(vector).hasToString("2.0:3.0");
+        assertThatVector(vector).hasToString("2.0:3.0");
     }
 
     @Test
     void compareToOfVectorWithX2Y3() {
         Vector<Double> vector = new DoubleVector(2d, 3d);
-        assertThat(vector)
+        assertThatVector(vector)
             .isEqualByComparingTo(new DoubleVector(2d, 3d))
             .isLessThan(new DoubleVector(3d, 1d))
             .isGreaterThan(new DoubleVector(1d, 0d));
