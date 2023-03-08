@@ -1352,7 +1352,7 @@ public class Matrix<T extends Number>
     }
 
     /**
-     * swaps rows (or if necessary columns) so diagonal fields are non zero
+     * swaps rows (or if necessary columns) so diagonal fields are non-zero
      *
      * @param includeCols if {@code true} columns may be swapped if necessary
      * @return new matrix with swapped rows

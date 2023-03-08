@@ -367,7 +367,7 @@ public class Vector<T extends Number> implements Validatable, Rotatable<T, Vecto
     // region isZeroVector and asComplex
 
     /**
-     * @return {@code true} if both params casted to {@code int} are zero
+     * @return {@code true} if both params cast to {@code int} are zero
      * @since 1.0.0
      */
     public boolean isZeroVector() {

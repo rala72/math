@@ -213,7 +213,7 @@ class BigDecimalMatrixTest {
         assertThat(matrix.setValue(0, BigDecimal.ONE)).isZero();
         assertThat(matrix.getValue(0)).isOne();
         assertThat(matrix.getValue(0, 0)).isOne();
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -222,7 +222,7 @@ class BigDecimalMatrixTest {
         assertThat(matrix.setValue(3, BigDecimal.ONE)).isZero();
         assertThat(matrix.getValue(3)).isOne();
         assertThat(matrix.getValue(1, 1)).isOne();
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -247,7 +247,7 @@ class BigDecimalMatrixTest {
         assertThat(matrix.setValue(0, 0, BigDecimal.ONE)).isZero();
         assertThat(matrix.getValue(0)).isOne();
         assertThat(matrix.getValue(0, 0)).isOne();
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -256,7 +256,7 @@ class BigDecimalMatrixTest {
         assertThat(matrix.setValue(1, 0, BigDecimal.ONE)).isZero();
         assertThat(matrix.getValue(1, 0)).isOne();
         assertThat(matrix.getValue(2)).isOne();
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -336,7 +336,7 @@ class BigDecimalMatrixTest {
         assertThat(matrix.compute(0, 0, number -> BigDecimal.ONE)).isZero();
         assertThat(matrix.getValue(0)).isOne();
         assertThat(matrix.getValue(0, 0)).isOne();
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -345,7 +345,7 @@ class BigDecimalMatrixTest {
         assertThat(matrix.compute(1, 0, number -> BigDecimal.ONE)).isZero();
         assertThat(matrix.getValue(1, 0)).isOne();
         assertThat(matrix.getValue(2)).isOne();
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -376,7 +376,7 @@ class BigDecimalMatrixTest {
         )).isZero();
         assertThat(matrix.getValue(0)).isOne();
         assertThat(matrix.getValue(0, 0)).isOne();
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -387,7 +387,7 @@ class BigDecimalMatrixTest {
         )).isZero();
         assertThat(matrix.getValue(1, 0)).isOne();
         assertThat(matrix.getValue(2)).isOne();
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test

@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 /**
- * class which holds a circle a in 2d area with center &amp; radius
+ * class which holds a circle in a 2d area with center &amp; radius
  * storing {@link BigDecimal}
  *
  * @since 1.0.0

@@ -136,7 +136,7 @@ public class Line<T extends Number> implements Validatable,
      * @param y y value to get x value
      * @return {@code x=(y-b)/m}, {@link #getB()} if {@link #isVertical()}
      * or may return {@code null} if {@link #isHorizontal()}
-     * and {@code y} is not on line
+     * and {@code y} is not on current line
      * @since 1.0.0
      */
     @Nullable
@@ -155,7 +155,7 @@ public class Line<T extends Number> implements Validatable,
      * @param x x value to get y value
      * @return {@code y=m*x+b}, {@link #getB()} if {@link #isHorizontal()}
      * or may return {@code null} if {@link #isVertical()}
-     * and {@code x} is not on line
+     * and {@code x} is not on current line
      * @since 1.0.0
      */
     @Nullable
@@ -190,7 +190,7 @@ public class Line<T extends Number> implements Validatable,
     }
 
     /**
-     * @param point point on line
+     * @param point point on current line
      * @return normal line through given point
      * @see #normal()
      * @since 1.0.0
@@ -296,8 +296,8 @@ public class Line<T extends Number> implements Validatable,
     // region hasPoint
 
     /**
-     * @param point point to check if on line
-     * @return {@code true} if point is on line
+     * @param point point to check if on current line
+     * @return {@code true} if point is on current line
      * @since 1.0.0
      */
     public boolean hasPoint(@NotNull Point<T> point) {

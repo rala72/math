@@ -122,7 +122,7 @@ public class Solution<E extends AbstractEquationSystem<E>, T extends Number> {
     }
 
     /**
-     * creates a unsolvable solution for given equationSystem
+     * creates an unsolvable solution for given equationSystem
      *
      * @param equationSystem equation system to store
      * @param <E>            evaluation class
@@ -137,7 +137,7 @@ public class Solution<E extends AbstractEquationSystem<E>, T extends Number> {
     }
 
     /**
-     * creates a infinite solution for given equationSystem
+     * creates an infinite solution for given equationSystem
      *
      * @param equationSystem equation system to store
      * @param <E>            evaluation class

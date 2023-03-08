@@ -452,7 +452,7 @@ public class Vector<T extends Number>
     // region norm and normalize
 
     /**
-     * @return max-Norm of the vector, equal to the entry with highest absolute value
+     * @return max-Norm of the vector, equal to the entry with the highest absolute value
      * @since 1.0.0
      */
     @NotNull

@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 /**
- * class which holds a real and a imaginary part of a complex number
+ * class which holds a real and an imaginary part of a complex number
  * storing {@link BigDecimal}
  *
  * @since 1.0.0

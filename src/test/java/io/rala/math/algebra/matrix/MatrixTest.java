@@ -220,7 +220,7 @@ class MatrixTest {
         assertThat(matrix.setValue(0, 1)).isEqualTo(0d);
         assertThat(matrix.getValue(0)).isEqualTo(1);
         assertThat(matrix.getValue(0, 0)).isEqualTo(1);
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -229,7 +229,7 @@ class MatrixTest {
         assertThat(matrix.setValue(3, 1)).isEqualTo(0d);
         assertThat(matrix.getValue(3)).isEqualTo(1);
         assertThat(matrix.getValue(1, 1)).isEqualTo(1);
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -254,7 +254,7 @@ class MatrixTest {
         assertThat(matrix.setValue(0, 0, 1)).isEqualTo(0d);
         assertThat(matrix.getValue(0)).isEqualTo(1);
         assertThat(matrix.getValue(0, 0)).isEqualTo(1);
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -263,7 +263,7 @@ class MatrixTest {
         assertThat(matrix.setValue(1, 0, 1)).isEqualTo(0d);
         assertThat(matrix.getValue(1, 0)).isEqualTo(1);
         assertThat(matrix.getValue(2)).isEqualTo(1);
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -343,7 +343,7 @@ class MatrixTest {
         assertThat(matrix.compute(0, 0, number -> 1)).isEqualTo(0d);
         assertThat(matrix.getValue(0)).isEqualTo(1);
         assertThat(matrix.getValue(0, 0)).isEqualTo(1);
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -352,7 +352,7 @@ class MatrixTest {
         assertThat(matrix.compute(1, 0, number -> 1)).isEqualTo(0d);
         assertThat(matrix.getValue(1, 0)).isEqualTo(1);
         assertThat(matrix.getValue(2)).isEqualTo(1);
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -383,7 +383,7 @@ class MatrixTest {
         )).isEqualTo(0d);
         assertThat(matrix.getValue(0)).isEqualTo(1d);
         assertThat(matrix.getValue(0, 0)).isEqualTo(1d);
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -394,7 +394,7 @@ class MatrixTest {
         )).isEqualTo(0d);
         assertThat(matrix.getValue(1, 0)).isEqualTo(1d);
         assertThat(matrix.getValue(2)).isEqualTo(1d);
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test

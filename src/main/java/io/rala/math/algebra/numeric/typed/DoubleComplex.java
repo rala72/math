@@ -6,7 +6,7 @@ import io.rala.math.arithmetic.core.DoubleArithmetic;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * class which holds a real and a imaginary part of a complex number
+ * class which holds a real and an imaginary part of a complex number
  * storing {@link Double}
  *
  * @since 1.0.0
