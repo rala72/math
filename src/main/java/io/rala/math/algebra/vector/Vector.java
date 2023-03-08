@@ -729,7 +729,7 @@ public class Vector<T extends Number>
      *
      * @since 1.0.0
      */
-    public class Entry {
+    public class Entry implements Serializable {
         private final int index;
         private final T value;
 

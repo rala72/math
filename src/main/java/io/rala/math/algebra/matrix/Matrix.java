@@ -1493,7 +1493,7 @@ public class Matrix<T extends Number>
      *
      * @since 1.0.0
      */
-    public class Field {
+    public class Field implements Serializable {
         private final long index;
         private final T value;
 
