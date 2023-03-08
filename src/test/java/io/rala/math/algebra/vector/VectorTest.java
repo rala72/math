@@ -771,7 +771,9 @@ class VectorTest {
 
     @Test
     void serializable() {
-        assertSerializable(new TestVector(2), TestVector.class);
+        TestVector testVector = new TestVector(2);
+        assertSerializable(testVector, TestVector.class);
+        assertSerializable(testVector.new Entry(0, 1), Vector.Entry.class);
     }
 
     // endregion

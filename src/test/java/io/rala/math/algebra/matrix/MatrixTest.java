@@ -1091,7 +1091,9 @@ class MatrixTest {
 
     @Test
     void serializable() {
-        assertSerializable(new TestMatrix(1), TestMatrix.class);
+        TestMatrix testMatrix = new TestMatrix(1);
+        assertSerializable(testMatrix, TestMatrix.class);
+        assertSerializable(testMatrix.new Field(0, 1), Matrix.Field.class);
     }
 
     // endregion
