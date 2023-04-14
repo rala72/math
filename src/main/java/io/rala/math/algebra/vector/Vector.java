@@ -664,18 +664,16 @@ public class Vector<T extends Number>
     }
 
     @Override
+    @SuppressWarnings("unchecked") // can only fail in isEqual
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Vector<?>)) return false;
         Vector<?> otherVector = (Vector<?>) o;
-        //noinspection unchecked
         return getSize() == otherVector.getSize() &&
             getType() == otherVector.getType() &&
+            getArithmetic().equals(otherVector.getArithmetic()) &&
             IntStream.range(0, getSize()).allMatch(index ->
-                getArithmetic().isEqual(
-                    getValue(index),
-                    (T) otherVector.getValue(index)
-                )
+                getArithmetic().isEqual(getValue(index), (T) otherVector.getValue(index))
             );
     }
 
@@ -780,6 +778,7 @@ public class Vector<T extends Number>
             Vector<?>.Entry entry = (Vector<?>.Entry) o;
             return Objects.equals(getVector(), entry.getVector()) &&
                 getIndex() == entry.getIndex() &&
+                getArithmetic().equals(entry.getVector().getArithmetic()) &&
                 getArithmetic().isEqual(getValue(), (T) entry.getValue());
         }
 

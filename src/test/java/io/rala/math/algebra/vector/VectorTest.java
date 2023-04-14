@@ -1,6 +1,9 @@
 package io.rala.math.algebra.vector;
 
 import io.rala.math.MathX;
+import io.rala.math.algebra.vector.typed.DoubleVector;
+import io.rala.math.arithmetic.core.DoubleArithmetic;
+import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.exception.NotSupportedException;
 import io.rala.math.testUtils.algebra.TestMatrix;
 import io.rala.math.testUtils.algebra.TestVector;
@@ -742,6 +745,14 @@ class VectorTest {
     }
 
     @Test
+    void equalsOfMatrixWithDifferentTypes() {
+        Vector<Double> doubleVector = new Vector<>(DoubleArithmetic.getInstance(), 2);
+        assertThatVector(doubleVector)
+            .isNotEqualTo(new Vector<>(IntegerArithmetic.getInstance(), 2))
+            .isEqualTo(new DoubleVector(2));
+    }
+
+    @Test
     void equalsOfTestVectorWithSize2() {
         assertThatVector(new TestVector(2))
             .isEqualTo(new TestVector(2))
@@ -829,6 +840,14 @@ class VectorTest {
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
             .isThrownBy(() -> vector.new Entry(vector.getSize(), 0))
             .withMessage("2 / 2");
+    }
+
+    @Test
+    void entryEqualsOfMatrixWithDifferentTypes() {
+        Vector<Double> doubleVector = new Vector<>(DoubleArithmetic.getInstance(), 2);
+        assertThat(doubleVector.iterator().next())
+            .isNotEqualTo(new Vector<>(IntegerArithmetic.getInstance(), 2).iterator().next())
+            .isEqualTo(new DoubleVector(2).iterator().next());
     }
 
     // endregion

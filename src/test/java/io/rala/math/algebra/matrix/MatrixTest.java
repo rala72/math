@@ -1,5 +1,7 @@
 package io.rala.math.algebra.matrix;
 
+import io.rala.math.algebra.matrix.typed.DoubleMatrix;
+import io.rala.math.arithmetic.core.DoubleArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.exception.NotSupportedException;
 import io.rala.math.testUtils.algebra.TestMatrix;
@@ -1063,6 +1065,14 @@ class MatrixTest {
     }
 
     @Test
+    void equalsOfMatrixWithDifferentTypes() {
+        Matrix<Double> doubleMatrix = new Matrix<>(DoubleArithmetic.getInstance(), 2);
+        assertThatMatrix(doubleMatrix)
+            .isNotEqualTo(new Matrix<>(IntegerArithmetic.getInstance(), 2))
+            .isEqualTo(new DoubleMatrix(2));
+    }
+
+    @Test
     void equalsOfTestMatrixWithRow2Col3() {
         assertThatMatrix(new TestMatrix(2, 3))
             .isEqualTo(new TestMatrix(2, 3))
@@ -1669,6 +1679,14 @@ class MatrixTest {
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
             .isThrownBy(() -> matrix.new Field((int) matrix.size(), 0))
             .withMessage("size: 4 / 4");
+    }
+
+    @Test
+    void fieldEqualsOfMatrixWithDifferentTypes() {
+        Matrix<Double> doubleMatrix = new Matrix<>(DoubleArithmetic.getInstance(), 2);
+        assertThat(doubleMatrix.iterator().next())
+            .isNotEqualTo(new Matrix<>(IntegerArithmetic.getInstance(), 2).iterator().next())
+            .isEqualTo(new DoubleMatrix(2).iterator().next());
     }
 
     // endregion
