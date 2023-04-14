@@ -12,6 +12,8 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * class which holds a rect in 2d area with point a, b &amp; size
  *
@@ -271,7 +273,7 @@ public class Rect<T extends Number> implements Validatable,
     protected Point<T> circumCirclePoint() {
         LineSegment<T> ac = new LineSegment<>(getArithmetic(), vertexA(), vertexC());
         LineSegment<T> bd = new LineSegment<>(getArithmetic(), vertexB(), vertexD());
-        return Objects.requireNonNull(ac.toLine().intersection(bd.toLine()));
+        return requireNonNull(ac.toLine().intersection(bd.toLine()), "ac.intersection(bd)");
     }
 
     // endregion

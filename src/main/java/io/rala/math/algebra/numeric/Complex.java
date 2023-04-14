@@ -16,7 +16,7 @@ import java.util.Objects;
 import java.util.function.Function;
 
 /**
- * class which holds a real and a imaginary part of a complex number
+ * class which holds a real and an imaginary part of a complex number
  *
  * @param <T> number class
  * @since 1.0.0

@@ -10,6 +10,8 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.function.Function;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * class which holds a line in a 2d area with m &amp; b<br>
  * {@code y=m*x+b}<br>
@@ -136,7 +138,7 @@ public class Line<T extends Number> implements Validatable,
      * @param y y value to get x value
      * @return {@code x=(y-b)/m}, {@link #getB()} if {@link #isVertical()}
      * or may return {@code null} if {@link #isHorizontal()}
-     * and {@code y} is not on line
+     * and {@code y} is not on current line
      * @since 1.0.0
      */
     @Nullable
@@ -145,7 +147,7 @@ public class Line<T extends Number> implements Validatable,
         if (isHorizontal())
             return getArithmetic().isEqual(getB(), y) ? getB() : null;
         return getArithmetic().quotient(
-            getArithmetic().difference(y, getB()), Objects.requireNonNull(getM())
+            getArithmetic().difference(y, getB()), requireNonNull(getM(), "m")
         );
     }
 
@@ -155,7 +157,7 @@ public class Line<T extends Number> implements Validatable,
      * @param x x value to get y value
      * @return {@code y=m*x+b}, {@link #getB()} if {@link #isHorizontal()}
      * or may return {@code null} if {@link #isVertical()}
-     * and {@code x} is not on line
+     * and {@code x} is not on current line
      * @since 1.0.0
      */
     @Nullable
@@ -164,7 +166,7 @@ public class Line<T extends Number> implements Validatable,
         if (isVertical())
             return getArithmetic().isEqual(getB(), x) ? getB() : null;
         return getArithmetic().sum(
-            getArithmetic().product(Objects.requireNonNull(getM()), x),
+            getArithmetic().product(requireNonNull(getM(), "m"), x),
             getB()
         );
     }
@@ -184,13 +186,13 @@ public class Line<T extends Number> implements Validatable,
             newM = isHorizontal() ? null :
                 getArithmetic().quotient(
                     getArithmetic().fromInt(-1),
-                    Objects.requireNonNull(getM())
+                    requireNonNull(getM(), "m")
                 );
         return new Line<>(getArithmetic(), newM, getB());
     }
 
     /**
-     * @param point point on line
+     * @param point point on current line
      * @return normal line through given point
      * @see #normal()
      * @since 1.0.0
@@ -203,7 +205,7 @@ public class Line<T extends Number> implements Validatable,
                 getArithmetic().difference(
                     point.getY(),
                     getArithmetic().product(
-                        Objects.requireNonNull(normal.getM()),
+                        requireNonNull(normal.getM(), "normal.m"),
                         point.getX()
                     )
                 )
@@ -236,23 +238,23 @@ public class Line<T extends Number> implements Validatable,
         if (!hasIntersection(line)) return null;
         if (isVertical())
             return new Point<>(getArithmetic(), getB(),
-                Objects.requireNonNull(line.calculateY(getB()))
+                requireNonNull(line.calculateY(getB()), "line.calculateY(b)")
             );
         if (line.isVertical())
             return new Point<>(getArithmetic(), line.getB(),
-                Objects.requireNonNull(calculateY(line.getB()))
+                requireNonNull(calculateY(line.getB()), "calculateY(line.b)")
             );
         T x = getArithmetic().quotient(
             getArithmetic().negate(
                 getArithmetic().difference(getB(), line.getB())
             ),
             getArithmetic().difference(
-                Objects.requireNonNull(getM()),
-                Objects.requireNonNull(line.getM())
+                requireNonNull(getM(), "m"),
+                requireNonNull(line.getM(), "line.m")
             )
         );
         return new Point<>(getArithmetic(), x,
-            Objects.requireNonNull(calculateY(x))
+            requireNonNull(calculateY(x), "calculateY(x)")
         );
     }
 
@@ -274,14 +276,14 @@ public class Line<T extends Number> implements Validatable,
                     getArithmetic().fromInt(2)
                 ),
                 getArithmetic().atan(getArithmetic().absolute(
-                    Objects.requireNonNull(newM))
+                    requireNonNull(newM, "newM"))
                 )
             );
         }
         T tan = getArithmetic().quotient(
             getArithmetic().difference(
-                Objects.requireNonNull(getM()),
-                Objects.requireNonNull(line.getM())
+                requireNonNull(getM(), "m"),
+                requireNonNull(line.getM(), "line.m")
             ),
             getArithmetic().sum(
                 getArithmetic().one(),
@@ -296,8 +298,8 @@ public class Line<T extends Number> implements Validatable,
     // region hasPoint
 
     /**
-     * @param point point to check if on line
-     * @return {@code true} if point is on line
+     * @param point point to check if on current line
+     * @return {@code true} if point is on current line
      * @since 1.0.0
      */
     public boolean hasPoint(@NotNull Point<T> point) {
@@ -322,10 +324,10 @@ public class Line<T extends Number> implements Validatable,
         return new LineSegment<>(
             getArithmetic(),
             new Point<>(getArithmetic(), fromX,
-                Objects.requireNonNull(calculateY(fromX))
+                requireNonNull(calculateY(fromX), "calculateY(fromX)")
             ),
             new Point<>(getArithmetic(), toX,
-                Objects.requireNonNull(calculateY(toX))
+                requireNonNull(calculateY(toX), "calculateY(toX)")
             )
         );
     }
@@ -342,11 +344,11 @@ public class Line<T extends Number> implements Validatable,
         return new LineSegment<>(
             getArithmetic(),
             new Point<>(getArithmetic(),
-                Objects.requireNonNull(calculateX(fromY)),
+                requireNonNull(calculateX(fromY), "calculateX(fromY)"),
                 fromY
             ),
             new Point<>(getArithmetic(),
-                Objects.requireNonNull(calculateX(toY)),
+                requireNonNull(calculateX(toY), "calculateX(toY)"),
                 toY
             )
         );

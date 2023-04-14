@@ -12,7 +12,7 @@ import java.util.Objects;
 import java.util.function.Function;
 
 /**
- * class which holds a circle a in 2d area with center &amp; radius
+ * class which holds a circle in a 2d area with center &amp; radius
  *
  * @param <T> number class
  * @since 1.0.0

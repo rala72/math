@@ -199,7 +199,7 @@ class DoubleMatrixTest {
         assertThat(matrix.setValue(0, 1d)).isZero();
         assertThat(matrix.getValue(0)).isOne();
         assertThat(matrix.getValue(0, 0)).isOne();
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -208,7 +208,7 @@ class DoubleMatrixTest {
         assertThat(matrix.setValue(3, 1d)).isZero();
         assertThat(matrix.getValue(3)).isOne();
         assertThat(matrix.getValue(1, 1)).isOne();
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -233,7 +233,7 @@ class DoubleMatrixTest {
         assertThat(matrix.setValue(0, 0, 1d)).isZero();
         assertThat(matrix.getValue(0)).isOne();
         assertThat(matrix.getValue(0, 0)).isOne();
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -242,7 +242,7 @@ class DoubleMatrixTest {
         assertThat(matrix.setValue(1, 0, 1d)).isZero();
         assertThat(matrix.getValue(1, 0)).isOne();
         assertThat(matrix.getValue(2)).isOne();
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -322,7 +322,7 @@ class DoubleMatrixTest {
         assertThat(matrix.compute(0, 0, number -> 1d)).isZero();
         assertThat(matrix.getValue(0)).isOne();
         assertThat(matrix.getValue(0, 0)).isOne();
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -331,7 +331,7 @@ class DoubleMatrixTest {
         assertThat(matrix.compute(1, 0, number -> 1d)).isZero();
         assertThat(matrix.getValue(1, 0)).isOne();
         assertThat(matrix.getValue(2)).isOne();
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -340,8 +340,8 @@ class DoubleMatrixTest {
         assertThat(matrix.compute(0,
             1d, matrix.getArithmetic()::sum
         )).isZero();
-        assertThat(matrix.getValue(0)).isEqualTo(1d);
-        assertThat(matrix.getValue(0, 0)).isEqualTo(1d);
+        assertThat(matrix.getValue(0)).isOne();
+        assertThat(matrix.getValue(0, 0)).isOne();
     }
 
     @Test
@@ -350,8 +350,8 @@ class DoubleMatrixTest {
         assertThat(matrix.compute(3,
             1d, matrix.getArithmetic()::sum
         )).isZero();
-        assertThat(matrix.getValue(3)).isEqualTo(1d);
-        assertThat(matrix.getValue(1, 1)).isEqualTo(1d);
+        assertThat(matrix.getValue(3)).isOne();
+        assertThat(matrix.getValue(1, 1)).isOne();
     }
 
     @Test
@@ -360,9 +360,9 @@ class DoubleMatrixTest {
         assertThat(matrix.compute(0, 0,
             1d, matrix.getArithmetic()::sum
         )).isZero();
-        assertThat(matrix.getValue(0)).isEqualTo(1d);
-        assertThat(matrix.getValue(0, 0)).isEqualTo(1d);
-        // assert all other are unset
+        assertThat(matrix.getValue(0)).isOne();
+        assertThat(matrix.getValue(0, 0)).isOne();
+        // assert all others are unset
     }
 
     @Test
@@ -371,9 +371,9 @@ class DoubleMatrixTest {
         assertThat(matrix.compute(1, 0,
             1d, matrix.getArithmetic()::sum
         )).isZero();
-        assertThat(matrix.getValue(1, 0)).isEqualTo(1d);
-        assertThat(matrix.getValue(2)).isEqualTo(1d);
-        // assert all other are unset
+        assertThat(matrix.getValue(1, 0)).isOne();
+        assertThat(matrix.getValue(2)).isOne();
+        // assert all others are unset
     }
 
     @Test

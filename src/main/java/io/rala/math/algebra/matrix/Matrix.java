@@ -1052,11 +1052,12 @@ public class Matrix<T extends Number>
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Matrix<?>)) return false;
-        Matrix<?> newMatrix = (Matrix<?>) o;
-        return getRows() == newMatrix.getRows() &&
-            getCols() == newMatrix.getCols() &&
+        Matrix<?> otherMatrix = (Matrix<?>) o;
+        return getRows() == otherMatrix.getRows() &&
+            getCols() == otherMatrix.getCols() &&
+            getArithmetic().equals(otherMatrix.getArithmetic()) &&
             LongStream.range(0, size()).allMatch(i ->
-                getArithmetic().isEqual(getValue(i), (T) newMatrix.getValue(i))
+                getArithmetic().isEqual(getValue(i), (T) otherMatrix.getValue(i))
             );
     }
 
@@ -1352,7 +1353,7 @@ public class Matrix<T extends Number>
     }
 
     /**
-     * swaps rows (or if necessary columns) so diagonal fields are non zero
+     * swaps rows (or if necessary columns) so diagonal fields are non-zero
      *
      * @param includeCols if {@code true} columns may be swapped if necessary
      * @return new matrix with swapped rows
@@ -1493,7 +1494,7 @@ public class Matrix<T extends Number>
      *
      * @since 1.0.0
      */
-    public class Field {
+    public class Field implements Serializable {
         private final long index;
         private final T value;
 
@@ -1573,6 +1574,7 @@ public class Matrix<T extends Number>
             Matrix<?>.Field field = (Matrix<?>.Field) o;
             return Objects.equals(getMatrix(), field.getMatrix()) &&
                 getIndex() == field.getIndex() &&
+                getArithmetic().equals(field.getMatrix().getArithmetic()) &&
                 getArithmetic().isEqual(getValue(), (T) field.getValue());
         }
 

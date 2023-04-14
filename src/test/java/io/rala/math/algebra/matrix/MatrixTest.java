@@ -1,5 +1,7 @@
 package io.rala.math.algebra.matrix;
 
+import io.rala.math.algebra.matrix.typed.DoubleMatrix;
+import io.rala.math.arithmetic.core.DoubleArithmetic;
 import io.rala.math.arithmetic.core.IntegerArithmetic;
 import io.rala.math.exception.NotSupportedException;
 import io.rala.math.testUtils.algebra.TestMatrix;
@@ -220,7 +222,7 @@ class MatrixTest {
         assertThat(matrix.setValue(0, 1)).isEqualTo(0d);
         assertThat(matrix.getValue(0)).isEqualTo(1);
         assertThat(matrix.getValue(0, 0)).isEqualTo(1);
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -229,7 +231,7 @@ class MatrixTest {
         assertThat(matrix.setValue(3, 1)).isEqualTo(0d);
         assertThat(matrix.getValue(3)).isEqualTo(1);
         assertThat(matrix.getValue(1, 1)).isEqualTo(1);
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -254,7 +256,7 @@ class MatrixTest {
         assertThat(matrix.setValue(0, 0, 1)).isEqualTo(0d);
         assertThat(matrix.getValue(0)).isEqualTo(1);
         assertThat(matrix.getValue(0, 0)).isEqualTo(1);
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -263,7 +265,7 @@ class MatrixTest {
         assertThat(matrix.setValue(1, 0, 1)).isEqualTo(0d);
         assertThat(matrix.getValue(1, 0)).isEqualTo(1);
         assertThat(matrix.getValue(2)).isEqualTo(1);
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -343,7 +345,7 @@ class MatrixTest {
         assertThat(matrix.compute(0, 0, number -> 1)).isEqualTo(0d);
         assertThat(matrix.getValue(0)).isEqualTo(1);
         assertThat(matrix.getValue(0, 0)).isEqualTo(1);
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -352,7 +354,7 @@ class MatrixTest {
         assertThat(matrix.compute(1, 0, number -> 1)).isEqualTo(0d);
         assertThat(matrix.getValue(1, 0)).isEqualTo(1);
         assertThat(matrix.getValue(2)).isEqualTo(1);
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -383,7 +385,7 @@ class MatrixTest {
         )).isEqualTo(0d);
         assertThat(matrix.getValue(0)).isEqualTo(1d);
         assertThat(matrix.getValue(0, 0)).isEqualTo(1d);
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -394,7 +396,7 @@ class MatrixTest {
         )).isEqualTo(0d);
         assertThat(matrix.getValue(1, 0)).isEqualTo(1d);
         assertThat(matrix.getValue(2)).isEqualTo(1d);
-        // assert all other are unset
+        // assert all others are unset
     }
 
     @Test
@@ -1063,6 +1065,14 @@ class MatrixTest {
     }
 
     @Test
+    void equalsOfMatrixWithDifferentTypes() {
+        Matrix<Double> doubleMatrix = new Matrix<>(DoubleArithmetic.getInstance(), 2);
+        assertThatMatrix(doubleMatrix)
+            .isNotEqualTo(new Matrix<>(IntegerArithmetic.getInstance(), 2))
+            .isEqualTo(new DoubleMatrix(2));
+    }
+
+    @Test
     void equalsOfTestMatrixWithRow2Col3() {
         assertThatMatrix(new TestMatrix(2, 3))
             .isEqualTo(new TestMatrix(2, 3))
@@ -1091,7 +1101,9 @@ class MatrixTest {
 
     @Test
     void serializable() {
-        assertSerializable(new TestMatrix(1), TestMatrix.class);
+        TestMatrix testMatrix = new TestMatrix(1);
+        assertSerializable(testMatrix, TestMatrix.class);
+        assertSerializable(testMatrix.new Field(0, 1), Matrix.Field.class);
     }
 
     // endregion
@@ -1667,6 +1679,14 @@ class MatrixTest {
         assertThatExceptionOfType(IndexOutOfBoundsException.class)
             .isThrownBy(() -> matrix.new Field((int) matrix.size(), 0))
             .withMessage("size: 4 / 4");
+    }
+
+    @Test
+    void fieldEqualsOfMatrixWithDifferentTypes() {
+        Matrix<Double> doubleMatrix = new Matrix<>(DoubleArithmetic.getInstance(), 2);
+        assertThat(doubleMatrix.iterator().next())
+            .isNotEqualTo(new Matrix<>(IntegerArithmetic.getInstance(), 2).iterator().next())
+            .isEqualTo(new DoubleMatrix(2).iterator().next());
     }
 
     // endregion

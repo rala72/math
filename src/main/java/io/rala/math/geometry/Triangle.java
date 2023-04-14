@@ -14,6 +14,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * class which holds a triangle in a 2d area with points a, b &amp; c
  *
@@ -187,7 +189,7 @@ public class Triangle<T extends Number> implements Validatable,
     protected LineSegment<T> getAltitude(@NotNull Line<T> edge, @NotNull Point<T> point) {
         Line<T> altitudeLine = edge.normal(point);
         return new LineSegment<>(getArithmetic(), point,
-            Objects.requireNonNull(altitudeLine.intersection(edge))
+            requireNonNull(altitudeLine.intersection(edge), "altitudeLine.intersection(edge)")
         );
     }
 
@@ -336,7 +338,10 @@ public class Triangle<T extends Number> implements Validatable,
      */
     @NotNull
     public Point<T> orthoCenter() {
-        return Objects.requireNonNull(altitudeA().toLine().intersection(altitudeB().toLine()));
+        return requireNonNull(
+            altitudeA().toLine().intersection(altitudeB().toLine()),
+            "altitude.intersection(altitudeB)"
+        );
     }
 
     // endregion

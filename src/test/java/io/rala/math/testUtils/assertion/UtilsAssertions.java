@@ -16,7 +16,7 @@ public class UtilsAssertions {
     }
 
     /**
-     * verifies if a object is copied correctly
+     * verifies if an object is copied correctly
      *
      * @param t   object
      * @param <T> type of object
@@ -26,7 +26,7 @@ public class UtilsAssertions {
     }
 
     /**
-     * verifies if a object is {@link Serializable}
+     * verifies if an object is {@link Serializable}
      *
      * @param t      object
      * @param tClass class of object

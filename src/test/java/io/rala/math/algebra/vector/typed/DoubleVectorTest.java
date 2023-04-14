@@ -104,7 +104,7 @@ class DoubleVectorTest {
     void setValueByIndex0WhichWasSet() {
         DoubleVector vector = new DoubleVector(2);
         vector.setValue(0, 1d);
-        assertThat(vector.setValue(0, 2d)).isEqualTo(1d);
+        assertThat(vector.setValue(0, 2d)).isOne();
         assertThat(vector.getValue(0)).isEqualTo(2);
     }
 
@@ -127,7 +127,7 @@ class DoubleVectorTest {
     void removeValueByIndex0WhichWasSet() {
         DoubleVector vector = new DoubleVector(2);
         vector.setValue(0, 1d);
-        assertThat(vector.removeValue(0)).isEqualTo(1d);
+        assertThat(vector.removeValue(0)).isOne();
         assertThat(vector.getValue(0)).isZero();
     }
 
@@ -138,14 +138,14 @@ class DoubleVectorTest {
     @Test
     void computeFirstEntryTimesTwoUnary() {
         DoubleVector vector = fillVectorWithTestValues(new DoubleVector(3));
-        assertThat(vector.compute(0, x -> vector.getArithmetic().product(2d, x))).isEqualTo(1d);
+        assertThat(vector.compute(0, x -> vector.getArithmetic().product(2d, x))).isOne();
         assertThatVector(vector).isEqualTo(DoubleVector.ofValues(vector.getArithmetic(), 2d, -4d, 9d));
     }
 
     @Test
     void computeFirstEntryTimesTwoBinary() {
         DoubleVector vector = fillVectorWithTestValues(new DoubleVector(3));
-        assertThat(vector.compute(0, 2d, vector.getArithmetic()::product)).isEqualTo(1d);
+        assertThat(vector.compute(0, 2d, vector.getArithmetic()::product)).isOne();
         assertThatVector(vector).isEqualTo(DoubleVector.ofValues(vector.getArithmetic(), 2d, -4d, 9d));
     }
 
@@ -213,7 +213,7 @@ class DoubleVectorTest {
 
     @Test
     void toParamOfNonEmptyVector() {
-        assertThat(fillVectorWithTestValues(new DoubleVector(1)).toParam()).isEqualTo(1d);
+        assertThat(fillVectorWithTestValues(new DoubleVector(1)).toParam()).isOne();
     }
 
     @Test

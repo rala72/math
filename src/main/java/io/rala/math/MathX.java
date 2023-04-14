@@ -307,7 +307,7 @@ public class MathX {
      * @param a number to calc root
      * @param n number of root
      * @return calculated root
-     * @throws IllegalArgumentException if a is not positive
+     * @throws IllegalArgumentException if {@code a} is not positive
      * @see Math#pow(double, double)
      * @since 1.0.0
      */
@@ -339,7 +339,7 @@ public class MathX {
      * @param n       number of root
      * @param context context to use
      * @return calculated root
-     * @throws IllegalArgumentException if a is not positive
+     * @throws IllegalArgumentException if {@code a} is not positive
      * @since 1.0.0
      */
     @NotNull
