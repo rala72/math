@@ -33,7 +33,7 @@ jobs:
           command: mvn clean test jacoco:report coveralls:report -DrepoToken=$repoToken
 
 workflows:
-  main:
+  verify:
     jobs:
       - build
       - test:
